@@ -1,6 +1,5 @@
-import Cookies from "js-cookie";
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
-import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
 
 import AnchorButton from "./AnchorButton";
@@ -26,7 +25,8 @@ const LongSquareImageCard = ({
     homeImage,
     descTitle,
 }: CardProps) => {
-    const accessToken = Cookies.get("access");
+    // const accessToken = Cookies.get("access");
+    const { data: user } = useUser();
     return (
         <div className="long-square-image-card">
             <Row className="gx-5 card-content">
@@ -53,7 +53,7 @@ const LongSquareImageCard = ({
                                             {description.map(
                                                 (info: any, index) => (
                                                     <div
-                                                        className="d-flex with-icon"
+                                                        className="d-flex with-icon align-items-center"
                                                         key={index}
                                                     >
                                                         {info.icon ? (
@@ -63,7 +63,7 @@ const LongSquareImageCard = ({
                                                                         info.icon
                                                                     }
                                                                     layout="fill"
-                                                                    objectFit="cover"
+                                                                    objectFit="contain"
                                                                     alt="icon-image"
                                                                 />
                                                             </figure>
@@ -88,10 +88,10 @@ const LongSquareImageCard = ({
                                 </div>
                                 {buttonText && (
                                     <div>
-                                        {accessToken !== undefined ? (
+                                        {user ? (
                                             <AnchorButton
                                                 className={"px-5"}
-                                                href={"/explore-services"}
+                                                href={"/service"}
                                                 varient={"secondary"}
                                             >
                                                 {"Explore Services"}
@@ -157,10 +157,10 @@ const LongSquareImageCard = ({
                                 </div>
                                 {buttonText && (
                                     <div>
-                                        {accessToken !== undefined ? (
+                                        {user ? (
                                             <AnchorButton
                                                 className={"px-5"}
-                                                href={"/explore-services"}
+                                                href={"/service"}
                                                 varient={"secondary"}
                                             >
                                                 {"Explore Services"}
@@ -180,12 +180,12 @@ const LongSquareImageCard = ({
                         </Col>
                         <Col md={homeImage ? 6 : 5}>
                             <figure className="thumbnail-img">
-                                <Image
+                                {/* <Image
                                     src={image}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="man-image"
-                                />
+                                /> */}
                             </figure>
                         </Col>
                     </>

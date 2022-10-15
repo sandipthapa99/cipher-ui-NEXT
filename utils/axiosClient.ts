@@ -23,23 +23,25 @@ const isTokenExpired = (token: string) => {
     return compareAsc(tokenExpirationDate, currentTime) === -1;
 };
 
-const requestRefreshToken = async (refreshToken: string) => {
-    console.log("REFRESH TOKEN EXPIRED, REQUESTING A NEW ONE");
+const refreshAuthTokens = async (refreshToken: string) => {
     const url = new URL("/api/v1/user/token/refresh/", getApiEndpoint());
-    const response = await fetch(url.href, {
+    fetch(url.href, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
         },
         body: JSON.stringify({ refresh: refreshToken }),
-    });
-    if (response.ok) {
-        const data = await response.json();
-        const { access, refresh } = data;
-        autoLogin(access, refresh);
-        queryClient.invalidateQueries(["user"]);
-    }
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            const { access, refresh } = <{ access: string; refresh: string }>(
+                data
+            );
+            autoLogin(access, refresh);
+            queryClient.invalidateQueries(["user"]);
+        })
+        .catch(() => autoLogout());
 };
 
 const axiosClient = axios.create({
@@ -60,7 +62,7 @@ axiosClient.interceptors.request.use(
 );
 axiosClient.interceptors.response.use(
     (response) => response,
-    (error) => {
+    async (error) => {
         const axiosError = error as AxiosError<{ code: string }>;
         if (axiosError.response?.status === 401) {
             const errorCode = axiosError.response?.data?.code;
@@ -74,7 +76,7 @@ axiosClient.interceptors.response.use(
             if (!access || !refresh) return Promise.reject(error);
 
             if (isTokenExpired(access)) {
-                requestRefreshToken(refresh);
+                refreshAuthTokens(refresh);
             }
         }
         return Promise.reject(error);

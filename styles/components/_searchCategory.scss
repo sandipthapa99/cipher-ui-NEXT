@@ -1,6 +1,22 @@
+.box-modifier {
+    //device specific:hardcode
+    @media screen and (width: 320px),
+        (width: 414px),
+        (width: 390px),
+        (width: 280px) {
+        margin-top: 1rem;
+        align-items: inherit;
+        flex-direction: column !important;
+    }
+}
 .search-category {
     padding: 3rem 0;
-
+    .filter {
+        padding-top: 1rem;
+        @include respond(lg) {
+            padding-top: 0rem;
+        }
+    }
     .rows {
         align-items: center;
         display: flex;
@@ -40,18 +56,7 @@
             align-items: center;
             gap: 1rem;
             box-shadow: none;
-
-            @include respond(md) {
-                overflow: auto;
-            }
-
-            @include respond(xs) {
-                overflow: scroll;
-                margin: 1rem 0;
-            }
-            @include respond(sm) {
-                margin-top: 0rem;
-            }
+            width: 100%;
 
             // .categories-item{
             //     display: flex;

@@ -1,6 +1,5 @@
 import BlogCard from "@components/common/BlogCard";
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import BusinessGoal from "@components/common/BusinessGoal";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,14 +8,14 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
-import { businessGoal } from "staticData/businessGoal";
+import { Col, Container, Row } from "react-bootstrap";
+// import { businessGoal } from "staticData/businessGoal"; //DONOT Remove
 import type { BlogValueProps } from "types/blogs";
 
 const SocialResponsibilities: NextPage = () => {
     const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     return (
-        <Layout title="Social Responsibilities | Cipher">
+        <Layout title="Social Responsibilities | Homaale">
             <section className="social-page">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage="Social responsibilities" />
@@ -64,7 +63,7 @@ const SocialResponsibilities: NextPage = () => {
                             />
                         </figure>
                     </div>
-                    <Carousel>
+                    {/* <Carousel>
                         {businessGoal &&
                             businessGoal.map((goal) => {
                                 return (
@@ -83,7 +82,7 @@ const SocialResponsibilities: NextPage = () => {
                                     </Carousel.Item>
                                 );
                             })}
-                    </Carousel>
+                    </Carousel> */}
 
                     <div className="social-page__blogs">
                         <div className="title-wrapper d-flex justify-content-between">

@@ -1,13 +1,10 @@
 import { faLocationDot, faUser } from "@fortawesome/pro-regular-svg-icons";
+import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
-import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { axiosClient } from "utils/axiosClient";
 
 import type { ServiceNearYouCardProps } from "../../types/serviceNearYouCard";
 
@@ -26,7 +23,9 @@ export type ServiceProvider = {
 
 const ServiceNearYouCard = ({
     image,
-    servicePrice,
+    budget_from,
+    budget_to,
+    budget_type,
     serviceProvider,
     serviceProviderLocation,
     serviceRating,
@@ -35,51 +34,27 @@ const ServiceNearYouCard = ({
     serviceSlug,
     discountOn,
     discount,
+    currency,
     onServiceClick,
 }: ServiceNearYouCardProps) => {
-    // const { data } = useQuery(
-    //     ["service-provider-user", serviceProvider],
-    //     async () => {
-    //         const { data } = await axiosClient.get<ServiceProvider>(
-    //             `/user/${serviceProvider}`
-    //         );
-    //         return data;
-    //     }
-    // );
-
-    // const providerName = data?.groups[0]?.name;
-
     const router = useRouter();
     const path = router.query.slug;
 
     return (
         <div
             data-active={JSON.stringify(path === serviceSlug)}
-            className="service-card-block service-near-you-card-block active"
+            className="service-card-block service-near-you-card-block active pe-2"
             onClick={() => onServiceClick}
         >
             <Row>
-                <Col md="5">
-                    {image && Array.isArray(image) ? (
+                <Col md={5}>
+                    {image && (
                         <figure className="thumbnail-img">
                             <Image
                                 src={
-                                    image
-                                        ? image[0].media
-                                        : "/service-details/garden-cleaning.png"
-                                }
-                                layout="fill"
-                                objectFit="cover"
-                                alt="servicecard-image"
-                            />
-                        </figure>
-                    ) : (
-                        <figure className="thumbnail-img">
-                            <Image
-                                src={
-                                    image
+                                    typeof image === "string"
                                         ? image
-                                        : "/service-details/garden-cleaning.png"
+                                        : image[0].media
                                 }
                                 layout="fill"
                                 objectFit="cover"
@@ -87,12 +62,22 @@ const ServiceNearYouCard = ({
                             />
                         </figure>
                     )}
+                    {!image && (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={"/placeholder/taskPlaceholder.png"}
+                                layout="fill"
+                                objectFit="contain"
+                                alt="servicecard-image"
+                            />
+                        </figure>
+                    )}
                 </Col>
-                <Col md="7">
+                <Col md={7}>
                     <div className="content">
                         <h4>{serviceTitle}</h4>
                         <div className="information">
-                            <div className="type d-flex flex-col">
+                            <div className="type d-flex flex-col align-items-center">
                                 <FontAwesomeIcon
                                     icon={faUser}
                                     className="user svg-icon"
@@ -100,26 +85,58 @@ const ServiceNearYouCard = ({
 
                                 <p>{serviceProvider}</p>
                             </div>
-                            <div className="type d-flex flex-col">
+                            <div className="type d-flex flex-col align-items-center">
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
                                     className="location svg-icon"
                                 />
-                                <p>{serviceProviderLocation}</p>
+                                <p>
+                                    {serviceProviderLocation &&
+                                    serviceProviderLocation.length > 1
+                                        ? serviceProviderLocation
+                                        : "Location not available"}
+                                </p>
                             </div>
 
                             <div className="success-rate type d-flex flex-col">
-                                <div className="star d-flex flex-row">
+                                <div className="star d-flex align-items-center flex-row">
                                     <FontAwesomeIcon
-                                        icon={faStar}
+                                        icon={
+                                            serviceRating && serviceRating > 0
+                                                ? faStar
+                                                : HollowStar
+                                        }
                                         className="star svg-icon"
                                     />
 
-                                    <p>{serviceRating}</p>
+                                    <p>{serviceRating ?? "0(0)"}</p>
                                 </div>
                             </div>
                             <div></div>
-                            <h1 className="price">Rs. {servicePrice}</h1>
+                            <h1 className="price">
+                                {currency + " "}
+                                {budget_from ? budget_from + " - " : ""}
+                                {budget_to}
+                                {budget_type === "Hourly"
+                                    ? "/hr"
+                                    : budget_type === "Monthly"
+                                    ? "/mn"
+                                    : budget_type === "Daily"
+                                    ? "/daily"
+                                    : "/project"}
+                            </h1>
+                            {/* 
+                            {currency + " "}
+                                {budget_to}
+                                {(budget_from !== 0 && budget_from) ??
+                                " - " + (budget_from !== 0 && budget_from)
+                                    ? budget_from
+                                    : ""}
+                                {budget_type === "Hourly"
+                                    ? "/hr"
+                                    : budget_type === "Monthly"
+                                    ? "/mn"
+                                    : ""} */}
                         </div>
                     </div>
                 </Col>

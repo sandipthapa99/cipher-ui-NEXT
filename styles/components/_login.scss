@@ -1,18 +1,59 @@
-.login-layout-wrapper {
-    min-height: 100vh;
+.button-wrapper-social {
+    @include respond(xs) {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    @media screen and (width: 1024px), (width: 1280px) {
+        gap: 1rem;
+    }
+}
+.custom-facebook {
+    font-size: 1.4rem;
+    font-weight: 500;
+    border-radius: 0.4rem;
+    font-family: $poppins-font;
+    box-shadow: none;
+    position: relative;
+    border: none;
     display: flex;
+    align-items: center;
+
+    @include transition();
+    // background-color: #1877f2;
+    background-color: transparent;
+    color: #3c4043;
+    border: 1px solid #dadce0;
+    cursor: pointer;
+    padding: 3px 6px;
+    &:hover {
+        border: 0.1rem solid #d2e3fc;
+        background-color: #4285f40a;
+    }
+}
+.login-layout-wrapper {
+    height: 100vh;
+    display: flex;
+    width: 100%;
 
     &__left {
-        width: 44%;
-        min-height: 100%;
+        // width: 44%;
+        // min-height: 100%;
+        // background-size: cover;
+        // position: fixed;
+        // left: 0;
+        // top: 0;
+        // position: relative;
+        // justify-content: center;
+        // align-items: center;
+        // display: none;
+        width: 45%;
+        height: 100%;
         background-size: cover;
         position: fixed;
         left: 0;
         top: 0;
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        display: none;
 
         @include respond(lg) {
             display: flex;
@@ -28,14 +69,46 @@
     &__right {
         width: 100%;
         background: white;
-        position: relative;
         display: flex;
-        align-items: center;
         padding: 0 4rem;
+        position: absolute;
+        right: 0;
+        top: 0;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
 
         @include respond(lg) {
             width: 56%;
             padding-left: 14rem;
+        }
+
+        @include respond(md) {
+            width: 56%;
+            padding-left: 14rem;
+        }
+
+        @include respond(sm) {
+            padding-left: 8rem;
+        }
+
+        .backarrow {
+            position: absolute;
+            left: 5rem;
+            top: 5rem;
+            cursor: pointer;
+            color: black;
+
+            &:hover {
+                color: rgb(102, 104, 104);
+            }
+
+            @include respond(md) {
+                display: none;
+            }
+            @include respond(lg) {
+                display: none;
+            }
         }
 
         .redirection-text {
@@ -65,8 +138,6 @@
         }
     }
 }
-
-//login component
 
 .form-wrapper {
     width: 45rem;

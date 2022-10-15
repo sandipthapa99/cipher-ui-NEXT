@@ -1,104 +1,92 @@
 import BigButton from "@components/common/Button";
 import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
-import {
-    faEllipsisVertical,
-    faRibbon,
-    faSmile,
-    faStar,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQueryClient } from "@tanstack/react-query";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import type { Task, Tasker } from "types/tasks";
+import { getPageUrl } from "utils/helpers";
 
 interface Props {
     isButton?: boolean;
-    task: Tasker;
+    tasker: Tasker;
     onTaskClick: (task: Task) => void;
     handleButtonClick?: () => void;
     taskId?: number;
+    isSaved?: boolean;
 }
 export const UserTaskCard = ({
     isButton,
-    task,
+    tasker,
     onTaskClick,
     handleButtonClick,
     taskId,
+    isSaved,
 }: Props) => {
+    const isBookmarked = useIsBookmarked("user", tasker.user.id);
+    const queryClient = useQueryClient();
+
     return (
         <div className="user-task-card">
             <div className="user-task-card__header">
-                <Image
-                    src={"/community/gallery2.png"}
-                    width="80px"
-                    height="80px"
-                    objectFit="cover"
-                    alt={"profile picture"}
-                    className="rounded-circle header-image"
-                />
+                <figure className="profile-image">
+                    <Image
+                        src={
+                            tasker.profile_image
+                                ? tasker.profile_image
+                                : "/userprofile/unknownPerson.jpg"
+                        }
+                        objectFit="cover"
+                        height={150}
+                        width={150}
+                        priority={true}
+                        alt={"profile picture"}
+                    />
+                </figure>
 
                 <div className="user-info">
-                    <p className="user-info__username">full name</p>
-                    <span>
-                        <span className="user-info__category">Full name</span>
-                        <span> | </span>
-                        <span className="td-text">{"location here"}</span>
-                    </span>
-                    <div className="user-ratings">
-                        <div className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                color="#FAB005"
-                                className="svg-icon"
-                                icon={faStar}
-                            />
-                            <span>{"4"}</span>
-                            <span>{`(${"5"})`}</span>
-                        </div>
-                        <div className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                color="#F98900"
-                                className="svg-icon"
-                                icon={faSmile}
-                            />
-                            <span>{5}</span>
-                        </div>
-                        <div className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                color="#0693E3"
-                                className="svg-icon"
-                                icon={faRibbon}
-                            />
-                            <span>{"90%"}</span>
-                        </div>
-                    </div>
-                </div>
+                    <p className="user-info__username">{tasker.full_name}</p>
 
-                <FontAwesomeIcon
-                    className="svg-icon"
-                    icon={faEllipsisVertical}
-                />
+                    <div className="work-address">
+                        <span>{tasker?.designation ?? "Homaale employee"}</span>{" "}
+                        |{tasker.address_line1}
+                    </div>
+                    <span>{tasker.bio ? tasker.bio : "hsadfasdjkfashdf"}</span>
+                </div>
             </div>
-            <p className="td-text user-info__bio">bio</p>
+            <div className="user-rating-price">
+                <div className="rating d-flex align-items-center">
+                    <FontAwesomeIcon className="svg-icon" icon={faStar} />
+                    <p>4.8(200)</p>
+                </div>
+                <div className="price">$50/hr</div>
+            </div>
+
             <div className="d-flex justify-content-between user-task-card__footer">
                 <div className="icons">
-                    <SaveIcon />
+                    <SaveIcon
+                        filled={isBookmarked}
+                        object_id={tasker.user.id.toString()}
+                        model={"user"}
+                        onSuccess={() =>
+                            queryClient.invalidateQueries(["bookmarks", "user"])
+                        }
+                    />
                     <ShareIcon
-                        url={`http://localhost:3005/tasker?taskerId=${taskId}`}
-                        quote={"Tasker from cipher project"}
-                        hashtag={"cipher-tasker"}
+                        url={getPageUrl()}
+                        quote={"Tasker from Homaale project"}
+                        hashtag={"Homaale-tasker"}
                     />
                 </div>
-                {isButton === true && (
-                    <BigButton
-                        btnTitle={"Collab"}
-                        backgroundColor={"#211D4F"}
-                        textColor={"white"}
-                        handleClick={handleButtonClick}
-                    />
-                )}
-                {isButton === false && (
-                    <p className="task-price">{"currency"}</p>
-                )}
+
+                <BigButton
+                    btnTitle={"Hire Me"}
+                    backgroundColor={"#211D4F"}
+                    textColor={"white"}
+                    handleClick={handleButtonClick}
+                />
             </div>
         </div>
     );

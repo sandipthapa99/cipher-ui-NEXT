@@ -5,11 +5,13 @@ const CardBtn = ({
     backgroundColor,
     color,
     handleClick,
+    id,
 }: {
     btnTitle: string;
     backgroundColor: string;
     color?: string;
     handleClick?: () => void;
+    id?: string;
 }) => {
     return (
         <>

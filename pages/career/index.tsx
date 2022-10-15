@@ -4,11 +4,11 @@ import LeaveYourCV from "@components/Career/LeaveYourCV";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
+import urls from "constants/urls";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { careerCardValues } from "staticData/careerCardValues";
 import type { CareerValueProps } from "types/careerValuesProps";
 import { axiosClient } from "utils/axiosClient";
 
@@ -16,7 +16,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
     const { result } = careerData ?? [];
     const [tabIndex, setTabIndex] = useState(0);
     return (
-        <Layout title="Cipher | Careers">
+        <Layout title="Homaale | Careers">
             <section id="careers-section" className="careers-section">
                 <BreadCrumb currentPage="Career" />
                 <Container fluid="xl">
@@ -77,7 +77,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                     </Row>
                     <div className="d-flex justify-content-between align-items-lg-center pe-0 part-wrapper">
                         <div className="part-wrapper__details">
-                            Become a part of <span>Cipher</span>
+                            Become a part of <span>Homaale</span>
                             <p>Boost your skills and excel with us.</p>
                         </div>
                         <figure>
@@ -185,9 +185,7 @@ export default Career;
 
 export const getStaticProps: GetStaticProps = async () => {
     try {
-        const { data: careerData } = await axiosClient.get(
-            "/career/vacancy/list/"
-        );
+        const { data: careerData } = await axiosClient.get(urls.carrer.list);
         if (careerData.error) throw new Error(careerData.error.message);
         return {
             props: {

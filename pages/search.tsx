@@ -1,6 +1,6 @@
 import Footer from "@components/Footer";
 import Header from "@components/Header";
-import { SearchCategory } from "@components/SearchTask/searchCategory";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import SearchResults from "@components/SearchTask/SearchResults";
 import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
@@ -20,7 +20,9 @@ const SearchPage: NextPage = () => {
         () =>
             query
                 ? data?.data?.result?.filter((service: any) =>
-                      service?.title.toLowerCase().includes(query.toLowerCase())
+                      service?.title
+                          .toLowerCase()
+                          .includes(query?.toLowerCase())
                   )
                 : data?.data?.result,
         [query, data?.data?.result]
@@ -31,7 +33,7 @@ const SearchPage: NextPage = () => {
             <SearchHeader />
             <Header />
             <Container fluid="xl">
-                <SearchCategory onChange={setQuery} />
+                {/* <SearchCategory onChange={setQuery} /> */}
                 <SearchResults servicesNearYou={filteredServices} />
             </Container>
             <Footer />

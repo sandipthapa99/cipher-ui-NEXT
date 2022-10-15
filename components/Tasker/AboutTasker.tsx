@@ -1,7 +1,11 @@
+import PortfolioDetails from "@components/Profile/PortfolioDetail";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, Highlight } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerProps } from "types/taskerProps";
 
@@ -13,7 +17,8 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
     const userSkills = taskerDetail?.skill
         ? JSON.parse(taskerDetail?.skill)
         : [];
-    console.log("userskills", taskerDetail?.skill, userSkills);
+    const [showPortfolioDetails, setShowPortfolioDetails] = useState(false);
+    const [id, setId] = useState<number | undefined>();
 
     return (
         <>
@@ -24,37 +29,85 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                         <h1>My Portfolio</h1>
                     </div>
 
+                    {!taskerDetail ||
+                        (taskerDetail?.portfolio?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                The User has no Portfolio data
+                            </Alert>
+                        ))}
                     <div className="content">
-                        {taskerDetail?.portfolio
-                            ? taskerDetail?.portfolio?.map((info: any) => (
-                                  <div className="image" key={info?.id}>
-                                      <Row>
-                                          <Col md={6}>
-                                              <Link href={info?.credential_url}>
-                                                  <a target="_blank">
-                                                      {info?.image ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src={`http://54.252.73.240:8014${info?.image}`}
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-image"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
-                                          </Col>
-                                      </Row>
+                        {taskerDetail?.portfolio &&
+                            taskerDetail?.portfolio?.map((info: any) => (
+                                <div
+                                    className="image"
+                                    key={info?.id}
+                                    onClick={() => setId(info?.id)}
+                                >
+                                    <Row className="px-3">
+                                        <Col md={6}>
+                                            {info?.images[0]?.media ? (
+                                                <figure
+                                                    className="thumbnail-img"
+                                                    onClick={() =>
+                                                        setShowPortfolioDetails(
+                                                            true
+                                                        )
+                                                    }
+                                                >
+                                                    <Image
+                                                        //   src={
+                                                        //       info?.images[0]
+                                                        //           ?.media ??
+                                                        //       info?.images[1]
+                                                        //           ?.media
+                                                        //   }
+                                                        src={
+                                                            //info?.images ??
+                                                            info?.images[0]?.name
+                                                                .substring(
+                                                                    info.images[0]?.name.indexOf(
+                                                                        "."
+                                                                    ) + 1
+                                                                )
+                                                                .includes("jpg")
+                                                                ? info
+                                                                      ?.images[0]
+                                                                      ?.media
+                                                                : info
+                                                                      ?.images[1]
+                                                                      ?.media
+                                                        }
+                                                        layout="fill"
+                                                        objectFit="cover"
+                                                        alt="portfolio-image"
+                                                    />
+                                                </figure>
+                                            ) : (
+                                                ""
+                                            )}
+                                        </Col>
+                                    </Row>
+                                    <PortfolioDetails
+                                        show={showPortfolioDetails}
+                                        setShowPortfolioDetails={
+                                            setShowPortfolioDetails
+                                        }
+                                        handleClose={() =>
+                                            setShowPortfolioDetails(false)
+                                        }
+                                        isTaskerPortfolio={true}
+                                        id={id}
+                                    />
 
-                                      <p className="text-center">
-                                          {info.title}
-                                      </p>
-                                  </div>
-                              ))
-                            : "This tasker have no portfolio."}
+                                    {/* <p className="text-center">{info.title}</p> */}
+                                </div>
+                            ))}
                     </div>
                 </div>
                 <div className="type experience">
@@ -63,58 +116,68 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                         <h1>Experience</h1>
                     </div>
 
+                    {!taskerDetail ||
+                        (taskerDetail?.experience?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                className="mb-4"
+                                sx={{ minWidth: 100 }}
+                            >
+                                The User has no Experience data
+                            </Alert>
+                        ))}
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {taskerDetail?.experience
-                                    ? taskerDetail?.experience?.map(
-                                          (value: any, key: any) => (
-                                              <div
-                                                  className="experience__type"
-                                                  key={key}
-                                              >
-                                                  <div className="name d-flex">
-                                                      <h3>{value?.title}</h3>
-                                                  </div>
-                                                  <div className="company d-flex">
-                                                      <p className="name">
-                                                          {value?.company_name}
-                                                          &nbsp;. &nbsp;
-                                                          {
-                                                              value?.employment_type
-                                                          }
-                                                      </p>
-                                                  </div>
-                                                  <p className="description">
-                                                      {value?.description}
-                                                  </p>
-                                                  <p className="date">
-                                                      {format(
-                                                          new Date(
-                                                              value?.start_date
-                                                          ),
-                                                          "MMMM yyyy"
-                                                      )}
-                                                      {`${
-                                                          value?.end_date
-                                                              ? `-`
-                                                              : "- Present"
-                                                      }`}
-                                                      {value?.end_date &&
-                                                          format(
-                                                              new Date(
-                                                                  value.end_date
-                                                              ),
-                                                              "MMMM yyyy"
-                                                          )}
-                                                  </p>
-                                                  <p className="address">
-                                                      {value.location}
-                                                  </p>
-                                              </div>
-                                          )
-                                      )
-                                    : "This tasker have no experience."}
+                                {taskerDetail?.experience &&
+                                    taskerDetail?.experience?.map(
+                                        (value: any, key: any) => (
+                                            <div
+                                                className="experience__type"
+                                                key={key}
+                                            >
+                                                <div className="name d-flex">
+                                                    <h3>{value?.title}</h3>
+                                                </div>
+                                                <div className="company d-flex">
+                                                    <p className="name">
+                                                        {value?.company_name}
+                                                        &nbsp;. &nbsp;
+                                                        {value?.employment_type}
+                                                    </p>
+                                                </div>
+                                                <p className="description">
+                                                    {value?.description}
+                                                </p>
+                                                <p className="date">
+                                                    {format(
+                                                        new Date(
+                                                            value?.start_date
+                                                        ),
+                                                        "MMMM yyyy"
+                                                    )}
+                                                    {`${
+                                                        value?.end_date
+                                                            ? `-`
+                                                            : "- Present"
+                                                    }`}
+                                                    {value?.end_date &&
+                                                        format(
+                                                            new Date(
+                                                                value.end_date
+                                                            ),
+                                                            "MMMM yyyy"
+                                                        )}
+                                                </p>
+                                                <p className="address">
+                                                    {value.location}
+                                                </p>
+                                            </div>
+                                        )
+                                    )}
                             </div>
                         </Col>
                     </Row>
@@ -124,7 +187,19 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                         {/* <h2 className="heading-title">Community activity</h2> */}
                         <h1>Skills</h1>
                     </div>
-
+                    {!userSkills ||
+                        (userSkills?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                className="mb-4"
+                                sx={{ minWidth: 100 }}
+                            >
+                                The User has no Skill data
+                            </Alert>
+                        ))}
                     <Row>
                         <Col md={9}>
                             <div className="content">
@@ -144,6 +219,19 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                         {/* <h2 className="heading-title">Community activity</h2> */}
                         <h1>Education</h1>
                     </div>
+                    {!taskerDetail?.education ||
+                        (taskerDetail?.education?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                className="mb-4"
+                                sx={{ minWidth: 100 }}
+                            >
+                                The User has no Education data
+                            </Alert>
+                        ))}
                     <Row>
                         <Col md={9}>
                             <div className="content">
@@ -195,6 +283,19 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                         {/* <h2 className="heading-title">Community activity</h2> */}
                         <h1>Certifications</h1>
                     </div>
+                    {!taskerDetail?.certificates ||
+                        (taskerDetail?.certificates?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                className="mb-4"
+                                sx={{ minWidth: 100 }}
+                            >
+                                The User has no Certification data
+                            </Alert>
+                        ))}
                     <Row>
                         <Col md={9}>
                             <div className="content">

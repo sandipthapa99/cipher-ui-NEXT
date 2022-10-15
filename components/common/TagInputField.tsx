@@ -14,10 +14,10 @@ const TagInputField = ({
     data,
     labelName,
     textMuted,
+    disabled,
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
-    const { data: profile } = useGetProfile();
-
+    const { data: profile, isLoading } = useGetProfile();
     return (
         <div className={checkFormGroup(error)}>
             {labelName && (
@@ -35,6 +35,7 @@ const TagInputField = ({
                     const { setFieldValue } = form;
                     return (
                         <MultiSelect
+                            disabled={disabled}
                             // disabled={profile ? true : false}
                             defaultValue={Array.isArray(data) ? data : []}
                             data={Array.isArray(data) ? data : []}

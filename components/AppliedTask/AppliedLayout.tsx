@@ -1,29 +1,24 @@
 import TaskAside from "@components/AppliedTask/taskAside";
 import Layout from "@components/Layout";
-import { SearchCategory } from "@components/SearchTask/searchCategory";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import { useQuery } from "@tanstack/react-query";
-import { useTasks } from "hooks/apply-task/useTask";
-import { useUser } from "hooks/auth/useUser";
+import urls from "constants/urls";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import type { ITaskApiResponse } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
-export const useSearchTask = (query: string, type: string) => {
-    const { data: user, isLoading } = useUser();
+export const useSearchTask = (searchQuery: string) => {
+    const url = `${urls.task.my_task}&${searchQuery}`;
+
     return useQuery(
-        ["all-tasks", query],
+        ["all-tasks", searchQuery],
         async () => {
-            const { data } = await axiosClient.get<ITaskApiResponse>(
-                `/task/?search=${query}&recommendation=${type ?? ""}`
-            );
-            const otherUserTasks = (data.result ?? []).filter(
-                (task) => task.assigner.id !== user?.id
-            );
-            return otherUserTasks;
+            const { data } = await axiosClient.get<ITaskApiResponse>(url);
+            return data.result;
         },
-        { enabled: !isLoading }
+        { initialData: [] }
     );
 };
 const AppliedLayout = ({
@@ -33,24 +28,21 @@ const AppliedLayout = ({
     children: ReactNode;
     type?: string;
 }) => {
-    const [query, setQuery] = useState("");
-
-    const { data, isLoading } = useTasks();
-    const { data: searchData = [] } = useSearchTask(query, type ?? "");
-
+    const [searchParam, setSearchParam] = useState("");
     return (
-        <Layout title="Find Tasks | Cipher">
-            <Container>
-                <SearchCategory type={type} onChange={setQuery} />
-                <TaskAside
-                    query={query}
-                    appliedTasks={searchData}
-                    type={type ?? ""}
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </TaskAside>
-            </Container>
+        <Layout title="Find Tasks | Homaale">
+            <section className="Tasks-section mb-5" id="Tasks-section">
+                <Container fluid="xl" className="px-5 pb-5">
+                    <SearchCategory
+                        searchModal="task"
+                        onFilterClear={() => setSearchParam("")}
+                        onSearchParamChange={setSearchParam}
+                    />
+                    <TaskAside query={searchParam} type={type ?? ""}>
+                        {children}
+                    </TaskAside>
+                </Container>
+            </section>
         </Layout>
     );
 };

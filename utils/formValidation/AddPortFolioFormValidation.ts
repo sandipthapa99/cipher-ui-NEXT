@@ -96,7 +96,7 @@ export const addPortfolioSchema = Yup.object().shape({
 //                         onSubmit={async (values) => {
 //                             const formData: FormData = new FormData();
 //                             let newValue;
-//                             console.log("val", values);
+//
 //                             delete values.imagePreviewUrl;
 
 //                             if (!values.file) {
@@ -131,18 +131,18 @@ export const addPortfolioSchema = Yup.object().shape({
 //                                 newValue = newvalidatedValue;
 //                             }
 
-//                             console.log("valuews=", values, newValue);
+//
 //                             if (values.image.some((val) => val?.path)) {
 //                                 values.image.forEach((file) => {
 //                                     if (file?.path)
 //                                         formData.append("image", file);
 //                                 });
-//                                 console.log("files for app=", values.image);
+//
 //                                 // onCreateThumbnail(formData, values, actions);
 //                             }
 //                             Object.entries(newValue).forEach((entry) => {
 //                                 const [key, value] = entry;
-//                                 console.log("entry=", entry, key, value);
+//
 
 //                                 if (
 //                                     (entry[0] == "file" &&
@@ -157,7 +157,7 @@ export const addPortfolioSchema = Yup.object().shape({
 
 //                             // formData.append("file", values.file);
 //                             // formData.append("image", values.image);
-//                             console.log(
+//
 //                                 "file image",
 //                                 values.file,
 //                                 values.image
@@ -166,7 +166,7 @@ export const addPortfolioSchema = Yup.object().shape({
 //                                 editDetails && isEditProfile == true
 //                                     ? editMutation(formData, {
 //                                           onSuccess: async () => {
-//                                               console.log(
+//
 //                                                   "submitted values",
 //                                                   values
 //                                               );
@@ -184,7 +184,7 @@ export const addPortfolioSchema = Yup.object().shape({
 //                                       })
 //                                     : mutate(formData, {
 //                                           onSuccess: async () => {
-//                                               console.log(
+//
 //                                                   "submitted values",
 //                                                   values
 //                                               );
@@ -298,7 +298,7 @@ export const addPortfolioSchema = Yup.object().shape({
 //                                                                     "file"
 //                                                                 )
 //                                                             )
-//                                                         // console.log(formData.get("file"))
+//                                                         //
 //                                                     }
 //                                                 />
 //                                             </Col>

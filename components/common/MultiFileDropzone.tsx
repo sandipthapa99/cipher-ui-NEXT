@@ -23,7 +23,7 @@ const MultiFileDropzone = ({
     name,
     labelName,
     textMuted,
-    accept = ["image/png", "image/jpeg", "image/jpg"],
+    accept = [".jpeg, .png, .jpg"],
     multiple = false,
     maxSize = 1,
     imagePreview,
@@ -89,7 +89,7 @@ const MultiFileDropzone = ({
                                     },
                                 }}
                                 onDrop={(files) => {
-                                    // console.log("files are", files);
+                                    //
                                     const multipleFiles = files.map(
                                         (file, index) => {
                                             const src =

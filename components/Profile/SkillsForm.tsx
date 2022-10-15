@@ -6,14 +6,12 @@ import { MultiSelect } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useData } from "hooks/use-data";
 import { useEditForm } from "hooks/use-edit-form";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import type { UserProfileProps } from "types/userProfileProps";
 import { SkillsFromData } from "utils/formData";
 import { skillsFormSchema } from "utils/formValidation/skillsFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -44,7 +42,7 @@ const AddSkills = ({
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose} backdrop="static">
+            <Modal show={show} centered onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal edit-form">
                     <h3>Add Skills</h3>
@@ -62,13 +60,9 @@ const AddSkills = ({
                                 ...values,
                                 skill: newSkills,
                             };
-                            console.log("new skills=", finalSKills);
+
                             mutate(finalSKills, {
                                 onSuccess: async () => {
-                                    console.log(
-                                        "submitted values",
-                                        finalSKills
-                                    );
                                     setShowAddSkillsForm(false);
                                     queryClient.invalidateQueries(["profile"]);
                                     toast.success(
@@ -77,7 +71,6 @@ const AddSkills = ({
                                 },
                                 onError: async (error) => {
                                     toast.error(error.message);
-                                    console.log("error=", error);
                                 },
                             });
 
@@ -105,7 +98,7 @@ const AddSkills = ({
                                 />
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -115,7 +108,7 @@ const AddSkills = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting

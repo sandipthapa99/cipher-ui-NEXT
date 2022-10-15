@@ -20,7 +20,7 @@ import { isSubmittingClass } from "utils/helpers";
 import { gender, maritalStatus, salaryType } from "utils/options";
 
 const TaxCalculator: NextPage = () => {
-    const { mutate, isLoading, data: TableData } = useTaxCalculator();
+    const { mutate, data: TableData } = useTaxCalculator();
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     const taxContent = [
         {
@@ -40,7 +40,6 @@ const TaxCalculator: NextPage = () => {
         },
     ];
     const tax_rate = TableData?.details["tax rate"];
-    console.log("table data=", TableData?.data);
     const table = [
         {
             id: "0",
@@ -157,7 +156,7 @@ const TaxCalculator: NextPage = () => {
         },
     ];
     return (
-        <Layout title="Tax-Calculator | Cipher">
+        <Layout title="Tax-Calculator | Homaale">
             <section className="tax-calculator ">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage="Tax Calculator" />
@@ -229,10 +228,6 @@ const TaxCalculator: NextPage = () => {
                                                             error.message
                                                         );
                                                         actions.resetForm();
-                                                        console.log(
-                                                            "fvalues",
-                                                            newValue
-                                                        );
                                                     },
                                                 });
                                             }}

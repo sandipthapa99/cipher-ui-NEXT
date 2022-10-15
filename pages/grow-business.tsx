@@ -13,7 +13,6 @@ import {
     growBusinessCarousel,
     growBusinessSteps,
 } from "staticData/growBusiness";
-import { services } from "staticData/services";
 import type { BlogValueProps } from "types/blogs";
 import type { ServicesValueProps } from "types/serviceCard";
 
@@ -24,7 +23,7 @@ const GrowYourBusiness: NextPage = () => {
         "/task/service/"
     );
     return (
-        <Layout title="Grow Your Business | Cipher">
+        <Layout title="Grow Your Business | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="grow-business">
                     <BreadCrumb currentPage="Grow Your Business" />
@@ -104,7 +103,7 @@ const GrowYourBusiness: NextPage = () => {
                                 )}
                         </Row>
                         <Row className="gx-5 more-services">
-                            {services &&
+                            {servicesData &&
                                 servicesData?.data?.result?.map(
                                     (service, key) => {
                                         return (

@@ -1,19 +1,93 @@
-.social-connection {
-    border: 0.1rem solid #dee2e6;
-    border-radius: 1rem;
-    padding: 1.9rem;
-    span {
-        svg {
-            color: #868e96;
+.account-wrapper {
+    display: flex;
+    flex-direction: column;
+    @include respond(xl) {
+        flex-direction: row;
+    }
+    .social-connection {
+        border: 0.1rem solid #dee2e6;
+        border-radius: 1rem;
+        padding: 2rem 1.2rem;
+        margin-top: 1.8rem;
+        @include respond(xl) {
+            margin-top: 0rem;
         }
+        .svg-icon {
+            color: #868e96;
+            text-align: center;
+            margin: auto;
+            height: 3rem;
+            width: 3rem;
+            margin-top: 2rem;
+            margin-bottom: 1.8rem;
+        }
+
         h4 {
             font-size: 1.4rem;
-            font-weight: 400;
-            color: $sub-title-color;
-            margin: 0;
+            font-weight: 500;
+            color: $secondary-text-color;
+            margin-bottom: 0.8rem;
+            text-transform: capitalize;
         }
-    }
-    p {
-        color: $secondary-text-color;
+
+        p {
+            color: #868e96;
+            text-align: center;
+            padding: 0rem 1.8rem;
+            margin: 0rem 1rem;
+            @include respond(xxl) {
+                margin: 0rem 3.5rem;
+            }
+            @include respond(xs) {
+                font-size: 1.2rem;
+            }
+            @include respond(xxs) {
+                margin: 0rem;
+                padding: 0rem;
+                font-size: 1rem;
+            }
+        }
+        .btn {
+            border-radius: 0.4rem;
+
+            box-shadow: none;
+            @include respond(xs) {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .delete-wrapper {
+            background: #fe5050;
+            border-radius: 0.4rem;
+            margin-left: 1rem;
+            @include transition();
+            cursor: pointer;
+            .svg-icon {
+                color: #fff;
+                height: 1.8rem;
+
+                width: 1.8rem;
+                margin: 0.9rem 1.4rem;
+            }
+
+            @include respond(xs) {
+                margin-top: 1rem;
+                margin: auto;
+                width: 5rem;
+            }
+
+            &:hover {
+                background-color: #111;
+            }
+        }
+        .facebook-icon {
+            color: $facebook-logo-color;
+        }
+        .button-wrapper {
+            @include respond(xs) {
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        }
     }
 }

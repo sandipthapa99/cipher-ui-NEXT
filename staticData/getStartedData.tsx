@@ -23,7 +23,7 @@ export const GetStartedData = [
         image: "/earn-money/earnmoney3.png",
     },
     {
-        heading: "4. Earn & get bonus rewards from Cipher",
+        heading: "4. Earn & get bonus rewards from Homaale",
         firstPoint:
             "Get ready to work once you get hired. Deliver high quality work and earn the agreed amount.",
         secondPoint: "",

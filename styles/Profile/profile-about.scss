@@ -1,6 +1,8 @@
 .about-profile {
     padding-bottom: 2.5rem;
-
+    p {
+        margin-bottom: 0rem;
+    }
     h1 {
         font-size: 1.7rem;
         font-weight: 500;
@@ -215,6 +217,7 @@
     .reviews {
         .review-container {
             padding-top: 0.1rem solid $border-color;
+            padding: 0 0 2.5rem 2rem;
             .reviewer {
                 @include respond(xs) {
                     flex-direction: row;

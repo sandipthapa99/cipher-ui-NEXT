@@ -1,17 +1,23 @@
 export interface TaskerProps {
     total_pages: number;
     count: number;
-    current: number;
     next: any;
     previous: any;
     page_size: number;
     result: {
         id: number;
-        charge_currency: string;
+        charge_currency: {
+            id: string;
+            name: string;
+            code: string;
+            symbol: any;
+        };
         user: {
             id: string;
             email: string;
-            full_name: string;
+            first_name: string;
+            middle_name: string;
+            last_name: string;
             profile_image: string;
         };
         portfolio: {
@@ -82,7 +88,10 @@ export interface TaskerProps {
             user_rating_count: number;
             avg_rating: number;
         };
-        country: string;
+        country: {
+            id: number;
+            name: string;
+        };
         language: string;
         status: string;
         bio: string;

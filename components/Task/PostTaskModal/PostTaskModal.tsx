@@ -1,17 +1,16 @@
 import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
-import { BudgetType } from "@components/Task/PostTaskModal/TaskBudget";
+import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
-import { TaskCategory } from "@components/Task/PostTaskModal/TaskCategory";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
-import { TaskDate } from "@components/Task/PostTaskModal/TaskDate";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
-import { Radio } from "@mantine/core";
+import { LoadingOverlay, Radio } from "@mantine/core";
 import {
     Anchor,
     Box,
@@ -19,100 +18,194 @@ import {
     Modal,
     Stack,
     Text,
-    Textarea,
     TextInput,
     Title,
 } from "@mantine/core";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
+import { useEditTask } from "hooks/task/use-edit-task";
 import { usePostTask } from "hooks/task/use-post-task";
+import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { useEditTaskDetail } from "store/use-edit-task";
 import {
+    usePostTaskModalType,
     useShowPostTaskModal,
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
+import { useToggleSuccessModal } from "store/use-success-modal";
+import { ReactQueryKeys } from "types/queryKeys";
+import { safeParse } from "utils/safeParse";
 
 export interface PostTaskPayload {
     title: string;
     description: string;
-    requirements: string;
-    category: string;
+    highlights: string[];
+    service: string;
     city: string;
     location: TaskType;
     currency: string;
-    budget_type: BudgetType;
-    budget_from: string;
-    budget_to: string;
+    budget_type: string;
+    budget_from: number | string;
+    budget_to: number | string;
     is_negotiable: boolean;
-    image: string;
-    video: string;
+    images: string;
+    videos: string;
     estimated_time: number;
     is_recursion: boolean;
+    is_requested: boolean;
     is_everyday: boolean;
     start_date: string;
     end_date: string;
     start_time: string;
     end_time: string;
+    is_active: boolean;
+    share_location: boolean;
 }
 
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
+    const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = useQueryClient();
-    const { mutate } = usePostTask();
+    const { mutate: createTaskMutation, isLoading: createTaskLoading } =
+        usePostTask();
+    const { mutate: editTaskMutation, isLoading: editTaskLoading } =
+        useEditTask();
+    const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
-    const [termsAccepted, setTermsAccepted] = useState(false);
+    const editTaskDetail = useEditTaskDetail();
 
+    const taskDetail =
+        showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
+
+    const [termsAccepted, setTermsAccepted] = useState(true);
+
+    const getInitialImageIds = useCallback(
+        () => (editTaskDetail?.images ?? []).map((image) => image.id),
+        [editTaskDetail?.images]
+    );
+    const getInitialVideoIds = useCallback(
+        () => (editTaskDetail?.videos ?? []).map((video) => video.id),
+        [editTaskDetail?.videos]
+    );
+
+    const [initialImageIds, setInitialImageIds] = useState<number[]>(() =>
+        getInitialImageIds()
+    );
+    const [initialVideoIds, setInitialVideoIds] = useState<number[]>(() =>
+        getInitialVideoIds()
+    );
+
+    const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
+        useUploadFile();
+
+    useEffect(() => {
+        setInitialImageIds(getInitialImageIds());
+    }, [getInitialImageIds]);
+
+    useEffect(() => {
+        setInitialVideoIds(getInitialVideoIds());
+    }, [getInitialVideoIds]);
+
+    const initialHighlights = safeParse<string[]>({
+        rawString: taskDetail?.highlights ?? "[]",
+        initialData: [],
+    });
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
-            title: "",
-            description: "",
-            requirements: "",
-            category: "",
-            city: "",
-            location: "remote",
-            budget_type: BudgetType.FIXED,
-            budget_from: "",
-            budget_to: "",
+            title: taskDetail ? taskDetail.title : "",
+            description: taskDetail ? taskDetail.description : "",
+            highlights: taskDetail ? initialHighlights : [],
+            city: taskDetail ? String(taskDetail?.city?.id) : "",
+            location: taskDetail ? (taskDetail.location as TaskType) : "remote",
+            budget_type: "Project",
+            budget_from: taskDetail ? Number(taskDetail.budget_from) : "",
+            budget_to: taskDetail ? Number(taskDetail.budget_to) : "",
+            service: taskDetail ? taskDetail.service.id ?? ({} as any) : "",
             is_negotiable: false,
-            image: "",
-            video: "",
             estimated_time: 5,
             is_recursion: false,
+            is_requested: true,
             is_everyday: false,
             start_date: "2022-12-01",
             end_date: "2023-01-04",
             start_time: "01:00",
             end_time: "03:00",
-            currency: "",
+            currency: taskDetail ? String(taskDetail?.currency?.id) : "113",
+            images: "",
+            videos: "",
+            is_active: true,
+            share_location: true,
         },
+        enableReinitialize: true,
         validationSchema: postTaskSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values, action) => {
             if (!termsAccepted) {
                 toast.error(
                     "You must accept the terms and conditions before posting a task"
                 );
                 return;
             }
-            const formData = new FormData();
-            Object.entries(values).forEach((tempValue) => {
-                const [key, value] = tempValue;
-                if (key !== "video" && key !== "image") {
-                    formData.append(key, value.toString());
-                }
+            const uploadedImageIds = await uploadFileMutation({
+                files: values.images,
+                media_type: "image",
             });
-            formData.append("video", values.video);
-            formData.append("image", values.image);
-            mutate(formData, {
-                onSuccess: (payload) => {
-                    toggleShowPostTaskModal();
-                    toast.success(payload.message);
-                    queryClient.invalidateQueries(["all-tasks"]);
+            const uploadedVideoIds = await uploadFileMutation({
+                files: values.videos,
+                media_type: "video",
+            });
+            const imageIds = [...uploadedImageIds, ...initialImageIds];
+            const videoIds = [...uploadedVideoIds, ...initialVideoIds];
+
+            const postTaskPayload = {
+                ...values,
+                highlights: values.highlights,
+                images: imageIds,
+                videos: videoIds,
+                extra_data: [],
+            };
+
+            const updatedPayload = Object.entries(postTaskPayload).reduce(
+                (acc, curr) => {
+                    const [key, value] = curr;
+                    if (value) acc[key] = value;
+                    return acc;
+                },
+                {} as Record<string, unknown>
+            );
+
+            if (showPostTaskModalType === "EDIT" && taskDetail) {
+                editTaskMutation(
+                    { id: taskDetail.id, data: updatedPayload },
+                    {
+                        onSuccess: async () => {
+                            handleCloseModal();
+                            await queryClient.invalidateQueries([
+                                ReactQueryKeys.TASK_DETAIL,
+                                taskDetail.id,
+                            ]);
+                            queryClient.invalidateQueries(["all-tasks"]);
+
+                            toggleSuccessModal("Task Edited Successfully");
+                        },
+                    }
+                );
+                return;
+            }
+            createTaskMutation(updatedPayload, {
+                onSuccess: async () => {
+                    handleCloseModal();
+                    action.resetForm();
+                    toggleSuccessModal("Task Posted Successfully");
+                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
+                    await queryClient.invalidateQueries(["notification"]);
+                    await queryClient.invalidateQueries(["my-task"]);
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -120,32 +213,51 @@ export const PostTaskModal = () => {
             });
         },
     });
-    const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =
-        formik;
-    const getFieldError = (key: keyof PostTaskPayload) =>
-        touched[key] && errors[key] ? errors[key] : null;
 
+    const {
+        getFieldProps,
+        handleSubmit,
+        touched,
+        errors,
+        setFieldValue,
+        values,
+    } = formik;
+    const getFieldError = (key: keyof PostTaskPayload) =>
+        touched[key] && errors[key] ? (errors[key] as string) : null;
+
+    const handleCloseModal = () => {
+        formik.resetForm();
+        toggleShowPostTaskModal("CREATE");
+        setChoosedValue("task");
+    };
+    const isCreateTaskLoading =
+        createTaskLoading || uploadFileLoading || editTaskLoading;
     return (
         <>
+            <LoadingOverlay
+                visible={isCreateTaskLoading}
+                sx={{ position: "fixed", inset: 0 }}
+            />
             <Modal
-                opened={showPostTaskModal}
-                onClose={toggleShowPostTaskModal}
+                opened={!isCreateTaskLoading && showPostTaskModal}
+                onClose={handleCloseModal}
                 overlayColor="rgba(0, 0, 0, 0.25)"
                 title="Post a Task or Service"
                 size="xl"
             >
-                <div className="choose-email-or-phone mb-5">
-                    <Radio.Group
-                        label="Please select task or service which you want to post "
-                        onChange={(value) => setChoosedValue(value)}
-                        size="sm"
-                        defaultValue="task"
-                    >
-                        <Radio value="task" label="Post Task" />
-                        <Radio value="service" label="Post Service" />
-                    </Radio.Group>
-                </div>
-
+                {showPostTaskModalType === "CREATE" && (
+                    <div className="choose-email-or-phone mb-5">
+                        <Radio.Group
+                            label="Please select task or service which you want to post "
+                            onChange={(value) => setChoosedValue(value)}
+                            size="sm"
+                            defaultValue="task"
+                        >
+                            <Radio value="task" label="Post Task" />
+                            <Radio value="service" label="Post Service" />
+                        </Radio.Group>
+                    </div>
+                )}
                 {choosedValue === "task" ? (
                     <form encType="multipart/formData" onSubmit={handleSubmit}>
                         <Stack spacing="md">
@@ -156,41 +268,55 @@ export const PostTaskModal = () => {
                                 {...getFieldProps("title")}
                                 error={getFieldError("title")}
                             />
-                            <Textarea
-                                label="Task Description"
-                                placeholder="Enter your description"
-                                minRows={5}
-                                required
+
+                            <RichText
                                 {...getFieldProps("description")}
-                                error={getFieldError("description")}
+                                value={values.description ?? ""}
+                                onChange={(value) =>
+                                    setFieldValue("description", value)
+                                }
+                                placeholder="Enter your description"
+                                aria-errormessage="123"
                             />
                             <TaskRequirements
+                                initialRequirements={[]}
                                 onRequirementsChange={(requirements) =>
-                                    setFieldValue(
-                                        "requirements",
-                                        JSON.stringify(requirements)
-                                    )
+                                    setFieldValue("highlights", requirements)
                                 }
-                                error={getFieldError("requirements")}
-                                {...getFieldProps("requirements")}
+                                error={getFieldError("highlights")}
+                                {...getFieldProps("highlights")}
+                                labelName="Requirements"
+                                description="This helps tasker to find about your requirements better."
                             />
-                            <TaskCurrency
-                                onCurrencyChange={(currencyId) =>
-                                    setFieldValue("currency", currencyId)
-                                }
-                                error={getFieldError("currency")}
-                            />
+
                             <SelectCity
                                 onCitySelect={(cityId) =>
                                     setFieldValue("city", cityId)
                                 }
+                                value={taskDetail ? taskDetail?.city : ""}
                             />
-                            <TaskCategory
-                                onCategoryChange={(category) =>
-                                    setFieldValue("category", category)
+                            <ServiceOptions
+                                {...getFieldProps("service")}
+                                onServiceChange={(service) =>
+                                    setFieldValue("service", service)
                                 }
-                                {...getFieldProps("category")}
-                                error={getFieldError("category")}
+                                error={getFieldError("service")}
+                                data={
+                                    taskDetail?.service
+                                        ? [
+                                              {
+                                                  id: taskDetail?.service?.id,
+                                                  label: taskDetail?.service
+                                                      ?.title,
+                                                  value: taskDetail?.service
+                                                      ?.id,
+                                              },
+                                          ]
+                                        : []
+                                }
+                                value={
+                                    taskDetail ? taskDetail?.service?.id : ""
+                                }
                             />
                             <SelectTaskType
                                 setFieldValue={setFieldValue}
@@ -198,10 +324,39 @@ export const PostTaskModal = () => {
                                     setFieldValue("location", type)
                                 }
                                 {...getFieldProps("location")}
+                                location={values.location}
                                 error={getFieldError("location")}
                             />
-                            <TaskBudget {...formik} />
+                            <TaskCurrency
+                                value={
+                                    taskDetail
+                                        ? taskDetail?.currency?.id?.toString()
+                                        : ""
+                                }
+                                data={
+                                    taskDetail?.currency
+                                        ? [
+                                              {
+                                                  id: taskDetail?.currency?.id,
+                                                  label: taskDetail?.currency
+                                                      ?.name,
+                                                  value: taskDetail?.currency?.id.toString(),
+                                              },
+                                          ]
+                                        : []
+                                }
+                                onCurrencyChange={(currencyId) =>
+                                    setFieldValue("currency", currencyId)
+                                }
+                                error={getFieldError("currency")}
+                            />
+                            <TaskBudget
+                                initialBudgetFrom={taskDetail?.budget_from}
+                                initialBudgetTo={taskDetail?.budget_to}
+                                {...formik}
+                            />
                             <Checkbox
+                                defaultChecked={taskDetail?.is_negotiable}
                                 label="Yes, it is negotiable."
                                 {...getFieldProps("is_negotiable")}
                             />
@@ -213,16 +368,14 @@ export const PostTaskModal = () => {
                                 </Text>
                                 <CustomDropZone
                                     accept={IMAGE_MIME_TYPE}
-                                    fileLabel="Image"
+                                    uploadedFiles={taskDetail?.images ?? []}
+                                    fileType="image"
                                     sx={{ maxWidth: "30rem" }}
                                     name="task-image"
-                                    onDrop={(formData) =>
-                                        setFieldValue(
-                                            "image",
-                                            formData.get("task-image")
-                                        )
+                                    onRemoveUploadedFiles={setInitialImageIds}
+                                    onDrop={(images) =>
+                                        setFieldValue("images", images)
                                     }
-                                    type={["image"]}
                                 />
                             </Stack>
                             <Stack sx={{ maxWidth: "40rem" }}>
@@ -233,19 +386,27 @@ export const PostTaskModal = () => {
                                 </Text>
                                 <CustomDropZone
                                     accept={[MIME_TYPES.mp4]}
-                                    fileLabel="Video"
-                                    sx={{ maxWidth: "30rem" }}
+                                    uploadedFiles={taskDetail?.videos ?? []}
+                                    fileType="video"
                                     name="task-video"
-                                    onDrop={(formData) =>
-                                        setFieldValue(
-                                            "video",
-                                            formData.get("task-video")
-                                        )
+                                    onRemoveUploadedFiles={setInitialVideoIds}
+                                    onDrop={(videos) =>
+                                        setFieldValue("videos", videos)
                                     }
-                                    type={["video"]}
                                 />
                             </Stack>
-                            <TaskDate setFieldValue={setFieldValue} />
+                            <Checkbox
+                                label="is active"
+                                name="is_active"
+                                defaultChecked={true}
+                                onChange={(event) =>
+                                    setFieldValue(
+                                        "is_active",
+                                        event.currentTarget.checked
+                                    )
+                                }
+                            />
+                            {/* <TaskDate setFieldValue={setFieldValue} /> */}
                             <Checkbox
                                 checked={termsAccepted}
                                 onChange={(event) =>
@@ -273,14 +434,14 @@ export const PostTaskModal = () => {
                                 }}
                             >
                                 <Button
-                                    onClick={toggleShowPostTaskModal}
-                                    className="close-btn close-btn-mod btn p-3 h-25 w-25"
+                                    onClick={handleCloseModal}
+                                    className="close-btn close-btn-mod btn p-3 h-25"
                                 >
                                     Cancel
                                 </Button>
                                 <BigButton
                                     type="submit"
-                                    className="close-btn btn p-3 h-25 w-25 text-white"
+                                    className="close-btn btn p-3 h-25 text-white"
                                     btnTitle="Post Task"
                                     backgroundColor="#211D4F"
                                 />

@@ -63,9 +63,13 @@
             }
             .star {
                 color: orange;
+                p {
+                    margin-top: 0.3rem;
+                    font-size: 1.4rem;
+                }
             }
             .price {
-                font-size: 2rem;
+                font-size: 1.8rem;
                 font-weight: 500;
                 color: $sub-title-color;
                 padding-top: 1rem;

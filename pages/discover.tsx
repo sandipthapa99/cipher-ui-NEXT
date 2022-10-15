@@ -1,29 +1,29 @@
 import AboutCard from "@components/common/AboutCard";
-import AllCategoryCard from "@components/common/AllCategoryCard";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import MerchantAdviceCard from "@components/common/MerchantAdviceCard";
 import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
+import { faAngleRight, faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert } from "@mantine/core";
 import { useData } from "hooks/use-data";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { AllCategoryCardContent } from "staticData/categoryCardContent";
 import { merchantAdvice } from "staticData/merchantAdvice";
-import { merchants } from "staticData/merchants";
 import { oppurtunitiesCardContent } from "staticData/oppurtunities";
 import type { ServicesValueProps } from "types/serviceCard";
-const Discover: NextPage = () => {
+import type { TaskerProps } from "types/taskerProps";
+import { axiosClient } from "utils/axiosClient";
+const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
     return (
-        <Layout title="Discover | Cipher">
+        <Layout title="Discover | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="discover-page">
                     <BreadCrumb currentPage="Discover" />
@@ -42,9 +42,8 @@ const Discover: NextPage = () => {
                         id="services-near-you"
                         className="discover-page__services-section"
                     >
-                        {" "}
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                            <h1>Popular On Cipher</h1>
+                            <h1>Popular On Homaale</h1>
 
                             <Link href="/service">
                                 <a className="view-more">
@@ -78,74 +77,62 @@ const Discover: NextPage = () => {
                         </Row>
                     </section>
                     {/* Services near you section end */}
-
-                    {/* Our categories section started */}
-                    <section className="discover-page__categories">
-                        <h1>Our categories</h1>
-                        <p>Choose category according to your needs.</p>
-                        <Row className="gy-4 gx-5 align-tems-stretch">
-                            {AllCategoryCardContent &&
-                                AllCategoryCardContent.map((category) => {
-                                    return (
-                                        <Col
-                                            className="gx-4 align-items-stretch"
-                                            sm={4}
-                                            xs={12}
-                                            md={3}
-                                            // lg={4}
-                                            key={category.id}
-                                        >
-                                            <AllCategoryCard
-                                                categoryImage={category.image}
-                                                categoryTitle={category.name}
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
-                    </section>
-                    {/* Our categories section ended */}
                     {/* merchants section start */}
                     <section className="discover-page__merchants">
                         <h1>Top Merchants</h1>
+                        {taskerData.result && taskerData.result.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="Taskers Unavailable"
+                                variant="filled"
+                                color="yellow"
+                            >
+                                No tasks available at the moment{""}
+                            </Alert>
+                        )}
                         <Row className="gx-5">
-                            {merchants &&
-                                merchants.map((merchant) => {
+                            {taskerData?.result &&
+                                taskerData?.result?.map((merchant, key) => {
                                     return (
-                                        <Col
-                                            sm={6}
-                                            lg={4}
-                                            xl={3}
-                                            key={merchant.id}
-                                        >
+                                        <Col sm={6} lg={4} xl={3} key={key}>
                                             <MerchantCard
                                                 merchantImage={
-                                                    merchant.merchantImage
+                                                    merchant?.user
+                                                        ?.profile_image
                                                 }
                                                 merchantName={
-                                                    merchant.merchantName
+                                                    merchant?.user?.first_name
                                                 }
                                                 merchantCategory={
-                                                    merchant.merchantCategory
+                                                    merchant?.designation
                                                 }
                                                 merchantLocation={
-                                                    merchant.merchantLocation
+                                                    merchant?.address_line1 +
+                                                    " " +
+                                                    merchant?.address_line2
                                                 }
                                                 merchantDescription={
-                                                    merchant.merchantDescription
+                                                    merchant?.bio
                                                 }
                                                 merchantRating={
-                                                    merchant.merchantRating
+                                                    merchant?.rating?.avg_rating
                                                 }
                                                 merchantPrice={
-                                                    merchant.merchantPrice
+                                                    merchant?.hourly_rate
+                                                }
+                                                currency={
+                                                    merchant?.charge_currency
+                                                        ?.code
                                                 }
                                                 happyClients={
-                                                    merchant.happyClients
+                                                    merchant?.stats
+                                                        ?.happy_clients
                                                 }
                                                 successRate={
-                                                    merchant.successRate
+                                                    merchant?.stats
+                                                        ?.success_rate
                                                 }
+                                                merchantId={merchant?.user?.id}
                                             />
                                         </Col>
                                     );
@@ -209,3 +196,20 @@ const Discover: NextPage = () => {
 };
 
 export default Discover;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: taskerData } = await axiosClient.get(
+            "/tasker/top-tasker/"
+        );
+        return {
+            props: { taskerData },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: { taskerData: [] },
+            revalidate: 10,
+        };
+    }
+};

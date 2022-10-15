@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import { useContact } from "hooks/contact-and-support/contact";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { ContactFormData } from "utils/contactFormData";
@@ -20,10 +19,10 @@ import contactFormSchema from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Contact = () => {
-    const { mutate, isLoading } = useContact();
+    const { mutate } = useContact();
 
     return (
-        <Layout title="Contact Us | Cipher">
+        <Layout title="Contact Us | Homaale">
             <section className="contact-page-header">
                 <BreadCrumb currentPage="Contact Us" />
                 <Container fluid="xl">
@@ -120,12 +119,7 @@ const Contact = () => {
                                     });
                                 }}
                             >
-                                {({
-                                    isSubmitting,
-                                    errors,
-                                    touched,
-                                    resetForm,
-                                }) => (
+                                {({ isSubmitting, errors, touched }) => (
                                     <Form>
                                         {/* <pre>
                                             {JSON.stringify(errors, null, 4)}

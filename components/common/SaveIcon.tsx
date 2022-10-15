@@ -1,16 +1,18 @@
 import { faHeart } from "@fortawesome/pro-regular-svg-icons";
-import { faHeart as FilledHeart } from "@fortawesome/pro-solid-svg-icons";
+import { faHeart as faFilledHeart } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ActionIcon, Button } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
 import { useToggleBookmarkTask } from "hooks/task/use-toggle-bookmark-task";
 import { useWithLogin } from "store/use-login-prompt-store";
 
 interface saveIconProps {
-    object_id?: string;
-    model?: string;
+    object_id: string;
+    model: string;
     filled?: boolean;
     showText?: boolean;
     onSuccess?: () => void;
+    className?: string;
 }
 
 const SaveIcon = ({
@@ -18,33 +20,39 @@ const SaveIcon = ({
     model,
     filled,
     showText,
-    onSuccess,
+    className,
 }: saveIconProps) => {
     const { classes } = useStyles();
     const withLogin = useWithLogin();
     const { mutate, isLoading } = useToggleBookmarkTask();
-
     const handleSaveClick = () => {
         if (!object_id || !model) return;
-        mutate({ object_id, model }, { onSuccess });
+        mutate({ object_id, model });
     };
-    return (
-        <button
+    return showText ? (
+        <Button
+            color="red"
+            loading={isLoading}
+            variant="subtle"
             onClick={withLogin(handleSaveClick)}
-            className={classes.saveIconContainer}
+            className={`${classes.saveIconContainer} ${className}`}
+            leftIcon={
+                <FontAwesomeIcon
+                    className="svg-icon m-0"
+                    icon={filled ? faFilledHeart : faHeart}
+                />
+            }
         >
+            {showText ? <span>{filled ? "Remove" : "Save"}</span> : null}
+        </Button>
+    ) : (
+        <ActionIcon>
             <FontAwesomeIcon
-                icon={filled ? FilledHeart : faHeart}
-                className="svg-icon svg-icon-heart me-2 me-sm-5"
+                color="red"
+                icon={filled ? faFilledHeart : faHeart}
+                className="svg-icon me-0"
             />
-            {showText ? (
-                isLoading ? (
-                    <span>Loading</span>
-                ) : (
-                    <span>{filled ? "Remove" : "Save"}</span>
-                )
-            ) : null}
-        </button>
+        </ActionIcon>
     );
 };
 const useStyles = createStyles(() => ({

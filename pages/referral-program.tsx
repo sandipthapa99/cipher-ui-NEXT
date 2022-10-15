@@ -14,7 +14,7 @@ import referralFormValidationSchema from "utils/formValidation/referralFormValid
 
 const About: NextPage = () => {
     return (
-        <Layout title="Referral Programs | Cipher">
+        <Layout title="Referral Programs | Homaale">
             <div className="referral-page">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage="Referral programs" />
@@ -27,7 +27,7 @@ const About: NextPage = () => {
                                 {" "}
                                 <h6>
                                     Get 20 credits for every person you refer to
-                                    Cipher
+                                    Homaale
                                 </h6>
                                 <p>
                                     {" "}
@@ -46,7 +46,7 @@ const About: NextPage = () => {
                                                 emailValidationSchema
                                             }
                                             onSubmit={async (values) => {
-                                                console.log(values);
+                                                return;
                                             }}
                                         >
                                             {({ errors, touched }) => (
@@ -85,7 +85,7 @@ const About: NextPage = () => {
                                                 referralFormValidationSchema
                                             }
                                             onSubmit={async (values) => {
-                                                console.log(values);
+                                                return;
                                             }}
                                         >
                                             {({ errors, touched }) => (
@@ -128,7 +128,7 @@ const About: NextPage = () => {
                         </Row>
                     </div>
                     <div className="referral-page__bottom-container">
-                        <h1>How does it work?</h1>
+                        <h1>Post your skills</h1>
                         <Row className="gx-5">
                             {referralCardContent &&
                                 referralCardContent.map((referral) => {

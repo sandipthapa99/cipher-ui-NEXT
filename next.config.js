@@ -7,6 +7,8 @@ module.exports = {
     nextConfig,
     images: {
         domains: [
+            "test.cipher.api.cagtu.io",
+            "sandbox.cipher.api.cagtu.io",
             "cipher-media-files.s3.amazonaws.com",
             "blog.api.cagtu.io",
             "thispersondoesnotexist.com",
@@ -23,6 +25,7 @@ module.exports = {
             "172.16.16.123",
             "openweathermap.org",
             "cipher-media-files.s3.amazonaws.com",
+            "images.unsplash.com",
         ],
     },
 };

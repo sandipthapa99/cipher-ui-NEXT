@@ -8,7 +8,7 @@ import { growBusinessSteps } from "staticData/growBusiness";
 import { browseTasks, rules } from "staticData/how-to-find";
 const HowToFindTasks = () => {
     return (
-        <Layout title="How to find tasks | Cipher">
+        <Layout title="How to find tasks | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="find-tasks">
                     <BreadCrumb currentPage="How to find tasks" />
@@ -76,7 +76,7 @@ const HowToFindTasks = () => {
                             interview.
                         </p>
                         <iframe
-                            src="https://www.youtube.com/embed/E7wJTI-1dvQ"
+                            src={"https://www.youtube.com/embed/QIKZaRYg5bA"}
                             frameBorder="0"
                             allow="autoplay; encrypted-media"
                             allowFullScreen

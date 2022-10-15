@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import type { ServiceNearYou } from "types/serviceNearYouCards";
 
-import type { ServiceNearYou } from "../../staticData/servicesNearYouCard";
 import ServiceNearYouCard from "./searchAside";
 import SearchResultsDetail from "./SearchResultsDetails";
 
@@ -24,7 +24,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
             const service = servicesNearYou?.find(
                 (item) => item?.id === parseInt(serviceId as string)
             );
-            console.log("serviceId ......", service);
+
             setActiveService(service);
         }
     }, [router?.query, router?.query?.serviceId, servicesNearYou]);

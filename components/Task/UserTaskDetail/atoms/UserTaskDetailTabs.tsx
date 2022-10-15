@@ -1,17 +1,23 @@
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { AboutTasker } from "@components/Tasker/AboutTasker";
-import { useData } from "hooks/use-data";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Carousel } from "@mantine/carousel";
+import { Alert, Highlight } from "@mantine/core";
 import { useState } from "react";
-import { Col, Row } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { TaskerProps } from "types/taskerProps";
 
-interface UserTaskDetailTabs {
+interface UserTaskDetailTabsProps {
     taskerDetail: TaskerProps["result"][0];
+    taskerService: ServicesValueProps;
 }
 
-export const UserTaskDetailTabs = ({ taskerDetail }: UserTaskDetailTabs) => {
+export const UserTaskDetailTabs = ({
+    taskerDetail,
+    taskerService,
+}: UserTaskDetailTabsProps) => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
         <Tab
@@ -22,24 +28,56 @@ export const UserTaskDetailTabs = ({ taskerDetail }: UserTaskDetailTabs) => {
                     title: "About",
                     content: <AboutTasker taskerDetail={taskerDetail} />,
                 },
-                { title: "Services", content: <ServiceList /> },
+                {
+                    title: "Services",
+                    content: <ServiceList taskerService={taskerService} />,
+                },
                 // { title: "Documents", content: <div>Photos</div> },
             ]}
         />
     );
 };
-const ServiceList = () => {
-    const { data: servicesData } = useData<ServicesValueProps>(
-        ["all-services"],
-        "/task/service/"
-    );
+const ServiceList = ({
+    taskerService,
+}: {
+    taskerService: ServicesValueProps;
+}) => {
     return (
-        <Row className="td-user-services">
-            {servicesData?.data?.result?.map((service, key) => (
-                <Col key={key}>
-                    <ServiceCard serviceCard={service} />
-                </Col>
-            ))}
-        </Row>
+        <>
+            <Carousel
+                withIndicators
+                slideSize="40%"
+                slideGap="md"
+                className="mt-5"
+                dragFree
+                breakpoints={[
+                    { maxWidth: "md", slideSize: "50%" },
+                    { maxWidth: "xs", slideSize: "80%", slideGap: 0 },
+                ]}
+                align="start"
+            >
+                {taskerService?.result &&
+                    taskerService?.result?.map((service, key) => (
+                        <Carousel.Slide key={key}>
+                            <ServiceCard
+                                className="border border border-light"
+                                serviceCard={service}
+                            />
+                        </Carousel.Slide>
+                    ))}
+            </Carousel>
+            {!taskerService ||
+                (taskerService?.result?.length <= 0 && (
+                    <Alert
+                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        title="No data Available!"
+                        color="orange"
+                        radius="md"
+                        sx={{ minWidth: 100 }}
+                    >
+                        There are No Services by this user
+                    </Alert>
+                ))}
+        </>
     );
 };

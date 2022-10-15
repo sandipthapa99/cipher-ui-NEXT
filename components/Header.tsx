@@ -8,15 +8,17 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Modal } from "@mantine/core";
+import { Indicator } from "@mantine/core";
+import { useClickOutside } from "@mantine/hooks";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
+import { useGetNotification } from "hooks/Notifications/use-notification";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useWeather } from "hooks/weather/useWeather";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
 
@@ -27,10 +29,10 @@ import { RasifalSlideComponent } from "./Rasifal/RasifalSlideComponent";
 const Header = () => {
     const date = format(new Date(), "MMMM d");
     const { data: location } = useLocation();
-    // console.log(weather?.data);
+    //
 
     const { data: weather } = useWeather();
-    // console.log("weather", weather);
+    //
 
     const getIcon = weather?.weather[0].icon;
 
@@ -38,14 +40,9 @@ const Header = () => {
     const [notopen, setNotopen] = useState(false);
     const [rasifal, setRasifal] = useState(false);
     const { data: profileDetails } = useGetProfile();
+    const { data: allNotification } = useGetNotification();
 
-    // const handleBodyScroll = () => {
-    //     if (!rasifal) {
-    //         document.body.style.overflow = "hidden";
-    //     } else {
-    //         document.body.style.overflow = "unset";
-    //     }
-    // };
+    const notificationRef = useClickOutside(() => setNotopen(false));
 
     return (
         <>
@@ -55,10 +52,6 @@ const Header = () => {
                 className="site-header sticky-wrapper-header"
             >
                 <Container fluid="xl">
-                    <RasifalSlideComponent
-                        rasifal={rasifal}
-                        setRasifal={setRasifal}
-                    />
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
@@ -96,6 +89,22 @@ const Header = () => {
                                     </a>
                                 </Link>
                             </li>
+                            <li
+                                className={handleMenuActive(
+                                    "/category",
+                                    router
+                                )}
+                            >
+                                <Link href="/category">
+                                    <a className="nav-link d-none responsive-category">
+                                        <FontAwesomeIcon
+                                            icon={faObjectsColumn}
+                                            className="svg-icon d-none d-sm-inline-block"
+                                        />
+                                        Category
+                                    </a>
+                                </Link>
+                            </li>
                             <Dropdown>
                                 <li
                                     className={handleMenuActive(
@@ -104,7 +113,7 @@ const Header = () => {
                                     )}
                                 >
                                     <Link href="">
-                                        <a className="nav-link d-none d-md-inline-block">
+                                        <a className="nav-link d-none d-md-inline-block categories-menu">
                                             <FontAwesomeIcon
                                                 icon={faObjectsColumn}
                                                 className="svg-icon"
@@ -149,21 +158,6 @@ const Header = () => {
                             </a>
                         </Link>
 
-                        <Link href="#!">
-                            <a
-                                className="btn location-btn d-none d-md-inline-block"
-                                style={{ margin: "0 1.6rem 0 1.6rem" }}
-                                onClick={() =>
-                                    setRasifal(
-                                        (currentRasifal) => !currentRasifal
-                                    )
-                                }
-                            >
-                                राशिफल
-                            </a>
-                        </Link>
-
-                        {/* {location && (
                         {location && (
                             <Link href="#!">
                                 <a
@@ -177,10 +171,13 @@ const Header = () => {
                                     />
                                 </a>
                             </Link>
-                        )} */}
+                        )}
 
                         {profileDetails ? (
-                            <div>
+                            <div
+                                className="notification-icon-wrapper"
+                                ref={notificationRef}
+                            >
                                 <a
                                     className="btn location-btn d-none d-md-inline-block"
                                     onClick={() =>
@@ -189,17 +186,51 @@ const Header = () => {
                                         )
                                     }
                                 >
-                                    <FontAwesomeIcon
-                                        icon={faBell}
-                                        className="svg-icon"
-                                    />
+                                    <div className="bell-icon-header">
+                                        {allNotification &&
+                                        allNotification?.unread_count > 0 ? (
+                                            <Indicator
+                                                color="#e62e04"
+                                                label={
+                                                    allNotification?.unread_count
+                                                }
+                                                inline
+                                                size={15}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faBell}
+                                                    className="svg-icon"
+                                                />
+                                            </Indicator>
+                                        ) : (
+                                            <FontAwesomeIcon
+                                                icon={faBell}
+                                                className="svg-icon"
+                                            />
+                                        )}
+                                    </div>
                                 </a>
                                 {notopen && <NotificationDropdown />}
                             </div>
                         ) : null}
+
+                        <Link href="#!">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ margin: "0 1.6rem 0 1.6rem" }}
+                                onClick={() =>
+                                    setRasifal(
+                                        (currentRasifal) => !currentRasifal
+                                    )
+                                }
+                            >
+                                राशिफल
+                            </a>
+                        </Link>
                     </Navbar>
                 </Container>
             </header>
+            <RasifalSlideComponent rasifal={rasifal} setRasifal={setRasifal} />
             {/* Site Upper Header End */}
         </>
     );

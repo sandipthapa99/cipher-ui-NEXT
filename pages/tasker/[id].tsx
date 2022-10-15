@@ -1,14 +1,25 @@
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
+import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps } from "next";
+import type { ServicesValueProps } from "types/serviceCard";
 import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
 
-const TaskerDetail = ({ tasker }: { tasker: TaskerProps["result"][0] }) => {
+const TaskerDetail = ({
+    tasker,
+    taskerService,
+}: {
+    tasker: TaskerProps["result"][0];
+    taskerService: ServicesValueProps;
+}) => {
     return (
         <>
             <TaskerLayout>
-                <UserTaskDetail taskerDetail={tasker} />
+                <UserTaskDetail
+                    taskerService={taskerService}
+                    taskerDetail={tasker}
+                />
             </TaskerLayout>
         </>
     );
@@ -17,11 +28,7 @@ export default TaskerDetail;
 
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
-        const { data: taskerData } = await axiosClient.get("/tasker/");
-        console.log(
-            "tasker------------------------------",
-            JSON.stringify(taskerData, null, 4)
-        );
+        const { data: taskerData } = await axiosClient.get(urls.tasker.list);
         const paths = taskerData?.result?.map(
             ({ user: { id } }: TaskerProps["result"][0]) => ({
                 params: { id: id },
@@ -39,19 +46,29 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data } = await axiosClient.get<TaskerProps["result"][0]>(
-            `/tasker/profile/${params?.id}/`
+            `${urls.tasker.profile}${params?.id}/`
         );
+        const { data: taskerService } =
+            await axiosClient.get<ServicesValueProps>(
+                `${urls.task.service_per_user}${params?.id}`
+            );
 
         return {
             props: {
                 tasker: data,
+                taskerService,
             },
             revalidate: 10,
         };
     } catch (error: any) {
+        console.log(
+            "🚀 ~ file: [id].tsx ~ line 64 ~ constgetStaticProps:GetStaticProps= ~ error",
+            error
+        );
         return {
             props: {
                 tasker: {},
+                taskerService: {},
             },
             revalidate: 10,
         };

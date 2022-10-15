@@ -1,6 +1,7 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import { useQuery } from "@tanstack/react-query";
@@ -31,7 +32,7 @@ const Support = () => {
 
     return (
         <>
-            <Layout title="Feedback | Cipher">
+            <Layout title="Feedback | Homaale">
                 <BreadCrumb currentPage="Feedback" />
 
                 <section className="site-feedback">
@@ -70,12 +71,7 @@ const Support = () => {
                                         });
                                     }}
                                 >
-                                    {({
-                                        isSubmitting,
-                                        errors,
-                                        touched,
-                                        resetForm,
-                                    }) => (
+                                    {({ isSubmitting, errors, touched }) => (
                                         <Form>
                                             <InputField
                                                 type="text"
@@ -93,13 +89,14 @@ const Support = () => {
                                                 touch={touched.email}
                                                 placeHolder="Enter your email"
                                             />
-                                            <InputField
-                                                type="text"
-                                                name="phone"
+                                            <PhoneNumberInput
+                                                name={"phone"}
                                                 labelName="Phone Number"
                                                 touch={touched.phone}
                                                 error={errors.phone}
-                                                placeHolder="+00 420 420 4200"
+                                                placeHolder={
+                                                    "Enter your Phone Number"
+                                                }
                                             />
                                             <SelectInputField
                                                 name="type"

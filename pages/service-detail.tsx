@@ -1,11 +1,9 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
-import sCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
-import ServiceHighlights from "@components/common/ServiceHighlights";
 import ServiceProviderCard from "@components/common/serviceProviderCard";
 import ShareIcon from "@components/common/ShareIcon";
 import Tags from "@components/common/Tags";
@@ -19,9 +17,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
-import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 import type { ServicesValueProps } from "types/serviceCard";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
@@ -35,7 +31,7 @@ const ServiceDetail: NextPage = () => {
     );
 
     return (
-        <Layout title="Service Details | Cipher">
+        <Layout title="Service Details | Homaale">
             <BreadCrumb currentPage="Service Details" />
             <Container fluid="xl" className="px-0 px-sm-5">
                 <section className="service-details">
@@ -48,7 +44,10 @@ const ServiceDetail: NextPage = () => {
                                     <span>By Harry Smith, Gardener</span>
                                     <div className="d-flex justify-content-between align-items-center reactions">
                                         <div className="d-flex align-items-center me-4">
-                                            <SaveIcon />
+                                            <SaveIcon
+                                                object_id={""}
+                                                model={""}
+                                            />
                                             <span>Save</span>
                                         </div>
                                         <span className="d-flex align-items-center">
@@ -132,23 +131,25 @@ const ServiceDetail: NextPage = () => {
                     <div className="service-details__highlights">
                         <h1>Highlights</h1>
 
-                        <Row className="content gx-5 flex-column">
+                        {/* <Row className="content gx-5 flex-column">
                             {serviceHighlights &&
-                                serviceHighlights.map((name) => (
+                                serviceHighlights.map((highlight, key) => (
                                     // <div >
-                                    <Col key={name.id}>
-                                        <ServiceHighlights title={name.title} />
+                                    <Col key={key}>
+                                        <ServiceHighlights
+                                            highlight={highlight}
+                                        />
                                     </Col>
 
                                     // </div>
                                 ))}
-                        </Row>
+                        </Row> */}
                     </div>
                     {/* Service details highlights div end*/}
                     {/* Service details package and offers start */}
                     <div className="service-details__offers">
                         <h1>Packages &amp; Offers</h1>
-                        <Row className="gx-5 d-flex align-items-stretch">
+                        {/* <Row className="gx-5 d-flex align-items-stretch">
                             {PackageCard &&
                                 PackageCard.map((offer) => (
                                     <Col
@@ -158,7 +159,7 @@ const ServiceDetail: NextPage = () => {
                                         sm={6}
                                         key={offer.id}
                                     >
-                                        {/* <sCard
+                                        <sCard
                                             title={offer.title}
                                             price={offer.price.toString()}
                                             offers={offer.offers}
@@ -166,10 +167,10 @@ const ServiceDetail: NextPage = () => {
                                             isPermium={offer.isPermium}
                                             advantage={offer.advantage}
                                             isFromAddService={false}
-                                        /> */}
+                                        />
                                     </Col>
                                 ))}
-                        </Row>
+                        </Row> */}
                     </div>
 
                     {/* Service detail reviews div start */}
@@ -182,7 +183,7 @@ const ServiceDetail: NextPage = () => {
                                 initialValues={HomeSearchdata}
                                 validationSchema={HomeSearchSchema}
                                 onSubmit={async (values) => {
-                                    console.log(values);
+                                    return values;
                                 }}
                             >
                                 <SelectInputField
@@ -219,7 +220,7 @@ const ServiceDetail: NextPage = () => {
                     >
                         <div className="title-wrapper d-flex justify-content-between">
                             {/* <h2 className="heading-title">Community activity</h2> */}
-                            <h1>Popular on Cipher</h1>
+                            <h1>Popular on Homaale</h1>
                             <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}

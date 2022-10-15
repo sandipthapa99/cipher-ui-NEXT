@@ -9,16 +9,17 @@ import {
     faPencil,
     faPhone,
     faSparkles,
-    faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faCircle, faStar as rated } from "@fortawesome/pro-solid-svg-icons";
+import { faCircle } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Progress } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -27,41 +28,43 @@ import { toast } from "react-toastify";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
+import { getPageUrl } from "utils/helpers";
 
 import ProfileEditForm from "./ProfileEditForm";
+import { RatingStars } from "./RatingStars";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 const UserProfileCard = ({
-    userImage,
-    userJob,
-    userName,
-    userRating,
-    userPrice,
-    userLocation,
-    userPhone,
-    userEmail,
-    moreServices,
-    activeFrom,
-    activeTo,
-    userBio,
+    profile_image,
+    user,
+    user_type,
+    rating,
+    hourly_rate,
+    stats,
+    address_line1,
+    skill,
+    charge_currency,
+    active_hour_start,
+    active_hour_end,
+    bio,
+    phone,
     userBadge,
-    userPoints,
+    address_line2,
+    full_name,
+    points,
+    country,
     pointGoal,
-    happyClients,
-    successRate,
-    taskCompleted,
     tooltipMessage,
-    countryCode,
-    isProfileVerified,
+    is_profile_verified,
     field,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
-    const { data: country } = useGetCountryBYId(countryCode);
+    const { data: countryData } = useGetCountryBYId(country.id);
     const [image, setImage] = useState();
-    const [showModal, setShowModal] = useState(false);
-    const services = moreServices ? JSON.parse(moreServices) : [];
+    const services = skill ? JSON.parse(skill) : [];
     const queryClient = useQueryClient();
+
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
     //         <p key={index}>
@@ -74,9 +77,13 @@ const UserProfileCard = ({
     //         </p>
     //     )
     // );
+
+    const newProfileUrl = new URL(window.location.href);
+
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );
+
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
         formData.append("profile_image", data);
@@ -88,11 +95,12 @@ const UserProfileCard = ({
                 toast.success(data?.data?.message);
             },
             onError: (error: any) => {
-                toast.error(data?.data?.message);
+                toast.error(error?.data?.message);
             },
         });
     };
-    const userType: string[] = userJob ? JSON.parse(userJob) : [];
+
+    const userType: string[] = user_type ? JSON.parse(user_type) : [];
 
     const renderType = userType.map((type: string, index: number) => {
         return (
@@ -105,13 +113,35 @@ const UserProfileCard = ({
     const inputRef = useRef<HTMLInputElement>(null);
 
     const finalfrom =
-        activeFrom?.charAt(0) === "0" ? activeFrom?.slice(1) : activeFrom;
-    const finalto = activeTo?.charAt(0) === "0" ? activeTo?.slice(1) : activeTo;
+        active_hour_start?.charAt(0) === "0"
+            ? active_hour_start?.slice(1)
+            : active_hour_start;
+    const finalto =
+        active_hour_end?.charAt(0) === "0"
+            ? active_hour_end?.slice(1)
+            : active_hour_end;
 
     interface DropdownProps {
         children?: ReactNode;
     }
 
+    // const style = {
+    //     backgroundColor: "#d9d9d9",
+    //     height: "1.2rem",
+    //     width: "100%",
+    //     borderRadius: "7rem",
+
+    //     ":hover": {
+    //         width: "58vw",
+    //         content: "",
+    //         height: "1.2rem",
+    //         background:
+    //             "linearGradient(270.06deg,rgba(241, 163, 65, 0.58) 0.06%,e8b873 46.12%,#f79c19 86.42%)",
+    //         backgroundColor: "#111",
+    //     },
+    // };
+
+    const router = useRouter();
     const ProfileDropdown = ({ children }: DropdownProps) => {
         return (
             <div className="ellipsis">
@@ -151,17 +181,17 @@ const UserProfileCard = ({
 
     return (
         <div className="profile-card-block">
-            <Row>
+            <Row className="gx-5">
                 <Col md={3} className="profile-card-block__profile">
                     <figure className="profile-img mx-auto">
-                        {isProfileVerified ?? (
+                        {is_profile_verified ?? (
                             <FontAwesomeIcon
                                 icon={faBadgeCheck}
                                 className="badge-icon"
                             />
                         )}
 
-                        <div className="img-dragdrop d-flex align-items-center justify-content-center">
+                        {/* <div className="img-dragdrop d-flex align-items-center justify-content-center">
                             <label
                                 htmlFor="choosefile"
                                 className="browse text-primary"
@@ -183,16 +213,16 @@ const UserProfileCard = ({
                                     const files = event.target.files;
                                     field?.("image", (files ?? [])[0]);
                                     setImage(files[0]);
-                                    console.log("image=", image);
+                                    
                                     setShowEditForm(!showEditForm);
                                 }}
                             />
-                        </div>
+                        </div> */}
 
                         <Image
                             src={
-                                userImage
-                                    ? userImage
+                                profile_image
+                                    ? profile_image
                                     : "/userprofile/unknownPerson.jpg"
                             }
                             alt="profile-pic"
@@ -212,7 +242,7 @@ const UserProfileCard = ({
                         handleSubmit={() => onEditProfile(image)}
                     />
                     <div className="profile-intro d-flex">
-                        <h1 className="name text-center">{userName}</h1>
+                        <h1 className="name text-center">{full_name}</h1>
                         {/* <div className="active"></div> */}
                         <FontAwesomeIcon
                             icon={faCircle}
@@ -220,29 +250,16 @@ const UserProfileCard = ({
                         />
                     </div>
                     {renderType}
-                    <div className="rating">
-                        {Array.from({ length: userRating }, (_, i) => (
-                            <span key={i}>
-                                <FontAwesomeIcon
-                                    icon={rated}
-                                    className="svg-icon star rated-star"
-                                />
-                            </span>
-                        ))}
-                        {Array.from({ length: 5 - userRating }, (_, i) => (
-                            <span key={i}>
-                                {" "}
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="svg-icon star unrated"
-                                />
-                            </span>
-                        ))}
+
+                    <RatingStars value={rating > 0 ? rating : 0} />
+                    <div className="price">
+                        {charge_currency} {hourly_rate}/hr
                     </div>
-                    <div className="price">${userPrice}/hr</div>
                     <button
                         className="button"
-                        onClick={() => setShowEdit(!showEdit)}
+                        onClick={() =>
+                            router.push("/settings/account/individual")
+                        }
                     >
                         Edit Profile
                     </button>
@@ -250,7 +267,7 @@ const UserProfileCard = ({
                         show={showEdit}
                         setShowEdit={setShowEdit}
                         handleClose={() => setShowEdit(false)}
-                        userName={userName}
+                        userName={user.username}
                     />
                 </Col>
 
@@ -265,19 +282,44 @@ const UserProfileCard = ({
                                         icon={faPhone}
                                         className="thumbnail-img"
                                     />
-
-                                    <p>
-                                        +{country?.phone_code}
-                                        {userPhone}
-                                    </p>
+                                    {user.phone ? (
+                                        <p>
+                                            {countryData?.phone_code}
+                                            {user.phone
+                                                ? user.phone
+                                                : "Add new phone number"}
+                                        </p>
+                                    ) : (
+                                        <Link href="/settings/account/security">
+                                            Add a phone number.
+                                        </Link>
+                                    )}
                                 </div>
+                                {/* {user.email && (
+                                    <div className="type d-flex flex-col">
+                                        <FontAwesomeIcon
+                                            icon={faAt}
+                                            className="thumbnail-img"
+                                        />
+
+                                        <p>{user.email}</p>
+                                    </div>
+                                )} */}
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faAt}
                                         className="thumbnail-img"
                                     />
-
-                                    <p>{userEmail}</p>
+                                    {user.email ? (
+                                        <p>{user.email}</p>
+                                    ) : (
+                                        <Link
+                                            className="text-Link"
+                                            href="/settings/account/security"
+                                        >
+                                            Add an email.
+                                        </Link>
+                                    )}
                                 </div>
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
@@ -285,7 +327,7 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>{userLocation}</p>
+                                    <p>{address_line2}</p>
                                 </div>
 
                                 <div className="type d-flex flex-col">
@@ -301,30 +343,27 @@ const UserProfileCard = ({
                                     </p>
                                 </div>
 
-                                <div className="success-rate type d-flex flex-col">
-                                    <div className="count d-flex flex-row">
-                                        <FontAwesomeIcon
-                                            icon={faSparkles}
-                                            className="thumbnail-img"
-                                        />
-                                        {services
-                                            ? services.map(
-                                                  (info: any, index: any) => (
-                                                      <p key={index}>
-                                                          &nbsp;{info}
-                                                          {index <
-                                                          services.length - 2
-                                                              ? ", "
-                                                              : index <
-                                                                services.length -
-                                                                    1
-                                                              ? " and"
-                                                              : ""}
-                                                      </p>
-                                                  )
+                                <div className="type d-flex flex-wrap flex-col">
+                                    <FontAwesomeIcon
+                                        icon={faSparkles}
+                                        className="thumbnail-img"
+                                    />
+                                    {services
+                                        ? services.map(
+                                              (info: any, index: any) => (
+                                                  <span key={index}>
+                                                      &nbsp;{info}
+                                                      {index <
+                                                      services.length - 2
+                                                          ? ", "
+                                                          : index <
+                                                            services.length - 1
+                                                          ? " and"
+                                                          : ""}
+                                                  </span>
                                               )
-                                            : "No skills to show. Please add them"}
-                                    </div>
+                                          )
+                                        : "No skills to show. Please add them"}
                                 </div>
                             </div>
                         </Col>
@@ -332,11 +371,11 @@ const UserProfileCard = ({
                             <div className="reactions d-flex align-items-center">
                                 <div className="d-flex flex-col share">
                                     <ShareIcon
-                                        url={`http://localhost:3005/profile/`}
+                                        url={`${newProfileUrl.origin}/tasker/${user.id}`}
                                         quote={
-                                            "Hi guys checkout my Cipher Profile"
+                                            "Hi guys checkout my Homaale Profile"
                                         }
-                                        hashtag={"cipher-profile"}
+                                        hashtag={"Homaale-profile"}
                                     />
                                 </div>
                                 <ProfileDropdown>
@@ -348,7 +387,7 @@ const UserProfileCard = ({
                             </div>
                             <div className="bio d-flex">
                                 <p className="title">Bio</p>
-                                <p className="details">{userBio}</p>
+                                <p className="details">{bio}</p>
                             </div>
                             <div className="user-type-status">
                                 <figure className="thumbnail-img">
@@ -374,11 +413,19 @@ const UserProfileCard = ({
                                     </div>
 
                                     <p className="user-point">
-                                        {userPoints} points
+                                        {points} points
                                     </p>
-                                    <div className="progress-bar"></div>
+                                    <div>
+                                        <Progress
+                                            color="yellow"
+                                            value={points}
+                                        />
+                                    </div>
+                                    {/* <div className="progress-bar">
+                                        <div className="inside-progress-bar"></div>
+                                    </div> */}
                                     <p>
-                                        Earn {pointGoal} points more to reach
+                                        Earn {100 - points} points more to reach
                                         Gold
                                     </p>
                                 </div>
@@ -388,7 +435,9 @@ const UserProfileCard = ({
                     <Row className="d-flex status">
                         <Col md={3} xs={6}>
                             <div className="type success-rate">
-                                <h1 className="number">{successRate}</h1>
+                                <h1 className="number">
+                                    {stats?.success_rate}
+                                </h1>
                                 <p>
                                     Success
                                     <br />
@@ -398,7 +447,9 @@ const UserProfileCard = ({
                         </Col>
                         <Col md={3} xs={6}>
                             <div className="type happy-clients">
-                                <h1 className="number">{happyClients}</h1>
+                                <h1 className="number">
+                                    {stats?.happy_clients}
+                                </h1>
                                 <p>
                                     Happy
                                     <br />
@@ -409,7 +460,9 @@ const UserProfileCard = ({
 
                         <Col md={3} xs={6}>
                             <div className="type task-completed">
-                                <h1 className="number">{taskCompleted}</h1>
+                                <h1 className="number">
+                                    {stats?.task_completed}
+                                </h1>
                                 <p>
                                     Tasks
                                     <br />
@@ -420,7 +473,9 @@ const UserProfileCard = ({
                         <Col md={3} xs={6}>
                             {" "}
                             <div className="type user-reviews">
-                                <h1 className="number">{taskCompleted}</h1>
+                                <h1 className="number">
+                                    {stats?.user_reviews}
+                                </h1>
                                 <p>
                                     User
                                     <br />

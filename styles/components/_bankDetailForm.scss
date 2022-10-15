@@ -1,0 +1,103 @@
+.bank-form {
+    .checkbox {
+        span {
+            margin-left: 0.9rem;
+            font-weight: 500;
+            color: $secondary-text-color;
+        }
+        margin-bottom: 1.9rem;
+    }
+    a {
+        font-weight: 500;
+        font-size: 1.6rem;
+    }
+}
+
+.bank-details {
+    background: #ffffff;
+    margin: 2.5rem 0rem;
+    h3,
+    h5 {
+        font-weight: 500;
+    }
+    .content {
+        margin: 0 0 3.2rem 0;
+        font-size: 2rem;
+        font-weight: 500;
+        padding-top: 7rem;
+        padding-left: 3rem;
+        @include respond(md) {
+            padding-left: 5rem;
+        }
+        @include respond(lg) {
+            padding-left: 8rem;
+        }
+    }
+    .bank-form {
+        padding-top: 0rem;
+    }
+
+    .account-wrapper {
+        flex-direction: column;
+        margin-right: 2.5rem;
+        .edit-icon {
+            color: #3eaeff;
+            margin-left: auto;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        .account-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            p {
+                margin-left: 2rem;
+                margin-bottom: 0rem;
+                color: #211d4f;
+                font-size: 1.3rem;
+                font-weight: 400;
+            }
+        }
+        .thumbnail-img {
+            height: 3.8rem;
+            width: 3.8rem;
+        }
+        .linked {
+            margin-left: auto;
+            width: 11rem;
+            text-align: right;
+            display: flex;
+            justify-content: center;
+            /* justify-content: flex-end; */
+            margin-top: 1rem;
+            color: #3eaeff;
+            margin-right: 2rem;
+            a {
+                color: #3eaeff;
+                padding-top: 0rem;
+                margin: 0rem;
+                text-decoration: none;
+            }
+            a,
+            .svg-icon {
+                padding: 0.5rem;
+            }
+            .primary,
+            .linked-icons {
+                background: #ecf7ff;
+                border-radius: 0.5rem;
+                .svg-icon {
+                    margin: auto;
+                    padding: 0.5rem 0.7rem;
+                }
+            }
+            .linked-icons {
+                display: flex;
+                background: #ecf7ff;
+                margin-left: 1rem;
+                padding-left: 1.9rem;
+                padding-right: 1.4rem;
+            }
+        }
+    }
+}

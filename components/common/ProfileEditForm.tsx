@@ -23,6 +23,7 @@ import { axiosClient } from "utils/axiosClient";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
+import PhoneNumberInput from "./PhoneNumberInput";
 import TagInputField from "./TagInputField";
 
 interface ProfileEditProps {
@@ -64,7 +65,7 @@ const ProfileEditForm = ({
         editProfile.mutate(data, {
             onSuccess: (data) => {
                 if (data?.data?.status === "failure") {
-                    console.log("Error", data);
+                    toast.error(data?.data?.message);
                 } else {
                     toast.success(data?.data?.message);
                     queryClient.invalidateQueries(["profile"]);
@@ -86,11 +87,13 @@ const ProfileEditForm = ({
                     <h3>Edit Profile</h3>
                     <Formik
                         initialValues={{
-                            full_name: profile?.full_name ?? "",
+                            first_name: profile?.user?.first_name ?? "",
+                            middle_name: profile?.user?.middle_name ?? "",
+                            last_name: profile?.user?.last_name ?? "",
                             bio: profile?.bio ?? "",
-                            phone:
-                                profile?.phone ??
-                                Math.floor(Math.random() * 1000000000),
+                            // phone:
+                            //     profile?.phone ??
+                            //     Math.floor(Math.random() * 1000000000),
                             address_line1: profile?.address_line1 ?? "",
                             address_line2: profile?.address_line2 ?? "",
                             active_hour_start:
@@ -119,14 +122,47 @@ const ProfileEditForm = ({
                             // toggleSuccessModal();
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, values }) => (
                             <Form>
+                                {/* <pre>{JSON.stringify(values, null, 4)}</pre>; */}
+                                <Row>
+                                    <Col md={4}>
+                                        <InputField
+                                            type="text"
+                                            name="first_name"
+                                            labelName=" First Name"
+                                            error={errors.first_name}
+                                            touch={touched.first_name}
+                                            placeHolder="Enter your first name"
+                                        />
+                                    </Col>
+                                    <Col md={4}>
+                                        <InputField
+                                            type="text"
+                                            name="middle_name"
+                                            labelName="Middle Name"
+                                            error={errors.middle_name}
+                                            touch={touched.middle_name}
+                                            placeHolder="Enter your middle name"
+                                        />
+                                    </Col>
+                                    <Col md={4}>
+                                        <InputField
+                                            type="text"
+                                            name="last_name"
+                                            labelName="Last Name"
+                                            error={errors.last_name}
+                                            touch={touched.last_name}
+                                            placeHolder="Enter your last name"
+                                        />
+                                    </Col>
+                                </Row>
                                 <InputField
                                     type="text"
-                                    name="full_name"
+                                    name="first_name"
                                     labelName="Name"
-                                    error={errors.full_name}
-                                    touch={touched.full_name}
+                                    error={errors.first_name}
+                                    touch={touched.first_name}
                                     placeHolder="Enter your name"
                                 />
                                 <InputField
@@ -137,17 +173,17 @@ const ProfileEditForm = ({
                                     placeHolder="Enter your bio"
                                     as="textarea"
                                 />
-                                <Row className="g-5">
+                                {/* <Row className="g-5">
                                     <Col md={6}>
-                                        <InputField
-                                            name="phone"
+                                        <PhoneNumberInput
+                                            name={"phone"}
+                                            fieldRequired={true}
                                             labelName="Phone Number"
                                             touch={touched.phone}
                                             error={errors.phone}
-                                            placeHolder="Enter your phone number"
                                         />
                                     </Col>
-                                </Row>
+                                </Row> */}
                                 <InputField
                                     type="text"
                                     name="address_line1"
@@ -240,10 +276,9 @@ const ProfileEditForm = ({
                                         Dribble
                                     </span>
                                 </div>
-
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -253,7 +288,7 @@ const ProfileEditForm = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting

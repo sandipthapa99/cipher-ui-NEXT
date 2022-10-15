@@ -1,106 +1,107 @@
 import Advertisement from "@components/Advertisement/Advertisement";
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
-import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
-import { TopCategories } from "@components/Category/TopCategories";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
-import { HoroscopeCard } from "@components/common/HoroscopeCard";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
-import RecommendationChips from "@components/common/RecommendationChips";
 import { Search } from "@components/common/Search";
-import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
-import { HoroscopeSlider } from "@components/HoroscopeSlider";
 import Layout from "@components/Layout";
+import { LoginPrompt } from "@components/model/LoginPrompt";
+import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faAngleRight,
-    faChevronCircleRight,
-    faSearch,
+    faArrowLeft,
+    faArrowRight,
+    faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Divider, Grid, Skeleton, Space } from "@mantine/core";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { Formik } from "formik";
-import { useTaskers } from "hooks/tasker/use-tasker";
-import { useData } from "hooks/use-data";
-import { key } from "localforage";
+import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
+import urls from "constants/urls";
+import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Alert, Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
+import { toast } from "react-toastify";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
-import { HoroscopeCardData } from "staticData/horoscopeCardData";
+import {
+    useOpenLoginPrompt,
+    useShowLoginPrompt,
+    useWithLogin,
+} from "store/use-login-prompt-store";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
+import type { CategoryDataProps } from "types/categoryData";
 import type { HeroCategoryProps } from "types/heroCategory";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { SuccessStoryProps } from "types/successStory";
 import type { ITaskApiResponse } from "types/task";
+import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
-import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
-import { HomeSearchdata } from "utils/homeSearchData";
-import { myOptions } from "utils/options";
 
-interface LandingPageProps {
+const Home: NextPage<{
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
     heroCategoryData: HeroCategoryProps;
-}
+    topCategoryData: CategoryDataProps;
+    topTaskerData: TaskerProps;
+    blogData: BlogValueProps;
+    recommendedTasksData: ITaskApiResponse;
+    servicesData: ServicesValueProps;
+}> = ({
+    successStoryData,
+    trustedPartnerData,
+    heroCategoryData,
+    topCategoryData,
+    topTaskerData,
+    blogData,
+    recommendedTasksData,
+    servicesData,
+}) => {
+    const [isClient, setIsClient] = useState(false);
 
-const Home: NextPage<{
-    successStoryData: LandingPageProps["successStoryData"];
-    trustedPartnerData: LandingPageProps["trustedPartnerData"];
-    heroCategoryData: LandingPageProps["heroCategoryData"];
-}> = ({ successStoryData, trustedPartnerData, heroCategoryData }) => {
-    const { data: blogData, isLoading: blogLoading } = useData<BlogValueProps>(
-        ["all-blogs"],
-        "/blog/"
-    );
-    const { data: servicesData, isLoading: serviceLoading } =
-        useData<ServicesValueProps>(["all-services"], "/task/service/");
+    const loginPopup = useWithLogin();
 
-    //for tasks
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
+    const { data: profile } = useGetProfile();
+    const { data: userData } = useUser();
+    const showLoginPrompt = useOpenLoginPrompt();
 
-    const { data: recommendedTasksData, isLoading: taskLoading } =
-        useData<ITaskApiResponse>(
-            ["all-tasks"],
-            "/task/?recommendation=you may like"
-        );
-    const [chips, setChips] = useState([
-        "Garden Cleaner",
-        "Plumber",
-        "Electrician",
-        "Washing Machine",
-    ]);
-
-    const { data: allTaskers, isLoading: taskerLoading } = useTaskers();
-
-    const removeChip = (chip: string) => {
-        setChips((prevChips) =>
-            prevChips.filter((currentChip) => chip !== currentChip)
-        );
+    const handleShowPostTaskModal = () => {
+        if (!userData) {
+            showLoginPrompt();
+            return;
+        }
+        if (!profile) {
+            toast.error(
+                <ProfileNotCompleteToast text="Please create your profile to go on further." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
+            return;
+        }
+        toggleShowPostTaskModal();
     };
-    const [postTaskPopup, setPostTaskPopup] = useState(true);
 
-    const handleClosePosttaskPopup = () => {
-        setPostTaskPopup(false);
-    };
-    const router = useRouter();
-
+    useEffect(() => setIsClient(true), []);
+    if (!isClient) return null;
     return (
-        <Layout title="Cipher - Catering to Your Requirements">
+        <Layout title="Homaale - Catering to Your Requirements">
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
                     <Row className="gx-5 hero-content">
@@ -124,28 +125,30 @@ const Home: NextPage<{
                             )} */}
 
                             <div className="come-with-us">
-                                <h1>Join CIPHER for</h1>
+                                <h1>Join Homaale To</h1>
                                 <div className="d-flex buttons">
-                                    <Link href="/task">
-                                        <a href="" className="hero-cta">
+                                    <Link href="/earn-money">
+                                        <a className="hero-cta">
                                             Earn Money as a Professional
                                         </a>
                                     </Link>
-                                    <Link href="/post-task">
-                                        <a href="" className="hero-cta">
-                                            Post a Task
-                                        </a>
-                                    </Link>
+
+                                    <a
+                                        className="hero-cta"
+                                        onClick={handleShowPostTaskModal}
+                                    >
+                                        Post a Task
+                                    </a>
                                 </div>
                             </div>
                         </Col>
                         <Col md="6" className="right">
                             <figure className="new-img">
                                 <Image
-                                    src="/hero-img.svg"
+                                    src="/heroImages/hero2.png"
                                     alt="hero-img"
-                                    height={600}
-                                    width={600}
+                                    height={700}
+                                    width={700}
                                     // objectFit="contain"
                                 />
                             </figure>
@@ -156,7 +159,7 @@ const Home: NextPage<{
                         {heroCategoryData &&
                         heroCategoryData?.result?.length > 0 ? (
                             <Carousel
-                                height={100}
+                                // height={150}
                                 slideSize="25%"
                                 slideGap="md"
                                 breakpoints={[
@@ -169,30 +172,48 @@ const Home: NextPage<{
                                 ]}
                                 loop
                                 align="start"
+                                nextControlIcon={
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                }
+                                previousControlIcon={
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                }
                             >
-                                {heroCategoryData.result
-                                    .slice(0, 8)
-                                    .map((category) => {
-                                        return (
-                                            <Carousel.Slide key={category.id}>
-                                                <CategoryCardNew
-                                                    categoryTitle={
-                                                        category?.category?.name
-                                                    }
-                                                    categoryIcon={
-                                                        category.category?.icon
-                                                    }
-                                                    categorySlug={
-                                                        category?.category?.slug
-                                                    }
-                                                />
-                                            </Carousel.Slide>
-                                        );
-                                    })}
+                                {heroCategoryData &&
+                                    heroCategoryData?.result
+                                        .slice(0, 8)
+                                        .map((category) => {
+                                            return (
+                                                <Carousel.Slide
+                                                    key={category.id}
+                                                >
+                                                    <CategoryCardNew
+                                                        categoryTitle={
+                                                            category?.category
+                                                                ?.name
+                                                        }
+                                                        categoryIcon={
+                                                            category.category
+                                                                ?.icon
+                                                        }
+                                                        categorySlug={
+                                                            category?.category
+                                                                ?.slug
+                                                        }
+                                                    />
+                                                </Carousel.Slide>
+                                            );
+                                        })}
                             </Carousel>
                         ) : (
-                            <Alert variant="warning mb-5">
-                                No Data to Display!
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                There are No Data available
                             </Alert>
                         )}
                     </Row>
@@ -237,47 +258,27 @@ const Home: NextPage<{
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        <h2 className="heading-title">
-                            Popular Verified Services
-                        </h2>
-                        <Link href="/service">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline mt-5">
+                        {servicesData && servicesData?.result?.length > 0 && (
+                            <>
+                                <h2 className="heading-title">
+                                    Trending Verified Services
+                                </h2>
+                                <Link href="/service">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
+                                        />
+                                    </a>
+                                </Link>
+                            </>
+                        )}
                     </div>
-                    {serviceLoading && (
-                        <Grid>
-                            {Array.from({ length: 4 }).map((_, key) => (
-                                <Grid.Col span={3} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={80} mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                    </div>
-                                </Grid.Col>
-                            ))}
-                        </Grid>
-                    )}
-
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result
+                            servicesData?.result
                                 ?.slice(0, 4)
                                 .map((service, key) => {
                                     return (
@@ -305,45 +306,26 @@ const Home: NextPage<{
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        <h2 className="heading-title">Services near you</h2>
-
-                        <Link href="/service">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    {serviceLoading && (
-                        <Grid>
-                            {Array.from({ length: 4 }).map((_, key) => (
-                                <Grid.Col span={3} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={80} mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                    </div>
-                                </Grid.Col>
-                            ))}
-                        </Grid>
+                    {servicesData && servicesData?.result?.length > 0 && (
+                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                            <h2 className="heading-title">Services near you</h2>
+                            <Link href="/service">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        </div>
                     )}
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result
+                            servicesData?.result
+                                ?.filter(
+                                    (result) => result?.share_location === true
+                                )
                                 ?.slice(0, 4)
                                 .map((service, key) => {
                                     return (
@@ -367,45 +349,29 @@ const Home: NextPage<{
 
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        <h2 className="heading-title">Professional Services</h2>
-                        <Link href="/service">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    {serviceLoading && (
-                        <Grid>
-                            {Array.from({ length: 4 }).map((_, key) => (
-                                <Grid.Col span={3} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={80} mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
+                    {servicesData &&
+                        servicesData?.result?.filter((q) => q.is_professional)
+                            .length > 0 && (
+                            <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                                <h2 className="heading-title">
+                                    Professional Services
+                                </h2>
+                                <Link href="/service">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
                                         />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                    </div>
-                                </Grid.Col>
-                            ))}
-                        </Grid>
-                    )}
+                                    </a>
+                                </Link>
+                            </div>
+                        )}
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result
-                                ?.slice(0, 4)
+                            servicesData?.result
+                                ?.filter((q) => q.is_professional)
+                                .slice(0, 4)
                                 .map((service) => {
                                     return (
                                         <Col
@@ -426,7 +392,7 @@ const Home: NextPage<{
             </section>
 
             {/* Get services section start */}
-            <section className="get-services">
+            {/* <section className="get-services">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
                         Book Your Services in an Instant
@@ -451,6 +417,20 @@ const Home: NextPage<{
                         </li>
                     </ul>
 
+                    {heroCategoryData ??
+                        (heroCategoryData?.result.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No Category"}>
+                                    {`There are No Category available`}
+                                </Highlight>
+                            </Alert>
+                        ))}
                     <Row className="gx-5 hero-category">
                         {heroCategoryData?.result &&
                             heroCategoryData?.result
@@ -491,11 +471,11 @@ const Home: NextPage<{
                         </Link>
                     </div>
                 </Container>
-            </section>
+            </section> */}
             {/* Get services section end */}
 
             {/* Find & Hire section start */}
-            <section id="find-hire" className="find-hire">
+            <section id="find-hire" className="find-hire mt-4">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">Find &amp; Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
@@ -522,121 +502,102 @@ const Home: NextPage<{
             </section>
             {/* Find & Hire section end */}
 
-            {/* Horoscope section starts */}
-            {/* <section
-                id="horoscope-slider-section"
-                className="horoscope-slider-section"
-            >
-                <Container className="px-5" fluid="xl">
-                    <h1 className="text-center">Horoscopes</h1>
-                    <HoroscopeSlider />
-                </Container>
-            </section> */}
-            {/* Horoscope section ends */}
-
             {/* Top Taksers Section Start */}
-            <section id="top-merchants" className="top-merchants">
-                <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        <h2 className="heading-title">Top Taskers</h2>
-                        <Link href="/tasker">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    {taskerLoading && (
-                        <Grid>
-                            {Array.from({ length: 4 }).map((_, key) => (
-                                <Grid.Col span={3} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={80} circle mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Divider my={"sm"} color="#F1F3F5" />
-                                        <Skeleton
-                                            height={50}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                        <Divider my={"sm"} color="#F1F3F5" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Skeleton
-                                            height={30}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                    </div>
-                                </Grid.Col>
-                            ))}
-                        </Grid>
-                    )}
-                    <Row className="gx-5">
-                        {allTaskers &&
-                            allTaskers?.slice(0, 4)?.map((merchant, index) => {
-                                return (
-                                    <Col
-                                        md={6}
-                                        lg={3}
-                                        sm={6}
-                                        xl={3}
-                                        key={index}
-                                        className="d-flex"
-                                    >
-                                        <MerchantCard
-                                            onClick={() =>
-                                                router.push({
-                                                    pathname: `/tasker/${merchant.user.id}`,
-                                                })
-                                            }
-                                            merchantImage={
-                                                merchant?.user?.profile_image
-                                            }
-                                            merchantName={
-                                                merchant?.user?.full_name
-                                            }
-                                            merchantCategory={
-                                                merchant?.designation
-                                            }
-                                            merchantLocation={
-                                                merchant?.address_line1 +
-                                                " " +
-                                                merchant?.address_line2
-                                            }
-                                            merchantDescription={merchant?.bio}
-                                            merchantRating={
-                                                merchant?.stats?.user_reviews
-                                            }
-                                            merchantPrice={
-                                                merchant?.charge_currency +
-                                                merchant?.hourly_rate
-                                            }
-                                            happyClients={
-                                                merchant?.stats?.happy_clients
-                                            }
-                                            successRate={
-                                                merchant?.stats?.success_rate
-                                            }
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
-                </Container>
-            </section>
+            {topTaskerData?.result?.length != 0 && (
+                <section id="top-merchants" className="top-merchants">
+                    <Container fluid="xl" className="px-5">
+                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                            <h2 className="heading-title">Top Taskers</h2>
+                            {topTaskerData?.result &&
+                                topTaskerData?.result?.length > 0 && (
+                                    <Link href="/service">
+                                        <a className="view-more">
+                                            view more{" "}
+                                            <FontAwesomeIcon
+                                                icon={faAngleRight}
+                                                className="svg-icon"
+                                            />
+                                        </a>
+                                    </Link>
+                                )}
+                        </div>
+                        {topTaskerData?.result &&
+                            topTaskerData?.result?.length <= 0 && (
+                                <Alert
+                                    icon={<FontAwesomeIcon icon={faWarning} />}
+                                    title="No data Available!"
+                                    color="orange"
+                                    radius="md"
+                                    sx={{ minWidth: 100 }}
+                                >
+                                    There are No Top Taskers available
+                                </Alert>
+                            )}
+                        <Row className="gx-5">
+                            {topTaskerData &&
+                                topTaskerData?.result
+                                    ?.slice(0, 4)
+                                    ?.map((merchant, index) => {
+                                        return (
+                                            <Col
+                                                md={6}
+                                                lg={3}
+                                                sm={6}
+                                                xl={3}
+                                                key={index}
+                                                className="d-flex"
+                                            >
+                                                <MerchantCard
+                                                    merchantImage={
+                                                        merchant?.user
+                                                            ?.profile_image
+                                                    }
+                                                    merchantName={
+                                                        merchant?.user
+                                                            ?.first_name
+                                                    }
+                                                    merchantCategory={
+                                                        merchant?.designation
+                                                    }
+                                                    merchantLocation={
+                                                        merchant?.address_line1 +
+                                                        " " +
+                                                        merchant?.address_line2
+                                                    }
+                                                    merchantDescription={
+                                                        merchant?.bio
+                                                    }
+                                                    merchantRating={
+                                                        merchant?.rating
+                                                            ?.avg_rating
+                                                    }
+                                                    merchantPrice={
+                                                        merchant?.hourly_rate
+                                                    }
+                                                    currency={
+                                                        merchant
+                                                            ?.charge_currency
+                                                            ?.code
+                                                    }
+                                                    happyClients={
+                                                        merchant?.stats
+                                                            ?.happy_clients
+                                                    }
+                                                    successRate={
+                                                        merchant?.stats
+                                                            ?.success_rate
+                                                    }
+                                                    merchantId={
+                                                        merchant?.user?.id
+                                                    }
+                                                />
+                                            </Col>
+                                        );
+                                    })}
+                        </Row>
+                    </Container>
+                </section>
+            )}
             {/* Top Taskers Section End */}
 
             {/* Gradient Banner section Start */}
@@ -665,80 +626,36 @@ const Home: NextPage<{
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                        <h2 className="heading-title">Tasks You May Like</h2>
-                        <Link href="/task-you-may-like">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    {taskLoading && (
-                        <Grid>
-                            {Array.from({ length: 2 }).map((_, key) => (
-                                <Grid.Col span={6} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={60} mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
+                    {recommendedTasksData &&
+                        recommendedTasksData?.result?.length > 0 && (
+                            <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                                <h2 className="heading-title">
+                                    Tasks You May Like
+                                </h2>
+                                <Link href="/task-you-may-like">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
                                         />
-                                        <Space h={20} />
-                                        <Skeleton
-                                            height={30}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                        <Space h={20} />
-                                        <hr />
-                                        <Space h={10} />
-                                        <Skeleton
-                                            height={30}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                    </div>
-                                </Grid.Col>
-                            ))}
-                        </Grid>
-                    )}
-                    <Row className="gx-5">
-                        {recommendedTasksData?.data?.result?.map(
-                            (task, key) => (
-                                <Col md={6} key={key}>
-                                    <Link
-                                        href={`/task-you-may-like/${task.slug}`}
-                                    >
-                                        <a>
-                                            <TaskCard
-                                                title={task?.title}
-                                                id={task?.id}
-                                                charge={task?.charge}
-                                                description={task?.description}
-                                                location={task?.location}
-                                                start_date={task?.start_date}
-                                                start_time={task?.start_time}
-                                                status={task?.status}
-                                                currency={task?.currency}
-                                            />
-                                        </a>
-                                    </Link>
-                                </Col>
-                            )
+                                    </a>
+                                </Link>
+                            </div>
                         )}
+                    <Row className="gx-5">
+                        {recommendedTasksData?.result?.map((task, key) => (
+                            <Col md={6} key={key}>
+                                <TaskCard task={task} />
+                            </Col>
+                        ))}
                     </Row>
                 </Container>
             </section>
             {/* Tasks you may like section end */}
 
             {/* some success stories sectioin start */}
+
             <section
                 id="some-success-stories-section"
                 className="some-success-stories-section"
@@ -746,16 +663,43 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
                         <h1 className="text-center">
-                            3003,0330 Taskers have earned an income on Cipher
+                            Bridging the gap between individuals
                         </h1>
-                        <h3 className="text-center">Some Success Stories</h3>
+                        <h3 className="text-center">HOMAALE Stories</h3>
                     </div>
-                    {successStoryData?.result?.slice(0, 1).map((value, key) => (
-                        <PersonalSuccessCard
-                            successStoryData={value}
-                            key={key}
-                        />
-                    ))}
+                    {topCategoryData?.length <= 0 && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            There are No Success Stories available
+                        </Alert>
+                    )}
+                    <Carousel
+                        mx="auto"
+                        styles={{
+                            control: {
+                                "&[data-inactive]": {
+                                    opacity: 0,
+                                    cursor: "default",
+                                },
+                            },
+                        }}
+                        className="rounded"
+                        withIndicators
+                    >
+                        {successStoryData &&
+                            successStoryData?.result?.map((value, key) => (
+                                <Carousel.Slide key={key}>
+                                    <PersonalSuccessCard
+                                        successStoryData={value}
+                                    />
+                                </Carousel.Slide>
+                            ))}
+                    </Carousel>
                 </Container>
             </section>
 
@@ -763,9 +707,10 @@ const Home: NextPage<{
             <section id="notable-quality" className="notable-quality">
                 <Container fluid="xl" className="px-5">
                     <LongSquareImageCard
-                        title="Cipher Notable quality"
+                        title="Homaale Notable quality"
                         image="/groupB.png"
                         imageOnRight={true}
+                        homeImage={true}
                         description={quality}
                     />
                 </Container>
@@ -777,69 +722,33 @@ const Home: NextPage<{
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                        <h2 className="heading-title">Our blogs</h2>
-                        <Link href="/blogs">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    {blogLoading && (
-                        <Grid gutter="xl">
-                            {Array.from({ length: 3 }).map((_, key) => (
-                                <Grid.Col span={4} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={60} mb="xl" />
-                                        <Space h={20} />
-                                        <Skeleton
-                                            height={30}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                        <Skeleton
-                                            height={30}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Space h={20} />
-                                        <Space h={10} />
-                                        <Skeleton
-                                            height={30}
-                                            mt={6}
-                                            width="40%"
-                                            radius="xl"
-                                        />
-                                    </div>
-                                </Grid.Col>
-                            ))}
-                        </Grid>
+                    {blogData && blogData?.result?.length > 0 && (
+                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                            <h2 className="heading-title">Our blogs</h2>
+                            <Link href="/blogs">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        </div>
                     )}
                     <Row className="gx-5">
-                        {blogData
-                            ? blogData?.data?.result
-                                  ?.slice(0, 3)
-                                  .map((blog, key) => {
-                                      return (
-                                          <Col
-                                              className="d-flex align-items-stretch"
-                                              // sm={6}
-                                              md={4}
-                                              // lg={4}
-                                              key={key}
-                                          >
-                                              <CommunityBlogCard
-                                                  blogData={blog}
-                                              />
-                                          </Col>
-                                      );
-                                  })
-                            : "No blogs recorded"}
+                        {blogData &&
+                            blogData?.result?.slice(0, 3).map((blog, key) => {
+                                return (
+                                    <Col
+                                        className="d-flex align-items-stretch"
+                                        md={4}
+                                        key={key}
+                                    >
+                                        <CommunityBlogCard blogData={blog} />
+                                    </Col>
+                                );
+                            })}
                     </Row>
                 </Container>
             </section>
@@ -900,7 +809,7 @@ const Home: NextPage<{
                                 description="It is always convenient to be connected to the clients and the tasks 
                                 closer to you. With us, you can view who or which tasks are closer to you or your 
                                     preferred location."
-                                redirectionTo=""
+                                redirectionTo="/service"
                                 iconBackground="#CDE9F9"
                             />
                         </Col>
@@ -909,7 +818,7 @@ const Home: NextPage<{
                                 icon="/icons/category.svg"
                                 title="Category"
                                 description="Looking for a particular service or variety of them? Or do you provide services and are looking for clients? We have made it easier for you to filter and sort out categories as per your preference."
-                                redirectionTo=""
+                                redirectionTo="/category"
                                 iconBackground="#E3D5FA"
                             />
                         </Col>
@@ -918,7 +827,7 @@ const Home: NextPage<{
                                 icon="/icons/recommendation-badge.svg"
                                 title="Recommended by us"
                                 description="We know the preferences and choices of each of our users. Therefore, you can always rely on our recommendations for a customised search feed."
-                                redirectionTo=""
+                                redirectionTo="/hire-in-nepal"
                                 iconBackground="#CCF6E6"
                             />
                         </Col>
@@ -927,43 +836,85 @@ const Home: NextPage<{
             </section>
             {/* Expore marketplace section end */}
 
-            <section className="top-categories-section">
-                <Container fluid="xl" className="px-5">
-                    <h1 className="section-main-title">Top Categories</h1>
-                    <h2 className="section-sub-title">
-                        See some of our top categories
-                    </h2>
-                    <TopCategories />
-                </Container>
-            </section>
+            {topCategoryData && (
+                <section className="top-categories-section">
+                    <Container fluid="xl" className="px-5">
+                        <h1 className="section-main-title">Top Categories</h1>
+                        <h2 className="section-sub-title">
+                            See some of our top categories in your area
+                        </h2>
+                        {/* <TopCategories /> */}
+                        {topCategoryData?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                There are No top Categorys available
+                            </Alert>
+                        )}
+                        <Row className="g-5">
+                            {topCategoryData &&
+                                topCategoryData.map((category, key) => (
+                                    <Col md={2} key={key}>
+                                        <div className="d-flex justify-content-center top-categories">
+                                            <Link
+                                                href={`/category/${category?.slug}`}
+                                            >
+                                                <a>
+                                                    <span>
+                                                        {category?.category}
+                                                    </span>
+                                                </a>
+                                            </Link>
+                                        </div>
+                                    </Col>
+                                ))}
+                        </Row>
+                    </Container>
+                </section>
+            )}
         </Layout>
     );
 };
+
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
     try {
         const { data: successStoryData } = await axiosClient.get(
-            "/tasker/success-story/"
+            urls.tasker.success_story
         );
         const { data: trustedPartnerData } = await axiosClient.get(
-            "/landingpage/trusted-partner/"
+            urls.trusted_partners
         );
         const { data: heroCategoryData } = await axiosClient.get(
-            "/task/hero-category/"
+            urls.hero_category
         );
-        const { data: recommendedTasksData } = await axiosClient.get("/task");
-        const queryClient = new QueryClient();
-        await queryClient.prefetchQuery(["all-blogs"]);
-        await queryClient.prefetchQuery(["all-services"]);
-        await queryClient.prefetchQuery(["all-tasks"]);
+        // const { data: topCategoryData } = await axiosClient.get(
+        //     "/task/top-categories/"
+        // );
+        const { data: topTaskerData } = await axiosClient.get(
+            urls.tasker.top_tasker
+        );
+        const { data: recommendedTasksData } = await axiosClient.get(
+            `${urls.task.service}&recommendation=Task You May Like`
+        );
+        const { data: blogData } = await axiosClient.get(urls.blog.list);
+        const { data: servicesData } = await axiosClient.get(urls.task.service);
+
         return {
             props: {
-                successStoryData: successStoryData,
-                trustedPartnerData: trustedPartnerData,
-                recommendedTasksData: recommendedTasksData,
-                heroCategoryData: heroCategoryData,
-                dehydratedState: dehydrate(queryClient),
+                successStoryData,
+                trustedPartnerData,
+                recommendedTasksData,
+                heroCategoryData,
+                topTaskerData,
+                blogData,
+                // topCategoryData,
+                servicesData,
             },
             revalidate: 10,
         };
@@ -973,9 +924,11 @@ export const getStaticProps: GetStaticProps = async () => {
                 successStoryData: [],
                 trustedPartnerData: [],
                 blogData: [],
-                servicesData: [],
+                servicesData: ["sdsd"],
+                topTaskerData: [],
                 recommendedTasksData: [],
                 heroCategoryData: [],
+                topCategoryData: [],
             },
             revalidate: 10,
         };

@@ -1,4 +1,3 @@
-import { NumberInputProps } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useUser } from "hooks/auth/useUser";
@@ -6,54 +5,33 @@ import { axiosClient } from "utils/axiosClient";
 
 export type ProfileResponse = {
     id: number;
-    charge_currency: string;
-    user: {
-        id: string;
-        email: string;
-        full_name: string;
-        profile_image: string;
-    };
-    portfolio: Array<{
-        id: number;
-        title: string;
-        description: string;
-        issued_date: string;
-        credential_url: string;
-        image: string;
-        file: string;
-    }>;
-    experience: Array<{
-        id: number;
-        title: string;
-        description: string;
-        employment_type: string;
-        company_name: string;
-        location: string;
-        currently_working: boolean;
-        start_date: string;
-        end_date: any;
-    }>;
-    education: Array<{
-        id: number;
-        school: string;
-        description: string;
-        degree: string;
-        field_of_study: string;
-        location: string;
-        start_date: string;
-        end_date: string;
-    }>;
-    certificates: Array<{
+    charge_currency: {
+        symbol: any;
+        code: string;
         id: number;
         name: string;
-        issuing_organization: string;
-        description: string;
-        does_expire: boolean;
-        credential_id: string;
-        certificate_url: string;
-        issued_date: string;
-        expire_date?: string;
-    }>;
+    };
+    city: {
+        id: number;
+        name: string;
+        country: number;
+    };
+    user: {
+        id: string;
+        username: string;
+        email: string;
+        draft_email: any;
+        phone: any;
+        draft_phone: any;
+        first_name: string;
+        middle_name: string;
+        last_name: string;
+        profile_image: string;
+    };
+    portfolio: Array<any>;
+    experience: Array<any>;
+    education: Array<any>;
+    certificates: Array<any>;
     stats: {
         success_rate: number;
         happy_clients: number;
@@ -65,16 +43,20 @@ export type ProfileResponse = {
     };
     rating: {
         user_rating_count: number;
-        avg_rating: number;
+        avg_rating: any;
     };
-    country: string | number;
-    language: string;
+    country: {
+        id: number;
+        name: string;
+    };
+    language: {
+        id: number;
+        name: string;
+    };
     status: string;
     bio: string;
-    full_name: string;
-    phone: string;
     gender: string;
-    profile_image: string;
+    profile_image: any;
     date_of_birth: string;
     skill: string;
     active_hour_start: string;
@@ -88,26 +70,25 @@ export type ProfileResponse = {
     address_line2: string;
     is_profile_verified: boolean;
     designation: any;
+    points: number;
     subscription: Array<any>;
+    security_questions: Array<any>;
 };
 
 export const useGetProfile = () => {
     const { data: user } = useUser();
-    return useQuery<ProfileResponse>(
-        ["profile"],
+    return useQuery<ProfileResponse | undefined>(
+        ["profile", user?.id],
         async () => {
+            if (!user) return undefined;
             try {
                 const { data } = await axiosClient.get<ProfileResponse>(
                     "/tasker/profile/"
                 );
                 return data;
             } catch (error) {
-                if (error instanceof AxiosError) {
-                    throw new Error(error?.response?.data?.message);
-                }
-                throw new Error("Something went wrong");
+                return undefined;
             }
-        },
-        { enabled: !!user }
+        }
     );
 };

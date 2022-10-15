@@ -18,6 +18,7 @@ const ExploreServices: NextPage = () => {
         ["all-services"],
         "/task/service/"
     );
+
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -29,8 +30,9 @@ const ExploreServices: NextPage = () => {
             prevChips.filter((currentChip) => chip !== currentChip)
         );
     };
+
     return (
-        <Layout title="Explore Services | Cipher">
+        <Layout title="Explore Services | Homaale">
             <Container fluid="xl" className="px-0 px-sm-5">
                 <section className="explore-services">
                     <BreadCrumb currentPage="Explore Services" />

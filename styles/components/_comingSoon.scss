@@ -1,0 +1,53 @@
+.comming-soon-modal,
+.modal.show .modal-dialog {
+    // .modal-dialog .modal-content {
+    //     width: 62rem;
+
+    //     justify-content: center;
+
+    //     @include respond(md) {
+    //         width: 62rem;
+    //     }
+    //     @include respond(sm) {
+    //         width: 58rem;
+    //     }
+    //     @include respond(xs) {
+    //         width: 38rem;
+    //     }
+    //     @include respond(xxs) {
+    //         width: 32rem;
+    //     }
+    //     .modal-title {
+    //         font-size: 2rem;
+    //     }
+    //     .modal-body-content {
+    //         h3 {
+    //             margin: 0 0 3.2rem 0;
+    //             font-size: 2rem;
+    //             font-weight: 500;
+    //         }
+    //     }
+    // }
+    .modal-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .information {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .comming-soon-icon {
+            color: #f79e1a;
+            height: 4.5rem;
+            width: 4.5rem;
+            margin-right: 1rem;
+        }
+
+        h4 {
+            font-size: 2rem;
+            margin-bottom: 0rem;
+            font-weight: 500;
+        }
+    }
+}

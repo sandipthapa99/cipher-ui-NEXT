@@ -9,7 +9,7 @@ export const EarnMoneyVideoComponent = () => {
                 <Col md={7} sm={12}>
                     <div className="video">
                         <iframe
-                            src="https://www.youtube.com/embed/E7wJTI-1dvQ"
+                            src="https://www.youtube.com/embed/dxhzAqQsqAo"
                             frameBorder="0"
                             allow="autoplay; encrypted-media"
                             allowFullScreen
@@ -23,7 +23,7 @@ export const EarnMoneyVideoComponent = () => {
                     <div className="description">
                         <h1>what are the tasks I can pursue?</h1>
                         <p>
-                            Whatever the job, you can find it on Cipher.
+                            Whatever the job, you can find it on Homeaale.
                             Complete your profile so that we can find right
                             tasks for you.
                         </p>

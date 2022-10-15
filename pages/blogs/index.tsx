@@ -14,13 +14,13 @@ const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
 
     return (
         <Layout
-            title="Blogs | Cipher"
-            description="Explore the insights provided by Cipher"
+            title="Blogs | Homaale"
+            description="Explore the insights provided by Homaale"
         >
             {/* Recent Blogs Section Start */}
             <section id="recent-blogs" className="recent-blogs">
                 <section className="recent-blogs__hero-section">
-                    <Container>
+                    <Container fluid="xl" className="px-5">
                         <Row>
                             <Col md={6}>
                                 <div className="hero-text">
@@ -58,7 +58,7 @@ const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
                     </Container>
                 </section>
                 <div className="recent-blogs__blog-listings">
-                    <Container>
+                    <Container fluid="xl" className="px-5">
                         <Row className="gx-5 mt-5">
                             {result && result.length > 0 ? (
                                 result?.map((blog) => {
@@ -144,7 +144,6 @@ export default Blog;
 export const getStaticProps: GetStaticProps = async () => {
     try {
         const { data: blogsData } = await axiosClient.get("/blog/");
-        if (blogsData.error) throw new Error(blogsData.error.message);
         return {
             props: {
                 blogsData,
@@ -152,6 +151,10 @@ export const getStaticProps: GetStaticProps = async () => {
             revalidate: 10,
         };
     } catch (err: any) {
+        console.log(
+            "🚀 ~ file: index.tsx ~ line 154 ~ constgetStaticProps:GetStaticProps= ~ err",
+            err
+        );
         return {
             props: {
                 blogsData: [],

@@ -7,6 +7,8 @@ import "@smastrom/react-rating/style.css";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
 import { MantineProvider } from "@mantine/core";
+import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
@@ -15,8 +17,10 @@ import {
     QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { clear } from "console";
+import { useUser } from "hooks/auth/useUser";
+import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
@@ -30,10 +34,6 @@ interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     };
 }
 
-const UserLoadingOverlay = dynamic(
-    () => import("@components/common/FullPageLoader"),
-    { ssr: false }
-);
 function MyApp({ Component, pageProps }: CustomAppProps) {
     const [queryClient] = useState(
         () =>
@@ -41,14 +41,20 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 defaultOptions: {
                     queries: {
                         refetchOnWindowFocus: false,
+                        retry: false,
                     },
                 },
             })
     );
     const [mounted, setMounted] = useState(false);
+    const [opened, setOpened] = useState(false);
+    const cookies = Cookies.get("access");
+    const cookiesProvided = cookies ? true : false;
+
     if (mounted) {
         firebaseCloudMessaging.onMessage();
     }
+
     useEffect(() => {
         firebaseCloudMessaging.init();
         const setToken = async () => {
@@ -59,55 +65,92 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             }
         };
         const result = setToken();
-        console.log("result", result);
     }, []);
-    // useEffect(() => {
-    //     setToken();
-
-    //     // Event listener that listens for the push notification event in the background
-    //     if ("serviceWorker" in navigator) {
-    //         navigator.serviceWorker.addEventListener("message", (event) => {
-    //             console.log("event for the service worker", event);
-    //         });
-    //     }
-
-    //     // Calls the getMessage() function if the token is there
-    //     async function setToken() {
-    //         try {
-    //             const token = await firebaseCloudMessaging.init();
-    //             if (token) {
-    //                 console.log("token", token);
-    //                 // getMessage();
-    //             }
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
-    // });
+    useEffect(() => {
+        if (
+            (Notification.permission === "default" ||
+                Notification.permission === "denied") &&
+            cookiesProvided
+        ) {
+            const timer = setTimeout(() => {
+                setOpened(true);
+            }, 500000);
+            return () => clearTimeout(timer);
+        }
+    });
 
     return (
-        <GoogleOAuthProvider
-            clientId={
-                "245846975950-vucoc2e1cmeielq5f5neoca7880n0u2i.apps.googleusercontent.com"
-            }
-        >
-            <QueryClientProvider client={queryClient}>
-                <ReactQueryDevtools />
-                <ToastContainer
-                    position="top-center"
-                    hideProgressBar={true}
-                    autoClose={1000}
-                />
-                <Hydrate state={pageProps.dehydratedState}>
-                    <MantineProvider>
-                        <RouterTransition />
-                        {/* <UserLoadingOverlay /> */}
-                        <LoginPrompt />
-                        <Component {...pageProps} />
-                    </MantineProvider>
-                </Hydrate>
-            </QueryClientProvider>
-        </GoogleOAuthProvider>
+        <>
+            <GoogleOAuthProvider
+                clientId={
+                    "245846975950-vucoc2e1cmeielq5f5neoca7880n0u2i.apps.googleusercontent.com"
+                }
+            >
+                <QueryClientProvider client={queryClient}>
+                    <ReactQueryDevtools />
+                    <ToastContainer
+                        position="top-center"
+                        hideProgressBar={true}
+                        autoClose={1000}
+                    />
+                    <Hydrate state={pageProps.dehydratedState}>
+                        <MantineProvider>
+                            <ModalsProvider
+                                labels={{
+                                    confirm: "Submit",
+                                    cancel: "Cancel",
+                                }}
+                            >
+                                <RouterTransition />
+                                {/* <UserLoadingOverlay /> */}
+                                <LoginPrompt />
+                                <Component {...pageProps} />
+                            </ModalsProvider>
+                        </MantineProvider>
+                    </Hydrate>
+                </QueryClientProvider>
+            </GoogleOAuthProvider>
+            <Dialog
+                opened={opened}
+                onClose={() => setOpened(false)}
+                size="lg"
+                radius="md"
+                className="d-flex gap-3"
+            >
+                <Text
+                    size="sm"
+                    className="m-0"
+                    style={{ marginBottom: 10 }}
+                    weight={500}
+                >
+                    Allow notification for Web notifications.
+                </Text>
+                <Text
+                    color="green"
+                    size="sm"
+                    className="m-0"
+                    style={{ marginBottom: 10, cursor: "pointer" }}
+                    weight={500}
+                    onClick={() => {
+                        Notification.requestPermission();
+                        setOpened(false);
+                    }}
+                >
+                    Ok.
+                </Text>
+                <Text
+                    color="red"
+                    size="sm"
+                    className="m-0"
+                    style={{ marginBottom: 10, cursor: "pointer" }}
+                    weight={500}
+                    onClick={() => setOpened(false)}
+                >
+                    No Thanks
+                </Text>
+            </Dialog>
+        </>
     );
 }
+
 export default MyApp;

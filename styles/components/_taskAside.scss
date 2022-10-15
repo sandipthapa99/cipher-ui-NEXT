@@ -1,0 +1,18 @@
+.search-results {
+    .left {
+        //specific to surface pro,ipad air and
+        @media screen and (width: 912px) {
+            width: 42% !important;
+        }
+    }
+
+    .right {
+        @media screen and (width: 912px) {
+            width: 58% !important;
+        }
+    }
+}
+
+.mantine-ieql4v {
+    padding-right: 0;
+}

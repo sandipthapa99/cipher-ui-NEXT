@@ -1,9 +1,7 @@
-import { faCalendar, faXmark } from "@fortawesome/pro-regular-svg-icons";
+import { faCalendar } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
-
-import { AcceptReject } from "./AcceptReject";
 
 export const ServiceAccept = () => {
     return (
@@ -54,7 +52,7 @@ export const ServiceAccept = () => {
             {/* <AcceptReject /> */}
             <div className="d-flex confirm-cross ">
                 <span className="text-confirm">Confirmed</span>
-                <FontAwesomeIcon icon={faXmark} />
+                {/* <FontAwesomeIcon icon={faXmark} /> */}
             </div>
         </div>
     );

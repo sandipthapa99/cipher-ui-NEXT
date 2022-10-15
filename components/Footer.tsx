@@ -9,17 +9,22 @@ import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type { NewsletterDataTypes } from "types/newsletter";
 import { axiosClient } from "utils/axiosClient";
 import { emailValidationSchema } from "utils/formValidation/emailValidation";
 
+import CommingSoonModal from "./common/ComingSoonModal";
 import InputField from "./common/InputField";
 
 const Footer = () => {
+    const { data: userData } = useUser();
+
     const emailSubsMutation = useMutation((data: NewsletterDataTypes) =>
         axiosClient.post("/support/newsletter/subscribe/", data)
     );
@@ -27,7 +32,7 @@ const Footer = () => {
         emailSubsMutation.mutate(data, {
             onSuccess: (data) => {
                 if (data?.data?.status === "failure") {
-                    console.log("Error", data);
+                    toast.error(data?.data?.message);
                 } else {
                     toast.success(data?.data?.message);
                     actions.resetForm();
@@ -41,19 +46,22 @@ const Footer = () => {
             },
         });
     };
+    //for feature comming sonn modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
 
     return (
         <>
             <footer id="site-footer" className="site-footer">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-5 site-footer__container">
                     {/* Cipher Newsletter section start */}
                     <div className="site-footer__newsletter">
                         <Row>
                             <Col sm={6} className="newsletter-text">
-                                <h5>Subscribe to CIPHER</h5>
+                                <h5>Subscribe to HOMAALE</h5>
                                 <p>
                                     Get the newsletters and technical guides
-                                    directly on your email from CIPHER.
+                                    directly on your email from HOMAALE.
                                 </p>
                             </Col>
                             <Col sm={6} className="newsletter-form">
@@ -101,16 +109,17 @@ const Footer = () => {
                         <Row className="gx-5">
                             <Col md={4}>
                                 <div className="footer-block">
-                                    <h2>CIPHER</h2>
+                                    <h2>HOMAALE</h2>
                                     <p>
-                                        Cipher is a platform designed to provide
-                                        service booking solutions to the service
-                                        seekers and business opportunities to
-                                        various service providing companies by
-                                        bridging a gap between them. It covers a
-                                        wide range of services from various
-                                        industries like Accounting, Gardening,
-                                        Health, Beauty, and many more.
+                                        Homaale is a platform designed to
+                                        provide service booking solutions to the
+                                        service seekers and business
+                                        opportunities to various service
+                                        providing companies by bridging a gap
+                                        between them. It covers a wide range of
+                                        services from various industries like
+                                        Accounting, Gardening, Health, Beauty,
+                                        and many more.
                                     </p>
                                 </div>
                             </Col>
@@ -129,8 +138,19 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/feedback">
-                                                <a>Feedback</a>
+                                            <Link
+                                                href={
+                                                    userData
+                                                        ? `/feedback`
+                                                        : `/login?next=/feedback`
+                                                }
+                                            >
+                                                <a>Complaints/Feedback</a>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/hire-in-nepal">
+                                                <a>Hire In Nepal</a>
                                             </Link>
                                         </li>
                                     </ul>
@@ -162,16 +182,11 @@ const Footer = () => {
                                                 <a>Help and Support</a>
                                             </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <Link href="/community">
                                                 <a>Community</a>
                                             </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/account/individual">
-                                                <a>CIPHER KYC</a>
-                                            </Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <Link href="/blogs">
                                                 <a>Blog</a>
@@ -182,20 +197,32 @@ const Footer = () => {
                                                 <a>Discover</a>
                                             </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <Link
                                                 href="/referral"
                                                 as="affiliate-program"
                                             >
                                                 <a>Affiliate Program</a>
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <Link
                                                 href="/social"
                                                 as="social-responsibilities"
                                             >
                                                 <a>Social Responsibilities</a>
+                                            </Link>
+                                        </li>
+
+                                        <li>
+                                            <Link
+                                                href={
+                                                    userData
+                                                        ? "/settings/account/individual"
+                                                        : "/login"
+                                                }
+                                            >
+                                                <a>HOMAALE KYC</a>
                                             </Link>
                                         </li>
                                     </ul>
@@ -206,15 +233,12 @@ const Footer = () => {
                                     <ul>
                                         <li>Company</li>
                                         <li>
-                                            <Link href="about" as="about-us">
+                                            <Link href="/about" as="about-us">
                                                 <a>About Us</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link
-                                                href="/contact"
-                                                as="contact-us"
-                                            >
+                                            <Link href="/contact">
                                                 <a>Contact Us</a>
                                             </Link>
                                         </li>
@@ -319,37 +343,37 @@ const Footer = () => {
                                             md="6"
                                             xs="6"
                                             className="d-flex justify-content-start
-                                            align-items-center
-                                            "
+                                            align-items-center"
+                                            onClick={() => setShow(true)}
                                         >
-                                            <Link href="">
-                                                <a>
-                                                    <Image
-                                                        src="/logo/playstore.png"
-                                                        alt="qr"
-                                                        height={36}
-                                                        width={104}
-                                                    />
-                                                </a>
-                                            </Link>
+                                            {/* <Link href="">
+                                                <a> */}
+                                            <Image
+                                                src="/logo/playstore.png"
+                                                alt="qr"
+                                                height={36}
+                                                width={104}
+                                            />
+                                            {/* </a>
+                                            </Link> */}
                                         </Col>
                                         <Col
                                             md="6"
                                             xs="6"
                                             className="d-flex justify-content-start
-                                            align-items-center
-                                            "
+                                            align-items-center"
+                                            onClick={() => setShow(true)}
                                         >
-                                            <Link href="">
-                                                <a>
-                                                    <Image
-                                                        src="/logo/appstore.png"
-                                                        alt="qr"
-                                                        height={36}
-                                                        width={104}
-                                                    />
-                                                </a>
-                                            </Link>
+                                            {/* <Link href="">
+                                                <a> */}
+                                            <Image
+                                                src="/logo/appstore.png"
+                                                alt="qr"
+                                                height={36}
+                                                width={104}
+                                            />
+                                            {/* </a>
+                                            </Link> */}
                                         </Col>
                                     </Row>
                                 </div>
@@ -357,10 +381,11 @@ const Footer = () => {
                         </Row>
                     </div>
                     <p className="copyright">
-                        © 2022 - 2026 Cipher® Global Inc. All Rights Reserved
+                        © 2022 Homaale®. All Rights Reserved
                     </p>
                     {/* Cipher footer social links section end */}
                 </Container>
+                <CommingSoonModal show={show} handleClose={handleClose} />
             </footer>
         </>
     );

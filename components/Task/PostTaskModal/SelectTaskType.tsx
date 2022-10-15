@@ -1,5 +1,6 @@
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import type { TextInputProps } from "@mantine/core";
-import { Box, Radio, Space, TextInput } from "@mantine/core";
+import { Box, Radio, Space } from "@mantine/core";
 import React, { useState } from "react";
 
 export type TaskType = "remote" | "onPremise";
@@ -10,13 +11,16 @@ interface SelectTaskTypeProps extends TextInputProps {
         value: any,
         shouldValidate?: boolean
     ) => void;
+    location: string;
 }
 export const SelectTaskType = ({
     setFieldValue,
     onTypeChange,
-    ...rest
+    location,
 }: SelectTaskTypeProps) => {
-    const [taskType, setTaskType] = useState<TaskType>("remote");
+    const [taskType, setTaskType] = useState<TaskType>(() =>
+        location === "remote" ? "remote" : "onPremise"
+    );
 
     const handleTaskTypeChange = (value: TaskType) => {
         setFieldValue("taskTypeRadio", value);
@@ -41,7 +45,13 @@ export const SelectTaskType = ({
             {taskType === "onPremise" && (
                 <>
                     <Space h={10} />
-                    <TextInput placeholder="Default Address (HOME)" {...rest} />
+                    <PlacesAutocomplete
+                        placeholder="Enter your location"
+                        value={location}
+                        onPlaceChange={(place) =>
+                            setFieldValue("location", place)
+                        }
+                    />
                 </>
             )}
         </Box>

@@ -120,6 +120,7 @@ export const EachTimeline = ({
 
                     {isActive && !isGivingRevision && !timelineRequested && (
                         <BigButton
+                            className="timeline-btn"
                             btnTitle={buttonName}
                             backgroundColor={"#211D4F"}
                             textColor={"#fff"}
@@ -152,7 +153,6 @@ export const EachTimeline = ({
                             initialValues={initialValues}
                             validationSchema={reportRevisionFormSchema}
                             onSubmit={async (values) => {
-                                console.log(values);
                                 setRevisionText(values?.revision_reason);
                             }}
                         >

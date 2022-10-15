@@ -17,7 +17,7 @@ import searchValidationSchema from "utils/formValidation/searchValidation";
 const Resources: NextPage = () => {
     const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     return (
-        <Layout title="Resources | Cipher">
+        <Layout title="Resources | Homaale">
             <section className="resource-page">
                 <section className="resource-page__header">
                     <Container fluid="xl" className="px-5">
@@ -50,7 +50,7 @@ const Resources: NextPage = () => {
                     </Container>
                 </section>
                 <div className="resource-page__content">
-                    <Container fluid="xl">
+                    <Container fluid="xl" className="px-5">
                         <div className="carousel">
                             <Carousel>
                                 {resourceCarouselContent &&

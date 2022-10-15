@@ -2,6 +2,7 @@ import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyFormValueProps } from "types/applyFormValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
+import type { BankDetailProps, BankPostDetailProps } from "types/bankDetail";
 import type { BookNowFormProps } from "types/bookNow";
 import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
@@ -11,7 +12,6 @@ import type { AddPortfolioProps, AddSkills } from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
-import type { KYCFormProps } from "types/kycFormProps";
 import type { LoginValuesProps } from "types/login";
 import type { PostTaskProps } from "types/postTaskData";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
@@ -44,6 +44,8 @@ export const ApplyFormData: ApplyValueProps = {
     price: "",
     remarks: "",
     prerequesties: [],
+    recursion: "",
+    budget_to: parseInt(""),
 };
 
 //Equipment form data
@@ -67,11 +69,11 @@ export const ExperienceFormData: ExperienceValueProps = {
 };
 
 interface filterReviewProps {
-    search_value: string;
+    search_value: "";
 }
 //review
 export const reviewSearchData: filterReviewProps = {
-    search_value: "-latest",
+    search_value: "",
 };
 
 export const AddPortfolioFormData: AddPortfolioProps = {
@@ -88,16 +90,6 @@ export const AddPortfolioFormData: AddPortfolioProps = {
 
 export const AddSkillFormData: AddSkills = {
     name: "",
-};
-
-export const BookServiceFormData: BookNowFormProps = {
-    description: "",
-    start_date: "",
-    end_date: "",
-    time: 1,
-    images: [],
-    imagePreviewUrl: [],
-    book_image: "",
 };
 
 export const CertificationFormData: CertificationValueProps = {
@@ -123,6 +115,15 @@ export const ProfileEditFromData: ProfileEditValueProps = {
     skill: "",
     hourly_rate: "",
     linkedAccounts: "",
+    date_of_birth: "",
+    gender: "",
+    profile_image: "",
+    user_type: "",
+    country: 0,
+    language: 0,
+    charge_currency: 0,
+    task_preferences: "",
+    profile_visibility: "",
 };
 
 export const EducationFormData: EducationValueProps = {
@@ -173,15 +174,15 @@ export const ChangePasswordFromData: changePasswordValueProps = {
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     marital_status: "Unmarried",
     gender: "Female",
-    salary: 0,
+    salary: "",
     income_time: "Yearly",
-    festival_bonus: 0,
-    allowance: 0,
-    others: 0,
-    pf: 0,
-    cit: 0,
-    life_insurance: 0,
-    medical_insurance: 0,
+    festival_bonus: "",
+    allowance: "",
+    others: "",
+    pf: "",
+    cit: "",
+    life_insurance: "",
+    medical_insurance: "",
 };
 
 export const DeactivateFromData: deactivateValueProps = {
@@ -271,9 +272,18 @@ export const ServicePostData: ServicePostProps = {
     no_of_revisions: 0,
     discount_type: "",
     discount_value: "",
-    is_active: false,
+    is_active: true,
     category: 0,
+    currency: 0,
     city: 1,
     images: [],
     imagePreviewUrl: [],
+};
+
+export const BankFormData: BankPostDetailProps = {
+    bank_account_name: "",
+    branch_name: "",
+    bank_name: "",
+    bank_account_number: "",
+    is_primary: false,
 };

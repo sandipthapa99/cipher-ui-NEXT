@@ -35,7 +35,8 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
 
     const renderTabItems = () => {
         return (
-            <div className="d-flex flex-wrap flex-sm-row tab-wrapper">
+            <div id="tab" className="flex-sm-row tab-wrapper">
+                {/* <div className="tabs"> */}
                 {items.map((item, index) => (
                     <button
                         data-is-active={JSON.stringify(
@@ -48,6 +49,7 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
                         {item.title}
                     </button>
                 ))}
+                {/* </div> */}
 
                 <div className="tab-icons">
                     {icons?.map((icon) => (

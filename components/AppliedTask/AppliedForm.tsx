@@ -2,15 +2,16 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import type { ApplyTaskPayload } from "hooks/task/use-apply-task";
-import { useApplyTask } from "hooks/task/use-apply-task";
+import { useBookNowTask } from "hooks/task/use-book--now-task";
+import parse from "html-react-parser";
 import { useRouter } from "next/router";
 import React from "react";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
@@ -24,11 +25,41 @@ const AppliedForm = ({
     budget_type,
     description,
     show,
+    currency,
+    setShow,
     handleClose,
 }: BookNowModalCardProps) => {
-    const toggleSuccessModal = useToggleSuccessModal();
     const router = useRouter();
-    const { mutate } = useApplyTask();
+    const {
+        mutate,
+        isLoading: applyTaskLoading,
+        data: BookingData,
+    } = useBookNowTask();
+
+    // const loadingOverlayVisible = useMemo(
+    //     () => applyTaskLoading,
+    //     [applyTaskLoading]
+    // );
+
+    // if (loadingOverlayVisible)
+    //     return (
+    //         <LoadingOverlay
+    //             visible={loadingOverlayVisible}
+    //             className={classes.overlay}
+    //             overlayBlur={2}
+    //         />
+    //     );
+    interface ApplyTaskPayload {
+        entity_service: string;
+        description: string;
+        budget_to: number;
+    }
+    const queryClient = useQueryClient();
+
+    const taskDescription = description
+        ? description.replace(/<[^>]+>/g, "")
+        : "";
+
     return (
         <>
             {/* Modal component */}
@@ -44,65 +75,98 @@ const AppliedForm = ({
                         <h4>
                             Price:{" "}
                             <span>
-                                {budget_from}
-                                {budget_to && "-" + budget_to}
-                                {budget_type}
+                                {currency?.code} &nbsp;
+                                {budget_from ? budget_from + " - " : ""}
+                                {budget_to}{" "}
+                                {budget_type === "Hourly"
+                                    ? "/hr"
+                                    : budget_type === "Monthly"
+                                    ? "/mn"
+                                    : budget_type === "Daily"
+                                    ? "/daily"
+                                    : "/project"}
                             </span>
                         </h4>
-                        <p>{description}</p>
+                        <h4>{description && parse(description)}</h4>
                     </div>
                     <Formik
-                        initialValues={ApplyFormData}
-                        validationSchema={applyFormSchema}
+                        initialValues={{
+                            price: "",
+                            remarks: "",
+                            prerequesties: [],
+                            recursion: "",
+                            budget_to: budget_to,
+                        }}
+                        validationSchema={() =>
+                            applyFormSchema({
+                                budget_from: budget_from ?? 0,
+                                budget_to: budget_to ?? 100000000,
+                            })
+                        }
                         onSubmit={async (values) => {
-                            const price = parseInt(values.price, 10);
-                            if (isNaN(price) || !service_id) {
-                                return toast.error(
-                                    "Price must be a number and task id must be provided"
-                                );
-                            }
-
                             const applyTaskPayload: ApplyTaskPayload = {
-                                task: service_id,
-                                charge: price,
-                                pre_requisites: JSON.stringify(
-                                    values.prerequesties
-                                ),
-                                remarks: values.remarks,
+                                entity_service: service_id ?? "",
+                                budget_to: values.budget_to ?? parseInt(""),
+                                description: values.remarks,
+                                // pre_requisites: JSON.stringify(
+                                //     values.prerequesties
+                                // ),
                             };
                             mutate(applyTaskPayload, {
                                 onSuccess: (data) => {
-                                    toast.success(data.task);
-                                    toggleSuccessModal();
+                                    toast.success(
+                                        "You have successfully applied for task"
+                                    );
+                                    queryClient.invalidateQueries([
+                                        "get-my-applicants",
+                                    ]);
+                                    queryClient.invalidateQueries([
+                                        "my-requested-task",
+                                    ]);
+                                    queryClient.invalidateQueries([
+                                        "get-task-applicants",
+                                    ]);
+                                    queryClient.invalidateQueries([
+                                        "approved-task",
+                                    ]);
+                                    //toggleSuccessModal();
+                                    setShow(false);
+                                    router.push("/home");
                                 },
                                 onError: (error) => {
-                                    const errors = Object.values(
-                                        error.response?.data.task ?? []
-                                    ).join("\n");
-                                    toast.error(errors);
+                                    toast.error(error.message);
                                 },
                             });
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
-                                <div className="w-25">
-                                    <InputField
-                                        type="number"
-                                        name="price"
-                                        labelName="Your Price"
-                                        min="1"
-                                        error={errors.price}
-                                        touch={touched.price}
-                                        placeHolder="Enter your price"
-                                    />
-                                </div>
+                                {!budget_from ? (
+                                    ""
+                                ) : (
+                                    <Row>
+                                        <Col md={6}>
+                                            <InputField
+                                                labelName="Budget"
+                                                type="number"
+                                                name="budget_to"
+                                                error={errors.budget_to}
+                                                touch={touched.budget_to}
+                                                min={budget_from}
+                                                max={budget_to}
+                                                placeHolder="Your Price"
+                                                fieldRequired
+                                            />
+                                        </Col>
+                                    </Row>
+                                )}
+
                                 <InputField
                                     name="remarks"
                                     labelName="Remarks"
                                     touch={touched.remarks}
                                     error={errors.remarks}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Remarks ..."
                                     as="textarea"
                                 />
 
@@ -123,9 +187,9 @@ const AppliedForm = ({
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
                                         )}
-                                        onClick={() => {
-                                            router.push("/task/checkout");
-                                        }}
+                                        // onClick={() => {
+                                        //     router.push("/task/checkout");
+                                        // }}
                                     />
                                 </Modal.Footer>
                             </Form>

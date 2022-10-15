@@ -17,14 +17,15 @@ const Feedback = () => {
     const { data } = useQuery(["feedback-category"], () => {
         return axiosClient.get("/support/feedback/category/options/");
     });
-
-    const renderCategoryTypes = data?.data?.map((item: any) => {
-        return {
-            label: item?.name,
-            value: item?.id,
-            id: item?.id,
-        };
-    });
+    const renderCategoryTypes = data?.data?.map(
+        (item: { name: string; id: string }) => {
+            return {
+                label: item?.name,
+                value: item?.id,
+                id: item?.id,
+            };
+        }
+    );
 
     const feedbackMutation = useMutation((data: FeedbackValuesProps) =>
         axiosClient.post("/support/feedback/", data)
@@ -34,23 +35,22 @@ const Feedback = () => {
         feedbackMutation.mutate(data, {
             onSuccess: (data) => {
                 if (data?.data?.status === "failure") {
-                    console.log("Error", data);
+                    toast.error(data?.data?.message);
                 } else {
                     toast.success(data?.data?.message);
                     actions.resetForm();
                 }
             },
             onError: (error: any) => {
-                const errmessage = error?.response?.data;
-                toast.error("Something went wrong");
+                toast.error(error);
                 actions.resetForm();
             },
         });
     };
     return (
         <>
-            <Layout title="Feedback | Cipher">
-                <Container fluid="xl">
+            <Layout title="Feedback | Homaale">
+                <Container fluid="xl" className="px-5">
                     <section className="site-feedback">
                         <Row className="gx-5">
                             <Col md={6} className="d-none d-md-flex">
@@ -66,7 +66,7 @@ const Feedback = () => {
                             <Col md={6}>
                                 <h1>Feedback</h1>
                                 <p>
-                                    Are you enjoying Cipher ? Send us your
+                                    Are you enjoying Homaale ? Send us your
                                     Feedbacks
                                 </p>
                                 <Formik
@@ -90,6 +90,8 @@ const Feedback = () => {
                                             <SelectInputField
                                                 name="feedback_category"
                                                 fieldRequired={true}
+                                                labelName="Category"
+                                                placeHolder="Select Category"
                                                 error={errors.feedback_category}
                                                 touch={
                                                     touched.feedback_category

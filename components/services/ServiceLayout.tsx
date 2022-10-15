@@ -1,52 +1,37 @@
-import FullPageLoader from "@components/common/FullPageLoader";
 import {
     useClearSearchedServices,
     useClearSearchQuery,
-    useSearchedServices,
     useSearchQuery,
 } from "@components/common/Search/searchStore";
 import Layout from "@components/Layout";
-import { SearchCategory } from "@components/SearchTask/searchCategory";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import { faClose } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useData } from "hooks/use-data";
+import urls from "constants/urls";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import { useCheckSpecialOffer } from "store/use-check-special-offer";
-import { useSpecialOfferDetails } from "store/use-special-offers";
 import type { ServicesValueProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
 import ServiceAside from "./ServiceAside";
 
-export const useSearchService = (query: string) => {
-    return useQuery(["all-service", query], () =>
+export const useSearchService = (searchParam: string) => {
+    return useQuery(["all-services", searchParam], () =>
         axiosClient
-            .get<ServicesValueProps>(`/task/service/list?search=${query}`)
+            .get<ServicesValueProps>(`${urls.task.service}&${searchParam}`)
             .then((response) => response.data.result)
     );
 };
 
 const ServiceLayout = ({ children }: { children: ReactNode }) => {
-    const [query, setQuery] = useState("");
-    const [sortPriceServices, setSortPriceServices] = useState([]);
-    const searchedServices = useSearchedServices();
+    const [searchParam, setSearchParam] = useState("");
+
     const clearSearchQuery = useClearSearchQuery();
     const clearSearchedServices = useClearSearchedServices();
     const searchQuery = useSearchQuery();
-    const specialOfferDetails = useSpecialOfferDetails();
-    const checkSpecialOffer = useCheckSpecialOffer();
-    // console.log(specialOfferDetails, checkSpecialOffer);
-
-    const { data, isLoading } = useData<ServicesValueProps>(
-        ["all-services"],
-        "/task/service/"
-    );
-
-    const { data: searchData = [] } = useSearchService(query);
 
     const handleClearSearchResults = () => {
         clearSearchedServices();
@@ -56,57 +41,41 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const handleSearchChange = (query: string) => {
         clearSearchQuery();
         clearSearchedServices();
-        setQuery(query);
+        setSearchParam(query);
     };
-
-    if (isLoading || !data) return <FullPageLoader />;
-
-    const getSortByPrice = (services: any) => {
-        setSortPriceServices(services);
-    };
-    console.log("ser", sortPriceServices);
 
     return (
-        <Layout title="Find Services | Cipher">
-            <Container fluid="xl">
-                <SearchCategory
-                    onChange={handleSearchChange}
-                    getSortingByPrice={getSortByPrice}
-                />
-                {searchQuery?.query && (
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Highlight highlight={searchQuery.query}>
-                            {`Showing search results for ${searchQuery.query}`}
-                        </Highlight>
-                        <ActionIcon onClick={handleClearSearchResults}>
-                            <FontAwesomeIcon icon={faClose} />
-                        </ActionIcon>
-                    </Box>
-                )}
-                <Space h={10} />
-                <ServiceAside
-                    query={query}
-                    service={
-                        sortPriceServices.length > 0
-                            ? sortPriceServices
-                            : searchData
-                        // checkSpecialOffer
-                        //     ? specialOfferDetails
-                        //     : searchedServices.length > 0
-                        //     ? searchedServices
-                        //     : searchData
-                    }
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </ServiceAside>
-            </Container>
+        <Layout title="Find Services | Homaale">
+            <section className="service-section mb-5" id="service-section">
+                <Container fluid="xl" className="px-5 pb-5">
+                    <SearchCategory
+                        searchModal="service"
+                        onSearchParamChange={handleSearchChange}
+                        onFilterClear={() => setSearchParam("")}
+                    />
+
+                    {searchQuery?.query && (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Highlight highlight={searchQuery.query}>
+                                {`Showing search results for ${searchQuery.query}`}
+                            </Highlight>
+                            <ActionIcon onClick={handleClearSearchResults}>
+                                <FontAwesomeIcon icon={faClose} />
+                            </ActionIcon>
+                        </Box>
+                    )}
+                    <Space h={10} />
+                    <ServiceAside searchParam={searchParam}>
+                        {children}
+                    </ServiceAside>
+                </Container>
+            </section>
         </Layout>
     );
 };

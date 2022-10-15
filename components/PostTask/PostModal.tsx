@@ -2,7 +2,13 @@ import DatePickerField from "@components/common/DateTimeField";
 import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import MantineDateField from "@components/common/MantineDateField";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
 import { Fragment } from "react";
@@ -25,6 +31,7 @@ const PostModal = ({
         showBudget: false,
         showTime: false,
     });
+
     return (
         <>
             {/* Modal component */}
@@ -43,7 +50,6 @@ const PostModal = ({
                             // } catch (error: any) {
                             //     error.response.data.message;
                             // }
-                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched, setFieldValue }) => (
@@ -245,39 +251,105 @@ const PostModal = ({
                                 {showVariable.showTime ? (
                                     <Row>
                                         <Col md={5}>
-                                            <DatePickerField
+                                            {/* <DatePickerField
                                                 name="date_from"
                                                 labelName="Start date"
                                                 placeHolder="dd/mm/yy"
                                                 touch={touched.date_from}
                                                 error={errors.date_from}
+                                            /> */}
+                                            <MantineDateField
+                                                name="date_from"
+                                                labelName="Start Date"
+                                                placeHolder="1999-06-03"
+                                                touch={touched.date_from}
+                                                error={errors.date_from}
+                                                icon={
+                                                    <FontAwesomeIcon
+                                                        icon={faCalendarDays}
+                                                        className="svg-icons"
+                                                    />
+                                                }
+                                                handleChange={(value) => {
+                                                    setFieldValue(
+                                                        "start_date",
+                                                        format(
+                                                            new Date(value),
+                                                            "yyyy-MM-dd"
+                                                        )
+                                                    );
+                                                }}
                                             />
                                         </Col>
                                         <Col md={{ span: 5, offset: 2 }}>
-                                            <DatePickerField
+                                            {/* <DatePickerField
                                                 name="date_to"
                                                 labelName="End date"
                                                 placeHolder="dd/mm/yy"
                                                 touch={touched.date_to}
                                                 error={errors.date_to}
+                                            /> */}
+                                            <MantineDateField
+                                                name="date_from"
+                                                labelName="Start Date"
+                                                placeHolder="1999-06-03"
+                                                touch={touched.date_from}
+                                                error={errors.date_from}
+                                                icon={
+                                                    <FontAwesomeIcon
+                                                        icon={faCalendarDays}
+                                                        className="svg-icons"
+                                                    />
+                                                }
+                                                handleChange={(value) => {
+                                                    setFieldValue(
+                                                        "date_from",
+                                                        format(
+                                                            new Date(value),
+                                                            "yyyy-MM-dd"
+                                                        )
+                                                    );
+                                                }}
                                             />
                                         </Col>
                                     </Row>
                                 ) : (
                                     <Col md={5}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="date"
                                             labelName="Date"
                                             placeHolder="dd/mm/yy"
                                             touch={touched.date}
                                             error={errors.date}
+                                        /> */}
+                                        <MantineDateField
+                                            name="date"
+                                            labelName="Start Date"
+                                            placeHolder="1999-06-03"
+                                            touch={touched.date}
+                                            error={errors.date_from}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                 )}
 
                                 <div className="d-flex justify-content-center">
                                     <Button
-                                        className="btn close-btn p-3 h-25 w-25"
+                                        className="btn close-btn p-3 h-25"
                                         onClick={() => setshowPostModel(false)}
                                     >
                                         Cancel
@@ -286,7 +358,7 @@ const PostModal = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25 ms-3"
+                                        className="submit-btn ms-3"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting

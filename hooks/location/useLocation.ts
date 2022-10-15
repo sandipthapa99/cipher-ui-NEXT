@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
 interface Location {
@@ -26,4 +26,10 @@ export const useLocation = () => {
             throw new Error("Something went wrong");
         }
     });
+};
+export const useLatLng = () => {
+    const { data } = useLocation();
+    return data && data.data
+        ? { lat: data.data.latitude, lng: data.data.longitude }
+        : { lat: 84.124, lng: 28.3949 };
 };

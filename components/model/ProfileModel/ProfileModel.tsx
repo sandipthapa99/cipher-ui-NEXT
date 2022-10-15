@@ -6,7 +6,6 @@ import {
     faGauge,
     faGear,
     faGift,
-    faRepeat,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Button, Divider, Text } from "@mantine/core";
@@ -27,7 +26,15 @@ export const ProfileModel = () => {
     const { classes } = useProfileModelStyles();
     const { data: profileDetails } = useGetProfile();
 
-    const logout = useLogout({ onLogout: () => router.push(router.pathname) });
+    const logout = useLogout({
+        onLogout: () => {
+            if (router.pathname === "/") return;
+            router.push({
+                pathname: "/login",
+                query: { next: router.pathname },
+            });
+        },
+    });
 
     const renderProfileSections = () => {
         return Object.entries(PROFILE_LINKS).map((entry) => {
@@ -66,7 +73,7 @@ export const ProfileModel = () => {
                 <div>
                     <Text className={classes.username}>
                         {profileDetails
-                            ? `${profileDetails.full_name}`
+                            ? `${profileDetails.user?.first_name} ${profileDetails.user?.last_name}`
                             : "Howdy User"}
                     </Text>
                     <Text className={classes.profileType}>
@@ -107,7 +114,13 @@ export const ProfileModel = () => {
 const PROFILE_LINKS = {
     sectionOne: [
         {
-            title: "Overview",
+            title: "My Dashboard",
+            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
+            href: "/home",
+            color: "#495057",
+        },
+        {
+            title: "Profile",
             icon: (
                 <FontAwesomeIcon
                     color={REGULAR_ICON_COLOR}
@@ -137,29 +150,23 @@ const PROFILE_LINKS = {
             color: "#495057",
         },
         {
-            title: "Redeem",
+            title: "Offers",
             icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,
-            href: "/redeem",
+            href: "/offers",
             color: "#F98900",
         },
     ],
-    sectionTwo: [
-        {
-            title: "Switch to i am the...",
-            icon: (
-                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faRepeat} />
-            ),
-            href: "/switch",
-            color: "#495057",
-        },
-    ],
+    //sectionTwo: [
+    //    {
+    //        title: "Switch to i am the...",
+    //        icon: (
+    //            <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faRepeat} />
+    //        ),
+    //        href: "/switch",
+    //        color: "#495057",
+    //    },
+    //],
     sectionThree: [
-        {
-            title: "My Dashboard",
-            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
-            href: "/home",
-            color: "#495057",
-        },
         {
             title: "Settings",
             icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGear} />,

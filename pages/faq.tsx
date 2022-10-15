@@ -1,6 +1,7 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import Layout from "@components/Layout";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
@@ -31,7 +32,7 @@ const FAQ = ({ faqTopicData }: FAQData) => {
     const toggleSuccessModal = useToggleSuccessModal();
     return (
         <Fragment>
-            <Layout title="FAQs | Cipher">
+            <Layout title="FAQs | Homaale">
                 <section className="faq-page-header">
                     <BreadCrumb currentPage="FAQs" />
                     <Container fluid="xl">
@@ -166,13 +167,14 @@ const FAQ = ({ faqTopicData }: FAQData) => {
                                             touch={touched.email}
                                             placeHolder="Email address"
                                         />
-                                        <InputField
-                                            type="text"
-                                            name="phone"
+                                        <PhoneNumberInput
+                                            name={"phone"}
                                             labelName="Phone Number"
-                                            error={errors.phone}
                                             touch={touched.phone}
-                                            placeHolder="Phone Number"
+                                            error={errors.phone}
+                                            placeHolder={
+                                                "Enter your Phone Number"
+                                            }
                                         />
                                         <InputField
                                             name="message"

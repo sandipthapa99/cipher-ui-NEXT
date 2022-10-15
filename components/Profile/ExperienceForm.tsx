@@ -1,10 +1,19 @@
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { RichText } from "@components/RichText";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Checkbox } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
@@ -26,6 +35,7 @@ interface ExperienceProps {
     handleClose?: () => void;
     setShowExpForm: Dispatch<SetStateAction<boolean>>;
     id?: number;
+    isEditExperience?: boolean;
 }
 
 interface EditDetailProps {
@@ -39,9 +49,12 @@ const ExperienceForm = ({
     handleClose,
     setShowExpForm,
     id,
+    isEditExperience,
 }: ExperienceProps) => {
-    const { mutate } = useForm(`/tasker/experience/`);
-    const { mutate: editMutation } = useEditForm(`/tasker/experience/${id}/`);
+    const { mutate } = useForm(`${urls.profile.experience}`);
+    const { mutate: editMutation } = useEditForm(
+        `${urls.profile.experience}${id}/`
+    );
 
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData<EditDetailProps>([
@@ -49,8 +62,9 @@ const ExperienceForm = ({
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
+
     const [toggle, setToggled] = useState(
-        editDetails?.currently_working ?? false
+        editDetails?.currently_working ? editDetails?.currently_working : false
     );
 
     return (
@@ -58,11 +72,11 @@ const ExperienceForm = ({
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal">
+                <div className="applied-modal  add-portfolio">
                     <h3>Add Experience</h3>
                     <Formik
                         initialValues={
-                            editDetails
+                            editDetails && isEditExperience === true
                                 ? {
                                       ...editDetails,
                                       start_date: parseISO(
@@ -73,7 +87,18 @@ const ExperienceForm = ({
                                           ? parseISO(editDetails.end_date)
                                           : "",
                                   }
-                                : ExperienceFormData
+                                : {
+                                      title: "",
+                                      description: "",
+                                      employment_type: "Full Time",
+                                      company_name: "",
+                                      location: "",
+                                      start_date: "",
+                                      end_date: "",
+                                      currently_working: false,
+                                      id: 0,
+                                  }
+                            //ExperienceFormData
                         }
                         validationSchema={experienceFormSchema}
                         onSubmit={async (values) => {
@@ -103,14 +128,11 @@ const ExperienceForm = ({
                                 };
                                 newValue = newvalidatedValue;
                             }
+
                             {
-                                editDetails
+                                editDetails && isEditExperience
                                     ? editMutation(newValue, {
                                           onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
                                               setShowExpForm(false);
                                               queryClient.invalidateQueries([
                                                   "tasker-experience",
@@ -121,15 +143,10 @@ const ExperienceForm = ({
                                           },
                                           onError: async (error) => {
                                               toast.error(error.message);
-                                              console.log("error=", error);
                                           },
                                       })
                                     : mutate(newValue, {
                                           onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
                                               setShowExpForm(false);
                                               queryClient.invalidateQueries([
                                                   "tasker-experience",
@@ -140,13 +157,19 @@ const ExperienceForm = ({
                                           },
                                           onError: async (error) => {
                                               toast.error(error.message);
-                                              console.log("error=", error);
                                           },
                                       });
                             }
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({
+                            isSubmitting,
+                            errors,
+                            touched,
+                            setFieldValue,
+                            getFieldProps,
+                            values,
+                        }) => (
                             <Form>
                                 <InputField
                                     type="text"
@@ -156,13 +179,22 @@ const ExperienceForm = ({
                                     touch={touched.title}
                                     placeHolder="Experience Title"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                /> */}
+                                <h4>Description</h4>
+                                <RichText
+                                    {...getFieldProps("description")}
+                                    value={values?.description ?? ""}
+                                    onChange={(value) =>
+                                        setFieldValue("description", value)
+                                    }
+                                    placeholder="Your Experience"
                                 />
                                 <SelectInputField
                                     name="employment_type"
@@ -179,36 +211,104 @@ const ExperienceForm = ({
                                     error={errors.company_name}
                                     placeHolder="Company Name"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="location"
                                     labelName="Location"
                                     touch={touched.location}
                                     error={errors.location}
                                     placeHolder="Eg: New Baneshwor, Kathmandu"
+                                /> */}
+                                <PlacesAutocomplete
+                                    size="md"
+                                    label="Location"
+                                    placeholder="Eg: New Baneshwor, Kathmandu"
+                                    error={
+                                        touched.location && errors.location
+                                            ? errors.location
+                                            : undefined
+                                    }
+                                    {...getFieldProps("location")}
+                                    value={values.location}
+                                    onPlaceChange={(value) =>
+                                        setFieldValue("location", value)
+                                    }
                                 />
                                 <p className="mb-3">
-                                    <input
+                                    {/* <Checkbox
+                                        label="I am currently working here"
+                                        name="currently_working"
+                                        defaultChecked={toggle ? true : false}
+                                        onChange={(event) => {
+                                            setToggled(!toggle);
+                                            setFieldValue(
+                                                "currently_working",
+                                                toggle
+                                            );
+                                        }}
+                                    /> */}
+                                    <br />
+                                    <Checkbox
+                                        defaultChecked={toggle}
+                                        label="I am currently working here"
+                                        {...getFieldProps("currently_working")}
+                                        onChange={(event) => {
+                                            setToggled(!toggle);
+
+                                            setFieldValue(
+                                                "currently_working",
+                                                event.target.checked
+                                            );
+                                        }}
+                                    />
+                                    {/* <input
                                         type="checkbox"
                                         name="currently_working"
                                         checked={toggle ? true : false}
                                         onChange={() => setToggled(!toggle)}
-                                    />
-                                    &nbsp;I am currently working here
+                                    /> */}
                                 </p>
 
                                 <Row className="g-5">
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="start_date"
                                             labelName="Start Date"
                                             placeHolder="1999-06-03"
                                             touch={touched.start_date}
                                             error={errors.start_date}
                                             dateFormat="yyyy-MM-dd"
+                                        /> */}
+
+                                        <MantineDateField
+                                            name="start_date"
+                                            labelName="Start Date"
+                                            placeHolder="1999-06-03"
+                                            touch={Boolean(touched.start_date)}
+                                            error={String(
+                                                errors.start_date
+                                                    ? errors.start_date
+                                                    : ""
+                                            )}
+                                            //fieldRequired={true}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "start_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="end_date"
                                             labelName="End Date"
                                             placeHolder="2022-03-06"
@@ -216,12 +316,36 @@ const ExperienceForm = ({
                                             error={errors.end_date}
                                             dateFormat="yyyy-MM-dd"
                                             disabled={toggle ? true : false}
+                                        /> */}
+
+                                        <MantineDateField
+                                            name="end_date"
+                                            labelName="End Date"
+                                            placeHolder="2022-03-06"
+                                            touch={touched.end_date}
+                                            error={errors.end_date}
+                                            disabled={toggle ? true : false}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "end_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                 </Row>
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -231,7 +355,7 @@ const ExperienceForm = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
@@ -252,4 +376,5 @@ const ExperienceForm = ({
         </>
     );
 };
+
 export default ExperienceForm;

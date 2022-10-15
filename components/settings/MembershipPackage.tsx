@@ -6,7 +6,7 @@ const MEMBERSHIP_DETAILS = [
         title: "Membership",
         price: "FREE",
         details: [
-            "Discounts of offers from Cipher.",
+            "Discounts of offers from Homeaale.",
             "2% off on Subscriptions.",
             "Quick Service..",
         ],
@@ -17,7 +17,7 @@ const MEMBERSHIP_DETAILS = [
         title: "Premium Client",
         price: "Rs500/mon",
         details: [
-            "Discounts of offers from Cipher.",
+            "Discounts of offers from Homeaale.",
             "2% off on Subscriptions.",
             "Quick Service..",
         ],
@@ -28,7 +28,7 @@ const MEMBERSHIP_DETAILS = [
         title: "Premium Tasker",
         price: "Rs100/mon",
         details: [
-            "Discounts of offers from Cipher.",
+            "Discounts of offers from Homeaale.",
             "2% off on Subscriptions.",
             "Quick Service..",
         ],
@@ -60,7 +60,7 @@ export const MembershipPackage = () => {
                     {!membership.isactive ? (
                         <CardBtn
                             handleClick={() => {
-                                console.log(membership);
+                                console.log("clicked");
                             }}
                             btnTitle={membership.buttonName}
                             backgroundColor="primary-color"

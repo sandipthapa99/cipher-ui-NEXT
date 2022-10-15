@@ -4,11 +4,13 @@ import {
     useElements,
     useStripe,
 } from "@stripe/react-stripe-js";
+import { useRouter } from "next/router";
 import React from "react";
 
 export default function CheckoutForm() {
     const stripe = useStripe();
     const elements = useElements();
+    const router = useRouter();
 
     const [message, setMessage] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -21,7 +23,6 @@ export default function CheckoutForm() {
         const clientSecret = new URLSearchParams(window.location.search).get(
             "payment_intent_client_secret"
         );
-        console.log("cl key: ", clientSecret);
 
         if (!clientSecret) {
             return;
@@ -49,7 +50,6 @@ export default function CheckoutForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (!stripe || !elements) {
             // Stripe.js has not yet loaded.
             // Make sure to disable form submission until Stripe.js has loaded.
@@ -62,7 +62,11 @@ export default function CheckoutForm() {
             elements,
             confirmParams: {
                 // payment completion page
-                return_url: "/home",
+                return_url: `${
+                    window != "undefined"
+                        ? window.location.origin
+                        : "http://localhost:3005/"
+                }/payment-success`,
             },
         });
 

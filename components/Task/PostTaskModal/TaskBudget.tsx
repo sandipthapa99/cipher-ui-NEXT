@@ -1,3 +1,4 @@
+import type { EditServicePayload } from "@components/services/EditService";
 import type { PostTaskPayload } from "@components/Task/PostTaskModal/PostTaskModal";
 import {
     Box,
@@ -10,18 +11,21 @@ import {
 } from "@mantine/core";
 import type { FormikErrors, FormikTouched } from "formik";
 import { useState } from "react";
+import { Col, Row } from "react-bootstrap";
 
 export enum BudgetType {
     FIXED = "Fixed",
     VARIABLE = "Variable",
 }
 export interface TaskBudgetProps {
+    initialBudgetFrom?: number;
+    initialBudgetTo?: number;
     setFieldValue: (field: string, value: any) => void;
     setFieldError: (field: string, value: any) => void;
     setFieldTouched: (field: string, value: any) => void;
     getFieldProps: (field: string) => any;
-    touched: FormikTouched<PostTaskPayload>;
-    errors: FormikErrors<PostTaskPayload>;
+    touched: FormikTouched<PostTaskPayload | EditServicePayload>;
+    errors: FormikErrors<PostTaskPayload | EditServicePayload>;
 }
 
 const budgetType = [
@@ -34,36 +38,32 @@ const budgetType = [
         value: "Hourly",
     },
     {
-        label: "Fixed",
-        value: "Fixed",
+        label: "Daily",
+        value: "Daily",
+    },
+    {
+        label: "Monthly",
+        value: "Monthly",
     },
 ];
 export const TaskBudget = ({
+    initialBudgetFrom,
+    initialBudgetTo,
     setFieldValue,
-    setFieldError,
-    setFieldTouched,
     getFieldProps,
     touched,
     errors,
 }: TaskBudgetProps) => {
-    const [value, setValue] = useState<BudgetType>(BudgetType.FIXED);
+    const [value, setValue] = useState<BudgetType>(() =>
+        initialBudgetFrom && initialBudgetTo
+            ? BudgetType.VARIABLE
+            : BudgetType.FIXED
+    );
 
-    const resetFields = () => {
-        setFieldValue("budget_from", "");
-        setFieldValue("budget_to", "");
-        setFieldTouched("budget_from", false);
-        setFieldTouched("budget_to", false);
-        setFieldError("budget_from", "");
-        setFieldError("budget_to", "");
-    };
     const handleBudgetTypeChange = (type: BudgetType) => {
-        resetFields();
         setFieldValue("budgetTypeRadio", type);
         setValue(type);
     };
-    const getFieldError = (key: keyof PostTaskPayload) =>
-        touched[key] && errors[key] ? errors[key] : null;
-
     return (
         <Box>
             <Radio.Group
@@ -79,57 +79,92 @@ export const TaskBudget = ({
             </Radio.Group>
             <Space h={20} />
             {value === BudgetType.FIXED ? (
-                <Group>
-                    <NumberInput
-                        {...getFieldProps("budget_to")}
-                        error={
-                            value === BudgetType.FIXED &&
-                            getFieldError("budget_to")
-                        }
-                        icon="Rs"
-                        placeholder="Enter your price"
-                        onChange={(value) => setFieldValue("budget_to", value)}
-                    />
-                    <Select
-                        {...getFieldProps("budget_type")}
-                        placeholder="Per Project"
-                        data={budgetType}
-                        onChange={(value) =>
-                            setFieldValue("budget_type", value)
-                        }
-                    />
-                </Group>
+                <Row className="gx-5">
+                    <Col md={4}>
+                        <NumberInput
+                            {...getFieldProps("budget_to")}
+                            // icon="Rs"
+                            placeholder="Enter your price"
+                            onChange={(value) =>
+                                setFieldValue("budget_to", value)
+                            }
+                            defaultValue={initialBudgetTo}
+                            min={1}
+                            max={100000}
+                            error={
+                                touched.budget_to && errors.budget_to
+                                    ? errors.budget_to
+                                    : undefined
+                            }
+                            className="mb-4 mb-md-0"
+                        />
+                    </Col>
+                    <Col md={3}>
+                        <Select
+                            {...getFieldProps("budget_type")}
+                            placeholder="Per Project"
+                            data={budgetType}
+                            min={1}
+                            max={100000}
+                            onChange={(value) =>
+                                setFieldValue("budget_type", value)
+                            }
+                        />
+                    </Col>
+                </Row>
             ) : (
-                <Group>
-                    <NumberInput
-                        {...getFieldProps("budget_from")}
-                        error={getFieldError("budget_from")}
-                        icon="Rs"
-                        placeholder="Starting budget"
-                        onChange={(value) =>
-                            setFieldValue("budget_from", value)
-                        }
-                    />
-                    <Text>To</Text>
-                    <NumberInput
-                        {...getFieldProps("budget_to")}
-                        error={
-                            value === BudgetType.VARIABLE &&
-                            getFieldError("budget_to")
-                        }
-                        icon="Rs"
-                        placeholder="Final budget"
-                        onChange={(value) => setFieldValue("budget_to", value)}
-                    />
-                    <Select
-                        {...getFieldProps("budget_type")}
-                        placeholder="Per project"
-                        data={budgetType}
-                        onChange={(value) =>
-                            setFieldValue("budget_type", value)
-                        }
-                    />
-                </Group>
+                <Row>
+                    <Col md={4}>
+                        <NumberInput
+                            {...getFieldProps("budget_from")}
+                            // icon="Rs"
+                            placeholder="Starting budget"
+                            onChange={(value) =>
+                                setFieldValue("budget_from", value)
+                            }
+                            min={1}
+                            max={100000}
+                            defaultValue={initialBudgetFrom}
+                            error={
+                                touched.budget_from && errors.budget_from
+                                    ? errors.budget_from
+                                    : undefined
+                            }
+                        />
+                    </Col>
+                    <Col md={1} className="my-4 my-md-auto text-center">
+                        <Text>To</Text>
+                    </Col>
+                    <Col md={4}>
+                        <NumberInput
+                            {...getFieldProps("budget_to")}
+                            // icon="Rs"
+                            placeholder="Final budget"
+                            onChange={(value) =>
+                                setFieldValue("budget_to", value)
+                            }
+                            min={1}
+                            max={100000}
+                            defaultValue={initialBudgetTo}
+                            error={
+                                touched.budget_to && errors.budget_to
+                                    ? errors.budget_to
+                                    : undefined
+                            }
+                            className="mb-4 mb-md-0"
+                        />
+                    </Col>
+                    <Col md={3}>
+                        <Select
+                            {...getFieldProps("budget_type")}
+                            placeholder="Per project"
+                            data={budgetType}
+                            onChange={(value) =>
+                                setFieldValue("budget_type", value)
+                            }
+                        />
+                    </Col>
+                </Row>
             )}
         </Box>
     );

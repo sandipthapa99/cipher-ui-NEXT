@@ -18,16 +18,19 @@ export interface TopSkill {
     skills: string;
     country: string;
 }
-const useTopSkills = () => {
+export const useTopSkills = () => {
     return useQuery(
         ["top-skills"],
         () =>
             axiosClient
-                .get<{ result: TopSkill[] }>("/task/top-skills")
+                .get<{ result: TopSkill[] }>(
+                    "/task/cms/top-skills/?country=Nepal"
+                )
                 .then((response) => response.data.result),
         { initialData: [] }
     );
 };
+
 const FreelanceTasks: NextPage = () => {
     const { data: topSkillsInNepal } = useTopSkills();
     const { data: servicesData } = useData<ServicesValueProps>(
@@ -35,7 +38,7 @@ const FreelanceTasks: NextPage = () => {
         "/task/service/"
     );
     return (
-        <Layout title="Freelance Tasks | Cipher">
+        <Layout title="Freelance Tasks | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="freelance-tasks">
                     <BreadCrumb currentPage="Freelance Tasks" />
@@ -107,20 +110,24 @@ const FreelanceTasks: NextPage = () => {
                         <div className="freelance-tasks__top-skills">
                             <h1>Top skills in Nepal</h1>
                             <Row>
-                                {topSkillsInNepal.map((skill) => (
-                                    <Col md={3} sm={6} xs={6} key={skill.id}>
-                                        <p>{skill.skills}</p>
-                                    </Col>
-                                ))}
+                                {/* {!topSkillsInNepal && } */}
+                                {JSON.parse(topSkillsInNepal[0].skills).map(
+                                    (skill: string, index: number) => (
+                                        <Col md={3} sm={6} xs={6} key={index}>
+                                            {skill}
+                                        </Col>
+                                    )
+                                )}
                             </Row>
                         </div>
                     )}
                     <div className="freelance-tasks__bottom-container">
                         <LongSquareImageCard
-                            title="An employee takes home 10% more with Cipher Payroll"
+                            title="An employee takes home 10% more with homeaale"
                             image="/hireinnepal/footer.png"
                             imageOnRight={true}
-                            description="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500."
+                            description="“The only way to do great work is to love what you do. If you
+                            haven’t found it yet, keep looking. Don’t settle. Homaale your best companion."
                         />
                     </div>
                 </section>

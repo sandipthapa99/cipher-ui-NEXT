@@ -1,26 +1,25 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import FullPageLoader from "@components/common/FullPageLoader";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
-import AboutProfile from "@components/Profile/AboutProfile";
+import AboutProfile from "@components/Profile/AboutUser";
 import UserActivities from "@components/Profile/Activities";
 import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
-import TasksProfileCard from "@components/Profile/TasksProfile";
-import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
+import TasksProfileCard from "@components/Profile/UserServices";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const { data: profileDetails, isLoading, error } = useGetProfile();
-    const queryClient = useQueryClient();
-    const data = queryClient.getQueryData(["profile"]);
+    const { data: profileDetails, isLoading } = useGetProfile();
+    const router = useRouter();
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
@@ -29,6 +28,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // const profileDetails = userData?.data;
 
     // if (isLoading || !data) return <FullPageLoader />;
+    //
 
     const remaining = {
         userRating: 4,
@@ -42,20 +42,23 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
+    useEffect(() => {
+        if (!profileDetails && !isLoading) {
+            router.push("/settings/account/individual");
+        }
+    }, [isLoading, profileDetails, router]);
 
     if (!profileDetails) {
         return (
             <>
-                <Layout title="Profile | Cipher">
+                <Layout title="Profile | Homaale">
                     <Container fluid="xl" className="px-5">
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
                                 <h1>Your profile is incomplete!</h1>
-                                <p>
-                                    Fill in the details to Complete your profile
-                                    and get started with tasks.
-                                </p>
+                                <p>Redirecting to your Account Settings...</p>
+
                                 <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
@@ -73,7 +76,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     }
 
     return (
-        <Layout title="Profile | Cipher">
+        <Layout title="Profile | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="user-profile">
                     <BreadCrumb currentPage="Profile" />
@@ -82,35 +85,37 @@ const UserProfile: NextPage<UserProfileProps> = () => {
 
                     <section className="user-profile__top-container">
                         <UserProfileCard
-                            countryCode={profileDetails?.country}
+                            user={profileDetails?.user}
+                            stats={profileDetails?.stats}
+                            country={profileDetails?.country}
                             key={profileDetails?.id}
-                            userImage={
-                                profileDetails?.profile_image ??
+                            points={profileDetails?.points}
+                            profile_image={
+                                profileDetails?.user?.profile_image ??
                                 "/userprofile/unknownPerson.jpg"
                             }
-                            userName={profileDetails?.full_name}
-                            userJob={profileDetails?.user_type}
-                            userRating={remaining.userRating}
-                            userPrice={profileDetails?.hourly_rate}
-                            userLocation={profileDetails?.address_line1}
-                            userPhone={profileDetails?.phone}
-                            userEmail={profileDetails?.user?.email}
-                            moreServices={profileDetails?.skill}
-                            activeFrom={profileDetails?.active_hour_start}
-                            activeTo={profileDetails?.active_hour_end}
-                            userBio={profileDetails?.bio}
+                            full_name={`${profileDetails?.user?.first_name} ${profileDetails?.user?.middle_name} ${profileDetails?.user?.last_name}`}
+                            user_type={profileDetails?.user_type}
+                            rating={profileDetails?.rating?.avg_rating}
+                            hourly_rate={profileDetails?.hourly_rate}
+                            phone={profileDetails?.user?.phone}
+                            address_line1={profileDetails?.address_line1}
+                            skill={profileDetails?.skill}
+                            active_hour_start={
+                                profileDetails?.active_hour_start
+                            }
+                            address_line2={profileDetails?.address_line2}
+                            active_hour_end={profileDetails?.active_hour_end}
+                            bio={profileDetails?.bio}
                             userBadge={remaining.userBadge}
-                            userPoints={remaining.userPoints}
+                            userPoints={profileDetails?.points}
                             pointGoal={remaining.pointGoal}
-                            happyClients={profileDetails?.stats?.happy_clients}
-                            successRate={profileDetails?.stats?.success_rate}
-                            userReviews={profileDetails?.stats?.user_reviews}
-                            taskCompleted={
-                                profileDetails?.stats?.task_completed
+                            charge_currency={
+                                profileDetails?.charge_currency?.code
                             }
                             userActiveStatus={remaining.userActiveStatus}
                             tooltipMessage={remaining.tooltipMessage}
-                            isProfileVerified={
+                            is_profile_verified={
                                 profileDetails?.is_profile_verified
                             }
                         />
@@ -169,6 +174,10 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["profile"]),
             queryClient.prefetchQuery(["tasker-rating"]),
             queryClient.prefetchQuery(["tasker-document"]),
+            queryClient.prefetchQuery(["tasker-activities"]),
+            queryClient.prefetchQuery(["all-services"]),
+            queryClient.prefetchQuery(["bookmarks", "user"]),
+            queryClient.prefetchQuery(["bookmarks", "entityservice"]),
         ]);
         return {
             props: {
@@ -184,6 +193,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 profile: [],
                 ratingData: [],
                 documentData: [],
+                activitiesData: [],
             },
         };
     }

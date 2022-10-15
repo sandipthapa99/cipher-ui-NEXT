@@ -24,47 +24,49 @@ export interface TaskRequiremnt {
     title: string;
 }
 export interface TaskRequirementsProps extends TextInputProps {
-    onRequirementsChange: (requirements: TaskRequiremnt[]) => void;
+    initialRequirements: string[];
+    onRequirementsChange: (requirements: string[]) => void;
+    labelName: string;
+    description: string;
 }
 export const TaskRequirements = ({
+    initialRequirements,
     onRequirementsChange,
+    labelName,
+    description,
     ...rest
 }: TaskRequirementsProps) => {
     const { classes } = useStyles();
-    const [requirements, setRequirements] = useState<TaskRequiremnt[]>([]);
+    const [requirements, setRequirements] = useState<string[]>(
+        () => initialRequirements
+    );
     const [newRequirement, setNewRequirement] = useState("");
 
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key !== "Enter") return;
         event.preventDefault();
+        handleAddRequirement();
+    };
+
+    const handleAddRequirement = () => {
         if (!newRequirement) return;
-        const requirementAlreadyExist = requirements.some(
-            (requirement) => requirement.title === newRequirement
+        const requirementAlreadyExist = requirements.find(
+            (requirement) => requirement === newRequirement
         );
         if (requirementAlreadyExist) {
             setNewRequirement("");
             return;
         }
-        const newRequirementObj = {
-            id: requirements.length + 1,
-            title: newRequirement,
-        };
-        setRequirements((currentRequirements) => {
-            const updatedRequirements = [
-                newRequirementObj,
-                ...currentRequirements,
-            ];
-            setNewRequirement("");
-            return updatedRequirements;
-        });
+        setRequirements((previousRequirements) => [
+            ...previousRequirements,
+            newRequirement,
+        ]);
+        setNewRequirement("");
     };
-    const handleRemoveRequirement = (id: number) => {
-        setRequirements((currentRequirements) => {
-            const updatedRequirements = currentRequirements.filter(
-                (requirement) => requirement.id !== id
-            );
-            return updatedRequirements;
-        });
+    const handleRemoveRequirement = (name: string) => {
+        setRequirements((previousRequirements) =>
+            previousRequirements.filter((requirement) => requirement !== name)
+        );
     };
     useEffect(() => {
         onRequirementsChange(requirements);
@@ -72,13 +74,15 @@ export const TaskRequirements = ({
     }, [requirements]);
 
     const renderRequirements = () => {
-        return requirements.map(({ id, title }) => (
-            <li className={classes.listItem} key={id}>
+        return requirements.map((requirement, index) => (
+            <li className={classes.listItem} key={index}>
                 <ActionIcon>
                     <FontAwesomeIcon icon={faCheck} color="#3EAEFF" />
                 </ActionIcon>
-                <Text className={classes.listItemTitle}>{title}</Text>
-                <ActionIcon onClick={() => handleRemoveRequirement(id)}>
+                <Text className={classes.listItemTitle}>{requirement}</Text>
+                <ActionIcon
+                    onClick={() => handleRemoveRequirement(requirement)}
+                >
                     <FontAwesomeIcon icon={faXmark} color="#CED4DA" />
                 </ActionIcon>
             </li>
@@ -87,12 +91,12 @@ export const TaskRequirements = ({
     return (
         <Box>
             <Box className={classes.requirement}>
-                <Text>Requirements</Text>
+                <Text>{labelName}</Text>
                 <FontAwesomeIcon icon={faCircleExclamation} color="#FF9700" />
             </Box>
             <Space h={5} />
             <Text color="dimmed" size="sm">
-                This helps tasker to find about your requirements better.
+                {description}
             </Text>
             <Space h={10} />
             <List>{renderRequirements()}</List>
@@ -103,9 +107,11 @@ export const TaskRequirements = ({
                     setNewRequirement(event.currentTarget.value)
                 }
                 onKeyDown={handleKeyDown}
-                placeholder="Add your Requirements"
+                placeholder="Add your requirements"
                 rightSection={
-                    <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
+                    <ActionIcon onClick={handleAddRequirement}>
+                        <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
+                    </ActionIcon>
                 }
             />
         </Box>

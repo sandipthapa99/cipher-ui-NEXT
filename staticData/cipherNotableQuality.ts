@@ -1,14 +1,14 @@
 export const quality = [
     {
         id: "0",
-        title: "Easy to Use",
-        desc: "Posting a task or getting an opportunity requires only few easy clicks.",
+        title: "Reliable",
+        desc: "With us, you can be rest assured about the quality of people you collaborate with.",
         icon: "/notable/reliable.svg",
     },
     {
         id: "1",
-        title: "Reliable",
-        desc: "With us, you can be rest assured about the quality of people you collaborate with.",
+        title: "Easy to Use",
+        desc: "Posting a task or getting an opportunity requires only few easy clicks.",
         icon: "/notable/easy.svg",
     },
     {

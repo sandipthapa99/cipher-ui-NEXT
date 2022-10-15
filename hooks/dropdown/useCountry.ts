@@ -28,7 +28,7 @@ export const useCountry = () => {
         async () => {
             try {
                 const { data } = await axiosClient.get<Country>(
-                    "/locale/cms/country/"
+                    "/locale/cms/country/?page_size=1000"
                 );
                 return data;
             } catch (error) {

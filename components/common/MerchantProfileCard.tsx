@@ -33,7 +33,10 @@ const MerchantProfileCard = ({
                 <Col md={3} className="merchant-card-block__profile">
                     <figure className="thumbnail-img">
                         <Image
-                            src={merchantImage}
+                            src={
+                                merchantImage ??
+                                "/userprofile/unknownPerson.jpg"
+                            }
                             layout="fill"
                             // height={300}
                             objectFit="cover"

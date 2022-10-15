@@ -1,5 +1,9 @@
 .team-members-card {
     padding: 2.4rem;
+    //sepcific to ipad air
+    @media screen and (width: 820px), (width: 768px) {
+        padding: 1.4rem;
+    }
     @include border();
     &:focus-visible {
         border: 0.1rem solid #211d4f;
@@ -9,15 +13,32 @@
         font: 400 1.2rem $poppins-font;
         text-align: inherit;
         margin: 0 0 2.4rem;
+        height: 3rem;
     }
 
     .image-and-title {
+        .icon-wrapper-member.gap-5.align-items-center.emoji-section.text-dark {
+            gap: 2rem !important;
+        }
+        @media screen and (width: 1024px) {
+            .icon-wrapper-member.gap-5.align-items-center.emoji-section.text-dark {
+                gap: 1rem !important;
+            }
+        }
+        @include respond(xs) {
+            width: 105% !important;
+        }
+        //specific to surface duo
+        @media screen and (width: 540px) {
+            width: 100% !important;
+        }
         .team-member-card-image {
             margin: 0 2.4rem 0 0;
             width: 8rem;
 
             img {
                 border-radius: 50%;
+                object-fit: cover;
             }
         }
 
@@ -33,12 +54,16 @@
                     width: 2.4rem;
                     fill: #000000;
                     cursor: pointer;
+                    //specific to galaxy s8
+                    @media screen and (width: 360px) {
+                        height: 2rem;
+                    }
                 }
             }
 
             svg {
-                width: 1.5rem;
-                height: 1.5rem;
+                width: 1.8rem;
+                height: 1.8rem;
             }
 
             h6 {
@@ -55,9 +80,16 @@
                 padding: 0 0 2.9rem;
                 flex-wrap: wrap;
 
+                //specific to galaxy s8
+                @media screen and (width: 360px) {
+                    gap: 1rem;
+                }
                 span {
                     display: flex;
                     align-items: center;
+                    span {
+                        margin-top: 0.4rem;
+                    }
                 }
 
                 svg {
@@ -95,6 +127,7 @@
         .share-and-like {
             display: flex;
             align-items: center;
+            gap: 1rem;
             svg {
                 height: 2rem;
                 width: 2rem;
@@ -127,6 +160,12 @@
                 color: white;
                 height: 3rem;
                 width: 7.8rem;
+            }
+        }
+
+        .approve-reject-buttons {
+            .big-btn {
+                padding: 1rem !important;
             }
         }
     }

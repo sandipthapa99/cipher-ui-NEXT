@@ -1,15 +1,15 @@
-import { MapboxMap } from "@components/common/MapboxMap";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 
+const GoogleMap = dynamic(() => import("@components/GoogleMap"), {
+    ssr: false,
+});
 const TaskerPage: NextPage = () => {
     return (
         <>
             <TaskerLayout>
-                <MapboxMap
-                    latitude={27.687713889865993}
-                    longitude={85.32806957052709}
-                />
+                <GoogleMap />
             </TaskerLayout>
         </>
     );

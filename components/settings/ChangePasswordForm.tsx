@@ -1,11 +1,12 @@
 import FormButton from "@components/common/FormButton";
 import PasswordField from "@components/common/PasswordField";
-import SwitchValue from "@components/common/SwitchValue";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faPencil, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Field, Form, Formik } from "formik";
+import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { Accordion } from "@mantine/core";
+import { Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useChangePassword } from "hooks/profile/changePassword/useChangePassword";
+import Cookies from "js-cookie";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
@@ -14,128 +15,170 @@ import { ChangePasswordFromData } from "utils/formData";
 import changePasswordFormSchema from "utils/formValidation/changePasswordFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
+import { ChangeNewEmail } from "./changeNewEmail";
+import { ChangePhoneNumber } from "./changePhonenumber";
 import { SecurityQuestions } from "./SecurityQuestions";
 
 const ChangePasswordForm = () => {
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useChangePassword();
+    const { data: userDetails } = useUser();
+
+    const googleToken = Cookies.get("credentials");
 
     return (
         <>
-            {/* Modal component */}
-            <div className="account-form">
-                <h2>Password</h2>
-                <p>Configurations</p>
-                <Formik
-                    initialValues={ChangePasswordFromData}
-                    validationSchema={changePasswordFormSchema}
-                    onSubmit={async (values, action) => {
-                        const { old_password, new_password } = values;
-                        mutate(
-                            { old_password, new_password },
-                            {
-                                onSuccess: () => {
-                                    toast.success(
-                                        "Password changed successfully"
-                                    );
-                                    toggleSuccessModal();
-                                },
-                                onError: (err) => {
-                                    toast.error(err.message);
-                                },
-                            }
-                        );
-                        // toggleSuccessModal();
-                        // To be used for API
-                        // try {
-                        //     axiosClient.post("/routes", values);
-                        // } catch (error: any) {
-                        //     error.response.data.message;
-                        // }
-                        console.log(values);
-                        action.resetForm();
-                    }}
-                >
-                    {({ isSubmitting, errors, touched, resetForm }) => (
-                        <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
-                            <PasswordField
-                                name="old_password"
-                                typeOf="password"
-                                labelName="Current Password"
-                                error={errors.old_password}
-                                touch={touched.old_password}
-                                placeHolder="Current Password"
-                            />
-                            <PasswordField
-                                typeOf="password"
-                                name="new_password"
-                                labelName="New Password"
-                                error={errors.new_password}
-                                touch={touched.new_password}
-                                placeHolder="New Password"
-                            />
-                            <PasswordField
-                                name="confirm_password"
-                                typeOf="password"
-                                labelName="Confirm Password"
-                                error={errors.confirm_password}
-                                touch={touched.confirm_password}
-                                placeHolder="Confirm Password"
-                            />
-                            <h2 className="mt-5">2 Factor Authentication</h2>
-                            <p>
-                                Add an extra layer of security to block
-                                unauthorized access and protect your account.
-                            </p>
-                            <h2>Authenticator App Code</h2>
-                            <div className="d-flex justify-content-between security-toggle">
-                                Enter a code generated by your authenticator app
-                                to confirm it’s you.
-                                <SwitchValue />
-                            </div>
-                            <h2>Authenticator App Code</h2>
-                            <div className="d-flex justify-content-between security-toggle">
-                                Receive a prompt from your mobile app to confirm
-                                it’s you.
-                                <SwitchValue />
-                            </div>
-                            <h2>Text Message</h2>
-                            <div className="d-flex justify-content-between security-toggle">
-                                Receive a four digit code by text message to
-                                confirm it’s you.
-                                <SwitchValue />
-                            </div>
+            <Accordion
+                variant="separated"
+                defaultValue="change-password"
+                aria-expanded={true}
+                radius="md"
+            >
+                <Accordion.Item value="change-password">
+                    <Accordion.Control className="m-0">
+                        <p className="m-0 font-weight-normal">
+                            Change Password
+                        </p>
+                    </Accordion.Control>
+                    <Accordion.Panel className="p-0">
+                        <div className="p-0">
+                            <Formik
+                                initialValues={{
+                                    new_password: "",
+                                    social_token: googleToken
+                                        ? googleToken
+                                        : "",
+                                    old_password: "",
+                                    confirm_password: "",
+                                }}
+                                // validationSchema={changePasswordFormSchema}
+                                onSubmit={async (values, action) => {
+                                    console.log(values);
 
-                            {/* <div>
-                                <SecurityQuestions />
-                            </div> */}
+                                    mutate(values, {
+                                        onSuccess: () => {
+                                            toast.success(
+                                                "Password changed successfully"
+                                            );
+                                            toggleSuccessModal();
+                                        },
+                                        onError: (err) => {
+                                            toast.error(err.message);
+                                        },
+                                    });
 
-                            <div className="d-flex justify-content-end">
-                                <Button
-                                    className="me-3 mb-0 cancel-btn"
-                                    onClick={() => resetForm}
-                                >
-                                    Cancel
-                                </Button>
-                                <FormButton
-                                    type="submit"
-                                    variant="primary"
-                                    name="Update"
-                                    className="submit-btn w-25"
-                                    isSubmitting={isSubmitting}
-                                    isSubmittingClass={isSubmittingClass(
-                                        isSubmitting
-                                    )}
-                                />
-                            </div>
-                        </Form>
-                    )}
-                </Formik>
-                <div>
-                    <SecurityQuestions />
-                </div>
-            </div>
+                                    action.resetForm();
+                                }}
+                            >
+                                {({
+                                    isSubmitting,
+                                    errors,
+                                    touched,
+                                    resetForm,
+                                }) => (
+                                    <Form autoComplete="off">
+                                        {
+                                            <pre>
+                                                {JSON.stringify(
+                                                    errors,
+                                                    null,
+                                                    4
+                                                )}
+                                            </pre>
+                                        }
+                                        {!googleToken && (
+                                            <PasswordField
+                                                typeOf="password"
+                                                name="old_password"
+                                                labelName="Old Password"
+                                                error={errors.old_password}
+                                                touch={touched.old_password}
+                                                placeHolder="Old Password"
+                                                fieldRequired
+                                            />
+                                        )}
+                                        <PasswordField
+                                            typeOf="password"
+                                            name="new_password"
+                                            labelName="New Password"
+                                            error={errors.new_password}
+                                            touch={touched.new_password}
+                                            placeHolder="New Password"
+                                            fieldRequired
+                                        />
+
+                                        <PasswordField
+                                            name="confirm_password"
+                                            typeOf="password"
+                                            labelName="Confirm Password"
+                                            error={errors.confirm_password}
+                                            touch={touched.confirm_password}
+                                            placeHolder="Confirm Password"
+                                            fieldRequired
+                                        />
+
+                                        <div className="d-flex justify-content-end">
+                                            <Button
+                                                className="me-3 mb-0 cancel-btn"
+                                                onClick={() => resetForm}
+                                            >
+                                                Cancel
+                                            </Button>
+                                            <FormButton
+                                                type="submit"
+                                                variant="primary"
+                                                name="Update"
+                                                className="submit-btn"
+                                                isSubmitting={isSubmitting}
+                                                isSubmittingClass={isSubmittingClass(
+                                                    isSubmitting
+                                                )}
+                                            />
+                                        </div>
+                                    </Form>
+                                )}
+                            </Formik>
+                        </div>
+                    </Accordion.Panel>
+                </Accordion.Item>
+                <Accordion.Item value="phone-number">
+                    <Accordion.Control>
+                        <p className="m-0 font-weight-normal">
+                            {userDetails?.phone === null
+                                ? "Add new phone number"
+                                : "Change Phone Number"}
+                        </p>
+                    </Accordion.Control>
+                    <Accordion.Panel>
+                        <ChangePhoneNumber />
+                    </Accordion.Panel>
+                </Accordion.Item>
+
+                <Accordion.Item value="email-address">
+                    <Accordion.Control>
+                        <p className="m-0 font-weight-normal">
+                            {userDetails?.email === ""
+                                ? "Add new email"
+                                : "Update Email"}
+                        </p>
+                    </Accordion.Control>
+                    <Accordion.Panel>
+                        <ChangeNewEmail />
+                    </Accordion.Panel>
+                </Accordion.Item>
+
+                <Accordion.Item value="security">
+                    <Accordion.Control>
+                        <p className="m-0 font-weight-normal">
+                            Security Questions
+                        </p>
+                    </Accordion.Control>
+                    <Accordion.Panel>
+                        <SecurityQuestions />
+                    </Accordion.Panel>
+                </Accordion.Item>
+            </Accordion>
+
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"

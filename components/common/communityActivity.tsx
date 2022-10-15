@@ -41,7 +41,7 @@ const CommunityActivityCard = ({
 
                     <div className="d-flex align-items-center reacts-status">
                         <div className="d-flex align-items-center heart-status">
-                            <SaveIcon />
+                            <SaveIcon object_id={""} model={""} />
                             <span>{react}</span>
                         </div>
                         <div>

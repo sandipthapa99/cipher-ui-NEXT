@@ -8,10 +8,11 @@
     padding: 1.6rem 0 0;
     transform: translateY(5%);
     border-radius: 1rem;
-    max-height: 90vh;
+    max-height: 60vh;
     overflow-y: auto;
     margin: 0 0 1rem;
     z-index: 3;
+    cursor: pointer;
 
     ::-webkit-scrollbar {
         display: none;
@@ -45,6 +46,7 @@
         }
         .mark {
             text-decoration: underline;
+            cursor: pointer;
         }
     }
 
@@ -79,10 +81,16 @@
     }
 }
 .approve-notification-dropdown {
+    justify-content: space-between;
+
     padding: 1.6rem;
     background: #f8f9fa;
 
     .description-section {
+        .service-name-notify {
+            font-size: 14px;
+            font-weight: 500;
+        }
         h4 {
             font: 500 1.6rem $poppins-font;
             color: #212529;

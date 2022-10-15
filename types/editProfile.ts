@@ -1,5 +1,6 @@
 export interface File {
     type: string;
+    id: number;
     name: string;
     path: string;
     size: number;
@@ -12,8 +13,8 @@ export interface AddPortfolioProps {
     credential_url: string;
     issued_date: string;
     id: number;
-    files: File[];
-    images: File[];
+    files: File[] | any;
+    images: File[] | any;
     imagePreviewUrl?: any[];
     pdfPreviewUrl?: any[];
 }
@@ -23,4 +24,34 @@ export interface AddSkills {
     handleClose?: () => void;
 
     name?: string;
+}
+
+export interface EditPortfolioDetailProps {
+    results: Result[];
+}
+
+export interface Result {
+    id: number;
+    images: EditImageInfo[];
+    files: EditImageInfo[];
+    title: string;
+    description: string;
+    issued_date: string;
+    credential_url: string;
+}
+
+export interface EditImageInfo {
+    id: number;
+    name: string;
+    size: string;
+    media_type: string;
+    media: string;
+}
+
+export interface EditImageInfo {
+    id: number;
+    name: string;
+    size: string;
+    media_type: string;
+    media: string;
 }

@@ -1,0 +1,14 @@
+.task-detail__loc-time {
+    @include respond(xs) {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+.task-detail {
+    padding: 2rem;
+    // margin: 0 0 4rem;
+}
+
+.tasker-tab-taskdetail {
+    padding-top: 1rem;
+}

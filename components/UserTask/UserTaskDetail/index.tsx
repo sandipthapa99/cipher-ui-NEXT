@@ -33,7 +33,7 @@ export const UserTaskDetail = ({ task, onExitTask }: UserTaskDetailProps) => {
                     </p>
                     <div className="user-task-detail__header--icons">
                         <div className="icon-text">
-                            <SaveIcon />
+                            <SaveIcon object_id={"TODO"} model={"task"} />
                             <span>Save</span>
                         </div>
                         <div className="icon-text">

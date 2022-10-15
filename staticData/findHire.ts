@@ -4,7 +4,7 @@ export const findHire = [
         thumbnailImg: "/services/hire1.png",
         title: "Post a Task",
         description:
-            "Have a project that you need to finish ? Log in to CIPHER, type in the requirements, your budget, time constraints and post the same. Sit back, and relax while CIPHER finds a suitable tasker for you.",
+            "Have a project that you need to finish ? Log in to HOMAALE, type in the requirements, your budget, time constraints and post the same. Sit back, and relax while HOMAALE finds a suitable tasker for you.",
         redirectTo: "/post-task",
     },
     {
@@ -12,7 +12,7 @@ export const findHire = [
         thumbnailImg: "/services/hire2.png",
         title: "Browse Talents",
         description:
-            "Looking for some place to showcase your talent, and earn while you do it ? Well, login to CIPHER, and access all the tasks on the portal for you to choose from.",
+            "Looking for some place to showcase your talent, and earn while you do it ? Well, login to HOMAALE, and access all the tasks on the portal for you to choose from.",
         redirectTo: "tasker",
     },
     {
@@ -20,7 +20,7 @@ export const findHire = [
         thumbnailImg: "/services/hire3.png",
         title: "Get Help",
         description:
-            "Stuck somewhere on CIPHER, have questions ? Fret not, our hands on team is always ready to address your queries, and provide you with real time soultions.",
+            "Stuck somewhere on HOMAALE, have questions ? Fret not, our hands on team is always ready to address your queries, and provide you with real time soultions.",
         redirectTo: "help",
     },
 ];

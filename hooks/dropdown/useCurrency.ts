@@ -14,6 +14,7 @@ export type Currency = {
         id: number;
         name: string;
         code: string;
+        symbol: any;
         is_active: boolean;
         current_value: number;
         is_default: boolean;
@@ -28,7 +29,7 @@ export const useCurrency = () => {
         async () => {
             try {
                 const { data } = await axiosClient.get<Currency>(
-                    "/locale/cms/currency/"
+                    "/locale/cms/currency/?page_size=1000"
                 );
                 return data;
             } catch (error) {

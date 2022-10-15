@@ -1,35 +1,57 @@
+import BigButton from "@components/common/Button";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
+import { ImageUpload } from "@components/ImageUpload";
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
+import PhotoEdit from "@components/Profile/PhotoEdit";
+import { SelectCity } from "@components/SelectCity";
+// import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { faCamera } from "@fortawesome/pro-light-svg-icons";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
+import { faDisplay } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { SelectItem } from "@mantine/core";
+import { createStyles } from "@mantine/core";
+import { LoadingOverlay } from "@mantine/core";
+import { Select } from "@mantine/core";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
-import { useKYC } from "hooks/profile/kyc/useKYC";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useData } from "hooks/use-data";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { useMemo } from "react";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import ReactCrop from "react-image-crop";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
-import { formatTime } from "utils/FormatTime/formatTime";
+import type { UserBankDetails } from "types/bankDetail";
+import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { safeParse } from "utils/safeParse";
 
 import { FillKyc } from "./FillKyc";
+import { CompleteProfile } from "./ProfileForm";
+import ProfileSuccessModalCard from "./ProfileSuccessModal";
 
 const task_preferences = [
     { id: 1, label: "Part time", value: "partTime" },
@@ -64,43 +86,60 @@ const profile_visibility = [
     },
 ];
 
-const AccountForm = () => {
+interface Display {
+    showAccountForm: boolean;
+}
+
+const AccountForm = ({ showAccountForm }: Display) => {
     const [scrollPosition, setScrollPosition] = useState(0);
-    const toggleSuccessModal = useToggleSuccessModal();
-    const { mutate } = useProfile();
+    //profile success modal
+    const [show, setShow] = useState(false);
+    //hooks call
+    const { mutate, isLoading: postProfileLoading } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
-    const { data: profile } = useGetProfile();
+    const { data: profile, isLoading } = useGetProfile();
     const { data: KYCData } = useGetKYC();
 
+    const [image, setImage] = useState();
+    const [file, setFile] = useState("");
+    const [display, setDisplay] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    // const [showAccountForm, setShowAccountForm] = useState(false);
+    const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
+    const [isNoProfileImage, setIsNoProfileImage] = useState(false);
 
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
-    const onButtonClick = () => {
-        // `current` points to the mounted file input element
-        inputRef?.current?.click();
-    };
 
-    const currencyResults = currency?.result.map((result) => ({
-        label: result.code,
-        value: result.id,
-        id: result.id,
-    }));
-    const languageResults = language?.result.map((result) => ({
-        label: result.name,
-        value: result.id,
-        id: result.id,
-    }));
-    const countryResults = countryName?.result.map((result) => ({
-        label: result.name,
-        value: result.id,
-        id: result.id,
-    }));
+    const isInputDisabled = !isEditButtonClicked && profile ? true : false;
+
+    const { classes } = useStyles();
+
+    useEffect(() => {
+        if (!profile?.profile_image) {
+            setIsNoProfileImage(true);
+        }
+    }, []);
+
+    // const router = useRouter();
+    //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
+    // const [city, setCity] = useState(profile?.city?.id);
+
+    const country = profile?.country ? profile?.country.name : "";
+
+    // console.log(
+    //     "🚀 ~ file: AccountForm.tsx ~ line 122 ~ AccountForm ~ profile",
+    //     profile
+    // );
+
+    const user_language = profile?.language ? profile?.language.name : "";
+
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
     };
+
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
 
@@ -131,19 +170,178 @@ const AccountForm = () => {
 
     const endTime = finalend.toString();
     const startTime = start.toString();
+    const [countryChange, setCountryChange] = useState<string | null>(country);
+    const [languageChange, setLanguageChange] = useState<string | null>(
+        user_language
+    );
+    const [value, onChange] = useState(new Date());
+    const userDateOfBirth = profile
+        ? profile.date_of_birth
+        : new Date("2022-09-09");
+    // const [dateOfBirth, setDateOfBirth] = useState<string | null>(
+    //     userDateOfBirth
+    // );
 
+    const [currencyChange, setCurrencyChange] = useState<string | null>(
+        profile ? profile.charge_currency.code : ""
+    );
+    useEffect(() => {
+        setCurrencyChange(profile ? profile.charge_currency.id.toString() : "");
+        setLanguageChange(profile ? profile.language.id.toString() : "");
+        setCountryChange(profile ? profile.country.id.toString() : "");
+    }, [profile]);
+
+    const [showEditForm, setShowEditForm] = useState(false);
+
+    const currencyResults: SelectItem[] = currency
+        ? currency.result.map((result) => {
+              return {
+                  label: result?.code,
+                  value: result.id.toString(),
+                  id: result?.id,
+              };
+          })
+        : ([] as SelectItem[]);
+
+    const languageResults: SelectItem[] = language
+        ? language.result.map((result) => ({
+              label: result?.name,
+              value: result?.id.toString(),
+              id: result?.id,
+          }))
+        : ([] as SelectItem[]);
+
+    const countryResults: SelectItem[] = countryName
+        ? countryName.result.map((result) => ({
+              label: result?.name,
+              value: result?.id.toString(),
+              id: result?.id,
+          }))
+        : ([] as SelectItem[]);
+
+    //find the country
+    // const foundCountry = countryResults.find((item) => item.label === country);
+
+    // const foundLanguage = languageResults.find(
+    //     (item) => item.label === user_language
+    // );
+
+    //handle country change
+    const handleCountryChanged = (
+        id: string | null,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setCountryChange(id);
+        if (id) setFieldValue("country", parseInt(id));
+    };
+
+    //handle language change
+    const handleLanguageChanged = (
+        id: string | null,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setLanguageChange(id);
+        if (id) setFieldValue("language", parseInt(id));
+    };
+
+    //handle currency change
+    const handleCurrencyChanged = (
+        id: string | null,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setCurrencyChange(id);
+        if (id) setFieldValue("charge_currency", parseInt(id));
+    };
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
+    // const userType = "";
+    //for city select field
+    const { data: BankDetails } = useData<UserBankDetails>(
+        ["tasker-bank-account"],
+        "/tasker/bank-details/"
+    );
+    const LinkedBank = BankDetails?.data.result;
+    const cityData = profile
+        ? {
+              initialId: profile?.city?.id?.toString() ?? "",
+              initialData: profile?.city
+                  ? [
+                        {
+                            id: profile?.city?.id,
+                            label: profile?.city?.name,
+                            value: profile?.city?.id?.toString(),
+                        },
+                    ]
+                  : [],
+          }
+        : {};
+
+    const queryClient = useQueryClient();
+
+    const editProfile = useMutation((data: FormData) =>
+        axiosClient.patch("/tasker/profile/", data)
+    );
+    const loadingOverlayVisible = useMemo(
+        () => editProfile.isLoading,
+        [editProfile.isLoading]
+    );
+    if (loadingOverlayVisible)
+        return (
+            <LoadingOverlay
+                visible={loadingOverlayVisible}
+                className={classes.overlay}
+                overlayBlur={2}
+            />
+        );
+
+    let previewImage: any;
+
+    //edit profile
+    function isValidURL(str: any) {
+        const regex =
+            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
+        if (!regex.test(str)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    const onButtonClick = () => {
+        // `current` points to the mounted file input element
+        inputRef?.current?.click();
+        setDisplay(true);
+        //  setIsEdtButtonClicked(!isEditButtonClicked);
+    };
+
     return (
         <>
-            {!KYCData ? <FillKyc onClick={scrollToKyc} /> : ""}
+            {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}
+            <LoadingOverlay
+                visible={postProfileLoading}
+                sx={{ position: "fixed", inset: 0 }}
+            />
+            <ProfileSuccessModalCard
+                show={show}
+                setShowForm={setShow}
+                onClick={scrollToKyc}
+                handleClose={scrollToKyc}
+            />{" "}
             {/* Modal component */}
-            <div className="account-form">
+            <div
+                className={"account-form"}
+                style={
+                    showAccountForm || profile
+                        ? { display: "block" }
+                        : { display: "none" }
+                }
+            >
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
-                        full_name: profile?.full_name ?? "",
-                        phone: profile?.phone ?? "",
+                        first_name: profile?.user.first_name ?? "",
+                        middle_name: profile?.user.middle_name ?? "",
+                        last_name: profile?.user.last_name ?? "",
+                        city: profile?.city?.id ?? "",
                         email: "",
                         bio: profile?.bio ?? "",
                         gender: profile?.gender ?? "",
@@ -151,31 +349,28 @@ const AccountForm = () => {
                             profile && profile.date_of_birth
                                 ? parseISO(profile.date_of_birth)
                                 : "",
-                        skill: "",
+                        skill: profile?.skill ? skills : "",
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start:
                             new Date(`2022-09-24 ${startTime}`) ?? "",
-                        active_hour_end: endTime
-                            ? new Date(`2022-09-24 ${endTime}`)
-                            : "",
+                        active_hour_end:
+                            new Date(`2022-09-24 ${endTime}`) ?? "",
                         hourly_rate: profile?.hourly_rate ?? "",
                         user_type: userType ?? "",
-                        country: profile?.country ?? "",
+                        country: profile ? countryChange : "",
                         education: "abc",
                         address_line1: profile?.address_line1 ?? "",
                         address_line2: profile?.address_line2 ?? "",
-                        language: profile?.language ?? "",
-                        charge_currency: profile?.charge_currency,
+                        language: profile ? languageChange : "",
+                        charge_currency: profile ? currencyChange : "",
                         profile_visibility: profile?.profile_visibility ?? "",
                         task_preferences: profile?.task_preferences ?? "",
-                        profile_image: "",
+                        profile_image: profile?.profile_image ?? "",
+                        designation: profile?.designation ?? "",
                     }}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
                         const formData = new FormData();
-
-                        console.log(values);
-
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
@@ -194,22 +389,56 @@ const AccountForm = () => {
 
                         Object.entries(newValidatedValues).forEach((entry) => {
                             const [key, value] = entry;
-                            if (value && key !== "profile_image") {
-                                formData.append(key, value.toString());
+
+                            if (
+                                entry[0] == "profile_image" &&
+                                isValidURL(entry[1])
+                            ) {
+                                return false;
+                            }
+                            if (key !== "profile_image") {
+                                formData.append(
+                                    key,
+                                    value ? value?.toString() : ""
+                                );
+                            } else {
+                                formData.append(
+                                    "profile_image",
+                                    values.profile_image
+                                );
                             }
                         });
-                        formData.append("profile_image", values.profile_image);
-
-                        mutate(formData, {
-                            onSuccess: () => {
-                                toggleSuccessModal();
-                            },
-                            onError: (err) => {
-                                toast.error(err.message);
-                            },
-                        });
-
-                        // setShowSuccessModal(true);
+                        const editedData = formData;
+                        {
+                            isEditButtonClicked
+                                ? editProfile.mutate(editedData, {
+                                      onSuccess: () => {
+                                          toast.success(
+                                              "Profile updated successfully."
+                                          );
+                                          setIsEditButtonClicked(
+                                              !isEditButtonClicked
+                                          );
+                                          queryClient.invalidateQueries([
+                                              "profile",
+                                          ]);
+                                      },
+                                      onError: (err: any) => {
+                                          toast.error(err.message);
+                                      },
+                                  })
+                                : mutate(formData, {
+                                      onSuccess: () => {
+                                          setShow(true);
+                                          queryClient.invalidateQueries([
+                                              "profile",
+                                          ]);
+                                      },
+                                      onError: (err) => {
+                                          toast.error(err.message);
+                                      },
+                                  });
+                        }
                     }}
                 >
                     {({
@@ -219,63 +448,189 @@ const AccountForm = () => {
                         values,
                         resetForm,
                         setFieldValue,
+                        getFieldProps,
                     }) => (
                         <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre>
-                            <pre>{JSON.stringify(values, null, 4)}</pre> */}
-                            <figure className="profile-img mx-auto">
-                                <FontAwesomeIcon
-                                    icon={faBadgeCheck}
-                                    className="badge-icon"
-                                />
-                                {!profile && (
-                                    <div
-                                        className="img-dragdrop d-flex align-items-center justify-content-center"
-                                        onClick={onButtonClick}
-                                    >
+                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <figure className="profile-img">
+                                    {profile?.is_profile_verified ? (
                                         <FontAwesomeIcon
-                                            icon={faCamera}
-                                            className="camera-icon"
+                                            icon={faBadgeCheck}
+                                            //onClick={onButtonClick}
+                                            className="badge-icon"
                                         />
-                                        <input
-                                            hidden
-                                            type="file"
-                                            ref={inputRef}
-                                            onChange={(e: any) => {
-                                                const files = e.target.files;
+                                    ) : (
+                                        ""
+                                    )}
+                                    <div
+                                        className={`${
+                                            !profile || isEditButtonClicked
+                                                ? "img-dragdrop"
+                                                : "d-flex align-items-center justify-content-center"
+                                        }`}
+                                    >
+                                        {!profile || isEditButtonClicked ? (
+                                            <>
+                                                <FontAwesomeIcon
+                                                    icon={faCamera}
+                                                    className="camera-icon"
+                                                    // onClick={() => {
+                                                    //     setDisplay(!display);
+                                                    // }}
+                                                    onClick={onButtonClick}
+                                                />
 
-                                                setFieldValue(
-                                                    "profile_image",
-                                                    files[0]
-                                                );
-                                            }}
-                                        />
+                                                <ImageUpload
+                                                    name="profile_image"
+                                                    display={display}
+                                                    // setDisplay={setDisplay}
+                                                    ref={inputRef}
+                                                    onChange={(e: any) => {
+                                                        const files =
+                                                            e.target.files;
+                                                        setFieldValue(
+                                                            "profile_image",
+                                                            files[0]
+                                                        );
+                                                        setDisplay(false);
+                                                        // setFile(
+                                                        //     URL.createObjectURL(
+                                                        //         files[0]
+                                                        //     )
+                                                        // );
+
+                                                        setImage(files[0]);
+                                                        image
+                                                            ? (previewImage =
+                                                                  URL.createObjectURL(
+                                                                      image
+                                                                  ))
+                                                            : "";
+
+                                                        isEditButtonClicked
+                                                            ? setShowEditForm(
+                                                                  !showEditForm
+                                                              )
+                                                            : null;
+                                                    }}
+                                                    photo={image}
+                                                    showEditForm={showEditForm}
+                                                    setShowEditForm={
+                                                        setShowEditForm
+                                                    }
+                                                    handleClose={() => {
+                                                        setShowEditForm(false);
+                                                        setDisplay(false);
+                                                    }}
+                                                    // handleSubmit={() => {
+                                                    //     isEditButtonClicked
+                                                    //         ? onEditProfile(
+                                                    //               image
+                                                    //           )
+                                                    //         : setShowEditForm(
+                                                    //               false
+                                                    //           );
+                                                    // }}
+                                                    isEditButtonClicked={
+                                                        isEditButtonClicked
+                                                    }
+                                                />
+                                            </>
+                                        ) : (
+                                            ""
+                                        )}
                                     </div>
-                                )}
-                                <Image
-                                    // src={"/userprofile/unknownPerson.jpg"}
-                                    src={
-                                        profile && profile.profile_image
-                                            ? profile.profile_image
-                                            : "/userprofile/unknownPerson.jpg"
-                                    }
-                                    layout="fill"
-                                    alt="profile-pic"
-                                    className="rounded-circle"
-                                    objectFit="cover"
-                                    priority={true}
-                                />
-                            </figure>
 
-                            <InputField
-                                type="text"
-                                name="full_name"
-                                labelName="Full Name"
-                                error={errors.full_name}
-                                touch={touched.full_name}
-                                placeholder="Full Name"
-                                disabled={profile ? true : false}
-                            />
+                                    <Image
+                                        //src={"/userprofile/unknownPerson.jpg"}
+                                        src={
+                                            profile && profile.profile_image
+                                                ? profile.profile_image
+                                                : isNoProfileImage && file
+                                                ? file
+                                                : isEditButtonClicked &&
+                                                  !profile?.profile_image
+                                                ? "/userprofile/unknownPerson.jpg"
+                                                : isEditButtonClicked
+                                                ? previewImage
+                                                : "/userprofile/unknownPerson.jpg"
+                                        }
+                                        layout="fill"
+                                        alt="profile-pic"
+                                        className="rounded-circle"
+                                        objectFit="cover"
+                                        priority={true}
+                                    />
+                                </figure>
+                                {profile ? (
+                                    <div>
+                                        {isEditButtonClicked ||
+                                        !profile ? null : (
+                                            <BigButton
+                                                className="sticky-wrapper"
+                                                btnTitle={"Edit Profile"}
+                                                backgroundColor={"#FFCA6A"}
+                                                textColor={"#212529"}
+                                                handleClick={() =>
+                                                    setIsEditButtonClicked(true)
+                                                }
+                                            />
+                                        )}
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+
+                            <Row className="mt-3">
+                                <Col md={4}>
+                                    <InputField
+                                        type="text"
+                                        name="first_name"
+                                        labelName="First Name"
+                                        error={errors.first_name}
+                                        touch={touched.first_name}
+                                        placeHolder="First Name"
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
+                                    />
+                                </Col>
+                                <Col md={4}>
+                                    <InputField
+                                        type="text"
+                                        name="middle_name"
+                                        labelName="Middle Name"
+                                        error={errors.middle_name}
+                                        touch={touched.middle_name}
+                                        placeHolder="Middle Name"
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
+                                    />
+                                </Col>
+                                <Col md={4}>
+                                    <InputField
+                                        type="text"
+                                        name="last_name"
+                                        labelName="Last Name"
+                                        error={errors.last_name}
+                                        touch={touched.last_name}
+                                        placeHolder="Last Name"
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
+                                    />
+                                </Col>
+                            </Row>
+
                             {/* <InputField
                                 type="email"
                                 name="email"
@@ -291,20 +646,41 @@ const AccountForm = () => {
                                 error={errors.bio}
                                 placeHolder="Enter your Bio"
                                 as="textarea"
-                                disabled={profile ? true : false}
+                                disabled={isInputDisabled}
                             />
-                            <Row className="g-5">
+
+                            <InputField
+                                name="designation"
+                                labelName="Designation"
+                                touch={touched.designation as boolean}
+                                error={errors.designation as string}
+                                placeHolder="Enter your designation"
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
+                            />
+                            {/* <Row className="g-5">
                                 <Col md={6}>
-                                    <InputField
-                                        name="phone"
-                                        labelName="Phone Number"
-                                        touch={touched.phone}
-                                        error={errors.phone}
-                                        placeHolder="Enter your Phone Number"
-                                        disabled={profile ? true : false}
-                                    />
+                                    {isEditButtonClicked || !profile ? (
+                                        <PhoneNumberInput
+                                            name={"phone"}
+                                            labelName="Phone Number"
+                                            touch={touched.phone}
+                                            error={errors.phone}
+                                        />
+                                    ) : (
+                                        <InputField
+                                            name="phone"
+                                            labelName="Phone Number"
+                                            touch={touched.phone}
+                                            error={errors.phone}
+                                            disabled={true}
+                                        />
+                                    )}
                                 </Col>
-                            </Row>
+                            </Row> */}
                             <RadioField
                                 type="radio"
                                 name="gender"
@@ -312,17 +688,56 @@ const AccountForm = () => {
                                 labelName="Please specify your gender"
                                 touch={touched.gender}
                                 error={errors.gender}
-                                disabled={profile ? true : false}
+                                disabled={isInputDisabled}
                             />
-                            <DatePickerField
+                            {/* <DatePickerField
                                 name="date_of_birth"
                                 labelName="Date of birth"
                                 dateFormat="yyyy-MM-dd"
                                 placeHolder="dd/mm/yy"
                                 touch={touched.date_of_birth}
                                 error={errors.date_of_birth}
-                                disabled={profile ? true : false}
+                                disabled={isInputDisabled}
+                            /> */}
+                            <MantineDateField
+                                name="date_of_birth"
+                                labelName="Date of birth"
+                                placeHolder="dd/mm/yy"
+                                error={errors.date_of_birth}
+                                touch={touched.date_of_birth}
+                                icon={
+                                    <FontAwesomeIcon
+                                        icon={faCalendarDays}
+                                        className="svg-icons"
+                                    />
+                                }
+                                disabled={isInputDisabled}
+                                // minDate={new Date()}
+                                handleChange={(value) => {
+                                    setFieldValue(
+                                        "date_of_birth",
+                                        format(new Date(value), "yyyy-MM-dd")
+                                    );
+                                }}
                             />
+                            {/* <DatePicker
+                                label="Date of birth"
+                                // value={
+                                //     (profile && profile?.date_of_birth) ??
+                                //     parseISO(profile.date_of_birth)
+                                // }
+                                // defaultValue={
+                                //     (profile && profile?.date_of_birth) ??
+                                //     parseISO(profile.date_of_birth)
+                                // }
+                                inputFormat="yyyy-MM-dd"
+                                value={value}
+                                //onChange={onChange}
+                                placeholder="dd/mm/yy"
+                                firstDayOfWeek="sunday"
+                                name="date_of_birth"
+                                disabled={isInputDisabled}
+                            /> */}
                             <hr />
                             <h3>Profession Information</h3>
                             <h4>Select User Type</h4>
@@ -337,6 +752,7 @@ const AccountForm = () => {
                                         name="user_type"
                                         value="Client"
                                         className="me-2"
+                                        disabled={isInputDisabled}
                                     />
                                     Client
                                 </label>
@@ -345,19 +761,20 @@ const AccountForm = () => {
                                         type="checkbox"
                                         name="user_type"
                                         className="me-2"
+                                        disabled={isInputDisabled}
                                         value="Tasker"
                                     />
                                     Tasker
                                 </label>
                             </div>
                             <TagInputField
-                                defaultValue={skills}
                                 data={skills}
                                 name="skill"
-                                error={errors.skill}
-                                touch={touched.skill}
+                                // error={!profile && errors.skill}
+                                // touch={!profile && touched.skill}
                                 labelName="Specialities"
                                 placeHolder="Enter your skills"
+                                disabled={isInputDisabled}
                             />
                             <RadioField
                                 type="radio"
@@ -366,7 +783,7 @@ const AccountForm = () => {
                                 labelName="Experience Level"
                                 touch={touched.experience_level}
                                 error={errors.experience_level}
-                                disabled={profile ? true : false}
+                                disabled={isInputDisabled}
                             />
                             <h4>Active Hours</h4>
                             <Row className="g-5">
@@ -378,8 +795,8 @@ const AccountForm = () => {
                                         dateFormat="HH:mm aa"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
+                                        disabled={isInputDisabled}
                                         timeOnly
-                                        disabled={profile ? true : false}
                                     />
                                 </Col>
                                 <Col md={3}>
@@ -391,7 +808,7 @@ const AccountForm = () => {
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}
                                         timeOnly
-                                        disabled={profile ? true : false}
+                                        disabled={isInputDisabled}
                                     />
                                 </Col>
                             </Row>
@@ -403,56 +820,140 @@ const AccountForm = () => {
                                         labelName="Base Rate Per Hour"
                                         error={errors.hourly_rate}
                                         touch={touched.hourly_rate}
+                                        disabled={isInputDisabled}
                                         placeHolder="Base Rate Per Hour"
-                                        disabled={profile ? true : false}
                                     />
                                 </Col>
                             </Row>
                             <h3>Address</h3>
-                            <SelectInputField
+                            {/* <SelectInputField
                                 name="country"
                                 labelName="Country"
                                 touch={touched.country}
                                 error={errors.country}
                                 placeHolder="Select your country"
                                 options={countryResults}
-                                disabled={profile ? true : false}
+                               
+                            /> */}
+                            <Select
+                                label="Country"
+                                placeholder="Select your country"
+                                name="country"
+                                searchable
+                                nothingFound="No result found."
+                                value={countryChange}
+                                // key={countryChange}
+                                onChange={(value) => {
+                                    setCountryChange(value ? value : "");
+                                    handleCountryChanged(value, setFieldValue);
+                                }}
+                                data={countryResults ?? []}
+                                disabled={isInputDisabled}
                             />
-                            <InputField
-                                type="text"
-                                name="address_line1"
-                                labelName="Address Line 1"
-                                error={errors.address_line1}
-                                touch={touched.address_line1}
-                                disabled={profile ? true : false}
-                                placeHolder="Enter your permanent address"
+                            <SelectCity
+                                disabled={isInputDisabled}
+                                label="City"
+                                placeholder="Select your city"
+                                onCityChange={(city) =>
+                                    setFieldValue("city", city)
+                                }
+                                value={cityData.initialId}
+                                data={cityData.initialData}
+                                nothingFound={"nothing found"}
                             />
+
+                            {/* <SelectCity
+                                key={city}
+                                onCitySelect={(cityId) => {
+                                    setCity(cityId);
+                                    setFieldValue("city", cityId);
+                                }}
+                                value={city?.toString() ?? ""}
+                                disabled={isInputDisabled}
+                            /> */}
+
+                            <PlacesAutocomplete
+                                size="md"
+                                label="Address Line 1"
+                                placeholder="Enter your available address"
+                                disabled={isInputDisabled}
+                                error={
+                                    touched.address_line1 &&
+                                    errors.address_line1
+                                        ? errors.address_line1
+                                        : undefined
+                                }
+                                {...getFieldProps("address_line1")}
+                                value={values.address_line1}
+                                onPlaceChange={(value) =>
+                                    setFieldValue("address_line1", value)
+                                }
+                            />
+                            {/* <PlacesAutocomplete
+                                size="md"
+                                label="Address Line 2"
+                                placeholder="Enter your temporary address"
+                                disabled={isInputDisabled}
+                                error={
+                                    touched.address_line2 &&
+                                    errors.address_line2
+                                        ? errors.address_line2
+                                        : undefined
+                                }
+                                {...getFieldProps("address_line2")}
+                                value={values.address_line2}
+                                onPlaceChange={(value) =>
+                                    setFieldValue("address_line2", value)
+                                }
+                            /> */}
                             <InputField
                                 type="text"
                                 name="address_line2"
                                 labelName="Address Line 2"
                                 error={errors.address_line2}
                                 touch={touched.address_line2}
-                                placeHolder="Enter your temporary address"
-                                disabled={profile ? true : false}
+                                disabled={isInputDisabled}
+                                placeHolder="Enter your secondary address"
                             />
-                            <SelectInputField
+                            <Select
+                                label="Language"
+                                placeholder="Select your language"
                                 name="language"
-                                labelName="Language"
-                                touch={touched.language}
-                                error={errors.language}
-                                placeHolder="Select your language"
-                                options={languageResults}
-                                disabled={profile ? true : false}
+                                searchable
+                                disabled={isInputDisabled}
+                                nothingFound="No result found."
+                                value={languageChange}
+                                //   key={languageChange}
+                                onChange={(value) => {
+                                    setLanguageChange(value ? value : "");
+                                    handleLanguageChanged(value, setFieldValue);
+                                }}
+                                data={languageResults ?? []}
                             />
-                            <SelectInputField
+                            {/* <SelectInputField
                                 name="charge_currency"
                                 labelName="Currency"
                                 touch={touched.charge_currency}
                                 error={errors.charge_currency}
                                 placeHolder="Select your currency"
                                 options={currencyResults}
-                                disabled={profile ? true : false}
+                               
+                            /> */}
+                            <Select
+                                label="Currency"
+                                placeholder="Select your currency"
+                                name="charge_currency"
+                                searchable
+                                nothingFound="No result found."
+                                disabled={isInputDisabled}
+                                value={currencyChange}
+                                key={currencyChange}
+                                //value={currencyChange}
+                                onChange={(value) => {
+                                    setCurrencyChange(value ? value : "");
+                                    handleCurrencyChanged(value, setFieldValue);
+                                }}
+                                data={currencyResults ?? []}
                             />
                             <hr />
                             <h3>Profile Configurations</h3>
@@ -461,9 +962,9 @@ const AccountForm = () => {
                                 labelName="Visibility"
                                 touch={touched.profile_visibility}
                                 error={errors.profile_visibility}
+                                disabled={isInputDisabled}
                                 placeHolder="Select your visibility"
                                 options={profile_visibility}
-                                disabled={profile ? true : false}
                             />
                             <SelectInputField
                                 name="task_preferences"
@@ -472,22 +973,21 @@ const AccountForm = () => {
                                 error={errors.task_preferences}
                                 placeHolder="Select your preferences"
                                 options={task_preferences}
-                                disabled={profile ? true : false}
+                                disabled={isInputDisabled}
                             />
                             {profile ? null : (
                                 <div className="d-flex justify-content-end">
                                     <Button
                                         className="me-3 mb-0 cancel-btn"
-                                        onClick={() => resetForm}
+                                        onClick={() => resetForm()}
                                     >
                                         Cancel
                                     </Button>
                                     <FormButton
-                                        disabled={profile ? true : false}
                                         type="submit"
                                         variant="primary"
                                         name="Save"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
@@ -495,6 +995,46 @@ const AccountForm = () => {
                                     />
                                 </div>
                             )}
+                            {profile ? (
+                                <div>
+                                    {
+                                        isEditButtonClicked || !profile ? (
+                                            <FormButton
+                                                type="submit"
+                                                variant="primary"
+                                                name="Save"
+                                                className="submit-btn"
+                                                isSubmitting={isSubmitting}
+                                                isSubmittingClass={isSubmittingClass(
+                                                    isSubmitting
+                                                )}
+                                            />
+                                        ) : null
+                                        // (
+                                        //     <BigButton
+                                        //         btnTitle={"Edit Profile"}
+                                        //         backgroundColor={"#FFCA6A"}
+                                        //         textColor={"#212529"}
+                                        //         handleClick={() =>
+                                        //             setIsEditButtonClicked(true)
+                                        //         }
+                                        //     />
+                                        // )
+                                    }
+                                </div>
+                            ) : (
+                                ""
+                            )}
+                            {/* {isEditButtonClicked ? (
+                                <div className="d-flex justify-content-end">
+                                    <Button
+                                        className="me-3 mb-0 submit-btn"
+                                        onClick={() => resetForm}
+                                    >
+                                        Cancel Editing
+                                    </Button>
+                                </div>
+                            ) : null} */}
                         </Form>
                     )}
                 </Formik>
@@ -508,4 +1048,11 @@ const AccountForm = () => {
         </>
     );
 };
+const useStyles = createStyles(() => ({
+    overlay: {
+        postion: "fixed",
+        inset: 0,
+        zIndex: 9999,
+    },
+}));
 export default AccountForm;

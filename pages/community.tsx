@@ -11,10 +11,11 @@ import { communityGuidelineCardContent } from "staticData/community";
 const Community: NextPage = () => {
     const accessToken = Cookies.get("access");
     return (
-        <Layout title="Community | Cipher">
+        <Layout title="Community | Homaale">
             <section className="community-page">
-                <BreadCrumb currentPage="Community" />
                 <Container fluid="xl" className="px-5">
+                    <BreadCrumb currentPage="Community" />
+
                     <div className="community-page__top-container">
                         <Row className="top-row gx-5">
                             <Col

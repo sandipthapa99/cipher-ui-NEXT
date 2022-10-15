@@ -15,7 +15,7 @@ import {
 
 const HowToHire: NextPage = () => {
     return (
-        <Layout title="How To Hire | Cipher">
+        <Layout title="How To Hire | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="how-to-hire">
                     <BreadCrumb currentPage="How To Hire" />
@@ -71,13 +71,13 @@ const HowToHire: NextPage = () => {
                     <div className="how-to-hire__gradient-container">
                         <GradientBanner
                             title="A client tasks are quickly finished 
-                            when searched through Cipher"
+                            when searched through Homaale"
                             subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
                             image="/discover/main.svg"
                         />
                     </div>
                     <div className="how-to-hire__bottom-container">
-                        <h1>Ways to Use Cipher to Achieve Your Goals</h1>
+                        <h1>Ways to Use Homaale to Achieve Your Goals</h1>
                         <p>
                             As the world&apos;s work marketplace, there&apos;s
                             more than one way to use Upwork—and at least one
@@ -91,7 +91,7 @@ const HowToHire: NextPage = () => {
                                 width="100%"
                                 height="100%"
                                 src={
-                                    "https://www.youtube.com/embed/Ke90Tje7VS0"
+                                    "https://www.youtube.com/embed/QIKZaRYg5bA"
                                 }
                                 title="YouTube video player"
                                 frameBorder="0"

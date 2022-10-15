@@ -1,4 +1,4 @@
-import type { ServicesPackageProps } from "./serviceCard";
+import type { ServicesPackageProps, ServicesValueProps } from "./serviceCard";
 
 export interface ServiceNearYouCardProps {
     image?:
@@ -12,18 +12,20 @@ export interface ServiceNearYouCardProps {
               placeholder: string;
           }[];
     serviceTitle?: string;
+    currency?: string;
     serviceProvider?: string;
     serviceProviderLocation?: string;
     serviceRating?: string | number;
-    budget_from?: string | number;
-    budget_to?: string | number;
+    budget_from?: number;
+    budget_to?: number;
     budget_type?: string;
     haveDiscount?: boolean;
     servicePrice?: string | number;
     discount?: number;
     serviceDescription?: string;
     discountOn?: string;
-    highlights?: string[];
+    highlights?: any;
+    serviceProviderId?: string;
     serviceId?: string;
     serviceSlug?: string;
     onServiceClick?: (service: any) => void;
@@ -31,6 +33,8 @@ export interface ServiceNearYouCardProps {
     servicePackage?: ServicesPackageProps["result"];
     serviceCreated?: string;
     serviceViews?: number;
+    service?: ServicesValueProps["result"][0];
+    ProfileImage?: string;
 }
 export interface BookNowDetails extends ServiceNearYouCardProps {
     problemDescription?: string;

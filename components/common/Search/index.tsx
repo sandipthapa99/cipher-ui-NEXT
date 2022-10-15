@@ -1,18 +1,14 @@
-import {
-    faChevronDown,
-    faSearch,
-    faWarning,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faSearch, faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, createStyles, LoadingOverlay, Select } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useMutation } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { useFormik } from "formik";
-import type { Tasker } from "hooks/tasker/use-tasker";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import type { ITasker } from "types/tasker";
 import { axiosClient } from "utils/axiosClient";
 
 import {
@@ -21,7 +17,7 @@ import {
     useSetSearchQuery,
 } from "./searchStore";
 
-export type SearchContext = "tasker.Profile" | "task.Service";
+export type SearchContext = "tasker.Profile" | "task.EntityService";
 export enum SearchScope {
     ALL = "all",
     TALENT = "talent",
@@ -31,7 +27,7 @@ export interface SearchApiResponse {
     result: Array<{ c_type: SearchContext; result: any }>;
 }
 export interface SearchDashboardResult {
-    taskers: Tasker[];
+    taskers: ITasker[];
     services: any[];
 }
 
@@ -50,9 +46,9 @@ export const useSearchDashboard = () => {
         );
         const taskers = data.result
             .filter((item) => item.c_type === "tasker.Profile")
-            .map((item) => item.result) as Tasker[];
+            .map((item) => item.result) as ITasker[];
         const services = data.result
-            .filter((item) => item.c_type === "task.Service")
+            .filter((item) => item.c_type === "task.EntityService")
             .map((item) => item.result);
         return { taskers, services };
         // return data.result;
@@ -65,6 +61,7 @@ const searchData = [
 ];
 export const Search = () => {
     const [searchError, setSearchError] = useState<string | undefined>();
+
     const router = useRouter();
     const setSearchedTaskers = useSetSearchedTaskers();
     const setSearchQuery = useSetSearchQuery();
@@ -88,13 +85,11 @@ export const Search = () => {
                         );
                     }
                     if (services.length > 0 && taskers.length > 0) {
-                        console.log(
-                            "TODO: REDIRECT TO SEARCH TASK AND SERVICE PAGE"
-                        );
                         return;
                     }
                     if (taskers.length > 0) {
                         setSearchedTaskers(taskers);
+
                         setSearchQuery({
                             context: "tasker.Profile",
                             query: values.q,
@@ -104,7 +99,7 @@ export const Search = () => {
                     }
                     if (services.length > 0) {
                         setSearchQuery({
-                            context: "task.Service",
+                            context: "task.EntityService",
                             query: values.q,
                         });
                         setSearchedServices(services);
@@ -135,9 +130,7 @@ export const Search = () => {
                             variant="unstyled"
                             className={classes.selectField}
                             data={searchData}
-                            rightSection={
-                                <FontAwesomeIcon icon={faChevronDown} />
-                            }
+                            // rightSection={<AngleDown />}
                             onChange={(value) => setFieldValue("scope", value)}
                             styles={{ dropdown: { marginLeft: `${-1}rem` } }}
                         />
@@ -177,7 +170,7 @@ export const Search = () => {
 };
 export const useStyles = createStyles(() => ({
     selectField: {
-        maxWidth: useMediaQuery("(max-width:572px)") ? "12rem" : "12rem",
+        maxWidth: useMediaQuery("(max-width:572px)") ? "10rem" : "12rem",
         marginLeft: "1rem",
     },
     loadingOverlay: {
