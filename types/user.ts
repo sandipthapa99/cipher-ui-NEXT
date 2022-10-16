@@ -5,5 +5,7 @@ export interface User {
     groups: string;
     permissions: string;
     email: string;
+    social_only: boolean;
+
     phone: string;
 }

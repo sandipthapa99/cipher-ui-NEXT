@@ -32,7 +32,7 @@ const KYCForm = () => {
 
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
-    const [showDocument, setShowDocument] = useState(false);
+    // const [showDocument, setShowDocument] = useState(false);
     // const [showButtons, setShowButtons] = useState(false);
 
     const { data: profileDetails } = useGetProfile();
@@ -139,7 +139,7 @@ const KYCForm = () => {
                                         toast.success(
                                             "KYC Details Added Successfully"
                                         );
-                                        setShowDocument(true);
+
                                         //queryClient.invalidateQueries(["GET_KYC"]);
                                         // setShowButtons(false);
                                     },
@@ -317,7 +317,10 @@ const KYCForm = () => {
                                 </Form>
                             )}
                         </Formik>
-                        <IdentityDocument />
+                        <div>
+                            <hr />
+                            {KYCData && <IdentityDocument />}
+                        </div>
                     </>
                 )}
 

@@ -1,3 +1,4 @@
+import { useUser } from "hooks/auth/useUser";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
@@ -15,6 +16,7 @@ interface AuthenticationModalCardProps {
 interface AuthProps {
     otp?: string;
     phone: string;
+    scope: string;
 }
 
 const AuthenticationModalCard = ({
@@ -22,9 +24,11 @@ const AuthenticationModalCard = ({
     show,
     phone,
     setShowForm,
+    scope,
 }: AuthenticationModalCardProps & AuthProps) => {
     const router = useRouter();
     const { mutate } = useForm(`/user/reset/otp/verify/`);
+    const { data: userDetails } = useUser();
 
     const [otpNum, setOTPNum] = useState("");
     const handleChange = (otpNum: string) => {
@@ -33,12 +37,22 @@ const AuthenticationModalCard = ({
     const handleSubmit = () => {
         const dataToSend = {
             otp: otpNum,
-            scope: "verify",
+            scope: scope,
             phone: phone,
         };
-        mutate(dataToSend, {
+        const addPhone = {
+            otp: otpNum,
+            scope: scope,
+        };
+        const phoneNumber = userDetails ? addPhone : dataToSend;
+        mutate(phoneNumber, {
             onSuccess: async () => {
-                toast.success("OTP verified!");
+                {
+                    userDetails
+                        ? toast.success("Successfully added phone number")
+                        : toast.success("Successfully changed phone number.");
+                }
+                // toast.success("OTP verified!");
                 setShowForm(false);
                 router.push("/login");
             },
