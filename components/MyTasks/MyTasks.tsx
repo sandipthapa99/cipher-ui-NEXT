@@ -68,6 +68,7 @@ export const MyTasks = () => {
                     ))
                 ) : (
                     <ApplyPostComponent
+                        model="task"
                         title="No Tasks Available"
                         subtitle="Post a task to the marketplace and let merchant come to you."
                         buttonText="Post a Task"

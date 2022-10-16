@@ -92,6 +92,7 @@ export const MyBookings = () => {
             </div>
             {!isLoading && myBookingData && myBookingData?.length <= 0 && (
                 <ApplyPostComponent
+                    model="service"
                     title="No Bookings Available"
                     subtitle="Book a service to the marketplace and let merchant come to you."
                     buttonText="Book a service"
