@@ -35,7 +35,7 @@ const OnBoardingLayout = ({
                         src={mainImg}
                         alt="Logo"
                         width={564}
-                        height={530}
+                        height={500}
                         priority
                     />
                 </div>

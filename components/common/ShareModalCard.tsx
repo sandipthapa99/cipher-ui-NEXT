@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faCopy } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, CopyButton } from "@mantine/core";
 import Link from "next/link";
 import {
     FacebookShareButton,
@@ -24,15 +25,6 @@ const ShareModal = ({
     quote,
     hashtag,
 }: ShareButtonProps) => {
-    const copyToClipBoard = async (copyMe: any) => {
-        try {
-            navigator.clipboard.writeText(copyMe);
-            toast.success("Link copied to clipboard.");
-        } catch (err) {
-            //
-        }
-    };
-
     return (
         <>
             {/* Modal component */}
@@ -87,11 +79,23 @@ const ShareModal = ({
                             </LinkedinShareButton>
                         </div>
                         <div className="social-media copy">
-                            <FontAwesomeIcon
+                            {/* <FontAwesomeIcon
                                 icon={faCopy}
                                 onClick={() => copyToClipBoard(url)}
                                 className="svg-icon copy-icon"
-                            />
+                            /> */}
+
+                            <CopyButton value={url} timeout={2000}>
+                                {({ copy }) => (
+                                    <FontAwesomeIcon
+                                        icon={faCopy}
+                                        className="svg-icon copy-icon"
+                                        onClick={() => {
+                                            copy(), toast.success("url copied");
+                                        }}
+                                    />
+                                )}
+                            </CopyButton>
                         </div>
                         {/* <div className="social-media share">
                             <Link href="#!">
