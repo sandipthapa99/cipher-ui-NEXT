@@ -40,7 +40,11 @@ export const UserClient = () => {
                                 items={[
                                     {
                                         title: "Recent",
-                                        content: <ApplyPostComponent />,
+                                        content: (
+                                            <ApplyPostComponent
+                                                model={"task"}
+                                            />
+                                        ),
                                     },
                                     {
                                         title: "In Progress",

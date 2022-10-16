@@ -1,7 +1,9 @@
 import getCroppedImg from "@components/AppliedTask/Crop";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
+import { useProfile } from "hooks/profile/profile";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { Dispatch, SetStateAction } from "react";
+import { useEffect } from "react";
 import { useCallback } from "react";
 import React, { useMemo, useState } from "react";
 import Button from "react-bootstrap/Button";
@@ -9,35 +11,30 @@ import Modal from "react-bootstrap/Modal";
 import Cropper from "react-easy-crop";
 import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
-
 interface editProfileProps {
     show?: boolean;
     handleClose?: () => void;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
-    //  setDisplay: Dispatch<SetStateAction<boolean>>;
     photo?: any;
-    //  display: boolean;
     handleSubmit?: () => void;
     isEditButtonClicked?: boolean;
+    onPhotoEdit: (url: RequestInfo | URL, file: File) => void;
 }
 
 const PhotoEdit = ({
     show,
     handleClose,
-    handleSubmit,
     setShowEditForm,
-    //  setDisplay,
     photo,
-    //   display,
     isEditButtonClicked,
+    onPhotoEdit,
 }: editProfileProps) => {
     //console.log("🚀 ~ file: PhotoEdit.tsx ~ line 34 ~ display", display);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(1);
+    const [zoom, setZoom] = useState(5);
     const [rotation, setRotation] = useState(0);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
-
     let previewImage: any;
 
     const reactImage = useMemo(() => {
@@ -61,75 +58,68 @@ const PhotoEdit = ({
             )) as Blob;
             console.log("donee", { croppedImage });
             setCroppedImage(croppedImage);
+            return croppedImage;
         } catch (e) {
             console.error(e);
         }
     }, [croppedAreaPixels, rotation, reactImage]);
-    console.log(
-        "🚀 ~ file: PhotoEdit.tsx ~ line 64 ~ showCroppedImage ~ croppedImage",
-        croppedImage
-    );
 
     const editProfile = useMutation((data: FormData) =>
         axiosClient.patch("/tasker/profile/", data)
     );
     const queryClient = useQueryClient();
+    const profile = useGetProfile();
+    console.log("🚀 ~ file: PhotoEdit.tsx ~ line 74 ~ profile", profile);
+    const profileImage = profile.data?.profile_image;
+    console.log(
+        "🚀 ~ file: PhotoEdit.tsx ~ line 83 ~ onEditProfile ~ profileImage",
+        profileImage
+    );
 
-    const onEditProfile = (data: any) => {
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 74 ~ onEditProfile ~ data",
-            data
-        );
+    const onEditProfile = async () => {
+        const data = (await showCroppedImage()) as unknown as RequestInfo | URL;
 
-        const file = new File([data], photo.name, {
-            type: photo.type,
-            lastModified: Date.now(),
+        if (!data) return;
+
+        console.log("data", data);
+        const response = await fetch(data);
+
+        const blob = await response.blob();
+
+        const file = new File([blob], photo.name, {
+            type: blob.type,
         });
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 79 ~ onEditProfile ~ photo.name",
-            photo.name
-        );
-
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 78 ~ onEditProfile ~ file",
-            file
-        );
-
+        if (!profileImage) {
+            console.log("heyyy");
+            onPhotoEdit(data, file);
+            setShowEditForm(false);
+            return;
+        }
         const formData: FormData = new FormData();
 
         formData.append("profile_image", file);
-
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 88 ~ onEditProfile ~ data",
-            data
-        );
-
-        editProfile.mutate(formData, {
-            onSuccess: (data) => {
-                queryClient.invalidateQueries(["profile"]);
-                setShowEditForm(false);
-                //setDisplay(false);
-            },
-            onError: (error: any) => {
-                // setDisplay(false);
-                toast.error(data?.data?.message);
-                // setShowEditForm(false);
-            },
-        });
+        isEditButtonClicked
+            ? editProfile.mutate(formData, {
+                  onSuccess: (data: any) => {
+                      queryClient.invalidateQueries(["profile"]);
+                      setShowEditForm(false);
+                      setCroppedImage(null);
+                  },
+                  onError: (error: any) => {
+                      toast.error(error?.message);
+                  },
+              })
+            : null;
     };
-    const submit = () => {
-        showCroppedImage();
-        onEditProfile(croppedImage);
+
+    const submit = async () => {
+        console.log("cropped image", croppedImage);
+        onEditProfile();
     };
-    // console.log(
-    //     "🚀 ~ file: PhotoEdit.tsx ~ line 94 ~ submit ~ croppedImage",
-    //     reactImage,
-    //     croppedAreaPixels,
-    //     rotation,
-    //     "dsfasdf",
-    //     croppedImage,
-    //     photo
-    // );
+
+    useEffect(() => {
+        console.log({ croppedImage });
+    }, [croppedImage]);
 
     return (
         <>
@@ -198,9 +188,7 @@ const PhotoEdit = ({
                         <Button
                             className="btn close-btn"
                             onClick={() => {
-                                isEditButtonClicked
-                                    ? submit()
-                                    : setShowEditForm(false);
+                                isEditButtonClicked ? submit() : submit();
                             }}
                         >
                             Apply
