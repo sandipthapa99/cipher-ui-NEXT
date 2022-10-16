@@ -11,7 +11,7 @@ export const useTaskers = (searchParam?: string) => {
         ({ pageParam = 1 }) =>
             axiosClient
                 .get<TaskerApiResponse>(
-                    `${urls.tasker.list}?${searchParam}page=${pageParam}`
+                    `${urls.tasker.list}?${searchParam}&page=${pageParam}`
                 )
                 .then((response) => response.data),
         { getNextPageParam }

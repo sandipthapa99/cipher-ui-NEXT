@@ -11,7 +11,7 @@ export const useServices = (searchParam?: string) => {
         ({ pageParam = 1 }) =>
             axiosClient
                 .get<ServiceApiResponse>(
-                    `${urls.task.service}&${searchParam}page=${pageParam}`
+                    `${urls.task.service}&${searchParam}&page=${pageParam}`
                 )
                 .then((response) => response.data),
         { getNextPageParam }
