@@ -80,13 +80,15 @@ const Login = () => {
                             onError: (error) => {
                                 toast.error(error.message);
                             },
-                            onSuccess: async () => {
+                            onSuccess: async (hasProfile) => {
                                 const { next } = router.query;
                                 await queryClient.invalidateQueries(["user"]);
-                                const redirectUrl = next
-                                    ? next.toString()
+                                const redirectUrl = !hasProfile
+                                    ? "/settings/account/individual"
+                                    : next
+                                    ? next
                                     : "/home";
-                                router.push(redirectUrl);
+                                router.push(redirectUrl.toString());
                                 toast.success("Successfully logged in");
                             },
                         });

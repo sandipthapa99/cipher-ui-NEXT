@@ -11,16 +11,18 @@ export interface LoginPayload {
 export interface LoginSuccessResponse {
     refresh: string;
     access: string;
+    has_profile: boolean;
 }
 
 export const useLogin = () => {
-    return useMutation<void, Error, LoginPayload>(async (loginPayload) => {
+    return useMutation<boolean, Error, LoginPayload>(async (loginPayload) => {
         try {
             const { data } = await axiosClient.post<LoginSuccessResponse>(
                 urls.user.login,
                 loginPayload
             );
             autoLogin(data.access, data.refresh);
+            return data.has_profile;
         } catch (error: any) {
             throw new Error("Invalid email or password");
         }
