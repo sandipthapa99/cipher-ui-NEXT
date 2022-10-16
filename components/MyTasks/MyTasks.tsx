@@ -49,15 +49,7 @@ export const MyTasks = () => {
                     </Grid>
                 ) : mytaskData?.length ? (
                     mytaskData?.map((item: MyTaskProps, index: number) => (
-                        <div
-                            className="task-wrapper"
-                            key={index}
-                            onClick={() =>
-                                router.push({
-                                    pathname: `/task/${item?.slug}`,
-                                })
-                            }
-                        >
+                        <div className="task-wrapper" key={index}>
                             <MyTaskOrder
                                 task_id={item?.id}
                                 assigner_id={item?.created_by?.id}

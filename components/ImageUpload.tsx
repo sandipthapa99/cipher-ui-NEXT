@@ -1,5 +1,4 @@
-import type { Dispatch, LegacyRef, SetStateAction } from "react";
-import { useRef } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { forwardRef } from "react";
 
 import PhotoEdit from "./Profile/PhotoEdit";
@@ -15,6 +14,7 @@ interface ImageUploadProps {
     onChange: (e: any) => void;
     isEditButtonClicked?: boolean;
     display: boolean;
+    onPhotoEdit: (url: RequestInfo | URL, file: File) => void;
 }
 
 // eslint-disable-next-line react/display-name
@@ -32,8 +32,8 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
             handleSubmit,
             isEditButtonClicked,
             display,
+            onPhotoEdit,
         } = props;
-        console.log("🚀 ~ file: ImageUpload.tsx ~ line 28 ~ photo", photo);
         return (
             <>
                 <input
@@ -51,6 +51,7 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
                     handleClose={handleClose}
                     handleSubmit={handleSubmit}
                     isEditButtonClicked={isEditButtonClicked}
+                    onPhotoEdit={onPhotoEdit}
                 />
             </>
         );
