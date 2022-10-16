@@ -101,7 +101,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const { data: countryName } = useCountry();
     const { data: profile, isLoading } = useGetProfile();
     const { data: KYCData } = useGetKYC();
-
+    const [blobUrl, setBlobUrl] = useState<RequestInfo | URL | undefined>();
     const [image, setImage] = useState();
     const [file, setFile] = useState("");
     const [display, setDisplay] = useState(false);
@@ -174,6 +174,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [languageChange, setLanguageChange] = useState<string | null>(
         user_language
     );
+    const [previewImage, setPreviewImage] = useState<
+        RequestInfo | URL | undefined
+    >();
     const [value, onChange] = useState(new Date());
     const userDateOfBirth = profile
         ? profile.date_of_birth
@@ -294,8 +297,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
             />
         );
 
-    let previewImage: any;
-
     //edit profile
     function isValidURL(str: any) {
         const regex =
@@ -408,6 +409,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 );
                             }
                         });
+
                         const editedData = formData;
                         {
                             isEditButtonClicked
@@ -501,18 +503,13 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                         // );
 
                                                         setImage(files[0]);
-                                                        image
-                                                            ? (previewImage =
-                                                                  URL.createObjectURL(
-                                                                      image
-                                                                  ))
-                                                            : "";
-
-                                                        isEditButtonClicked
-                                                            ? setShowEditForm(
-                                                                  !showEditForm
-                                                              )
-                                                            : null;
+                                                        // image
+                                                        //     ? (previewImage =
+                                                        //           blobUrl)
+                                                        //     : "";
+                                                        setShowEditForm(
+                                                            !showEditForm
+                                                        );
                                                     }}
                                                     photo={image}
                                                     showEditForm={showEditForm}
@@ -535,6 +532,23 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                     isEditButtonClicked={
                                                         isEditButtonClicked
                                                     }
+                                                    onPhotoEdit={(
+                                                        data,
+                                                        file
+                                                    ) => {
+                                                        console.log(
+                                                            "data",
+                                                            data,
+                                                            file
+                                                        );
+                                                        setPreviewImage(data);
+
+                                                        setBlobUrl(data);
+                                                        setFieldValue(
+                                                            "profile_image",
+                                                            file
+                                                        );
+                                                    }}
                                                 />
                                             </>
                                         ) : (
@@ -554,7 +568,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 ? "/userprofile/unknownPerson.jpg"
                                                 : isEditButtonClicked
                                                 ? previewImage
-                                                : "/userprofile/unknownPerson.jpg"
+                                                : previewImage
                                         }
                                         layout="fill"
                                         alt="profile-pic"
