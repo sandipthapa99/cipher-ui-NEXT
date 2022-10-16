@@ -41,13 +41,11 @@ const SearchPage: NextPage = () => {
             <Layout title="Search | Homaale">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage={"Search"} />
-
-                    <h2 className="all-categories-title">Search Page</h2>
                     <section className="services-near-you">
                         <h1 className="heading-title mt-3">
                             {searchName ? (
                                 <span>
-                                    {searchName} &nbsp; Services Near You
+                                    {`"${searchName}"`} &nbsp; Services Near You
                                 </span>
                             ) : (
                                 <Highlight highlight={"Loading..."}>
@@ -104,7 +102,9 @@ const SearchPage: NextPage = () => {
                     <section className="tasks-near-you">
                         <h1 className="heading-title">
                             {searchName ? (
-                                <span>{searchName} &nbsp; Tasks Near You</span>
+                                <span>
+                                    {`"${searchName}"`} &nbsp; Tasks Near You
+                                </span>
                             ) : (
                                 <Highlight highlight={"Loading..."}>
                                     {`Loading...`}
@@ -146,7 +146,9 @@ const SearchPage: NextPage = () => {
                     <section className="taskers-near-you">
                         <h1 className="heading-title">
                             {searchName ? (
-                                <span>{searchName} &nbsp; Tasker Near You</span>
+                                <span>
+                                    {`"${searchName}"`} &nbsp; Tasker Near You
+                                </span>
                             ) : (
                                 <Highlight highlight={"Loading..."}>
                                     {`Loading...`}
@@ -187,7 +189,13 @@ const SearchPage: NextPage = () => {
                                                     }
                                                     merchantName={
                                                         merchant?.user
-                                                            ?.first_name
+                                                            ?.first_name +
+                                                        " " +
+                                                        merchant?.user
+                                                            ?.middle_name +
+                                                        " " +
+                                                        merchant?.user
+                                                            ?.last_name
                                                     }
                                                     merchantCategory={
                                                         merchant?.designation
