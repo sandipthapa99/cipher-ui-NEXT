@@ -17,13 +17,15 @@ const updateEmailFormSchema = Yup.object().shape({
 
 export const ChangeNewEmail = () => {
     const { data: userDetails } = useUser();
-    const url =
-        userDetails?.email === ""
-            ? "/tasker/add-email/"
-            : "/tasker/change-email/";
+    const url = "/tasker/change-email/";
+    // const url =
+    //     userDetails?.email === ""
+    //         ? "/tasker/add-email/"
+    //         : "/tasker/change-email/";
     const changeEmail = useMutation((values: any) => {
         return axiosClient.post(url, values);
     });
+    const isLoading = changeEmail.isLoading;
 
     //
 
@@ -33,7 +35,7 @@ export const ChangeNewEmail = () => {
                 initialValues={{
                     email: "",
                     // new_email: "",
-                    // confirm_password: "",
+                    password: "",
                 }}
                 validationSchema={updateEmailFormSchema}
                 onSubmit={async (values, action) => {
@@ -41,7 +43,9 @@ export const ChangeNewEmail = () => {
                         onSuccess: () => {
                             userDetails?.email === ""
                                 ? toast.success(" Email added successfully")
-                                : toast.success("Email changed successfully");
+                                : toast.success(
+                                      "Email changed successfully. Please verify your email"
+                                  );
 
                             action.resetForm();
                         },
@@ -72,17 +76,17 @@ export const ChangeNewEmail = () => {
                             placeHolder="New Email"
                             fieldRequired
                             required={true}
-                        />
+                        /> */}
                         <PasswordField
-                            name="confirm_password"
+                            name="password"
                             typeOf="password"
-                            labelName="Confirm Password"
-                            error={errors.confirm_password}
-                            touch={touched.confirm_password}
-                            placeHolder="Confirm Password"
+                            labelName="Password"
+                            error={errors.password}
+                            touch={touched.password}
+                            placeHolder="Password"
                             fieldRequired
                             required={true}
-                        /> */}
+                        />
 
                         {/* <PasswordField
                             name="confirm_password"
@@ -104,6 +108,7 @@ export const ChangeNewEmail = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
+                                isLoading={isLoading}
                                 name={
                                     userDetails?.email === "" ? "Add" : "Update"
                                 }

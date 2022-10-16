@@ -1,3 +1,4 @@
+import { FacebookLogin } from "@components/auth/FacebookLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
@@ -142,7 +143,7 @@ const Login = () => {
 
                             <div className="button-wrapper-social d-flex justify-content-evenly">
                                 <Google />
-                                {/* <FacebookLogin /> */}
+                                <FacebookLogin />
                             </div>
                         </Form>
                     )}
