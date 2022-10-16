@@ -14,6 +14,7 @@ import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import { LoginPrompt } from "@components/model/LoginPrompt";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faAngleRight,
@@ -93,6 +94,13 @@ const Home: NextPage<{
                     autoClose: false,
                 }
             );
+            return;
+        }
+        if (!userData.is_kyc_verified) {
+            toast.error(<KYCIncompleteToast />, {
+                icon: false,
+                autoClose: false,
+            });
             return;
         }
         toggleShowPostTaskModal();

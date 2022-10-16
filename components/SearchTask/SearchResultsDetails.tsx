@@ -8,6 +8,7 @@ import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
 import { EditService } from "@components/services/EditService";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faCalendar,
@@ -290,6 +291,13 @@ const SearchResultsDetail = ({
                     autoClose: false,
                 }
             );
+            return;
+        }
+        if (!user?.is_kyc_verified) {
+            toast.error(<KYCIncompleteToast />, {
+                icon: false,
+                autoClose: false,
+            });
             return;
         }
         setShow(true);

@@ -1,5 +1,6 @@
 import { ProfileModel } from "@components/model/ProfileModel";
 import { PostTaskModal } from "@components/Task/PostTaskModal";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -57,6 +58,13 @@ export function UpperHeader() {
                     autoClose: false,
                 }
             );
+            return;
+        }
+        if (!user?.is_kyc_verified) {
+            toast.error(<KYCIncompleteToast />, {
+                icon: false,
+                autoClose: false,
+            });
             return;
         }
         toggleShowPostTaskModal();
