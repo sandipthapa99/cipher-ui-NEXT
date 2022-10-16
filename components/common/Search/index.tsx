@@ -17,7 +17,7 @@ import {
     useSetSearchQuery,
 } from "./searchStore";
 
-export type SearchContext = "tasker.Profile" | "task.EntityService";
+export type SearchContext = "all" | "tasker.Profile" | "task.EntityService";
 export enum SearchScope {
     ALL = "all",
     TALENT = "talent",
@@ -85,6 +85,13 @@ export const Search = () => {
                         );
                     }
                     if (services.length > 0 && taskers.length > 0) {
+                        setSearchedTaskers(taskers);
+                        setSearchedServices(services);
+                        setSearchQuery({
+                            context: "all",
+                            query: values.q,
+                        });
+                        router.push(`/search?search=${values.q}`);
                         return;
                     }
                     if (taskers.length > 0) {

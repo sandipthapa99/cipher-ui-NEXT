@@ -33,17 +33,14 @@ const MerchantCard = ({
                 <a>
                     <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
                         <figure className="thumbnail-img">
-                            {!merchantImage ||
-                                (merchantImage?.length <= 0 && (
-                                    <Image
-                                        src={
-                                            "/placeholder/profilePlaceholder.png"
-                                        }
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="merchant-image"
-                                    />
-                                ))}
+                            {!merchantImage && (
+                                <Image
+                                    src={"/placeholder/profilePlaceholder.png"}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="merchant-image"
+                                />
+                            )}
                             {merchantImage && (
                                 <Image
                                     src={merchantImage}
