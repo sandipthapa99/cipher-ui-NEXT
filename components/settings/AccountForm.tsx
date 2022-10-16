@@ -309,7 +309,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
     }
     const onButtonClick = () => {
         // `current` points to the mounted file input element
-
+        // profile?.profile_image
+        //     ? setShowEditForm(true)
+        //     : inputRef?.current?.click();
+        inputRef?.current?.click();
         setDisplay(true);
         //  setIsEdtButtonClicked(!isEditButtonClicked);
     };
@@ -568,7 +571,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 ? "/userprofile/unknownPerson.jpg"
                                                 : isEditButtonClicked
                                                 ? previewImage
-                                                : previewImage
+                                                : "/userprofile/unknownPerson.jpg"
                                         }
                                         layout="fill"
                                         alt="profile-pic"
