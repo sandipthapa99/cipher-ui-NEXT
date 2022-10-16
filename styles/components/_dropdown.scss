@@ -44,8 +44,8 @@
 
     .dropdown-menu-items {
         //min-width: 11rem;
-        min-width: 38rem;
-        padding: 1rem 2rem;
+        min-width: 31rem;
+        padding: 1rem 1rem;
         background-color: $white;
         align-items: center;
         /* Container */
@@ -62,13 +62,6 @@
 
         /* till here */
 
-        @include respond(lg) {
-            //min-width: 18rem;
-            min-width: 38rem;
-        }
-        @include respond(xl) {
-            min-width: 38rem;
-        }
         :last-child {
             border-bottom: none;
         }

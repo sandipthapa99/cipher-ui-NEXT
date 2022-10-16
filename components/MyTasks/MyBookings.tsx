@@ -39,7 +39,9 @@ export const MyBookings = () => {
                         </Col>
                     </Grid>
                 )}
-                {!isLoading && myBookingData?.length ? (
+                {!isLoading &&
+                    myBookingData &&
+                    myBookingData?.length >= 0 &&
                     myBookingData?.map((item, index) => (
                         <div className="booking-wrapper" key={index}>
                             <Link
@@ -86,18 +88,15 @@ export const MyBookings = () => {
                                 </a>
                             </Link>
                         </div>
-                    ))
-                ) : (
-                    <ApplyPostComponent
-                        title="No Bookings Available"
-                        subtitle="Book a service to the marketplace and let merchant come to you."
-                        buttonText="Book a service"
-                    />
-                    // <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                    //     Sorry, You have no booking to show.
-                    // </Alert>
-                )}
+                    ))}
             </div>
+            {!isLoading && myBookingData && myBookingData?.length <= 0 && (
+                <ApplyPostComponent
+                    title="No Bookings Available"
+                    subtitle="Book a service to the marketplace and let merchant come to you."
+                    buttonText="Book a service"
+                />
+            )}
         </div>
     );
 };
