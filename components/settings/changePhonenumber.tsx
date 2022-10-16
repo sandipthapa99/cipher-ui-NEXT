@@ -12,10 +12,7 @@ import { isSubmittingClass } from "utils/helpers";
 export const ChangePhoneNumber = () => {
     const { data: userDetails } = useUser();
 
-    const url =
-        userDetails?.phone === ""
-            ? "/tasker/add-phone/"
-            : "/tasker/change-phone/";
+    const url = "/tasker/change-phone/";
     const changePhoneNumber = useMutation((values: any) => {
         return axiosClient.post(url, values);
     });
@@ -30,6 +27,8 @@ export const ChangePhoneNumber = () => {
                 }}
                 //validationSchema={changePasswordFormSchema}
                 onSubmit={async (values, action) => {
+                    console.log(values);
+
                     changePhoneNumber.mutate(values, {
                         onSuccess: () => {
                             userDetails?.phone === ""
@@ -76,8 +75,8 @@ export const ChangePhoneNumber = () => {
                             error={errors.password}
                             touch={touched.password}
                             placeHolder="Confirm Password"
-                            fieldRequired
-                            required={true}
+                            // fieldRequired
+                            // required={true}
                         />
 
                         <div className="d-flex justify-content-end">
