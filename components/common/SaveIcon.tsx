@@ -46,7 +46,12 @@ const SaveIcon = ({
             {showText ? <span>{filled ? "Remove" : "Save"}</span> : null}
         </Button>
     ) : (
-        <ActionIcon>
+        <ActionIcon
+            color="red"
+            loading={isLoading}
+            variant="subtle"
+            onClick={withLogin(handleSaveClick)}
+        >
             <FontAwesomeIcon
                 color="red"
                 icon={filled ? faFilledHeart : faHeart}
