@@ -309,7 +309,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     }
     const onButtonClick = () => {
         // `current` points to the mounted file input element
-        inputRef?.current?.click();
+
         setDisplay(true);
         //  setIsEdtButtonClicked(!isEditButtonClicked);
     };

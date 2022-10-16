@@ -49,7 +49,6 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
                     show={showEditForm}
                     setShowEditForm={setShowEditForm}
                     handleClose={handleClose}
-                    handleSubmit={handleSubmit}
                     isEditButtonClicked={isEditButtonClicked}
                     onPhotoEdit={onPhotoEdit}
                 />
