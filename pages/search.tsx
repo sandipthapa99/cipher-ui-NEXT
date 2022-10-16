@@ -16,7 +16,6 @@ import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ITaskApiResponse } from "types/task";
-import type { TaskerApiResponse } from "types/tasker";
 import type { TaskerProps } from "types/taskerProps";
 
 const SearchPage: NextPage = () => {
