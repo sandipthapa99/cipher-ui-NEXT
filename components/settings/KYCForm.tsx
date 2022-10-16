@@ -61,6 +61,7 @@ const KYCForm = () => {
     const router = useRouter();
     const [showKYCRead, setShowKYCRead] = useState(false);
 
+    if (!profileDetails) return null;
     return (
         <>
             {/* Modal component */}
@@ -68,9 +69,7 @@ const KYCForm = () => {
             <div
                 className="account-form mt-5"
                 id="kycform"
-                style={
-                    profileDetails ? { display: "block" } : { display: "none" }
-                }
+                style={{ scrollMarginTop: "10rem" }}
             >
                 {!KYCData?.is_kyc_verified && (
                     <>

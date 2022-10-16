@@ -63,6 +63,7 @@
             position: absolute;
             top: 4rem;
             left: 4rem;
+            z-index: 1;
         }
     }
 
@@ -161,6 +162,7 @@
 }
 
 .form-content {
+    margin: 2rem 0 0;
     .form-group {
         a {
             font-size: 1.2rem;

@@ -1,5 +1,4 @@
 import { LoginPrompt } from "@components/model/LoginPrompt";
-import { PostTaskModal } from "@components/Task/PostTaskModal";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUser } from "hooks/auth/useUser";
@@ -59,7 +58,6 @@ const CipherCard = ({
                     </Link>
                 )}
             </div>
-            <PostTaskModal />
             <LoginPrompt />
         </div>
     );
