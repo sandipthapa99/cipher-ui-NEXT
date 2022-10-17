@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import type { IService } from "types/service";
 import type { ITasker } from "types/tasker";
 import { axiosClient } from "utils/axiosClient";
 
@@ -28,7 +29,7 @@ export interface SearchApiResponse {
 }
 export interface SearchDashboardResult {
     taskers: ITasker[];
-    services: any[];
+    services: IService[];
 }
 
 export interface SearchDashboardPayload {
@@ -49,7 +50,7 @@ export const useSearchDashboard = () => {
             .map((item) => item.result) as ITasker[];
         const services = data.result
             .filter((item) => item.c_type === "task.EntityService")
-            .map((item) => item.result);
+            .map((item) => item.result) as IService[];
         return { taskers, services };
         // return data.result;
     });
@@ -105,11 +106,12 @@ export const Search = () => {
                         return;
                     }
                     if (services.length > 0) {
+                        setSearchedServices(services);
+
                         setSearchQuery({
                             context: "task.EntityService",
                             query: values.q,
                         });
-                        setSearchedServices(services);
                         router.push({ pathname: "/service" });
                     }
                 },
