@@ -13,14 +13,24 @@
 
     color: #211d4f;
 }
-.payment {
-    cursor: grab;
+.wrapper{
+    gap: 4rem;
+    border: 0.1rem solid #CED4DA;
+    border-radius: 0.4rem;
+    padding: 2.4rem;
     position: relative;
+    cursor: pointer;
     .verified {
         position: absolute;
         z-index: 2;
-        top: 2rem;
-        right: 7px;
+        top: 0.8rem;
+        right: 0.8rem;
+    }
+    p{
+        margin: 0;
+        font-size: 1.6rem;
+        font-weight: 400;
+        color: #211D4F;
     }
 }
 .checkout-row {

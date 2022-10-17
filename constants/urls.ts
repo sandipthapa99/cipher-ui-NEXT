@@ -7,6 +7,7 @@ const bookings = "/task/entity/service-booking/";
 const myBookings = "/task/entity/service-mybooking/";
 const tasks = "/task/entity/service/";
 const support = "/support/";
+const payment = "/payment/";
 
 const urls = {
     user: {
@@ -65,6 +66,10 @@ const urls = {
     privacyPolicy: "/landingpage/content/privacy-policy/",
     termsandconditions: "/landingpage/content/terms-conditions/",
     support: { help: `${support}help/`, helpTopics: `${support}help/topic/` },
+    payment: {
+        method: `${payment}cms/payment-method/`,
+        intent: `${payment}intent/`,
+    },
 };
 
 export default urls;
