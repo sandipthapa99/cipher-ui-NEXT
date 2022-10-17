@@ -17,6 +17,7 @@ interface editProfileProps {
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
     photo?: any;
     handleSubmit?: () => void;
+    haveImage: boolean;
     isEditButtonClicked?: boolean;
     onPhotoEdit: (url: RequestInfo | URL, file: File) => void;
 }
@@ -28,6 +29,7 @@ const PhotoEdit = ({
     photo,
     isEditButtonClicked,
     onPhotoEdit,
+    haveImage,
 }: editProfileProps) => {
     //console.log("🚀 ~ file: PhotoEdit.tsx ~ line 34 ~ display", display);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -35,13 +37,68 @@ const PhotoEdit = ({
     const [rotation, setRotation] = useState(0);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
+    const [toEditImage, setToEditImage] = useState<File | null>(null);
+    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
     let previewImage: any;
 
     const reactImage = useMemo(() => {
-        photo ? (previewImage = URL.createObjectURL(photo)) : "";
-        return previewImage;
+        //  photo ? (previewImage = URL.createObjectURL(photo)) : "";
+        return photo;
     }, [photo]);
+    const queryClient = useQueryClient();
+    const profile = useGetProfile();
+    const profileImage = profile.data?.profile_image;
+    console.log(
+        "🚀 ~ file: PhotoEdit.tsx ~ line 50 ~ profileImage",
+        profileImage
+    );
+    const fileName = "profile.jpg";
+    const url =
+        "https://kinsta.com/wp-content/uploads/2021/01/url-protocol.png";
 
+    const getUrlExtension = (url: any) => {
+        return url.split(/[#?]/)[0].split(".").pop().trim();
+    };
+
+    const onImageEdit = async (imgUrl: any) => {
+        const imgExt = getUrlExtension(imgUrl);
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 57 ~ onImageEdit ~ imgUrl",
+            imgUrl
+        );
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 57 ~ onImageEdit ~ imgExt",
+            imgExt
+        );
+
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 89 ~ fetch ~ imgUrl",
+            imgUrl
+        );
+        // const url =
+        //     "https://kinsta.com/wp-content/uploads/2021/01/url-protocol.png";
+
+        const response = await fetch(profileImage, { mode: "no-cors" });
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 83 ~ onImageEdit ~ response",
+            response
+        );
+
+        const blob = await response.blob();
+
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 86 ~ onImageEdit ~ blob",
+            blob
+        );
+        const file = new File([blob], fileName, {
+            type: blob.type,
+        });
+        console.log("🚀 ~ file: PhotoEdit.tsx ~ line 54 ~ fetch ~ file", file);
+        setToEditImage(file);
+        return file;
+    };
+    console.log("files", toEditImage);
     const onCropComplete = useCallback(
         (croppedArea: any, croppedAreaPixels: any) => {
             setCroppedAreaPixels(croppedAreaPixels);
@@ -52,7 +109,7 @@ const PhotoEdit = ({
     const showCroppedImage = useCallback(async () => {
         try {
             const croppedImage = (await getCroppedImg(
-                reactImage,
+                profileImage ? onImageEdit(profileImage) : reactImage,
                 croppedAreaPixels,
                 rotation
             )) as Blob;
@@ -63,22 +120,27 @@ const PhotoEdit = ({
             console.error(e);
         }
     }, [croppedAreaPixels, rotation, reactImage]);
+    console.log(
+        "🚀 ~ file: PhotoEdit.tsx ~ line 139 ~ showCroppedImage ~ croppedImage",
+        croppedImage
+    );
 
     const editProfile = useMutation((data: FormData) =>
         axiosClient.patch("/tasker/profile/", data)
     );
-    const queryClient = useQueryClient();
-    const profile = useGetProfile();
-    console.log("🚀 ~ file: PhotoEdit.tsx ~ line 74 ~ profile", profile);
-    const profileImage = profile.data?.profile_image;
-    console.log(
-        "🚀 ~ file: PhotoEdit.tsx ~ line 83 ~ onEditProfile ~ profileImage",
-        profileImage
-    );
+
+    //profileImage ? setHaveImage(true) : null;
 
     const onEditProfile = async () => {
         const data = (await showCroppedImage()) as unknown as RequestInfo | URL;
-
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 126 ~ onEditProfile ~ data",
+            data
+        );
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 83 ~ onEditProfile ~ profileImage",
+            profileImage
+        );
         if (!data) return;
 
         console.log("data", data);
@@ -113,7 +175,7 @@ const PhotoEdit = ({
     };
 
     const submit = async () => {
-        console.log("cropped image", croppedImage);
+        console.log("hiii");
         onEditProfile();
     };
 
@@ -137,9 +199,21 @@ const PhotoEdit = ({
                         scale={1.2}
                         rotate={0}
                     /> */}
+                    <input
+                        type="file"
+                        // onChange={(e) => {
+                        //     const files = e.target.files;
+                        //     setUploadedFile(files);
+                        // }}
+                        // onClick={}
+                    />
                     <Modal.Body className="crop-container">
                         <Cropper
-                            image={reactImage}
+                            image={
+                                profile.data?.profile_image
+                                    ? profileImage
+                                    : photo
+                            }
                             crop={crop}
                             zoom={zoom}
                             zoomWithScroll={true}
@@ -188,7 +262,9 @@ const PhotoEdit = ({
                         <Button
                             className="btn close-btn"
                             onClick={() => {
-                                isEditButtonClicked ? submit() : submit();
+                                isEditButtonClicked || haveImage
+                                    ? submit()
+                                    : submit();
                             }}
                         >
                             Apply

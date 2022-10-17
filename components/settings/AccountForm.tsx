@@ -309,10 +309,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
     }
     const onButtonClick = () => {
         // `current` points to the mounted file input element
-        // profile?.profile_image
-        //     ? setShowEditForm(true)
-        //     : inputRef?.current?.click();
-        inputRef?.current?.click();
+        profile?.profile_image
+            ? setShowEditForm(true)
+            : inputRef?.current?.click();
+        // inputRef?.current?.click();
         setDisplay(true);
         //  setIsEdtButtonClicked(!isEditButtonClicked);
     };
