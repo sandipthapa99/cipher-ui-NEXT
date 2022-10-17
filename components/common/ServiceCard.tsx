@@ -1,9 +1,11 @@
 import { EditService } from "@components/services/EditService";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
+import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import parse from "html-react-parser";
@@ -13,6 +15,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 // import { parse } from "path";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import type { ServicesValueProps } from "types/serviceCard";
 
 import ModalCard from "./BookNowModalCard";
@@ -27,10 +30,9 @@ const ServiceCard = ({
     serviceCard: ServicesValueProps["result"][0];
     className?: string;
 }) => {
+    const { data: user } = useUser();
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
-
-    const loggedIn = Cookies.get("access");
 
     const userId = profileDetails?.user.id;
 
@@ -42,9 +44,16 @@ const ServiceCard = ({
     const [showEditModal, setShowEditModal] = useState(false);
 
     const handleShowModal = () => {
-        if (loggedIn && !canEdit) {
+        if (!user?.is_kyc_verified) {
+            toast.error(<KYCIncompleteToast />, {
+                icon: false,
+                autoClose: false,
+            });
+            return;
+        }
+        if (user && !canEdit) {
             setShowModal(true);
-        } else if (loggedIn && canEdit) {
+        } else if (user && canEdit) {
             setShowEditModal(true);
         } else {
             router.push({

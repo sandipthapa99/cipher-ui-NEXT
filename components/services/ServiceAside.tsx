@@ -1,3 +1,4 @@
+import { useSearchedServices } from "@components/common/Search/searchStore";
 import ServiceNearYouCard from "@components/SearchTask/searchAside";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
@@ -16,6 +17,7 @@ interface ServiceAside {
     searchParam: string;
 }
 const ServiceAside = ({ searchParam, children }: ServiceAside) => {
+    const searchedService = useSearchedServices();
     const {
         data: servicePages,
         isLoading,
@@ -41,8 +43,10 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
         }
     });
 
+    const allServices = searchedService.length > 0 ? searchedService : services;
+
     const renderServiceCards = () =>
-        services?.map((task, index) => {
+        allServices?.map((task, index) => {
             return (
                 <div
                     key={`${task.id}-${index}`}
@@ -61,7 +65,11 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                                         : " "
                                 }
                                 serviceTitle={task?.title}
-                                serviceRating={task?.rating[0].rating}
+                                serviceRating={
+                                    task?.rating?.length > 0
+                                        ? task?.rating[0].rating
+                                        : ""
+                                }
                                 serviceProviderLocation={task?.location}
                                 serviceSlug={task?.slug}
                                 discount={20} // To do form api
