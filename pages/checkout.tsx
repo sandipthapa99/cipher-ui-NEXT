@@ -153,52 +153,50 @@ export default function Checkout() {
                     <Col md={7} className="left">
                         <h3>Payment Method</h3>
                         <p className="titles">Digital Wallets</p>
-                        <div className="digital-wallet d-flex gap-4 flex-wrap">
-                            {paymentMethods?.data?.result.map(
-                                (item: PaymentMethodProps) => {
+                        <Row className="digital-wallet">
+                            {paymentMethods?.data?.result
+                                .filter(
+                                    (item: PaymentMethodProps) =>
+                                        item.type == "wallet"
+                                )
+                                .map((item: PaymentMethodProps) => {
                                     return (
-                                        <>
-                                            {item.type === "wallet" && (
-                                                <div
-                                                    className="wrapper d-flex align-items-center"
-                                                    key={item.id}
-                                                    onClick={(e) => {
-                                                        // setOpened(true);
-                                                        setPaymentType(
-                                                            item.name
-                                                        );
-                                                    }}
-                                                >
-                                                    {item.name ===
-                                                        paymentType && (
-                                                        <figure className="verified">
-                                                            <Image
-                                                                src={
-                                                                    "/payment/verified.png"
-                                                                }
-                                                                height={18}
-                                                                width={18}
-                                                                alt={"verified"}
-                                                            />
-                                                        </figure>
-                                                    )}
-                                                    <figure className="payment">
-                                                        <Image
-                                                            src={item.logo}
-                                                            objectFit="contain"
-                                                            width={48}
-                                                            height={48}
-                                                            alt="oppurtunities-page-main-image"
-                                                        />
-                                                    </figure>
-                                                    <p>{item.name}</p>
-                                                </div>
+                                        <Col
+                                            md={6}
+                                            lg={4}
+                                            key={item.id}
+                                            className="wrapper mb-3 d-flex align-items-center"
+                                            onClick={(e) => {
+                                                // setOpened(true);
+                                                setPaymentType(item.name);
+                                            }}
+                                        >
+                                            {item.name === paymentType && (
+                                                <figure className="verified">
+                                                    <Image
+                                                        src={
+                                                            "/payment/verified.png"
+                                                        }
+                                                        height={18}
+                                                        width={18}
+                                                        alt={"verified"}
+                                                    />
+                                                </figure>
                                             )}
-                                        </>
+                                            <figure className="payment">
+                                                <Image
+                                                    src={item.logo}
+                                                    objectFit="contain"
+                                                    width={36}
+                                                    height={48}
+                                                    alt="oppurtunities-page-main-image"
+                                                />
+                                            </figure>
+                                            <p>{item.name}</p>
+                                        </Col>
                                     );
-                                }
-                            )}
-                        </div>
+                                })}
+                        </Row>
                         {/* <p className="titles">Cards Debit/Credit</p>
                         <div className="digital-wallet d-flex gap-4 flex-wrap">
                             {staticPayments.credit.map((item, index) => {
@@ -235,52 +233,47 @@ export default function Checkout() {
                             })}
                         </div> */}
                         <p className="titles">International Payment Method</p>
-                        <div className="digital-wallet d-flex gap-4 flex-wrap">
-                            {paymentMethods?.data?.result.map(
-                                (item: PaymentMethodProps) => {
-                                    return (
-                                        <>
-                                            {item.type === "card" && (
-                                                <div
-                                                    className="wrapper d-flex align-items-center"
-                                                    key={item.id}
-                                                    onClick={(e) => {
-                                                        // setOpened(true);
-                                                        setPaymentType(
-                                                            item.name
-                                                        );
-                                                    }}
-                                                >
-                                                    {item.name ===
-                                                        paymentType && (
-                                                        <figure className="verified">
-                                                            <Image
-                                                                src={
-                                                                    "/payment/verified.png"
-                                                                }
-                                                                height={18}
-                                                                width={18}
-                                                                alt={"verified"}
-                                                            />
-                                                        </figure>
-                                                    )}
-                                                    <figure className="payment">
-                                                        <Image
-                                                            src={item.logo}
-                                                            objectFit="contain"
-                                                            width={48}
-                                                            height={48}
-                                                            alt="oppurtunities-page-main-image"
-                                                        />
-                                                    </figure>
-                                                    <p>{item.name}</p>
-                                                </div>
-                                            )}
-                                        </>
-                                    );
-                                }
-                            )}
-                        </div>
+                        <Row className="digital-wallet">
+                            {paymentMethods?.data?.result
+                                .filter(
+                                    (item: PaymentMethodProps) =>
+                                        item.type == "card"
+                                )
+                                .map((item: PaymentMethodProps) => (
+                                    <Col
+                                        className="wrapper d-flex align-items-center justify-content-center"
+                                        md={4}
+                                        key={item.id}
+                                        onClick={(e) => {
+                                            // setOpened(true);
+                                            setPaymentType(item.name);
+                                        }}
+                                    >
+                                        {item.name === paymentType && (
+                                            <figure className="verified">
+                                                <Image
+                                                    src={
+                                                        "/payment/verified.png"
+                                                    }
+                                                    height={18}
+                                                    width={18}
+                                                    alt={"verified"}
+                                                />
+                                            </figure>
+                                        )}
+                                        <figure className="payment2">
+                                            <Image
+                                                src={item.logo}
+                                                // height={48}
+                                                layout="fill"
+                                                objectFit="contain"
+                                                // width={240}
+                                                alt="oppurtunities-page-main-image"
+                                            />
+                                        </figure>
+                                    </Col>
+                                ))}
+                        </Row>
                     </Col>
                     <Col md={4} className="right mb-5">
                         <h1>Task List</h1>
@@ -360,7 +353,7 @@ export default function Checkout() {
                                         {
                                             servicesCheckoutData?.data?.currency
                                                 .symbol
-                                        }
+                                        }{" "}
                                         {servicesCheckoutData?.data?.budget_to}
                                     </h3>
                                 </Col>
@@ -376,7 +369,13 @@ export default function Checkout() {
                         </div>
                         <div className="platform-fee fee d-flex justify-content-between">
                             <p>Platform Fee</p>
-                            <p>Rs 200</p>
+                            <p>
+                                {" "}
+                                {
+                                    servicesCheckoutData?.data?.currency.symbol
+                                }{" "}
+                                200
+                            </p>
                         </div>
                         <div className="tax fee d-flex justify-content-between">
                             <p>Tax (13% inclusive)</p>
