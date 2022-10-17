@@ -32,7 +32,7 @@ const SignUp = () => {
         <OnBoardingLayout
             topLeftText="Already have an account ?"
             topRightText="Login"
-            headerText="Signing up as a Client"
+            headerText="Sign Up"
             mainImg="/illustrations/rocket.svg"
             redirectionLink="/login"
             currentPage="client-signup"
@@ -95,7 +95,7 @@ const SignUp = () => {
                         <Form className="login-form">
                             <div className="choose-email-or-phone mb-5">
                                 <Radio.Group
-                                    label="Please select one for Signup process Email Or Phone Number"
+                                    label="Sign Up Using:"
                                     onChange={(value) => setChoosedValue(value)}
                                     size="md"
                                     defaultValue="email"

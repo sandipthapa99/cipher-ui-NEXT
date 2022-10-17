@@ -70,22 +70,21 @@ const HowToHire: NextPage = () => {
                     </div>
                     <div className="how-to-hire__gradient-container">
                         <GradientBanner
-                            title="A client tasks are quickly finished 
-                            when searched through Homaale"
-                            subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
+                            title="Get started as a Client"
+                            subTitle=""
                             image="/discover/main.svg"
                         />
                     </div>
                     <div className="how-to-hire__bottom-container">
-                        <h1>Ways to Use Homaale to Achieve Your Goals</h1>
-                        <p>
+                        <h1>Homaale Benefits for you</h1>
+                        {/* <p>
                             As the world&apos;s work marketplace, there&apos;s
                             more than one way to use Upwork—and at least one
                             that works for you. From quick project turnarounds
                             to major strategic transformations, businesses of
                             all sizes and ambitions can develop the trusted
                             relationships they need to thrive and grow.
-                        </p>
+                        </p> */}
                         <figure className="thumbnail-img footer-img">
                             <iframe
                                 width="100%"

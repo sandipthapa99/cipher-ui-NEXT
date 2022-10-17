@@ -29,18 +29,10 @@ const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
                                         <span>Blogs</span>
                                     </h1>
                                     <p>
-                                        Amet minim mollit non deserunt ullamco
-                                        est sit aliqua dolor do amet sint. Velit
-                                        officia consequat duis enim velit
-                                        mollit. Exercitation veniam consequat
-                                        sunt nostrud amet.Amet minim mollit non
-                                        deserunt ullamco est sit aliqua dolor do
-                                        amet sint. Velit officia consequat duis
-                                        enim velit mollit. Exercitation veniam
-                                        consequat sunt nostrud amet.Amet minim
-                                        mollit non deserunt ullamco est sit
-                                        aliqua dolor do amet sint. Velit officia
-                                        consequat duis enim ved
+                                        Our blogs are not limited to our
+                                        services and technology. Find the blogs
+                                        that match your interests or reach out
+                                        to us to post your blogs as well.
                                     </p>
                                 </div>
                             </Col>

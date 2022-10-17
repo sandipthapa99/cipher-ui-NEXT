@@ -717,7 +717,7 @@ const Home: NextPage<{
             <section id="notable-quality" className="notable-quality">
                 <Container fluid="xl" className="px-5">
                     <LongSquareImageCard
-                        title="Homaale Notable quality"
+                        title="Homaale Notable Qualities"
                         image="/groupB.png"
                         imageOnRight={true}
                         homeImage={true}

@@ -2,9 +2,9 @@ export const hireInNepalBrowseTalent = [
     {
         id: "0",
         image: "/hireinnepal/main.svg",
-        title: "Post a job today, hire tomorrow",
+        title: "Post a job today and simplify the process of finding the talents",
         description:
-            "Connect with talent that gets you, and hire them to take your business to the next level.",
+            "We make the process of searching and applying for jobs easier for you. Post a job from anywhere in the world and find the best right person to get it done.",
         buttonText: "Browse Talents",
         imageOnRight: false,
     },

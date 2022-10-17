@@ -50,6 +50,27 @@ const About: NextPage = () => {
                                         customers with about providers.{" "}
                                     </h4>
                                     <p>
+                                        We are an emerging on demand app that
+                                        connects customers with their service
+                                        providers. Homaale is a platform
+                                        incepted with the idea of bridging the
+                                        gap between individuals who need a
+                                        certain task completed and those who
+                                        have the skills to complete it within a
+                                        given timeframe. We have diverse service
+                                        categories to choose from. Go through
+                                        our app, search for the services you
+                                        need or want to provide, negotiate your
+                                        task rate and get that work done.
+                                    </p>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row className="purpose-container gx-5">
+                            <Col md={6}>
+                                <div className="about-information purpose">
+                                    <h1>Story Behind Homaale</h1>
+                                    <p>
                                         Living in a competitive world and busy
                                         life, most of us are always seeking help
                                         to complete most of our daily works.
@@ -61,36 +82,6 @@ const About: NextPage = () => {
                                         a digital platform where you can easily
                                         post your tasks and services and get it
                                         done.
-                                    </p>
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row className="purpose-container gx-5">
-                            <Col md={6}>
-                                <div className="about-information purpose">
-                                    <h1>Story Behind Homaale</h1>
-                                    <p>
-                                        Serve the community by providing
-                                        everyone the platform to showcase their
-                                        skills, talents, and minimise the stress
-                                        of job hunting for every individual. We
-                                        cater to people from all walks of life,
-                                        and we intend to be the best at what we
-                                        do. The tasks one might need may range
-                                        from anything between getting your room
-                                        painted, or getting an entire software
-                                        developed. In today&apos;s fast paced
-                                        environment, one might not have the time
-                                        to manage their household errands as
-                                        they might want to, or you might be an
-                                        entrepreneur wanting to finish your
-                                        project on a deadline, and this is
-                                        exactly where Homaale is going to be
-                                        your trusted partner for everything. Go
-                                        through the app, search for the abouts
-                                        you want to avail, and in a few clicks,
-                                        your task will be completed within your
-                                        desired timeframe.
                                     </p>
                                 </div>
                             </Col>
@@ -132,17 +123,17 @@ const About: NextPage = () => {
                         </Row>
                     </div>
                     <div className="about-page__footer">
-                        <h1>Our economic growth</h1>
+                        <h1>Economic Growth</h1>
                         <p>
-                            The video below illustrates the Freelancer online
-                            economy. Increases in capital goods, labor force,
-                            technology, and human capital can all contribute to
-                            economic growth. Every business also operates within
-                            the economy. Based on their economic expectations,
-                            businesses decide what products to produce, how to
-                            price them, how many people to employ, how much to
-                            pay these employees, how much to expand the
-                            business, and so on.
+                            With the minimum charge for every task we take, our
+                            vision is to provide a platform for all to make
+                            their everyday work easier. The objective of Homaale
+                            is to provide the businesses a platform to expand
+                            their client reach in an easy way. Bearing in mind
+                            that finding clients in this competitive world is
+                            difficult, we believe that our platform will be a
+                            solution to achieve your desired outcomes and boost
+                            your economy..
                         </p>
                         <figure className="thumbnail-img footer-img">
                             <iframe
