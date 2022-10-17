@@ -14,11 +14,11 @@ import React, {
     useState,
 } from "react";
 
-type LatLngLiteral = google.maps.LatLngLiteral;
-type GoogleMapOptions = google.maps.MapOptions;
-type Map = google.maps.Map;
+export type LatLngLiteral = google.maps.LatLngLiteral;
+export type GoogleMapOptions = google.maps.MapOptions;
+export type Map = google.maps.Map;
 
-const MAX_ZOOM_LEVEL = 12;
+const INITIAL_MAX_ZOOM_LEVEL = 12;
 
 const getGoogleMapsApiKey = () => {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
@@ -35,12 +35,11 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
 
     const mapRef = useRef<Map | null>(null);
 
-    const location = useLatLng();
-    const center = useMemo<LatLngLiteral>(() => location, [location]);
+    const center = useLatLng();
+
     const options = useMemo<GoogleMapOptions>(
         () => ({
             disableDefaultUI: true,
-            maxZoom: MAX_ZOOM_LEVEL,
         }),
         []
     );
@@ -54,30 +53,24 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
     const onUnmount = useCallback(() => {
         mapRef.current = null;
     }, []);
-
-    const interval = useInterval(
-        () =>
-            setZoom((previousZoom) =>
-                previousZoom < MAX_ZOOM_LEVEL ? previousZoom + 1 : previousZoom
-            ),
-        50
-    );
-
-    useEffect(() => {
-        if (!mapRef.current) return;
-        mapRef.current.setZoom(zoom);
-    }, [zoom, mapRef]);
+    const interval = useInterval(() => {
+        setZoom((previousZoom) =>
+            previousZoom < INITIAL_MAX_ZOOM_LEVEL
+                ? previousZoom + 1
+                : previousZoom
+        );
+    }, 50);
 
     useEffect(() => {
         interval.start();
         return interval.stop;
     }, [interval]);
-
     if (!isLoaded) return <FullPageLoader />;
 
     return isLoaded ? (
         <ReactGoogleMap
             {...rest}
+            zoom={zoom}
             options={options}
             mapContainerStyle={{ width: "100%", height: "60rem" }}
             center={center}
