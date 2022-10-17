@@ -11,7 +11,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             // res.setHeader("Access-Control-Allow-Credentials", "true");
             blob.arrayBuffer().then((buffer) => {
                 res.send(Buffer.from(buffer));
-                console.log("blob", blob);
             });
         })
         .catch((err) => console.log("error message,", err));

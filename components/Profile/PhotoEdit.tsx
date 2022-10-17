@@ -1,17 +1,18 @@
-import getCroppedImg from "@components/AppliedTask/Crop";
-import { isEmpty } from "@firebase/util";
+import { getCroppedImg } from "@components/AppliedTask/Crop";
+import { Slider } from "@mantine/core";
+import { createStyles } from "@mantine/styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { Dispatch, SetStateAction } from "react";
-import { useEffect } from "react";
 import { useCallback } from "react";
 import React, { useMemo, useState } from "react";
+import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import Cropper from "react-easy-crop";
+import type { Area } from "react-easy-crop/types";
 import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
+
 interface editProfileProps {
     show?: boolean;
     handleClose?: () => void;
@@ -32,21 +33,20 @@ const PhotoEdit = ({
     onPhotoEdit,
     haveImage,
 }: editProfileProps) => {
-    const ORIENTATION_TO_ANGLE = {
-        "3": 180,
-        "6": 90,
-        "8": -90,
-    };
     //console.log("🚀 ~ file: PhotoEdit.tsx ~ line 34 ~ display", display);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(5);
     const [rotation, setRotation] = useState(0);
-    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState<
+        Area | undefined
+    >();
     const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
-    const [toEditImage, setToEditImage] = useState<Blob | null | string>(null);
+
+    // const [toEditImage, setToEditImage] = useState<Blob | null | string>(null);
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [clickedUpload, setClickedUpload] = useState(false);
 
+    const { classes } = useStyles();
     let previewImage: any;
 
     const reactImage = useMemo(() => {
@@ -58,12 +58,8 @@ const PhotoEdit = ({
         return previewImage;
     }, [photo]);
 
-    console.log("photo=", photo);
-    const queryClient = useQueryClient();
     const profile = useGetProfile();
     const profileImage = profile.data?.profile_image;
-
-    console.log("profile image", profileImage);
 
     const onCropComplete = useCallback(
         (croppedArea: any, croppedAreaPixels: any) => {
@@ -76,47 +72,31 @@ const PhotoEdit = ({
         return previewImage;
     }, [uploadedFile]);
 
-    console.log(
-        "🚀 ~ file: PhotoEdit.tsx ~ line 181 ~ uploadedFile",
-        uploadedFile,
-        uploadPreview
-    );
-    console.log("cli", clickedUpload);
     const toBeCroppedImage = clickedUpload
         ? uploadPreview
-        : profileImage
-        ? toEditImage
         : reactImage
         ? reactImage
         : "";
-    console.log(
-        "🚀 ~ file: PhotoEdit.tsx ~ line 79 ~ toBeCroppedImage",
-        toBeCroppedImage
+
+    const showCroppedImage = useCallback(
+        async (blobToBeCropped: string) => {
+            try {
+                const croppedImage = (await getCroppedImg(
+                    toBeCroppedImage ? toBeCroppedImage : blobToBeCropped,
+                    croppedAreaPixels,
+                    rotation
+                )) as Blob;
+
+                setCroppedImage(croppedImage);
+                return croppedImage;
+            } catch (e) {
+                console.error(e);
+            }
+        },
+        [croppedAreaPixels, rotation, toBeCroppedImage]
     );
 
-    const showCroppedImage = useCallback(async () => {
-        try {
-            console.log("hsdfasdf");
-            const croppedImage = (await getCroppedImg(
-                toBeCroppedImage,
-                croppedAreaPixels,
-                rotation
-            )) as Blob;
-            console.log("donee", { croppedImage });
-            setCroppedImage(croppedImage);
-            return croppedImage;
-        } catch (e) {
-            console.error(e);
-            console.log("done");
-        }
-    }, [toBeCroppedImage, croppedAreaPixels, rotation]);
-
-    console.log(
-        "🚀 ~ file: PhotoEdit.tsx ~ line 139 ~ showCroppedImage ~ croppedImage",
-        croppedImage,
-        uploadPreview
-    );
-
+    const queryClient = useQueryClient();
     const editProfile = useMutation((data: FormData) =>
         axiosClient.patch("/tasker/profile/", data)
     );
@@ -130,10 +110,11 @@ const PhotoEdit = ({
         ? profileName
         : "";
 
-    const onEditProfile = async () => {
-        console.log("hii");
-        const data = (await showCroppedImage()) as unknown as RequestInfo | URL;
-
+    const onEditProfile = async (imageBlob: string) => {
+        const data = (await showCroppedImage(imageBlob)) as unknown as
+            | RequestInfo
+            | URL;
+        console.log("data", data);
         if (!data) return;
 
         const response = await fetch(data);
@@ -144,8 +125,7 @@ const PhotoEdit = ({
             type: "image/jpeg",
         });
 
-        if (!profileImage) {
-            console.log("heyyy");
+        if (!profile) {
             onPhotoEdit(data, file);
             setShowEditForm(false);
             return;
@@ -166,6 +146,7 @@ const PhotoEdit = ({
               })
             : null;
     };
+
     const onImageEdit = async () => {
         const response = await fetch(`/api/image?image=${profileImage}`);
 
@@ -174,16 +155,12 @@ const PhotoEdit = ({
         const file = new File([blob], fileName, {
             type: blob.type,
         });
-
-        setToEditImage(URL.createObjectURL(file));
-        //  return file;
+        const secondBlob = URL.createObjectURL(file);
+        return secondBlob;
     };
     const submit = async () => {
-        if (profileImage) {
-            onImageEdit();
-        }
-
-        onEditProfile();
+        const blob = profileImage ? await onImageEdit() : null;
+        onEditProfile(blob ? blob : toBeCroppedImage);
     };
 
     // useEffect(() => {
@@ -196,17 +173,9 @@ const PhotoEdit = ({
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal">
+                <div className="applied-modal image-crop">
                     <h3>Edit Photo</h3>
-                    {/* <AvatarEditor
-                        image="http://example.com/initialimage.jpg"
-                        width={250}
-                        height={250}
-                        border={50}
-                        color={[255, 255, 255, 0.6]} // RGBA
-                        scale={1.2}
-                        rotate={0}
-                    /> */}
+
                     <input
                         type="file"
                         onChange={(e) => {
@@ -214,10 +183,14 @@ const PhotoEdit = ({
                             const files = e.target.files;
                             setUploadedFile(files && files[0]);
                         }}
+                        className={classes.input}
                         // onClick={}
                     />
+                    <br />
+
                     <Modal.Body className="crop-container">
                         <Cropper
+                            zoomWithScroll
                             image={
                                 reactImage
                                     ? reactImage
@@ -229,9 +202,10 @@ const PhotoEdit = ({
                                     ? toBeCroppedImage
                                     : ""
                             }
+                            // objectFit="horizontal-cover"
+                            rotation={rotation}
                             crop={crop}
                             zoom={zoom}
-                            zoomWithScroll={true}
                             cropShape="round"
                             aspect={1}
                             onCropChange={setCrop}
@@ -241,54 +215,34 @@ const PhotoEdit = ({
                         />
                     </Modal.Body>
                     <div className="controls">
-                        <input
-                            type="range"
+                        <h4>Zoom</h4>
+                        <Slider
+                            // type="range"
                             value={zoom}
                             min={1}
                             max={3}
                             step={0.1}
                             aria-labelledby="Zoom"
-                            onChange={(e) => {
-                                setZoom(parseFloat(e.currentTarget.value));
-                            }}
+                            onChange={setZoom}
                             className="zoom-range"
                         />
+                        <br />
+                        <h4>Rotate</h4>
 
-                        <h2>Rotate</h2>
-                        <input
-                            type="range"
+                        <Slider
+                            // type="range"
                             value={rotation}
                             min={0}
                             max={360}
                             step={1}
                             aria-labelledby="Rotation"
-                            onChange={(e) => {
-                                console.log("value of rao", e.target.value);
-                                setRotation(parseInt(e.target.value));
-                            }}
-                            className="rotation-range"
+                            onChange={setRotation}
+                            className="zoom-range"
                         />
                     </div>
-                    {/* <div className="cropped-image-container">
-                        {croppedImage && (
-                            <Image
-                                className="cropped-image"
-                                src={croppedImage}
-                                alt="cropped"
-                                layout="fill"
-                            />
-                        )}
-                        {croppedImage && (
-                            <button onClick={onClose}>close</button>
-                        )}
-                    </div> */}
+
                     <Modal.Footer>
-                        <Button
-                            //    className="btn close-btn"
-                            onClick={handleClose}
-                        >
-                            Cancel
-                        </Button>
+                        <Button onClick={handleClose}>Cancel</Button>
                         <Button
                             className="btn close-btn"
                             onClick={(e) => {
@@ -313,4 +267,9 @@ const PhotoEdit = ({
         </>
     );
 };
+const useStyles = createStyles(() => ({
+    input: {
+        marginBottom: "1rem",
+    },
+}));
 export default PhotoEdit;
