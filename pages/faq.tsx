@@ -12,7 +12,11 @@ import { Fragment } from "react";
 import { Accordion, Container } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
-import type { FAQTopicValueProps, FAQValueProps } from "types/faqValueProps";
+import type {
+    FAQTopicValueProps,
+    FAQValueProps,
+    FAQValuePropsAll,
+} from "types/faqValueProps";
 import { axiosClient } from "utils/axiosClient";
 import { FaqFormData } from "utils/contactFormData";
 import { FaqFormSchema } from "utils/formValidation/contactFormValidation";
@@ -29,7 +33,11 @@ const FAQ = ({ faqTopicData }: FAQData) => {
         "/support/faq/"
     );
 
-    console.log("faq data", faqData);
+    const { data: topicData } = useData<FAQValuePropsAll[]>(
+        ["topic-faqs"],
+        "support/faq/?page=-1"
+    );
+
     const { mutate } = useForm("/support/contactus/");
     const toggleSuccessModal = useToggleSuccessModal();
     return (
@@ -88,7 +96,7 @@ const FAQ = ({ faqTopicData }: FAQData) => {
                                                   <Accordion.Body>
                                                       <div className="inner-accordion">
                                                           <Accordion flush>
-                                                              {faqData?.data?.result
+                                                              {topicData?.data
                                                                   ?.filter(
                                                                       (item) =>
                                                                           item.topic ===
