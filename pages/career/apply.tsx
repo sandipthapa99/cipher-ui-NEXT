@@ -3,12 +3,12 @@ import FileInputField from "@components/common/FileInputField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
-import ReCaptchaField from "@components/common/ReCaptchaField";
+import ReCaptchaV3 from "@components/common/ReCaptchaV3";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
@@ -20,7 +20,9 @@ const Apply = () => {
     const toggleSuccessModal = useToggleSuccessModal();
     const router = useRouter();
     const { id } = router.query;
+    const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
     const { mutate } = useForm(`/career/candidate/apply/${id}/`);
+    const [token, setToken] = useState("");
     return (
         <Layout title="Homaale | Apply">
             <BreadCrumb currentPage="Apply" />
@@ -40,6 +42,7 @@ const Apply = () => {
                                 values.cv.forEach((file) =>
                                     formData.append("cv", file)
                                 );
+                                formData.append("g_recaptcha_response", token);
 
                                 delete values.imagePreviewUrl;
 
@@ -160,7 +163,6 @@ const Apply = () => {
                                             setFieldTouched("cv", true);
                                         }}
                                     />
-
                                     <InputField
                                         type="text"
                                         name="cover_letter"
@@ -170,17 +172,10 @@ const Apply = () => {
                                         placeHolder="Add a cover letter or anything you want to share here."
                                         as="textarea"
                                     />
-                                    <ReCaptchaField
-                                        name="g_recaptcha_response"
-                                        error={errors.g_recaptcha_response}
-                                        handleChange={(key) =>
-                                            setFieldValue(
-                                                "g_recaptcha_response",
-                                                key
-                                            )
-                                        }
+                                    <ReCaptchaV3
+                                        refresher={refreshReCaptcha}
+                                        render={(token) => setToken(token)}
                                     />
-
                                     <FormButton
                                         type="submit"
                                         variant="primary"
@@ -190,6 +185,9 @@ const Apply = () => {
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
                                         )}
+                                        onClick={() =>
+                                            setRefreshReCaptcha(true)
+                                        }
                                     />
                                 </Form>
                             )}

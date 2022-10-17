@@ -238,7 +238,6 @@ export const UploadCVFormData: UploadCVValueProps = {
     cv: [],
     imagePreviewUrl: [],
     applied_position: "",
-    g_recaptcha_response: "",
 };
 
 export const PostTaskFormData: PostTaskProps = {
