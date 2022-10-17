@@ -101,7 +101,7 @@ const Feedback = () => {
 
                                             <InputField
                                                 name="description"
-                                                labelName="Feedback"
+                                                labelName="Description"
                                                 touch={touched.description}
                                                 error={errors.description}
                                                 placeHolder="Write your message here..."
@@ -110,7 +110,7 @@ const Feedback = () => {
                                             <FormButton
                                                 type="submit"
                                                 variant="primary"
-                                                name="Submit Feedback"
+                                                name="Submit"
                                                 className="submit-btn"
                                                 isSubmitting={isSubmitting}
                                                 isSubmittingClass={isSubmittingClass(

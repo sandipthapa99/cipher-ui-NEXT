@@ -707,7 +707,7 @@ const Home: NextPage<{
             <section id="notable-quality" className="notable-quality">
                 <Container fluid="xl" className="px-5">
                     <LongSquareImageCard
-                        title="Homaale Notable quality"
+                        title="Homaale Notable Qualities"
                         image="/groupB.png"
                         imageOnRight={true}
                         homeImage={true}
@@ -770,8 +770,7 @@ const Home: NextPage<{
                         <div className="overlay">
                             <>
                                 <h1>
-                                    Nepali <span>Income Tax</span> and{" "}
-                                    <span>Pay Calculator</span>
+                                    Nepali <span>Income Tax Calculator</span>
                                 </h1>
                                 <div className="bottom-content">
                                     <p>

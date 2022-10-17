@@ -28,6 +28,8 @@ const FAQ = ({ faqTopicData }: FAQData) => {
         ["all-faq"],
         "/support/faq/"
     );
+
+    console.log("faq data", faqData);
     const { mutate } = useForm("/support/contactus/");
     const toggleSuccessModal = useToggleSuccessModal();
     return (
@@ -48,7 +50,7 @@ const FAQ = ({ faqTopicData }: FAQData) => {
                 <section className="faq-body-section">
                     <Container>
                         <section className="popular-faqs">
-                            <h1>Popular FAQs</h1>
+                            <h1>Mostly Asked FAQs</h1>
                             <Accordion flush>
                                 {(faqData?.data?.result ?? []).length > 0
                                     ? faqData?.data?.result?.map(

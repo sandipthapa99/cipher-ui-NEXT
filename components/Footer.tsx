@@ -145,7 +145,7 @@ const Footer = () => {
                                                         : `/login?next=/feedback`
                                                 }
                                             >
-                                                <a>Complaints/Feedback</a>
+                                                <a>Feedback</a>
                                             </Link>
                                         </li>
                                         <li>

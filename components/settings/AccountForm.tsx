@@ -739,7 +739,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                             /> */}
                             <hr />
-                            <h3>Profession Information</h3>
+                            <h3>Professional Information</h3>
                             <h4>Select User Type</h4>
                             <div
                                 role="group"
