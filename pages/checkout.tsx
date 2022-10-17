@@ -324,7 +324,10 @@ export default function Checkout() {
 
                         <div className="sub-total fee d-flex justify-content-between">
                             <p>Sub Total</p>
-                            <p>Rs 1,200</p>
+                            <p>
+                                {servicesCheckoutData?.data?.currency.symbol}{" "}
+                                {servicesCheckoutData?.data?.budget_to}
+                            </p>
                         </div>
                         <div className="platform-fee fee d-flex justify-content-between">
                             <p>Platform Fee</p>
@@ -332,11 +335,21 @@ export default function Checkout() {
                         </div>
                         <div className="tax fee d-flex justify-content-between">
                             <p>Tax (13% inclusive)</p>
-                            <p>Rs 1,200</p>
+                            <p>
+                                {servicesCheckoutData?.data?.currency.symbol}{" "}
+                                {servicesCheckoutData?.data?.budget_to *
+                                    (13 / 100)}
+                            </p>
                         </div>
                         <div className="grand-total d-flex justify-content-between">
                             <p>Grand Total</p>
-                            <p>Rs 1,400</p>
+                            <p>
+                                {servicesCheckoutData?.data?.currency.symbol}{" "}
+                                {servicesCheckoutData?.data?.budget_to +
+                                    servicesCheckoutData?.data?.budget_to *
+                                        (13 / 100) +
+                                    200}
+                            </p>
                         </div>
                         <Button
                             className="checkout-btn"
