@@ -734,7 +734,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     {blogData && blogData?.result?.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                            <h2 className="heading-title">Our blogs</h2>
+                            <h2 className="heading-title">Our Blogs</h2>
                             <Link href="/blogs">
                                 <a className="view-more">
                                     view more{" "}
@@ -780,8 +780,7 @@ const Home: NextPage<{
                         <div className="overlay">
                             <>
                                 <h1>
-                                    Nepali <span>Income Tax</span> and{" "}
-                                    <span>Pay Calculator</span>
+                                    Nepali <span>Income Tax Calculator</span>
                                 </h1>
                                 <div className="bottom-content">
                                     <p>
