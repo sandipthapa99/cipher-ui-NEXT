@@ -27,7 +27,7 @@ const Contact = () => {
                 <BreadCrumb currentPage="Contact Us" />
                 <Container fluid="xl">
                     <div className="contact-page-header__description">
-                        <h1>Contact Us</h1>
+                        <h1>Reach us out</h1>
                         <h2>
                             With everything &amp; anything you&apos;re confused
                             about

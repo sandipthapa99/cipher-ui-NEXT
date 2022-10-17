@@ -286,7 +286,7 @@ export const PostTaskModal = () => {
                                 error={getFieldError("highlights")}
                                 {...getFieldProps("highlights")}
                                 labelName="Requirements"
-                                description="This helps tasker to find about your requirements better."
+                                description="This helps the tasker understand about your task better"
                             />
 
                             <SelectCity

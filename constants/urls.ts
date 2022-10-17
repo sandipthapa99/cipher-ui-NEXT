@@ -15,6 +15,7 @@ const urls = {
         signup: "/user/signup/",
         changePassword: "/user/password/change/",
         google: "/user/register/social/google-oauth2/",
+        facebook: "/user/register/social/facebook/",
     },
     task: {
         list: taskPath,

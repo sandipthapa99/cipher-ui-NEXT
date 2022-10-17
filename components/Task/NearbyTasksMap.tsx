@@ -12,35 +12,28 @@ const GoogleMap = dynamic(() => import("@components/GoogleMap"), {
 const NearbyTasksMap = () => {
     const location = useLatLng();
     const { data: nearbyTasks } = useNearbyTasks(location);
-    //! temporary workground for the issue of all tasks being rendered on the same position
-    const nearbyTasksSeparated = nearbyTasks.map((nearbyTask, index) => ({
-        ...nearbyTask,
-        city: {
-            ...nearbyTask.city,
-            longitude: nearbyTask?.city?.longitude + index * 0.0001,
-            latitude: nearbyTask?.city?.latitude + index * 0.0001,
-        },
-    }));
     const router = useRouter();
     return (
         <>
             <GoogleMap>
-                {nearbyTasksSeparated.map((task) => (
-                    <OverlayView
-                        position={{
-                            lat: task?.city?.latitude,
-                            lng: task?.city?.longitude,
-                        }}
-                        mapPaneName="overlayMouseTarget"
-                        key={task.id}
-                    >
-                        <Avatar
-                            onClick={() => router.push(`/task/${task.slug}`)}
-                            radius="xl"
-                            src={task?.created_by?.profile_image}
-                        />
-                    </OverlayView>
-                ))}
+                {nearbyTasks.map(
+                    ({ id, entity_service: { slug, city, created_by } }) => (
+                        <OverlayView
+                            position={{
+                                lat: city?.latitude,
+                                lng: city?.longitude,
+                            }}
+                            mapPaneName="overlayMouseTarget"
+                            key={id}
+                        >
+                            <Avatar
+                                onClick={() => router.push(`/task/${slug}`)}
+                                radius="xl"
+                                src={created_by?.profile_image}
+                            />
+                        </OverlayView>
+                    )
+                )}
             </GoogleMap>
         </>
     );

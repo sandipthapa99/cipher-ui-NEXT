@@ -1,20 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
-import type { ITask } from "types/task";
+import type { INearbyTask } from "types/nearbyTasks";
 import { axiosClient } from "utils/axiosClient";
 
 export interface NearbyTaskPayload {
     lng: number;
     lat: number;
 }
-export const useNearbyTasks = ({ lng, lat }: NearbyTaskPayload) => {
+export const useNearbyTasks = (nearbyTasksPayload?: NearbyTaskPayload) => {
     return useQuery(
         ["nearby-tasks"],
         () =>
-            axiosClient
-                .get<{ result: ITask[] }>("/task/near-me", {
-                    params: { longitude: lng, latitude: lat },
-                })
-                .then((response) => response.data.result),
+            nearbyTasksPayload
+                ? axiosClient
+                      .get<{ result: INearbyTask[] }>("/task/near-me", {
+                          params: {
+                              longitude: nearbyTasksPayload.lng,
+                              latitude: nearbyTasksPayload.lat,
+                          },
+                      })
+                      .then((response) => response.data.result)
+                : [],
         { initialData: [] }
     );
 };

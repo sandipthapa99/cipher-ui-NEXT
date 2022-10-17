@@ -32,5 +32,5 @@ export const uploadCVFormValidation = Yup.object().shape({
     phone: phoneValidate,
     cv: fileUploadValidate,
     applied_position: stringReqOnly,
-    g_recaptcha_response: stringReqOnly,
+    // g_recaptcha_response: stringReqOnly,
 });
