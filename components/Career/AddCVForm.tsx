@@ -2,11 +2,11 @@ import FileInputField from "@components/common/FileInputField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
-import ReCaptchaField from "@components/common/ReCaptchaField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
+import { useRecaptcha } from "hooks/use-recaptcha";
 import router from "next/router";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
@@ -28,6 +28,9 @@ interface AddCVProps {
 const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useForm(`/career/inquiry/add/`);
+
+    const { token, generateRecaptcha } = useRecaptcha();
+
     return (
         <>
             {/* Modal component */}
@@ -47,6 +50,7 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                             values.cv.forEach((file) =>
                                 formData.append("cv", file)
                             );
+                            formData.append("g_recaptcha_response", token);
 
                             delete values.imagePreviewUrl;
                             setShowCvForm(false);
@@ -169,16 +173,6 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                                     }}
                                     fieldRequired
                                 />
-                                <ReCaptchaField
-                                    name="g_recaptcha_response"
-                                    error={errors.g_recaptcha_response}
-                                    handleChange={(key) =>
-                                        setFieldValue(
-                                            "g_recaptcha_response",
-                                            key
-                                        )
-                                    }
-                                />
 
                                 <Modal.Footer>
                                     <Button
@@ -197,6 +191,7 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
                                         )}
+                                        onClick={generateRecaptcha}
                                     />
                                 </Modal.Footer>
                             </Form>

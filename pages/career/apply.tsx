@@ -7,6 +7,7 @@ import ReCaptchaField from "@components/common/ReCaptchaField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
+import { useRecaptcha } from "hooks/use-recaptcha";
 import { useRouter } from "next/router";
 import React from "react";
 import { Container } from "react-bootstrap";
@@ -21,6 +22,7 @@ const Apply = () => {
     const router = useRouter();
     const { id } = router.query;
     const { mutate } = useForm(`/career/candidate/apply/${id}/`);
+    const { token, generateRecaptcha } = useRecaptcha();
     return (
         <Layout title="Homaale | Apply">
             <BreadCrumb currentPage="Apply" />
@@ -40,6 +42,7 @@ const Apply = () => {
                                 values.cv.forEach((file) =>
                                     formData.append("cv", file)
                                 );
+                                formData.append("g_recaptcha_response", token);
 
                                 delete values.imagePreviewUrl;
 
@@ -170,16 +173,6 @@ const Apply = () => {
                                         placeHolder="Add a cover letter or anything you want to share here."
                                         as="textarea"
                                     />
-                                    <ReCaptchaField
-                                        name="g_recaptcha_response"
-                                        error={errors.g_recaptcha_response}
-                                        handleChange={(key) =>
-                                            setFieldValue(
-                                                "g_recaptcha_response",
-                                                key
-                                            )
-                                        }
-                                    />
 
                                     <FormButton
                                         type="submit"
@@ -190,6 +183,7 @@ const Apply = () => {
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
                                         )}
+                                        onClick={generateRecaptcha}
                                     />
                                 </Form>
                             )}
