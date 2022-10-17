@@ -2,13 +2,14 @@ import FileInputField from "@components/common/FileInputField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
+import ReCaptchaV3 from "@components/common/ReCaptchaV3";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
-import { useRecaptcha } from "hooks/use-recaptcha";
 import router from "next/router";
 import type { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -28,8 +29,11 @@ interface AddCVProps {
 const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useForm(`/career/inquiry/add/`);
+    const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
 
-    const { token, generateRecaptcha } = useRecaptcha();
+    const [token, setToken] = useState("");
+
+    // const { token, generateRecaptcha } = useRecaptcha();
 
     return (
         <>
@@ -182,6 +186,10 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                                         Cancel
                                     </Button>
 
+                                    <ReCaptchaV3
+                                        refresher={refreshReCaptcha}
+                                        render={(token) => setToken(token)}
+                                    />
                                     <FormButton
                                         type="submit"
                                         variant="primary"
@@ -191,7 +199,9 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
                                         )}
-                                        onClick={generateRecaptcha}
+                                        onClick={() =>
+                                            setRefreshReCaptcha(true)
+                                        }
                                     />
                                 </Modal.Footer>
                             </Form>
