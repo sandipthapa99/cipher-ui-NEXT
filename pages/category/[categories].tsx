@@ -191,11 +191,15 @@ const Gardening = ({
                                         >
                                             <MerchantCard
                                                 merchantImage={
-                                                    merchant?.user
-                                                        ?.profile_image
+                                                    merchant?.profile_image
                                                 }
                                                 merchantName={
-                                                    merchant?.user?.first_name
+                                                    merchant?.user?.first_name +
+                                                    " " +
+                                                    merchant?.user
+                                                        ?.middle_name +
+                                                    " " +
+                                                    merchant?.user?.last_name
                                                 }
                                                 merchantCategory={
                                                     merchant?.designation

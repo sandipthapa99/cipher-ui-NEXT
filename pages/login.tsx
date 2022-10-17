@@ -1,3 +1,4 @@
+import { FacebookLogin } from "@components/auth/FacebookLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
@@ -80,13 +81,15 @@ const Login = () => {
                             onError: (error) => {
                                 toast.error(error.message);
                             },
-                            onSuccess: async () => {
+                            onSuccess: async (hasProfile) => {
                                 const { next } = router.query;
                                 await queryClient.invalidateQueries(["user"]);
-                                const redirectUrl = next
-                                    ? next.toString()
+                                const redirectUrl = !hasProfile
+                                    ? "/settings/account/individual"
+                                    : next
+                                    ? next
                                     : "/home";
-                                router.push(redirectUrl);
+                                router.push(redirectUrl.toString());
                                 toast.success("Successfully logged in");
                             },
                         });
@@ -140,7 +143,7 @@ const Login = () => {
 
                             <div className="button-wrapper-social d-flex justify-content-evenly">
                                 <Google />
-                                {/* <FacebookLogin /> */}
+                                <FacebookLogin />
                             </div>
                         </Form>
                     )}

@@ -14,6 +14,7 @@ import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import { LoginPrompt } from "@components/model/LoginPrompt";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faAngleRight,
@@ -93,6 +94,13 @@ const Home: NextPage<{
                     autoClose: false,
                 }
             );
+            return;
+        }
+        if (!userData.is_kyc_verified) {
+            toast.error(<KYCIncompleteToast />, {
+                icon: false,
+                autoClose: false,
+            });
             return;
         }
         toggleShowPostTaskModal();
@@ -724,7 +732,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     {blogData && blogData?.result?.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                            <h2 className="heading-title">Our blogs</h2>
+                            <h2 className="heading-title">Our Blogs</h2>
                             <Link href="/blogs">
                                 <a className="view-more">
                                     view more{" "}

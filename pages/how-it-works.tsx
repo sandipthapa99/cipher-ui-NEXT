@@ -16,8 +16,8 @@ const HowItWorks: NextPage = () => {
                     <div className="how-it-works__top-container">
                         <h1>See how things work in Homaale</h1>
                         <p>
-                            Here is the video that can be very helpful to know
-                            about Homaale
+                            Here is the video that can be very helpful to become
+                            a part of Homaale
                         </p>
 
                         <figure className="thumbnail-img footer-img">

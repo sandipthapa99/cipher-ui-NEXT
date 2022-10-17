@@ -182,9 +182,7 @@ export const KYCStatus = () => {
             <Row>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">Address</p>
-                    <p className="m-0 text-address">
-                        {profileDetails?.address_line1}
-                    </p>
+                    <p className="m-0 text-address">{KycData?.address}</p>
                 </Col>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">Kyc Verified</p>

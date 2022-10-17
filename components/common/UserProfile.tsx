@@ -234,13 +234,13 @@ const UserProfileCard = ({
                         />
                     </figure>
 
-                    <PhotoEdit
+                    {/* <PhotoEdit
                         photo={image}
                         show={showEditForm}
                         setShowEditForm={setShowEditForm}
                         handleClose={() => setShowEditForm(false)}
                         handleSubmit={() => onEditProfile(image)}
-                    />
+                    /> */}
                     <div className="profile-intro d-flex">
                         <h1 className="name text-center">{full_name}</h1>
                         {/* <div className="active"></div> */}

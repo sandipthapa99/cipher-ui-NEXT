@@ -47,9 +47,9 @@ const ChangePasswordForm = () => {
                                     new_password: "",
                                     social_token: googleToken
                                         ? googleToken
-                                        : "",
-                                    old_password: "",
+                                        : null,
                                     confirm_password: "",
+                                    old_password: googleToken ? null : "",
                                 }}
                                 // validationSchema={changePasswordFormSchema}
                                 onSubmit={async (values, action) => {
@@ -60,7 +60,7 @@ const ChangePasswordForm = () => {
                                             toast.success(
                                                 "Password changed successfully"
                                             );
-                                            toggleSuccessModal();
+                                            // toggleSuccessModal();
                                         },
                                         onError: (err) => {
                                             toast.error(err.message);
@@ -77,7 +77,7 @@ const ChangePasswordForm = () => {
                                     resetForm,
                                 }) => (
                                     <Form autoComplete="off">
-                                        {
+                                        {/* {
                                             <pre>
                                                 {JSON.stringify(
                                                     errors,
@@ -85,7 +85,7 @@ const ChangePasswordForm = () => {
                                                     4
                                                 )}
                                             </pre>
-                                        }
+                                        } */}
                                         {!googleToken && (
                                             <PasswordField
                                                 typeOf="password"
@@ -141,31 +141,35 @@ const ChangePasswordForm = () => {
                         </div>
                     </Accordion.Panel>
                 </Accordion.Item>
-                <Accordion.Item value="phone-number">
-                    <Accordion.Control>
-                        <p className="m-0 font-weight-normal">
-                            {userDetails?.phone === null
-                                ? "Add new phone number"
-                                : "Change Phone Number"}
-                        </p>
-                    </Accordion.Control>
-                    <Accordion.Panel>
-                        <ChangePhoneNumber />
-                    </Accordion.Panel>
-                </Accordion.Item>
+                {userDetails?.social_only && (
+                    <Accordion.Item value="phone-number">
+                        <Accordion.Control>
+                            <p className="m-0 font-weight-normal">
+                                {userDetails?.phone === null
+                                    ? "Add new phone number"
+                                    : "Change Phone Number"}
+                            </p>
+                        </Accordion.Control>
+                        <Accordion.Panel>
+                            <ChangePhoneNumber />
+                        </Accordion.Panel>
+                    </Accordion.Item>
+                )}
 
-                <Accordion.Item value="email-address">
-                    <Accordion.Control>
-                        <p className="m-0 font-weight-normal">
-                            {userDetails?.email === ""
-                                ? "Add new email"
-                                : "Update Email"}
-                        </p>
-                    </Accordion.Control>
-                    <Accordion.Panel>
-                        <ChangeNewEmail />
-                    </Accordion.Panel>
-                </Accordion.Item>
+                {userDetails?.social_only && (
+                    <Accordion.Item value="email-address">
+                        <Accordion.Control>
+                            <p className="m-0 font-weight-normal">
+                                {userDetails?.email === ""
+                                    ? "Add new email"
+                                    : "Update Email"}
+                            </p>
+                        </Accordion.Control>
+                        <Accordion.Panel>
+                            <ChangeNewEmail />
+                        </Accordion.Panel>
+                    </Accordion.Item>
+                )}
 
                 <Accordion.Item value="security">
                     <Accordion.Control>

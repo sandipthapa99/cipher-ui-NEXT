@@ -32,7 +32,7 @@ const KYCForm = () => {
 
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
-    const [showDocument, setShowDocument] = useState(false);
+    // const [showDocument, setShowDocument] = useState(false);
     // const [showButtons, setShowButtons] = useState(false);
 
     const { data: profileDetails } = useGetProfile();
@@ -61,6 +61,7 @@ const KYCForm = () => {
     const router = useRouter();
     const [showKYCRead, setShowKYCRead] = useState(false);
 
+    if (!profileDetails) return null;
     return (
         <>
             {/* Modal component */}
@@ -68,9 +69,7 @@ const KYCForm = () => {
             <div
                 className="account-form mt-5"
                 id="kycform"
-                style={
-                    profileDetails ? { display: "block" } : { display: "none" }
-                }
+                style={{ scrollMarginTop: "10rem" }}
             >
                 {!KYCData?.is_kyc_verified && (
                     <>
@@ -139,7 +138,7 @@ const KYCForm = () => {
                                         toast.success(
                                             "KYC Details Added Successfully"
                                         );
-                                        setShowDocument(true);
+
                                         //queryClient.invalidateQueries(["GET_KYC"]);
                                         // setShowButtons(false);
                                     },
@@ -317,7 +316,10 @@ const KYCForm = () => {
                                 </Form>
                             )}
                         </Formik>
-                        <IdentityDocument />
+                        <div>
+                            <hr />
+                            {KYCData && <IdentityDocument />}
+                        </div>
                     </>
                 )}
 

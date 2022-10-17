@@ -1,7 +1,6 @@
 import { taskActionCardContent } from "staticData/taskActionCardContent";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 
-import { PostTaskModal } from "./PostTaskModal";
 import TaskActionCard from "./TaskActionCard";
 
 const GettingStartedTask = () => {
@@ -28,7 +27,6 @@ const GettingStartedTask = () => {
                         </div>
                     ))}
             </div>
-            <PostTaskModal />
         </div>
     );
 };

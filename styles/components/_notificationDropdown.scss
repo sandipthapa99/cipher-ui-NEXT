@@ -42,11 +42,15 @@
         .today,
         .mark {
             font: 400 1.2rem $poppins-font;
-            color: $primary-color;
-        }
-        .mark {
-            text-decoration: underline;
+            color: #1a5fc9;
+            text-decoration: none;
             cursor: pointer;
+            background: none;
+            @include transition();
+            margin-bottom: 1.6rem;
+            &:hover {
+                color: $secondary-color;
+            }
         }
     }
 

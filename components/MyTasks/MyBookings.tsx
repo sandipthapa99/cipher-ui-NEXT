@@ -39,65 +39,49 @@ export const MyBookings = () => {
                         </Col>
                     </Grid>
                 )}
-                {!isLoading && myBookingData?.length ? (
+                {!isLoading &&
+                    myBookingData &&
+                    myBookingData?.length >= 0 &&
                     myBookingData?.map((item, index) => (
                         <div className="booking-wrapper" key={index}>
-                            <Link
-                                href={{
-                                    pathname: "/checkout/",
-                                    query: { id: item?.entity_service?.id },
-                                }}
-                            >
-                                <a>
-                                    <MyTaskOrder
-                                        task_id={item?.entity_service?.id}
-                                        assigner_id={String(
-                                            item?.entity_service?.created_by?.id
-                                        )}
-                                        created_at={item?.created_at}
-                                        image={
-                                            item?.entity_service?.images[0]
-                                                ?.media
-                                                ? item?.entity_service
-                                                      ?.images[0]?.media
-                                                : "/placeholder/taskPlaceholder.png"
-                                        }
-                                        title={item?.entity_service?.title}
-                                        assigner_name={`${
-                                            item?.entity_service?.created_by
-                                                ?.first_name
-                                        } ${
-                                            item?.created_by?.user?.middle_name
-                                                ? item?.created_by?.user
-                                                      ?.middle_name
-                                                : ""
-                                        } ${item?.created_by?.user?.last_name}`}
-                                        budget_from={item?.budget_from}
-                                        budget_to={item?.budget_to}
-                                        budget_type={
-                                            item?.entity_service?.budget_type
-                                        }
-                                        status={item?.status}
-                                        currency={
-                                            item?.entity_service?.currency
-                                                ?.symbol
-                                        }
-                                    />
-                                </a>
-                            </Link>
+                            <MyTaskOrder
+                                task_id={item?.entity_service?.id}
+                                assigner_id={String(
+                                    item?.entity_service?.created_by?.id
+                                )}
+                                created_at={item?.created_at}
+                                image={
+                                    item?.entity_service?.images[0]?.media
+                                        ? item?.entity_service?.images[0]?.media
+                                        : "/placeholder/taskPlaceholder.png"
+                                }
+                                title={item?.entity_service?.title}
+                                assigner_name={`${
+                                    item?.entity_service?.created_by?.first_name
+                                } ${
+                                    item?.created_by?.user?.middle_name
+                                        ? item?.created_by?.user?.middle_name
+                                        : ""
+                                } ${item?.created_by?.user?.last_name}`}
+                                budget_from={item?.budget_from}
+                                budget_to={item?.budget_to}
+                                budget_type={item?.entity_service?.budget_type}
+                                status={item?.status}
+                                currency={
+                                    item?.entity_service?.currency?.symbol
+                                }
+                            />
                         </div>
-                    ))
-                ) : (
-                    <ApplyPostComponent
-                        title="No Bookings Available"
-                        subtitle="Book a service to the marketplace and let merchant come to you."
-                        buttonText="Book a service"
-                    />
-                    // <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                    //     Sorry, You have no booking to show.
-                    // </Alert>
-                )}
+                    ))}
             </div>
+            {!isLoading && myBookingData && myBookingData?.length <= 0 && (
+                <ApplyPostComponent
+                    model="service"
+                    title="No Bookings Available"
+                    subtitle="Book a service to the marketplace and let merchant come to you."
+                    buttonText="Book a service"
+                />
+            )}
         </div>
     );
 };

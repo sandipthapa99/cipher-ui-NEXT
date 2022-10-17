@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import type { IService } from "types/service";
 import type { ITasker } from "types/tasker";
 import { axiosClient } from "utils/axiosClient";
 
@@ -17,7 +18,7 @@ import {
     useSetSearchQuery,
 } from "./searchStore";
 
-export type SearchContext = "tasker.Profile" | "task.EntityService";
+export type SearchContext = "all" | "tasker.Profile" | "task.EntityService";
 export enum SearchScope {
     ALL = "all",
     TALENT = "talent",
@@ -28,7 +29,7 @@ export interface SearchApiResponse {
 }
 export interface SearchDashboardResult {
     taskers: ITasker[];
-    services: any[];
+    services: IService[];
 }
 
 export interface SearchDashboardPayload {
@@ -49,7 +50,7 @@ export const useSearchDashboard = () => {
             .map((item) => item.result) as ITasker[];
         const services = data.result
             .filter((item) => item.c_type === "task.EntityService")
-            .map((item) => item.result);
+            .map((item) => item.result) as IService[];
         return { taskers, services };
         // return data.result;
     });
@@ -85,6 +86,13 @@ export const Search = () => {
                         );
                     }
                     if (services.length > 0 && taskers.length > 0) {
+                        setSearchedTaskers(taskers);
+                        setSearchedServices(services);
+                        setSearchQuery({
+                            context: "all",
+                            query: values.q,
+                        });
+                        router.push(`/search?search=${values.q}`);
                         return;
                     }
                     if (taskers.length > 0) {
@@ -98,11 +106,12 @@ export const Search = () => {
                         return;
                     }
                     if (services.length > 0) {
+                        setSearchedServices(services);
+
                         setSearchQuery({
                             context: "task.EntityService",
                             query: values.q,
                         });
-                        setSearchedServices(services);
                         router.push({ pathname: "/service" });
                     }
                 },

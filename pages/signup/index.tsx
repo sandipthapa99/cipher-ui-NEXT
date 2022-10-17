@@ -167,6 +167,7 @@ const SignUp = () => {
                     handleClose={handleClose}
                     phone={phoneNumber}
                     setShowForm={setShow}
+                    scope="verify"
                 />
             </div>
         </OnBoardingLayout>
