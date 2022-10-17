@@ -1,4 +1,5 @@
 import getCroppedImg from "@components/AppliedTask/Crop";
+import { isEmpty } from "@firebase/util";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -31,85 +32,73 @@ const PhotoEdit = ({
     onPhotoEdit,
     haveImage,
 }: editProfileProps) => {
+    const ORIENTATION_TO_ANGLE = {
+        "3": 180,
+        "6": 90,
+        "8": -90,
+    };
     //console.log("🚀 ~ file: PhotoEdit.tsx ~ line 34 ~ display", display);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(5);
     const [rotation, setRotation] = useState(0);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
-    const [toEditImage, setToEditImage] = useState<File | null>(null);
+    const [toEditImage, setToEditImage] = useState<Blob | null | string>(null);
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+    const [clickedUpload, setClickedUpload] = useState(false);
 
     let previewImage: any;
 
     const reactImage = useMemo(() => {
-        //  photo ? (previewImage = URL.createObjectURL(photo)) : "";
-        return photo;
+        try {
+            photo ? (previewImage = URL.createObjectURL(photo)) : "";
+        } catch {
+            ("");
+        }
+        return previewImage;
     }, [photo]);
+
+    console.log("photo=", photo);
     const queryClient = useQueryClient();
     const profile = useGetProfile();
     const profileImage = profile.data?.profile_image;
-    console.log(
-        "🚀 ~ file: PhotoEdit.tsx ~ line 50 ~ profileImage",
-        profileImage
-    );
-    const fileName = "profile.jpg";
-    const url =
-        "https://kinsta.com/wp-content/uploads/2021/01/url-protocol.png";
 
-    const getUrlExtension = (url: any) => {
-        return url.split(/[#?]/)[0].split(".").pop().trim();
-    };
+    console.log("profile image", profileImage);
 
-    const onImageEdit = async (imgUrl: any) => {
-        const imgExt = getUrlExtension(imgUrl);
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 57 ~ onImageEdit ~ imgUrl",
-            imgUrl
-        );
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 57 ~ onImageEdit ~ imgExt",
-            imgExt
-        );
-
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 89 ~ fetch ~ imgUrl",
-            imgUrl
-        );
-        // const url =
-        //     "https://kinsta.com/wp-content/uploads/2021/01/url-protocol.png";
-
-        const response = await fetch(profileImage, { mode: "no-cors" });
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 83 ~ onImageEdit ~ response",
-            response
-        );
-
-        const blob = await response.blob();
-
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 86 ~ onImageEdit ~ blob",
-            blob
-        );
-        const file = new File([blob], fileName, {
-            type: blob.type,
-        });
-        console.log("🚀 ~ file: PhotoEdit.tsx ~ line 54 ~ fetch ~ file", file);
-        setToEditImage(file);
-        return file;
-    };
-    console.log("files", toEditImage);
     const onCropComplete = useCallback(
         (croppedArea: any, croppedAreaPixels: any) => {
             setCroppedAreaPixels(croppedAreaPixels);
         },
         []
     );
+    const uploadPreview = useMemo(() => {
+        uploadedFile ? (previewImage = URL.createObjectURL(uploadedFile)) : "";
+        return previewImage;
+    }, [uploadedFile]);
+
+    console.log(
+        "🚀 ~ file: PhotoEdit.tsx ~ line 181 ~ uploadedFile",
+        uploadedFile,
+        uploadPreview
+    );
+    console.log("cli", clickedUpload);
+    const toBeCroppedImage = clickedUpload
+        ? uploadPreview
+        : profileImage
+        ? toEditImage
+        : reactImage
+        ? reactImage
+        : "";
+    console.log(
+        "🚀 ~ file: PhotoEdit.tsx ~ line 79 ~ toBeCroppedImage",
+        toBeCroppedImage
+    );
 
     const showCroppedImage = useCallback(async () => {
         try {
+            console.log("hsdfasdf");
             const croppedImage = (await getCroppedImg(
-                profileImage ? onImageEdit(profileImage) : reactImage,
+                toBeCroppedImage,
                 croppedAreaPixels,
                 rotation
             )) as Blob;
@@ -118,39 +107,43 @@ const PhotoEdit = ({
             return croppedImage;
         } catch (e) {
             console.error(e);
+            console.log("done");
         }
-    }, [croppedAreaPixels, rotation, reactImage]);
+    }, [toBeCroppedImage, croppedAreaPixels, rotation]);
+
     console.log(
         "🚀 ~ file: PhotoEdit.tsx ~ line 139 ~ showCroppedImage ~ croppedImage",
-        croppedImage
+        croppedImage,
+        uploadPreview
     );
 
     const editProfile = useMutation((data: FormData) =>
         axiosClient.patch("/tasker/profile/", data)
     );
+    const profileName = profileImage
+        ? profileImage.substring(profileImage.indexOf("profile/") + 8)
+        : "";
 
-    //profileImage ? setHaveImage(true) : null;
+    const fileName = clickedUpload
+        ? uploadedFile?.name
+        : profileImage && profileImage
+        ? profileName
+        : "";
 
     const onEditProfile = async () => {
+        console.log("hii");
         const data = (await showCroppedImage()) as unknown as RequestInfo | URL;
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 126 ~ onEditProfile ~ data",
-            data
-        );
-        console.log(
-            "🚀 ~ file: PhotoEdit.tsx ~ line 83 ~ onEditProfile ~ profileImage",
-            profileImage
-        );
+
         if (!data) return;
 
-        console.log("data", data);
         const response = await fetch(data);
 
         const blob = await response.blob();
 
-        const file = new File([blob], photo.name, {
-            type: blob.type,
+        const file = new File([blob], "profile.jpeg", {
+            type: "image/jpeg",
         });
+
         if (!profileImage) {
             console.log("heyyy");
             onPhotoEdit(data, file);
@@ -173,15 +166,30 @@ const PhotoEdit = ({
               })
             : null;
     };
+    const onImageEdit = async () => {
+        const response = await fetch(`/api/image?image=${profileImage}`);
 
+        const blob = await response.blob();
+
+        const file = new File([blob], fileName, {
+            type: blob.type,
+        });
+
+        setToEditImage(URL.createObjectURL(file));
+        //  return file;
+    };
     const submit = async () => {
-        console.log("hiii");
+        if (profileImage) {
+            onImageEdit();
+        }
+
         onEditProfile();
     };
 
-    useEffect(() => {
-        console.log({ croppedImage });
-    }, [croppedImage]);
+    // useEffect(() => {
+    //     console.log({ croppedImage });
+    // }, [croppedImage]);
+    // const uploadPreview = uploadedFile ? URL.createObjectURL(uploadedFile) : "";
 
     return (
         <>
@@ -201,18 +209,25 @@ const PhotoEdit = ({
                     /> */}
                     <input
                         type="file"
-                        // onChange={(e) => {
-                        //     const files = e.target.files;
-                        //     setUploadedFile(files);
-                        // }}
+                        onChange={(e) => {
+                            setClickedUpload(true);
+                            const files = e.target.files;
+                            setUploadedFile(files && files[0]);
+                        }}
                         // onClick={}
                     />
                     <Modal.Body className="crop-container">
                         <Cropper
                             image={
-                                profile.data?.profile_image
+                                reactImage
+                                    ? reactImage
+                                    : clickedUpload
+                                    ? uploadPreview
+                                    : profile.data?.profile_image
                                     ? profileImage
                                     : photo
+                                    ? toBeCroppedImage
+                                    : ""
                             }
                             crop={crop}
                             zoom={zoom}
@@ -238,6 +253,21 @@ const PhotoEdit = ({
                             }}
                             className="zoom-range"
                         />
+
+                        <h2>Rotate</h2>
+                        <input
+                            type="range"
+                            value={rotation}
+                            min={0}
+                            max={360}
+                            step={1}
+                            aria-labelledby="Rotation"
+                            onChange={(e) => {
+                                console.log("value of rao", e.target.value);
+                                setRotation(parseInt(e.target.value));
+                            }}
+                            className="rotation-range"
+                        />
                     </div>
                     {/* <div className="cropped-image-container">
                         {croppedImage && (
@@ -261,7 +291,8 @@ const PhotoEdit = ({
                         </Button>
                         <Button
                             className="btn close-btn"
-                            onClick={() => {
+                            onClick={(e) => {
+                                e.preventDefault();
                                 isEditButtonClicked || haveImage
                                     ? submit()
                                     : submit();
