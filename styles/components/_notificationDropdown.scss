@@ -48,7 +48,7 @@
             background: none;
             @include transition();
             margin-bottom: 1.6rem;
-            &:hover{
+            &:hover {
                 color: $secondary-color;
             }
         }

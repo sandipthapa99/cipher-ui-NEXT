@@ -25,6 +25,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
+import axios from "axios";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -107,6 +108,13 @@ const Home: NextPage<{
     };
 
     useEffect(() => setIsClient(true), []);
+    useEffect(() => {
+        fetch(
+            "/api/image?image=https://d2908q01vomqb2.cloudfront.net/1b6453892473a467d07372d45eb05abc2031647a/2020/09/09/s3-1.png"
+        )
+            .then((res) => res.blob())
+            .then((blob) => console.log(blob));
+    }, []);
     if (!isClient) return null;
     return (
         <Layout title="Homaale - Catering to Your Requirements">
