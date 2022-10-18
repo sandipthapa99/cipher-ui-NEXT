@@ -489,6 +489,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 <ImageUpload
                                                     name="profile_image"
                                                     display={display}
+                                                    setIsEditButtonClicked={
+                                                        setIsEditButtonClicked
+                                                    }
                                                     // setDisplay={setDisplay}
                                                     ref={inputRef}
                                                     onChange={(e: any) => {
