@@ -1,4 +1,10 @@
 import {
+    useClearSearchedServices,
+    useClearSearchedTaskers,
+    useClearSearchQuery,
+    useSearchQuery,
+} from "@components/common/Search/searchStore";
+import {
     faCity,
     faClose,
     faDollarSign,
@@ -48,6 +54,11 @@ export const SearchCategory = ({
     const { data: cities } = useCities(cityQuery);
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
+
+    const searchQuery = useSearchQuery();
+    const clearSearchedServices = useClearSearchedServices();
+    const clearSearchedTaskers = useClearSearchedTaskers();
+    const clearSearchQuery = useClearSearchQuery();
 
     const { data: servicesOptionsData = [] } = useServiceOptions();
     const citiesData: SelectItem[] = cities.map((city) => ({
@@ -129,6 +140,11 @@ export const SearchCategory = ({
 
     const hasParams = Object.keys(params).length > 0;
 
+    const clearSearchData = () => {
+        clearSearchQuery();
+        clearSearchedServices();
+        clearSearchedTaskers();
+    };
     const onSelectChange = (key: string, value: string | null) => {
         if (!value) {
             dispatch({ type: ActionKind.REMOVE, payload: { key } });
@@ -138,6 +154,7 @@ export const SearchCategory = ({
     };
 
     const handleClearFilters = () => {
+        clearSearchData();
         dispatch({ type: ActionKind.CLEAR });
         onFilterClear();
     };
@@ -186,7 +203,7 @@ export const SearchCategory = ({
                         classes.categoriesContainer + " " + "box-modifier"
                     }
                 >
-                    {hasParams && (
+                    {(hasParams || searchQuery) && (
                         <Button
                             leftIcon={
                                 <FontAwesomeIcon

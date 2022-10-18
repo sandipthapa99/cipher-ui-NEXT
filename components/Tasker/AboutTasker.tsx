@@ -3,12 +3,12 @@ import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Highlight } from "@mantine/core";
 import { format } from "date-fns";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerProps } from "types/taskerProps";
-
 interface AboutTasker {
     taskerDetail: TaskerProps["result"][0];
 }
@@ -150,7 +150,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                                     </p>
                                                 </div>
                                                 <p className="description">
-                                                    {value?.description}
+                                                    {parse(value?.description)}
                                                 </p>
                                                 <p className="date">
                                                     {format(
@@ -326,7 +326,9 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                                       {/* </Link> */}
                                                   </div>
                                                   <h3 className="program">
-                                                      {value?.description}
+                                                      {parse(
+                                                          value?.description
+                                                      )}
                                                   </h3>
                                                   <p className="date">
                                                       {format(

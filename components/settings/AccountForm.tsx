@@ -309,10 +309,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
     }
     const onButtonClick = () => {
         // `current` points to the mounted file input element
-        // profile?.profile_image
-        //     ? setShowEditForm(true)
-        //     : inputRef?.current?.click();
-        inputRef?.current?.click();
+        profile?.profile_image
+            ? setShowEditForm(true)
+            : inputRef?.current?.click();
+        // inputRef?.current?.click();
         setDisplay(true);
         //  setIsEdtButtonClicked(!isEditButtonClicked);
     };
@@ -756,7 +756,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                             /> */}
                             <hr />
-                            <h3>Profession Information</h3>
+                            <h3>Professional Information</h3>
                             <h4>Select User Type</h4>
                             <div
                                 role="group"

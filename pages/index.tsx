@@ -25,6 +25,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
+import axios from "axios";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -107,6 +108,7 @@ const Home: NextPage<{
     };
 
     useEffect(() => setIsClient(true), []);
+
     if (!isClient) return null;
     return (
         <Layout title="Homaale - Catering to Your Requirements">
@@ -715,7 +717,7 @@ const Home: NextPage<{
             <section id="notable-quality" className="notable-quality">
                 <Container fluid="xl" className="px-5">
                     <LongSquareImageCard
-                        title="Homaale Notable quality"
+                        title="Homaale Notable Qualities"
                         image="/groupB.png"
                         imageOnRight={true}
                         homeImage={true}

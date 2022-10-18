@@ -22,6 +22,7 @@ import { useUser } from "hooks/auth/useUser";
 import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { ToastContainer } from "react-toastify";
 
 import { firebaseCloudMessaging } from "../firebase/firebase";
@@ -33,6 +34,14 @@ interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
         dehydratedState: DehydratedState;
     };
 }
+const getReptcha = () => {
+    const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+    if (RECAPTCHA_SITE_KEY === undefined)
+        throw new Error(
+            "Please specify an RECAPTCHA_SITE_KEY in the environment variable RECAPTCHA_SITE_KEY"
+        );
+    return RECAPTCHA_SITE_KEY;
+};
 
 function MyApp({ Component, pageProps }: CustomAppProps) {
     const [queryClient] = useState(
@@ -104,7 +113,11 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                                 <RouterTransition />
                                 {/* <UserLoadingOverlay /> */}
                                 <LoginPrompt />
-                                <Component {...pageProps} />
+                                <GoogleReCaptchaProvider
+                                    reCaptchaKey={getReptcha()}
+                                >
+                                    <Component {...pageProps} />
+                                </GoogleReCaptchaProvider>
                             </ModalsProvider>
                         </MantineProvider>
                     </Hydrate>
