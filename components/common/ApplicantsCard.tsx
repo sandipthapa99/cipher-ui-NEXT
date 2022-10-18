@@ -66,7 +66,6 @@ export const ApplicantsCard = ({
     taskId,
     currency,
 }: Props) => {
-    console.log("🚀 ~ file: ApplicantsCard.tsx ~ line 69 ~ id", id);
     const { data: user } = useUser();
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);

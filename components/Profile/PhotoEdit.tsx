@@ -33,7 +33,6 @@ const PhotoEdit = ({
     onPhotoEdit,
     haveImage,
 }: editProfileProps) => {
-    //console.log("🚀 ~ file: PhotoEdit.tsx ~ line 34 ~ display", display);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(5);
     const [rotation, setRotation] = useState(0);
@@ -114,7 +113,6 @@ const PhotoEdit = ({
         const data = (await showCroppedImage(imageBlob)) as unknown as
             | RequestInfo
             | URL;
-        console.log("data", data);
         if (!data) return;
 
         const response = await fetch(data);

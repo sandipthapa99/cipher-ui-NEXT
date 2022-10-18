@@ -38,7 +38,6 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
             onPhotoEdit,
         } = props;
         const profile = useGetProfile();
-        console.log("🚀 ~ file: PhotoEdit.tsx ~ line 74 ~ profile", profile);
         const profileImage = profile.data?.profile_image;
         return (
             <>

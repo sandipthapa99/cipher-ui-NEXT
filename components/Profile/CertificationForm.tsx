@@ -122,10 +122,6 @@ const CertificationForm = ({
                                 };
                                 newValue = newvalidatedValue;
                             }
-                            console.log(
-                                "🚀 ~ file: CertificationForm.tsx ~ line 124 ~ onSubmit={ ~ newValue",
-                                newValue
-                            );
 
                             {
                                 editDetails && isEditProfile

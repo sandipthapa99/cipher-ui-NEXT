@@ -56,8 +56,4 @@ export const useClearSearchQuery = () =>
 
 searchStore.subscribe((state) => {
     const { searchedServices } = state;
-    console.log(
-        "🚀 ~ file: searchStore.ts ~ line 59 ~ searchStore.subscribe ~ searchedServices",
-        searchedServices
-    );
 });

@@ -20,7 +20,6 @@ export const ChangePhoneNumber = () => {
     const changePhoneNumber = useMutation((values: any) => {
         return axiosClient.post(url, values);
     });
-    console.log(userDetails);
 
     return (
         <div className="p-0">

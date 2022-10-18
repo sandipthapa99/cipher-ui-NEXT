@@ -307,10 +307,6 @@ const AddPortfolio = ({
 
                                 editData = newPayloadWithoutImageAndFile;
                             }
-                            console.log(
-                                "🚀 ~ file: AddPortfolio.tsx ~ line 285 ~ onSubmit={ ~ editData",
-                                editData
-                            );
 
                             // delete addPortfolioPayload.files;
                             // delete addPortfolioPayload.images;

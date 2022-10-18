@@ -61,10 +61,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             revalidate: 10,
         };
     } catch (error: any) {
-        console.log(
-            "🚀 ~ file: [id].tsx ~ line 64 ~ constgetStaticProps:GetStaticProps= ~ error",
-            error
-        );
+        console.log(error);
         return {
             props: {
                 tasker: {},
