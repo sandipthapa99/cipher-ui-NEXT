@@ -54,6 +54,12 @@
         @media screen and (width: 820px), (width: 768px) {
             width: 100%;
         }
+        .inner-left{
+            .thumbnail-img{
+                border-radius: 0.4rem;
+            }
+
+        }
     }
     h3 {
         font-family: "Poppins";
@@ -63,7 +69,7 @@
         color: #211d4f;
     }
     .titles {
-        margin: 0 0 0.2rem 0 !important;
+        margin: 0 0 0.8rem 0 !important;
         font-family: "Poppins";
         font-style: normal;
         font-weight: 500;
@@ -78,7 +84,8 @@
         }
     }
     .digital-wallet {
-        margin-bottom: 3rem;
+        gap: 1rem;
+        margin-bottom: 2.4rem;
         @include respond(xs) {
             justify-content: center;
         }

@@ -1,11 +1,12 @@
 import Layout from "@components/Layout";
+import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import {
     faCalendar,
     faClock,
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Modal, Text } from "@mantine/core";
+import { Button, Modal, Skeleton, Text } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
 import type { Stripe } from "@stripe/stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -15,7 +16,7 @@ import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { PaymentMethodProps } from "types/paymentMethods";
 import type { ServicesValueProps } from "types/serviceCard";
@@ -38,9 +39,19 @@ const getKhaltiApiKey = () => {
     const url = process.env.NEXT_PUBLIC_KHALTI_PUBLIC_KEY;
     if (url === undefined)
         throw new Error(
-            "Please specify an Stripe API key in the environment variable NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"
+            "Please specify an Khalti API key in the environment variable NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"
         );
     return url;
+};
+
+const renderLoadingSkeletons = () => {
+    return (
+        <Fragment>
+            {Array.from({ length: 4 }).map((_, index) => (
+                <SkeletonTaskCard key={index} />
+            ))}
+        </Fragment>
+    );
 };
 
 const stripePromise = loadStripe(getStripeApiKey());
@@ -89,7 +100,7 @@ export default function Checkout() {
         appearance,
     };
 
-    const { data: paymentMethods } = useQuery(
+    const { data: paymentMethods, isLoading } = useQuery(
         ["payment-methods", query],
         async () => {
             const response = await axiosClient.get(urls.payment.method);
@@ -97,53 +108,6 @@ export default function Checkout() {
         }
     );
     console.log(paymentMethods?.data?.result);
-
-    const staticPayments = {
-        wallets: [
-            {
-                partner: "esewa",
-                url: "/payment/esewa.png",
-            },
-            {
-                partner: "khalti",
-                url: "/payment/khalti.png",
-            },
-            {
-                partner: "connect",
-                url: "/payment/connect.png",
-            },
-            {
-                partner: "namaste",
-                url: "/payment/namaste.png",
-            },
-            {
-                partner: "ime",
-                url: "/payment/ime.png",
-            },
-        ],
-
-        credit: [
-            {
-                partner: "visacard",
-                url: "/payment/visacard.png",
-            },
-            {
-                partner: "discover",
-                url: "/payment/discover.png",
-            },
-        ],
-
-        international: [
-            {
-                partner: "paypal",
-                url: "/payment/paypal.png",
-            },
-            {
-                partner: "stripe",
-                url: "/payment/stripe.png",
-            },
-        ],
-    };
 
     return (
         <Layout>
@@ -153,87 +117,56 @@ export default function Checkout() {
                     <Col md={7} className="left">
                         <h3>Payment Method</h3>
                         <p className="titles">Digital Wallets</p>
-                        <Row className="digital-wallet">
-                            {paymentMethods?.data?.result
-                                .filter(
-                                    (item: PaymentMethodProps) =>
-                                        item.type == "wallet"
-                                )
-                                .map((item: PaymentMethodProps) => {
-                                    return (
-                                        <Col
-                                            md={6}
-                                            lg={4}
-                                            key={item.id}
-                                            className="wrapper mb-3 d-flex align-items-center"
-                                            onClick={(e) => {
-                                                // setOpened(true);
-                                                setPaymentType(item.name);
-                                            }}
-                                        >
-                                            {item.name === paymentType && (
-                                                <figure className="verified">
+                        {isLoading && renderLoadingSkeletons()}
+                        {!isLoading && (
+                            <Row className="digital-wallet gx-0">
+                                {paymentMethods?.data?.result
+                                    .filter(
+                                        (item: PaymentMethodProps) =>
+                                            item.type == "wallet"
+                                    )
+                                    .map((item: PaymentMethodProps) => {
+                                        return (
+                                            <Col
+                                                md={6}
+                                                lg={4}
+                                                key={item.id}
+                                                className="wrapper mb-3 d-flex align-items-center"
+                                                onClick={(e) => {
+                                                    // setOpened(true);
+                                                    setPaymentType(item.name);
+                                                }}
+                                            >
+                                                {item.name === paymentType && (
+                                                    <figure className="verified">
+                                                        <Image
+                                                            src={
+                                                                "/payment/verified.png"
+                                                            }
+                                                            height={18}
+                                                            width={18}
+                                                            alt={"verified"}
+                                                        />
+                                                    </figure>
+                                                )}
+                                                <figure className="payment">
                                                     <Image
-                                                        src={
-                                                            "/payment/verified.png"
-                                                        }
-                                                        height={18}
-                                                        width={18}
-                                                        alt={"verified"}
+                                                        src={item.logo}
+                                                        objectFit="contain"
+                                                        width={36}
+                                                        height={48}
+                                                        alt="oppurtunities-page-main-image"
                                                     />
                                                 </figure>
-                                            )}
-                                            <figure className="payment">
-                                                <Image
-                                                    src={item.logo}
-                                                    objectFit="contain"
-                                                    width={36}
-                                                    height={48}
-                                                    alt="oppurtunities-page-main-image"
-                                                />
-                                            </figure>
-                                            <p>{item.name}</p>
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
-                        {/* <p className="titles">Cards Debit/Credit</p>
-                        <div className="digital-wallet d-flex gap-4 flex-wrap">
-                            {staticPayments.credit.map((item, index) => {
-                                return (
-                                    <figure
-                                        key={index}
-                                        className="payment"
-                                        onClick={(e) => {
-                                            // setOpened(true);
-                                            setPaymentType(item.partner);
-                                        }}
-                                    >
-                                        <Image
-                                            src={item.url}
-                                            objectFit="contain"
-                                            width={190}
-                                            height={100}
-                                            alt="oppurtunities-page-main-image"
-                                        />{" "}
-                                        {item.partner === paymentType && (
-                                            <figure className="verified">
-                                                <Image
-                                                    src={
-                                                        "/payment/verified.png"
-                                                    }
-                                                    height={24}
-                                                    width={24}
-                                                    alt={"verified"}
-                                                />
-                                            </figure>
-                                        )}
-                                    </figure>
-                                );
-                            })}
-                        </div> */}
+                                                <p>{item.name}</p>
+                                            </Col>
+                                        );
+                                    })}
+                            </Row>
+                        )}
+
                         <p className="titles">International Payment Method</p>
-                        <Row className="digital-wallet">
+                        <Row className="digital-wallet gx-0">
                             {paymentMethods?.data?.result
                                 .filter(
                                     (item: PaymentMethodProps) =>
@@ -279,7 +212,7 @@ export default function Checkout() {
                         <h1>Task List</h1>
                         {servicesCheckoutData?.data && (
                             <Row className="item-detail">
-                                <Col md={4} className="left">
+                                <Col md={4} className="inner-left">
                                     {servicesCheckoutData?.data?.images
                                         .length <= 0 && (
                                         <>
@@ -305,6 +238,7 @@ export default function Checkout() {
                                                     }
                                                     height={116}
                                                     width={116}
+                                                    objectFit="cover"
                                                     alt="img"
                                                 />
                                             </figure>
