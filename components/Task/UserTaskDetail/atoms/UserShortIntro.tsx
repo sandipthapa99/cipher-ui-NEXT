@@ -15,10 +15,6 @@ interface UserShortIntroProps {
     user: ITasker;
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
-    console.log(
-        "🚀 ~ file: UserShortIntro.tsx ~ line 17 ~ UserShortIntro ~ user",
-        user
-    );
     const { classes } = useStyles();
 
     const userSkills = user?.skill ? JSON.parse(user?.skill) : [];
@@ -40,7 +36,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
     return (
         <Row className="td-mt-24">
             <Col md={6}>
-                <p className="td-user-short-intro-text">
+                <div className="td-user-short-intro-text">
                     <FontAwesomeIcon
                         icon={faLocationDot}
                         className="svg-icon"
@@ -52,9 +48,9 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                             {user?.address_line1 ?? "Location not available"}
                         </Text>
                     </span>
-                </p>
+                </div>
                 {memberSince && (
-                    <p className="td-user-short-intro-text">
+                    <div className="td-user-short-intro-text">
                         <FontAwesomeIcon className="svg-icon" icon={faUser} />
                         <span>
                             Member since{" "}
@@ -62,9 +58,9 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                                 {memberSince}
                             </Text>
                         </span>
-                    </p>
+                    </div>
                 )}
-                <p className="td-user-short-intro-text">
+                <div className="td-user-short-intro-text">
                     <FontAwesomeIcon icon={faTimer} className="svg-icon" />
                     <span>
                         Active Hours &nbsp;
@@ -72,9 +68,9 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                             {`${activeHourStart} to ${activeHourEnd}`}
                         </Text>
                     </span>
-                </p>
+                </div>
 
-                <p className="td-user-short-intro-text skills">
+                <div className="td-user-short-intro-text skills">
                     <FontAwesomeIcon icon={faSparkles} className="svg-icon" />
 
                     {userSkills
@@ -89,13 +85,13 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                               </span>
                           ))
                         : "No skills to show. Please add them"}
-                </p>
+                </div>
             </Col>
             <Col md={6}>
-                <p className="td-user-short-intro-text font-bold">
+                <div className="td-user-short-intro-text font-bold">
                     Bio
                     <span>{user?.bio}</span>
-                </p>
+                </div>
             </Col>
         </Row>
     );
