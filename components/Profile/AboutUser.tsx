@@ -2,10 +2,11 @@ import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Spoiler } from "@mantine/core";
+import { Alert, Spoiler } from "@mantine/core";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { Formik, validateYupSchema } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
@@ -44,6 +45,7 @@ const AboutProfile = () => {
 
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
+    const { data: user } = useUser();
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
         `${urls.profile.rating}?ordering=${search}`
@@ -804,7 +806,7 @@ const AboutProfile = () => {
                                         )}
                                     </Spoiler>
                                 </div>
-                            ) : (
+                            ) : user?.is_kyc_verified ? (
                                 <div>
                                     <p>
                                         You have no reviews yet, Get started
@@ -820,6 +822,10 @@ const AboutProfile = () => {
                                         Post a Task
                                     </a>
                                 </div>
+                            ) : (
+                                <Alert>
+                                    Please verify your KYC to post task.
+                                </Alert>
                             )}
                         </Row>
                     </div>
