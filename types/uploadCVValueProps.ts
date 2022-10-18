@@ -5,5 +5,4 @@ export interface UploadCVValueProps {
     cv: any[];
     imagePreviewUrl?: any[];
     applied_position: string;
-    g_recaptcha_response: string;
 }

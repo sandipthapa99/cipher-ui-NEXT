@@ -15,6 +15,7 @@ import {
 } from "next-share";
 import Modal from "react-bootstrap/Modal";
 import type { ShareButtonProps } from "types/shareButton";
+import { toast } from "utils/toast";
 
 const ShareModal = ({
     show,

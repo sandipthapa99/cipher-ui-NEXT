@@ -24,11 +24,11 @@ import type { ReactNode } from "react";
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
-import { toast } from "react-toastify";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import ProfileEditForm from "./ProfileEditForm";
 import { RatingStars } from "./RatingStars";

@@ -24,11 +24,11 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
 import type { ExperienceValueProps } from "types/experienceValueProps";
 import { ExperienceFormData } from "utils/formData";
 import { experienceFormSchema } from "utils/formValidation/experienceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 interface ExperienceProps {
     show?: boolean;

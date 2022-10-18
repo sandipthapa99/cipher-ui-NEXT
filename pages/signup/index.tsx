@@ -10,13 +10,13 @@ import { useSignup } from "hooks/auth/useSignup";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
 import {
     clientEmailSignUpSchema,
     clientPhoneSignUpSchema,
 } from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const SignUp = () => {
     const router = useRouter();

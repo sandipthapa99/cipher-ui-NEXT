@@ -5,8 +5,8 @@ import { Highlight } from "@mantine/core";
 import { Button, Modal } from "@mantine/core";
 import { useDeleteTask } from "hooks/task/use-delete-task";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
 import type { ITask } from "types/task";
+import { toast } from "utils/toast";
 
 interface ConfirmDeleteTaskModalProps extends ModalProps {
     task: ITask;

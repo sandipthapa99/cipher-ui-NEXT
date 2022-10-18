@@ -13,9 +13,9 @@ import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import type { Tasker } from "types/tasks";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 import BigButton from "../common/Button";
 import ShareIcon from "../common/ShareIcon";

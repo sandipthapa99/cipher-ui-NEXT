@@ -14,9 +14,9 @@ import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import { toast } from "react-toastify";
 import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import { IdentityDocument } from "./IdentityDocument";
 import { KYCStatus } from "./KycStatus";

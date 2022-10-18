@@ -42,13 +42,23 @@
         color: $secondary-text-color;
     }
 }
-.crop-container {
-    height: 30rem;
-    width: 100%;
-    display: flex;
-    margin: 0;
-    @include respond(sm) {
-        width: 50%;
-        margin: 0 auto;
+.image-crop {
+    .crop-container {
+        height: 30rem;
+        width: 70%;
+        display: flex;
+        margin: 0;
+        margin-bottom: 1rem;
+        @include respond(md) {
+            width: 100%;
+            margin: 0 auto;
+            height: 30rem;
+            display: flex;
+            margin: 0;
+        }
+    }
+    h4 {
+        font-weight: 500;
+        margin-top: 1rem;
     }
 }

@@ -15,8 +15,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 // import { parse } from "path";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import type { ServicesValueProps } from "types/serviceCard";
+import { toast } from "utils/toast";
 
 import ModalCard from "./BookNowModalCard";
 import CardBtn from "./CardBtn";
@@ -45,10 +45,7 @@ const ServiceCard = ({
 
     const handleShowModal = () => {
         if (!user?.is_kyc_verified) {
-            toast.error(<KYCIncompleteToast />, {
-                icon: false,
-                autoClose: false,
-            });
+            toast.showComponent("KYC Incomplete", <KYCIncompleteToast />);
             return;
         }
         if (user && !canEdit) {

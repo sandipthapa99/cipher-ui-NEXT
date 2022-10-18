@@ -8,7 +8,7 @@ export interface MerchantCardProps {
     merchantRating: number | string | null | undefined;
     merchantPrice: string | null | undefined | number;
     happyClients: number | undefined | null;
-    successRate: number | undefined | null;
+    successRate: number | undefined | null | string;
     liked?: boolean;
     merchantId: string | null | undefined | number;
     onClick?: () => void;

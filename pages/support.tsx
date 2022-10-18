@@ -9,11 +9,11 @@ import { Form, Formik } from "formik";
 import { useSupport } from "hooks/support/useSupport";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 import { SupportFormData } from "utils/contactFormData";
 import { SupportFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const Support = () => {
     const { data } = useQuery(["support-tickets"], async () => {

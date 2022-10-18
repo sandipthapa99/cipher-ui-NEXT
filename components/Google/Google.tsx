@@ -6,9 +6,9 @@ import Cookies from "js-cookie";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 const Google = () => {
     const { mutate, data } = useGoogle();

@@ -143,10 +143,7 @@ export const getStaticProps: GetStaticProps = async () => {
             revalidate: 10,
         };
     } catch (err: any) {
-        console.log(
-            "🚀 ~ file: index.tsx ~ line 154 ~ constgetStaticProps:GetStaticProps= ~ err",
-            err
-        );
+        console.log(err);
         return {
             props: {
                 blogsData: [],

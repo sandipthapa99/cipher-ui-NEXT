@@ -1,4 +1,5 @@
 import { Button, Group, Stack, Text } from "@mantine/core";
+import { cleanNotifications } from "@mantine/notifications";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useRouter } from "next/router";
 
@@ -18,7 +19,11 @@ export const KYCIncompleteToast = () => {
             <Group>
                 {!kycData ? (
                     <>
-                        <Button variant="white" color="gray">
+                        <Button
+                            variant="white"
+                            color="gray"
+                            onClick={() => cleanNotifications()}
+                        >
                             Cancel
                         </Button>
                         <Button
@@ -33,8 +38,12 @@ export const KYCIncompleteToast = () => {
                         </Button>
                     </>
                 ) : (
-                    <Button variant="white" color="gray">
-                        Cancel
+                    <Button
+                        variant="filled"
+                        color="gray"
+                        onClick={() => cleanNotifications()}
+                    >
+                        Close
                     </Button>
                 )}
             </Group>

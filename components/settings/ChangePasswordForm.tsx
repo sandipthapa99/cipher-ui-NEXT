@@ -9,11 +9,11 @@ import { useChangePassword } from "hooks/profile/changePassword/useChangePasswor
 import Cookies from "js-cookie";
 import React from "react";
 import Button from "react-bootstrap/Button";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { ChangePasswordFromData } from "utils/formData";
 import changePasswordFormSchema from "utils/formValidation/changePasswordFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import { ChangeNewEmail } from "./changeNewEmail";
 import { ChangePhoneNumber } from "./changePhonenumber";
