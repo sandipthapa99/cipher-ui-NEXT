@@ -241,7 +241,7 @@ const Gardening = ({
                         <h1 className="section-main-title">
                             Explore Categories
                         </h1>
-                        <Row>
+                        <Row className="g-4">
                             {heroCategoryData &&
                                 heroCategoryData?.map((category, key) => (
                                     <Col lg={2} md={4} sm={6} key={key}>
