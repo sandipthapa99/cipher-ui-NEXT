@@ -11,6 +11,7 @@ interface ImageUploadProps {
     photo: any;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
 
+    setIsEditButtonClicked: Dispatch<SetStateAction<boolean>>;
     showEditForm: boolean;
     handleClose: () => void;
     handleSubmit?: () => void;
@@ -28,13 +29,14 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
         const {
             name,
             onChange,
+            setIsEditButtonClicked,
             photo,
             setShowEditForm,
             showEditForm,
             handleClose,
             handleSubmit,
             isEditButtonClicked,
-            display,
+
             onPhotoEdit,
         } = props;
         const profile = useGetProfile();
@@ -51,6 +53,7 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
                     // onClick={}
                 />
                 <PhotoEdit
+                    setIsEditButtonClicked={setIsEditButtonClicked}
                     show={showEditForm}
                     setShowEditForm={setShowEditForm}
                     handleClose={handleClose}
