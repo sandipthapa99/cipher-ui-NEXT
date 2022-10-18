@@ -56,6 +56,7 @@ export const MyBookingsCard = ({
     designation,
 }: Props) => {
     const userId = tasker;
+    console.log("tasker", tasker);
     const isBookmarked = useIsBookmarked("user", userId);
     const queryClient = useQueryClient();
 
@@ -175,7 +176,16 @@ export const MyBookingsCard = ({
                             }
                             className={"me-3"}
                         />
-                        <ShareIcon url={""} quote={""} hashtag={""} />
+                        <ShareIcon
+                            url={
+                                typeof window !== "undefined"
+                                    ? window.location.origin +
+                                      `/tasker/${userId}`
+                                    : ""
+                            }
+                            quote={""}
+                            hashtag={""}
+                        />
                     </div>
                     <div className="d-flex align-items-center gap-3 approve-reject-buttons">
                         {isApproved === false && (

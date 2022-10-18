@@ -1,8 +1,14 @@
 import BigButton from "@components/common/Button";
+import { useRouter } from "next/router";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 
 export const EarnMoneyVideoComponent = () => {
+    const router = useRouter();
+
+    const handleButtonClick = () => {
+        router.push({ pathname: "/task" });
+    };
     return (
         <div className="d-flex earn-money-video-component">
             <Row>
@@ -30,6 +36,7 @@ export const EarnMoneyVideoComponent = () => {
                         <BigButton
                             btnTitle={"Browse Tasks"}
                             backgroundColor={"#fff"}
+                            handleClick={handleButtonClick}
                         />
                     </div>
                 </Col>

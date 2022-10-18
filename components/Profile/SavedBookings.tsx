@@ -15,6 +15,8 @@ const SavedBookings = () => {
         (bookmark) => bookmark.data.is_requested
     );
 
+    console.log("user bookmarks data", userBookmarks);
+
     return (
         <div className="saved-bookings px-5">
             <Row>
@@ -60,7 +62,11 @@ const SavedBookings = () => {
                                 }
                                 merchantName={
                                     userBookmark.data?.user
-                                        ? userBookmark.data?.user.full_name
+                                        ? userBookmark.data?.user?.first_name +
+                                          " " +
+                                          userBookmark.data?.user?.middle_name +
+                                          " " +
+                                          userBookmark.data?.user?.last_name
                                         : ""
                                 }
                                 merchantCategory={
