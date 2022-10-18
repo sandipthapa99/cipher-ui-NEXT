@@ -13,7 +13,6 @@ export const toast = {
             message,
             color: "red",
             icon: <FontAwesomeIcon icon={faExclamationCircle} />,
-            disallowClose: true,
         }),
     success: (message: ReactNode) =>
         showNotification({

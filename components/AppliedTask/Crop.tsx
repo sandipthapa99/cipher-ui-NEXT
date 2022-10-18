@@ -138,7 +138,6 @@ export function rotateSize(width: number, height: number, rotation: number) {
     };
 }
 
-
 export async function getCroppedImg(
     imageSrc: string,
     pixelCrop: Area | undefined,
