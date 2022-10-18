@@ -1,19 +1,18 @@
 import PortfolioDetails from "@components/Profile/PortfolioDetail";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Highlight } from "@mantine/core";
+import { Alert } from "@mantine/core";
 import { format } from "date-fns";
 import parse from "html-react-parser";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskerProps } from "types/taskerProps";
-interface AboutTasker {
-    taskerDetail: TaskerProps["result"][0];
+import type { ITasker } from "types/tasker";
+interface AboutTaskerProps {
+    taskerDetail: ITasker;
 }
 
-export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
+export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
     const userSkills = taskerDetail?.skill
         ? JSON.parse(taskerDetail?.skill)
         : [];

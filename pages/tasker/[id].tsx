@@ -3,6 +3,7 @@ import TaskerLayout from "@components/Tasker/TaskerLayout";
 import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { ServicesValueProps } from "types/serviceCard";
+import type { ITasker } from "types/tasker";
 import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
 
@@ -10,7 +11,7 @@ const TaskerDetail = ({
     tasker,
     taskerService,
 }: {
-    tasker: TaskerProps["result"][0];
+    tasker: ITasker;
     taskerService: ServicesValueProps;
 }) => {
     return (
