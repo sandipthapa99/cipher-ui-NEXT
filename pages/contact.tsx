@@ -13,10 +13,10 @@ import { Form, Formik } from "formik";
 import { useContact } from "hooks/contact-and-support/contact";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { ContactFormData } from "utils/contactFormData";
 import contactFormSchema from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const Contact = () => {
     const { mutate } = useContact();
@@ -27,7 +27,7 @@ const Contact = () => {
                 <BreadCrumb currentPage="Contact Us" />
                 <Container fluid="xl">
                     <div className="contact-page-header__description">
-                        <h1>Contact Us</h1>
+                        <h1>Reach us out</h1>
                         <h2>
                             With everything &amp; anything you&apos;re confused
                             about

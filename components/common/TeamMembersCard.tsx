@@ -16,9 +16,9 @@ import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
 import type { TaskApplicantsProps, TaskApprovedList } from "types/task";
 import type { Tasker } from "types/tasks";
+import { toast } from "utils/toast";
 
 import BigButton from "./Button";
 import ShareIcon from "./ShareIcon";
@@ -225,7 +225,11 @@ export const TeamMembersCard = ({
                             className={"me-3"}
                         />
                     ) : null}
-                    <ShareIcon url={""} quote={""} hashtag={""} />
+                    <ShareIcon
+                        url={`https://homaale.com/tasker/${tasker}`}
+                        quote={""}
+                        hashtag={""}
+                    />
                 </div>
                 <Link href={`/tasker/${tasker}/`}>
                     <a>

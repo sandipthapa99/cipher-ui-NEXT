@@ -125,7 +125,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
             </Link>
             <div className="d-flex mt-4 align-items-center task-applied-card-block__footer">
                 <ShareIcon
-                    url={getPageUrl()}
+                    url={`https://homaale.com/task/${taskId}`}
                     quote="Please Share this task for all"
                     hashtag="Homaale-task"
                     showText

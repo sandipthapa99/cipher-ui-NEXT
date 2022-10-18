@@ -54,7 +54,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                     speciality={tasker?.designation} //doesnt come from api
                     rating={tasker?.rating.avg_rating}
                     happyClients={tasker?.stats?.happy_clients}
-                    awardPercentage={tasker?.stats?.success_rate}
+                    awardPercentage={tasker?.stats?.success_rate.toFixed(2)}
                     location={tasker?.address_line2}
                     distance={"2 km"}
                     bio={tasker?.bio}

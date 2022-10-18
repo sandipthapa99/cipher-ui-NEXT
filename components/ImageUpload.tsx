@@ -11,6 +11,7 @@ interface ImageUploadProps {
     photo: any;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
 
+    setIsEditButtonClicked: Dispatch<SetStateAction<boolean>>;
     showEditForm: boolean;
     handleClose: () => void;
     handleSubmit?: () => void;
@@ -28,17 +29,17 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
         const {
             name,
             onChange,
+            setIsEditButtonClicked,
             photo,
             setShowEditForm,
             showEditForm,
             handleClose,
             handleSubmit,
             isEditButtonClicked,
-            display,
+
             onPhotoEdit,
         } = props;
         const profile = useGetProfile();
-        console.log("🚀 ~ file: PhotoEdit.tsx ~ line 74 ~ profile", profile);
         const profileImage = profile.data?.profile_image;
         return (
             <>
@@ -51,6 +52,7 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
                     // onClick={}
                 />
                 <PhotoEdit
+                    setIsEditButtonClicked={setIsEditButtonClicked}
                     show={showEditForm}
                     setShowEditForm={setShowEditForm}
                     handleClose={handleClose}

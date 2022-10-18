@@ -7,9 +7,9 @@ import { Form, Formik, validateYupSchema } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 export const ChangePhoneNumber = () => {
     const { data: userDetails } = useUser();
@@ -20,7 +20,6 @@ export const ChangePhoneNumber = () => {
     const changePhoneNumber = useMutation((values: any) => {
         return axiosClient.post(url, values);
     });
-    console.log(userDetails);
 
     return (
         <div className="p-0">

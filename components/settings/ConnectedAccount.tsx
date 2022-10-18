@@ -45,6 +45,10 @@ const ConnectedAccount = () => {
         ["linked-accounts"],
         "/user/linked-accounts/list/"
     );
+    console.log(
+        "🚀 ~ file: ConnectedAccount.tsx ~ line 45 ~ ConnectedAccount ~ linkedAccounts",
+        linkedAccounts
+    );
 
     return (
         <div className="account-form">
@@ -93,14 +97,24 @@ const ConnectedAccount = () => {
                             </div>
                         </div>
                     ))}
-                {linkedAccounts?.data &&
+                {linkedAccounts?.data && linkedAccounts?.data.length > 0 ? (
                     linkedAccounts.data.map((values, key) =>
-                        values.provider !== "facebook-oauth2" ? (
-                            <ConnectAccount name={"Facebook"} />
+                        values.provider !== "facebook-oauth2" &&
+                        values.provider !== "google-oauth2" ? (
+                            <>
+                                <ConnectAccount name={"Facebook"} />
+                                <ConnectAccount name={"Google"} />
+                            </>
                         ) : (
                             ""
                         )
-                    )}
+                    )
+                ) : (
+                    <>
+                        <ConnectAccount name={"Facebook"} />
+                        <ConnectAccount name={"Google"} />
+                    </>
+                )}
             </div>
         </div>
     );

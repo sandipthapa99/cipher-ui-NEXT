@@ -1,5 +1,4 @@
 .about-profile {
-    padding-bottom: 2.5rem;
     p {
         margin-bottom: 0rem;
     }
@@ -10,6 +9,12 @@
     }
     .file-attachment {
         display: none;
+    }
+    .program,
+    .description {
+        p {
+            margin-bottom: 0rem;
+        }
     }
     h3 {
         font-size: 1.4rem;

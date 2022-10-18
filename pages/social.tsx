@@ -32,28 +32,20 @@ const SocialResponsibilities: NextPage = () => {
                         </figure>
                         <div className="card">
                             <div className="description">
-                                <h4>Our moto</h4>
+                                <h4>Our Vision</h4>
                                 <p>
-                                    “Lorem Ipsum is simply dummy text of the
-                                    printing and typesetting industry. Lorem
-                                    Ipsum has been the industry&apos;s standard
-                                    dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and
-                                    scrambled it to make a type specimen book.
-                                    It has survived not only five centuries, but
-                                    also the leap into electronic typesetting,
-                                    remaining essentially unchanged when an
-                                    unknown printer took a galley of type and
-                                    scrambled it to make a type specimen book.
-                                    It has survived not only five centuries, but
-                                    also the leap into electronic typesetting,
-                                    remaining essentially unchanged.”
+                                    “We believe in our team and the work that
+                                    they have been putting in, to incorporate a
+                                    platform for all the service providers and
+                                    service seekers using technological
+                                    advancement and visualise a better everyday
+                                    life for the community.”
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div className="social-page__commitment">
-                        <h1>Our commitment towards future sustainibility</h1>
+                        {/* <h1>Our commitment towards future sustainibility</h1> */}
                         <figure className="thumbnail-img">
                             <Image
                                 src="/social/commitment.svg"

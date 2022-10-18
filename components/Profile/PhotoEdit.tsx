@@ -10,13 +10,15 @@ import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Cropper from "react-easy-crop";
 import type { Area } from "react-easy-crop/types";
-import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 interface editProfileProps {
     show?: boolean;
     handleClose?: () => void;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
+    setIsEditButtonClicked: Dispatch<SetStateAction<boolean>>;
+
     photo?: any;
     handleSubmit?: () => void;
     haveImage: boolean;
@@ -27,13 +29,13 @@ interface editProfileProps {
 const PhotoEdit = ({
     show,
     handleClose,
+    setIsEditButtonClicked,
     setShowEditForm,
     photo,
     isEditButtonClicked,
     onPhotoEdit,
     haveImage,
 }: editProfileProps) => {
-    //console.log("🚀 ~ file: PhotoEdit.tsx ~ line 34 ~ display", display);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(5);
     const [rotation, setRotation] = useState(0);
@@ -114,7 +116,6 @@ const PhotoEdit = ({
         const data = (await showCroppedImage(imageBlob)) as unknown as
             | RequestInfo
             | URL;
-        console.log("data", data);
         if (!data) return;
 
         const response = await fetch(data);
@@ -139,6 +140,7 @@ const PhotoEdit = ({
                       queryClient.invalidateQueries(["profile"]);
                       setShowEditForm(false);
                       setCroppedImage(null);
+                      setIsEditButtonClicked(false);
                   },
                   onError: (error: any) => {
                       toast.error(error?.message);

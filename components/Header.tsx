@@ -101,7 +101,7 @@ const Header = () => {
                                             icon={faObjectsColumn}
                                             className="svg-icon d-none d-sm-inline-block"
                                         />
-                                        Category
+                                        Categories
                                     </a>
                                 </Link>
                             </li>

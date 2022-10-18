@@ -30,7 +30,7 @@ export const addPortfolioSchema = Yup.object().shape({
 // import { Col, Row } from "react-bootstrap";
 // import Button from "react-bootstrap/Button";
 // import Modal from "react-bootstrap/Modal";
-// import { toast } from "react-toastify";
+// import { toast } from "utils/toast";
 // import type { AddPortfolioProps } from "types/editProfile";
 // import { AddPortfolioFormData } from "utils/formData";
 // import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";

@@ -107,7 +107,7 @@ const Resources: NextPage = () => {
                             </Row>
                         </div>
                         <div className="latest-article">
-                            <h1>Latest BLOGS</h1>
+                            <h1>What Our Merchants Like</h1>
                             <Row>
                                 {blogData &&
                                     blogData?.data?.result
@@ -128,7 +128,7 @@ const Resources: NextPage = () => {
                             </Row>
                         </div>
                         <div className="bottom-container">
-                            <h1>Popular content</h1>
+                            <h1>What Our Clients Like</h1>
                             <Row>
                                 {blogData &&
                                     blogData?.data?.result

@@ -5,6 +5,6 @@ export const merchantAdvice = [
         subtitle: "Find best ways to find tasks and earn money quickly.",
         image: "/discover/Ellipse1.png",
         description:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popula rised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "As a team of motivated and experienced professionals, we believe that collaboration is the key to success. We would be honoured to put our skills and experience to work for you and contribute to the success of your business. Your challenges to find the right platform or the right client are ours too. Bearing in mind that finding clients in this competitive world is difficult, we believe that our platform will be a solution to achieve your desired outcomes.",
     },
 ];
