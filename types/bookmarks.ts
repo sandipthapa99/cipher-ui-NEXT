@@ -188,8 +188,9 @@ export interface User {
     username: string;
     email: string;
     phone: any;
-    full_name: string;
-    profile_image: any;
+    first_name: string;
+    middle_name: string;
+    last_name: string;
 }
 
 export interface Stats {
