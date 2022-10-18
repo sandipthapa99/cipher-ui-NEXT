@@ -76,6 +76,7 @@ const Home: NextPage<{
     const [isClient, setIsClient] = useState(false);
 
     const loginPopup = useWithLogin();
+    console.log(topTaskerData);
 
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: profile } = useGetProfile();
@@ -553,13 +554,21 @@ const Home: NextPage<{
                                             >
                                                 <MerchantCard
                                                     merchantImage={
-                                                        merchant?.user
-                                                            ?.profile_image
+                                                        merchant?.profile_image
                                                     }
-                                                    merchantName={
+                                                    merchantName={`${
                                                         merchant?.user
                                                             ?.first_name
-                                                    }
+                                                    } ${
+                                                        merchant?.user
+                                                            ?.middle_name
+                                                            ? merchant?.user
+                                                                  ?.middle_name
+                                                            : ""
+                                                    } ${
+                                                        merchant?.user
+                                                            ?.last_name
+                                                    }`}
                                                     merchantCategory={
                                                         merchant?.designation
                                                     }
