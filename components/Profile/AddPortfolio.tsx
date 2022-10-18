@@ -20,12 +20,12 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
 import type { AddPortfolioProps } from "types/editProfile";
 import { axiosClient } from "utils/axiosClient";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 interface AddPortfolioModalProps {
     show?: boolean;
     id?: number;

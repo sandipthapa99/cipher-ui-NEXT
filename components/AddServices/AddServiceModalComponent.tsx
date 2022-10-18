@@ -32,7 +32,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { toast } from "react-toastify";
 import {
     usePostTaskModalType,
     useShowPostTaskModal,
@@ -42,6 +41,7 @@ import { useToggleSuccessModal } from "store/use-success-modal";
 import { ReactQueryKeys } from "types/queryKeys";
 import type { ITask } from "types/task";
 import { safeParse } from "utils/safeParse";
+import { toast } from "utils/toast";
 
 export interface PostTaskPayload {
     title: string;
@@ -355,7 +355,7 @@ export const AddServiceModalComponent = () => {
 // import { useRouter } from "next/router";
 // import React, { useState } from "react";
 // import { Button, Col, FormCheck, Row } from "react-bootstrap";
-// import { toast } from "react-toastify";
+// import { toast } from "utils/toast";
 // import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 // import { useToggleSuccessModal } from "store/use-success-modal";
 // import type { ServicePostProps } from "types/serviceCard";

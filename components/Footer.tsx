@@ -14,10 +14,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type { NewsletterDataTypes } from "types/newsletter";
 import { axiosClient } from "utils/axiosClient";
 import { emailValidationSchema } from "utils/formValidation/emailValidation";
+import { toast } from "utils/toast";
 
 import CommingSoonModal from "./common/ComingSoonModal";
 import InputField from "./common/InputField";

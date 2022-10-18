@@ -12,11 +12,11 @@ import { useDeleteTask } from "hooks/task/use-delete-task";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
-import { toast } from "react-toastify";
 import { useSetEditTaskDetail } from "store/use-edit-task";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import { ReactQueryKeys } from "types/queryKeys";
 import type { ITask } from "types/task";
+import { toast } from "utils/toast";
 interface Menu {
     item: string;
     onClick: string;

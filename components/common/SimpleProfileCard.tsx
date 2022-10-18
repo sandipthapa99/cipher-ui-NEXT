@@ -13,10 +13,10 @@ import { useForm } from "hooks/use-form";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ITask, TaskApprovedList } from "types/task";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 import BookNowButton from "./BookNowButton";
 
@@ -91,12 +91,9 @@ const SimpleProfileCard = ({
 
     const handleShowApplyModal = () => {
         if (!profile) {
-            toast.error(
-                <ProfileNotCompleteToast text="Please complete your profile before applying a task." />,
-                {
-                    icon: false,
-                    autoClose: false,
-                }
+            toast.showComponent(
+                "Profile Incomplete",
+                <ProfileNotCompleteToast text="Please complete your profile before applying a task." />
             );
             return;
         }

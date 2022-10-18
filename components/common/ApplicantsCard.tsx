@@ -17,9 +17,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import type { TaskApplicantsProps, TaskApprovedList } from "types/task";
 import type { Tasker } from "types/tasks";
+import { toast } from "utils/toast";
 
 import ApplicantsDetail from "./ApplicantsDetail";
 import BigButton from "./Button";
