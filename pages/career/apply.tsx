@@ -10,11 +10,11 @@ import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { CarrerApplyFormData } from "utils/formData";
 import { carrerApplyFormValidation } from "utils/formValidation/careerApplyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const Apply = () => {
     const toggleSuccessModal = useToggleSuccessModal();

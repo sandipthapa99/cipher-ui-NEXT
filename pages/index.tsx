@@ -35,7 +35,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
-import { toast } from "react-toastify";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
 import {
@@ -53,6 +52,7 @@ import type { SuccessStoryProps } from "types/successStory";
 import type { ITaskApiResponse } from "types/task";
 import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 const Home: NextPage<{
     successStoryData: SuccessStoryProps;
@@ -88,20 +88,14 @@ const Home: NextPage<{
             return;
         }
         if (!profile) {
-            toast.error(
-                <ProfileNotCompleteToast text="Please create your profile to go on further." />,
-                {
-                    icon: false,
-                    autoClose: false,
-                }
+            toast.showComponent(
+                "Profile Incomplete",
+                <ProfileNotCompleteToast text="Please create your profile to go on further." />
             );
             return;
         }
         if (!userData.is_kyc_verified) {
-            toast.error(<KYCIncompleteToast />, {
-                icon: false,
-                autoClose: false,
-            });
+            toast.showComponent("KYC Incomplete", <KYCIncompleteToast />);
             return;
         }
         toggleShowPostTaskModal();

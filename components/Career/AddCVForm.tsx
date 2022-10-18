@@ -14,11 +14,11 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { UploadCVFormData } from "utils/formData";
 import { uploadCVFormValidation } from "utils/formValidation/uploadCVFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 interface AddCVProps {
     show?: boolean;

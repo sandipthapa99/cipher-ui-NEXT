@@ -9,9 +9,9 @@ import { Form, Formik } from "formik";
 import { useData } from "hooks/use-data";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type { SelectOptionProps } from "types/selectInputField";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 import { ServiceVideo } from "./ServiceVideo";
 

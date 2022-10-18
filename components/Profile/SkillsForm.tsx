@@ -11,10 +11,10 @@ import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
 import { SkillsFromData } from "utils/formData";
 import { skillsFormSchema } from "utils/formValidation/skillsFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 interface SkillsProps {
     show?: boolean;
