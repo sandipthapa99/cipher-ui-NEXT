@@ -12,14 +12,14 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskerDetails } from "staticData/taskDetail";
+import type { ITasker } from "types/tasker";
 import { getPageUrl } from "utils/helpers";
 import { safeParse } from "utils/safeParse";
 
 import { UserStats } from "./UserStats";
 
 interface UserTaskDetailHeaderProps {
-    taskerDetail: TaskerDetails;
+    taskerDetail: ITasker;
     maxHeaderWidth?: string;
 }
 
