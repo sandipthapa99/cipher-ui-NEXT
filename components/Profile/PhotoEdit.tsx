@@ -17,6 +17,8 @@ interface editProfileProps {
     show?: boolean;
     handleClose?: () => void;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
+    setIsEditButtonClicked: Dispatch<SetStateAction<boolean>>;
+
     photo?: any;
     handleSubmit?: () => void;
     haveImage: boolean;
@@ -27,6 +29,7 @@ interface editProfileProps {
 const PhotoEdit = ({
     show,
     handleClose,
+    setIsEditButtonClicked,
     setShowEditForm,
     photo,
     isEditButtonClicked,
@@ -139,6 +142,7 @@ const PhotoEdit = ({
                       queryClient.invalidateQueries(["profile"]);
                       setShowEditForm(false);
                       setCroppedImage(null);
+                      setIsEditButtonClicked(false);
                   },
                   onError: (error: any) => {
                       toast.error(error?.message);
