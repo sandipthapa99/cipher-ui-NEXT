@@ -14,9 +14,9 @@ import { useDocumentKYC } from "hooks/profile/kyc/use-Kyc-Document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useRouter } from "next/router";
 import { Button, Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { KYCDocumentSchema } from "utils/formValidation/kycDocument";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 export type KYCDocuments = {
     kyc: number | undefined | string;
     document_type: string;

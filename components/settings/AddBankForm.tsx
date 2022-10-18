@@ -11,7 +11,6 @@ import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
 import { useEffect, useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type {
     BankBranchResult,
     BankNamesResult,
@@ -20,6 +19,7 @@ import type {
 // import { BankFormData } from "utils/formData";
 import { bankFormSchema } from "utils/formValidation/bankDetailsValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import { CompleteProfile } from "./ProfileForm";
 

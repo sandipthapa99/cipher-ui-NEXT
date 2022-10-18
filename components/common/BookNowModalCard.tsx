@@ -15,11 +15,11 @@ import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import { CustomDropZone } from "./CustomDropZone";
 import MantineDateField from "./MantineDateField";

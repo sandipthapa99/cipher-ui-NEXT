@@ -10,8 +10,8 @@ import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Cropper from "react-easy-crop";
 import type { Area } from "react-easy-crop/types";
-import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 interface editProfileProps {
     show?: boolean;
