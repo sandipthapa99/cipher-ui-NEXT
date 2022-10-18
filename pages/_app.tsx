@@ -100,7 +100,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                             <NotificationsProvider
                                 limit={1}
                                 position="top-center"
-                                autoClose={1000}
+                                autoClose={3000}
                             >
                                 <ModalsProvider
                                     labels={{
