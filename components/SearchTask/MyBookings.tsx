@@ -177,7 +177,12 @@ export const MyBookingsCard = ({
                             className={"me-3"}
                         />
                         <ShareIcon
-                            url={window.location.origin + `/tasker/${userId}`}
+                            url={
+                                typeof window !== "undefined"
+                                    ? window.location.origin +
+                                      `/tasker/${userId}`
+                                    : ""
+                            }
                             quote={""}
                             hashtag={""}
                         />

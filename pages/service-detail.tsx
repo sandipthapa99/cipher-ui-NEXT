@@ -52,7 +52,12 @@ const ServiceDetail: NextPage = () => {
                                         </div>
                                         <span className="d-flex align-items-center">
                                             <ShareIcon
-                                                url={window.location.origin}
+                                                url={
+                                                    typeof window !==
+                                                    "undefined"
+                                                        ? window.location.origin
+                                                        : ""
+                                                }
                                                 quote={""}
                                                 hashtag={""}
                                             />

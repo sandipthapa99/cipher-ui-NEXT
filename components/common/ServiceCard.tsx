@@ -216,8 +216,10 @@ const ServiceCard = ({
                         )}
                         <ShareIcon
                             url={
-                                window.location.origin +
-                                `/service/${serviceCard?.id}`
+                                typeof window !== "undefined"
+                                    ? window.location.origin +
+                                      `/service/${serviceCard?.id}`
+                                    : ""
                             }
                             quote={""}
                             hashtag={""}

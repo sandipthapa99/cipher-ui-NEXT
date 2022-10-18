@@ -111,7 +111,11 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                         />
 
                         <ShareIcon
-                            url={window.location.origin + `/task/${id}`}
+                            url={
+                                typeof window !== "undefined"
+                                    ? window.location.origin + `/task/${id}`
+                                    : ""
+                            }
                             quote={""}
                             hashtag={""}
                         />
