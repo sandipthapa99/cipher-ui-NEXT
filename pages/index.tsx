@@ -76,7 +76,6 @@ const Home: NextPage<{
     const [isClient, setIsClient] = useState(false);
 
     const loginPopup = useWithLogin();
-    console.log(topTaskerData);
 
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: profile } = useGetProfile();
