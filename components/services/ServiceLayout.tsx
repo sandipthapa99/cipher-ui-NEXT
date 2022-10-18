@@ -5,26 +5,12 @@ import {
 } from "@components/common/Search/searchStore";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/SearchCategory";
-import { faClose } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
-import urls from "constants/urls";
+import { Box, Highlight, Space } from "@mantine/core";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import type { ServicesValueProps } from "types/serviceCard";
-import { axiosClient } from "utils/axiosClient";
 
 import ServiceAside from "./ServiceAside";
-
-export const useSearchService = (searchParam: string) => {
-    return useQuery(["all-services", searchParam], () =>
-        axiosClient
-            .get<ServicesValueProps>(`${urls.task.service}&${searchParam}`)
-            .then((response) => response.data.result)
-    );
-};
 
 const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const [searchParam, setSearchParam] = useState("");
@@ -33,14 +19,12 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const clearSearchedServices = useClearSearchedServices();
     const searchQuery = useSearchQuery();
 
-    const handleClearSearchResults = () => {
-        clearSearchedServices();
-        clearSearchQuery();
-    };
-
     const handleSearchChange = (query: string) => {
-        clearSearchQuery();
-        clearSearchedServices();
+        // clear the searched services and search query only when search query has value from search field
+        if (query) {
+            clearSearchQuery();
+            clearSearchedServices();
+        }
         setSearchParam(query);
     };
 
@@ -58,16 +42,13 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                         <Box
                             sx={{
                                 display: "flex",
-                                justifyContent: "space-between",
                                 alignItems: "center",
+                                gap: "1rem",
                             }}
                         >
                             <Highlight highlight={searchQuery.query}>
                                 {`Showing search results for ${searchQuery.query}`}
                             </Highlight>
-                            <ActionIcon onClick={handleClearSearchResults}>
-                                <FontAwesomeIcon icon={faClose} />
-                            </ActionIcon>
                         </Box>
                     )}
                     <Space h={10} />

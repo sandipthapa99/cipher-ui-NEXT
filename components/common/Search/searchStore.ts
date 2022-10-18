@@ -53,3 +53,11 @@ export const useSearchQuery = () => searchStore((state) => state.query);
 export const useSetSearchQuery = () => searchStore((state) => state.setQuery);
 export const useClearSearchQuery = () =>
     searchStore((state) => state.clearSearchQuery);
+
+searchStore.subscribe((state) => {
+    const { searchedServices } = state;
+    console.log(
+        "🚀 ~ file: searchStore.ts ~ line 59 ~ searchStore.subscribe ~ searchedServices",
+        searchedServices
+    );
+});
