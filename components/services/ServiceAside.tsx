@@ -106,7 +106,7 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                         {isLoading && renderServiceSkeletons()}
                         {!isLoading && searchParam && totalServices > 0 ? (
                             <p className="search-results-text">
-                                {`${totalServices} service matching ${searchParam} found`}
+                                {`${totalServices} search results found`}
                             </p>
                         ) : null}
                         {!isLoading && renderServiceCards()}
