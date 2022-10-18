@@ -1,4 +1,3 @@
-import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/bundle.scss";
 import "@smastrom/react-rating/style.css";
 

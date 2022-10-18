@@ -40,7 +40,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import ReactCrop from "react-image-crop";
 import { animateScroll as scroll } from "react-scroll";
 import type { UserBankDetails } from "types/bankDetail";
 import { axiosClient } from "utils/axiosClient";
