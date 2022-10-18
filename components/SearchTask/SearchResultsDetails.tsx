@@ -184,7 +184,6 @@ const SearchResultsDetail = ({
     };
 
     const isUserService = user ? serviceProviderId === user?.id : false;
-    console.log(myBookings, "myBookings");
 
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
@@ -202,7 +201,7 @@ const SearchResultsDetail = ({
                     distance={""}
                     bio={item?.created_by?.bio}
                     charge={item?.entity_service?.discount_value}
-                    tasker={""}
+                    tasker={item?.created_by?.user?.id}
                     isApproved={item?.is_accepted}
                     designation={item?.created_by.designation}
                 />

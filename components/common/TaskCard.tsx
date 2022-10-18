@@ -14,6 +14,7 @@ import { useData } from "hooks/use-data";
 import parser from "html-react-parser";
 import Link from "next/link";
 import type { ITask, TaskerCount } from "types/task";
+import { getPageUrl } from "utils/helpers";
 
 import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
@@ -109,7 +110,11 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                             }
                         />
 
-                        <ShareIcon url={""} quote={""} hashtag={""} />
+                        <ShareIcon
+                            url={window.location.origin + `/task/${id}`}
+                            quote={""}
+                            hashtag={""}
+                        />
                     </div>
                     {/* <div className="share d-flex align-items-center">
                         <ShareIcon url={""} quote={""} hashtag={""} />
