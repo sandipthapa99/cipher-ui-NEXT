@@ -87,11 +87,12 @@ export type MyTaskProps = {
 
 export type MyTaskOrderProps = {
     task_id: string;
-    assigner_id: string;
+    applied_id?: string;
+    assigner_id?: string;
     image: string;
     title: string;
     assigner_name: string;
-    budget_from: number | string | undefined;
+    budget_from?: number | string | undefined;
     currency: string;
     budget_to: number | string;
     budget_type: string;
