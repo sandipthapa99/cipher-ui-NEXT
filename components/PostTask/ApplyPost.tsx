@@ -11,7 +11,7 @@ const ApplyPost = () => {
     return (
         <div className="post-task__apply-post">
             <Row>
-                <Col md={Number(query.activeTab) === 3 ? 12 : 8}>
+                <Col md={Number(query.activeTab) === 4 ? 12 : 8}>
                     <SearchBySort />
                 </Col>
                 {Number(query.activeTab) !== 3 && (
