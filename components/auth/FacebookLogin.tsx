@@ -7,8 +7,8 @@ import localforage from "localforage";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ReactFacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import { toast } from "react-toastify";
 import { autoLogin } from "utils/auth";
+import { toast } from "utils/toast";
 
 const getFacebookAppId = () => {
     const appId = process.env.NEXT_PUBLIC_FACEBOOK_APP_ID;

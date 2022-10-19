@@ -3,7 +3,7 @@ import { useDeleteData } from "hooks/use-delete";
 import type { Dispatch, SetStateAction } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
+import { toast } from "utils/toast";
 
 interface DeleteModalProps {
     show?: boolean;

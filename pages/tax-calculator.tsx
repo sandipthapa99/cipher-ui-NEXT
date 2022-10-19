@@ -13,11 +13,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import { toast } from "react-toastify";
 import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { gender, maritalStatus, salaryType } from "utils/options";
+import { toast } from "utils/toast";
 
 const TaxCalculator: NextPage = () => {
     const { mutate, data: TableData } = useTaxCalculator();

@@ -6,7 +6,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import OtpInput from "react-otp-input";
-import { toast } from "react-toastify";
+import { toast } from "utils/toast";
 
 interface AuthenticationModalCardProps {
     show?: boolean;

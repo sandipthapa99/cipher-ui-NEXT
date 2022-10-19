@@ -6,11 +6,11 @@ import { useLogout } from "hooks/auth/useLogout";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
 import React from "react";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { DeactivateFromData } from "utils/formData";
 import { deactivateFormSchema } from "utils/formValidation/deactivateFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const DeactivationOptions = [
     {

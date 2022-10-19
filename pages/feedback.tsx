@@ -6,12 +6,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type { FeedbackValuesProps } from "types/contact";
 import { axiosClient } from "utils/axiosClient";
 import { FeedbackFormData } from "utils/contactFormData";
 import { FeedbackFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const Feedback = () => {
     const { data } = useQuery(["feedback-category"], () => {

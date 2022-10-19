@@ -8,9 +8,9 @@ import { useData } from "hooks/use-data";
 import Link from "next/link";
 import React from "react";
 import { Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { HelpandSupport } from "utils/formValidation/helpandsupport";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const HelpSettings = () => {
     const { mutate } = usePostHelp();

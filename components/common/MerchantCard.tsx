@@ -159,7 +159,16 @@ const MerchantCard = ({
                                 ])
                             }
                         />
-                        <ShareIcon url={""} quote={""} hashtag={""} />
+                        <ShareIcon
+                            url={
+                                typeof window !== "undefined"
+                                    ? window.location.origin +
+                                      `/tasker/${merchantId}`
+                                    : ""
+                            }
+                            quote={""}
+                            hashtag={""}
+                        />
                     </div>
                     <Link href={`/tasker/${merchantId}`}>
                         <a>

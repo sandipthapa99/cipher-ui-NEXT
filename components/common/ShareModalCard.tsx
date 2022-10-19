@@ -4,10 +4,9 @@ import {
     faLinkedin,
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faCopy } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, CopyButton } from "@mantine/core";
-import Link from "next/link";
+import { ActionIcon, Button, CopyButton, Tooltip } from "@mantine/core";
+import { IconCheck, IconCopy } from "@tabler/icons";
 import {
     FacebookShareButton,
     InstapaperShareButton,
@@ -15,8 +14,8 @@ import {
     TwitterShareButton,
 } from "next-share";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
 import type { ShareButtonProps } from "types/shareButton";
+import { toast } from "utils/toast";
 
 const ShareModal = ({
     show,
@@ -79,32 +78,28 @@ const ShareModal = ({
                             </LinkedinShareButton>
                         </div>
                         <div className="social-media copy">
-                            {/* <FontAwesomeIcon
-                                icon={faCopy}
-                                onClick={() => copyToClipBoard(url)}
-                                className="svg-icon copy-icon"
-                            /> */}
-
                             <CopyButton value={url} timeout={2000}>
-                                {({ copy }) => (
-                                    <FontAwesomeIcon
-                                        icon={faCopy}
-                                        className="svg-icon copy-icon"
-                                        onClick={() => {
-                                            copy(), toast.success("url copied");
-                                        }}
-                                    />
+                                {({ copied, copy }) => (
+                                    <Tooltip
+                                        label={copied ? "Copied" : "Copy"}
+                                        withArrow
+                                        position="right"
+                                    >
+                                        <ActionIcon
+                                            color={copied ? "teal" : "gray"}
+                                            onClick={copy}
+                                            className="svg-icon copy-icon"
+                                        >
+                                            {copied ? (
+                                                <IconCheck size={30} />
+                                            ) : (
+                                                <IconCopy size={30} />
+                                            )}
+                                        </ActionIcon>
+                                    </Tooltip>
                                 )}
                             </CopyButton>
                         </div>
-                        {/* <div className="social-media share">
-                            <Link href="#!">
-                                <FontAwesomeIcon
-                                    icon={faLink}
-                                    className="svg-icon share-link"
-                                />
-                            </Link>
-                        </div> */}
                     </div>
                 </div>
             </Modal>

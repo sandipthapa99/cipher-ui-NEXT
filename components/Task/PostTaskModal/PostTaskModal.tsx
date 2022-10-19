@@ -30,7 +30,6 @@ import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { useEditTaskDetail } from "store/use-edit-task";
 import {
     usePostTaskModalType,
@@ -40,6 +39,7 @@ import {
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { ReactQueryKeys } from "types/queryKeys";
 import { safeParse } from "utils/safeParse";
+import { toast } from "utils/toast";
 
 export interface PostTaskPayload {
     title: string;

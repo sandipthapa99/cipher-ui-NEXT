@@ -4,7 +4,7 @@ import { getApp, getApps, initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 // import { doc, getFirestore, setDoc } from "firebase/firestore";
 import localforage from "localforage";
-import { toast } from "react-toastify";
+import { toast } from "utils/toast";
 
 // const firebaseConfig = {
 //     apiKey: "AIzaSyBSPPQD4M1anH8uT7Ldh-zevS2lgWoL-9Q",

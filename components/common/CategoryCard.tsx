@@ -9,7 +9,7 @@ const CategoryCard = ({
     return (
         <Link href={`/category/${category.category.slug}`}>
             <a>
-                <div className="category-card-block">
+                <div className="category-card-block h-100">
                     <div className="category-card-block__image-block">
                         <figure className="thumbnail-icon">
                             {category.category.icon &&

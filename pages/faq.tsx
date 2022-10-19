@@ -10,7 +10,6 @@ import { useForm } from "hooks/use-form";
 import type { GetStaticProps } from "next";
 import { Fragment } from "react";
 import { Accordion, Container } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type {
     FAQTopicValueProps,
@@ -21,6 +20,7 @@ import { axiosClient } from "utils/axiosClient";
 import { FaqFormData } from "utils/contactFormData";
 import { FaqFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 interface FAQData {
     faqData: FAQValueProps;

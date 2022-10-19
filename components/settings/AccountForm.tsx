@@ -40,14 +40,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import ReactCrop from "react-image-crop";
 import { animateScroll as scroll } from "react-scroll";
-import { toast } from "react-toastify";
 import type { UserBankDetails } from "types/bankDetail";
 import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { safeParse } from "utils/safeParse";
+import { toast } from "utils/toast";
 
 import { FillKyc } from "./FillKyc";
 import { CompleteProfile } from "./ProfileForm";
@@ -489,6 +488,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 <ImageUpload
                                                     name="profile_image"
                                                     display={display}
+                                                    setIsEditButtonClicked={
+                                                        setIsEditButtonClicked
+                                                    }
                                                     // setDisplay={setDisplay}
                                                     ref={inputRef}
                                                     onChange={(e: any) => {
