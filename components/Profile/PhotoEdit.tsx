@@ -37,7 +37,7 @@ const PhotoEdit = ({
     haveImage,
 }: editProfileProps) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(5);
+    const [zoom, setZoom] = useState(1);
     const [rotation, setRotation] = useState(0);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<
         Area | undefined
@@ -126,8 +126,9 @@ const PhotoEdit = ({
             type: "image/jpeg",
         });
 
-        if (!profile) {
+        if (!profile.data) {
             onPhotoEdit(data, file);
+
             setShowEditForm(false);
             return;
         }
@@ -173,7 +174,15 @@ const PhotoEdit = ({
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose} backdrop="static">
+            <Modal
+                show={show}
+                onHide={() => {
+                    setShowEditForm(false);
+                    setClickedUpload(false);
+                    setUploadedFile(null);
+                }}
+                backdrop="static"
+            >
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal image-crop">
                     <h3>Edit Photo</h3>
@@ -194,17 +203,17 @@ const PhotoEdit = ({
                         <Cropper
                             zoomWithScroll
                             image={
-                                reactImage
-                                    ? reactImage
-                                    : clickedUpload
+                                clickedUpload
                                     ? uploadPreview
+                                    : reactImage
+                                    ? reactImage
                                     : profile.data?.profile_image
                                     ? profileImage
                                     : photo
                                     ? toBeCroppedImage
                                     : ""
                             }
-                            // objectFit="horizontal-cover"
+                            objectFit="horizontal-cover"
                             rotation={rotation}
                             crop={crop}
                             zoom={zoom}
@@ -244,7 +253,15 @@ const PhotoEdit = ({
                     </div>
 
                     <Modal.Footer>
-                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button
+                            onClick={() => {
+                                setShowEditForm(false);
+                                setClickedUpload(false);
+                                setUploadedFile(null);
+                            }}
+                        >
+                            Cancel
+                        </Button>
                         <Button
                             className="btn close-btn"
                             onClick={(e) => {
