@@ -12,6 +12,10 @@ interface UserShortIntroProps {
     user: TaskerDetails;
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
+    console.log(
+        "🚀 ~ file: UserShortIntro.tsx ~ line 15 ~ UserShortIntro ~ user",
+        user
+    );
     const userSkills = user?.skill ? JSON.parse(user?.skill) : [];
 
     const finalfrom =
