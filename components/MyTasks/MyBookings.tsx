@@ -70,6 +70,7 @@ export const MyBookings = () => {
                                 currency={
                                     item?.entity_service?.currency?.symbol
                                 }
+                                taskID={item?.id.toString()}
                             />
                         </div>
                     ))}

@@ -61,6 +61,7 @@ export const MyTasks = () => {
                                 status={item?.status}
                                 currency={item?.currency?.symbol}
                                 budget_to={item?.budget_to}
+                                taskID={item?.id}
                             />
                         </div>
                     ))

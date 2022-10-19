@@ -17,6 +17,7 @@ export type ApprovedTaskProps = {
             last_name: string;
             profile_image: string;
             bio: string;
+            created_at: string;
         };
         assignee: {
             id: string;
@@ -26,8 +27,29 @@ export type ApprovedTaskProps = {
             first_name: string;
             middle_name: string;
             last_name: string;
-            profile_image: string;
+            profile_image: any;
             bio: string;
+            created_at: string;
+        };
+        entity_service: {
+            id: string;
+            budget_type: string;
+            budget_from?: number;
+            budget_to: number;
+            images: Array<{
+                id: number;
+                name: string;
+                size: string;
+                media_type: string;
+                media: string;
+            }>;
+            videos: Array<any>;
+        };
+        currency: {
+            id: number;
+            name: string;
+            code: string;
+            symbol: string;
         };
         created_at: string;
         updated_at: string;
@@ -42,12 +64,11 @@ export type ApprovedTaskProps = {
         slug: string;
         start_date: string;
         end_date: string;
+        completed_on: string;
         start_time: string;
-        end_time?: string;
-        extra_data: Array<any>;
-        entity_service: string;
+        end_time: string;
+        extra_data: any;
         booking: number;
-        currency: number;
         city: number;
         images: Array<any>;
         videos: Array<any>;
