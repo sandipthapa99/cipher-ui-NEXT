@@ -327,7 +327,7 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>{address_line2}</p>
+                                    <p>{address_line1}</p>
                                 </div>
 
                                 <div className="type d-flex flex-col">
@@ -436,7 +436,7 @@ const UserProfileCard = ({
                         <Col md={3} xs={6}>
                             <div className="type success-rate">
                                 <h1 className="number">
-                                    {stats?.success_rate.toFixed(2)}
+                                    {stats?.success_rate.toFixed(1)}
                                 </h1>
                                 <p>
                                     Success
