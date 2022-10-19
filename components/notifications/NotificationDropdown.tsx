@@ -13,6 +13,7 @@ import { ApproveNotification } from "./dropdown-notifications/ApproveNotificatio
 import { CreatedTask } from "./dropdown-notifications/CreatedTask";
 import { PostNotifyTask } from "./PostedTask";
 import { ServiceAccept } from "./ServiceAccept";
+import { TaskStatus } from "./TaskStatus";
 
 export const NotificationDropdown = () => {
     const { data: allNotifications, refetch } = useGetNotification();
@@ -57,9 +58,12 @@ export const NotificationDropdown = () => {
 
         refetch();
     };
+    console.log("todayNotifications", todayNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
+            console.log(notification?.title);
+
             if (notification.title === "created") {
                 return (
                     <div
@@ -75,7 +79,6 @@ export const NotificationDropdown = () => {
                             ]);
                         }}
                     >
-                        {/* <ApproveNotify date={notification.created_date} /> */}
                         <PostNotifyTask
                             read={notification?.read_date}
                             is_requested={notification.is_requested}
@@ -96,16 +99,57 @@ export const NotificationDropdown = () => {
                         />
                     </div>
                 );
-            } else if (notification.type === "task") {
+            } else if (notification.title === "status completed") {
                 return (
                     <div key={index}>
-                        <PostNotifyTask
+                        {/* <PostNotifyTask
+                        read={notification?.read_date}
+                        is_requested={notification.is_requested}
+                        taskTitle={notification?.title}
+                        taskObject={notification?.object}
+                        createdDate={notification?.created_date}
+                        slug={notification?.object_slug}
+                        handleClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
+                            )
+                        }
+                    /> */}
+                        <TaskStatus
+                            created_for={notification?.created_for}
                             read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
                             slug={notification?.object_slug}
+                            notificationTaskStatus="completed"
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
+                                )
+                            }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "status closed") {
+                return (
+                    <div key={index}>
+                        <TaskStatus
+                            created_for={notification?.created_for}
+                            read={notification?.read_date}
+                            is_requested={notification.is_requested}
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
+                            notificationTaskStatus="closed"
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,

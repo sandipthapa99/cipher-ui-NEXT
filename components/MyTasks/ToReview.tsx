@@ -24,6 +24,7 @@ export const ToReview = () => {
             enabled: !!userId,
         }
     );
+    console.log("myTaskData", mytaskData);
 
     return (
         <div className="my-task">
@@ -56,7 +57,9 @@ export const ToReview = () => {
                                     applied_id={item?.id}
                                     assigner_id={item?.assigner?.id}
                                     created_at={item?.created_at}
-                                    image={item?.images[0]?.media}
+                                    image={
+                                        item?.entity_service?.images[0]?.media
+                                    }
                                     title={item?.title}
                                     assigner_name={item?.assigner?.first_name}
                                     budget_type={
@@ -66,6 +69,7 @@ export const ToReview = () => {
                                     currency={item?.currency?.symbol}
                                     budget_to={item?.charge}
                                     completed_on={item?.completed_on}
+                                    taskID={item?.id}
                                 />
                             </div>
                         )

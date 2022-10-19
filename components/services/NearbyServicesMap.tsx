@@ -18,7 +18,7 @@ const NearbyServicesMap = () => {
         <GoogleMap>
             {nearbyServices.map(({ id, slug, city, created_by }) => (
                 <OverlayView
-                    position={{ lat: city.latitude, lng: city.longitude }}
+                    position={{ lat: city?.latitude, lng: city?.longitude }}
                     mapPaneName="overlayMouseTarget"
                     key={id}
                 >

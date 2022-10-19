@@ -12,6 +12,7 @@ import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ITask, TaskApprovedList } from "types/task";
@@ -102,29 +103,35 @@ const SimpleProfileCard = ({
     return (
         <div className="simple-card my-5 my-lg-0 ">
             <div className="d-flex align-items-center simple-card__profile">
-                <figure className="thumbnail-img">
-                    <Image
-                        src={
-                            task?.created_by?.profile_image
-                                ? task?.created_by?.profile_image
-                                : "/placeholder/profilePlaceholder.png"
-                        }
-                        layout="fill"
-                        objectFit="cover"
-                        alt="serviceprovider-image"
-                    />
-                </figure>
-                {!task?.created_by?.profile_image ||
-                    (task?.created_by?.profile_image.length <= 0 && (
+                <Link href={`/tasker/${task?.created_by?.id}/`}>
+                    <a>
                         <figure className="thumbnail-img">
                             <Image
-                                src={"/placeholder/profilePlaceholder.png"}
+                                src={
+                                    task?.created_by?.profile_image
+                                        ? task?.created_by?.profile_image
+                                        : "/placeholder/profilePlaceholder.png"
+                                }
                                 layout="fill"
                                 objectFit="cover"
                                 alt="serviceprovider-image"
                             />
                         </figure>
-                    ))}
+                        {!task?.created_by?.profile_image ||
+                            (task?.created_by?.profile_image.length <= 0 && (
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={
+                                            "/placeholder/profilePlaceholder.png"
+                                        }
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="serviceprovider-image"
+                                    />
+                                </figure>
+                            ))}
+                    </a>
+                </Link>
                 {/* <span>{task.created_by.bio}</span> */}
                 <div className="intro">
                     <p className="name">

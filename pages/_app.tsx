@@ -128,13 +128,13 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 onClose={() => setOpened(false)}
                 size="lg"
                 radius="md"
-                className="d-flex gap-3"
+                className="d-flex gap-3 notification-dialog"
             >
                 <Text
                     size="sm"
                     className="m-0"
                     style={{ marginBottom: 10 }}
-                    weight={500}
+                    weight={400}
                 >
                     Allow notification for Web notifications.
                 </Text>
