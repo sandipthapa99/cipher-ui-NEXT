@@ -90,7 +90,7 @@ export const MyTaskOrder = ({
                     Order ID: #{task_id?.slice(0, 8)}
                 </span>
                 <span className="ordered-date">
-                    {format(new Date(created_at), "EEEE, dd LLLL yyyy")}
+                    {/* {format(new Date(created_at), "EEEE, dd LLLL yyyy")} */}
                 </span>
             </div>
 
