@@ -1,8 +1,10 @@
 import { Tab } from "@components/common/Tab";
+import { InProgress } from "@components/MyTasks/InProgress";
 import { MyBookings } from "@components/MyTasks/MyBookings";
 import { MyTasks } from "@components/MyTasks/MyTasks";
 import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
 import { TaskYouMayLike } from "@components/MyTasks/TaskYouMayLike";
+import { ToReview } from "@components/MyTasks/ToReview";
 import { useState } from "react";
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -33,8 +35,12 @@ const SearchBySort = () => {
                         content: <MyBookings />,
                     },
                     {
-                        title: "Task You May Like",
-                        content: <TaskYouMayLike />,
+                        title: "In Progress",
+                        content: <InProgress />,
+                    },
+                    {
+                        title: "To Review",
+                        content: <ToReview />,
                     },
                     {
                         title: "Payment History",
