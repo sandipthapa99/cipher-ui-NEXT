@@ -10,16 +10,16 @@
     font-family: $inter-font;
     font-size: 1.5rem;
     &__newsletter {
-        border: 2px solid #fca500;
+        border: 2px solid #ffffff40;
         border-radius: 0.4rem;
         .row {
             justify-content: center;
             align-items: center;
-            padding: 2rem 0;
+            padding: 3.2rem 0;
         }
         .newsletter-text {
             padding: 0 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 0rem;
             @include respond(lg) {
                 padding: 0 11.3rem;
             }

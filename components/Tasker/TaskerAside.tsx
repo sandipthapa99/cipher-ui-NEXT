@@ -89,10 +89,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                             {isLoading && <TaskerSkeleton />}
                             {searchParam && totalTaskers > 0 ? (
                                 <p className="search-results-text">
-                                    {`${totalTaskers} taskers matching "${searchParam.substring(
-                                        searchParam.indexOf("=") + 1,
-                                        searchParam.length
-                                    )}" found`}
+                                    {`${totalTaskers} search results found`}
                                 </p>
                             ) : null}
 
@@ -109,10 +106,11 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                             )}
                             {searchParam && totalTaskers === 0 ? (
                                 <p className="search-results-text">
-                                    {`No taskers matching "${searchParam.substring(
+                                    No search results found
+                                    {/* {`No taskers matching "${searchParam.substring(
                                         searchParam.indexOf("=") + 1,
                                         searchParam.length
-                                    )}" found.`}
+                                    )}" found.`} */}
                                 </p>
                             ) : null}
                             {isFetchingNextPage && <Loader />}

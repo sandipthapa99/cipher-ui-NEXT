@@ -7,12 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { useMyTasks } from "hooks/task/use-my-tasks";
 import { FormCheck, Modal } from "react-bootstrap";
-import type { TaskerDetails } from "staticData/taskDetail";
+import type { ITasker } from "types/tasker";
+import { getFullName } from "utils/getFullName";
 
 interface HireMerchantModalProps {
     show: boolean;
     onHide: () => void;
-    taskerDetail: TaskerDetails;
+    taskerDetail: ITasker;
 }
 export const HireMerchantModal = ({
     show,
@@ -91,11 +92,13 @@ export const HireMerchantModal = ({
                 <Modal.Title>Hire Merchant</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p className="mb-16">
-                    <span className="hmm-label-text">
-                        Merchant : {taskerDetail?.full_name}
-                    </span>
-                </p>
+                {taskerDetail?.user && (
+                    <p className="mb-16">
+                        <span className="hmm-label-text">
+                            Merchant : {getFullName(taskerDetail?.user)}
+                        </span>
+                    </p>
+                )}
                 <p className="mb-16">
                     <span className="hmm-label-text">
                         Address: {taskerDetail?.address_line1}{" "}

@@ -5,50 +5,72 @@ import {
     faUser,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { createStyles, Text } from "@mantine/core";
+import { format } from "date-fns";
 import { Col, Row } from "react-bootstrap";
-import type { TaskerDetails } from "staticData/taskDetail";
+import type { ITasker } from "types/tasker";
+import { formatTime } from "utils/formatTime";
 
 interface UserShortIntroProps {
-    user: TaskerDetails;
+    user: ITasker;
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
+    const { classes } = useStyles();
+
     const userSkills = user?.skill ? JSON.parse(user?.skill) : [];
 
-    const finalfrom =
-        user?.active_hour_start?.charAt(0) === "0"
-            ? user?.active_hour_start?.slice(1)
-            : user?.active_hour_start;
-    const finalto =
-        user?.active_hour_end?.charAt(0) === "0"
-            ? user?.active_hour_end?.slice(1)
-            : user?.active_hour_end;
+    const getMemberSince = () => {
+        const dateString = user?.user?.created_at;
+        if (!dateString) return undefined;
+        return format(new Date(dateString), "yyyy MMMM dd");
+    };
+    const memberSince = getMemberSince();
+
+    const activeHourStart = user?.active_hour_start
+        ? formatTime(user.active_hour_start)
+        : undefined;
+    const activeHourEnd = user?.active_hour_end
+        ? formatTime(user.active_hour_end)
+        : undefined;
+
     return (
         <Row className="td-mt-24">
             <Col md={6}>
-                <p className="td-user-short-intro-text">
+                <div className="td-user-short-intro-text">
                     <FontAwesomeIcon
                         icon={faLocationDot}
                         className="svg-icon"
                     />
 
-                    <span>{user?.address_line2}</span>
-                </p>
-                <p className="td-user-short-intro-text">
-                    <FontAwesomeIcon className="svg-icon" icon={faUser} />
-                    <span>Member Since --TOBE-IMP--</span>
-                </p>
-
-                <p className="td-user-short-intro-text">
+                    <span>
+                        Location{" "}
+                        <Text className={classes.boldText}>
+                            {user?.address_line1 ?? "Location not available"}
+                        </Text>
+                    </span>
+                </div>
+                {memberSince && (
+                    <div className="td-user-short-intro-text">
+                        <FontAwesomeIcon className="svg-icon" icon={faUser} />
+                        <span>
+                            Member since{" "}
+                            <Text className={classes.boldText}>
+                                {memberSince}
+                            </Text>
+                        </span>
+                    </div>
+                )}
+                <div className="td-user-short-intro-text">
                     <FontAwesomeIcon icon={faTimer} className="svg-icon" />
                     <span>
                         Active Hours &nbsp;
-                        {finalfrom?.replace(":00", "")}
-                        AM to&nbsp;
-                        {finalto?.replace(":00", "")}PM
+                        <Text className={classes.boldText}>
+                            {`${activeHourStart} to ${activeHourEnd}`}
+                        </Text>
                     </span>
-                </p>
+                </div>
 
-                <p className="td-user-short-intro-text skills">
+                <div className="td-user-short-intro-text skills">
                     <FontAwesomeIcon icon={faSparkles} className="svg-icon" />
 
                     {userSkills
@@ -63,14 +85,20 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                               </span>
                           ))
                         : "No skills to show. Please add them"}
-                </p>
+                </div>
             </Col>
             <Col md={6}>
-                <p className="td-user-short-intro-text font-bold">
+                <div className="td-user-short-intro-text font-bold">
                     Bio
                     <span>{user?.bio}</span>
-                </p>
+                </div>
             </Col>
         </Row>
     );
 };
+const useStyles = createStyles(() => ({
+    boldText: {
+        fontWeight: 700,
+        display: "inline-block",
+    },
+}));

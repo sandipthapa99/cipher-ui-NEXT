@@ -38,7 +38,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         happyClients: 24,
         successRate: 30,
         userReviews: 14,
-        tooltipMessage: "Tooltip Message will show up here",
+        tooltipMessage: "Profile Level",
         taskCompleted: 30,
         userActiveStatus: true,
     };
