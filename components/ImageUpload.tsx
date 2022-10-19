@@ -41,6 +41,7 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
         } = props;
         const profile = useGetProfile();
         const profileImage = profile.data?.profile_image;
+
         return (
             <>
                 <input
