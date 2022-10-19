@@ -228,7 +228,10 @@ export default function Checkout() {
                                         <h1>Task List</h1>
                                         <Row className="item-detail">
                                             <Fragment key={key}>
-                                                <Col md={4} className="left">
+                                                <Col
+                                                    md={4}
+                                                    className="inner-left"
+                                                >
                                                     {item?.item?.entity_service
                                                         ?.images.length <=
                                                         0 && (
