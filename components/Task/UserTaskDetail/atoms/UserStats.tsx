@@ -37,7 +37,7 @@ export const UserStats = ({
                     color="#0693E3"
                     icon={faMedal}
                 />
-                <span>{rewardPercentage}</span>
+                <span>{rewardPercentage?.toFixed(2)}%</span>
             </Col>
             <Col className="type d-flex">
                 <FontAwesomeIcon
