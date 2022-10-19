@@ -52,17 +52,20 @@ export const ToReview = () => {
                         ) => (
                             <div className="task-wrapper" key={index}>
                                 <MyTaskOrder
-                                    task_id={item?.entity_service}
+                                    task_id={item?.entity_service?.id}
                                     applied_id={item?.id}
                                     assigner_id={item?.assigner?.id}
                                     created_at={item?.created_at}
                                     image={item?.images[0]?.media}
                                     title={item?.title}
                                     assigner_name={item?.assigner?.first_name}
-                                    budget_type={item?.budget_type}
+                                    budget_type={
+                                        item?.entity_service?.budget_type
+                                    }
                                     status={item?.status}
                                     currency={item?.currency?.symbol}
                                     budget_to={item?.charge}
+                                    completed_on={item?.completed_on}
                                 />
                             </div>
                         )

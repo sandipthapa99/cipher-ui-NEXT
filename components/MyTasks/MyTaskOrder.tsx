@@ -1,7 +1,5 @@
-import { async } from "@firebase/util";
 import { Button } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
@@ -9,9 +7,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type { MyTaskOrderProps } from "types/myTasksProps";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 export const MyTaskOrder = ({
     task_id,
@@ -24,6 +22,7 @@ export const MyTaskOrder = ({
     budget_from,
     budget_to,
     budget_type,
+    completed_on,
     status,
 }: MyTaskOrderProps) => {
     const [isAuthor, setIsAuthor] = useState(false);
@@ -74,7 +73,7 @@ export const MyTaskOrder = ({
             { id: task_id, status: "Closed" },
             {
                 onSuccess: async (message) => {
-                    await queryClient.invalidateQueries(["assinged-task"]);
+                    await queryClient.invalidateQueries(["Review-task"]);
                     toast.success(message);
                 },
                 onError: (error) => {
@@ -156,8 +155,8 @@ export const MyTaskOrder = ({
                                             Completed On :{" "}
                                         </span>
                                         <span className="value">
-                                            {status === "completed"
-                                                ? "12 May 2022"
+                                            {completed_on
+                                                ? completed_on
                                                 : "not completed yet"}
                                         </span>
                                     </div>
@@ -193,7 +192,7 @@ export const MyTaskOrder = ({
                                         >
                                             Waiting for approval
                                         </Button>
-                                    ) : (
+                                    ) : status === "Open" ? (
                                         <Button
                                             variant="light"
                                             color="orange"
@@ -209,6 +208,8 @@ export const MyTaskOrder = ({
                                         >
                                             Mark as Completed
                                         </Button>
+                                    ) : (
+                                        ""
                                     )}
                                 </>
                             )}

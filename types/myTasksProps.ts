@@ -91,6 +91,7 @@ export type MyTaskOrderProps = {
     assigner_id?: string;
     image: string;
     title: string;
+    completed_on?: string;
     assigner_name: string;
     budget_from?: number | string | undefined;
     currency: string;
