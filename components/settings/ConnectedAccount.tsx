@@ -47,10 +47,6 @@ const ConnectedAccount = () => {
         ["linked-accounts"],
         "/user/linked-accounts/list/"
     );
-    console.log(
-        "🚀 ~ file: ConnectedAccount.tsx ~ line 46 ~ ConnectedAccount ~ linkedAccounts",
-        linkedAccounts
-    );
 
     // const disconnectAccount = (id: number) => {
     //     mutate(id, {

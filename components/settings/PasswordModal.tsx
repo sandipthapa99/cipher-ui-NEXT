@@ -69,6 +69,7 @@ const PasswordModalCard = ({
                                     toast.error(
                                         "Password does not match. Please try again"
                                     );
+                                    console.log(error);
                                     // console.log("hii", error.get("password"));
                                     // console.log(
                                     //     Object.values(error.message)[
