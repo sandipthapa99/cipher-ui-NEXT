@@ -115,11 +115,8 @@ const HelpSettings = () => {
             <hr style={{ marginTop: "4rem" }} />
             <div className="help-support">
                 <p className="help-support-text">Terms and Policies Link</p>
-                <Link href={"#"} className="help-support-link">
+                <Link href="/privacy-policy" className="help-support-link">
                     Privacy Policy for HOMAALE
-                </Link>
-                <Link href={"#"} className="help-support-link">
-                    Other Privcy Policies link
                 </Link>
             </div>
         </div>

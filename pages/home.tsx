@@ -2,7 +2,6 @@ import DiscountCard from "@components/common/discountCard";
 import ServiceCard from "@components/common/ServiceCard";
 import WelcomeUser from "@components/common/WelcomeUser";
 import Layout from "@components/Layout";
-import { ServiceCategories } from "@components/services/ServiceCategories";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import urls from "constants/urls";
