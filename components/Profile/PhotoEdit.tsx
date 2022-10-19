@@ -125,9 +125,8 @@ const PhotoEdit = ({
         const file = new File([blob], "profile.jpeg", {
             type: "image/jpeg",
         });
-        console.log("hi", profile);
+
         if (!profile.data) {
-            console.log("hi");
             onPhotoEdit(data, file);
 
             setShowEditForm(false);

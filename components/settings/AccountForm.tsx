@@ -541,17 +541,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                         data,
                                                         file
                                                     ) => {
-                                                        console.log(
-                                                            "data",
-                                                            data,
-                                                            file
-                                                        );
                                                         setPreviewImage(data);
-                                                        console.log(
-                                                            "preview",
-                                                            previewImage
-                                                        );
-
                                                         setBlobUrl(data);
                                                         setFieldValue(
                                                             "profile_image",
