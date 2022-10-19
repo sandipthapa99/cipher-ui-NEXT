@@ -541,13 +541,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                         data,
                                                         file
                                                     ) => {
-                                                        console.log(
-                                                            "data",
-                                                            data,
-                                                            file
-                                                        );
                                                         setPreviewImage(data);
-
                                                         setBlobUrl(data);
                                                         setFieldValue(
                                                             "profile_image",
@@ -567,10 +561,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                             profile && profile.profile_image
                                                 ? profile.profile_image
                                                 : isNoProfileImage && file
-                                                ? file
+                                                ? "/userprofile/unknownPerson.jpg"
                                                 : isEditButtonClicked &&
                                                   !profile?.profile_image
                                                 ? "/userprofile/unknownPerson.jpg"
+                                                : !profile && previewImage
+                                                ? previewImage
                                                 : isEditButtonClicked
                                                 ? previewImage
                                                 : "/userprofile/unknownPerson.jpg"

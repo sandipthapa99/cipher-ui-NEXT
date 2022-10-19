@@ -28,11 +28,12 @@ export const KYCIncompleteToast = () => {
                         </Button>
                         <Button
                             color="yellow"
-                            onClick={() =>
+                            onClick={() => {
+                                cleanNotifications();
                                 router.push(
                                     "/settings/account/individual#kycform"
-                                )
-                            }
+                                );
+                            }}
                         >
                             Fill KYC Details
                         </Button>
