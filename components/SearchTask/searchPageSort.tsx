@@ -39,7 +39,7 @@ const SearchBySort = () => {
                         content: <InProgress />,
                     },
                     {
-                        title: "To Review",
+                        title: "To Approve",
                         content: <ToReview />,
                     },
                     {
