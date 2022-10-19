@@ -1063,4 +1063,11 @@ const AccountForm = ({ showAccountForm }: Display) => {
         </>
     );
 };
+const useStyles = createStyles(() => ({
+    overlay: {
+        postion: "fixed",
+        inset: 0,
+        zIndex: 9999,
+    },
+}));
 export default AccountForm;
