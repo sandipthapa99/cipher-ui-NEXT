@@ -6,6 +6,7 @@ import "@smastrom/react-rating/style.css";
 // import "../public/firebase-messaging-sw";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
+import { ReviewModal } from "@components/Review/ReviewModal";
 import { MantineProvider } from "@mantine/core";
 import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
