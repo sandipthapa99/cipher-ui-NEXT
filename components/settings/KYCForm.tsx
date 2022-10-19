@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
+import { getFullName } from "utils/getFullName";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
@@ -77,9 +78,21 @@ const KYCForm = () => {
                         <Formik
                             enableReinitialize={true}
                             initialValues={{
-                                full_name: KYCData ? KYCData?.full_name : "",
-                                address: KYCData ? KYCData?.address : "",
-                                country: KYCData ? KYCData?.country : "",
+                                full_name: KYCData
+                                    ? KYCData?.full_name
+                                    : profileDetails?.user
+                                    ? getFullName(profileDetails.user)
+                                    : "",
+                                address: KYCData
+                                    ? KYCData?.address
+                                    : profileDetails?.address_line1
+                                    ? profileDetails.address_line1
+                                    : "",
+                                country: KYCData
+                                    ? KYCData?.country
+                                    : profileDetails?.country
+                                    ? profileDetails?.country?.id.toString()
+                                    : "",
                                 company: KYCData ? KYCData?.company : "",
                                 // passport_size_photo: "",
                                 // personal_address_verification_document: "",
@@ -151,6 +164,7 @@ const KYCForm = () => {
                         >
                             {({
                                 isSubmitting,
+                                values,
                                 errors,
                                 touched,
                                 resetForm,
@@ -197,12 +211,13 @@ const KYCForm = () => {
                                         label="Country"
                                         placeholder="Pick one"
                                         name="country"
-                                        // disabled={
-                                        //     profileDetails?.country ? true : false
-                                        // }
+                                        defaultValue={
+                                            typeof values.country === "string"
+                                                ? values.country
+                                                : ""
+                                        }
                                         searchable
                                         nothingFound="No result found."
-                                        // defaultValue={KYCData?.country}
                                         onChange={(value) =>
                                             handleCountryChanged(
                                                 value,
