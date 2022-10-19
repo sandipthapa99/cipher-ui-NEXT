@@ -37,7 +37,7 @@ const PhotoEdit = ({
     haveImage,
 }: editProfileProps) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(5);
+    const [zoom, setZoom] = useState(0);
     const [rotation, setRotation] = useState(0);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<
         Area | undefined
@@ -125,9 +125,11 @@ const PhotoEdit = ({
         const file = new File([blob], "profile.jpeg", {
             type: "image/jpeg",
         });
-
-        if (!profile) {
+        console.log("hi", profile);
+        if (!profile.data) {
+            console.log("hi");
             onPhotoEdit(data, file);
+
             setShowEditForm(false);
             return;
         }
