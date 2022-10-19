@@ -220,7 +220,15 @@ export const ApplicantsCard = ({
                             className={"me-3"}
                         />
                     ) : null}
-                    <ShareIcon url={""} quote={""} hashtag={""} />
+                    <ShareIcon
+                        url={
+                            typeof window !== "undefined"
+                                ? window.location.origin + `/tasker/${userId}`
+                                : ""
+                        }
+                        quote={""}
+                        hashtag={""}
+                    />
                 </div>
                 <Link href={`/tasker/${tasker}/`}>
                     <a>

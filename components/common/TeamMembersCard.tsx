@@ -225,7 +225,11 @@ export const TeamMembersCard = ({
                             className={"me-3"}
                         />
                     ) : null}
-                    <ShareIcon url={""} quote={""} hashtag={""} />
+                    <ShareIcon
+                        url={`https://homaale.com/tasker/${tasker}`}
+                        quote={""}
+                        hashtag={""}
+                    />
                 </div>
                 <Link href={`/tasker/${tasker}/`}>
                     <a>

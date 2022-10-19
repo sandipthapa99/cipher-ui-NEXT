@@ -48,7 +48,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                     <ServiceNearYouCard
                         servicePrice={service?.budget}
                         serviceTitle={service?.title}
-                        serviceRating={service?.success_rate}
+                        serviceRating={service?.success_rate.toFixed(2)}
                         serviceProviderLocation={service?.location}
                         discount={service?.discount}
                         image={service?.image}
@@ -85,7 +85,9 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                                 serviceDescription={
                                     activeService?.description ?? ""
                                 }
-                                serviceRating={activeService?.success_rate ?? 0}
+                                serviceRating={
+                                    activeService?.success_rate.toFixed(2) ?? 0
+                                }
                                 serviceTitle={activeService?.title ?? ""}
                                 haveDiscount={
                                     activeService.discount ? true : false
