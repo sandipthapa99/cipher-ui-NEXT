@@ -17,7 +17,8 @@ import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, NavItem, Row } from "react-bootstrap";
+import type { CheckoutDataProps } from "types/checkoutDataProps";
 import type { PaymentMethodProps } from "types/paymentMethods";
 import type { ServicesValueProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
@@ -32,14 +33,6 @@ const getStripeApiKey = () => {
     if (url === undefined)
         throw new Error(
             "Please specify an Stripe API key in the environment variable NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"
-        );
-    return url;
-};
-const getKhaltiApiKey = () => {
-    const url = process.env.NEXT_PUBLIC_KHALTI_PUBLIC_KEY;
-    if (url === undefined)
-        throw new Error(
-            "Please specify an Khalti API key in the environment variable NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"
         );
     return url;
 };
@@ -62,6 +55,7 @@ export default function Checkout() {
 
     const [opened, setOpened] = useState(false);
     const [paymentType, setPaymentType] = useState("esewa");
+
     const { data: stripeData } = useQuery(
         ["stripe-data", query],
         async () => {
@@ -76,10 +70,25 @@ export default function Checkout() {
         },
         { enabled: !!query }
     );
+    const { data: khaltiData } = useQuery(
+        ["khalti-data", query],
+        async () => {
+            const response = await axiosClient.post(
+                `${urls.payment.intent}khalti/`,
+                {
+                    order: query,
+                }
+            );
+            return response;
+        },
+        { enabled: !!query }
+    );
 
-    const { data: servicesCheckoutData } = useData<
-        ServicesValueProps["result"][0]
-    >(["all-services-checkout"], `${urls.task.list}${query}/`, !!query);
+    const { data: servicesCheckoutData } = useData<CheckoutDataProps>(
+        ["all-services-checkout"],
+        `/payment/order/${query}/`,
+        !!query
+    );
     const appearance = {
         theme: "stripe" as const,
         // labels: "floating",
@@ -107,7 +116,6 @@ export default function Checkout() {
             return response;
         }
     );
-    console.log(paymentMethods?.data?.result);
 
     return (
         <Layout>
@@ -208,136 +216,160 @@ export default function Checkout() {
                                 ))}
                         </Row>
                     </Col>
-                    <Col md={4} className="right mb-5">
-                        <h1>Task List</h1>
-                        {servicesCheckoutData?.data && (
-                            <Row className="item-detail">
-                                <Col md={4} className="inner-left">
-                                    {servicesCheckoutData?.data?.images
-                                        .length <= 0 && (
-                                        <>
-                                            <figure className="position-relative">
-                                                <Image
-                                                    src="/placeholder/taskPlaceholder.png"
-                                                    height={116}
-                                                    width={116}
-                                                    alt="img"
-                                                />
-                                            </figure>
-                                        </>
-                                    )}
-                                    {servicesCheckoutData?.data?.images.length >
-                                        0 && (
-                                        <>
-                                            <figure className="thumbnail-img">
-                                                <Image
-                                                    src={
-                                                        servicesCheckoutData
-                                                            ?.data?.images[0]
-                                                            .media
-                                                    }
-                                                    height={116}
-                                                    width={116}
-                                                    objectFit="cover"
-                                                    alt="img"
-                                                />
-                                            </figure>
-                                        </>
-                                    )}
-                                </Col>
-                                <Col md={8} className="inner-right">
-                                    <h2>{servicesCheckoutData?.data?.title}</h2>
-                                    <p>
-                                        <span className="icon location-icon">
-                                            <FontAwesomeIcon
-                                                icon={faLocationDot}
-                                            />
-                                        </span>{" "}
-                                        {servicesCheckoutData?.data?.location}
-                                    </p>
-                                    <div className="d-flex">
-                                        <p>
-                                            <span className="icon calendar-icon">
-                                                <FontAwesomeIcon
-                                                    icon={faCalendar}
-                                                />
-                                            </span>{" "}
-                                            {format(
-                                                new Date(
-                                                    servicesCheckoutData?.data?.created_at
-                                                ),
-                                                "PP"
-                                            )}
-                                        </p>
-                                        <p className="mx-5">
-                                            <span className="icon clock-icon">
-                                                <FontAwesomeIcon
-                                                    icon={faClock}
-                                                />
-                                            </span>{" "}
-                                            {format(
-                                                new Date(
-                                                    servicesCheckoutData?.data?.created_at
-                                                ),
-                                                "p"
-                                            )}
-                                        </p>
-                                    </div>
-                                    <h3>
-                                        {
-                                            servicesCheckoutData?.data?.currency
-                                                .symbol
-                                        }{" "}
-                                        {servicesCheckoutData?.data?.budget_to}
-                                    </h3>
-                                </Col>
-                            </Row>
-                        )}
+                    {servicesCheckoutData?.data?.order_item &&
+                        servicesCheckoutData?.data?.order_item?.map(
+                            (item, key) => {
+                                return (
+                                    <Col
+                                        md={4}
+                                        className="right mb-5"
+                                        key={key}
+                                    >
+                                        <h1>Task List</h1>
+                                        <Row className="item-detail">
+                                            <Fragment key={key}>
+                                                <Col md={4} className="left">
+                                                    {item?.item?.entity_service
+                                                        ?.images.length <=
+                                                        0 && (
+                                                        <>
+                                                            <figure className="position-relative">
+                                                                <Image
+                                                                    src="/placeholder/taskPlaceholder.png"
+                                                                    height={116}
+                                                                    width={116}
+                                                                    alt="img"
+                                                                />
+                                                            </figure>
+                                                        </>
+                                                    )}
+                                                    {item?.item?.entity_service
+                                                        ?.images?.length >
+                                                        0 && (
+                                                        <>
+                                                            <figure className="thumbnail-img">
+                                                                <Image
+                                                                    src={
+                                                                        item
+                                                                            ?.item
+                                                                            ?.entity_service
+                                                                            ?.images[0]
+                                                                            ?.media
+                                                                    }
+                                                                    height={116}
+                                                                    width={116}
+                                                                    alt="img"
+                                                                />
+                                                            </figure>
+                                                        </>
+                                                    )}
+                                                </Col>
+                                                <Col
+                                                    md={8}
+                                                    className="inner-right"
+                                                >
+                                                    <h2>{item?.item?.title}</h2>
+                                                    <p>
+                                                        <span className="icon location-icon">
+                                                            <FontAwesomeIcon
+                                                                icon={
+                                                                    faLocationDot
+                                                                }
+                                                            />
+                                                        </span>{" "}
+                                                        {item?.item?.location}
+                                                    </p>
+                                                    <div className="d-flex">
+                                                        <p>
+                                                            <span className="icon calendar-icon">
+                                                                <FontAwesomeIcon
+                                                                    icon={
+                                                                        faCalendar
+                                                                    }
+                                                                />
+                                                            </span>{" "}
+                                                            {format(
+                                                                new Date(
+                                                                    item?.created_at
+                                                                ),
+                                                                "PP"
+                                                            )}
+                                                        </p>
+                                                        <p className="mx-5">
+                                                            <span className="icon clock-icon">
+                                                                <FontAwesomeIcon
+                                                                    icon={
+                                                                        faClock
+                                                                    }
+                                                                />
+                                                            </span>{" "}
+                                                            {format(
+                                                                new Date(
+                                                                    item?.created_at
+                                                                ),
+                                                                "p"
+                                                            )}
+                                                        </p>
+                                                    </div>
+                                                    <h3>
+                                                        {
+                                                            item?.item?.currency
+                                                                ?.symbol
+                                                        }
+                                                        {item?.amount}
+                                                    </h3>
+                                                </Col>
+                                            </Fragment>
+                                        </Row>
 
-                        <div className="sub-total fee d-flex justify-content-between">
-                            <p>Sub Total</p>
-                            <p>
-                                {servicesCheckoutData?.data?.currency.symbol}{" "}
-                                {servicesCheckoutData?.data?.budget_to}
-                            </p>
-                        </div>
-                        <div className="platform-fee fee d-flex justify-content-between">
-                            <p>Platform Fee</p>
-                            <p>
-                                {" "}
-                                {
-                                    servicesCheckoutData?.data?.currency.symbol
-                                }{" "}
-                                200
-                            </p>
-                        </div>
-                        <div className="tax fee d-flex justify-content-between">
-                            <p>Tax (13% inclusive)</p>
-                            <p>
-                                {servicesCheckoutData?.data?.currency.symbol}{" "}
-                                {servicesCheckoutData?.data?.budget_to *
-                                    (13 / 100)}
-                            </p>
-                        </div>
-                        <div className="grand-total d-flex justify-content-between">
-                            <p>Grand Total</p>
-                            <p>
-                                {servicesCheckoutData?.data?.currency.symbol}{" "}
-                                {servicesCheckoutData?.data?.budget_to +
-                                    servicesCheckoutData?.data?.budget_to *
-                                        (13 / 100) +
-                                    200}
-                            </p>
-                        </div>
-                        <Button
-                            className="checkout-btn"
-                            onClick={() => {
-                                setOpened(true);
-                            }}
-                        >
-                            Proceed to Confirm
-                        </Button>
-                    </Col>
+                                        <div className="sub-total fee d-flex justify-content-between">
+                                            <p>Sub Total</p>
+                                            <p>
+                                                {item?.item?.currency?.symbol}{" "}
+                                                {item?.amount}
+                                            </p>
+                                        </div>
+                                        <div className="platform-fee fee d-flex justify-content-between">
+                                            <p>Platform Fee</p>
+                                            <p>
+                                                {item?.item?.currency?.symbol}{" "}
+                                                {item?.platform_charge}
+                                            </p>
+                                        </div>
+                                        <div className="tax fee d-flex justify-content-between">
+                                            <p>Tax (13% inclusive)</p>
+                                            <p>
+                                                {item?.item?.currency?.symbol}{" "}
+                                                {item?.revision_charges}
+                                            </p>
+                                        </div>
+                                        <div className="grand-total d-flex justify-content-between">
+                                            <p>Grand Total</p>
+                                            <p>
+                                                {item?.item?.currency?.symbol}{" "}
+                                                {item?.amount}
+                                            </p>
+                                        </div>
+                                        <Button
+                                            className="checkout-btn"
+                                            onClick={() => {
+                                                paymentType === "Khalti" &&
+                                                    router.push(
+                                                        khaltiData?.data?.data
+                                                            ?.payment_url
+                                                    );
+                                                {
+                                                    paymentType !== "Khalti" &&
+                                                        setOpened(true);
+                                                }
+                                            }}
+                                        >
+                                            Proceed to Confirm
+                                        </Button>
+                                    </Col>
+                                );
+                            }
+                        )}
                 </Row>
             </Container>
             <Modal
@@ -354,15 +386,6 @@ export default function Checkout() {
                     ""
                 )}
                 {paymentType === "Stripe" && (
-                    <div className="App mt-5 mb-5">
-                        {options.clientSecret && (
-                            <Elements stripe={stripePromise} options={options}>
-                                <CheckoutForm />
-                            </Elements>
-                        )}
-                    </div>
-                )}
-                {paymentType === "khalti" && (
                     <div className="App mt-5 mb-5">
                         {options.clientSecret && (
                             <Elements stripe={stripePromise} options={options}>
