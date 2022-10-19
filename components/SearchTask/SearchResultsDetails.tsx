@@ -201,7 +201,7 @@ const SearchResultsDetail = ({
                     distance={""}
                     bio={item?.created_by?.bio}
                     charge={item?.entity_service?.discount_value}
-                    tasker={item?.created_by?.user?.id}
+                    tasker={item?.created_by?.user.id}
                     isApproved={item?.is_accepted}
                     designation={item?.created_by.designation}
                 />

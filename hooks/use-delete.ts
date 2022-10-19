@@ -4,9 +4,9 @@ import { axiosClient } from "utils/axiosClient";
 export const useDeleteData = <TData = unknown, TPayload = unknown>(
     url: string
 ) => {
-    return useMutation<TData, Error, TPayload>(async (payload) => {
+    return useMutation<TData, Error, TPayload>(async () => {
         try {
-            const { data } = await axiosClient.delete<TData>(url, payload);
+            const { data } = await axiosClient.delete<TData>(url);
             return data;
         } catch (error: any) {
             throw new Error(error);

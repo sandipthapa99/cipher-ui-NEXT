@@ -4,6 +4,7 @@ import "@smastrom/react-rating/style.css";
 // import "../public/firebase-messaging-sw";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
+import { ReviewModal } from "@components/Review/ReviewModal";
 import { MantineProvider } from "@mantine/core";
 import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
@@ -127,13 +128,13 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 onClose={() => setOpened(false)}
                 size="lg"
                 radius="md"
-                className="d-flex gap-3"
+                className="d-flex gap-3 notification-dialog"
             >
                 <Text
                     size="sm"
                     className="m-0"
                     style={{ marginBottom: 10 }}
-                    weight={500}
+                    weight={400}
                 >
                     Allow notification for Web notifications.
                 </Text>

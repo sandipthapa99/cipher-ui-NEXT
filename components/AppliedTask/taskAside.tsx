@@ -2,10 +2,13 @@ import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { Loader, ScrollArea, Space } from "@mantine/core";
 import { useTasks } from "hooks/task/use-tasks";
 import { useInViewPort } from "hooks/use-in-viewport";
+import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
+import type { ITask } from "types/task";
+import { sortItemsByActive } from "utils/sortItemsByActive";
 
 import TaskAppliedCard from "./taskAppliedCard";
 
@@ -15,6 +18,7 @@ interface TaskAsideProps {
     type?: string;
 }
 const TaskAside = ({ query, children }: TaskAsideProps) => {
+    const router = useRouter();
     const {
         data: appliedTaskPages,
         isLoading,
@@ -33,6 +37,11 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
     const isLastTaskOnPage = (taskIndex: number) =>
         taskIndex === totalAppliedTasks - 1;
 
+    const sortedTasks = sortItemsByActive<ITask>({
+        type: "task",
+        tasks: appliedTasks,
+        activeId: router.query.id?.toString() as string,
+    });
     const { ref } = useInViewPort<HTMLDivElement>(() => {
         if (hasNextPage && !isFetchingNextPage) {
             fetchNextPage();
@@ -40,7 +49,7 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
     });
 
     const renderTasks = () =>
-        appliedTasks.map((task, taskIndex) => {
+        sortedTasks.map((task, taskIndex) => {
             return (
                 <div
                     ref={isLastTaskOnPage(taskIndex) ? ref : null}
@@ -70,9 +79,9 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
                         scrollbarSize={5}
                     >
                         {query && totalAppliedTasks > 0 ? (
-                            <p>{`${totalAppliedTasks} task matching ${query} found`}</p>
+                            <p>{`${totalAppliedTasks} search results found`}</p>
                         ) : query && totalAppliedTasks === 0 ? (
-                            <p>{`No tasks matching ${query} found`}</p>
+                            <p>{`No search results found for ${query}`}</p>
                         ) : null}
                         {isLoading ? renderLoadingSkeletons() : renderTasks()}
                         <Space h="md" />

@@ -7,16 +7,20 @@ import { Alert, Loader, ScrollArea } from "@mantine/core";
 import { useServices } from "hooks/service/use-services";
 import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
+import type { IService } from "types/service";
+import { sortItemsByActive } from "utils/sortItemsByActive";
 
 interface ServiceAside {
     children: ReactNode;
     searchParam: string;
 }
 const ServiceAside = ({ searchParam, children }: ServiceAside) => {
+    const router = useRouter();
     const searchedService = useSearchedServices();
     const {
         data: servicePages,
@@ -45,8 +49,14 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
 
     const allServices = searchedService.length > 0 ? searchedService : services;
 
+    const sortedServices = sortItemsByActive<IService>({
+        type: "service",
+        services: allServices,
+        activeId: router.query.slug?.toString() as string,
+    });
+
     const renderServiceCards = () =>
-        allServices?.map((task, index) => {
+        sortedServices?.map((task, index) => {
             return (
                 <div
                     key={`${task.id}-${index}`}
@@ -106,7 +116,7 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                         {isLoading && renderServiceSkeletons()}
                         {!isLoading && searchParam && totalServices > 0 ? (
                             <p className="search-results-text">
-                                {`${totalServices} service matching ${searchParam} found`}
+                                {`${totalServices} search results found`}
                             </p>
                         ) : null}
                         {!isLoading && renderServiceCards()}
