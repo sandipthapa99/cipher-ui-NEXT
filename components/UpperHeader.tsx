@@ -242,7 +242,10 @@ export const ProfileNotCompleteToast = ({ text }: ProfileNotComplete) => {
                 </MantineButton>
                 <MantineButton
                     color="yellow"
-                    onClick={() => router.push("/profile")}
+                    onClick={() => {
+                        cleanNotifications();
+                        router.push("/profile");
+                    }}
                 >
                     Complete Profile
                 </MantineButton>
