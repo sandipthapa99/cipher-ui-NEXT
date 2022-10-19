@@ -10,10 +10,14 @@ interface ReviewData {
     review: string;
     rating: number;
 }
-export const ReviewModal = () => {
+
+interface ReviewModalProps {
+    open: boolean;
+    handleClose?: () => void;
+}
+export const ReviewModal = ({ open }: ReviewModalProps) => {
     // Declare it outside your component so it doesn't get re-created during re-renderings
 
-    const open = true;
     const handleClose: () => void = () => {
         console.log("hello");
     };

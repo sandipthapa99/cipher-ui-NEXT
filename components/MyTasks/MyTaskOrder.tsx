@@ -9,9 +9,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type { MyTaskOrderProps } from "types/myTasksProps";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 export const MyTaskOrder = ({
     task_id,

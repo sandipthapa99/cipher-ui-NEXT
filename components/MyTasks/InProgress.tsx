@@ -1,4 +1,5 @@
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
+import { ReviewModal } from "@components/Review/ReviewModal";
 import { Col, Grid, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -26,59 +27,73 @@ export const InProgress = () => {
     );
 
     return (
-        <div className="my-task">
-            {/* <h3>My Tasks</h3> */}
+        <>
+            {" "}
+            <div className="my-task">
+                {/* <h3>My Tasks</h3> */}
 
-            <div className="my-task__each-orders">
-                {isLoading ? (
-                    <Grid className="p-5">
-                        <Col span={3}>
-                            <Skeleton height={150} mb="xl" />
-                        </Col>
-                        <Col span={9}>
-                            <Skeleton
-                                height={50}
-                                radius="sm"
-                                className="mb-4"
-                            />
-                            <Skeleton height={50} radius="sm" />
-                        </Col>
-                    </Grid>
-                ) : mytaskData?.length ? (
-                    mytaskData?.map(
-                        (
-                            item: ApprovedTaskProps["result"][0],
-                            index: number
-                        ) => (
-                            <div className="task-wrapper" key={index}>
-                                <MyTaskOrder
-                                    task_id={item?.entity_service}
-                                    applied_id={item?.id}
-                                    assigner_id={item?.assigner?.id}
-                                    created_at={item?.created_at}
-                                    image={item?.images[0]?.media}
-                                    title={item?.title}
-                                    assigner_name={item?.assigner?.first_name}
-                                    budget_type={item?.budget_type}
-                                    status={item?.status}
-                                    currency={item?.currency?.symbol}
-                                    budget_to={item?.charge}
+                <div className="my-task__each-orders">
+                    {isLoading ? (
+                        <Grid className="p-5">
+                            <Col span={3}>
+                                <Skeleton height={150} mb="xl" />
+                            </Col>
+                            <Col span={9}>
+                                <Skeleton
+                                    height={50}
+                                    radius="sm"
+                                    className="mb-4"
                                 />
-                            </div>
+                                <Skeleton height={50} radius="sm" />
+                            </Col>
+                        </Grid>
+                    ) : mytaskData?.length ? (
+                        mytaskData?.map(
+                            (
+                                item: ApprovedTaskProps["result"][0],
+                                index: number
+                            ) => (
+                                <>
+                                    <div className="task-wrapper" key={index}>
+                                        <MyTaskOrder
+                                            task_id={item?.entity_service}
+                                            applied_id={item?.id}
+                                            assigner_id={item?.assigner?.id}
+                                            created_at={item?.created_at}
+                                            image={item?.images[0]?.media}
+                                            title={item?.title}
+                                            assigner_name={
+                                                item?.assigner?.first_name
+                                            }
+                                            budget_type={item?.budget_type}
+                                            status={item?.status}
+                                            currency={item?.currency?.symbol}
+                                            budget_to={item?.charge}
+                                        />
+                                    </div>
+                                    <ReviewModal
+                                        open={
+                                            item?.status === "Completed"
+                                                ? true
+                                                : false
+                                        }
+                                    />
+                                </>
+                            )
                         )
-                    )
-                ) : (
-                    <ApplyPostComponent
-                        model="task"
-                        title="No Tasks Available"
-                        subtitle="Post a task to the marketplace and let merchant come to you."
-                        buttonText="Post a Task"
-                    />
-                    // <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                    //     Sorry, You have no task data to show
-                    // </Alert>
-                )}
+                    ) : (
+                        <ApplyPostComponent
+                            model="task"
+                            title="No Tasks Available"
+                            subtitle="Post a task to the marketplace and let merchant come to you."
+                            buttonText="Post a Task"
+                        />
+                        // <Alert title="NO DATA AVAILABLE !!!" color="orange">
+                        //     Sorry, You have no task data to show
+                        // </Alert>
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
