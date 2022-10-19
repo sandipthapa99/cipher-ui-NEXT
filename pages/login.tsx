@@ -142,8 +142,8 @@ const Login = () => {
                                 /> */}
 
                             <div className="button-wrapper-social d-flex justify-content-evenly">
-                                <Google />
-                                <FacebookLogin />
+                                <Google login={true} />
+                                <FacebookLogin login={true} />
                             </div>
                         </Form>
                     )}

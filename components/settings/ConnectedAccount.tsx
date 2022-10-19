@@ -47,6 +47,7 @@ const ConnectedAccount = () => {
         ["linked-accounts"],
         "/user/linked-accounts/list/"
     );
+    console.log("linkedAccounts", linkedAccounts);
 
     // const disconnectAccount = (id: number) => {
     //     mutate(id, {
@@ -99,6 +100,8 @@ const ConnectedAccount = () => {
                                     handleClick={() => {
                                         setID(values.id);
                                         setShow(true);
+                                        console.log("abc");
+
                                         // disconnectAccount(values.id);
 
                                         //console.log("kjjasdfa", values.id);
@@ -113,6 +116,7 @@ const ConnectedAccount = () => {
                             </div>
                         </div>
                     ))}
+
                 {linkedAccounts?.data && linkedAccounts?.data.length > 0 ? (
                     linkedAccounts.data.map((values) =>
                         values.provider !== "facebook-oauth2" &&
