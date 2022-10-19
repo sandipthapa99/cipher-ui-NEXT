@@ -327,7 +327,7 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>{address_line2}</p>
+                                    <p>{address_line1}</p>
                                 </div>
 
                                 <div className="type d-flex flex-col">
