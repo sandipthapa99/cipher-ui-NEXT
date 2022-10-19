@@ -22,7 +22,7 @@ export const AllCategoriesCard = ({
                     >
                         <div className="heading d-flex gap-3 align-items-center">
                             {" "}
-                            <figure>
+                            <figure className="category-svg-icon">
                                 {categories.icon
                                     ? parse(categories.icon)
                                     : parse(

@@ -135,7 +135,7 @@ const PROFILE_LINKS = {
             icon: (
                 <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faBoxOpen} />
             ),
-            href: "/myorders",
+            href: "/my-order",
             color: "#495057",
         },
         {
