@@ -1,4 +1,5 @@
 import { Button } from "@mantine/core";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
@@ -7,9 +8,12 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { MyTaskOrderProps } from "types/myTasksProps";
+import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 export const MyTaskOrder = ({
     task_id,
+    applied_id,
     assigner_id,
     created_at,
     currency,
@@ -18,6 +22,7 @@ export const MyTaskOrder = ({
     budget_from,
     budget_to,
     budget_type,
+    completed_on,
     status,
 }: MyTaskOrderProps) => {
     const [isAuthor, setIsAuthor] = useState(false);
@@ -32,6 +37,51 @@ export const MyTaskOrder = ({
             setIsAuthor(false);
         }
     }, [assigner_id, userData]);
+
+    const taskCompleteMutaion = useMutation<
+        string,
+        Error,
+        { id: string; status: string }
+    >(async ({ id, status }) =>
+        axiosClient
+            .post("/task/entity/service/task/status/", { task: id, status })
+            .then((res) => res.data.message)
+            .catch((error) => {
+                throw new Error(error?.response?.data);
+            })
+    );
+
+    const queryClient = useQueryClient();
+
+    const taskCompleteHandler = (task_id: string) => {
+        taskCompleteMutaion.mutate(
+            { id: task_id, status: "Completed" },
+            {
+                onSuccess: async (message) => {
+                    await queryClient.invalidateQueries(["assinged-task"]);
+                    toast.success(message);
+                },
+                onError: (error) => {
+                    toast.error(error.message);
+                },
+            }
+        );
+    };
+
+    const taskCloseHandler = (task_id: string) => {
+        taskCompleteMutaion.mutate(
+            { id: task_id, status: "Closed" },
+            {
+                onSuccess: async (message) => {
+                    await queryClient.invalidateQueries(["Review-task"]);
+                    toast.success(message);
+                },
+                onError: (error) => {
+                    toast.error(error.message);
+                },
+            }
+        );
+    };
 
     return (
         <div className="my-task-order text-black-50">
@@ -88,8 +138,10 @@ export const MyTaskOrder = ({
                                             {budget_type === "Hourly"
                                                 ? "/hr"
                                                 : budget_type === "Monthly"
-                                                ? "/mnth"
-                                                : ""}
+                                                ? "/mn"
+                                                : budget_type === "Daily"
+                                                ? "/daily"
+                                                : "/project"}
                                         </span>
                                     </div>
 
@@ -103,8 +155,8 @@ export const MyTaskOrder = ({
                                             Completed On :{" "}
                                         </span>
                                         <span className="value">
-                                            {status === "completed"
-                                                ? "12 May 2022"
+                                            {completed_on
+                                                ? completed_on
                                                 : "not completed yet"}
                                         </span>
                                     </div>
@@ -129,6 +181,59 @@ export const MyTaskOrder = ({
                                     </figure>
                                 </a>
                             </Link>
+                            {router.query.activeTab === "2" && (
+                                <>
+                                    {status === "Completed" ? (
+                                        <Button
+                                            variant="light"
+                                            color="orange"
+                                            className="ms-auto mb-3"
+                                            disabled
+                                        >
+                                            Waiting for approval
+                                        </Button>
+                                    ) : status === "Open" ? (
+                                        <Button
+                                            variant="light"
+                                            color="orange"
+                                            className="ms-auto mb-3"
+                                            onClick={() =>
+                                                taskCompleteHandler(
+                                                    applied_id ? applied_id : ""
+                                                )
+                                            }
+                                            loading={
+                                                taskCompleteMutaion.isLoading
+                                            }
+                                        >
+                                            Mark as Completed
+                                        </Button>
+                                    ) : (
+                                        ""
+                                    )}
+                                </>
+                            )}
+                            {router.query.activeTab === "3" && (
+                                <>
+                                    {status === "Completed" && (
+                                        <Button
+                                            variant="light"
+                                            color="orange"
+                                            className="ms-auto mb-3"
+                                            onClick={() =>
+                                                taskCloseHandler(
+                                                    applied_id ? applied_id : ""
+                                                )
+                                            }
+                                            loading={
+                                                taskCompleteMutaion.isLoading
+                                            }
+                                        >
+                                            Close Task
+                                        </Button>
+                                    )}
+                                </>
+                            )}
                             {router.query.activeTab === "1" && (
                                 <Link
                                     href={{
@@ -136,7 +241,7 @@ export const MyTaskOrder = ({
                                         query: { id: task_id },
                                     }}
                                 >
-                                    <a className="ms-auto">
+                                    <a className="ms-auto mb-3">
                                         <Button variant="light">Pay Now</Button>
                                     </a>
                                 </Link>
@@ -147,8 +252,10 @@ export const MyTaskOrder = ({
                                         <span className="status text-black-50">
                                             Status
                                         </span>
-                                        <span className={`status-value__Open`}>
-                                            {"Open"}
+                                        <span
+                                            className={`status-value__${status}`}
+                                        >
+                                            {status}
                                         </span>
                                     </div>
                                 </a>

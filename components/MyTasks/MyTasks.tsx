@@ -26,8 +26,6 @@ export const MyTasks = () => {
         }
     );
 
-    const router = useRouter();
-
     return (
         <div className="my-task">
             {/* <h3>My Tasks</h3> */}

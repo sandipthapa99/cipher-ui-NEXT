@@ -39,7 +39,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { getReviews } from "services/commonServices";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
@@ -47,6 +46,7 @@ import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
+import { toast } from "utils/toast";
 
 import { MyBookingsCard } from "./MyBookings";
 
@@ -184,7 +184,6 @@ const SearchResultsDetail = ({
     };
 
     const isUserService = user ? serviceProviderId === user?.id : false;
-    console.log(myBookings, "myBookings");
 
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
@@ -202,7 +201,7 @@ const SearchResultsDetail = ({
                     distance={""}
                     bio={item?.created_by?.bio}
                     charge={item?.entity_service?.discount_value}
-                    tasker={""}
+                    tasker={item?.created_by?.user?.id}
                     isApproved={item?.is_accepted}
                     designation={item?.created_by.designation}
                 />
@@ -284,20 +283,14 @@ const SearchResultsDetail = ({
     // };
     const handleClickBookNow = () => {
         if (!profile) {
-            toast.error(
-                <ProfileNotCompleteToast text="Please complete your profile before booking a service." />,
-                {
-                    icon: false,
-                    autoClose: false,
-                }
+            toast.showComponent(
+                "Profile Incomplete",
+                <ProfileNotCompleteToast text="Please complete your profile before booking a service." />
             );
             return;
         }
         if (!user?.is_kyc_verified) {
-            toast.error(<KYCIncompleteToast />, {
-                icon: false,
-                autoClose: false,
-            });
+            toast.showComponent("KYC Incomplete", <KYCIncompleteToast />);
             return;
         }
         setShow(true);

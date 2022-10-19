@@ -4,10 +4,10 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { emailResetFormSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const ResetPassword = () => {
     const router = useRouter();

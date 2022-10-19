@@ -61,6 +61,7 @@ export interface User {
     first_name: string;
     middle_name: string;
     last_name: string;
+    created_at: string;
 }
 
 export interface Portfolio {

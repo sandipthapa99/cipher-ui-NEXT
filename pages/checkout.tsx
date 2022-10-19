@@ -342,13 +342,14 @@ export default function Checkout() {
             </Container>
             <Modal
                 opened={opened}
+                withCloseButton={false}
                 onClose={() => {
                     setOpened(false);
                     setPaymentType("esewa");
                 }}
             >
-                {paymentType !== "Stripe" ? (
-                    <Text>{paymentType} is comming soon</Text>
+                {paymentType !== "stripe" ? (
+                    <Text>{paymentType} is comming soon!</Text>
                 ) : (
                     ""
                 )}

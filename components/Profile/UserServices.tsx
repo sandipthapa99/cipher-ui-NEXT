@@ -106,8 +106,9 @@ const TasksProfileCard = () => {
                             return (
                                 <Col
                                     sm={6}
-                                    md={4}
-                                    lg={3}
+                                    md={6}
+                                    lg={4}
+                                    xl={3}
                                     key={key}
                                     className="d-flex"
                                 >

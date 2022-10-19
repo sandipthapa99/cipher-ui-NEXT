@@ -70,9 +70,9 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
                         scrollbarSize={5}
                     >
                         {query && totalAppliedTasks > 0 ? (
-                            <p>{`${totalAppliedTasks} task matching ${query} found`}</p>
+                            <p>{`${totalAppliedTasks} search results found`}</p>
                         ) : query && totalAppliedTasks === 0 ? (
-                            <p>{`No tasks matching ${query} found`}</p>
+                            <p>{`No search results found for ${query}`}</p>
                         ) : null}
                         {isLoading ? renderLoadingSkeletons() : renderTasks()}
                         <Space h="md" />

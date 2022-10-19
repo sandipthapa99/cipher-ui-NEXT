@@ -24,11 +24,11 @@ import type { ReactNode } from "react";
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
-import { toast } from "react-toastify";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import ProfileEditForm from "./ProfileEditForm";
 import { RatingStars } from "./RatingStars";
@@ -327,7 +327,7 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>{address_line2}</p>
+                                    <p>{address_line1}</p>
                                 </div>
 
                                 <div className="type d-flex flex-col">
@@ -436,7 +436,7 @@ const UserProfileCard = ({
                         <Col md={3} xs={6}>
                             <div className="type success-rate">
                                 <h1 className="number">
-                                    {stats?.success_rate}
+                                    {stats?.success_rate.toFixed(1)}
                                 </h1>
                                 <p>
                                     Success

@@ -54,7 +54,9 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                     speciality={tasker?.designation} //doesnt come from api
                     rating={tasker?.rating.avg_rating}
                     happyClients={tasker?.stats?.happy_clients}
-                    awardPercentage={tasker?.stats?.success_rate}
+                    awardPercentage={
+                        +tasker?.stats?.success_rate.toFixed(2) + "%"
+                    }
                     location={tasker?.address_line2}
                     distance={"2 km"}
                     bio={tasker?.bio}
@@ -89,10 +91,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                             {isLoading && <TaskerSkeleton />}
                             {searchParam && totalTaskers > 0 ? (
                                 <p className="search-results-text">
-                                    {`${totalTaskers} taskers matching "${searchParam.substring(
-                                        searchParam.indexOf("=") + 1,
-                                        searchParam.length
-                                    )}" found`}
+                                    {`${totalTaskers} search results found`}
                                 </p>
                             ) : null}
 
@@ -109,10 +108,11 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                             )}
                             {searchParam && totalTaskers === 0 ? (
                                 <p className="search-results-text">
-                                    {`No taskers matching "${searchParam.substring(
+                                    No search results found
+                                    {/* {`No taskers matching "${searchParam.substring(
                                         searchParam.indexOf("=") + 1,
                                         searchParam.length
-                                    )}" found.`}
+                                    )}" found.`} */}
                                 </p>
                             ) : null}
                             {isFetchingNextPage && <Loader />}

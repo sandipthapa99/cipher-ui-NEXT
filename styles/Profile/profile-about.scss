@@ -10,6 +10,12 @@
     .file-attachment {
         display: none;
     }
+    .program,
+    .description {
+        p {
+            margin-bottom: 0rem;
+        }
+    }
     h3 {
         font-size: 1.4rem;
         font-weight: 500;
@@ -32,8 +38,8 @@
     .type {
         padding-top: 2rem;
         border-bottom: 0.1rem solid $border-color;
-        padding-left: 2.5rem;
-        padding-right: 3rem;
+        padding-left: 3.6rem;
+        padding-right: 3.6rem;
 
         &:last-child {
             border-bottom: none;

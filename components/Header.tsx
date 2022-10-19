@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Indicator } from "@mantine/core";
+import { Button, Indicator } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
@@ -25,6 +25,7 @@ import { handleMenuActive } from "utils/helpers";
 import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
 import { RasifalSlideComponent } from "./Rasifal/RasifalSlideComponent";
+import { ReviewModal } from "./Review/ReviewModal";
 
 const Header = () => {
     const date = format(new Date(), "MMMM d");
@@ -101,7 +102,7 @@ const Header = () => {
                                             icon={faObjectsColumn}
                                             className="svg-icon d-none d-sm-inline-block"
                                         />
-                                        Category
+                                        Categories
                                     </a>
                                 </Link>
                             </li>
@@ -231,6 +232,7 @@ const Header = () => {
                 </Container>
             </header>
             <RasifalSlideComponent rasifal={rasifal} setRasifal={setRasifal} />
+
             {/* Site Upper Header End */}
         </>
     );

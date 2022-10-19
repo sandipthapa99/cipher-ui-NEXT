@@ -11,9 +11,9 @@ import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const Login = () => {
     const queryClient = useQueryClient();
@@ -90,7 +90,7 @@ const Login = () => {
                                     ? next
                                     : "/home";
                                 router.push(redirectUrl.toString());
-                                toast.success("Successfully logged in");
+                                toast.success("Login successful");
                             },
                         });
                     }}

@@ -1,14 +1,14 @@
-import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/bundle.scss";
-import "react-toastify/dist/ReactToastify.css";
 import "@smastrom/react-rating/style.css";
 
 // import "../public/firebase-messaging-sw";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
+import { ReviewModal } from "@components/Review/ReviewModal";
 import { MantineProvider } from "@mantine/core";
 import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
+import { NotificationsProvider } from "@mantine/notifications";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
@@ -23,7 +23,6 @@ import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import { ToastContainer } from "react-toastify";
 
 import { firebaseCloudMessaging } from "../firebase/firebase";
 
@@ -97,28 +96,29 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             >
                 <QueryClientProvider client={queryClient}>
                     <ReactQueryDevtools />
-                    <ToastContainer
-                        position="top-center"
-                        hideProgressBar={true}
-                        autoClose={1000}
-                    />
                     <Hydrate state={pageProps.dehydratedState}>
                         <MantineProvider>
-                            <ModalsProvider
-                                labels={{
-                                    confirm: "Submit",
-                                    cancel: "Cancel",
-                                }}
+                            <NotificationsProvider
+                                limit={1}
+                                position="top-center"
+                                autoClose={3000}
                             >
-                                <RouterTransition />
-                                {/* <UserLoadingOverlay /> */}
-                                <LoginPrompt />
-                                <GoogleReCaptchaProvider
-                                    reCaptchaKey={getReptcha()}
+                                <ModalsProvider
+                                    labels={{
+                                        confirm: "Submit",
+                                        cancel: "Cancel",
+                                    }}
                                 >
-                                    <Component {...pageProps} />
-                                </GoogleReCaptchaProvider>
-                            </ModalsProvider>
+                                    <RouterTransition />
+                                    {/* <UserLoadingOverlay /> */}
+                                    <LoginPrompt />
+                                    <GoogleReCaptchaProvider
+                                        reCaptchaKey={getReptcha()}
+                                    >
+                                        <Component {...pageProps} />
+                                    </GoogleReCaptchaProvider>
+                                </ModalsProvider>
+                            </NotificationsProvider>
                         </MantineProvider>
                     </Hydrate>
                 </QueryClientProvider>
@@ -128,13 +128,13 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 onClose={() => setOpened(false)}
                 size="lg"
                 radius="md"
-                className="d-flex gap-3"
+                className="d-flex gap-3 notification-dialog"
             >
                 <Text
                     size="sm"
                     className="m-0"
                     style={{ marginBottom: 10 }}
-                    weight={500}
+                    weight={400}
                 >
                     Allow notification for Web notifications.
                 </Text>
