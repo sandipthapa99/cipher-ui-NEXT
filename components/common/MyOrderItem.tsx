@@ -44,20 +44,8 @@ export const MyOrderItem = ({
                                     >
                                         <a>
                                             <figure className="d-flex align-items-center justify-content-start h-100 w-100 order-detail-section__image">
-                                                {!item?.item?.entity_service
-                                                    ?.images && (
-                                                    <Image
-                                                        src={
-                                                            "/placeholder/taskPlaceholder.png"
-                                                        }
-                                                        alt="order-detail-image"
-                                                        objectFit="contain"
-                                                        height={160}
-                                                        width={140}
-                                                    />
-                                                )}
                                                 {item?.item?.entity_service
-                                                    ?.images.length >= 0 ? (
+                                                    ?.images.length > 0 ? (
                                                     <Image
                                                         src={
                                                             item?.item
@@ -70,7 +58,15 @@ export const MyOrderItem = ({
                                                         width={140}
                                                     />
                                                 ) : (
-                                                    ""
+                                                    <Image
+                                                        src={
+                                                            "/placeholder/taskPlaceholder.png"
+                                                        }
+                                                        alt="order-detail-image"
+                                                        objectFit="contain"
+                                                        height={160}
+                                                        width={140}
+                                                    />
                                                 )}
                                             </figure>
                                         </a>
