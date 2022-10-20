@@ -51,6 +51,7 @@ const SaveIcon = ({
             loading={isLoading}
             variant="subtle"
             onClick={withLogin(handleSaveClick)}
+            className={classes.saveIcon}
         >
             <FontAwesomeIcon
                 color="red"
@@ -72,6 +73,9 @@ const useStyles = createStyles(() => ({
         "&:hover > svg": {
             transform: "scale(1.1)",
         },
+    },
+    saveIcon: {
+        marginLeft: "-0.4rem",
     },
 }));
 export default SaveIcon;
