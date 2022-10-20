@@ -29,8 +29,8 @@ export const RepliedModal = ({
                     />
                 </Col>
                 <Col md={11} className="d-flex-col align-items-center">
-                    <p>{repliedBy}</p>
-                    <p className="replied-text">{repliedText}</p>
+                    <p className="m-0">{repliedBy}</p>
+                    <p className="replied-text m-0">{repliedText}</p>
                 </Col>
             </Row>
         </>
