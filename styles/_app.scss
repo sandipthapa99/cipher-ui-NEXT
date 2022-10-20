@@ -717,3 +717,10 @@ small.text-muted {
         }
     }
 }
+
+.grecaptcha-badge {
+    display: none !important;
+    @include respond(md) {
+        display: block !important;
+    }
+}
