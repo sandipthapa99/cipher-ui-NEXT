@@ -35,6 +35,23 @@
         @include respond(md) {
             padding-left: 3.8rem;
         }
+        .reply-text{
+            font-size: 1.2rem;
+            cursor: pointer;
+            // margin-left: 2rem;
+        }
+        .reviewer-image{
+            border-radius: 50%;
+            
+        }
+        .Reply-cont{
+            border-bottom: 1px solid #212529;
+            .reply-input{
+                width: 100%;
+                border: none;
+                outline: none;
+            }
+        }
 
         .reviewer {
             display: flex;
@@ -76,7 +93,7 @@
             }
         }
         .description {
-            padding-top: 1.7rem;
+            // padding-top: 1.7rem;
             font-size: 1.4rem;
             margin-bottom: 0rem !important;
             color: $sub-title-color;

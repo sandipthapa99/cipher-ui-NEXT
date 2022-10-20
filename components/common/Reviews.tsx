@@ -1,5 +1,7 @@
+import { ReplyModal } from "@components/Review/ReplyModal";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import Image from "next/image";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { ReviewsProps } from "types/reviews";
 
@@ -12,6 +14,7 @@ const Reviews = ({
     time,
     image,
 }: ReviewsProps) => {
+    const [replyState, setReplyState] = useState(false);
     const timeago = () => {
         try {
             return formatDistanceToNow(parseISO(time), { addSuffix: true });
@@ -52,6 +55,13 @@ const Reviews = ({
 
                             <p className="description">{description}</p>
                             <p className="time">{timeago()}</p>
+                            <p
+                                className="reply-text"
+                                onClick={() => setReplyState((prev) => !prev)}
+                            >
+                                Reply
+                            </p>
+                            {replyState && <ReplyModal />}
                         </div>
                     </Col>
                 </Row>
