@@ -26,12 +26,12 @@ const HireInNepal: NextPage = () => {
                 <section className="hire-in-nepal">
                     <BreadCrumb currentPage="Hire in Nepal" />
 
-                    <div className="__top-container">
+                    <div className="hire-in-nepal__top-container">
                         <LongSquareImageCard
                             title={
                                 "Post a job today and simplify the process of finding the talents"
                             }
-                            image={"/hireinnepal/plant.svg"}
+                            image={"/hireinnepal/main.svg"}
                             description={
                                 "We make the process of searching and applying for jobs easier for you. Post a job from anywhere in the world and find the best right person to get it done."
                             }
