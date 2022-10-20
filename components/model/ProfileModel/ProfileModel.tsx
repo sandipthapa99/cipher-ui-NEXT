@@ -139,17 +139,6 @@ const PROFILE_LINKS = {
             color: "#495057",
         },
         {
-            title: "Payment History",
-            icon: (
-                <FontAwesomeIcon
-                    color={REGULAR_ICON_COLOR}
-                    icon={faFileInvoiceDollar}
-                />
-            ),
-            href: "/payment-history",
-            color: "#495057",
-        },
-        {
             title: "Offers",
             icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,
             href: "/offers",

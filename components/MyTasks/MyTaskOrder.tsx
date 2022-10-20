@@ -247,20 +247,6 @@ export const MyTaskOrder = ({
                                         )}
                                     </>
                                 )}
-                                {router.query.activeTab === "1" && (
-                                    <Link
-                                        href={{
-                                            pathname: "/checkout/",
-                                            query: { id: task_id },
-                                        }}
-                                    >
-                                        <a className="ms-auto mb-3">
-                                            <Button variant="light">
-                                                Pay Now
-                                            </Button>
-                                        </a>
-                                    </Link>
-                                )}
                                 <Link href={`/task/${task_id}`}>
                                     <a>
                                         <div className="d-flex justify-content-end align-items-center status-section">
