@@ -755,7 +755,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             /> */}
                             <hr />
                             <h3>Professional Information</h3>
-                            {/* <h4>Select User Type</h4>
+                            <h4>Select User Type</h4>
                             <div
                                 role="group"
                                 aria-labelledby="checkbox-group"
@@ -781,7 +781,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     />
                                     Tasker
                                 </label>
-                            </div> */}
+                            </div>
                             <TagInputField
                                 data={skills}
                                 name="skill"
