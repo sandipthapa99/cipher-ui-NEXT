@@ -31,7 +31,7 @@ const HireInNepal: NextPage = () => {
                             title={
                                 "Post a job today and simplify the process of finding the talents"
                             }
-                            image={"/hireinnepal/main.svg"}
+                            image="/hireinnepal/main.svg"
                             description={
                                 "We make the process of searching and applying for jobs easier for you. Post a job from anywhere in the world and find the best right person to get it done."
                             }
