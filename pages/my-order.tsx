@@ -96,14 +96,17 @@ const MyOrder = () => {
                                         width={243}
                                     />
                                 </figure>
-                                <p className="mb-2 ">
-                                    Your haven’t Booked any items Yet.
+                                <p
+                                    className="mb-3"
+                                    style={{ fontSize: "2.4rem" }}
+                                >
+                                    You Have No Approved Bookings Yet.
                                 </p>
                                 <p>
-                                    <Link href={"/task"}>
-                                        <a>click here </a>
+                                    <Link href={"/home?activeTab=1"}>
+                                        <a>Click here </a>
                                     </Link>
-                                    to book tasks/services.
+                                    to see your booking details.
                                 </p>
                             </div>
                         )}

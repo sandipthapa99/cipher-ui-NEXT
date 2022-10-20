@@ -1,5 +1,5 @@
 import { GoogleLogin } from "@react-oauth/google";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import { log } from "console";
 import { useGoogle } from "hooks/auth/use-Google";
 import Cookies from "js-cookie";
@@ -15,6 +15,7 @@ const Google = ({ login }: { login: boolean }) => {
     const { mutate } = useGoogle();
     const [FCM_TOKEN, setFCM_TOKEN] = useState("");
     const router = useRouter();
+    const queryClient = new QueryClient();
     const getFCMTOKEN = async () => {
         if (typeof window !== "undefined") {
             const token = await localforage.getItem<string>("fcm_token");
@@ -64,6 +65,9 @@ const Google = ({ login }: { login: boolean }) => {
                         : mutate(credentialResponse, {
                               onSuccess: () => {
                                   toast.success("Google Account Connected");
+                                  queryClient.invalidateQueries([
+                                      "linked-accounts",
+                                  ]);
                               },
                               onError: (err) => {
                                   toast.error(err.message);
