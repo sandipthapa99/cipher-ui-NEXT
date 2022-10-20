@@ -6,12 +6,13 @@ import Cookies from "js-cookie";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { forwardRef } from "react";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
-const Google = () => {
-    const { mutate, data } = useGoogle();
+const Google = ({ login }: { login: boolean }) => {
+    const { mutate } = useGoogle();
     const [FCM_TOKEN, setFCM_TOKEN] = useState("");
     const router = useRouter();
     const getFCMTOKEN = async () => {
@@ -40,22 +41,35 @@ const Google = () => {
             theme="outline"
             // width="1200px"
             onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+
                 const newData = { ...credentialResponse, FCM_TOKEN };
 
-                mutate(newData, {
-                    onSuccess: (data) => {
-                        autoLogin(
-                            data.access,
-                            data.refresh,
-                            credentialResponse.credential
-                        );
-                        toast.success("Successfully logged in");
-                        router.push("/home");
-                    },
-                    onError: (err) => {
-                        toast.error(err.message);
-                    },
-                });
+                {
+                    login
+                        ? mutate(newData, {
+                              onSuccess: (data) => {
+                                  autoLogin(
+                                      data.access,
+                                      data.refresh,
+                                      credentialResponse.credential
+                                  );
+                                  toast.success("Successfully logged in");
+                                  router.push("/home");
+                              },
+                              onError: (err) => {
+                                  toast.error(err.message);
+                              },
+                          })
+                        : mutate(credentialResponse, {
+                              onSuccess: () => {
+                                  toast.success("Google Account Connected");
+                              },
+                              onError: (err) => {
+                                  toast.error(err.message);
+                              },
+                          });
+                }
                 //
             }}
             onError={() => {

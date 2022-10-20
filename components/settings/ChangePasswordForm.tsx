@@ -49,7 +49,9 @@ const ChangePasswordForm = () => {
                                         ? googleToken
                                         : null,
                                     confirm_password: "",
-                                    old_password: googleToken ? null : "",
+                                    old_password: userDetails?.social_only
+                                        ? null
+                                        : "",
                                 }}
                                 // validationSchema={changePasswordFormSchema}
                                 onSubmit={async (values, action) => {
@@ -86,7 +88,7 @@ const ChangePasswordForm = () => {
                                                 )}
                                             </pre>
                                         } */}
-                                        {!googleToken && (
+                                        {!userDetails?.social_only && (
                                             <PasswordField
                                                 typeOf="password"
                                                 name="old_password"
