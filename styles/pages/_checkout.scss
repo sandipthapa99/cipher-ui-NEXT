@@ -13,8 +13,7 @@
 
     color: #211d4f;
 }
-.digital-wallet{
-
+.digital-wallet {
     .wrapper {
         gap: 4rem;
         border: 0.1rem solid #ced4da;
@@ -22,7 +21,7 @@
         padding: 1.2rem 3.2rem;
         position: relative;
         cursor: pointer;
-        figure{
+        figure {
             height: 4.8rem;
         }
         .verified {
@@ -57,11 +56,10 @@
         @media screen and (width: 820px), (width: 768px) {
             width: 100%;
         }
-        .inner-left{
-            .thumbnail-img{
+        .inner-left {
+            .thumbnail-img {
                 border-radius: 0.4rem;
             }
-
         }
     }
     h3 {
@@ -92,11 +90,11 @@
         @include respond(xs) {
             justify-content: center;
         }
-        .payment{
+        .payment {
             height: 4.8rem;
             width: 12rem;
         }
-        .payment2{
+        .payment2 {
             height: 4.8rem;
             width: 24rem;
         }

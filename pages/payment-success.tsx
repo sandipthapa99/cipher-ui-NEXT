@@ -1,60 +1,160 @@
 import Layout from "@components/Layout";
-import { faDashboard } from "@fortawesome/pro-regular-svg-icons";
+import { PaymentSuccessSkeleton } from "@components/Skeletons/PaymentSuccessSkeleton";
+import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
+import { faDashboard, faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, createStyles, Text, Title } from "@mantine/core";
+import { Alert, Box, Button, createStyles, Text, Title } from "@mantine/core";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
+
+const ORDER_ALREADY_PROCESSED_MESSAGE = "The order has already been processed";
+
+interface SuccessPageQuery {
+    purchase_order_id?: string;
+    pidx?: string;
+}
+type CompleteOrderPayload = Required<SuccessPageQuery>;
 
 const PaymentSuccess = () => {
     const router = useRouter();
     const { classes } = useStyles();
 
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [orderAlreadyProcessed, setOrderAlreadyProcessed] = useState(false);
+
     const navigateToDashboard = () => router.push("/home");
 
+    const { purchase_order_id, pidx } = router.query as SuccessPageQuery;
+
+    const { mutate: completeOrderMutation, isLoading } = useMutation<
+        string,
+        AxiosError<{ order: string[] }>,
+        CompleteOrderPayload
+    >(async ({ purchase_order_id, pidx }) => {
+        const { data } = await axiosClient.post<{ message: string }>(
+            "/payment/verify/khalti/",
+            {
+                order: purchase_order_id,
+                detail: { pidx },
+            }
+        );
+        return data.message;
+    });
+    useEffect(() => {
+        if (purchase_order_id && pidx) {
+            completeOrderMutation(
+                { purchase_order_id, pidx },
+                {
+                    onSuccess: (data) => {
+                        toast.success(data);
+                        setShowSuccess(true);
+                    },
+                    onError: (error) => {
+                        const errorArray = error?.response?.data?.order;
+                        if (errorArray && errorArray.length > 0) {
+                            const firstError = errorArray[0];
+                            if (
+                                firstError === ORDER_ALREADY_PROCESSED_MESSAGE
+                            ) {
+                                setOrderAlreadyProcessed(true);
+                                setShowSuccess(true);
+                            }
+                        }
+                    },
+                }
+            );
+        }
+    }, [completeOrderMutation, pidx, purchase_order_id]);
+
     return (
-        <Layout title="Payment Success | Homaale">
-            <Container fluid="xl" className="px-5">
-                <div className={classes.wrapper}>
-                    <div className={classes.body}>
-                        <Title
-                            sx={{ color: "green" }}
-                            className={classes.title}
-                        >
-                            Payment Successful !
-                        </Title>
-                        <Text
-                            sx={{ maxWidth: "45rem", lineHeight: "2.5rem" }}
-                            size="md"
-                            color="dimmed"
-                        >
-                            Thank you for your payment. Your payment has been
-                            successfully processed and a receipt for your
-                            purchase has been emailed to you.You can visit your
-                            dashboard to view your orders.
-                        </Text>
-                        <div className={classes.controls}>
-                            <Button
-                                color="yellow"
-                                onClick={navigateToDashboard}
-                                leftIcon={
-                                    <FontAwesomeIcon icon={faDashboard} />
-                                }
-                            >
-                                Go to Dashboard
-                            </Button>
+        <>
+            <Layout title="Payment Success | Homaale">
+                <Container fluid="xl" className="px-5">
+                    {isLoading || !showSuccess ? (
+                        <PaymentSuccessSkeleton />
+                    ) : (
+                        <div className={classes.wrapper}>
+                            {orderAlreadyProcessed ? (
+                                <Box
+                                    sx={{
+                                        width: "100%",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <Alert
+                                        icon={
+                                            <FontAwesomeIcon
+                                                icon={faWarning}
+                                                className="svg-icon me-0"
+                                            />
+                                        }
+                                        color="yellow"
+                                        title="Payment already processed"
+                                    >
+                                        Your payment has already been processed.
+                                    </Alert>
+                                </Box>
+                            ) : (
+                                <>
+                                    <div className={classes.body}>
+                                        <Title
+                                            sx={{ color: "green" }}
+                                            className={classes.title}
+                                        >
+                                            Payment Successful !
+                                        </Title>
+                                        <Text
+                                            sx={{
+                                                maxWidth: "45rem",
+                                                lineHeight: "2.5rem",
+                                            }}
+                                            size="md"
+                                            color="dimmed"
+                                        >
+                                            Thank you for your payment. Your
+                                            payment has been successfully
+                                            processed and a receipt for your
+                                            purchase has been emailed to you.You
+                                            can visit your dashboard to view
+                                            your orders.
+                                        </Text>
+                                        <div className={classes.controls}>
+                                            <Button
+                                                color="yellow"
+                                                onClick={navigateToDashboard}
+                                                leftIcon={
+                                                    <FontAwesomeIcon
+                                                        className="svg-icon me-0"
+                                                        icon={faDashboard}
+                                                    />
+                                                }
+                                            >
+                                                Go to Dashboard
+                                            </Button>
+                                        </div>
+                                    </div>
+                                    <Image
+                                        src="/payment_success.svg"
+                                        width={400}
+                                        height={400}
+                                        alt="payment success screen"
+                                        className={classes.image}
+                                    />
+                                </>
+                            )}
                         </div>
-                    </div>
-                    <Image
-                        src="/payment_success.svg"
-                        width={400}
-                        height={400}
-                        alt="payment success screen"
-                        className={classes.image}
-                    />
-                </div>
-            </Container>
-        </Layout>
+                    )}
+                </Container>
+            </Layout>
+        </>
     );
 };
 const useStyles = createStyles((theme) => ({

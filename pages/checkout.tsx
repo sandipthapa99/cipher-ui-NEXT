@@ -353,7 +353,7 @@ export default function Checkout() {
                                         </div>
                                         <Button
                                             className="checkout-btn"
-                                            onClick={(e) => {
+                                            onClick={() => {
                                                 paymentType === "Khalti" &&
                                                     router.push(
                                                         khaltiData?.data?.data
