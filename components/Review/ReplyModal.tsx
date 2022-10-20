@@ -20,8 +20,8 @@ export const ReplyModal = ({
     reply,
 }: {
     handleClose: () => void;
-    reviewId: number;
-    reply: boolean;
+    reviewId: number | undefined;
+    reply: boolean | undefined;
 }) => {
     const { data: profileDetails } = useGetProfile();
     const queryClient = useQueryClient();
@@ -82,7 +82,12 @@ export const ReplyModal = ({
             </Row>
 
             <div className="reply-btn">
-                <Button variant="subtle" color={"gray"} radius="xl">
+                <Button
+                    variant="subtle"
+                    color={"gray"}
+                    radius="xl"
+                    onClick={() => handleClose()}
+                >
                     Cancel
                 </Button>
                 <Button

@@ -6,8 +6,8 @@ export const RepliedModal = ({
     repliedText,
     repliedBy,
 }: {
-    repliedText: string;
-    repliedBy: string;
+    repliedText: string | undefined;
+    repliedBy: string | undefined;
 }) => {
     const { data: profileDetails } = useGetProfile();
 
