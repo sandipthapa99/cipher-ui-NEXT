@@ -1,5 +1,5 @@
+import parse from "date-fns/parse";
 import * as Yup from "yup";
-
 const stringReqOnly = Yup.string().required("Required field");
 const stringUnReq = Yup.string();
 const dateValidation = Yup.date().nullable().required("Required field");
@@ -16,7 +16,18 @@ export const accountFormSchema = Yup.object().shape({
     profile_image: stringUnReq,
     bio: stringReqOnly,
     gender: stringReqOnly,
-    date_of_birth: dateValidation,
+    date_of_birth: Yup.date()
+        .transform(function (value, originalValue) {
+            if (this.isType(value)) {
+                return value;
+            }
+            const result = parse(originalValue, "dd.MM.yyyy", new Date());
+            return result;
+        })
+        .typeError("please enter a valid date")
+        .required()
+        .max("2007-11-13", "You must be over 18"),
+
     skill: tagValidate,
     active_hour_start: dateValidation,
     active_hour_end: dateValidation,
