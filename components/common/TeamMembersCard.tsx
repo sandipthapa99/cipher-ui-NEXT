@@ -34,7 +34,7 @@ interface Props {
     speciality?: string;
     rating?: number;
     happyClients?: number;
-    awardPercentage?: number;
+    awardPercentage?: string | number | any;
     location?: string;
     distance?: string;
     bio?: string;
@@ -192,7 +192,7 @@ export const TeamMembersCard = ({
                                         {Number.isInteger(awardPercentage)
                                             ? awardPercentage
                                             : awardPercentage &&
-                                              awardPercentage.toFixed(1)}
+                                              awardPercentage.toFixed(2)}
                                         {"%"}
                                     </span>
                                 </span>
