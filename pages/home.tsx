@@ -33,12 +33,12 @@ const Home: NextPage = () => {
                 <Container fluid="xl" className="px-3 px-sm-5">
                     <ApplyPost />
 
-                    <div className="post-task__discount-card">
+                    {/* <div className="post-task__discount-card">
                         <h1>Special Offers &amp; Discount</h1>
 
                         <DiscountCard />
-                    </div>
-                    <div className="post-task__popular-services">
+                    </div> */}
+                    {/* <div className="post-task__popular-services">
                         <div className="title-wrapper d-flex justify-content-between">
                             <h1 className="heading-title">
                                 Popular on Homaale
@@ -73,7 +73,7 @@ const Home: NextPage = () => {
                                     }
                                 )}
                         </Row>
-                    </div>
+                    </div> */}
                 </Container>
             </section>
         </Layout>
