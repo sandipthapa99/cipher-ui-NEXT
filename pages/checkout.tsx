@@ -6,9 +6,8 @@ import {
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Modal, Skeleton, Text } from "@mantine/core";
+import { Button, Modal, Text } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
-import type { Stripe } from "@stripe/stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -17,10 +16,9 @@ import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
-import { Col, Container, NavItem, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import type { CheckoutDataProps } from "types/checkoutDataProps";
 import type { PaymentMethodProps } from "types/paymentMethods";
-import type { ServicesValueProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
 import CheckoutForm from "../components/CheckoutForm";
@@ -36,6 +34,7 @@ const getStripeApiKey = () => {
         );
     return url;
 };
+const stripePromise = loadStripe(getStripeApiKey());
 
 const renderLoadingSkeletons = () => {
     return (
@@ -46,8 +45,6 @@ const renderLoadingSkeletons = () => {
         </Fragment>
     );
 };
-
-const stripePromise = loadStripe(getStripeApiKey());
 
 export default function Checkout() {
     const router = useRouter();
@@ -62,14 +59,14 @@ export default function Checkout() {
             const response = await axiosClient.post(
                 `${urls.payment.intent}stripe/`,
                 {
-                    scope: "booking",
-                    pk: 126,
+                    order: query,
                 }
             );
             return response;
         },
         { enabled: !!query }
     );
+
     const { data: khaltiData } = useQuery(
         ["khalti-data", query],
         async () => {
@@ -89,6 +86,7 @@ export default function Checkout() {
         `/payment/order/${query}/`,
         !!query
     );
+
     const appearance = {
         theme: "stripe" as const,
         // labels: "floating",
@@ -355,7 +353,7 @@ export default function Checkout() {
                                         </div>
                                         <Button
                                             className="checkout-btn"
-                                            onClick={() => {
+                                            onClick={(e) => {
                                                 paymentType === "Khalti" &&
                                                     router.push(
                                                         khaltiData?.data?.data
@@ -383,7 +381,7 @@ export default function Checkout() {
                     setPaymentType("esewa");
                 }}
             >
-                {paymentType !== "stripe" ? (
+                {paymentType !== "Stripe" ? (
                     <Text>{paymentType} is comming soon!</Text>
                 ) : (
                     ""

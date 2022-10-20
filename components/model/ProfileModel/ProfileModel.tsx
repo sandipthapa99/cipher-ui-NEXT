@@ -74,7 +74,7 @@ export const ProfileModel = () => {
                     <Text className={classes.username}>
                         {profileDetails
                             ? `${profileDetails.user?.first_name} ${profileDetails.user?.last_name}`
-                            : "Howdy User"}
+                            : "Hello User"}
                     </Text>
                     <Text className={classes.profileType}>
                         {profileDetails && profileDetails?.profile_visibility}
