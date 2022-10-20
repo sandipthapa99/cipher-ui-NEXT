@@ -1,6 +1,5 @@
 import Layout from "@components/Layout";
 import { PaymentSuccessSkeleton } from "@components/Skeletons/PaymentSuccessSkeleton";
-import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
 import { faDashboard, faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Box, Button, createStyles, Text, Title } from "@mantine/core";
@@ -15,11 +14,26 @@ import { toast } from "utils/toast";
 
 const ORDER_ALREADY_PROCESSED_MESSAGE = "The order has already been processed";
 
-interface SuccessPageQuery {
+export interface SuccessPageQuery {
     purchase_order_id?: string;
     pidx?: string;
+    payment_intent?: string;
 }
-type CompleteOrderPayload = Required<SuccessPageQuery>;
+export enum PaymentMethods {
+    khalti = "khalti",
+    stripe = "stripe",
+}
+export type KhaltiPayload = {
+    type: PaymentMethods.khalti;
+    order: string;
+    detail: { pidx: string };
+};
+export type StripePayload = {
+    type: PaymentMethods.stripe;
+    payment_intent: string;
+};
+
+export type CompleteOrderPayload = KhaltiPayload | StripePayload;
 
 const PaymentSuccess = () => {
     const router = useRouter();
@@ -30,47 +44,61 @@ const PaymentSuccess = () => {
 
     const navigateToDashboard = () => router.push("/home");
 
-    const { purchase_order_id, pidx } = router.query as SuccessPageQuery;
+    const {
+        purchase_order_id: order,
+        pidx,
+        payment_intent,
+    } = router.query as SuccessPageQuery;
+
+    const provider = payment_intent
+        ? PaymentMethods.stripe
+        : PaymentMethods.khalti;
 
     const { mutate: completeOrderMutation, isLoading } = useMutation<
         string,
         AxiosError<{ order: string[] }>,
         CompleteOrderPayload
-    >(async ({ purchase_order_id, pidx }) => {
+    >(async (payload) => {
+        const { type, ...rest } = payload;
         const { data } = await axiosClient.post<{ message: string }>(
-            "/payment/verify/khalti/",
-            {
-                order: purchase_order_id,
-                detail: { pidx },
-            }
+            `/payment/verify/${provider}/`,
+            rest
         );
         return data.message;
     });
     useEffect(() => {
-        if (purchase_order_id && pidx) {
-            completeOrderMutation(
-                { purchase_order_id, pidx },
-                {
-                    onSuccess: (data) => {
-                        toast.success(data);
+        const payload =
+            order && pidx
+                ? ({
+                      type: PaymentMethods.khalti,
+                      order,
+                      detail: { pidx },
+                  } as KhaltiPayload)
+                : payment_intent
+                ? ({
+                      type: PaymentMethods.stripe,
+                      payment_intent,
+                  } as StripePayload)
+                : undefined;
+        if (!payload) return;
+
+        completeOrderMutation(payload, {
+            onSuccess: (data) => {
+                toast.success(data);
+                setShowSuccess(true);
+            },
+            onError: (error) => {
+                const errorArray = error?.response?.data?.order;
+                if (errorArray && errorArray.length > 0) {
+                    const firstError = errorArray[0];
+                    if (firstError === ORDER_ALREADY_PROCESSED_MESSAGE) {
+                        setOrderAlreadyProcessed(true);
                         setShowSuccess(true);
-                    },
-                    onError: (error) => {
-                        const errorArray = error?.response?.data?.order;
-                        if (errorArray && errorArray.length > 0) {
-                            const firstError = errorArray[0];
-                            if (
-                                firstError === ORDER_ALREADY_PROCESSED_MESSAGE
-                            ) {
-                                setOrderAlreadyProcessed(true);
-                                setShowSuccess(true);
-                            }
-                        }
-                    },
+                    }
                 }
-            );
-        }
-    }, [completeOrderMutation, pidx, purchase_order_id]);
+            },
+        });
+    }, [completeOrderMutation, order, payment_intent, pidx, provider]);
 
     return (
         <>
