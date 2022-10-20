@@ -11,12 +11,13 @@ export const useGoogle = () => {
                     urls.user.google,
                     googlePayload
                 );
+
                 return data;
             } catch (error) {
                 if (error instanceof AxiosError) {
                     throw new Error(error?.response?.data?.message);
                 }
-                throw new Error("Profile failed");
+                throw new Error("Failed to login");
             }
         }
     );

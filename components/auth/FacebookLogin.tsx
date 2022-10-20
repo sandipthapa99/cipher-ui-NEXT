@@ -15,7 +15,7 @@ const getFacebookAppId = () => {
     if (!appId) throw new Error("Facebook App ID is not set");
     return appId;
 };
-export const FacebookLogin = () => {
+export const FacebookLogin = ({ login }: { login: boolean }) => {
     const { mutate } = useFacebook();
     // Set initial value in second argument and getInitialValueInEffect option to false
     const nestHubScreen = useMediaQuery("(width: 1024px)", true);
@@ -39,17 +39,30 @@ export const FacebookLogin = () => {
     return (
         <ReactFacebookLogin
             callback={(response) => {
+                console.log(response);
+
                 const newData = { ...response, FCM_TOKEN };
-                mutate(newData, {
-                    onSuccess: (data) => {
-                        autoLogin(data.access, data.refresh);
-                        toast.success("Successfully logged in");
-                        router.push("/home");
-                    },
-                    onError: (err) => {
-                        toast.error(err.message);
-                    },
-                });
+                {
+                    login
+                        ? mutate(newData, {
+                              onSuccess: (data) => {
+                                  autoLogin(data.access, data.refresh);
+                                  toast.success("Successfully logged in");
+                                  router.push("/home");
+                              },
+                              onError: (err) => {
+                                  toast.error(err.message);
+                              },
+                          })
+                        : mutate(response, {
+                              onSuccess: () => {
+                                  toast.success("Facebook Account Connected");
+                              },
+                              onError: (err) => {
+                                  toast.error(err.message);
+                              },
+                          });
+                }
             }}
             autoLoad={false}
             appId={getFacebookAppId()}

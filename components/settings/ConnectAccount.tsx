@@ -1,4 +1,6 @@
+import { FacebookLogin } from "@components/auth/FacebookLogin";
 import BigButton from "@components/common/Button";
+import Google from "@components/Google/Google";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +11,7 @@ import { useGoogle } from "hooks/auth/use-Google";
 import Cookies from "js-cookie";
 import localforage from "localforage";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
@@ -24,6 +26,7 @@ const ConnectAccount = ({ name, disconnect }: AccountInfo) => {
     const { mutate, data } = useGoogle();
     const [FCM_TOKEN, setFCM_TOKEN] = useState("");
     const router = useRouter();
+    const googleLoginRef = useRef(null);
     const getFCMTOKEN = async () => {
         if (typeof window !== "undefined") {
             const token = await localforage.getItem<string>("fcm_token");
@@ -41,21 +44,22 @@ const ConnectAccount = ({ name, disconnect }: AccountInfo) => {
         console.log("disconnect");
     };
     return (
-        <div className="account-wrapper">
-            <div className="social-connection  me-4">
-                {/* <span className="d-flex flex-col align-items-center justify-content-center my-4"> */}
-                <div className="d-flex align-items-center justify-content-center">
-                    <FontAwesomeIcon
-                        icon={name === "Google" ? faGoogle : faFacebookF}
-                        className="svg-icon facebook-icon"
-                    />
-                </div>
+        <>
+            <div className="account-wrapper">
+                <div className="social-connection  me-4">
+                    {/* <span className="d-flex flex-col align-items-center justify-content-center my-4"> */}
+                    <div className="d-flex align-items-center justify-content-center">
+                        <FontAwesomeIcon
+                            icon={name === "Google" ? faGoogle : faFacebookF}
+                            className="svg-icon facebook-icon"
+                        />
+                    </div>
 
-                <h4 className="text-center">{name}</h4>
-                {/* </span> */}
-                <p>You are not signed in through {name}.</p>
-                <div className="d-flex button-wrapper align-items-stretch justify-content-center my-4">
-                    {/* <GoogleLogin
+                    <h4 className="text-center">{name}</h4>
+                    {/* </span> */}
+                    <p>You are not signed in through {name}.</p>
+                    <div className="d-flex button-wrapper align-items-stretch justify-content-center my-4">
+                        {/* <GoogleLogin
                         size="large"
                         auto_select={false}
                         theme="outline"
@@ -86,18 +90,24 @@ const ConnectAccount = ({ name, disconnect }: AccountInfo) => {
                             toast.error("Error logging in");
                         }}
                     /> */}
+                        {name === "Google" ? (
+                            <Google login={false} />
+                        ) : (
+                            <FacebookLogin login={false} />
+                        )}
 
-                    <BigButton
-                        btnTitle={"Connect"}
-                        backgroundColor={"#211d4f"}
-                        textColor={"#fff"}
-                        // handleClick={
-
-                        // }
-                    />
+                        {/* <BigButton
+                            btnTitle={"Connect"}
+                            backgroundColor={"#211d4f"}
+                            textColor={"#fff"}
+                            handleClick={() => {
+                                name === "Google";
+                            }}
+                        /> */}
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
