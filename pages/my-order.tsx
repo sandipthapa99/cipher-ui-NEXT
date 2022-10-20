@@ -63,6 +63,7 @@ const MyOrder = () => {
                                             <span className="order-id">
                                                 Order ID: #{item?.id}
                                             </span>
+                                            <p>{item.status}</p>
                                             <span className="ordered-date">
                                                 <Link
                                                     href={{
