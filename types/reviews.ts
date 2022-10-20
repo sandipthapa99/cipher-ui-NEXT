@@ -6,4 +6,8 @@ export interface ReviewsProps {
     image?: string;
     raterEmail?: string;
     raterId?: string;
+    id: number;
+    replied: boolean;
+    repliedText: string;
+    repliedBy: string;
 }

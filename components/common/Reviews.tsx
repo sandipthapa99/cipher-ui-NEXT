@@ -1,3 +1,4 @@
+import { RepliedModal } from "@components/Review/RepliedModal";
 import { ReplyModal } from "@components/Review/ReplyModal";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import Image from "next/image";
@@ -13,6 +14,10 @@ const Reviews = ({
     raterEmail,
     time,
     image,
+    id,
+    replied,
+    repliedText,
+    repliedBy,
 }: ReviewsProps) => {
     const [replyState, setReplyState] = useState(false);
     const timeago = () => {
@@ -21,6 +26,9 @@ const Reviews = ({
         } catch (error) {
             return "a while ago";
         }
+    };
+    const handleClose = () => {
+        setReplyState(false);
     };
     //   const { data: profileDetails } = useGetProfileById(raterId);
 
@@ -53,15 +61,31 @@ const Reviews = ({
                                 <span>{ratings}</span>
                             </div>
 
-                            <p className="description">{description}</p>
-                            <p className="time">{timeago()}</p>
-                            <p
-                                className="reply-text"
-                                onClick={() => setReplyState((prev) => !prev)}
-                            >
-                                Reply
+                            <p className="description">
+                                {description ? description : "No Reviews yet"}
                             </p>
-                            {replyState && <ReplyModal />}
+                            <p className="time">{timeago()}</p>
+                            {!replied && (
+                                <p
+                                    className="reply-text"
+                                    onClick={() => setReplyState(true)}
+                                >
+                                    Reply
+                                </p>
+                            )}
+                            {replyState && (
+                                <ReplyModal
+                                    handleClose={handleClose}
+                                    reviewId={id}
+                                    reply={replied}
+                                />
+                            )}
+                            {replied && (
+                                <RepliedModal
+                                    repliedText={repliedText}
+                                    repliedBy={repliedBy}
+                                />
+                            )}
                         </div>
                     </Col>
                 </Row>
