@@ -34,7 +34,7 @@ interface Props {
     speciality?: string;
     rating?: number;
     happyClients?: number;
-    awardPercentage?: string | number;
+    awardPercentage?: string | number | any;
     location?: string;
     distance?: string;
     bio?: string;
@@ -188,7 +188,13 @@ export const TeamMembersCard = ({
                                         className="award"
                                         icon={faAward}
                                     />
-                                    <span> {awardPercentage}</span>
+                                    <span>
+                                        {Number.isInteger(awardPercentage)
+                                            ? awardPercentage
+                                            : awardPercentage &&
+                                              awardPercentage.toFixed(2)}
+                                        {"%"}
+                                    </span>
                                 </span>
                                 {/* <span className="location d-flex align-items-center">
                                     <FontAwesomeIcon
