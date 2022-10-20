@@ -1,24 +1,20 @@
-import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import { MyOrderItem } from "@components/common/MyOrderItem";
 import Layout from "@components/Layout";
-import { MyTaskOrder } from "@components/MyTasks/MyTaskOrder";
-import { Alert, Button, Col, Grid, Loader, Skeleton } from "@mantine/core";
+import { Button, Col, Grid, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
+import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 import { Container } from "react-bootstrap";
 import type { MyOrderProps } from "types/myOrderProps";
-import type { MyTaskProps } from "types/myTasksProps";
 import { axiosClient } from "utils/axiosClient";
 
 const MyOrder = () => {
     const { data: userData } = useUser();
     const userId = userData?.id ?? "";
-    const { data: mytaskData, isLoading } = useQuery(
+    const { data: mytaskData, isFetching } = useQuery(
         ["my-orders", userId],
         async () => {
             const response = await axiosClient.get<{
@@ -41,7 +37,7 @@ const MyOrder = () => {
                         {/* <h3>My Tasks</h3> */}
 
                         <div className="my-task__each-orders">
-                            {isLoading ? (
+                            {isFetching && (
                                 <Grid className="p-5">
                                     <Col span={3}>
                                         <Skeleton height={150} mb="xl" />
@@ -55,7 +51,8 @@ const MyOrder = () => {
                                         <Skeleton height={50} radius="sm" />
                                     </Col>
                                 </Grid>
-                            ) : (
+                            )}
+                            {!isFetching &&
                                 mytaskData &&
                                 mytaskData?.map((item, index) => (
                                     <div
@@ -87,9 +84,29 @@ const MyOrder = () => {
                                             orderItem={item?.order_item}
                                         />
                                     </div>
-                                ))
-                            )}
+                                ))}
                         </div>
+                        {!isFetching && mytaskData.length <= 0 && (
+                            <div className="bg-white p-5 text-center">
+                                <figure className="position-relative">
+                                    <Image
+                                        src={"/orderEmpty.png"}
+                                        alt="order-empty-img"
+                                        height={243}
+                                        width={243}
+                                    />
+                                </figure>
+                                <p className="mb-2 ">
+                                    Your haven’t Booked any items Yet.
+                                </p>
+                                <p>
+                                    <Link href={"/task"}>
+                                        <a>click here </a>
+                                    </Link>
+                                    to book tasks/services.
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </Container>
             </section>
