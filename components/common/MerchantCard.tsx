@@ -31,7 +31,7 @@ const MerchantCard = ({
         <div className="merchant-card-block">
             <Link href={`/tasker/${merchantId}`}>
                 <a>
-                    <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
+                    <div className="d-flex flex-column flex-sm-row merchant-intro">
                         <figure className="thumbnail-img">
                             {!merchantImage && (
                                 <Image
