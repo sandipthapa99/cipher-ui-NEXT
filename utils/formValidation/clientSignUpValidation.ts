@@ -18,7 +18,7 @@ const passwordValidate = Yup.string()
     .required("Required field")
     .min(10, "Password is too short - should be 10 chars minimum.")
     .matches(
-        /^(?=.*[0-9])(?=.*[!@#$%^&*+-_])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*+-_]{6,16}$/,
+        /^(?=.*[0-9])(?=.*[!@#$%^&*+-_])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*+-_]/,
         "Password must contain 1 numberic value, 1 uppercase and 1 special character."
     );
 const genderValidate = Yup.string().required("Required Field");
