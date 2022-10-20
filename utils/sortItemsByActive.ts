@@ -20,9 +20,7 @@ export const sortItemsByActive = <
     if (payload.type === "task") {
         const { tasks, activeId, onSort } = payload;
         const activeTask = [...tasks].find((task) => task.id === activeId);
-        const filteredTasks = [...tasks].filter(
-            (service) => service.slug !== activeId
-        );
+        const filteredTasks = [...tasks].filter((task) => task.id !== activeId);
         onSort?.();
         return (
             activeTask ? [activeTask, ...filteredTasks] : payload.tasks
