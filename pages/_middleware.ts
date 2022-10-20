@@ -9,6 +9,8 @@ const PROTECTED_ROUTES = [
     "/settings/*",
     "/add-service",
     "/feedback",
+    "/my-order",
+    "/checkout",
 ];
 const RESTRICTED_ROUTES_ON_LOGGED_IN = ["/login"];
 

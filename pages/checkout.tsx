@@ -16,9 +16,8 @@ import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
-import { Col, Container, NavItem, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import type { CheckoutDataProps } from "types/checkoutDataProps";
-import type { ServicesValueProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
 import CheckoutForm from "../components/CheckoutForm";
