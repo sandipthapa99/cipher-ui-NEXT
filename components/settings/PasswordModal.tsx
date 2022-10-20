@@ -36,7 +36,7 @@ const PasswordModalCard = ({
         password: stringReqOnly,
     });
 
-    const { mutate } = useDeleteAccount(`/user/unlink/account/${id}/`);
+    const { mutate } = useDeleteAccount(`/user/unlink/social/${id}/`);
     const queryClient = useQueryClient();
     return (
         <>

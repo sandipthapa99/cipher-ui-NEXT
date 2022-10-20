@@ -83,6 +83,9 @@
         .facebook-icon {
             color: $facebook-logo-color;
         }
+        .google-icon {
+            color: #fe5050;
+        }
         .button-wrapper {
             @include respond(xs) {
                 flex-direction: column;

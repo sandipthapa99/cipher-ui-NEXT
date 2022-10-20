@@ -138,7 +138,19 @@ const LongSquareImageCard = ({
                                                                 />
                                                             </figure>
                                                         ) : (
-                                                            ""
+                                                            <>
+                                                                <figure className="thumbnail-img">
+                                                                    <Image
+                                                                        src={
+                                                                            info.icon
+                                                                        }
+                                                                        layout="fill"
+                                                                        objectFit="cover"
+                                                                        alt="icon-image"
+                                                                    />
+                                                                </figure>
+                                                                <h1>Hi</h1>
+                                                            </>
                                                         )}
                                                         <div
                                                             className="list"
@@ -180,12 +192,12 @@ const LongSquareImageCard = ({
                         </Col>
                         <Col md={homeImage ? 6 : 5}>
                             <figure className="thumbnail-img">
-                                {/* <Image
+                                <Image
                                     src={image}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="man-image"
-                                /> */}
+                                />
                             </figure>
                         </Col>
                     </>
