@@ -13,14 +13,30 @@
 
     color: #211d4f;
 }
-.payment {
-    cursor: grab;
-    position: relative;
-    .verified {
-        position: absolute;
-        z-index: 2;
-        top: 2rem;
-        right: 7px;
+.digital-wallet{
+
+    .wrapper {
+        gap: 4rem;
+        border: 0.1rem solid #ced4da;
+        border-radius: 0.4rem;
+        padding: 1.2rem 3.2rem;
+        position: relative;
+        cursor: pointer;
+        figure{
+            height: 4.8rem;
+        }
+        .verified {
+            position: absolute;
+            z-index: 2;
+            top: 0.8rem;
+            right: 0.8rem;
+        }
+        p {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #211d4f;
+        }
     }
 }
 .checkout-row {
@@ -41,6 +57,12 @@
         @media screen and (width: 820px), (width: 768px) {
             width: 100%;
         }
+        .inner-left{
+            .thumbnail-img{
+                border-radius: 0.4rem;
+            }
+
+        }
     }
     h3 {
         font-family: "Poppins";
@@ -50,7 +72,7 @@
         color: #211d4f;
     }
     .titles {
-        margin: 0 0 0.2rem 0 !important;
+        margin: 0 0 0.8rem 0 !important;
         font-family: "Poppins";
         font-style: normal;
         font-weight: 500;
@@ -65,9 +87,18 @@
         }
     }
     .digital-wallet {
-        margin-bottom: 3rem;
+        gap: 1rem;
+        margin-bottom: 2.4rem;
         @include respond(xs) {
             justify-content: center;
+        }
+        .payment{
+            height: 4.8rem;
+            width: 12rem;
+        }
+        .payment2{
+            height: 4.8rem;
+            width: 24rem;
         }
     }
 }
