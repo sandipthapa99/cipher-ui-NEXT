@@ -2,6 +2,7 @@ import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMediaQuery } from "@mantine/hooks";
+import { QueryClient } from "@tanstack/react-query";
 import { useFacebook } from "hooks/auth/use-facebook";
 import localforage from "localforage";
 import { useRouter } from "next/router";
@@ -22,6 +23,7 @@ export const FacebookLogin = ({ login }: { login: boolean }) => {
     const nestHubMaxScreen = useMediaQuery("(width: 1280px)", true);
     const router = useRouter();
     const [FCM_TOKEN, setFCM_TOKEN] = useState("");
+    const queryClient = new QueryClient();
     const getFCMTOKEN = async () => {
         if (typeof window !== "undefined") {
             const token = await localforage.getItem<string>("fcm_token");
@@ -57,6 +59,9 @@ export const FacebookLogin = ({ login }: { login: boolean }) => {
                         : mutate(response, {
                               onSuccess: () => {
                                   toast.success("Facebook Account Connected");
+                                  queryClient.invalidateQueries([
+                                      "linked-accounts",
+                                  ]);
                               },
                               onError: (err) => {
                                   toast.error(err.message);
