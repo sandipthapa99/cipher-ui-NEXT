@@ -200,10 +200,15 @@ const TasksProfileCard = () => {
                                         (review) => (
                                             <Col md={8} key={review.id}>
                                                 <Reviews
-                                                    name={
-                                                        review?.rated_by
-                                                            .full_name
+                                                    repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
+                                                    repliedText={review.reply}
+                                                    replied={
+                                                        review.reply === null
+                                                            ? false
+                                                            : true
                                                     }
+                                                    id={review?.id}
+                                                    name={`${review?.rated_by} ${review?.rated_by?.last_name}`}
                                                     raterEmail={
                                                         review?.rated_by.email
                                                     }
