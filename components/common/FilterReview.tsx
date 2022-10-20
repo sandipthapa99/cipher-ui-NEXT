@@ -4,10 +4,10 @@ import { Col, Form, Row } from "react-bootstrap";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
 interface FilterReviewProps {
-    totalReviews: number;
+    totalReviews: number | undefined;
 }
 export const FilterReview = ({ totalReviews }: FilterReviewProps) => {
-    const [search, setSearch] = useState("-rating");
+    const [search, setSearch] = useState<string>("-rating");
 
     return (
         <Row className="td-filter-review-container">

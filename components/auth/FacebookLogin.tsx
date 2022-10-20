@@ -51,6 +51,10 @@ export const FacebookLogin = ({ login }: { login: boolean }) => {
                                   autoLogin(data.access, data.refresh);
                                   toast.success("Successfully logged in");
                                   router.push("/home");
+                                  queryClient.invalidateQueries([
+                                      "linked-accounts",
+                                  ]);
+                                  queryClient.invalidateQueries(["profile"]);
                               },
                               onError: (err) => {
                                   toast.error(err.message);
@@ -62,6 +66,7 @@ export const FacebookLogin = ({ login }: { login: boolean }) => {
                                   queryClient.invalidateQueries([
                                       "linked-accounts",
                                   ]);
+                                  queryClient.invalidateQueries(["profile"]);
                               },
                               onError: (err) => {
                                   toast.error(err.message);

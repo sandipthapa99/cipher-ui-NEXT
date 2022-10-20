@@ -589,7 +589,7 @@ const Home: NextPage<{
                                                     currency={
                                                         merchant
                                                             ?.charge_currency
-                                                            ?.code
+                                                            ?.symbol
                                                     }
                                                     happyClients={
                                                         merchant?.stats

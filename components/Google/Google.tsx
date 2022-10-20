@@ -1,9 +1,11 @@
 import { GoogleLogin } from "@react-oauth/google";
-import { QueryClient, useQuery } from "@tanstack/react-query";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { log } from "console";
 import { useGoogle } from "hooks/auth/use-Google";
+import { useData } from "hooks/use-data";
 import Cookies from "js-cookie";
 import localforage from "localforage";
+import type { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { forwardRef } from "react";
@@ -57,6 +59,10 @@ const Google = ({ login }: { login: boolean }) => {
                                   );
                                   toast.success("Successfully logged in");
                                   router.push("/home");
+                                  queryClient.invalidateQueries([
+                                      "linked-accounts",
+                                  ]);
+                                  queryClient.invalidateQueries(["profile"]);
                               },
                               onError: (err) => {
                                   toast.error(err.message);
@@ -68,6 +74,7 @@ const Google = ({ login }: { login: boolean }) => {
                                   queryClient.invalidateQueries([
                                       "linked-accounts",
                                   ]);
+                                  queryClient.invalidateQueries(["profile"]);
                               },
                               onError: (err) => {
                                   toast.error(err.message);
@@ -83,3 +90,27 @@ const Google = ({ login }: { login: boolean }) => {
     );
 };
 export default Google;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const queryClient = new QueryClient();
+        const { data: linkedAccounts } = await axiosClient.get(
+            "/user/linked-accounts/list/"
+        );
+        queryClient.prefetchQuery(["linked-accounts"]);
+        return {
+            props: {
+                linkedAccounts,
+                dehydratedState: dehydrate(queryClient),
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                linkedAccounts: [],
+            },
+            revalidate: 10,
+        };
+    }
+};
