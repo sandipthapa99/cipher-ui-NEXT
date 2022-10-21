@@ -16,6 +16,8 @@ import {
     TextInput,
 } from "@mantine/core";
 import { DateRangePicker } from "@mantine/dates";
+import { format } from "date-fns";
+import { useGetTransactionHistory } from "hooks/use-transaction-history";
 import { useState } from "react";
 
 const elements = [
@@ -72,41 +74,64 @@ const elements = [
 ];
 
 export const PaymentHistory = () => {
-    const [checkedIds, setCheckedIds] = useState<number[]>([]);
+    const [checkedIds, setCheckedIds] = useState<any>([]);
+    const { data: paymentHistory } = useGetTransactionHistory();
+
+    const newElements = paymentHistory?.result?.map((item) => {
+        return {
+            id: item?.id.toString(),
+            position: format(new Date(item?.created_at), "dd/MM/yyyy, hh:mm a"),
+            mass: `${item?.receiver?.first_name} ${item?.receiver?.last_name}`,
+            symbol: `${item?.sender?.first_name} ${item?.sender?.last_name}`,
+            name: item?.order,
+            status: item?.status,
+            ammount: `${item?.currency?.code} ${item?.amount}`,
+            is_earn: true,
+            paymentMethod: item?.payment_method?.name,
+        };
+    });
 
     const [allChecked, setAllChecked] = useState(false);
-    const allIds = elements.map((element) => element.id);
+    const allIds = newElements?.map((element) => element.id);
 
-    const rows = elements.map((element) => (
+    const rows = newElements?.map((element) => (
         <tr key={element.name}>
             <td>
                 <Checkbox
                     checked={checkedIds.includes(element.id)}
                     onChange={(event) =>
-                        setCheckedIds((previousIds) => {
+                        setCheckedIds((previousIds: any) => {
                             if (event.target.checked) {
                                 return [...previousIds, element.id];
                             }
                             return previousIds.filter(
-                                (currentId) => currentId !== element.id
+                                (currentId: any) => currentId !== element.id
                             );
                         })
                     }
                 />
             </td>
             <td>{element.position}</td>
-            <td>{element.name}</td>
+            <td>{element.id.substring(0, 8)}</td>
             <td>{element.symbol}</td>
             <td>{element.mass}</td>
-            <td>{element.mass}</td>
+            <td>{element.paymentMethod}</td>
             <td>
-                {element.status === "Success" ? (
+                {element.status === "completed" ? (
                     <Button className="w-100" color="green">
                         Success
                     </Button>
-                ) : element.status === "Failed" ? (
+                ) : element.status === "cancelled" ? (
                     <Button className="w-100" color="red">
                         Failed
+                    </Button>
+                ) : element.status === "on_hold" ? (
+                    <Button className="w-100" color="gray">
+                        onHold
+                    </Button>
+                ) : element.status === "initiated" ? (
+                    <Button className="w-100" color="blue">
+                        Initiated
                     </Button>
                 ) : (
                     <Button className="w-100" color="yellow">
@@ -114,7 +139,7 @@ export const PaymentHistory = () => {
                     </Button>
                 )}
             </td>
-            <td>{element.mass}</td>
+            <td>{element.ammount}</td>
             <td className="text-center">
                 <FontAwesomeIcon
                     icon={faEllipsisVertical}
@@ -218,7 +243,7 @@ export const PaymentHistory = () => {
                             <th>Date</th>
                             <th>Invoice Id</th>
                             <th>User</th>
-                            <th>task</th>
+                            <th>Tasker</th>
                             <th>Methods</th>
                             <th className="text-center">Status</th>
                             <th>Amount</th>
