@@ -82,8 +82,6 @@ const Home: NextPage<{
     const { data: userData } = useUser();
     const showLoginPrompt = useOpenLoginPrompt();
 
-    console.log("🚀 ~ file: index.tsx ~ line 894 ~ servicesData", servicesData);
-
     const handleShowPostTaskModal = () => {
         if (!userData) {
             showLoginPrompt();

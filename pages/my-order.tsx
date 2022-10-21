@@ -61,7 +61,8 @@ const MyOrder = () => {
                                     >
                                         <div className="d-flex justify-content-between align-items-center order-section">
                                             <span className="order-id">
-                                                Order ID: #{item?.id}
+                                                Order ID: #
+                                                {item?.id.slice(0, 8)}
                                             </span>
                                             <span className="ordered-date">
                                                 <Link
