@@ -88,10 +88,10 @@ const Login = () => {
                                     error.message
                                 );
 
-                                actions.setFieldError(
-                                    "password",
-                                    error.message
-                                );
+                                // actions.setFieldError(
+                                //     "password",
+                                //     error.message
+                                // );
                             },
                             onSuccess: async (hasProfile) => {
                                 const { next } = router.query;
