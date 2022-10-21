@@ -5,7 +5,7 @@ import {
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Modal, Text } from "@mantine/core";
+import { Button, Modal, Skeleton, Text } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
 import type { Stripe } from "@stripe/stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -16,9 +16,8 @@ import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
-import { Col, Container, NavItem, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import type { CheckoutDataProps } from "types/checkoutDataProps";
-import type { ServicesValueProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
 import CheckoutForm from "../components/CheckoutForm";
@@ -55,11 +54,12 @@ export default function Checkout() {
         { enabled: !!query }
     );
 
-    const { data: servicesCheckoutData } = useData<CheckoutDataProps>(
-        ["all-services-checkout"],
-        `/payment/order/${query}/`,
-        !!query
-    );
+    const { data: servicesCheckoutData, isLoading } =
+        useData<CheckoutDataProps>(
+            ["all-services-checkout"],
+            `/payment/order/${query}/`,
+            !!query
+        );
     const appearance = {
         theme: "stripe" as const,
         // labels: "floating",
@@ -240,6 +240,17 @@ export default function Checkout() {
                             })}
                         </div>
                     </Col>
+                    {isLoading && (
+                        <Col md={4} className="right mb-5">
+                            <Skeleton height={50} mb="xl" />
+                            <Skeleton height={150} />
+                            <Skeleton height={20} mt={30} />
+                            <Skeleton height={20} mt={20} />
+                            <Skeleton height={20} mt={10} />
+                            <Skeleton height={40} mt={30} />
+                            <Skeleton height={50} mt={30} />
+                        </Col>
+                    )}
                     {servicesCheckoutData?.data?.order_item &&
                         servicesCheckoutData?.data?.order_item?.map(
                             (item, key) => {

@@ -89,8 +89,12 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                     ))}
                 {ratingData?.map((review: any, index: any) => (
                     <Reviews
+                        repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
+                        repliedText={review.reply}
+                        replied={review.reply === null ? false : true}
+                        id={review?.id}
+                        name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
                         key={index}
-                        name={review?.rated_by.full_name}
                         raterEmail={review?.rated_by.email}
                         ratings={review?.rating}
                         description={review?.review}

@@ -3,6 +3,7 @@ import CardBtn from "@components/common/CardBtn";
 import EllipsisDropdownService from "@components/common/EllipsisDropdownService";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
+import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
@@ -41,6 +42,7 @@ import { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { getReviews } from "services/commonServices";
 import { useWithLogin } from "store/use-login-prompt-store";
+import type { RatingResponse } from "types/ratingProps";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 import { getPageUrl } from "utils/helpers";
@@ -78,6 +80,10 @@ const SearchResultsDetail = ({
         ...(service?.images ?? []),
         ...(service?.videos ?? []),
     ];
+    const { data: serviceRating } = useData<RatingResponse>(
+        ["tasker-rating", serviceId],
+        `${urls.profile.rating}?service=${serviceId}`
+    );
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
     const { data: servicesData } = useData<ServicesValueProps>(
@@ -692,23 +698,42 @@ const SearchResultsDetail = ({
                         </div>
                     )}
                 </section>
-                <FilterReview totalReviews={reviewsContent.length} />
+                <FilterReview
+                    totalReviews={serviceRating?.data?.result?.length}
+                />
+
                 <Spoiler
                     maxHeight={450}
                     hideLabel={"Hide all reviews"}
                     showLabel={"See all reviews"}
                     className={"mb-5"}
                 >
-                    {/* {reviewsContent.map((reviewContent, index) => (
-                    <Reviews key={index} {...reviewContent} />
-                ))} */}
-                    <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="Feature TO-BE Implemented"
-                        color="teal"
-                    >
-                        This feature is to be Implemented
-                    </Alert>
+                    {serviceRating &&
+                    serviceRating?.data?.result?.length > 0 ? (
+                        serviceRating?.data?.result?.map((review) => (
+                            <Col md={8} key={review.id}>
+                                <Reviews
+                                    repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
+                                    repliedText={review.reply}
+                                    replied={
+                                        review.reply === null ? false : true
+                                    }
+                                    id={review?.id}
+                                    name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
+                                    raterEmail={review?.rated_by.email}
+                                    ratings={review?.rating}
+                                    description={review?.review}
+                                    time={review?.updated_at}
+                                    raterId={review?.rated_by.id}
+                                    image={review?.rated_by.profile_image}
+                                />
+                            </Col>
+                        ))
+                    ) : (
+                        <Alert title="NO DATA AVAILABLE !!!" color="orange">
+                            Sorry, You have no task data to show
+                        </Alert>
+                    )}
                 </Spoiler>
                 <span className="td-divider"></span>
                 {/* <Row className="gx-5">

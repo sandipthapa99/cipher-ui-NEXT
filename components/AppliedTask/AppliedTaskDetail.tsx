@@ -166,7 +166,7 @@ const AppliedTaskDetail = ({
                             <Modal
                                 show={showModal}
                                 onHide={() => setShowModal(false)}
-                                backdrop="static"
+                                // backdrop="static"
                                 className="post-modal"
                             >
                                 <Modal.Header
