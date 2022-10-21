@@ -24,9 +24,9 @@ export const MyOrderItem = ({
             {orderItem?.map((item, key) => {
                 return (
                     <div className="my-task-order text-black-50" key={key}>
-                        <div className="d-flex justify-content-between align-items-center order-section">
+                        <div className="d-flex justify-content-between align-items-start align-items-lg-center order-section">
                             <span className="order-id">
-                                Item ID: #{item?.id}
+                                Item ID: #{item?.id.slice(0, 8)}
                             </span>
                             <span className="ordered-date">
                                 {format(
