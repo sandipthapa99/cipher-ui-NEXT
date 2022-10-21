@@ -1,9 +1,11 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
 import parse from "html-react-parser";
 import { useRouter } from "next/router";
@@ -59,7 +61,7 @@ const AppliedForm = ({
     const taskDescription = description
         ? description.replace(/<[^>]+>/g, "")
         : "";
-
+    const { data: user } = useUser();
     return (
         <>
             {/* Modal component */}
@@ -134,6 +136,14 @@ const AppliedForm = ({
                                     router.push("/home");
                                 },
                                 onError: (error) => {
+                                    setShow(false);
+                                    if (!user?.is_kyc_verified) {
+                                        toast.showComponent(
+                                            "KYC Incomplete",
+                                            <KYCIncompleteToast />
+                                        );
+                                        return;
+                                    }
                                     toast.error(error.message);
                                 },
                             });
@@ -172,7 +182,7 @@ const AppliedForm = ({
 
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -182,7 +192,7 @@ const AppliedForm = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
