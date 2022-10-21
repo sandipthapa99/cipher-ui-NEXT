@@ -1,5 +1,6 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
+import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
@@ -54,7 +55,7 @@ const SimpleProfileCard = ({
     const appliedTask = appliedTasks?.result.find(
         (appliedTask: any) => appliedTask?.id !== task.id
     );
-
+    console.log(task);
     const { data: approvedTasks } = useData<TaskApprovedList>(
         ["approved-task"],
         `${urls.task.approvedTaskList}`
@@ -139,7 +140,9 @@ const SimpleProfileCard = ({
                         {task?.created_by?.middle_name}{" "}
                         {task?.created_by?.last_name}
                     </p>
-                    <p className="job">{task?.created_by?.bio}</p>
+                    <Spoiler hideLabel="" showLabel="" maxHeight={50}>
+                        {task?.created_by?.bio ?? ""}
+                    </Spoiler>
                     <p className="job">{task.status}</p>
                 </div>
             </div>
