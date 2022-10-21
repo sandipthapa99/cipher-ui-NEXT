@@ -688,10 +688,10 @@ const Home: NextPage<{
             >
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
-                        <h1 className="text-center">
+                        {/* <h1 className="text-center">
                             Bridging the gap between individuals
-                        </h1>
-                        <h3 className="text-center">HOMAALE Stories</h3>
+                        </h1> */}
+                        {/* <h3 className="text-center">HOMAALE Stories</h3> */}
                     </div>
                     {topCategoryData?.length <= 0 && (
                         <Alert
