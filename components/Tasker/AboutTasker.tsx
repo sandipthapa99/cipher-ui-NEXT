@@ -148,9 +148,9 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                                                         {value?.employment_type}
                                                     </p>
                                                 </div>
-                                                <p className="description">
+                                                <div className="description">
                                                     {parse(value?.description)}
-                                                </p>
+                                                </div>
                                                 <p className="date">
                                                     {format(
                                                         new Date(

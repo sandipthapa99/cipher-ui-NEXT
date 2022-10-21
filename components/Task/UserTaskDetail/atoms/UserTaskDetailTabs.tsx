@@ -43,7 +43,7 @@ const ServiceList = ({
     taskerService: ServicesValueProps;
 }) => {
     return (
-        <>
+        <div>
             <Carousel
                 withIndicators
                 slideSize="40%"
@@ -78,6 +78,6 @@ const ServiceList = ({
                         There are No Services by this user
                     </Alert>
                 ))}
-        </>
+        </div>
     );
 };

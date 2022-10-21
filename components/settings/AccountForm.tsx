@@ -727,7 +727,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     />
                                 }
                                 disabled={isInputDisabled}
-                                minDate={new Date()}
+                                maxDate={new Date()}
                                 handleChange={(value) => {
                                     setFieldValue(
                                         "date_of_birth",
