@@ -80,6 +80,10 @@ const Help: NextPage = () => {
                                                     router.push({
                                                         pathname:
                                                             help?.redirect,
+                                                        hash: "#faq-topics",
+                                                        query: {
+                                                            topic: help?.query,
+                                                        },
                                                     })
                                                 }
                                             >
