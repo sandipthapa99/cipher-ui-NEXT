@@ -406,7 +406,7 @@ export default function Checkout() {
                     setPaymentType("esewa");
                 }}
             >
-                {paymentType !== "Khalti" ? (
+                {paymentType == "Esewa" ? (
                     <Text>{paymentType} is comming soon!</Text>
                 ) : (
                     ""
@@ -414,7 +414,7 @@ export default function Checkout() {
                 {paymentType == "" && (
                     <Text>Please choose a payment method</Text>
                 )}
-                {/* {paymentType === "Stripe" && (
+                {paymentType === "Stripe" && (
                     <div className="App mt-5 mb-5">
                         {options.clientSecret && (
                             <Elements stripe={stripePromise} options={options}>
@@ -422,7 +422,7 @@ export default function Checkout() {
                             </Elements>
                         )}
                     </div>
-                )} */}
+                )}
             </Modal>
         </Layout>
     );
