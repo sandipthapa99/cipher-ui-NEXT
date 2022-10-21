@@ -616,11 +616,22 @@ const Home: NextPage<{
             {/* Gradient Banner section Start */}
             <section className="gradient-banner">
                 <Container fluid="xl" className="px-5">
-                    <GradientBanner
+                    {/* <GradientBanner
                         title="Looking for work is not that difficult as it sounds any more"
                         subTitle="Allow us to accompany you on your journey"
                         image="/gradient-updated.png"
-                    />
+                    /> */}
+                    <Link href="/offers">
+                        <a>
+                            <Image
+                                src={"/offer-banner.svg"}
+                                alt={"gradient-image"}
+                                height={550}
+                                width={1300}
+                                objectFit="cover"
+                            />
+                        </a>
+                    </Link>
                 </Container>
             </section>
             {/* Gradient Banner section End */}
@@ -675,10 +686,10 @@ const Home: NextPage<{
             >
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
-                        <h1 className="text-center">
+                        {/* <h1 className="text-center">
                             Bridging the gap between individuals
-                        </h1>
-                        <h3 className="text-center">HOMAALE Stories</h3>
+                        </h1> */}
+                        {/* <h3 className="text-center">HOMAALE Stories</h3> */}
                     </div>
                     {topCategoryData?.length <= 0 && (
                         <Alert

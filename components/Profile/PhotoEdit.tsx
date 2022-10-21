@@ -213,7 +213,7 @@ const PhotoEdit = ({
                                     ? toBeCroppedImage
                                     : ""
                             }
-                            objectFit="horizontal-cover"
+                            //     objectFit="horizontal-cover"
                             rotation={rotation}
                             crop={crop}
                             zoom={zoom}

@@ -64,6 +64,7 @@ const MyOrder = () => {
                                                 Order ID: #
                                                 {item?.id.slice(0, 8)}
                                             </span>
+                                            {/* <p>{item.status}</p> */}
                                             <span className="ordered-date">
                                                 <Link
                                                     href={{
@@ -74,7 +75,17 @@ const MyOrder = () => {
                                                     }}
                                                 >
                                                     <a className="ms-auto mb-3">
-                                                        <Button variant="light">
+                                                        <Button
+                                                            variant="light"
+                                                            disabled={
+                                                                !(
+                                                                    item?.status ===
+                                                                        "saved" ||
+                                                                    item?.status ===
+                                                                        "awaiting_approval"
+                                                                )
+                                                            }
+                                                        >
                                                             Pay Now
                                                         </Button>
                                                     </a>
