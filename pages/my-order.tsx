@@ -66,30 +66,28 @@ const MyOrder = () => {
                                             </span>
                                             {/* <p>{item.status}</p> */}
                                             <span className="ordered-date">
-                                                <Link
-                                                    href={{
-                                                        pathname: "/checkout/",
-                                                        query: {
-                                                            id: item?.id,
-                                                        },
-                                                    }}
+                                                <Button
+                                                    variant="light"
+                                                    disabled={
+                                                        !(
+                                                            item?.status ===
+                                                                "saved" ||
+                                                            item?.status ===
+                                                                "awaiting_approval"
+                                                        )
+                                                    }
+                                                    onClick={() =>
+                                                        Router.push({
+                                                            pathname:
+                                                                "/checkout/",
+                                                            query: {
+                                                                id: item?.id,
+                                                            },
+                                                        })
+                                                    }
                                                 >
-                                                    <a className="ms-auto mb-3">
-                                                        <Button
-                                                            variant="light"
-                                                            disabled={
-                                                                !(
-                                                                    item?.status ===
-                                                                        "saved" ||
-                                                                    item?.status ===
-                                                                        "awaiting_approval"
-                                                                )
-                                                            }
-                                                        >
-                                                            Pay Now
-                                                        </Button>
-                                                    </a>
-                                                </Link>
+                                                    Pay Now
+                                                </Button>
                                             </span>
                                         </div>
                                         <MyOrderItem
