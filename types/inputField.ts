@@ -16,5 +16,4 @@ export interface InputFieldProps {
     data?: string[];
     haveIcon?: boolean;
     inputIcon?: any;
-    onChange?: () => void;
 }

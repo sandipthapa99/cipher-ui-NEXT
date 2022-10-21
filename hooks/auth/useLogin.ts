@@ -24,7 +24,13 @@ export const useLogin = () => {
             autoLogin(data.access, data.refresh);
             return data.has_profile;
         } catch (error: any) {
-            throw new Error("Invalid email or password");
+            throw new Error(
+                error.response.data.email
+                    ? error.response.data.email
+                    : error.response.data.password
+                    ? error.response.data.password
+                    : ""
+            );
         }
     });
 };

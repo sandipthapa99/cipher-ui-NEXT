@@ -17,17 +17,8 @@ export const accountFormSchema = Yup.object().shape({
     bio: stringReqOnly,
     gender: stringReqOnly,
     date_of_birth: Yup.date()
-        .transform(function (value, originalValue) {
-            if (this.isType(value)) {
-                return value;
-            }
-            const result = parse(originalValue, "dd.MM.yyyy", new Date());
-            return result;
-        })
-        .typeError("please enter a valid date")
-        .required()
-        .max("2007-11-13", "You must be over 13"),
-
+        .max(new Date(Date.now() - 410240376), "You must be at least 13 years")
+        .required("Required"),
     skill: tagValidate,
     active_hour_start: dateValidation,
     active_hour_end: dateValidation,
