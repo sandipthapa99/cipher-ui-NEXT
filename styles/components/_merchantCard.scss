@@ -13,12 +13,18 @@
 
         .thumbnail-img {
             margin: 0 0 1rem 0;
-            height: 8rem;
-            min-width: 8rem;
+            height: 8rem;            
             border: 1px solid #868e96;
             border-radius: 50%;
+            @include respond(md){
+                min-width: 8rem;
+            }            
             @include respond(sm) {
                 margin: 0 2.4rem 0 0;
+               min-width: 8rem
+            }
+            @include respond(xs){
+                width: 8rem;
             }
         }
 

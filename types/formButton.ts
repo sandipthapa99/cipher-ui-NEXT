@@ -8,4 +8,5 @@ export interface FormButtonProps {
     redirectionLink?: string;
     handleClick?: () => void;
     isLoading?: boolean;
+    disabled?: boolean;
 }
