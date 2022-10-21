@@ -10,6 +10,7 @@ import { Button, Modal, Skeleton, Text } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError, AxiosResponse } from "axios";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
@@ -20,6 +21,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import type { CheckoutDataProps } from "types/checkoutDataProps";
 import type { PaymentMethodProps } from "types/paymentMethods";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 import CheckoutForm from "../components/CheckoutForm";
 
@@ -51,7 +53,7 @@ export default function Checkout() {
     const query = router.query.id;
 
     const [opened, setOpened] = useState(false);
-    const [paymentType, setPaymentType] = useState("esewa");
+    const [paymentType, setPaymentType] = useState("");
 
     const { data: stripeData } = useQuery(
         ["stripe-data", query],
@@ -67,16 +69,23 @@ export default function Checkout() {
         { enabled: !!query }
     );
 
-    const { data: khaltiData } = useQuery(
+    const { data: khaltiData, error } = useQuery<any, AxiosError, any>(
         ["khalti-data", query],
         async () => {
-            const response = await axiosClient.post(
-                `${urls.payment.intent}khalti/`,
-                {
-                    order: query,
+            try {
+                const response = await axiosClient.post(
+                    `${urls.payment.intent}khalti/`,
+                    {
+                        order: query,
+                    }
+                );
+                return response;
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    toast.error(error?.response?.data?.message);
+                    throw new Error(error?.response?.data?.message);
                 }
-            );
-            return response;
+            }
         },
         { enabled: !!query }
     );
@@ -364,15 +373,20 @@ export default function Checkout() {
                                         </div>
                                         <Button
                                             className="checkout-btn"
+                                            disabled={paymentType === ""}
                                             onClick={() => {
-                                                paymentType === "Khalti" &&
-                                                    router.push(
-                                                        khaltiData?.data?.data
-                                                            ?.payment_url
-                                                    );
-                                                {
-                                                    paymentType !== "Khalti" &&
-                                                        setOpened(true);
+                                                if (paymentType === "Khalti") {
+                                                    error
+                                                        ? toast.error(
+                                                              "You cannot use Khalti for this payment."
+                                                          )
+                                                        : router.push(
+                                                              khaltiData?.data
+                                                                  ?.data
+                                                                  ?.payment_url
+                                                          );
+                                                } else {
+                                                    setOpened(true);
                                                 }
                                             }}
                                         >
@@ -392,12 +406,15 @@ export default function Checkout() {
                     setPaymentType("esewa");
                 }}
             >
-                {paymentType !== "khalti" ? (
+                {paymentType == "Esewa" ? (
                     <Text>{paymentType} is comming soon!</Text>
                 ) : (
                     ""
                 )}
-                {/* {paymentType === "Stripe" && (
+                {paymentType == "" && (
+                    <Text>Please choose a payment method</Text>
+                )}
+                {paymentType === "Stripe" && (
                     <div className="App mt-5 mb-5">
                         {options.clientSecret && (
                             <Elements stripe={stripePromise} options={options}>
@@ -405,7 +422,7 @@ export default function Checkout() {
                             </Elements>
                         )}
                     </div>
-                )} */}
+                )}
             </Modal>
         </Layout>
     );

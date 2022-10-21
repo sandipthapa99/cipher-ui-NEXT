@@ -15,7 +15,6 @@ import { toast } from "utils/toast";
 const ORDER_ALREADY_PROCESSED_MESSAGE = "The order has already been processed";
 
 export interface SuccessPageQuery {
-    purchase_order_id?: string;
     pidx?: string;
     payment_intent?: string;
 }
@@ -24,16 +23,20 @@ export enum PaymentMethods {
     stripe = "stripe",
 }
 export type KhaltiPayload = {
-    type: PaymentMethods.khalti;
-    order: string;
-    detail: { pidx: string };
+    verification_id: string;
+    // type: PaymentMethods.khalti;
+    // order: string;
+    // detail: { pidx: string };
 };
 export type StripePayload = {
-    type: PaymentMethods.stripe;
-    payment_intent: string;
+    verification_id: string;
+    // type: PaymentMethods.stripe;
+    // payment_intent: string;
 };
 
-export type CompleteOrderPayload = KhaltiPayload | StripePayload;
+export type CompleteOrderPayload =
+    | KhaltiPayload["verification_id"]
+    | StripePayload;
 
 const PaymentSuccess = () => {
     const router = useRouter();
@@ -44,11 +47,7 @@ const PaymentSuccess = () => {
 
     const navigateToDashboard = () => router.push("/home");
 
-    const {
-        purchase_order_id: order,
-        pidx,
-        payment_intent,
-    } = router.query as SuccessPageQuery;
+    const { pidx, payment_intent } = router.query as SuccessPageQuery;
 
     const provider = payment_intent
         ? PaymentMethods.stripe
@@ -59,27 +58,19 @@ const PaymentSuccess = () => {
         AxiosError<{ order: string[] }>,
         CompleteOrderPayload
     >(async (payload) => {
-        const { type, ...rest } = payload;
         const { data } = await axiosClient.post<{ message: string }>(
             `/payment/verify/${provider}/`,
-            rest
+            payload
         );
         return data.message;
     });
     useEffect(() => {
-        const payload =
-            order && pidx
-                ? ({
-                      type: PaymentMethods.khalti,
-                      order,
-                      detail: { pidx },
-                  } as KhaltiPayload)
-                : payment_intent
-                ? ({
-                      type: PaymentMethods.stripe,
-                      payment_intent,
-                  } as StripePayload)
-                : undefined;
+        const payload = pidx
+            ? ({
+                  verification_id: pidx,
+              } as KhaltiPayload)
+            : ({ verification_id: payment_intent } as StripePayload);
+
         if (!payload) return;
 
         completeOrderMutation(payload, {
@@ -98,7 +89,7 @@ const PaymentSuccess = () => {
                 }
             },
         });
-    }, [completeOrderMutation, order, payment_intent, pidx, provider]);
+    }, [completeOrderMutation, payment_intent, pidx, provider]);
 
     return (
         <>
