@@ -44,8 +44,6 @@ const Google = ({ login }: { login: boolean }) => {
             theme="outline"
             // width="1200px"
             onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
-
                 const newData = { ...credentialResponse, FCM_TOKEN };
 
                 {

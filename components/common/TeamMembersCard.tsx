@@ -188,13 +188,7 @@ export const TeamMembersCard = ({
                                         className="award"
                                         icon={faAward}
                                     />
-                                    <span>
-                                        {Number.isInteger(awardPercentage)
-                                            ? awardPercentage
-                                            : awardPercentage &&
-                                              awardPercentage.toFixed(2)}
-                                        {"%"}
-                                    </span>
+                                    <span>{awardPercentage}</span>
                                 </span>
                                 {/* <span className="location d-flex align-items-center">
                                     <FontAwesomeIcon

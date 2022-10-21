@@ -38,7 +38,7 @@ const BankForm = ({
     showBankForm,
 }: editProps & Display) => {
     const { mutate } = useForm(`/tasker/bank-details/`);
-
+    const [disableButton, setDisableButton] = useState(true);
     const [bankId, setBankId] = useState<string>(
         isEdit ? bankDetail.bank_name.id?.toString() || "" : ""
     );
@@ -239,6 +239,7 @@ const BankForm = ({
                             onChange={(value) => {
                                 handleBankNameChanged(value, setFieldValue);
                                 setBankId(value ? value : "");
+                                setDisableButton(false);
                             }}
                             data={bankNamesResults ?? []}
                             required
@@ -263,6 +264,7 @@ const BankForm = ({
                                 setChangeBranch(value ? value : "");
                                 handleBranchNameChanged(value, setFieldValue);
                                 setIsBankChanged(true);
+                                setDisableButton(false);
                             }}
                             data={
                                 !isLoading ? bankBranchResults : [" Loading..."]
@@ -278,6 +280,7 @@ const BankForm = ({
                                     touch={touched.bank_account_name}
                                     placeHolder="Enter Account Name"
                                     fieldRequired
+                                    // onChange={() => setDisableButton(false)}
                                 />
                             </Col>
                             <Col md={6}>
@@ -288,6 +291,7 @@ const BankForm = ({
                                     error={errors.bank_account_number}
                                     touch={touched.bank_account_number}
                                     placeHolder="Enter Account Number"
+                                    // onChange={() => setDisableButton(false)}
                                     fieldRequired
                                 />
                             </Col>
@@ -308,7 +312,9 @@ const BankForm = ({
                         <div className="d-flex justify-content-end">
                             <Button
                                 className="me-3 mb-0 cancel-btn"
-                                onClick={() => resetForm()}
+                                onClick={() => {
+                                    resetForm();
+                                }}
                             >
                                 Clear
                             </Button>
@@ -317,6 +323,7 @@ const BankForm = ({
                                 type="submit"
                                 variant="primary"
                                 name="Apply"
+                                disabled={disableButton ? true : false}
                                 className="submit-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(

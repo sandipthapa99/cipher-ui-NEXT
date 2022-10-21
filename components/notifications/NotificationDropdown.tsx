@@ -58,12 +58,9 @@ export const NotificationDropdown = () => {
 
         refetch();
     };
-    console.log("todayNotifications", todayNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
-            console.log(notification?.title);
-
             if (notification.title === "created") {
                 return (
                     <div

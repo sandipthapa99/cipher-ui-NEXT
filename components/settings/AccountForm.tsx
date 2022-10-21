@@ -127,11 +127,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     const country = profile?.country ? profile?.country.name : "";
 
-    // console.log(
-    //     "🚀 ~ file: AccountForm.tsx ~ line 122 ~ AccountForm ~ profile",
-    //     profile
-    // );
-
     const user_language = profile?.language ? profile?.language.name : "";
 
     const handleScroll = () => {
@@ -727,7 +722,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     />
                                 }
                                 disabled={isInputDisabled}
-                                // minDate={new Date()}
+                                maxDate={new Date()}
                                 handleChange={(value) => {
                                     setFieldValue(
                                         "date_of_birth",

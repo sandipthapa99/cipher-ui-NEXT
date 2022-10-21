@@ -1,6 +1,7 @@
 import type { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "@mantine/core";
+import { Button } from "react-bootstrap";
 import {
     useShowSuccessModal,
     useShowSuccessModalMessage,
@@ -20,9 +21,9 @@ export const PostCard = ({ text, buttonName, iconName, type }: Props) => {
 
     return (
         <Modal
-            show={showSuccessModal}
-            size="sm"
-            onHide={toggleSuccessModal}
+            opened={showSuccessModal}
+            size="lg"
+            onClose={() => toggleSuccessModal()}
             className="success-modal"
         >
             <div className="success-content">

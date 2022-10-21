@@ -29,7 +29,7 @@ import { KYCStatus } from "./KycStatus";
 // ];
 
 const KYCForm = () => {
-    const { data: KYCData, refetch: refetchKycData } = useGetKYC();
+    const { data: KYCData, refetch: refetchKycData, error } = useGetKYC();
 
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();

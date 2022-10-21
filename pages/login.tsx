@@ -71,15 +71,24 @@ const Login = () => {
                         username: "",
                         password: "",
                     }}
-                    onSubmit={(values) => {
+                    onSubmit={(values, actions) => {
                         const newValues = {
                             ...values,
                             fcm_token: fcmToken ? fcmToken : null,
                         };
 
                         loginMutation(newValues, {
-                            onError: (error) => {
-                                toast.error(error.message);
+                            onError: (error: any) => {
+                                console.log(error.message);
+                                actions.setFieldError(
+                                    "username",
+                                    error.message
+                                );
+
+                                // actions.setFieldError(
+                                //     "password",
+                                //     error.message
+                                // );
                             },
                             onSuccess: async (hasProfile) => {
                                 const { next } = router.query;
@@ -95,7 +104,7 @@ const Login = () => {
                         });
                     }}
                 >
-                    {({ errors, touched, setFieldValue }) => (
+                    {({ errors, touched, setFieldValue, setFieldError }) => (
                         <Form className="login-form">
                             <InputField
                                 name="username"

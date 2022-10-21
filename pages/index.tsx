@@ -82,8 +82,6 @@ const Home: NextPage<{
     const { data: userData } = useUser();
     const showLoginPrompt = useOpenLoginPrompt();
 
-    console.log("🚀 ~ file: index.tsx ~ line 894 ~ servicesData", servicesData);
-
     const handleShowPostTaskModal = () => {
         if (!userData) {
             showLoginPrompt();
@@ -238,24 +236,31 @@ const Home: NextPage<{
                 className="trusted-brand-section"
             >
                 {/* <Container fluid="xl" className="px-5"> */}
-                <Marquee gradient={true} className="marquee" speed={40}>
+                <Marquee
+                    gradient={true}
+                    className="marquee"
+                    speed={40}
+                    pauseOnHover
+                >
                     {trustedPartnerData?.map((value, key) => (
-                        <Link href={value?.redirect_url} key={key}>
-                            <li className="light">
-                                <a>
-                                    {value?.logo && (
-                                        <figure>
-                                            <Image
-                                                src={value?.logo}
-                                                alt={value?.alt_text}
-                                                layout="fill"
-                                                objectFit="contain"
-                                            ></Image>
-                                        </figure>
-                                    )}
-                                </a>
-                            </li>
-                        </Link>
+                        <li className="light" key={key}>
+                            <a
+                                href={value?.redirect_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {value?.logo && (
+                                    <figure>
+                                        <Image
+                                            src={value?.logo}
+                                            alt={value?.alt_text}
+                                            layout="fill"
+                                            objectFit="contain"
+                                        ></Image>
+                                    </figure>
+                                )}
+                            </a>
+                        </li>
                     ))}
                 </Marquee>
                 {/* </Container> */}

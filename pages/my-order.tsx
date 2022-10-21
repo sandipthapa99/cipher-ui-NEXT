@@ -6,12 +6,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
+import { Router, useRouter } from "next/router";
 import React from "react";
 import { Container } from "react-bootstrap";
 import type { MyOrderProps } from "types/myOrderProps";
 import { axiosClient } from "utils/axiosClient";
 
 const MyOrder = () => {
+    const router = useRouter();
     const { data: userData } = useUser();
     const userId = userData?.id ?? "";
     const { data: mytaskData, isFetching } = useQuery(
@@ -61,23 +63,33 @@ const MyOrder = () => {
                                     >
                                         <div className="d-flex justify-content-between align-items-center order-section">
                                             <span className="order-id">
-                                                Order ID: #{item?.id}
+                                                Order ID: #
+                                                {item?.id.slice(0, 8)}
                                             </span>
+                                            {/* <p>{item.status}</p> */}
                                             <span className="ordered-date">
-                                                <Link
-                                                    href={{
-                                                        pathname: "/checkout/",
-                                                        query: {
-                                                            id: item?.id,
-                                                        },
-                                                    }}
+                                                <Button
+                                                    variant="light"
+                                                    disabled={
+                                                        !(
+                                                            item?.status ===
+                                                                "saved" ||
+                                                            item?.status ===
+                                                                "awaiting_approval"
+                                                        )
+                                                    }
+                                                    onClick={() =>
+                                                        router.push({
+                                                            pathname:
+                                                                "/checkout/",
+                                                            query: {
+                                                                id: item?.id,
+                                                            },
+                                                        })
+                                                    }
                                                 >
-                                                    <a className="ms-auto mb-3">
-                                                        <Button variant="light">
-                                                            Pay Now
-                                                        </Button>
-                                                    </a>
-                                                </Link>
+                                                    Pay Now
+                                                </Button>
                                             </span>
                                         </div>
                                         <MyOrderItem
