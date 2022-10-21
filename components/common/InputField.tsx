@@ -14,6 +14,7 @@ const InputField = ({
     haveIcon,
     labelName,
     textMuted,
+    onChange,
     as,
     fieldRequired,
     ...restProps

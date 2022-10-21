@@ -26,7 +26,7 @@ export const accountFormSchema = Yup.object().shape({
         })
         .typeError("please enter a valid date")
         .required()
-        .max("2007-11-13", "You must be over 18"),
+        .max("2007-11-13", "You must be over 13"),
 
     skill: tagValidate,
     active_hour_start: dateValidation,
