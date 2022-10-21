@@ -56,7 +56,6 @@ export const MyBookingsCard = ({
     designation,
 }: Props) => {
     const userId = tasker;
-    console.log("tasker", tasker);
     const isBookmarked = useIsBookmarked("user", userId);
     const queryClient = useQueryClient();
 

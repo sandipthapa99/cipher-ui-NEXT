@@ -41,8 +41,6 @@ export const FacebookLogin = ({ login }: { login: boolean }) => {
     return (
         <ReactFacebookLogin
             callback={(response) => {
-                console.log(response);
-
                 const newData = { ...response, FCM_TOKEN };
                 {
                     login

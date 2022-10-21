@@ -55,7 +55,6 @@ const SimpleProfileCard = ({
     const appliedTask = appliedTasks?.result.find(
         (appliedTask: any) => appliedTask?.id !== task.id
     );
-    console.log(task);
     const { data: approvedTasks } = useData<TaskApprovedList>(
         ["approved-task"],
         `${urls.task.approvedTaskList}`

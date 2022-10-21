@@ -17,8 +17,6 @@ export const MyOrderItem = ({
 }: {
     orderItem: MyOrderProps["result"][0]["order_item"];
 }) => {
-    console.log("🚀 ~ file: MyOrder.tsx ~ line 20 ~ orderItem", orderItem);
-
     return (
         <>
             {orderItem?.map((item, key) => {

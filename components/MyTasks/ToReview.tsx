@@ -24,8 +24,6 @@ export const ToReview = () => {
             enabled: !!userId,
         }
     );
-    console.log("myTaskData", mytaskData);
-
     return (
         <div className="my-task">
             {/* <h3>My Tasks</h3> */}

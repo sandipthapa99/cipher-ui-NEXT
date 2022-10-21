@@ -79,10 +79,7 @@ const Login = () => {
 
                         loginMutation(newValues, {
                             onError: (error: any) => {
-                                console.log(
-                                    "🚀 ~ file: login.tsx ~ line 82 ~ Login ~ error",
-                                    error.message
-                                );
+                                console.log(error.message);
                                 actions.setFieldError(
                                     "username",
                                     error.message
