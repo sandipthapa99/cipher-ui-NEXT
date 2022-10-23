@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 // import { parse } from "path";
 import { useState } from "react";
+import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import { toast } from "utils/toast";
 
@@ -33,6 +34,7 @@ const ServiceCard = ({
     const { data: user } = useUser();
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
+    const withLogin = useWithLogin();
 
     const userId = profileDetails?.user.id;
 
@@ -241,7 +243,7 @@ const ServiceCard = ({
                                 : "Book Now"
                         }`}
                         backgroundColor="#211D4F"
-                        handleClick={handleShowModal}
+                        handleClick={withLogin(handleShowModal)}
                     />
                 </div>
             </div>

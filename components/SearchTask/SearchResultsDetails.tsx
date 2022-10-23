@@ -38,7 +38,7 @@ import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { getReviews } from "services/commonServices";
 import { useWithLogin } from "store/use-login-prompt-store";
@@ -360,8 +360,8 @@ const SearchResultsDetail = ({
                 <Row>
                     <Col md={12} lg={7}>
                         {(taskVideosAndImages ?? []).length === 1 &&
-                            taskVideosAndImages.map((file) => (
-                                <>
+                            taskVideosAndImages.map((file, index) => (
+                                <Fragment key={index}>
                                     {isImage(file.media_type) ? (
                                         <figure className="thumbnail-img">
                                             <Image
@@ -387,7 +387,7 @@ const SearchResultsDetail = ({
                                             playing videos.
                                         </video>
                                     ) : null}
-                                </>
+                                </Fragment>
                             ))}
                         {(taskVideosAndImages ?? []).length > 1 ? (
                             <Carousel
@@ -483,7 +483,10 @@ const SearchResultsDetail = ({
                                                 {serviceProvider}
                                             </p>
                                             <p className="job">
-                                                {serviceTitle}
+                                                {`${service?.created_by?.bio?.slice(
+                                                    0,
+                                                    20
+                                                )}...`}
                                             </p>
                                         </div>
                                     </div>

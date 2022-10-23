@@ -14,7 +14,7 @@ const ApplyPost = () => {
                 <Col md={Number(query.activeTab) === 4 ? 12 : 8}>
                     <SearchBySort />
                 </Col>
-                {Number(query.activeTab) !== 3 && (
+                {Number(query.activeTab) !== 4 && (
                     <Col md={4}>
                         <div className="getting-started">
                             <GettingStartedTask />

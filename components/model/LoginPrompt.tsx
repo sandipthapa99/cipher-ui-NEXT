@@ -1,6 +1,13 @@
 import { faKey, faUser } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Modal, PasswordInput, Stack, TextInput } from "@mantine/core";
+import {
+    Button,
+    Modal,
+    PasswordInput,
+    Stack,
+    TextInput,
+    useMantineTheme,
+} from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
 import localforage from "localforage";
@@ -23,6 +30,8 @@ export const LoginPrompt = () => {
     const pausedFunction = usePausedFunction();
     const clearPausedFunction = useClearPausedFunction();
 
+    const theme = useMantineTheme();
+
     const router = useRouter();
 
     useEffect(() => {
@@ -35,6 +44,7 @@ export const LoginPrompt = () => {
     }, [hideLoginPrompt, router.events]);
     return (
         <Modal
+            overlayColor="rgba(0, 0, 0, 0.35)"
             centered
             opened={showLoginPrompt}
             onClose={hideLoginPrompt}

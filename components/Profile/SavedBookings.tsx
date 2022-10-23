@@ -15,8 +15,6 @@ const SavedBookings = () => {
         (bookmark) => bookmark.data.is_requested
     );
 
-    console.log("user bookmarks data", userBookmarks);
-
     return (
         <div className="saved-bookings px-5">
             <Row>

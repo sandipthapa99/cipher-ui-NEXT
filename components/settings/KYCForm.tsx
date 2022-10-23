@@ -30,7 +30,6 @@ import { KYCStatus } from "./KycStatus";
 
 const KYCForm = () => {
     const { data: KYCData, refetch: refetchKycData, error } = useGetKYC();
-    console.log(error, "error");
 
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();

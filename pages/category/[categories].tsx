@@ -216,8 +216,6 @@ const Gardening = ({
                                                     merchant?.rating?.avg_rating
                                                 }
                                                 merchantPrice={
-                                                    merchant?.charge_currency
-                                                        ?.code +
                                                     merchant?.hourly_rate
                                                 }
                                                 happyClients={
@@ -225,10 +223,15 @@ const Gardening = ({
                                                         ?.happy_clients
                                                 }
                                                 successRate={
-                                                    merchant?.stats
-                                                        ?.success_rate
+                                                    +merchant?.stats?.success_rate?.toFixed(
+                                                        2
+                                                    )
                                                 }
                                                 merchantId={merchant?.user?.id}
+                                                currency={
+                                                    merchant?.charge_currency
+                                                        ?.symbol
+                                                }
                                             />
                                         </Col>
                                     );

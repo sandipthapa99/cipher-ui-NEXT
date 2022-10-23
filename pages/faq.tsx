@@ -8,6 +8,7 @@ import { Form, Formik } from "formik";
 import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
 import type { GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
 import { Accordion, Container } from "react-bootstrap";
 import { useToggleSuccessModal } from "store/use-success-modal";
@@ -37,6 +38,9 @@ const FAQ = ({ faqTopicData }: FAQData) => {
         ["topic-faqs"],
         "support/faq/?page=-1"
     );
+    const router = useRouter();
+
+    const defaultActiveKey = router.query.topic ? router.query.topic : "";
 
     const { mutate } = useForm("/support/contactus/");
     const toggleSuccessModal = useToggleSuccessModal();
@@ -80,14 +84,17 @@ const FAQ = ({ faqTopicData }: FAQData) => {
                             </Accordion>
                         </section>
 
-                        <section className="faq-topics">
+                        <section className="faq-topics" id="faq-topics">
                             <h1>Topics</h1>
-                            <Accordion flush>
+                            <Accordion
+                                defaultActiveKey={defaultActiveKey}
+                                flush
+                            >
                                 {faqTopicData?.result?.length > 0
                                     ? faqTopicData?.result?.map(
                                           (value, key) => (
                                               <Accordion.Item
-                                                  eventKey={key.toString()}
+                                                  eventKey={value?.topic}
                                                   key={key}
                                               >
                                                   <Accordion.Header>
