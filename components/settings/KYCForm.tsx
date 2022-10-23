@@ -61,9 +61,11 @@ const KYCForm = () => {
 
     const foundCountry = countryResults.find((item) => item.label === country);
     const router = useRouter();
-    const [showKYCRead, setShowKYCRead] = useState(false);
+    // const [showKYCRead, setShowKYCRead] = useState(false);
 
     if (!profileDetails) return null;
+    console.log(KYCData, "KYCData");
+
     return (
         <>
             {/* Modal component */}
@@ -150,7 +152,7 @@ const KYCForm = () => {
                                         // toggleSuccessModal();
                                         refetchKycData();
                                         toast.success(
-                                            "KYC Details Added Successfully"
+                                            "KYC Details Added Successfully and Add a verification document"
                                         );
 
                                         //queryClient.invalidateQueries(["GET_KYC"]);
@@ -181,6 +183,9 @@ const KYCForm = () => {
                                         error={errors.full_name}
                                         touch={touched.full_name}
                                         placeHolder="Enter your Full Name"
+                                        disabled={
+                                            KYCData?.full_name ? true : false
+                                        }
                                         // disabled={
                                         //     profileDetails?.full_name ? true : false
                                         // }
@@ -197,6 +202,9 @@ const KYCForm = () => {
                                         placeholder="Enter your address"
                                         onPlaceChange={(place) =>
                                             setFieldValue("address", place)
+                                        }
+                                        disabled={
+                                            KYCData?.address ? true : false
                                         }
                                     />
                                     {/* <SelectInputField
@@ -226,6 +234,9 @@ const KYCForm = () => {
                                             )
                                         }
                                         data={countryResults ?? []}
+                                        disabled={
+                                            KYCData?.country ? true : false
+                                        }
                                     />
 
                                     {/* <h5>Bank Details (Optional)</h5>
@@ -311,24 +322,26 @@ const KYCForm = () => {
                                 </Col>
                             </Row> */}
                                     {/* {showButtons ? ( */}
-                                    <div className="d-flex mt-5 justify-content-end">
-                                        <Button
-                                            className="me-3 mb-0 cancel-btn"
-                                            onClick={() => resetForm}
-                                        >
-                                            Cancel
-                                        </Button>
-                                        <FormButton
-                                            type="submit"
-                                            variant="primary"
-                                            name="Continue"
-                                            className="submit-btn"
-                                            isSubmitting={isSubmitting}
-                                            isSubmittingClass={isSubmittingClass(
-                                                isSubmitting
-                                            )}
-                                        />
-                                    </div>
+                                    {!KYCData && (
+                                        <div className="d-flex mt-5 justify-content-end">
+                                            <Button
+                                                className="me-3 mb-0 cancel-btn"
+                                                onClick={() => resetForm}
+                                            >
+                                                Cancel
+                                            </Button>
+                                            <FormButton
+                                                type="submit"
+                                                variant="primary"
+                                                name="Continue"
+                                                className="submit-btn"
+                                                isSubmitting={isSubmitting}
+                                                isSubmittingClass={isSubmittingClass(
+                                                    isSubmitting
+                                                )}
+                                            />
+                                        </div>
+                                    )}
                                 </Form>
                             )}
                         </Formik>

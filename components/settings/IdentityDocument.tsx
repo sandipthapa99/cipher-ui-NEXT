@@ -173,7 +173,7 @@ export const IdentityDocument = () => {
                                         className="svg-icons"
                                     />
                                 }
-                                minDate={new Date()}
+                                // minDate={new Date()}
                                 handleChange={(value) => {
                                     setFieldValue(
                                         "issued_date",
