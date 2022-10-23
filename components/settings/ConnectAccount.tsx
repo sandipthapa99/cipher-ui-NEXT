@@ -73,8 +73,6 @@ const ConnectAccount = ({
                                     setShow(true);
 
                                     //disconnectAccount(id);
-
-                                    //console.log("kjjasdfa", values.id);
                                 }}
                             />
                         ) : name === "Google" ? (

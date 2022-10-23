@@ -127,11 +127,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     const country = profile?.country ? profile?.country.name : "";
 
-    // console.log(
-    //     "🚀 ~ file: AccountForm.tsx ~ line 122 ~ AccountForm ~ profile",
-    //     profile
-    // );
-
     const user_language = profile?.language ? profile?.language.name : "";
 
     const handleScroll = () => {

@@ -144,7 +144,7 @@ export const UserTaskDetailHeader = ({
                             className="td-user-name"
                             data-is-online={JSON.stringify(true)}
                         >
-                            {`${taskerDetail?.user.first_name} ${taskerDetail?.user.middle_name} ${taskerDetail?.user.last_name}`}
+                            {`${taskerDetail?.user?.first_name} ${taskerDetail?.user?.middle_name} ${taskerDetail?.user?.last_name}`}
                         </h4>
                         <p className="td-text mb-4">{userType}</p>
 
