@@ -12,6 +12,7 @@ import type { GooglePlacesResponse } from "types/googlePlacesResponse";
 
 interface PlacesAutocompleteProps extends Omit<AutocompleteProps, "data"> {
     onPlaceChange: (place: string) => void;
+    disabled?: boolean;
 }
 
 const usePlaces = (input: string, location: string) =>
@@ -31,6 +32,7 @@ const usePlaces = (input: string, location: string) =>
 export const PlacesAutocomplete = ({
     value,
     onPlaceChange,
+    disabled,
     ...props
 }: PlacesAutocompleteProps) => {
     const [input, setInput] = useState(value ?? "");
@@ -59,10 +61,7 @@ export const PlacesAutocomplete = ({
             icon={<FontAwesomeIcon icon={faLocation} />}
             rightSection={
                 input && !isLoading ? (
-                    <ActionIcon
-                        disabled={props.disabled}
-                        onClick={clearSearchQuery}
-                    >
+                    <ActionIcon disabled={disabled} onClick={clearSearchQuery}>
                         <FontAwesomeIcon icon={faClose} />
                     </ActionIcon>
                 ) : isLoading ? (
@@ -72,6 +71,7 @@ export const PlacesAutocomplete = ({
             data={autocompleteData}
             value={input}
             onChange={handleChange}
+            disabled={disabled}
         />
     );
 };

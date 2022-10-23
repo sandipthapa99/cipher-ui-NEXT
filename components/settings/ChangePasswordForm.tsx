@@ -86,7 +86,7 @@ const ChangePasswordForm = () => {
                                                 )}
                                             </pre>
                                         } */}
-                                        {userDetails?.social_only && (
+                                        {!userDetails?.social_only && (
                                             <PasswordField
                                                 typeOf="password"
                                                 name="old_password"
@@ -141,7 +141,7 @@ const ChangePasswordForm = () => {
                         </div>
                     </Accordion.Panel>
                 </Accordion.Item>
-                {userDetails?.social_only && (
+                {!userDetails?.social_only && (
                     <Accordion.Item value="phone-number">
                         <Accordion.Control>
                             <p className="m-0 font-weight-normal">
@@ -156,7 +156,7 @@ const ChangePasswordForm = () => {
                     </Accordion.Item>
                 )}
 
-                {userDetails?.social_only && (
+                {!userDetails?.social_only && (
                     <Accordion.Item value="email-address">
                         <Accordion.Control>
                             <p className="m-0 font-weight-normal">
