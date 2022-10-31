@@ -25,8 +25,8 @@ export const useLogin = () => {
             return data.has_profile;
         } catch (error: any) {
             throw new Error(
-                error.response.data.email
-                    ? error.response.data.email
+                error.response.data.username
+                    ? error.response.data.username
                     : error.response.data.password
                     ? error.response.data.password
                     : ""
