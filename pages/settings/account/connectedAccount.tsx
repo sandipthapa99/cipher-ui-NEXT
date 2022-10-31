@@ -4,7 +4,7 @@ import React from "react";
 
 const connectedAccount = () => {
     return (
-        <SettingsLayout>
+        <SettingsLayout title="Connected Accounts">
             <ConnectedAccount />
         </SettingsLayout>
     );

@@ -63,6 +63,7 @@ const Login = () => {
             mainImg="/illustrations/login.svg"
             redirectionLink="/signup"
             currentPage="login"
+            title="Homaale | Login"
         >
             <div>
                 <Formik

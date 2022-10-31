@@ -178,7 +178,7 @@ const BookNowModalCard = ({
                                         <Col md={6}>
                                             <MantineDateField
                                                 name="start_date"
-                                                labelName="Starter Date"
+                                                labelName="Start Date"
                                                 placeHolder="Select Start Date"
                                                 error={errors.start_date}
                                                 touch={touched.start_date}

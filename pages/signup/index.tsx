@@ -36,6 +36,7 @@ const SignUp = () => {
             mainImg="/illustrations/rocket.svg"
             redirectionLink="/login"
             currentPage="client-signup"
+            title="Homaale | Signup"
         >
             <div className="cipher modals signup">
                 <Formik

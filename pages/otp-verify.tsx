@@ -26,6 +26,7 @@ const VerifyOtp = () => {
             headerText="Reset your password?"
             mainImg="/illustrations/forgot-pass.svg"
             redirectionLink="/login"
+            title="OTP Verification"
         >
             <Formik
                 initialValues={{ otp: "", password: "", confirm_password: "" }}

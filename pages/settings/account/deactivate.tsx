@@ -4,7 +4,7 @@ import React from "react";
 
 const Deactivate = () => {
     return (
-        <SettingsLayout>
+        <SettingsLayout title="Account Deactivation">
             <DeactivateAccount />
         </SettingsLayout>
     );

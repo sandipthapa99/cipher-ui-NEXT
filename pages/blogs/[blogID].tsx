@@ -17,7 +17,7 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
     // const category = JSON.parse(blog?.category);
     if (!blog) return null;
     return (
-        <Layout>
+        <Layout title={`Homaale Blog | ${blog?.title}`}>
             <section className="single-blog">
                 <Container fluid="xl" className="px-4">
                     <div className="single-blog__heading-section">

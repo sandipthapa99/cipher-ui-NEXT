@@ -885,7 +885,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <PlacesAutocomplete
                                 size="md"
                                 label="Address Line 1"
-                                placeholder="Enter your available address"
+                                placeholder="Enter your primary address"
                                 disabled={isInputDisabled}
                                 error={
                                     touched.address_line1 &&
