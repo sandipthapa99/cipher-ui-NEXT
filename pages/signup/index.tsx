@@ -7,6 +7,7 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Radio } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
@@ -69,7 +70,11 @@ const SignUp = () => {
                             { ...payloadValue() },
                             {
                                 onSuccess: async () => {
-                                    if (choosedValue === "phone") {
+                                    if (
+                                        choosedValue === "phone" &&
+                                        phone !== undefined
+                                    ) {
+                                        Cookies.set("phone", phone);
                                         setShow(true);
                                     }
 
