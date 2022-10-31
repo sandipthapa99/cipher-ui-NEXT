@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export interface OnBoardingLayoutProps {
     topLeftText?: string;
@@ -9,4 +9,9 @@ export interface OnBoardingLayoutProps {
     currentPage?: string;
     mainImg: string;
     children: ReactNode;
+    title?: string;
+    description?: string;
+    ogImage?: string;
+    ogUrl?: string;
+    keywords?: string;
 }

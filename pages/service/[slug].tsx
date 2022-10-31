@@ -17,7 +17,7 @@ const ServicesDetail = ({
 }) => {
     return (
         <>
-            <ServiceLayout>
+            <ServiceLayout title={service?.title}>
                 <SearchResultsDetail
                     image={service?.images}
                     budget_from={service?.budget_from}

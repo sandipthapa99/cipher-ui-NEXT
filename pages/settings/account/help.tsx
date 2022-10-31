@@ -4,7 +4,7 @@ import React from "react";
 
 const HelpLegal = () => {
     return (
-        <SettingsLayout>
+        <SettingsLayout title="Help & Legal">
             <HelpSettings />
         </SettingsLayout>
     );

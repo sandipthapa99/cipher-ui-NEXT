@@ -12,7 +12,15 @@ import { Container } from "react-bootstrap";
 
 import TaskerAside from "./TaskerAside";
 
-const TaskerLayout = ({ children }: { children: ReactNode }) => {
+const TaskerLayout = ({
+    children,
+    title,
+    description,
+}: {
+    children: ReactNode;
+    title?: string;
+    description?: string;
+}) => {
     const [searchParam, setSearchParam] = useState("");
     const clearSearchedTaskers = useClearSearchedTaskers();
     const clearSearchQuery = useClearSearchQuery();
@@ -27,7 +35,9 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
         setSearchParam(searchParam);
     };
     return (
-        <Layout title="Find Tasker | Homaale">
+        <Layout
+            title={`${title ? `Taskers | ${title}` : "Find Taskers | Homaale"}`}
+        >
             <section className="Tasker-section" id="Tasker-section">
                 <Container fluid="xl" className="px-5 pb-5">
                     <SearchCategory

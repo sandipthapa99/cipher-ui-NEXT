@@ -30,6 +30,7 @@ const ForgotPassword = () => {
             mainImg="/illustrations/forgot-pass.svg"
             redirectionLink="/login"
             currentPage="forgot-password"
+            title="Forgot Password"
         >
             <div className="choose-email-or-phone mb-5">
                 <Radio.Group

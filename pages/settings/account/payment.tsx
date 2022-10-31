@@ -4,7 +4,7 @@ import React from "react";
 
 const Notification = () => {
     return (
-        <SettingsLayout>
+        <SettingsLayout title="Payment Settings">
             <PaymentSettings />
         </SettingsLayout>
     );

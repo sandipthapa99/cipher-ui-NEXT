@@ -12,7 +12,15 @@ import { Container } from "react-bootstrap";
 
 import ServiceAside from "./ServiceAside";
 
-const ServiceLayout = ({ children }: { children: ReactNode }) => {
+const ServiceLayout = ({
+    children,
+    title,
+    description,
+}: {
+    children: ReactNode;
+    title?: string;
+    description?: string;
+}) => {
     const [searchParam, setSearchParam] = useState("");
 
     const clearSearchQuery = useClearSearchQuery();
@@ -29,7 +37,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <Layout title="Find Services | Homaale">
+        <Layout title={`Homaale | ${title ? title : `Find Services`}`}>
             <section className="service-section mb-5" id="service-section">
                 <Container fluid="xl" className="px-5 pb-5">
                     <SearchCategory

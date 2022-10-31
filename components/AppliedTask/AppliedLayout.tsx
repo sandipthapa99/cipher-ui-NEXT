@@ -24,13 +24,17 @@ export const useSearchTask = (searchQuery: string) => {
 const AppliedLayout = ({
     children,
     type,
+    title,
+    description,
 }: {
     children: ReactNode;
     type?: string;
+    title?: string;
+    description?: string;
 }) => {
     const [searchParam, setSearchParam] = useState("");
     return (
-        <Layout title="Find Tasks | Homaale">
+        <Layout title={`Homaale | ${title ? title : `Find Tasks`}`}>
             <section className="Tasks-section mb-5" id="Tasks-section">
                 <Container fluid="xl" className="px-5 pb-5">
                     <SearchCategory
