@@ -1,11 +1,14 @@
+import { useMutation } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useForm } from "hooks/use-form";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import OtpInput from "react-otp-input";
+import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
 interface AuthenticationModalCardProps {
@@ -17,6 +20,10 @@ interface AuthProps {
     otp?: string;
     phone: string;
     scope: string;
+}
+interface ResendOtpPayload {
+    phone: string;
+    method: string;
 }
 
 const AuthenticationModalCard = ({
@@ -34,6 +41,10 @@ const AuthenticationModalCard = ({
     const handleChange = (otpNum: string) => {
         setOTPNum(otpNum);
     };
+    const resendOtpMutation = useMutation((data: ResendOtpPayload) => {
+        return axiosClient.post(`/security/multi-factor/otp/create/`, data);
+    });
+    const phoneNum = Cookies.get("phone");
     const handleSubmit = () => {
         const dataToSend = {
             otp: otpNum,
@@ -50,7 +61,7 @@ const AuthenticationModalCard = ({
                 {
                     userDetails
                         ? toast.success("Successfully added phone number")
-                        : toast.success("Successfully changed phone number.");
+                        : toast.success("Successfully signed In.");
                 }
                 // toast.success("OTP verified!");
                 setShowForm(false);
@@ -58,9 +69,11 @@ const AuthenticationModalCard = ({
             },
             onError: async (error) => {
                 toast.error("Invalid OTP");
+                setOTPNum("");
             },
         });
     };
+
     return (
         <>
             {/* Modal component */}
@@ -94,6 +107,33 @@ const AuthenticationModalCard = ({
                                     outline: "none",
                                 }}
                             />
+                        </div>
+                        <div className="resend-otp">
+                            <p
+                                className="m-0 "
+                                onClick={() => {
+                                    if (phoneNum) {
+                                        resendOtpMutation.mutate(
+                                            {
+                                                phone: phoneNum,
+                                                method: "SMS",
+                                            },
+                                            {
+                                                onSuccess: () => {
+                                                    toast.success(
+                                                        "OTP sent successfully"
+                                                    );
+                                                },
+                                                onError: (err: any) => {
+                                                    toast.error(err.message);
+                                                },
+                                            }
+                                        );
+                                    }
+                                }}
+                            >
+                                Resend Otp
+                            </p>
                         </div>
                     </div>
 

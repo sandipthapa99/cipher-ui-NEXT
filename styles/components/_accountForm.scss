@@ -78,6 +78,17 @@
                 }
             }
         }
+        .resend-otp{
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            margin-top: 1rem;
+            p{
+                color: #3eaeff;
+                cursor: pointer;
+
+            }
+        }
 
         .modal-footer {
             border-top: none !important;
