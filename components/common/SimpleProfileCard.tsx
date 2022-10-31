@@ -176,7 +176,7 @@ const SimpleProfileCard = ({
                 </div>
             )} */}
 
-            <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
+            <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row simple-card__price">
                 {task?.budget_from && task?.budget_to ? (
                     <>
                         <span>Budget Range</span>

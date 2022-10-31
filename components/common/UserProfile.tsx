@@ -436,7 +436,9 @@ const UserProfileCard = ({
                         <Col md={3} xs={6}>
                             <div className="type success-rate">
                                 <h1 className="number">
-                                    {stats?.success_rate.toFixed(1)}
+                                    {stats?.success_rate
+                                        ? stats?.success_rate.toFixed(1)
+                                        : 0}
                                 </h1>
                                 <p>
                                     Success

@@ -3,7 +3,10 @@
     &__top-container {
         border: 0.6rem;
         margin: 5rem 2.5rem;
-        margin-right: 6rem;
+
+        @include respond(md) {
+            margin-right: 6rem;
+        }
 
         .thumbnail-img {
             height: 27rem;

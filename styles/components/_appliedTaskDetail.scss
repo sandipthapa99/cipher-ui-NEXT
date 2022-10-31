@@ -1,8 +1,8 @@
 .task-detail__loc-time {
     @include respond(xs) {
-        flex-wrap: wrap;
         justify-content: space-between;
     }
+    flex-wrap: wrap;
 }
 .task-detail {
     padding: 2rem;
