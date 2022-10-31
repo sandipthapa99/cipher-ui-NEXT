@@ -701,10 +701,11 @@ const SearchResultsDetail = ({
                         </div>
                     )}
                 </section>
+                <hr />
                 <FilterReview
                     totalReviews={serviceRating?.data?.result?.length}
                 />
-
+                <hr />
                 <Spoiler
                     maxHeight={450}
                     hideLabel={"Hide all reviews"}
