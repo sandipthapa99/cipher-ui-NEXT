@@ -139,7 +139,7 @@ export const IdentityDocument = () => {
                                 labelName="Document ID"
                                 error={errors.document_id}
                                 touch={touched.document_id}
-                                placeHolder="Enter your Account Name"
+                                placeHolder="Enter your document number"
                             />
                         </Col>
                         <Col md={6}>
@@ -148,7 +148,7 @@ export const IdentityDocument = () => {
                                 labelName=" Issuer Organization"
                                 error={errors.issuer_organization}
                                 touch={touched.issuer_organization}
-                                placeHolder="Enter your Account Name"
+                                placeHolder="Enter document Issuer Organization"
                             />
                         </Col>
                     </Row>
