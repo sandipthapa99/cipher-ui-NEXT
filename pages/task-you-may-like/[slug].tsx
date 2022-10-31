@@ -11,7 +11,7 @@ const TaskDetail: NextPage<{
 }> = ({ taskDetail, taskApplicants }) => {
     return (
         <>
-            <AppliedLayout type={"you may like"}>
+            <AppliedLayout type={"you may like"} title={taskDetail?.title}>
                 <AppliedTaskDetail
                     type={"you may like"}
                     taskDetail={taskDetail}

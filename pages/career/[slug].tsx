@@ -20,7 +20,7 @@ const CareerDeatils = ({
     career: CareerValueProps["result"][0];
 }) => {
     return (
-        <Layout title="Homaale | Careers">
+        <Layout title={`Careers | ${career?.title}`}>
             <section id="careers-details-section" className="careers-section">
                 <BreadCrumb currentPage={career?.title} />
                 <Container fluid="xl">

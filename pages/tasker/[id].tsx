@@ -16,7 +16,11 @@ const TaskerDetail = ({
 }) => {
     return (
         <>
-            <TaskerLayout>
+            <TaskerLayout
+                title={`${tasker?.user?.first_name}${" "}${
+                    tasker?.user?.last_name
+                }`}
+            >
                 <UserTaskDetail
                     taskerService={taskerService}
                     taskerDetail={tasker}

@@ -33,7 +33,7 @@ const Individual = () => {
 
     return (
         <>
-            <SettingsLayout>
+            <SettingsLayout title="Account Settings">
                 {!showBankForm || (!showAccountForm && !profile) ? (
                     <CompleteProfile
                         onClick={() => {

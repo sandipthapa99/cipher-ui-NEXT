@@ -12,20 +12,27 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { title } from "process";
 import type { ReactNode } from "react";
 import React from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";
 
 import Layout from "./Layout";
 
-const SettingsLayout = ({ children }: { children: ReactNode }) => {
+const SettingsLayout = ({
+    children,
+    title,
+}: {
+    children: ReactNode;
+    title: string;
+}) => {
     const router = useRouter();
 
     const isRouteActive = (pathname: string) =>
         router.asPath === pathname ? "active" : "";
 
     return (
-        <Layout title="Settings" description="User profile settings">
+        <Layout title={title} description="User profile settings">
             <section className="account-settings" id="account-settings">
                 <Container fluid="xl">
                     <Row>

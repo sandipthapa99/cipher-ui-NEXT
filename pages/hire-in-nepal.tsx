@@ -91,9 +91,9 @@ const HireInNepal: NextPage = () => {
                                         happyClients={
                                             item?.stats?.happy_clients
                                         }
-                                        awardPercentage={
-                                            item?.stats?.success_rate
-                                        }
+                                        awardPercentage={item?.stats?.success_rate.toFixed(
+                                            2
+                                        )}
                                         location={item?.country.name}
                                         distance={""}
                                         bio={item?.bio}

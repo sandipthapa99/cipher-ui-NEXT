@@ -4,7 +4,7 @@ import React from "react";
 
 const Security = () => {
     return (
-        <SettingsLayout>
+        <SettingsLayout title="Security Settings">
             <ChangePasswordForm />
         </SettingsLayout>
     );
