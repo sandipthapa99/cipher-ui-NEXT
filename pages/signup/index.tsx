@@ -5,12 +5,14 @@ import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Radio } from "@mantine/core";
+import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
+import { axiosClient } from "utils/axiosClient";
 import { ClientSignUpFormData } from "utils/formData";
 import {
     clientEmailSignUpSchema,
@@ -78,7 +80,11 @@ const SignUp = () => {
                                         setShow(true);
                                     }
 
-                                    if (choosedValue === "email") {
+                                    if (
+                                        choosedValue === "email" &&
+                                        email !== undefined
+                                    ) {
+                                        Cookies.set("email", email);
                                         router.push({ pathname: "/login" });
                                     }
 
