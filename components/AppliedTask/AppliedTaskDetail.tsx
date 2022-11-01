@@ -53,15 +53,10 @@ const AppliedTaskDetail = ({
     type?: string;
     taskDetail: ITask;
 }) => {
-    const { data: myRequestedTask } = useData<MyBookings>(
-        ["my-requested-task"],
-        `${urls.task.requested_task}`
-    );
-
-    const requestedTask = myRequestedTask?.data.result.find(
-        (requestedTask: any) =>
-            requestedTask?.entity_service.id === taskDetail.id
-    );
+    // const { data: myRequestedTask } = useData<MyBookings>(
+    //     ["my-requested-task"],
+    //     `${urls.task.requested_task}`
+    // );
 
     // const taskId = taskDetail ? requestedTask?.entity_service.id : "";
 
