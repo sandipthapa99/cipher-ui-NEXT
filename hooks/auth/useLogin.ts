@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import urls from "constants/urls";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
@@ -24,6 +25,9 @@ export const useLogin = () => {
             autoLogin(data.access, data.refresh);
             return data.has_profile;
         } catch (error: any) {
+            // if (error instanceof AxiosError) {
+            //     throw new Error(error.response?.data);
+            // }
             throw new Error(
                 error.response.data.username
                     ? error.response.data.username
