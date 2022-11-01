@@ -113,13 +113,16 @@
         }
 
         .redirection-text {
-            position: absolute;
-            bottom: 0;
+            
+             position: absolute;
+             right: 20px;
+             top: 20px;
+            // bottom: 0;
 
-            @include respond(lg) {
-                top: 4rem;
-                right: 4rem;
-            }
+            // @include respond(lg) {
+            //     top: 4rem;
+            //     right: 4rem;
+            // }
 
             p {
                 font-family: $poppins-font;
