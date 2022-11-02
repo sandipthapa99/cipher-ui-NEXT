@@ -196,6 +196,7 @@ const ExperienceForm = ({
                                     }
                                     placeholder="Your Experience"
                                 />
+                                <br />
                                 <SelectInputField
                                     name="employment_type"
                                     labelName="Employment"
@@ -268,47 +269,35 @@ const ExperienceForm = ({
                                     /> */}
                                 </p>
 
-                                <Row className="g-5">
-                                    <Col md={6}>
-                                        {/* <DatePickerField
-                                            name="start_date"
-                                            labelName="Start Date"
-                                            placeHolder="1999-06-03"
-                                            touch={touched.start_date}
-                                            error={errors.start_date}
-                                            dateFormat="yyyy-MM-dd"
-                                        /> */}
-
-                                        <MantineDateField
-                                            name="start_date"
-                                            labelName="Start Date"
-                                            placeHolder="1999-06-03"
-                                            touch={Boolean(touched.start_date)}
-                                            error={String(
-                                                errors.start_date
-                                                    ? errors.start_date
-                                                    : ""
-                                            )}
-                                            //fieldRequired={true}
-                                            icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
-                                                />
-                                            }
-                                            handleChange={(value) => {
-                                                setFieldValue(
-                                                    "start_date",
-                                                    format(
-                                                        new Date(value),
-                                                        "yyyy-MM-dd"
-                                                    )
-                                                );
-                                            }}
+                                <MantineDateField
+                                    name="start_date"
+                                    labelName="Start Date"
+                                    placeHolder="1999-06-03"
+                                    touch={Boolean(touched.start_date)}
+                                    error={String(
+                                        errors.start_date
+                                            ? errors.start_date
+                                            : ""
+                                    )}
+                                    //fieldRequired={true}
+                                    icon={
+                                        <FontAwesomeIcon
+                                            icon={faCalendarDays}
+                                            className="svg-icons"
                                         />
-                                    </Col>
-                                    <Col md={6}>
-                                        {/* <DatePickerField
+                                    }
+                                    handleChange={(value) => {
+                                        setFieldValue(
+                                            "start_date",
+                                            format(
+                                                new Date(value),
+                                                "yyyy-MM-dd"
+                                            )
+                                        );
+                                    }}
+                                />
+
+                                {/* <DatePickerField
                                             name="end_date"
                                             labelName="End Date"
                                             placeHolder="2022-03-06"
@@ -318,31 +307,30 @@ const ExperienceForm = ({
                                             disabled={toggle ? true : false}
                                         /> */}
 
-                                        <MantineDateField
-                                            name="end_date"
-                                            labelName="End Date"
-                                            placeHolder="2022-03-06"
-                                            touch={touched.end_date}
-                                            error={errors.end_date}
-                                            disabled={toggle ? true : false}
-                                            icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
-                                                />
-                                            }
-                                            handleChange={(value) => {
-                                                setFieldValue(
-                                                    "end_date",
-                                                    format(
-                                                        new Date(value),
-                                                        "yyyy-MM-dd"
-                                                    )
-                                                );
-                                            }}
+                                <MantineDateField
+                                    name="end_date"
+                                    labelName="End Date"
+                                    placeHolder="2022-03-06"
+                                    touch={touched.end_date}
+                                    error={errors.end_date}
+                                    disabled={toggle ? true : false}
+                                    icon={
+                                        <FontAwesomeIcon
+                                            icon={faCalendarDays}
+                                            className="svg-icons"
                                         />
-                                    </Col>
-                                </Row>
+                                    }
+                                    handleChange={(value) => {
+                                        setFieldValue(
+                                            "end_date",
+                                            format(
+                                                new Date(value),
+                                                "yyyy-MM-dd"
+                                            )
+                                        );
+                                    }}
+                                />
+
                                 <Modal.Footer>
                                     <Button
                                         className="btn close-btn"

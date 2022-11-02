@@ -1,8 +1,9 @@
 import Reviews from "@components/common/Reviews";
 import ServiceCard from "@components/common/ServiceCard";
-import { Spoiler } from "@mantine/core";
+import { Alert, Spoiler } from "@mantine/core";
 import urls from "constants/urls";
 import { Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import { useState } from "react";
@@ -97,6 +98,7 @@ const TasksProfileCard = () => {
         `/task/rating?ordering=${search}`
     );
 
+    const { data: user } = useUser();
     return (
         <section className="profile-task">
             <div className="profile-task__top-container">
@@ -228,7 +230,7 @@ const TasksProfileCard = () => {
                                     )}
                                 </Spoiler>
                             </div>
-                        ) : (
+                        ) : user?.is_kyc_verified ? (
                             <div>
                                 <p>
                                     You have no reviews yet, Get started with
@@ -241,6 +243,13 @@ const TasksProfileCard = () => {
                                 >
                                     Post a Task
                                 </a>
+                            </div>
+                        ) : (
+                            <div className="py-3 px-5">
+                                <Alert>
+                                    Your KYC verification is pending. You can
+                                    post a task once it is verified.{" "}
+                                </Alert>
                             </div>
                         )}
                     </Row>

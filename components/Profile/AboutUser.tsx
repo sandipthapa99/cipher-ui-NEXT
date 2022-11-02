@@ -832,7 +832,8 @@ const AboutProfile = () => {
                                 </div>
                             ) : (
                                 <Alert>
-                                    Please verify your KYC to post task.
+                                    Your KYC verification is pending. You can
+                                    post a task once it is verified.{" "}
                                 </Alert>
                             )}
                         </Row>

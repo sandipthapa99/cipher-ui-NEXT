@@ -4,16 +4,22 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
+import Cookies from "js-cookie";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
+import { axiosClient } from "utils/axiosClient";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
+
+interface ResendEmailVerification {
+    email: string;
+}
 
 const Login = () => {
     const queryClient = useQueryClient();
@@ -24,7 +30,13 @@ const Login = () => {
 
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
     const [fcmToken, setFcmToken] = useState("");
+    const resendEmail = Cookies.get("email");
 
+    const resendEmailVerificationMutation = useMutation(
+        (data: ResendEmailVerification) => {
+            return axiosClient.post(`/user/resend/email/activation/`, data);
+        }
+    );
     const getFCMTOKEN = async () => {
         if (typeof window !== "undefined") {
             const token = await localforage.getItem<string>("fcm_token");
@@ -79,12 +91,13 @@ const Login = () => {
                         };
 
                         loginMutation(newValues, {
-                            onError: (error: any) => {
-                                console.log(error.message);
-                                actions.setFieldError(
-                                    "username",
-                                    error.message
-                                );
+                            onError: (error) => {
+                                toast.error(error.message);
+
+                                // actions.setFieldError(
+                                //     "username",
+                                //     error.message
+                                // );
 
                                 // actions.setFieldError(
                                 //     "password",
@@ -126,6 +139,39 @@ const Login = () => {
                                 placeHolder="Password"
                                 forgotPassword="Forgot Password?"
                             />
+                            <div className=" d-flex align-items-end justify-content-end">
+                                <p
+                                    style={{
+                                        cursor: "pointer",
+                                        color: "#3eaeff",
+                                        fontSize: "14px",
+                                        margin: "0 0 10px 0",
+                                    }}
+                                    onClick={() => {
+                                        if (resendEmail) {
+                                            resendEmailVerificationMutation.mutate(
+                                                {
+                                                    email: resendEmail,
+                                                },
+                                                {
+                                                    onSuccess: () => {
+                                                        toast.success(
+                                                            "verification email sent succesfully"
+                                                        );
+                                                    },
+                                                    onError: (err: any) => {
+                                                        toast.error(
+                                                            err.message
+                                                        );
+                                                    },
+                                                }
+                                            );
+                                        }
+                                    }}
+                                >
+                                    Didn&apos;t get verification email?
+                                </p>
+                            </div>
                             <FormButton
                                 type="submit"
                                 variant="primary"
