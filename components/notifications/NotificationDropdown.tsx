@@ -11,6 +11,7 @@ import { axiosClient } from "utils/axiosClient";
 import { ApproveNotify } from "./ApproveNotify";
 import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
 import { CreatedTask } from "./dropdown-notifications/CreatedTask";
+import { KycDetails } from "./KycDetails";
 import { PostNotifyTask } from "./PostedTask";
 import { ServiceAccept } from "./ServiceAccept";
 import { TaskStatus } from "./TaskStatus";
@@ -459,6 +460,24 @@ export const NotificationDropdown = () => {
                             date={notification?.created_date}
                             type="booking"
                             slug={notification?.object_slug}
+                        />
+                    </div>
+                );
+            } else if (notification.type === "kycdocument") {
+                return (
+                    <div
+                        key={index}
+                        onClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
+                            )
+                        }
+                    >
+                        <KycDetails
+                            createdDate={notification?.created_date}
+                            is_requested={notification.is_requested}
                         />
                     </div>
                 );
