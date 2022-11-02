@@ -39,7 +39,7 @@ const UserActivities = () => {
                                         <p>
                                             {format(
                                                 new Date(activity.action_time),
-                                                "MMM yyyy"
+                                                "dd MMM yyyy"
                                             )}{" "}
                                         </p>
                                     </div>
