@@ -3,8 +3,11 @@ import { RatingStars } from "@components/common/RatingStars";
 import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";
+import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Rating } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -148,11 +151,24 @@ export const UserTaskDetailHeader = ({
                         </h4>
                         <p className="td-text mb-4">{userType}</p>
 
-                        <RatingStars
+                        <Rating
                             value={
                                 taskerDetail?.rating?.avg_rating > 0
                                     ? taskerDetail?.rating?.avg_rating
                                     : 0
+                            }
+                            readOnly
+                            emptySymbol={
+                                <FontAwesomeIcon
+                                    icon={emptyStar}
+                                    className="star"
+                                />
+                            }
+                            fullSymbol={
+                                <FontAwesomeIcon
+                                    icon={faStar}
+                                    className="star"
+                                />
                             }
                         />
 
