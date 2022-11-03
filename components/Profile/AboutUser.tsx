@@ -767,10 +767,11 @@ const AboutProfile = () => {
                     </div>
 
                     <div className="review-container">
-                        {ratingLoading ? <Loader size="sm" /> : ""}
                         <Row className="gx-5 type">
-                            {taskerRating &&
-                            taskerRating?.data.result.length > 0 ? (
+                            {ratingLoading ? (
+                                <Loader size="sm" />
+                            ) : taskerRating &&
+                              taskerRating?.data.result.length > 0 ? (
                                 <div>
                                     <Spoiler
                                         maxHeight={480}

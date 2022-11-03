@@ -1,6 +1,6 @@
 import Reviews from "@components/common/Reviews";
 import ServiceCard from "@components/common/ServiceCard";
-import { Alert, Spoiler } from "@mantine/core";
+import { Alert, Loader, Spoiler } from "@mantine/core";
 import urls from "constants/urls";
 import { Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
@@ -93,10 +93,11 @@ const TasksProfileCard = () => {
         (services) => services.created_by.id === userId
     );
 
-    const { data: taskerRating } = useData<RatingResponse>(
-        ["tasker-rating", search],
-        `/task/rating?ordering=${search}`
-    );
+    const { data: taskerRating, isLoading: ratingLoading } =
+        useData<RatingResponse>(
+            ["tasker-rating", search],
+            `/task/rating?ordering=${search}`
+        );
 
     const { data: user } = useUser();
     return (
@@ -188,9 +189,12 @@ const TasksProfileCard = () => {
                 </div>
 
                 <div className="review-container">
+                    {/* {ratingLoading ? <Loader size="sm" /> : ""} */}
                     <Row className="gx-5 type">
-                        {taskerRating &&
-                        taskerRating?.data.result.length > 0 ? (
+                        {ratingLoading ? (
+                            <Loader size="sm" />
+                        ) : taskerRating &&
+                          taskerRating?.data.result.length > 0 ? (
                             <div>
                                 <Spoiler
                                     maxHeight={480}
