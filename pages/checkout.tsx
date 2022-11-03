@@ -90,6 +90,27 @@ export default function Checkout() {
         { enabled: !!query }
     );
 
+    const { data: paypalData } = useQuery<any, AxiosError, any>(
+        ["paypal-data", query],
+        async () => {
+            try {
+                const response = await axiosClient.post(
+                    `${urls.payment.intent}paypal/`,
+                    {
+                        order: query,
+                    }
+                );
+                return response;
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    toast.error(error?.response?.data?.message);
+                    throw new Error(error?.response?.data?.message);
+                }
+            }
+        },
+        { enabled: !!query }
+    );
+
     const { data: servicesCheckoutData, isLoading: checkoutLoading } =
         useData<CheckoutDataProps>(
             ["all-services-checkout"],
@@ -385,6 +406,17 @@ export default function Checkout() {
                                                                   ?.data
                                                                   ?.payment_url
                                                           );
+                                                } else if (
+                                                    paymentType === "Paypal"
+                                                ) {
+                                                    router.push(
+                                                        paypalData?.data?.data
+                                                            ?.links[1]?.href
+                                                    );
+                                                    console.log(
+                                                        paypalData?.data?.data
+                                                            ?.links[1]?.href
+                                                    );
                                                 } else {
                                                     setOpened(true);
                                                 }
