@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
@@ -202,10 +202,9 @@ export const ApproveNotification = ({
                     <div className=" mt-1 date-approve-section">
                         <p className="date m-0">
                             {date
-                                ? format(
-                                      new Date(date),
-                                      "EEEE, do LLL, hh:mm a"
-                                  )
+                                ? formatDistanceToNow(new Date(date), {
+                                      addSuffix: true,
+                                  })
                                 : ""}
                         </p>
 

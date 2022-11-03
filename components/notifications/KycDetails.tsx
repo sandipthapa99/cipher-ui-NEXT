@@ -7,12 +7,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
-import { AcceptReject } from "./AcceptReject";
-interface PostedNotifyProps {
-    taskTitle: string;
-    taskObject: string;
+interface KycDetailsProps {
+    taskTitle?: string;
+    taskObject?: string;
     createdDate: string;
-    slug: string;
+    slug?: string;
     handleClick?: any;
     name?: string;
     type?: string;
@@ -20,7 +19,7 @@ interface PostedNotifyProps {
     read?: string | null;
 }
 
-export const PostNotifyTask = ({
+export const KycDetails = ({
     taskTitle,
     taskObject,
     createdDate,
@@ -30,7 +29,7 @@ export const PostNotifyTask = ({
     is_requested,
     type,
     read,
-}: PostedNotifyProps) => {
+}: KycDetailsProps) => {
     const { data: profile } = useGetProfile();
     const router = useRouter();
 
@@ -58,25 +57,47 @@ export const PostNotifyTask = ({
                     />
                 </figure>
                 <div className="description-section">
-                    <p>
-                        <span className="span-name" onClick={handleClick}>
-                            You{" "}
-                        </span>
-                        {type} a {is_requested ? "task" : "service"}
-                        <span
-                            className="span-name"
-                            onClick={() => {
-                                {
-                                    is_requested
-                                        ? router.push(`/task/${slug}`)
-                                        : router.push(`/service/${slug}`);
-                                }
-                            }}
-                        >
-                            {" "}
-                            {taskObject}.
-                        </span>
-                    </p>
+                    {is_requested ? (
+                        <p>
+                            <span className="span-name" onClick={handleClick}>
+                                Your{" "}
+                            </span>
+                            Kyc has been approved
+                            {/* <span
+                                className="span-name"
+                                onClick={() => {
+                                    {
+                                        is_requested
+                                            ? router.push(`/task/${slug}`)
+                                            : router.push(`/service/${slug}`);
+                                    }
+                                }}
+                            >
+                                {" "}
+                                {taskObject}.
+                            </span> */}
+                        </p>
+                    ) : (
+                        <p>
+                            <span className="span-name" onClick={handleClick}>
+                                Your{" "}
+                            </span>
+                            Kyc has been declined
+                            {/* <span
+                                className="span-name"
+                                onClick={() => {
+                                    {
+                                        is_requested
+                                            ? router.push(`/task/${slug}`)
+                                            : router.push(`/service/${slug}`);
+                                    }
+                                }}
+                            >
+                                {" "}
+                                {taskObject}.
+                            </span> */}
+                        </p>
+                    )}
 
                     <p className="date">
                         {formatDistanceToNow(new Date(createdDate), {

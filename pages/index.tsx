@@ -604,7 +604,7 @@ const Home: NextPage<{
                                                     }
                                                     successRate={parseFloat(
                                                         merchant?.stats?.success_rate.toFixed(
-                                                            2
+                                                            1
                                                         )
                                                     )}
                                                     merchantId={
