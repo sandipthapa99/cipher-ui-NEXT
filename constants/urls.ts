@@ -60,7 +60,7 @@ const urls = {
     bookmark: "/task/bookmark/",
     locale: {
         localePath,
-        city: `${localePath}city/options?search=`,
+        city: `${localePath}city/options/?search=`,
     },
     trusted_partners: "/landingpage/trusted-partner/",
     hero_category: "/task/hero-category/",
