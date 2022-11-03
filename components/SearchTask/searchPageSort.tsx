@@ -1,6 +1,7 @@
 import { Tab } from "@components/common/Tab";
 import { InProgress } from "@components/MyTasks/InProgress";
 import { MyBookings } from "@components/MyTasks/MyBookings";
+import { MyService } from "@components/MyTasks/MyService";
 import { MyTasks } from "@components/MyTasks/MyTasks";
 import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
 import { TaskYouMayLike } from "@components/MyTasks/TaskYouMayLike";
@@ -26,6 +27,10 @@ const SearchBySort = () => {
                 activeIndex={activeTabIdx}
                 onTabClick={setActiveTabIdx}
                 items={[
+                    {
+                        title: "My Services",
+                        content: <MyService />,
+                    },
                     {
                         title: "My Tasks",
                         content: <MyTasks />,
