@@ -42,6 +42,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 import type { UserBankDetails } from "types/bankDetail";
+import type { CityOptionsProps } from "types/cityOptionsProps";
 import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -257,7 +258,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
         ["tasker-bank-account"],
         "/tasker/bank-details/"
     );
-    const LinkedBank = BankDetails?.data.result;
+
     const cityData = profile
         ? {
               initialId: profile?.city?.id?.toString() ?? "",
@@ -272,6 +273,18 @@ const AccountForm = ({ showAccountForm }: Display) => {
                   : [],
           }
         : {};
+    // {
+    //       initialId: CityFilter.id?.toString() ?? "",
+    //       initialData: CityFilter
+    //           ? [
+    //                 {
+    //                     id: CityFilter.id,
+    //                     label: CityFilter?.name,
+    //                     value: CityFilter.id?.toString(),
+    //                 },
+    //             ]
+    //           : [],
+    //   };
 
     const queryClient = useQueryClient();
 
@@ -861,7 +874,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                             />
                             <SelectCity
-                                disabled={isInputDisabled}
+                                disabled={isInputDisabled || !countryChange}
+                                countryId={countryChange ? countryChange : ""}
                                 label="City"
                                 placeholder="Select your city"
                                 onCityChange={(city) =>
