@@ -1,28 +1,36 @@
 import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useCities } from "hooks/use-cities";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { CityOptionsProps } from "types/cityOptionsProps";
 
 interface SelectCityProps extends Omit<SelectProps, "data"> {
     data?: SelectItem[];
     onCityChange: (cityId: string) => void;
+    countryId: string;
 }
 
 export const SelectCity = ({
     data,
     value,
+    countryId,
     onCityChange,
     ...props
 }: SelectCityProps) => {
     const [query, setQuery] = useState("");
     const [city, setCity] = useState(value ?? "");
-    const { data: allCities } = useCities(query);
+    const { data: allCities } = useCities(query, countryId);
 
     const citiesData: SelectItem[] = allCities.map((city) => ({
         id: city.id,
         label: city.name,
         value: city.id.toString(),
     }));
+
+    useEffect(() => {
+        setCity("");
+    }, [countryId]);
+
     const handleCityChange = (selectedCity: string | null) => {
         if (!selectedCity) return;
         onCityChange(selectedCity);
