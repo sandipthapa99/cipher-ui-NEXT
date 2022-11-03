@@ -210,7 +210,7 @@ const TasksProfileCard = () => {
                                                             : true
                                                     }
                                                     id={review?.id}
-                                                    name={`${review?.rated_by} ${review?.rated_by?.last_name}`}
+                                                    name={`${review?.rated_by.first_name} ${review?.rated_by?.last_name}`}
                                                     raterEmail={
                                                         review?.rated_by.email
                                                     }
