@@ -17,10 +17,12 @@ const ORDER_ALREADY_PROCESSED_MESSAGE = "The order has already been processed";
 export interface SuccessPageQuery {
     pidx?: string;
     payment_intent?: string;
+    token?: string;
 }
 export enum PaymentMethods {
     khalti = "khalti",
     stripe = "stripe",
+    paypal = "paypal",
 }
 export type KhaltiPayload = {
     verification_id: string;
@@ -32,6 +34,9 @@ export type StripePayload = {
     verification_id: string;
     // type: PaymentMethods.stripe;
     // payment_intent: string;
+};
+export type PaypalPayload = {
+    verification_id: string;
 };
 
 export type CompleteOrderPayload =
@@ -47,11 +52,20 @@ const PaymentSuccess = () => {
 
     const navigateToDashboard = () => router.push("/home");
 
-    const { pidx, payment_intent } = router.query as SuccessPageQuery;
-
-    const provider = payment_intent
-        ? PaymentMethods.stripe
-        : PaymentMethods.khalti;
+    const { pidx, payment_intent, token } = router.query as SuccessPageQuery;
+    let provider: string;
+    // const provider = payment_intent
+    //     ? PaymentMethods.stripe
+    //     : PaymentMethods.khalti;
+    if (pidx) {
+        provider = PaymentMethods.khalti;
+    }
+    if (payment_intent) {
+        provider = PaymentMethods.stripe;
+    }
+    if (token) {
+        provider = PaymentMethods.paypal;
+    }
 
     const { mutate: completeOrderMutation, isLoading } = useMutation<
         string,
@@ -65,11 +79,21 @@ const PaymentSuccess = () => {
         return data.message;
     });
     useEffect(() => {
-        const payload = pidx
-            ? ({
-                  verification_id: pidx,
-              } as KhaltiPayload)
-            : ({ verification_id: payment_intent } as StripePayload);
+        let payload;
+        // const payload = pidx
+        //     ? ({
+        //           verification_id: pidx,
+        //       } as KhaltiPayload)
+        //     : ({ verification_id: payment_intent } as StripePayload);
+        if (pidx) {
+            payload = { verification_id: pidx } as KhaltiPayload;
+        }
+        if (payment_intent) {
+            payload = { verification_id: payment_intent } as StripePayload;
+        }
+        if (token) {
+            payload = { verification_id: token } as PaypalPayload;
+        }
 
         if (!payload) return;
 
@@ -89,7 +113,7 @@ const PaymentSuccess = () => {
                 }
             },
         });
-    }, [completeOrderMutation, payment_intent, pidx, provider]);
+    }, [completeOrderMutation, payment_intent, pidx, token]);
 
     return (
         <>
