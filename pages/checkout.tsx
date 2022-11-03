@@ -168,7 +168,7 @@ export default function Checkout() {
                                                 lg={4}
                                                 key={item.id}
                                                 className="wrapper mb-3 d-flex align-items-center"
-                                                onClick={(e) => {
+                                                onClick={() => {
                                                     // setOpened(true);
                                                     setPaymentType(item.name);
                                                 }}
