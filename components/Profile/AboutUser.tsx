@@ -194,6 +194,8 @@ const AboutProfile = () => {
                                                           layout="fill"
                                                           objectFit="cover"
                                                           alt="portfolio-image"
+                                                          placeholder="blur"
+                                                          blurDataURL="UYH+xQ}9r?xFs;jZf6j@RkkBoejajIoej[ja"
                                                       />
                                                   </figure>
                                               ) : (

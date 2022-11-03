@@ -58,7 +58,9 @@
 
     .star {
         width: 2.3rem;
+        color: #fab005;
         height: 2.3rem;
+        margin-left: 0.5rem;
     }
     &__general-info {
         padding-left: 1rem;
@@ -117,6 +119,9 @@
                     }
                 }
             }
+        }
+        .rating {
+            padding: 0.8rem 0rem;
         }
         .reactions {
             justify-content: end;

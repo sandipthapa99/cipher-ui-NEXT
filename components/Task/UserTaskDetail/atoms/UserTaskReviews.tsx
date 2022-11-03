@@ -105,7 +105,9 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                 ))}
             </Spoiler>
             <span className="td-divider"></span>
-            <AddReviewForm />
+            <div className="ratings">
+                <AddReviewForm />
+            </div>
         </>
     );
 };

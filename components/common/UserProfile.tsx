@@ -9,12 +9,15 @@ import {
     faPencil,
     faPhone,
     faSparkles,
+    faStar as emptyStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { faCircle } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
+import { Rating } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
@@ -250,8 +253,26 @@ const UserProfileCard = ({
                         />
                     </div>
                     {renderType}
+                    <div className="rating">
+                        {" "}
+                        <Rating
+                            defaultValue={rating > 0 ? rating : 0}
+                            readOnly
+                            emptySymbol={
+                                <FontAwesomeIcon
+                                    icon={emptyStar}
+                                    className="star"
+                                />
+                            }
+                            fullSymbol={
+                                <FontAwesomeIcon
+                                    icon={faStar}
+                                    className="star"
+                                />
+                            }
+                        />
+                    </div>
 
-                    <RatingStars value={rating > 0 ? rating : 0} />
                     <div className="price">
                         {charge_currency} {hourly_rate}/hr
                     </div>

@@ -43,7 +43,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                     />
 
                     <span>
-                        Location{" "}
+                        {/* Location{" "} */}
                         <Text className={classes.boldText}>
                             {user?.address_line1 ?? "Location not available"}
                         </Text>
@@ -53,7 +53,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                     <div className="td-user-short-intro-text">
                         <FontAwesomeIcon className="svg-icon" icon={faUser} />
                         <span>
-                            Member since{" "}
+                            {/* Member since{" "} */}
                             <Text className={classes.boldText}>
                                 {memberSince}
                             </Text>
@@ -63,7 +63,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                 <div className="td-user-short-intro-text">
                     <FontAwesomeIcon icon={faTimer} className="svg-icon" />
                     <span>
-                        Active Hours &nbsp;
+                        {/* Active Hours &nbsp; */}
                         <Text className={classes.boldText}>
                             {`${activeHourStart} to ${activeHourEnd}`}
                         </Text>
@@ -98,7 +98,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
 };
 const useStyles = createStyles(() => ({
     boldText: {
-        fontWeight: 700,
+        fontWeight: 400,
         display: "inline-block",
     },
 }));

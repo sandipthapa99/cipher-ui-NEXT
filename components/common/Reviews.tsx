@@ -1,5 +1,9 @@
 import { RepliedModal } from "@components/Review/RepliedModal";
 import { ReplyModal } from "@components/Review/ReplyModal";
+import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Rating } from "@mantine/core";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import Image from "next/image";
 import { useState } from "react";
@@ -57,7 +61,22 @@ const Reviews = ({
                                     {name ? name : raterEmail}
                                 </h3>
 
-                                <RatingStars value={ratings} />
+                                <Rating
+                                    value={ratings}
+                                    readOnly
+                                    emptySymbol={
+                                        <FontAwesomeIcon
+                                            icon={emptyStar}
+                                            className="star"
+                                        />
+                                    }
+                                    fullSymbol={
+                                        <FontAwesomeIcon
+                                            icon={faStar}
+                                            className="star"
+                                        />
+                                    }
+                                />
                                 <span>{ratings}</span>
                             </div>
 

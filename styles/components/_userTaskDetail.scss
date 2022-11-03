@@ -111,6 +111,12 @@
             visibility: visible;
         }
     }
+    .star {
+        width: 2.3rem;
+        color: #fab005;
+        height: 2.3rem;
+        margin-left: 0.5rem;
+    }
     .td-hire-me-btn {
         width: 16rem;
         height: 3rem;
@@ -276,6 +282,21 @@
         @include respond(xs) {
             width: 100%;
             margin-left: 0;
+        }
+    }
+    .ratings {
+        .star {
+            width: 2.3rem;
+            color: #fab005;
+            height: 2.3rem;
+            margin-left: 0.5rem;
+        }
+        .mantine-1jqub9a,
+        .mantine-oumttf {
+            width: 2.3rem;
+            color: #fab005;
+            height: 2.3rem;
+            margin-left: 0.5rem;
         }
     }
 }
