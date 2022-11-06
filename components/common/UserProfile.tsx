@@ -261,7 +261,7 @@ const UserProfileCard = ({
                             emptySymbol={
                                 <FontAwesomeIcon
                                     icon={emptyStar}
-                                    className="star"
+                                    className="unrated-star star"
                                 />
                             }
                             fullSymbol={

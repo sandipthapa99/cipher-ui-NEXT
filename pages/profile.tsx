@@ -111,7 +111,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             userPoints={profileDetails?.points}
                             pointGoal={remaining?.pointGoal}
                             charge_currency={
-                                profileDetails?.charge_currency?.code
+                                profileDetails?.charge_currency?.symbol
                             }
                             userActiveStatus={remaining?.userActiveStatus}
                             tooltipMessage={remaining?.tooltipMessage}

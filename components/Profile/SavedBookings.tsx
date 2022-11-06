@@ -87,7 +87,7 @@ const SavedBookings = () => {
                                     userBookmark.data?.stats?.happy_clients
                                 }
                                 successRate={userBookmark.data?.stats?.success_rate.toFixed(
-                                    2
+                                    1
                                 )}
                                 merchantId={
                                     userBookmark.data?.user?.id

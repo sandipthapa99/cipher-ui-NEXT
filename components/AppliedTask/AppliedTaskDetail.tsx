@@ -292,7 +292,7 @@ const AppliedTaskDetail = ({
                         </span>
                     </p>
                     {taskDetail?.created_at && (
-                        <p>
+                        <p className="d-flex align-items-center">
                             <FontAwesomeIcon
                                 icon={faCalendar}
                                 className="svg-icon svg-icon-calender"
@@ -300,7 +300,7 @@ const AppliedTaskDetail = ({
                             {format(new Date(taskDetail?.created_at), "PP")}
                         </p>
                     )}
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon svg-icon-clock"
@@ -309,7 +309,7 @@ const AppliedTaskDetail = ({
                             ? format(new Date(taskDetail?.updated_at), "p")
                             : "N/A"}
                     </p>
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faEye}
                             className="svg-icon svg-icon-eye"

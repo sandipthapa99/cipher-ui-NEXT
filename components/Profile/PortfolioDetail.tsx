@@ -5,7 +5,6 @@ import { Carousel } from "@mantine/carousel";
 import { useGetPortfolioById } from "hooks/profile/getProfileById";
 import parse from "html-react-parser";
 import Image from "next/image";
-import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -186,7 +185,9 @@ const PortfolioDetails = ({
                                     )}
                             </Row>
                         </>
-                    ) : null}
+                    ) : (
+                        ""
+                    )}
                 </div>
                 {isTaskerPortfolio ? (
                     ""

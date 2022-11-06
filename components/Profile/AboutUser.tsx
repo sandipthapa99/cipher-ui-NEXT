@@ -774,7 +774,11 @@ const AboutProfile = () => {
                               taskerRating?.data.result.length > 0 ? (
                                 <div>
                                     <Spoiler
-                                        maxHeight={480}
+                                        maxHeight={
+                                            taskerRating?.data.result.length > 1
+                                                ? 480
+                                                : 480
+                                        }
                                         hideLabel={"Hide"}
                                         showLabel={"See all reviews"}
                                         className={"mb-5"}
@@ -793,6 +797,9 @@ const AboutProfile = () => {
                                                                 ? false
                                                                 : true
                                                         }
+                                                        repliedDate={
+                                                            review?.replied_date
+                                                        }
                                                         id={review?.id}
                                                         name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
                                                         raterEmail={
@@ -804,7 +811,7 @@ const AboutProfile = () => {
                                                             review?.review
                                                         }
                                                         time={
-                                                            review?.updated_at
+                                                            review?.created_at
                                                         }
                                                         raterId={
                                                             review?.rated_by.id

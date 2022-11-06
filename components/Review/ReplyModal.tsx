@@ -18,10 +18,14 @@ export const ReplyModal = ({
     reviewId,
     handleClose,
     reply,
+    updateReply,
+    repliedText,
 }: {
     handleClose: () => void;
     reviewId: number | undefined;
-    reply: boolean | undefined;
+    reply?: boolean | undefined;
+    updateReply?: boolean | undefined;
+    repliedText?: string | undefined;
 }) => {
     const { data: profileDetails } = useGetProfile();
     const queryClient = useQueryClient();
@@ -47,6 +51,7 @@ export const ReplyModal = ({
             });
         },
     });
+
     return (
         <>
             <Row className="align-items-center mt-3">
@@ -57,8 +62,8 @@ export const ReplyModal = ({
                                 ? profileDetails?.profile_image
                                 : "/userprofile/unknownPerson.jpg"
                         }
-                        width={30}
-                        height={30}
+                        width={40}
+                        height={40}
                         objectFit="cover"
                         alt="reviewer_image"
                         className="reviewer-image"
@@ -72,6 +77,7 @@ export const ReplyModal = ({
                                 type="text"
                                 placeholder="Reply"
                                 className="reply-input"
+                                defaultValue={repliedText ? repliedText : ""}
                                 onChange={(e) => {
                                     setFieldValue("reply", e.target.value);
                                 }}

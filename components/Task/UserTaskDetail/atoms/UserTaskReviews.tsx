@@ -91,9 +91,9 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                 {!show ? "See all reviews" : "Hide all reviews"}
             </span>
             <span className="td-divider"></span>
-            <div className="ratings">
+            {/* <div className="ratings">
                 <AddReviewForm />
-            </div>
+            </div>  */}
         </>
     );
 };
