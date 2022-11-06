@@ -51,10 +51,6 @@ const AboutProfile = () => {
             ["tasker-rating", search],
             `${urls.profile.rating}?ordering=${search}`
         );
-    console.log(
-        "🚀 ~ file: AboutUser.tsx ~ line 50 ~ AboutProfile ~ taskerRating",
-        taskerRating
-    );
 
     // const { mutate: searchMutation, data: filteredData } =
     //     useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
@@ -815,7 +811,7 @@ const AboutProfile = () => {
                                                             review?.review
                                                         }
                                                         time={
-                                                            review?.updated_at
+                                                            review?.created_at
                                                         }
                                                         raterId={
                                                             review?.rated_by.id

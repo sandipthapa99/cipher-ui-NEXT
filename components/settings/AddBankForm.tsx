@@ -287,7 +287,7 @@ const BankForm = ({
                                     error={errors.bank_account_name}
                                     touch={touched.bank_account_name}
                                     placeHolder={
-                                        profileDetails
+                                        userName
                                             ? userName
                                             : "Enter Account Name"
                                     }
