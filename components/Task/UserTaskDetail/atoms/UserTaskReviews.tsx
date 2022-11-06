@@ -3,14 +3,12 @@ import Reviews from "@components/common/Reviews";
 import { AddReviewForm } from "@components/Task/UserTaskDetail/atoms/AddReviewForm";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Highlight, Loader, Spoiler } from "@mantine/core";
+import { Alert, Highlight, Loader, Select, Spoiler } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
-import { reviewSearchData } from "utils/formData";
-import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
 export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
     const [search, setSearch] = useState("-rating");
     const { data: taskerRatingData, isLoading: ratingLoading } = useQuery(
@@ -22,6 +20,8 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
         }
     );
 
+    const [show, setShow] = useState<boolean>(true);
+
     const ratingData = taskerRatingData?.data?.result;
     return (
         <>
@@ -29,68 +29,44 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             <Row className="align-items-center td-filter-review-container">
                 <Col md={4}>
                     <div className="d-flex">
-                        <h2 className="d-flex align-items-center">
+                        <h2 className="d-flex align-items-center mb-0">
                             Reviews
                             <span>({ratingData && ratingData.length})</span>
                         </h2>
                     </div>
                 </Col>
                 <Col md={{ span: 7, offset: 1 }}>
-                    <Row className="select-field justify-content-end">
-                        <Col md={6}>
-                            <Formik
-                                initialValues={reviewSearchData}
-                                validationSchema={ReviewSearchSchema}
-                                onSubmit={async (values) => {
-                                    console.log(values);
-                                }}
-                            >
-                                <Form
-                                    onChange={(e: any) => {
-                                        setSearch(e.target.value);
-                                    }}
-                                >
-                                    <Form.Select
-                                        aria-label="Default select example"
-                                        className="dropdown-wrapper"
-                                    >
-                                        <option value="-rating">
-                                            Most Relevant
-                                        </option>
-                                        <option value="-updated_at">
-                                            Latest
-                                        </option>
-                                        <option value="-rating">Top</option>
-                                    </Form.Select>
-                                </Form>
-                            </Formik>
-                        </Col>
-                    </Row>
+                    <Select
+                        defaultValue={"Most_Relevant"}
+                        size={"sm"}
+                        className={"ms-auto w-50 text-secondary"}
+                        data={[
+                            { value: "Most_Relevant", label: "Most Relevant" },
+                            { value: "latest", label: "Latest" },
+                            { value: "top", label: "Top" },
+                        ]}
+                    />
                 </Col>
             </Row>
-            <Spoiler
-                maxHeight={350}
-                hideLabel={"Hide"}
-                showLabel={"See all reviews"}
-                className={"mb-5"}
-            >
-                {!ratingData ||
-                    (ratingData.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            className="mt-5"
-                            sx={{ minWidth: 100 }}
-                        >
-                            Product not reviewed yet
-                        </Alert>
-                    ))}
-                {ratingLoading ? (
-                    <Loader size="sm" />
-                ) : (
-                    ratingData?.map((review: any, index: any) => (
+            {!ratingData ||
+                (ratingData.length <= 0 && (
+                    <Alert
+                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        title="No data Available!"
+                        color="orange"
+                        radius="md"
+                        className="mt-5"
+                        sx={{ minWidth: 100 }}
+                    >
+                        Product not reviewed yet
+                    </Alert>
+                ))}
+            {ratingLoading ? (
+                <Loader size="sm" />
+            ) : (
+                ratingData
+                    ?.slice(0, show ? ratingData?.length : 2)
+                    .map((review: any, index: any) => (
                         <Reviews
                             repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
                             repliedText={review.reply}
@@ -106,12 +82,18 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                             image={review?.rated_by?.profile_image}
                         />
                     ))
-                )}
-            </Spoiler>
-            {/* <span className="td-divider"></span> */}
+            )}
+            <span
+                className="review-button"
+                role={"button"}
+                onClick={() => setShow(!show)}
+            >
+                {!show ? "See all reviews" : "Hide all reviews"}
+            </span>
+            <span className="td-divider"></span>
             {/* <div className="ratings">
                 <AddReviewForm />
-            </div> */}
+            </div>  */}
         </>
     );
 };

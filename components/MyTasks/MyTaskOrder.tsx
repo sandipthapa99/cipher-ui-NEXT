@@ -27,6 +27,10 @@ export const MyTaskOrder = ({
     status,
     taskID,
 }: MyTaskOrderProps) => {
+    console.log(
+        "🚀 ~ file: MyTaskOrder.tsx ~ line 30 ~ applied_id",
+        applied_id
+    );
     const [isAuthor, setIsAuthor] = useState(false);
     const { data: userData } = useUser();
 

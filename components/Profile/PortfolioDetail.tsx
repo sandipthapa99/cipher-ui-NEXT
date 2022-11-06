@@ -17,7 +17,7 @@ import AddPortfolio from "./AddPortfolio";
 interface PortfolioProps {
     show?: boolean;
     handleClose?: () => void;
-    // setShowPortfolioDetails: Dispatch<SetStateAction<boolean>>;
+    setShowPortfolioDetails: Dispatch<SetStateAction<boolean>>;
     id?: number;
     isTaskerPortfolio?: boolean;
     handleDeletePortfolio?: () => void;
