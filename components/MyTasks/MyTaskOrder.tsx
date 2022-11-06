@@ -32,6 +32,7 @@ export const MyTaskOrder = ({
 
     const router = useRouter();
     const [openReviewModal, setOpenReviewModal] = useState(false);
+    console.log("task_id", task_id);
 
     useEffect(() => {
         if (userData?.id === assigner_id) {
@@ -62,6 +63,7 @@ export const MyTaskOrder = ({
             {
                 onSuccess: async (message) => {
                     await queryClient.invalidateQueries(["assinged-task"]);
+                    setOpenReviewModal(true);
                     toast.success(message);
                 },
                 onError: (error) => {
@@ -77,6 +79,7 @@ export const MyTaskOrder = ({
             {
                 onSuccess: async (message) => {
                     await queryClient.invalidateQueries(["Review-task"]);
+                    setOpenReviewModal(true);
                     toast.success(message);
                 },
                 onError: (error) => {
@@ -188,7 +191,7 @@ export const MyTaskOrder = ({
                                         </figure>
                                     </a>
                                 </Link>
-                                {router.query.activeTab === "2" && (
+                                {router.query.activeTab === "3" && (
                                     <>
                                         {status === "Completed" ? (
                                             <Button
@@ -210,7 +213,6 @@ export const MyTaskOrder = ({
                                                             ? applied_id
                                                             : ""
                                                     );
-                                                    setOpenReviewModal(true);
                                                 }}
                                                 loading={
                                                     taskCompleteMutaion.isLoading
@@ -223,7 +225,7 @@ export const MyTaskOrder = ({
                                         )}
                                     </>
                                 )}
-                                {router.query.activeTab === "3" && (
+                                {router.query.activeTab === "4" && (
                                     <>
                                         {status === "Completed" && (
                                             <Button
@@ -236,7 +238,6 @@ export const MyTaskOrder = ({
                                                             ? applied_id
                                                             : ""
                                                     );
-                                                    setOpenReviewModal(true);
                                                 }}
                                                 loading={
                                                     taskCompleteMutaion.isLoading

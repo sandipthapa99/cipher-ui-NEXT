@@ -107,6 +107,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [file, setFile] = useState("");
     const [display, setDisplay] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [changedCountry, setChangedCountry] = useState(false);
+
     // const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
@@ -116,6 +118,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
     const { classes } = useStyles();
+    // console.log("countryChannged", countryChanged);
 
     useEffect(() => {
         if (!profile?.profile_image) {
@@ -874,6 +877,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 onChange={(value) => {
                                     setCountryChange(value ? value : "");
                                     handleCountryChanged(value, setFieldValue);
+                                    setChangedCountry(values ? true : false);
                                 }}
                                 data={countryResults ?? []}
                                 disabled={isInputDisabled}
@@ -888,6 +892,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 }
                                 value={cityData.initialId}
                                 data={cityData.initialData}
+                                changedCountry={changedCountry}
                                 nothingFound={"nothing found"}
                             />
 
