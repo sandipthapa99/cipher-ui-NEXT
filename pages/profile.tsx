@@ -107,14 +107,14 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             address_line2={profileDetails?.address_line2}
                             active_hour_end={profileDetails?.active_hour_end}
                             bio={profileDetails?.bio}
-                            userBadge={remaining.userBadge}
+                            userBadge={remaining?.userBadge}
                             userPoints={profileDetails?.points}
-                            pointGoal={remaining.pointGoal}
+                            pointGoal={remaining?.pointGoal}
                             charge_currency={
                                 profileDetails?.charge_currency?.code
                             }
-                            userActiveStatus={remaining.userActiveStatus}
-                            tooltipMessage={remaining.tooltipMessage}
+                            userActiveStatus={remaining?.userActiveStatus}
+                            tooltipMessage={remaining?.tooltipMessage}
                             is_profile_verified={
                                 profileDetails?.is_profile_verified
                             }
