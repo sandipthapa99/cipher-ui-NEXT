@@ -10,7 +10,7 @@ import { Button, Modal, Skeleton, Text } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
@@ -55,26 +55,12 @@ export default function Checkout() {
     const [opened, setOpened] = useState(false);
     const [paymentType, setPaymentType] = useState("");
 
-    const { data: stripeData } = useQuery(
-        ["stripe-data", query],
-        async () => {
-            const response = await axiosClient.post(
-                `${urls.payment.intent}stripe/`,
-                {
-                    order: query,
-                }
-            );
-            return response;
-        },
-        { enabled: !!query }
-    );
-
-    const { data: khaltiData, error } = useQuery<any, AxiosError, any>(
-        ["khalti-data", query],
+    const { data: paymentData, refetch } = useQuery<any, AxiosError, any>(
+        ["payment-data", query, paymentType],
         async () => {
             try {
                 const response = await axiosClient.post(
-                    `${urls.payment.intent}khalti/`,
+                    `${urls.payment.intent}${paymentType.toLowerCase()}/`,
                     {
                         order: query,
                     }
@@ -87,28 +73,7 @@ export default function Checkout() {
                 }
             }
         },
-        { enabled: !!query }
-    );
-
-    const { data: paypalData } = useQuery<any, AxiosError, any>(
-        ["paypal-data", query],
-        async () => {
-            try {
-                const response = await axiosClient.post(
-                    `${urls.payment.intent}paypal/`,
-                    {
-                        order: query,
-                    }
-                );
-                return response;
-            } catch (error) {
-                if (error instanceof AxiosError) {
-                    toast.error(error?.response?.data?.message);
-                    throw new Error(error?.response?.data?.message);
-                }
-            }
-        },
-        { enabled: !!query }
+        { enabled: !!paymentType }
     );
 
     const { data: servicesCheckoutData, isLoading: checkoutLoading } =
@@ -117,6 +82,8 @@ export default function Checkout() {
             `/payment/order/${query}/`,
             !!query
         );
+
+    // Stripe Appereance settings
     const appearance = {
         theme: "stripe" as const,
         // labels: "floating",
@@ -133,7 +100,7 @@ export default function Checkout() {
     };
 
     const options = {
-        clientSecret: stripeData?.data?.data?.client_secret,
+        clientSecret: paymentData?.data?.data?.client_secret,
         appearance,
     };
 
@@ -213,7 +180,7 @@ export default function Checkout() {
                                         className="wrapper d-flex align-items-center justify-content-center"
                                         md={4}
                                         key={item.id}
-                                        onClick={(e) => {
+                                        onClick={() => {
                                             // setOpened(true);
                                             setPaymentType(item.name);
                                         }}
@@ -395,31 +362,49 @@ export default function Checkout() {
                                         <Button
                                             className="checkout-btn"
                                             disabled={paymentType === ""}
-                                            onClick={() => {
-                                                if (paymentType === "Khalti") {
-                                                    error
-                                                        ? toast.error(
-                                                              "You cannot use Khalti for this payment."
-                                                          )
-                                                        : router.push(
-                                                              khaltiData?.data
-                                                                  ?.data
-                                                                  ?.payment_url
-                                                          );
-                                                } else if (
-                                                    paymentType === "Paypal"
-                                                ) {
-                                                    router.push(
-                                                        paypalData?.data?.data
-                                                            ?.links[1]?.href
-                                                    );
-                                                    console.log(
-                                                        paypalData?.data?.data
-                                                            ?.links[1]?.href
-                                                    );
-                                                } else {
-                                                    setOpened(true);
+                                            onClick={async () => {
+                                                await refetch();
+
+                                                switch (paymentType) {
+                                                    case "Khalti":
+                                                        router.push(
+                                                            paymentData
+                                                                ? paymentData
+                                                                      ?.data
+                                                                      ?.data
+                                                                      ?.payment_url
+                                                                : ""
+                                                        );
+                                                        break;
+                                                    case "Paypal":
+                                                        router.push(
+                                                            paymentData?.data
+                                                                ?.data?.links[1]
+                                                                ?.href
+                                                        );
+                                                        break;
+                                                    default:
+                                                        setOpened(true);
                                                 }
+
+                                                // if (paymentType === "Khalti") {
+                                                //     router.push(
+                                                //         paymentData?.data?.data
+                                                //             ?.payment_url
+                                                //     );
+                                                // } else if (
+                                                //     paymentType === "Paypal"
+                                                // ) {
+                                                //     router.push(
+                                                //         paymentData?.data?.data
+                                                //             ?.links[1]?.href
+                                                //     );
+                                                //     console.log(
+                                                //         paymentData?.data?.data
+                                                //     );
+                                                // } else {
+                                                //     setOpened(true);
+                                                // }
                                             }}
                                         >
                                             Proceed to Confirm
@@ -435,17 +420,14 @@ export default function Checkout() {
                 withCloseButton={false}
                 onClose={() => {
                     setOpened(false);
-                    setPaymentType("esewa");
+                    // setPaymentType("esewa");
                 }}
             >
-                {paymentType == "Esewa" ? (
+                {/* {paymentType == "Esewa" ? (
                     <Text>{paymentType} is comming soon!</Text>
                 ) : (
                     ""
-                )}
-                {paymentType == "" && (
-                    <Text>Please choose a payment method</Text>
-                )}
+                )} */}
                 {paymentType === "Stripe" && (
                     <div className="App mt-5 mb-5">
                         {options.clientSecret && (
