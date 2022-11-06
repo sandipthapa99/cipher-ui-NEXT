@@ -10,4 +10,5 @@ export interface ReviewsProps {
     replied?: boolean;
     repliedText?: string;
     repliedBy?: string;
+    repliedDate?: string;
 }

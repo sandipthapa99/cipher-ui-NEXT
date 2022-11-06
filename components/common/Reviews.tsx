@@ -4,13 +4,12 @@ import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
-import { formatDistanceToNow, parseISO } from "date-fns";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { ReviewsProps } from "types/reviews";
+import { timeago } from "utils/timeago";
 
-import { RatingStars } from "./RatingStars";
 const Reviews = ({
     name,
     ratings,
@@ -21,16 +20,17 @@ const Reviews = ({
     id,
     replied,
     repliedText,
+    repliedDate,
     repliedBy,
 }: ReviewsProps) => {
     const [replyState, setReplyState] = useState(false);
-    const timeago = () => {
-        try {
-            return formatDistanceToNow(parseISO(time), { addSuffix: true });
-        } catch (error) {
-            return "a while ago";
-        }
-    };
+    // const timeago = (time: any) => {
+    //     try {
+    //         return formatDistanceToNow(parseISO(time), { addSuffix: true });
+    //     } catch (error) {
+    //         return "a while ago";
+    //     }
+    // };
     const handleClose = () => {
         setReplyState(false);
     };
@@ -77,13 +77,13 @@ const Reviews = ({
                                         />
                                     }
                                 />
-                                <span>{ratings}</span>
+                                <span>{ratings > 5 ? 5 : ratings}</span>
                             </div>
 
                             <p className="description">
                                 {description ? description : "No Reviews yet"}
                             </p>
-                            <p className="time">{timeago()}</p>
+                            <p className="time">{timeago(time)}</p>
                             {!replied && (
                                 <p
                                     className="reply-text"
@@ -102,7 +102,9 @@ const Reviews = ({
                             {replied && (
                                 <RepliedModal
                                     repliedText={repliedText}
+                                    reviewId={id ? id : 0}
                                     repliedBy={repliedBy}
+                                    repliedDate={repliedDate}
                                 />
                             )}
                         </div>

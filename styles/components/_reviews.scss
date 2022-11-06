@@ -36,9 +36,14 @@
             padding-left: 3.8rem;
         }
         .reply-text {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             cursor: pointer;
             // margin-left: 2rem;
+            color: #0693e3;
+            text-decoration: underline;
+        }
+        .reply-text:hover {
+            text-decoration: none;
         }
         .reviewer-image {
             border-radius: 50%;
@@ -64,6 +69,9 @@
             font-size: 14px;
             font-weight: 400;
             color: #212529;
+        }
+        .svg-icon {
+            cursor: pointer;
         }
 
         .reviewer {

@@ -51,6 +51,10 @@ const AboutProfile = () => {
             ["tasker-rating", search],
             `${urls.profile.rating}?ordering=${search}`
         );
+    console.log(
+        "🚀 ~ file: AboutUser.tsx ~ line 50 ~ AboutProfile ~ taskerRating",
+        taskerRating
+    );
 
     // const { mutate: searchMutation, data: filteredData } =
     //     useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
@@ -774,7 +778,11 @@ const AboutProfile = () => {
                               taskerRating?.data.result.length > 0 ? (
                                 <div>
                                     <Spoiler
-                                        maxHeight={480}
+                                        maxHeight={
+                                            taskerRating?.data.result.length > 1
+                                                ? 480
+                                                : 480
+                                        }
                                         hideLabel={"Hide"}
                                         showLabel={"See all reviews"}
                                         className={"mb-5"}
@@ -792,6 +800,9 @@ const AboutProfile = () => {
                                                             null
                                                                 ? false
                                                                 : true
+                                                        }
+                                                        repliedDate={
+                                                            review?.replied_date
                                                         }
                                                         id={review?.id}
                                                         name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}

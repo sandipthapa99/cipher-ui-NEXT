@@ -223,7 +223,7 @@ const SearchPage: NextPage = () => {
                                                             ?.happy_clients
                                                     }
                                                     successRate={merchant?.stats?.success_rate.toFixed(
-                                                        2
+                                                        1
                                                     )}
                                                     merchantId={
                                                         merchant?.user?.id

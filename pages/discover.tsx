@@ -22,6 +22,7 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
         ["all-services"],
         "/task/service/"
     );
+
     return (
         <Layout title="Discover | Homaale">
             <Container fluid="xl" className="px-5">
@@ -97,8 +98,7 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
                                         <Col sm={6} lg={4} xl={3} key={key}>
                                             <MerchantCard
                                                 merchantImage={
-                                                    merchant?.user
-                                                        ?.profile_image
+                                                    merchant?.profile_image
                                                 }
                                                 merchantName={
                                                     merchant?.user?.first_name
@@ -128,10 +128,9 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
                                                     merchant?.stats
                                                         ?.happy_clients
                                                 }
-                                                successRate={
-                                                    merchant?.stats
-                                                        ?.success_rate
-                                                }
+                                                successRate={merchant?.stats?.success_rate.toFixed(
+                                                    1
+                                                )}
                                                 merchantId={merchant?.user?.id}
                                             />
                                         </Col>
