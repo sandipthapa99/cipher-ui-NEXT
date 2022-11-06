@@ -24,8 +24,8 @@ export const PersonalSuccessCard = ({
                                         "/userprofile/unknownPerson.jpg"
                                     }
                                     alt="growyourbusiness-image"
-                                    height={550}
-                                    width={500}
+                                    height={400}
+                                    width={400}
                                 />
                             </figure>
                         )}
