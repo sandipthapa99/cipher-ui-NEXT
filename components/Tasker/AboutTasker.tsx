@@ -94,9 +94,9 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                                     </Row>
                                     <PortfolioDetails
                                         show={showPortfolioDetails}
-                                        // setShowPortfolioDetails={
-                                        //     setShowPortfolioDetails
-                                        // }
+                                        setShowPortfolioDetails={
+                                            setShowPortfolioDetails
+                                        }
                                         handleClose={() =>
                                             setShowPortfolioDetails(false)
                                         }
