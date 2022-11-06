@@ -2,7 +2,7 @@ import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Spoiler } from "@mantine/core";
+import { Alert, Loader, Spoiler } from "@mantine/core";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { Formik, validateYupSchema } from "formik";
@@ -46,10 +46,11 @@ const AboutProfile = () => {
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: user } = useUser();
-    const { data: taskerRating } = useData<RatingResponse>(
-        ["tasker-rating", search],
-        `${urls.profile.rating}?ordering=${search}`
-    );
+    const { data: taskerRating, isLoading: ratingLoading } =
+        useData<RatingResponse>(
+            ["tasker-rating", search],
+            `${urls.profile.rating}?ordering=${search}`
+        );
 
     // const { mutate: searchMutation, data: filteredData } =
     //     useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
@@ -194,6 +195,8 @@ const AboutProfile = () => {
                                                           layout="fill"
                                                           objectFit="cover"
                                                           alt="portfolio-image"
+                                                          placeholder="blur"
+                                                          blurDataURL="UYH+xQ}9r?xFs;jZf6j@RkkBoejajIoej[ja"
                                                       />
                                                   </figure>
                                               ) : (
@@ -765,8 +768,10 @@ const AboutProfile = () => {
 
                     <div className="review-container">
                         <Row className="gx-5 type">
-                            {taskerRating &&
-                            taskerRating?.data.result.length > 0 ? (
+                            {ratingLoading ? (
+                                <Loader size="sm" />
+                            ) : taskerRating &&
+                              taskerRating?.data.result.length > 0 ? (
                                 <div>
                                     <Spoiler
                                         maxHeight={480}
@@ -850,4 +855,5 @@ const AboutProfile = () => {
         </>
     );
 };
+
 export default AboutProfile;

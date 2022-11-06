@@ -49,9 +49,11 @@ export const SearchCategory = ({
 }: SearchCategoryProps) => {
     const { classes } = useStyles();
 
+    const countryId = "";
+
     const [params, dispatch] = useReducer(searchReducer, {});
     const [cityQuery, setCityQuery] = useState("");
-    const { data: cities } = useCities(cityQuery);
+    const { data: cities } = useCities(cityQuery, countryId);
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
 

@@ -37,7 +37,6 @@ export interface ExtraData {
 }
 
 const ConnectedAccount = () => {
-    const [show, setShow] = useState(false);
     const { data: linkedAccounts } = useData<LinkedAccountProps>(
         ["linked-accounts"],
         "/user/linked-accounts/list/"

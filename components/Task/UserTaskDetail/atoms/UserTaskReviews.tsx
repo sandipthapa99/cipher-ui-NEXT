@@ -3,7 +3,7 @@ import Reviews from "@components/common/Reviews";
 import { AddReviewForm } from "@components/Task/UserTaskDetail/atoms/AddReviewForm";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Highlight, Spoiler } from "@mantine/core";
+import { Alert, Highlight, Loader, Spoiler } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useState } from "react";
@@ -13,7 +13,7 @@ import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
 export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
     const [search, setSearch] = useState("-rating");
-    const { data: taskerRatingData } = useQuery(
+    const { data: taskerRatingData, isLoading: ratingLoading } = useQuery(
         ["tasker-rating-data", activeTaskId, search],
         async () => {
             return await axiosClient.get(
@@ -87,25 +87,31 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                             Product not reviewed yet
                         </Alert>
                     ))}
-                {ratingData?.map((review: any, index: any) => (
-                    <Reviews
-                        repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
-                        repliedText={review.reply}
-                        replied={review.reply === null ? false : true}
-                        id={review?.id}
-                        name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
-                        key={index}
-                        raterEmail={review?.rated_by.email}
-                        ratings={review?.rating}
-                        description={review?.review}
-                        time={review?.updated_at}
-                        raterId={review?.rated_by.id}
-                        image={review?.rated_by?.profile_image}
-                    />
-                ))}
+                {ratingLoading ? (
+                    <Loader size="sm" />
+                ) : (
+                    ratingData?.map((review: any, index: any) => (
+                        <Reviews
+                            repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
+                            repliedText={review.reply}
+                            replied={review.reply === null ? false : true}
+                            id={review?.id}
+                            name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
+                            key={index}
+                            raterEmail={review?.rated_by.email}
+                            ratings={review?.rating}
+                            description={review?.review}
+                            time={review?.updated_at}
+                            raterId={review?.rated_by.id}
+                            image={review?.rated_by?.profile_image}
+                        />
+                    ))
+                )}
             </Spoiler>
             <span className="td-divider"></span>
-            <AddReviewForm />
+            <div className="ratings">
+                <AddReviewForm />
+            </div>
         </>
     );
 };
