@@ -88,7 +88,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                 role={"button"}
                 onClick={() => setShow(!show)}
             >
-                {!show ? "See all reviews" : "Hide"}
+                {!show ? "See all reviews" : "Hide all reviews"}
             </span>
             <span className="td-divider"></span>
             <div className="ratings">
