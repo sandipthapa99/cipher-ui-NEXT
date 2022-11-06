@@ -3,6 +3,7 @@ import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
 interface TransactionHistory {
+    total_pages: number;
     result: Array<{
         id: string;
         payment_method: {
@@ -106,11 +107,11 @@ interface TransactionHistory {
     }>;
 }
 
-export const useGetTransactionHistory = () => {
-    return useQuery(["GET-TRANSACTION"], async () => {
+export const useGetTransactionHistory = (pageNumber?: number) => {
+    return useQuery(["GET-TRANSACTION", pageNumber], async () => {
         try {
             const { data } = await axiosClient.get<TransactionHistory>(
-                `/payment/transaction/`
+                `/payment/transaction/?page=${pageNumber}&page_size=10`
             );
             return data;
         } catch (error) {

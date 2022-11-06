@@ -25,6 +25,7 @@ export const InProgress = () => {
             enabled: !!userId,
         }
     );
+    console.log(mytaskData);
 
     return (
         <div className="my-task">

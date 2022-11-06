@@ -75,7 +75,9 @@ const elements = [
 
 export const PaymentHistory = () => {
     const [checkedIds, setCheckedIds] = useState<any>([]);
-    const { data: paymentHistory } = useGetTransactionHistory();
+
+    const [paginationNumber, setPaginationNumber] = useState(1);
+    const { data: paymentHistory } = useGetTransactionHistory(paginationNumber);
 
     const newElements = paymentHistory?.result?.map((item) => {
         return {
@@ -255,7 +257,13 @@ export const PaymentHistory = () => {
             </ScrollArea>
             <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
                 <Select data={["10", "20"]} placeholder="10" className="py-3" />
-                <Pagination total={10} color="yellow" />
+                <Pagination
+                    total={paymentHistory ? paymentHistory?.total_pages : 0}
+                    color="yellow"
+                    onChange={(value) => {
+                        setPaginationNumber(value);
+                    }}
+                />
             </div>
         </div>
     );

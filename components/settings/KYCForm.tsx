@@ -63,7 +63,6 @@ const KYCForm = () => {
     // const [showKYCRead, setShowKYCRead] = useState(false);
 
     if (!profileDetails) return null;
-    console.log(KYCData, "KYCData");
 
     return (
         <>
