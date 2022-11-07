@@ -51,7 +51,7 @@ export const UserTaskDetailHeader = ({
                 taskerDetail={taskerDetail}
             />
             <Row style={{ maxWidth: maxHeaderWidth ?? undefined }}>
-                <Col md={8} className="d-flex">
+                <Col md={3} className="d-flex">
                     {/* {taskerDetail?.profile_image && (
                         <div className="td-user-image-container">
                             <Image
@@ -89,11 +89,13 @@ export const UserTaskDetailHeader = ({
                                 />
                             </div>
                         ))} */}
+
                     <figure className="td-user-image-container">
                         {taskerDetail?.is_profile_verified ? (
                             <FontAwesomeIcon
                                 icon={faBadgeCheck}
-                                className="badge-icon"
+                                // className="badge-icon"
+                                className="td-user-image-container__badge"
                             />
                         ) : (
                             ""
@@ -141,10 +143,12 @@ export const UserTaskDetailHeader = ({
                             priority={true}
                         />
                     </figure>
+                </Col>
 
+                <Col md={5}>
                     <div>
                         <h4
-                            className="td-user-name"
+                            className="td-user-name mt-1"
                             data-is-online={JSON.stringify(true)}
                         >
                             {`${taskerDetail?.user?.first_name} ${taskerDetail?.user?.middle_name} ${taskerDetail?.user?.last_name}`}
