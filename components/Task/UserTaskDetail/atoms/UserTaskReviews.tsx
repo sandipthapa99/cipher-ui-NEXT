@@ -3,7 +3,15 @@ import Reviews from "@components/common/Reviews";
 import { AddReviewForm } from "@components/Task/UserTaskDetail/atoms/AddReviewForm";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Highlight, Loader, Select, Spoiler } from "@mantine/core";
+import {
+    Alert,
+    Grid,
+    Highlight,
+    Loader,
+    Select,
+    Skeleton,
+    Spoiler,
+} from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useState } from "react";
@@ -20,7 +28,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
         }
     );
 
-    const [show, setShow] = useState<boolean>(true);
+    const [show, setShow] = useState<boolean>(false);
 
     const ratingData = taskerRatingData?.data?.result;
     return (
@@ -62,7 +70,29 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                     </Alert>
                 ))}
             {ratingLoading ? (
-                <Loader size="sm" />
+                <Grid>
+                    <Grid.Col span={2}>
+                        <Skeleton height={80} circle mb="xl" />
+                    </Grid.Col>
+                    <Grid.Col span={8}>
+                        <Skeleton height={20} width={"100%"} radius="sm" />
+                        <Skeleton height={15} mt={6} radius="sm" />
+                        <Skeleton
+                            className="mt-3"
+                            height={8}
+                            mt={6}
+                            width="40%"
+                            radius="xl"
+                        />
+                        <Skeleton
+                            className="mt-4"
+                            height={8}
+                            mt={6}
+                            width="20%"
+                            radius="xl"
+                        />
+                    </Grid.Col>
+                </Grid>
             ) : (
                 ratingData
                     ?.slice(0, show ? ratingData?.length : 2)
@@ -83,17 +113,22 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                         />
                     ))
             )}
-            <span
-                className="review-button"
-                role={"button"}
-                onClick={() => setShow(!show)}
-            >
-                {!show ? "See all reviews" : "Hide all reviews"}
-            </span>
+            {ratingData && ratingData?.length > 2 ? (
+                <span
+                    className="review-button"
+                    role={"button"}
+                    onClick={() => setShow(!show)}
+                >
+                    {!show ? "See all reviews" : "Hide all reviews"}
+                </span>
+            ) : (
+                ""
+            )}
+
             <span className="td-divider"></span>
-            {/* <div className="ratings">
+            <div className="ratings">
                 <AddReviewForm />
-            </div>  */}
+            </div>
         </>
     );
 };
