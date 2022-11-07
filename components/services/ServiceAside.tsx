@@ -135,7 +135,7 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                                 No Services available at the moment
                             </Alert>
                         )}
-                        {isFetchingNextPage ? <Loader /> : null}
+                        {isFetchingNextPage ? <SkeletonServiceCard /> : null}
                     </ScrollArea.Autosize>
                 </Col>
 
