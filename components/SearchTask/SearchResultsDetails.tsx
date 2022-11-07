@@ -67,6 +67,7 @@ const SearchResultsDetail = ({
     serviceViews,
     currency,
     service,
+    ratedTo,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -82,7 +83,7 @@ const SearchResultsDetail = ({
     ];
     const { data: serviceRating } = useData<RatingResponse>(
         ["tasker-rating", serviceId],
-        `${urls.profile.rating}?service=${serviceId}`
+        `${urls.profile.rating}?service=${serviceId}?rated_to=${ratedTo}`
     );
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
@@ -727,7 +728,7 @@ const SearchResultsDetail = ({
                                     raterEmail={review?.rated_by.email}
                                     ratings={review?.rating}
                                     description={review?.review}
-                                    time={review?.updated_at}
+                                    time={review?.created_at}
                                     raterId={review?.rated_by.id}
                                     image={review?.rated_by.profile_image}
                                 />

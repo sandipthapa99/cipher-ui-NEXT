@@ -77,7 +77,11 @@ export const PaymentHistory = () => {
     const [checkedIds, setCheckedIds] = useState<any>([]);
 
     const [paginationNumber, setPaginationNumber] = useState(1);
-    const { data: paymentHistory } = useGetTransactionHistory(paginationNumber);
+    const [pageSize, setPageSize] = useState<string>("");
+    const { data: paymentHistory } = useGetTransactionHistory(
+        paginationNumber,
+        pageSize ? pageSize : "10"
+    );
 
     const newElements = paymentHistory?.result?.map((item) => {
         return {
@@ -97,7 +101,7 @@ export const PaymentHistory = () => {
     const allIds = newElements?.map((element) => element.id);
 
     const rows = newElements?.map((element) => (
-        <tr key={element.name}>
+        <tr key={element.id}>
             <td>
                 <Checkbox
                     checked={checkedIds.includes(element.id)}
@@ -256,7 +260,14 @@ export const PaymentHistory = () => {
                 </Table>
             </ScrollArea>
             <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
-                <Select data={["10", "20"]} placeholder="10" className="py-3" />
+                <Select
+                    data={["10", "20"]}
+                    placeholder="10"
+                    className="py-3"
+                    onChange={(value) => {
+                        if (value) setPageSize(value);
+                    }}
+                />
                 <Pagination
                     total={paymentHistory ? paymentHistory?.total_pages : 0}
                     color="yellow"

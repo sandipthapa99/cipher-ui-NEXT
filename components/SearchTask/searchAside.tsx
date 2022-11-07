@@ -6,7 +6,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
 
-import type { ServiceNearYouCardProps } from "../../types/serviceNearYouCard";
+import type {
+    ServiceCardType,
+    ServiceNearYouCardProps,
+} from "../../types/serviceNearYouCard";
 
 export type ServiceProvider = {
     id: string;
@@ -36,7 +39,7 @@ const ServiceNearYouCard = ({
     discount,
     currency,
     onServiceClick,
-}: ServiceNearYouCardProps) => {
+}: ServiceCardType) => {
     const router = useRouter();
     const path = router.query.slug;
 

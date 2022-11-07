@@ -35,7 +35,10 @@ export interface ServiceNearYouCardProps {
     serviceViews?: number;
     service?: ServicesValueProps["result"][0];
     ProfileImage?: string;
+    ratedTo: string;
 }
+
+export type ServiceCardType = Omit<ServiceNearYouCardProps, "ratedTo">;
 export interface BookNowDetails extends ServiceNearYouCardProps {
     problemDescription?: string;
     startdate?: string;
