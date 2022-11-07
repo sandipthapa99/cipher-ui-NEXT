@@ -3,31 +3,31 @@ import Reviews from "@components/common/Reviews";
 import { AddReviewForm } from "@components/Task/UserTaskDetail/atoms/AddReviewForm";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    Alert,
-    Grid,
-    Highlight,
-    Loader,
-    Select,
-    Skeleton,
-    Spoiler,
-} from "@mantine/core";
+import { Alert, Grid, Select, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { Formik } from "formik";
+import urls from "constants/urls";
+import { useData } from "hooks/use-data";
 import { useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+import type { RatingResponse } from "types/ratingProps";
 import { axiosClient } from "utils/axiosClient";
+
 export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
     const [search, setSearch] = useState("-rating");
-    const { data: taskerRatingData, isLoading: ratingLoading } = useQuery(
-        ["tasker-rating-data", activeTaskId, search],
-        async () => {
-            return await axiosClient.get(
-                `/task/rating/list/${activeTaskId}?ordering=${search}`
-            );
-        }
-    );
+    // const { data: taskerRatingData, isLoading: ratingLoading } = useQuery(
+    //     ["tasker-rating-data", activeTaskId, search],
+    //     async () => {
+    //         return await axiosClient.get(
+    //             `/task/rating/list/${activeTaskId}?ordering=${search}`
+    //         );
+    //     }
+    // );
 
+    const { data: taskerRatingData, isLoading: ratingLoading } =
+        useData<RatingResponse>(
+            ["tasker-rating", search],
+            `${urls.profile.rating}?ordering=${search}`
+        );
     const [show, setShow] = useState<boolean>(false);
 
     const ratingData = taskerRatingData?.data?.result;
@@ -45,14 +45,17 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                 </Col>
                 <Col md={{ span: 7, offset: 1 }}>
                     <Select
-                        defaultValue={"Most_Relevant"}
+                        defaultValue={"-rating"}
                         size={"sm"}
                         className={"ms-auto w-50 text-secondary"}
                         data={[
-                            { value: "Most_Relevant", label: "Most Relevant" },
-                            { value: "latest", label: "Latest" },
-                            { value: "top", label: "Top" },
+                            { value: "-rating", label: "Most Relevant" },
+                            { value: "-updated_at", label: "Latest" },
+                            { value: "-rating", label: "Top" },
                         ]}
+                        onChange={(value: any) => {
+                            setSearch(value);
+                        }}
                     />
                 </Col>
             </Row>
@@ -70,7 +73,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                     </Alert>
                 ))}
             {ratingLoading ? (
-                <Grid>
+                <Grid className="mt-3">
                     <Grid.Col span={2}>
                         <Skeleton height={80} circle mb="xl" />
                     </Grid.Col>
@@ -109,7 +112,10 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                             description={review?.review}
                             time={review?.updated_at}
                             raterId={review?.rated_by.id}
-                            image={review?.rated_by?.profile_image}
+                            ratedByImage={review?.rated_by?.profile_image}
+                            ratedToImage={review.rated_to.profile_image}
+                            ratedToId={review.rated_to.id}
+                            repliedDate={review.updated_at}
                         />
                     ))
             )}
@@ -119,16 +125,16 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                     role={"button"}
                     onClick={() => setShow(!show)}
                 >
-                    {!show ? "See all reviews" : "Hide all reviews"}
+                    {!show ? "See all reviews" : "Hide reviews"}
                 </span>
             ) : (
                 ""
             )}
-
+            {/* 
             <span className="td-divider"></span>
             <div className="ratings">
                 <AddReviewForm />
-            </div>
+            </div> */}
         </>
     );
 };
@@ -163,3 +169,41 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
 //         toast.error(error.message);
 //     },
 // });
+
+// {ratingLoading ? (
+//     <Loader size="sm" />
+// ) : ratingData.length > 0 ? (
+//     <div>
+//         {ratingData
+//             ?.slice(0, show ? ratingData?.length : 2)
+//             .map((review: any, index: any) => (
+//                 <>
+//                     <Reviews
+//                         repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
+//                         repliedText={review.reply}
+//                         replied={
+//                             review.reply === null ? false : true
+//                         }
+//                         id={review?.id}
+//                         name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
+//                         key={index}
+//                         raterEmail={review?.rated_by.email}
+//                         ratings={review?.rating}
+//                         description={review?.review}
+//                         time={review?.updated_at}
+//                         raterId={review?.rated_by.id}
+//                         image={review?.rated_by?.profile_image}
+//                     />
+//                 </>
+//             ))}
+//         <span
+//             className="review-button"
+//             role={"button"}
+//             onClick={() => setShow(!show)}
+//         >
+//             {!show ? "See all reviews" : "Hide all reviews"}
+//         </span>
+//     </div>
+// ) : (
+//     ""
+// )}
