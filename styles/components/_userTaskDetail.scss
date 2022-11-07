@@ -76,6 +76,8 @@
     .td-user-image-container {
         position: relative;
         width: fit-content;
+        min-height: 150px;
+        min-width: 150px;        
         padding-right: 1.8rem;
         display: flex;
         align-items: center;
@@ -84,8 +86,13 @@
         &__badge {
             position: absolute;
             left: 50%;
-            bottom: 0;
+            bottom: -0.5rem;
             transform: translateX(-50%);
+            color: #3EAEFF;
+            z-index: 2;
+            height: 2.5rem;
+            width: 3rem;            
+            
         }
     }
     .td-user-name {
