@@ -14,13 +14,16 @@ export const RepliedModal = ({
     repliedBy,
     repliedDate,
     reviewId,
+    ratedToImage,
+    ratedToId,
 }: {
     repliedText: string | undefined;
     reviewId: number;
     repliedBy: string | undefined;
+    ratedToImage: string | undefined;
     repliedDate: string | undefined;
+    ratedToId: string | undefined;
 }) => {
-    const { data: profileDetails } = useGetProfile();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showReplyContainer, setShowReplyContainer] = useState(false);
     const [replyHovered, setReplyHovered] = useState<null | number>(null);
@@ -30,6 +33,8 @@ export const RepliedModal = ({
         setShowDeleteModal(!showDeleteModal);
         setId(id);
     };
+
+    const { data: profile } = useGetProfile();
 
     return (
         <>
@@ -44,8 +49,8 @@ export const RepliedModal = ({
                     <Col md={1}>
                         <Image
                             src={
-                                profileDetails
-                                    ? profileDetails?.profile_image
+                                ratedToImage
+                                    ? ratedToImage
                                     : "/userprofile/unknownPerson.jpg"
                             }
                             width={40}
@@ -59,7 +64,8 @@ export const RepliedModal = ({
                         <p className="m-0">{repliedBy}</p>
                         <div className="d-flex flex-col">
                             <p className="replied-text m-0">{repliedText}</p>
-                            {replyHovered === reviewId ? (
+                            {replyHovered === reviewId &&
+                            profile?.user.id === ratedToId ? (
                                 <div className="icons">
                                     <FontAwesomeIcon
                                         icon={faPencil}

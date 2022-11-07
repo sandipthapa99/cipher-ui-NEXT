@@ -53,7 +53,7 @@ export const ReplyModal = ({
     });
 
     return (
-        <>
+        <div className="px-3">
             <Row className="align-items-center mt-3">
                 <Col md={1}>
                     <Image
@@ -75,7 +75,7 @@ export const ReplyModal = ({
                             <input
                                 name="reply"
                                 type="text"
-                                placeholder="Reply"
+                                placeholder="Your Reply"
                                 className="reply-input"
                                 defaultValue={repliedText ? repliedText : ""}
                                 onChange={(e) => {
@@ -104,6 +104,6 @@ export const ReplyModal = ({
                     Reply
                 </Button>
             </div>
-        </>
+        </div>
     );
 };

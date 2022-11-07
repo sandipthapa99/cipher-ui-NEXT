@@ -4,6 +4,7 @@ import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,12 +18,14 @@ const Reviews = ({
     description,
     raterEmail,
     time,
-    image,
+    ratedByImage,
+    ratedToImage,
     id,
     replied,
     repliedText,
     repliedDate,
     repliedBy,
+    ratedToId,
     raterId,
 }: ReviewsProps) => {
     const [replyState, setReplyState] = useState(false);
@@ -37,6 +40,7 @@ const Reviews = ({
         setReplyState(false);
     };
     //   const { data: profileDetails } = useGetProfileById(raterId);
+    const { data: profile } = useGetProfile();
 
     return (
         <>
@@ -48,8 +52,8 @@ const Reviews = ({
                                 <figure className="thumbnail-img">
                                     <Image
                                         src={
-                                            image
-                                                ? image
+                                            ratedByImage
+                                                ? ratedByImage
                                                 : "/userprofile/unknownPerson.jpg"
                                         }
                                         layout="fill"
@@ -90,14 +94,16 @@ const Reviews = ({
                                 {description ? description : "No Reviews yet"}
                             </p>
                             <p className="time">{timeago(time)}</p>
-                            {!replied && (
-                                <p
-                                    className="reply-text"
-                                    onClick={() => setReplyState(true)}
-                                >
-                                    Reply
-                                </p>
-                            )}
+                            {!replied &&
+                                profile &&
+                                profile?.user.id === ratedToId && (
+                                    <p
+                                        className="reply-text"
+                                        onClick={() => setReplyState(true)}
+                                    >
+                                        Reply
+                                    </p>
+                                )}
                             {replyState && (
                                 <ReplyModal
                                     handleClose={handleClose}
@@ -111,6 +117,8 @@ const Reviews = ({
                                     reviewId={id ? id : 0}
                                     repliedBy={repliedBy}
                                     repliedDate={repliedDate}
+                                    ratedToImage={ratedToImage}
+                                    ratedToId={ratedToId}
                                 />
                             )}
                         </div>
