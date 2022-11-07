@@ -102,6 +102,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                                     activeService?.highlights
                                 )}
                                 serviceId={String(activeService?.id)}
+                                ratedTo={activeService?.created_by}
                             />
                         ) : (
                             <iframe
