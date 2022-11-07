@@ -198,7 +198,7 @@ const ServiceDetail: NextPage = () => {
                                 />
                             </Formik>
                         </div>
-                        <div className="review-container">
+                        {/* <div className="review-container">
                             <Row className="gx-5">
                                 {reviewsContent &&
                                     reviewsContent.map((review) => (
@@ -214,7 +214,7 @@ const ServiceDetail: NextPage = () => {
                                     ))}
                             </Row>
                             <Link href="#!">See all reviews</Link>
-                        </div>
+                        </div> */}
                     </div>
                     {/* Service detail reviews setion end */}
 
