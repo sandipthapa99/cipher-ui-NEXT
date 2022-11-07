@@ -168,7 +168,7 @@ export const TeamMembersCard = ({
                                     {rating &&
                                     rating > 0 &&
                                     Number.isSafeInteger(rating) ? (
-                                        <span>{`${rating}.0`}</span>
+                                        <span>{`${rating}`}</span>
                                     ) : rating === null || 0 ? (
                                         <span>0</span>
                                     ) : (
