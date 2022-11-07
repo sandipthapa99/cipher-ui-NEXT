@@ -112,7 +112,10 @@ const ServiceNearYouCard = ({
                                         className="star svg-icon"
                                     />
 
-                                    <p>{serviceRating ?? "0(0)"}</p>
+                                    <p>
+                                        {+Number(serviceRating).toFixed(1) ??
+                                            "0(0)"}
+                                    </p>
                                 </div>
                             </div>
                             <div></div>

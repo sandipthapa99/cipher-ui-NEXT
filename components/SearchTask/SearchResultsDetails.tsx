@@ -730,7 +730,12 @@ const SearchResultsDetail = ({
                                     description={review?.review}
                                     time={review?.created_at}
                                     raterId={review?.rated_by.id}
-                                    image={review?.rated_by.profile_image}
+                                    ratedByImage={
+                                        review?.rated_by?.profile_image
+                                    }
+                                    ratedToImage={review.rated_to.profile_image}
+                                    ratedToId={review.rated_to.id}
+                                    repliedDate={review.updated_at}
                                 />
                             </Col>
                         ))

@@ -85,7 +85,7 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
                         ) : null}
                         {isLoading ? renderLoadingSkeletons() : renderTasks()}
                         <Space h="md" />
-                        {isFetchingNextPage ? <Loader /> : null}
+                        {isFetchingNextPage ? <SkeletonTaskCard /> : null}
                     </ScrollArea.Autosize>
                 </Col>
 
