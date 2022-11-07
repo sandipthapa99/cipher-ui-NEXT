@@ -27,7 +27,7 @@ const MessageCard = ({
                                             alt="user-image"
                                         />
                                     </figure>
-                                    <div className="d-flex flex-column">
+                                    <div className="d-flex flex-column message-container">
                                         <div className="message">
                                             <p>{info.message}</p>
                                         </div>

@@ -3,6 +3,7 @@ import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MessageCard from "@components/common/MessageCard";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
+import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { messageCard } from "staticData/messageCard";
 
@@ -46,7 +47,7 @@ const HowItWorks: NextPage = () => {
                     </div>
                     <div className="how-it-works__communicate service-card-block">
                         <div className="communicate-card">
-                            <Row className="gx-2">
+                            <Row className="gx-5">
                                 <Col lg={5} md={12}>
                                     <div className="communicate-card__left-container">
                                         <h1>Reach out to each other</h1>
@@ -92,6 +93,18 @@ const HowItWorks: NextPage = () => {
                                                 }
                                             />
                                         ))}
+                                    {/* <figure className="thumbnail-img message-card">
+                                        <Image
+                                            src={"/howitworks/message.svg"}
+                                            alt="messages"
+                                            className="messages"
+                                            objectFit="contain"
+                                            height={420}
+                                            width={900}
+                                            //     layout="fill"
+                                            // priority={true}
+                                        />
+                                    </figure> */}
                                 </Col>
                             </Row>
                         </div>

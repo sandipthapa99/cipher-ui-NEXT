@@ -1,6 +1,6 @@
 import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import type { NotificationResponse } from "hooks/Notifications/use-notification";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
@@ -84,7 +84,9 @@ export const TaskStatus = ({
                     </p>
 
                     <p className="date">
-                        {format(new Date(createdDate), "EEEE, do LLL, hh:mm a")}
+                        {formatDistanceToNow(new Date(createdDate), {
+                            addSuffix: true,
+                        })}
                     </p>
                 </div>
             </div>

@@ -3,6 +3,7 @@ import InputField from "@components/common/InputField";
 import type { SelectItem } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
+import { profile } from "console";
 import { Field, Form, Formik } from "formik";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -42,6 +43,13 @@ const BankForm = ({
     const [bankId, setBankId] = useState<string>(
         isEdit ? bankDetail.bank_name.id?.toString() || "" : ""
     );
+    const { data: profileDetails } = useGetProfile();
+    const userName =
+        profileDetails?.user.first_name +
+        " " +
+        profileDetails?.user.middle_name +
+        " " +
+        profileDetails?.user.last_name;
 
     useEffect(() => {
         if (id) {
@@ -278,7 +286,11 @@ const BankForm = ({
                                     labelName="Bank Account Name"
                                     error={errors.bank_account_name}
                                     touch={touched.bank_account_name}
-                                    placeHolder="Enter Account Name"
+                                    placeHolder={
+                                        userName
+                                            ? userName
+                                            : "Enter Account Name"
+                                    }
                                     fieldRequired
                                     // onChange={() => setDisableButton(false)}
                                 />

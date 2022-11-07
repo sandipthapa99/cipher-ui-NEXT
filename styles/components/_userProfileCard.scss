@@ -62,6 +62,9 @@
         height: 2.3rem;
         margin-left: 0.5rem;
     }
+    // .unrated-star {
+    //     color: #ced4da;
+    // }
     &__general-info {
         padding-left: 1rem;
         padding-right: 1rem;
@@ -122,6 +125,10 @@
         }
         .rating {
             padding: 0.8rem 0rem;
+            // .unrated-star {
+            //     color: #ced4da;
+            //     border: 1px solid #ced4da;
+            // }
         }
         .reactions {
             justify-content: end;

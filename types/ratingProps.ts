@@ -15,6 +15,7 @@ export interface RatingResult {
     review: string;
     task_detail: number;
     reply: string;
+    replied_date: string;
 }
 
 export interface RatedTo {

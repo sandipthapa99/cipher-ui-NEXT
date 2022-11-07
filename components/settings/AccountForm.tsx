@@ -10,7 +10,6 @@ import TagInputField from "@components/common/TagInputField";
 import { ImageUpload } from "@components/ImageUpload";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
-import PhotoEdit from "@components/Profile/PhotoEdit";
 import { SelectCity } from "@components/SelectCity";
 // import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { faCamera } from "@fortawesome/pro-light-svg-icons";
@@ -25,8 +24,10 @@ import type { SelectItem } from "@mantine/core";
 import { createStyles } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
+import { getYearsRange } from "@mantine/dates";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
+import dayjs from "dayjs";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
@@ -735,14 +736,18 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     />
                                 }
                                 disabled={isInputDisabled}
-                                maxDate={new Date()}
                                 handleChange={(value) => {
                                     setFieldValue(
                                         "date_of_birth",
                                         format(new Date(value), "yyyy-MM-dd")
                                     );
                                 }}
+                                //    value={getYearsRange({ from: 2020, to: 2025 })}
+                                excludeDate={(date) =>
+                                    date.getFullYear() <= 1940
+                                }
                             />
+
                             {/* <DatePicker
                                 label="Date of birth"
                                 // value={

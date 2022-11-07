@@ -19,7 +19,7 @@ export const useCities = (searchQuery: string, countryId: string) =>
         {
             initialData: [],
             enabled: Boolean(
-                searchQuery && searchQuery.length > 2 && countryId
+                searchQuery && searchQuery.length > 2 && countryId !== ""
             ),
         }
     );

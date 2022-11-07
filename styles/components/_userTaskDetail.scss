@@ -193,6 +193,7 @@
                 margin-bottom: 0rem;
             }
         }
+
         .review-container {
             margin-bottom: 2rem;
             padding-bottom: 2rem;
@@ -200,7 +201,12 @@
             padding: 0 0 2.5rem 2rem;
         }
     }
-
+    .review-block {
+        .icons {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+    }
     .review {
         span {
             margin-left: 0rem;

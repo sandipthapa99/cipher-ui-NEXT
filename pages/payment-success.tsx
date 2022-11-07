@@ -24,24 +24,11 @@ export enum PaymentMethods {
     stripe = "stripe",
     paypal = "paypal",
 }
-export type KhaltiPayload = {
-    verification_id: string;
-    // type: PaymentMethods.khalti;
-    // order: string;
-    // detail: { pidx: string };
-};
-export type StripePayload = {
-    verification_id: string;
-    // type: PaymentMethods.stripe;
-    // payment_intent: string;
-};
-export type PaypalPayload = {
+export type PaymentPayload = {
     verification_id: string;
 };
 
-export type CompleteOrderPayload =
-    | KhaltiPayload["verification_id"]
-    | StripePayload;
+export type CompleteOrderPayload = PaymentPayload;
 
 const PaymentSuccess = () => {
     const router = useRouter();
@@ -80,19 +67,14 @@ const PaymentSuccess = () => {
     });
     useEffect(() => {
         let payload;
-        // const payload = pidx
-        //     ? ({
-        //           verification_id: pidx,
-        //       } as KhaltiPayload)
-        //     : ({ verification_id: payment_intent } as StripePayload);
         if (pidx) {
-            payload = { verification_id: pidx } as KhaltiPayload;
+            payload = { verification_id: pidx } as PaymentPayload;
         }
         if (payment_intent) {
-            payload = { verification_id: payment_intent } as StripePayload;
+            payload = { verification_id: payment_intent } as PaymentPayload;
         }
         if (token) {
-            payload = { verification_id: token } as PaypalPayload;
+            payload = { verification_id: token } as PaymentPayload;
         }
 
         if (!payload) return;

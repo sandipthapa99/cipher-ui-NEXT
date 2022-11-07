@@ -1,11 +1,11 @@
 import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Loader, Spoiler } from "@mantine/core";
+import { Alert, Grid, Select, Skeleton } from "@mantine/core";
 import urls from "constants/urls";
 import { format } from "date-fns";
-import { Formik, validateYupSchema } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
@@ -13,12 +13,9 @@ import parse from "html-react-parser";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { RatingResponse } from "types/ratingProps";
 import type { UserProfileProps } from "types/userProfileProps";
-import { reviewSearchData } from "utils/formData";
-import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
 
 import AddPortfolio from "./AddPortfolio";
 import CertificationForm from "./CertificationForm";
@@ -55,6 +52,7 @@ const AboutProfile = () => {
     // const { mutate: searchMutation, data: filteredData } =
     //     useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
     //
+    const [show, setShow] = useState<boolean>(false);
 
     //user profile certification data
     const { data: certificationData } = useData<
@@ -727,7 +725,147 @@ const AboutProfile = () => {
                                     </span>{" "}
                                 </h3>
                             </Col>
+
                             <Col md={{ span: 7, offset: 1 }}>
+                                <Select
+                                    defaultValue={"-rating"}
+                                    size={"sm"}
+                                    className={"ms-auto w-50 text-secondary"}
+                                    data={[
+                                        {
+                                            value: "-rating",
+                                            label: "Most Relevant",
+                                        },
+                                        {
+                                            value: "-updated_at",
+                                            label: "Latest",
+                                        },
+                                        { value: "-rating", label: "Top" },
+                                    ]}
+                                    onChange={(value: any) => {
+                                        setSearch(value);
+                                    }}
+                                />
+                            </Col>
+                        </Row>
+                    </div>
+
+                    <div className="review-container">
+                        {!taskerRating?.data.result ||
+                            (taskerRating?.data.result.length <= 0 &&
+                                (user?.is_kyc_verified ? (
+                                    <div>
+                                        <p>
+                                            You have no reviews yet, Get started
+                                            with task.
+                                        </p>
+                                        <a
+                                            onClick={() =>
+                                                toggleShowPostTaskModal()
+                                            }
+                                            className="nav-cta-btn"
+                                            role="button"
+                                        >
+                                            Post a Task
+                                        </a>
+                                    </div>
+                                ) : (
+                                    <Alert>
+                                        Your KYC verification is pending. You
+                                        can post a task once it is verified.{" "}
+                                    </Alert>
+                                )))}
+
+                        {ratingLoading ? (
+                            <Grid className="mt-3">
+                                <Grid.Col span={2}>
+                                    <Skeleton height={80} circle mb="xl" />
+                                </Grid.Col>
+                                <Grid.Col span={8}>
+                                    <Skeleton
+                                        height={20}
+                                        width={"100%"}
+                                        radius="sm"
+                                    />
+                                    <Skeleton height={15} mt={6} radius="sm" />
+                                    <Skeleton
+                                        className="mt-3"
+                                        height={8}
+                                        mt={6}
+                                        width="40%"
+                                        radius="xl"
+                                    />
+                                    <Skeleton
+                                        className="mt-4"
+                                        height={8}
+                                        mt={6}
+                                        width="20%"
+                                        radius="xl"
+                                    />
+                                </Grid.Col>
+                            </Grid>
+                        ) : (
+                            taskerRating?.data.result
+                                ?.slice(
+                                    0,
+                                    show ? taskerRating?.data.result?.length : 2
+                                )
+                                .map((review: any, index: any) => (
+                                    <Reviews
+                                        repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
+                                        repliedText={review.reply}
+                                        replied={
+                                            review.reply === null ? false : true
+                                        }
+                                        id={review?.id}
+                                        name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
+                                        key={index}
+                                        raterEmail={review?.rated_by.email}
+                                        ratings={review?.rating}
+                                        description={review?.review}
+                                        time={review?.updated_at}
+                                        raterId={review?.rated_by.id}
+                                        ratedByImage={
+                                            review?.rated_by?.profile_image
+                                        }
+                                        ratedToImage={
+                                            review.rated_to.profile_image
+                                        }
+                                        ratedToId={review.rated_to.id}
+                                        repliedDate={review.updated_at}
+                                    />
+                                ))
+                        )}
+                        {taskerRating?.data.result &&
+                        taskerRating?.data.result.length > 2 ? (
+                            <span
+                                className="review-button"
+                                role={"button"}
+                                onClick={() => setShow(!show)}
+                            >
+                                {!show ? "See all reviews" : "Hide reviews"}
+                            </span>
+                        ) : (
+                            ""
+                        )}
+                    </div>
+                </div>
+                <DeleteModal
+                    show={showDeleteModal}
+                    setShowDeleteModal={setShowDeleteModal}
+                    handleClose={() => setShowDeleteModal(false)}
+                    id={id}
+                    modalName={modalName}
+                />
+            </div>
+        </>
+    );
+};
+
+export default AboutProfile;
+
+{
+    /* <Col md={{ span: 7, offset: 1 }}>
                                 <Row className="select-field justify-content-end">
                                     <Col md={6}>
                                         <Formik
@@ -762,98 +900,5 @@ const AboutProfile = () => {
                                         </Formik>
                                     </Col>
                                 </Row>
-                            </Col>
-                        </Row>
-                    </div>
-
-                    <div className="review-container">
-                        <Row className="gx-5 type">
-                            {ratingLoading ? (
-                                <Loader size="sm" />
-                            ) : taskerRating &&
-                              taskerRating?.data.result.length > 0 ? (
-                                <div>
-                                    <Spoiler
-                                        maxHeight={480}
-                                        hideLabel={"Hide"}
-                                        showLabel={"See all reviews"}
-                                        className={"mb-5"}
-                                    >
-                                        {taskerRating?.data?.result?.map(
-                                            (review) => (
-                                                <Col md={8} key={review.id}>
-                                                    <Reviews
-                                                        repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
-                                                        repliedText={
-                                                            review.reply
-                                                        }
-                                                        replied={
-                                                            review.reply ===
-                                                            null
-                                                                ? false
-                                                                : true
-                                                        }
-                                                        id={review?.id}
-                                                        name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
-                                                        raterEmail={
-                                                            review?.rated_by
-                                                                .email
-                                                        }
-                                                        ratings={review?.rating}
-                                                        description={
-                                                            review?.review
-                                                        }
-                                                        time={
-                                                            review?.updated_at
-                                                        }
-                                                        raterId={
-                                                            review?.rated_by.id
-                                                        }
-                                                        image={
-                                                            review?.rated_by
-                                                                .profile_image
-                                                        }
-                                                    />
-                                                </Col>
-                                            )
-                                        )}
-                                    </Spoiler>
-                                </div>
-                            ) : user?.is_kyc_verified ? (
-                                <div>
-                                    <p>
-                                        You have no reviews yet, Get started
-                                        with task.
-                                    </p>
-                                    <a
-                                        onClick={() =>
-                                            toggleShowPostTaskModal()
-                                        }
-                                        className="nav-cta-btn"
-                                        role="button"
-                                    >
-                                        Post a Task
-                                    </a>
-                                </div>
-                            ) : (
-                                <Alert>
-                                    Your KYC verification is pending. You can
-                                    post a task once it is verified.{" "}
-                                </Alert>
-                            )}
-                        </Row>
-                    </div>
-                </div>
-                <DeleteModal
-                    show={showDeleteModal}
-                    setShowDeleteModal={setShowDeleteModal}
-                    handleClose={() => setShowDeleteModal(false)}
-                    id={id}
-                    modalName={modalName}
-                />
-            </div>
-        </>
-    );
-};
-
-export default AboutProfile;
+                            </Col> */
+}

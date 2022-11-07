@@ -8,6 +8,7 @@ interface SelectCityProps extends Omit<SelectProps, "data"> {
     data?: SelectItem[];
     onCityChange: (cityId: string) => void;
     countryId: string;
+    changedCountry?: boolean;
 }
 
 export const SelectCity = ({
@@ -15,10 +16,12 @@ export const SelectCity = ({
     value,
     countryId,
     onCityChange,
+    changedCountry,
     ...props
 }: SelectCityProps) => {
     const [query, setQuery] = useState("");
     const [city, setCity] = useState(value ?? "");
+
     const { data: allCities } = useCities(query, countryId);
 
     const citiesData: SelectItem[] = allCities.map((city) => ({
@@ -27,15 +30,18 @@ export const SelectCity = ({
         value: city.id.toString(),
     }));
 
-    useEffect(() => {
-        setCity("");
-    }, [countryId]);
-
     const handleCityChange = (selectedCity: string | null) => {
         if (!selectedCity) return;
         onCityChange(selectedCity);
         setCity(selectedCity);
     };
+
+    useEffect(() => {
+        if (changedCountry === true) {
+            setCity("");
+        }
+    }, [countryId, changedCountry]);
+
     useEffect(() => {
         setCity(value ?? "");
     }, [value]);
