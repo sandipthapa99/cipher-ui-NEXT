@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
@@ -107,12 +107,17 @@ interface TransactionHistory {
     }>;
 }
 
-export const useGetTransactionHistory = (pageNumber?: number) => {
-    return useQuery(["GET-TRANSACTION", pageNumber], async () => {
+const queryClient = new QueryClient();
+export const useGetTransactionHistory = (
+    pageNumber?: number,
+    pageSize?: string
+) => {
+    return useQuery(["GET-TRANSACTION", pageNumber, pageSize], async () => {
         try {
             const { data } = await axiosClient.get<TransactionHistory>(
-                `/payment/transaction/?page=${pageNumber}&page_size=10`
+                `/payment/transaction/?page=${pageNumber}&page_size=${pageSize}`
             );
+            queryClient.invalidateQueries(["GET-TRANSACTION"]);
             return data;
         } catch (error) {
             if (error instanceof AxiosError) {
