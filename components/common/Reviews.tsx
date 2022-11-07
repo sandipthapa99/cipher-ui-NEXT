@@ -58,7 +58,7 @@ const Reviews = ({
                                         }
                                         layout="fill"
                                         objectFit="cover"
-                                        alt="referral-card-image"
+                                        alt="reviewer-image"
                                     />
                                 </figure>
                             </a>

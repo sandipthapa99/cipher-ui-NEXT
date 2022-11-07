@@ -3,6 +3,7 @@ import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { timeago } from "utils/timeago";
@@ -47,45 +48,61 @@ export const RepliedModal = ({
                     }
                 >
                     <Col md={1}>
-                        <Image
-                            src={
-                                ratedToImage
-                                    ? ratedToImage
-                                    : "/userprofile/unknownPerson.jpg"
-                            }
-                            width={40}
-                            height={40}
-                            objectFit="cover"
-                            alt="reviewer_image"
-                            className="reviewer-image"
-                        />
+                        <Link href={`/tasker/${ratedToId}/`}>
+                            <a target="_blank">
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={
+                                            ratedToImage
+                                                ? ratedToImage
+                                                : "/userprofile/unknownPerson.jpg"
+                                        }
+                                        width={60}
+                                        height={60}
+                                        //layout="fill"
+                                        objectFit="cover"
+                                        alt="reviewer_image"
+                                        className="reviewer-image"
+                                    />
+                                </figure>
+                            </a>
+                        </Link>
                     </Col>
-                    <Col md={11} className="d-flex-col align-items-center">
-                        <p className="m-0">{repliedBy}</p>
-                        <div className="d-flex flex-col">
-                            <p className="replied-text m-0">{repliedText}</p>
-                            {replyHovered === reviewId &&
-                            profile?.user.id === ratedToId ? (
-                                <div className="icons">
-                                    <FontAwesomeIcon
-                                        icon={faPencil}
-                                        className="svg-icon"
-                                        onClick={() => {
-                                            setShowReplyContainer(true);
-                                            setId(reviewId);
-                                        }}
-                                    />
-                                    <FontAwesomeIcon
-                                        icon={faTrashCan}
-                                        className="trash svg-icon"
-                                        onClick={() => handleDelete(reviewId)}
-                                    />
-                                </div>
-                            ) : (
-                                ""
-                            )}
+                    <Col
+                        md={11}
+                        className="d-flex-col align-items-center reply-container"
+                    >
+                        <div className="review-block__content">
+                            <p className="m-0 replied_by">{repliedBy}</p>
+                            <div className="d-flex flex-col">
+                                <p className="replied-text m-0">
+                                    {repliedText}
+                                </p>
+                                {replyHovered === reviewId &&
+                                profile?.user.id === ratedToId ? (
+                                    <div className="icons">
+                                        <FontAwesomeIcon
+                                            icon={faPencil}
+                                            className="svg-icon"
+                                            onClick={() => {
+                                                setShowReplyContainer(true);
+                                                setId(reviewId);
+                                            }}
+                                        />
+                                        <FontAwesomeIcon
+                                            icon={faTrashCan}
+                                            className="trash svg-icon"
+                                            onClick={() =>
+                                                handleDelete(reviewId)
+                                            }
+                                        />
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+                            <p className="time">{timeago(repliedDate)}</p>
                         </div>
-                        <p className="time">{timeago(repliedDate)}</p>
                     </Col>
                 </Row>
             )}
