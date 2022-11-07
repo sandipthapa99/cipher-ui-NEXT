@@ -26,12 +26,21 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
     };
     const memberSince = getMemberSince();
 
-    const activeHourStart = user?.active_hour_start
-        ? formatTime(user.active_hour_start)
-        : undefined;
-    const activeHourEnd = user?.active_hour_end
-        ? formatTime(user.active_hour_end)
-        : undefined;
+    // const activeHourStart = user?.active_hour_start
+    //     ? formatTime(user.active_hour_start)
+    //     : undefined;
+    // const activeHourEnd = user?.active_hour_end
+    //     ? formatTime(user.active_hour_end)
+    //     : undefined;
+
+    const activeHourStart =
+        user.active_hour_start?.charAt(0) === "0"
+            ? user.active_hour_start?.slice(1)
+            : user.active_hour_start;
+    const activeHourEnd =
+        user.active_hour_end?.charAt(0) === "0"
+            ? user.active_hour_end?.slice(1)
+            : user.active_hour_end;
 
     return (
         <Row className="td-mt-24">
@@ -65,7 +74,10 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                     <span>
                         {/* Active Hours &nbsp; */}
                         <Text className={classes.boldText}>
-                            {`${activeHourStart} to ${activeHourEnd}`}
+                            {`${activeHourStart?.replace(
+                                ":00",
+                                ""
+                            )} AM to ${activeHourEnd?.replace(":00", "")} PM`}
                         </Text>
                     </span>
                 </div>

@@ -123,6 +123,10 @@ const UserProfileCard = ({
         active_hour_end?.charAt(0) === "0"
             ? active_hour_end?.slice(1)
             : active_hour_end;
+    console.log(
+        "🚀 ~ file: UserProfile.tsx ~ line 120 ~ active_hour_start",
+        active_hour_start
+    );
 
     interface DropdownProps {
         children?: ReactNode;

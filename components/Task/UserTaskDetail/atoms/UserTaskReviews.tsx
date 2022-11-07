@@ -125,7 +125,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                     role={"button"}
                     onClick={() => setShow(!show)}
                 >
-                    {!show ? "See all reviews" : "Hide all reviews"}
+                    {!show ? "See all reviews" : "Hide reviews"}
                 </span>
             ) : (
                 ""
