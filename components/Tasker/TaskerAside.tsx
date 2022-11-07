@@ -116,7 +116,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                                     )}" found.`} */}
                                 </p>
                             ) : null}
-                            {isFetchingNextPage && <Loader />}
+                            {isFetchingNextPage && <TaskerSkeleton />}
                         </>
                     </ScrollArea.Autosize>
                 </Col>
