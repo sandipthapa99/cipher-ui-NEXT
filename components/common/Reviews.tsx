@@ -5,6 +5,7 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { ReviewsProps } from "types/reviews";
@@ -22,6 +23,7 @@ const Reviews = ({
     repliedText,
     repliedDate,
     repliedBy,
+    raterId,
 }: ReviewsProps) => {
     const [replyState, setReplyState] = useState(false);
     // const timeago = (time: any) => {
@@ -41,18 +43,22 @@ const Reviews = ({
             <div>
                 <Row className="review-block">
                     <Col md={1} className="image">
-                        <figure className="thumbnail-img">
-                            <Image
-                                src={
-                                    image
-                                        ? image
-                                        : "/userprofile/unknownPerson.jpg"
-                                }
-                                layout="fill"
-                                objectFit="cover"
-                                alt="referral-card-image"
-                            />
-                        </figure>
+                        <Link href={`/tasker/${raterId}/`}>
+                            <a target="_blank">
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={
+                                            image
+                                                ? image
+                                                : "/userprofile/unknownPerson.jpg"
+                                        }
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="referral-card-image"
+                                    />
+                                </figure>
+                            </a>
+                        </Link>
                     </Col>
                     <Col md={11}>
                         <div className="review-block__content">
