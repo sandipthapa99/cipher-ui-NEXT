@@ -1,0 +1,65 @@
+.my-booked-task-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    border-radius: 4px;
+    padding: 1.6rem;
+
+    .title-price-wrapper {
+        margin: 0 0 1.9rem;
+        p {
+            font: 400 1.2rem $poppins-font;
+            color: $gray-text-color;
+            margin: 0;
+        }
+        .title-and-date {
+            h3 {
+                font: 500 1.8rem $poppins-font;
+                margin: 0 0 0.8rem;
+            }
+        }
+
+        .price {
+            h2 {
+                font: 500 2.4rem $poppins-font;
+                margin: 0 0 0.5rem;
+            }
+        }
+    }
+
+    .center-section {
+        border-bottom: 1px solid #e9ecef;
+        font: 400 1.4rem $poppins-font;
+        svg {
+            color: #868e96;
+            margin: 0 1.8rem 0 0;
+        }
+
+        .name-and-location {
+            .location {
+                margin: 0 0 1.4rem;
+                svg {
+                    margin: 0 2.2rem 0 0;
+                }
+            }
+            .time {
+                margin: 0 0 1.4rem;
+            }
+
+            .name-and-image {
+                margin: 0 0 1.4rem;
+                .profile-image {
+                    border-radius: 50%;
+                    margin: 0 0.8rem 0 0;
+                }
+                span {
+                    margin: 0 0 0 0.8rem;
+                }
+            }
+        }
+    }
+
+    .card-footer-section {
+        margin: 1.7rem 0 0;
+    }
+}
