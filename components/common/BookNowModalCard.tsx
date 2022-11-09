@@ -6,6 +6,7 @@ import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox, LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
@@ -47,7 +48,7 @@ const BookNowModalCard = ({
     const { mutate, isLoading: bookNowLoading } = useBookNowTask();
     const isBookLoading = uploadPhotoLoading || bookNowLoading;
     const toggleSuccessModal = useToggleSuccessModal();
-
+    const queryClient = new QueryClient();
     const parsedDescription = parse(description ?? "");
 
     return (
@@ -129,9 +130,13 @@ const BookNowModalCard = ({
                             mutate(newvalues, {
                                 onSuccess: () => {
                                     handleClose?.();
+                                    queryClient.invalidateQueries([
+                                        "notification",
+                                    ]);
                                     toggleSuccessModal(
                                         "Your Booking was sent for approval"
                                     );
+
                                     router.push("/home");
                                 },
                                 onError: (error) => {

@@ -231,6 +231,9 @@ export const MyBookingsCard = ({
                                             queryClient.invalidateQueries([
                                                 "get-my-bookings",
                                             ]);
+                                            queryClient.invalidateQueries([
+                                                "notification",
+                                            ]);
                                         },
                                         onError: (error: any) => {
                                             toast.error(
