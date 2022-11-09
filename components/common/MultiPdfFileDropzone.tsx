@@ -1,8 +1,4 @@
-import {
-    faCircleArrowUp,
-    faTrashCan,
-    faXmark,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faTrashCan, faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, Highlight, Text } from "@mantine/core";
 import {

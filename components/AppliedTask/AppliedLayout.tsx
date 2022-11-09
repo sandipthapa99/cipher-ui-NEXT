@@ -25,12 +25,10 @@ const AppliedLayout = ({
     children,
     type,
     title,
-    description,
 }: {
     children: ReactNode;
     type?: string;
     title?: string;
-    description?: string;
 }) => {
     const [searchParam, setSearchParam] = useState("");
     return (

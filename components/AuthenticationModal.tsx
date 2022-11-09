@@ -67,7 +67,7 @@ const AuthenticationModalCard = ({
                 setShowForm(false);
                 router.push("/login");
             },
-            onError: async (error) => {
+            onError: async () => {
                 toast.error("Invalid OTP");
                 setOTPNum("");
             },

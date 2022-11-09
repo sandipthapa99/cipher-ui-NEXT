@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useRef } from "react";
 import type { DragAndDropProps } from "types/dragDrop";
 
-import FileInputField from "./FileInputField";
 const FileDragDrop = ({
     name,
     image,

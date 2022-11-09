@@ -35,7 +35,7 @@ const EquipmentForm = ({
                     <Formik
                         initialValues={EquipmentFormData}
                         validationSchema={equipmentFormSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={async () => {
                             setshowEqpForm(false);
                             // To be used for API
                             // try {

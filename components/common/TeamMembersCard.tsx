@@ -1,10 +1,6 @@
 import SaveIcon from "@components/common/SaveIcon";
 import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
-import {
-    faAward,
-    faFaceGrinBeam,
-    faLocationArrow,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faAward, faFaceGrinBeam } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
@@ -18,7 +14,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { TaskApplicantsProps, TaskApprovedList } from "types/task";
 import type { Tasker } from "types/tasks";
-import { toast } from "utils/toast";
 
 import BigButton from "./Button";
 import ShareIcon from "./ShareIcon";

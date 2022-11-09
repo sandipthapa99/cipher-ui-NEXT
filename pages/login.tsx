@@ -84,7 +84,7 @@ const Login = () => {
                         username: "",
                         password: "",
                     }}
-                    onSubmit={(values, actions) => {
+                    onSubmit={(values) => {
                         const newValues = {
                             ...values,
                             fcm_token: fcmToken ? fcmToken : null,
@@ -118,7 +118,7 @@ const Login = () => {
                         });
                     }}
                 >
-                    {({ errors, touched, setFieldValue, setFieldError }) => (
+                    {({ errors, touched, setFieldValue }) => (
                         <Form className="login-form">
                             <InputField
                                 name="username"

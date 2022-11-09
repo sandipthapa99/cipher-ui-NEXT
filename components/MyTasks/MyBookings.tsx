@@ -1,8 +1,7 @@
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
-import { Alert, Col, Grid, Skeleton } from "@mantine/core";
+import { Col, Grid, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
-import Link from "next/link";
 import React from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 import { axiosClient } from "utils/axiosClient";

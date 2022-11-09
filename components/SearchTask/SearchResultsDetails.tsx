@@ -23,7 +23,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Text } from "@mantine/core";
-import { Alert, Highlight, Spoiler } from "@mantine/core";
+import { Alert, Spoiler } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -73,7 +73,6 @@ const SearchResultsDetail = ({
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     // const setBookNowDetails = useSetBookNowDetails();
-    const reviewsContent = getReviews();
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
 

@@ -18,7 +18,6 @@ import {
     Modal,
     Stack,
     Text,
-    Textarea,
     TextInput,
     Title,
 } from "@mantine/core";

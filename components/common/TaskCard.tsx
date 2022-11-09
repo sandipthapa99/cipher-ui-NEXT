@@ -5,7 +5,6 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -14,7 +13,6 @@ import { useData } from "hooks/use-data";
 import parser from "html-react-parser";
 import Link from "next/link";
 import type { ITask, TaskerCount } from "types/task";
-import { getPageUrl } from "utils/helpers";
 
 import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
@@ -25,8 +23,7 @@ interface TaskCardProps {
     isSaved?: boolean;
 }
 const TaskCard = ({ task, isSaved }: TaskCardProps) => {
-    const { title, description, location, status, currency, slug, images, id } =
-        task;
+    const { title, description, location, status, currency, slug, id } = task;
 
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", id],

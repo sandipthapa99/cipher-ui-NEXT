@@ -1,5 +1,3 @@
-import PhotoEdit from "@components/Profile/PhotoEdit";
-import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import {
     faAt,
     faCircleQuestion,
@@ -30,11 +28,9 @@ import Dropdown from "react-bootstrap/Dropdown";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
-import { getPageUrl } from "utils/helpers";
 import { toast } from "utils/toast";
 
 import ProfileEditForm from "./ProfileEditForm";
-import { RatingStars } from "./RatingStars";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 const UserProfileCard = ({

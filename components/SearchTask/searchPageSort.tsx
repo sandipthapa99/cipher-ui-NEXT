@@ -4,7 +4,6 @@ import { MyBookings } from "@components/MyTasks/MyBookings";
 import { MyService } from "@components/MyTasks/MyService";
 import { MyTasks } from "@components/MyTasks/MyTasks";
 import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
-import { TaskYouMayLike } from "@components/MyTasks/TaskYouMayLike";
 import { ToReview } from "@components/MyTasks/ToReview";
 import { useState } from "react";
 const SearchBySort = () => {
@@ -52,40 +51,6 @@ const SearchBySort = () => {
                         content: <PaymentHistory />,
                     },
                 ]}
-                // icons={[
-                //     {
-                //         index: 0,
-                //         type: (
-                //             <Popover width={300} trapFocus position="bottom">
-                //                 <Popover.Target>
-                //                     <button className="btn">
-                //                         <FontAwesomeIcon
-                //                             icon={faMagnifyingGlass}
-                //                             className="svg-icon"
-                //                         />
-                //                     </button>
-                //                 </Popover.Target>
-                //                 <Popover.Dropdown>
-                //                     <RenderInputBox />
-                //                 </Popover.Dropdown>
-                //             </Popover>
-                //         ),
-                //     },
-                //     {
-                //         index: 1,
-                //         type: (
-                //             <EllipsisDropdown
-                //                 showModal={true}
-                //                 handleOnClick={() => setShowModal(true)}
-                //             >
-                //                 <FontAwesomeIcon
-                //                     icon={faFilterList}
-                //                     className="svg-icon"
-                //                 />
-                //             </EllipsisDropdown>
-                //         ),
-                //     },
-                // ]}
             />
         </>
     );

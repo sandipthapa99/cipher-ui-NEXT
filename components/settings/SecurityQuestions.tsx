@@ -145,7 +145,7 @@ export const SecurityQuestions = () => {
                                 initialValues={{
                                     answer: item?.answer,
                                 }}
-                                onSubmit={async (values, action) => {
+                                onSubmit={async (values) => {
                                     editAnswer(values, {
                                         onSuccess: () => {
                                             toast.success(

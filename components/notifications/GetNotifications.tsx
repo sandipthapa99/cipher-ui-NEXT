@@ -8,11 +8,8 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 
-import { AcceptedNotification } from "./AcceptedNotification";
-import { ApproveNotify } from "./ApproveNotify";
 import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
 import { PostNotifyTask } from "./PostedTask";
-import { ServiceAccept } from "./ServiceAccept";
 
 export default function GetNotifications() {
     // const router = useRouter();

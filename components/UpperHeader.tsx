@@ -1,9 +1,7 @@
 import { ProfileModel } from "@components/model/ProfileModel";
 import { PostTaskModal } from "@components/Task/PostTaskModal";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
-import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     Avatar,
     Button as MantineButton,
@@ -18,7 +16,7 @@ import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, Container, Form, Navbar } from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import { handleMenuActive } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -36,17 +34,17 @@ export function UpperHeader() {
         toggleShowProfileModal(false)
     );
 
-    const checkPageForHeader =
-        router.pathname !== "/" &&
-        router.pathname !== "/about" &&
-        router.pathname !== "/contact-us" &&
-        router.pathname !== "/career" &&
-        router.pathname !== "/discover" &&
-        router.pathname !== "/help" &&
-        router.pathname !== "/privacy-policy" &&
-        router.pathname !== "/terms-conditions" &&
-        router.pathname !== "/faq" &&
-        router.pathname !== "/blogs";
+    // const checkPageForHeader =
+    //     router.pathname !== "/" &&
+    //     router.pathname !== "/about" &&
+    //     router.pathname !== "/contact-us" &&
+    //     router.pathname !== "/career" &&
+    //     router.pathname !== "/discover" &&
+    //     router.pathname !== "/help" &&
+    //     router.pathname !== "/privacy-policy" &&
+    //     router.pathname !== "/terms-conditions" &&
+    //     router.pathname !== "/faq" &&
+    //     router.pathname !== "/blogs";
 
     const { data: profileDetails } = useGetProfile();
 

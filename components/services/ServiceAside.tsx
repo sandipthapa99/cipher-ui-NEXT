@@ -3,7 +3,7 @@ import ServiceNearYouCard from "@components/SearchTask/searchAside";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Loader, ScrollArea } from "@mantine/core";
+import { Alert, ScrollArea } from "@mantine/core";
 import { useServices } from "hooks/service/use-services";
 import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";

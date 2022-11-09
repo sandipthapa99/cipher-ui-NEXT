@@ -1,15 +1,9 @@
 import FormButton from "@components/common/FormButton";
-import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
-import { async } from "@firebase/util";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { useUser } from "hooks/auth/useUser";
-import { useForm } from "hooks/use-form";
 import { useDeleteAccount } from "hooks/use-post-delete";
-import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { isSubmittingClass } from "utils/helpers";
@@ -65,7 +59,7 @@ const PasswordModalCard = ({
                                     ]);
                                     setShowForm(false);
                                 },
-                                onError: (error: any) => {
+                                onError: () => {
                                     toast.error(
                                         "Password does not match. Please try again"
                                     );

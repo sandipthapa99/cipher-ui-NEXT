@@ -129,6 +129,6 @@ const Feedback = () => {
     );
 };
 export default Feedback;
-function useFeedback(): { mutate: any; isLoading: any } {
-    throw new Error("Function not implemented.");
-}
+// function useFeedback(): { mutate: any; isLoading: any } {
+//     throw new Error("Function not implemented.");
+// }

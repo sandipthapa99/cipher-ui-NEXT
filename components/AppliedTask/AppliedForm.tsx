@@ -14,7 +14,6 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import type { BookNowModalCardProps } from "types/bookNow";
-import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -115,7 +114,7 @@ const AppliedForm = ({
                                 // ),
                             };
                             mutate(applyTaskPayload, {
-                                onSuccess: (data) => {
+                                onSuccess: () => {
                                     toast.success(
                                         "You have successfully applied for task"
                                     );
