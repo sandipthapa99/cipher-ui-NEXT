@@ -10,9 +10,9 @@ import React from "react";
 export const MyBookedTaskCard = () => {
     return (
         <div className="my-booked-task-card">
-            <div className="title-price-wrapper d-flex justify-content-between">
+            <div className="title-price-wrapper d-flex justify-content-between gap-5">
                 <div className="title-and-date">
-                    <h3>Need a house Painter</h3>
+                    <h3>Need a house Painter </h3>
                     <p>Posted on 25 May, 2022</p>
                 </div>
                 <div className="price d-flex flex-column align-items-end">
@@ -22,14 +22,14 @@ export const MyBookedTaskCard = () => {
             </div>
             <div className="center-section d-flex justify-content-between">
                 <div className="name-and-location">
-                    <div className="location">
+                    <div className="location d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationDot}
                             className="location-icon"
                         />
                         <span>Anamnagar, Baneshor, KTM, Nepal</span>
                     </div>
-                    <div className="time">
+                    <div className="time d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faHourglassClock}
                             className="location-icon"
