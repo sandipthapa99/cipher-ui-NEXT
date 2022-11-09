@@ -55,7 +55,7 @@ const SaveIcon = ({
         >
             <FontAwesomeIcon
                 color="red"
-                icon={filled ? faFilledHeart : faHeart}
+                icon={filled ? faFilledBookmark : faBookmark}
                 className="svg-icon me-0"
             />
         </ActionIcon>
