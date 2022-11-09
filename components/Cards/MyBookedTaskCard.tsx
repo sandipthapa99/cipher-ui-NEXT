@@ -58,7 +58,7 @@ export const MyBookedTaskCard = ({
                         />
                         <span>{item?.location}</span>
                     </div>
-                    <div className="time">
+                    <div className="time d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faHourglassClock}
                             className="svg-icon ms-1 me-4"

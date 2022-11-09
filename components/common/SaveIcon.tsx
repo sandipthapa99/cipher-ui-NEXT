@@ -1,5 +1,5 @@
-import { faHeart } from "@fortawesome/pro-regular-svg-icons";
-import { faHeart as faFilledHeart } from "@fortawesome/pro-solid-svg-icons";
+import { faBookmark } from "@fortawesome/pro-regular-svg-icons";
+import { faBookmark as faFilledBookmark } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Button } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
@@ -39,7 +39,7 @@ const SaveIcon = ({
             leftIcon={
                 <FontAwesomeIcon
                     className="svg-icon m-0"
-                    icon={filled ? faFilledHeart : faHeart}
+                    icon={filled ? faFilledBookmark : faBookmark}
                 />
             }
         >
@@ -55,7 +55,7 @@ const SaveIcon = ({
         >
             <FontAwesomeIcon
                 color="red"
-                icon={filled ? faFilledHeart : faHeart}
+                icon={filled ? faFilledBookmark : faBookmark}
                 className="svg-icon me-0"
             />
         </ActionIcon>
