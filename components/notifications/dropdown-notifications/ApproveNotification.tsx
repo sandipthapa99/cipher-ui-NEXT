@@ -181,7 +181,7 @@ export const ApproveNotification = ({
                 <figure className="dropdown-notification-image">
                     <Image
                         alt="testimage"
-                        src="/userprofile/unknownPerson.jpg"
+                        src="/logo/homaale-favicon.png"
                         height={50}
                         width={50}
                     />

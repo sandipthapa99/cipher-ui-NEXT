@@ -50,17 +50,17 @@ export const TaskStatus = ({
             // }}
         >
             <div className="d-flex notification-wrapper">
-                {/* <figure className="d-flex flex-column justify-content-center notification-image">
+                <figure className="d-flex flex-column justify-content-center notification-image">
                     <Image
                         alt="testimage"
                         src={
                             profile?.profile_image ??
-                            "/userprofile/unknownPerson.jpg"
+                            "/logo/homaale-favicon.png"
                         }
                         height={50}
                         width={50}
                     />
-                </figure> */}
+                </figure>
                 <div className="description-section">
                     <p>
                         <span className="span-name" onClick={handleClick}>

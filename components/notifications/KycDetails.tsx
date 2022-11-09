@@ -49,8 +49,9 @@ export const KycDetails = ({
                     <Image
                         alt="testimage"
                         src={
-                            profile?.profile_image ??
-                            "/userprofile/unknownPerson.jpg"
+                            // profile?.profile_image ??
+                            // "/userprofile/unknownPerson.jpg"
+                            "/logo/homaale-favicon.png"
                         }
                         height={50}
                         width={50}
