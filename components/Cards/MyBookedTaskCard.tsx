@@ -22,14 +22,14 @@ export const MyBookedTaskCard = () => {
             </div>
             <div className="center-section d-flex justify-content-between">
                 <div className="name-and-location">
-                    <div className="location">
+                    <div className="location d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationDot}
                             className="location-icon"
                         />
                         <span>Anamnagar, Baneshor, KTM, Nepal</span>
                     </div>
-                    <div className="time">
+                    <div className="time d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faHourglassClock}
                             className="location-icon"
