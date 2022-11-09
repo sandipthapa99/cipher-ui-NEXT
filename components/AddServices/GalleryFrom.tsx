@@ -26,7 +26,7 @@ export const GalleryFrom = ({ handlePrev, handleNext }: GalleryFormProps) => {
                             <div className="gallery-form-wrapper">
                                 <Formik
                                     initialValues={initialValues}
-                                    onSubmit={(values) => {
+                                    onSubmit={() => {
                                         return;
                                     }}
                                 >

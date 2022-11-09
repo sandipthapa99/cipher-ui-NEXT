@@ -1,13 +1,10 @@
-import { ErrorMessage } from "formik";
-import ReCAPTCHA from "react-google-recaptcha";
-import type { ReCaptchaProps } from "types/reCaptchaProps";
 // import {
 //     checkFormGroup,
 //     RECAPTCHA_SITE_KEY,
 //     setCaptchaRef,
 // } from "utils/helpers";
 
-const ReCaptchaField = ({ handleChange, name, error }: ReCaptchaProps) => {
+const ReCaptchaField = () => {
     return (
         // <div className={checkFormGroup(error)}>
         //     <div

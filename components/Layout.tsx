@@ -1,12 +1,10 @@
 import {
     faBell,
     faObjectsColumn,
-    faRightToBracket,
     faUser,
-    faUserPlus,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Group, Navbar, ScrollArea } from "@mantine/core";
+import { Box, Navbar, ScrollArea } from "@mantine/core";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";

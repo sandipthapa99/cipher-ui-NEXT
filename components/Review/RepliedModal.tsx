@@ -1,4 +1,3 @@
-import DeleteModal from "@components/common/DeleteModal";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetProfile } from "hooks/profile/useGetProfile";

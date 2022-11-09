@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 
 import RelatedInfoModal from "./Popup";
 
@@ -89,7 +89,7 @@ const RelatedInfo = () => {
             <Row>
                 <Col md={6}>
                     <h2>Related Information</h2>
-                    {TaxIncomeData.map((info, i) => (
+                    {TaxIncomeData.map((info) => (
                         <div key={info.id}>
                             <p
                                 onClick={() => {

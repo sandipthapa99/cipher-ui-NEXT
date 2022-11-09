@@ -5,7 +5,7 @@ import {
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ActionIcon, Button, CopyButton, Tooltip } from "@mantine/core";
+import { ActionIcon, CopyButton, Tooltip } from "@mantine/core";
 import { IconCheck, IconCopy } from "@tabler/icons";
 import {
     FacebookShareButton,
@@ -15,7 +15,6 @@ import {
 } from "next-share";
 import Modal from "react-bootstrap/Modal";
 import type { ShareButtonProps } from "types/shareButton";
-import { toast } from "utils/toast";
 
 const ShareModal = ({
     show,

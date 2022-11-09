@@ -3,7 +3,7 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
 // import { Rating } from "@smastrom/react-rating";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { useForm } from "hooks/use-form";
 import { Col, Form, Row } from "react-bootstrap";
@@ -36,7 +36,7 @@ export const AddReviewForm = () => {
                         // queryClient.invalidateQueries(["tasker-experience"]);
                         // toast.success("Experience detail added successfully");
                     },
-                    onError: async (error) => {
+                    onError: async () => {
                         // toast.error(error.message);
                     },
                 });

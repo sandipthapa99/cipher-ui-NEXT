@@ -1,12 +1,10 @@
 import "../styles/bundle.scss";
 import "@smastrom/react-rating/style.css";
 
-// import "../public/firebase-messaging-sw";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
-import { ReviewModal } from "@components/Review/ReviewModal";
 import { MantineProvider } from "@mantine/core";
-import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
+import { Dialog, Text } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -17,16 +15,12 @@ import {
     QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { clear } from "console";
-import { useUser } from "hooks/auth/useUser";
 import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 import { firebaseCloudMessaging } from "../firebase/firebase";
-
-// import { getFirebaseToken, onMessageListener } from "../utils/firebase";
 
 interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     pageProps: {

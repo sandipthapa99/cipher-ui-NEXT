@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React from "react";
 import { Container } from "react-bootstrap";
 import type { MyOrderProps } from "types/myOrderProps";

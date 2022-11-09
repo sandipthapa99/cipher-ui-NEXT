@@ -8,7 +8,7 @@ import { RichText } from "@components/RichText";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, LoadingOverlay } from "@mantine/core";
-import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { MIME_TYPES } from "@mantine/dropzone";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";

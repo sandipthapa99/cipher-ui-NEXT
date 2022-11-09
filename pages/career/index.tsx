@@ -1,20 +1,16 @@
 import CareerCard from "@components/Career/CareerCard";
-import HiringStage from "@components/Career/HiringStage";
 import LeaveYourCV from "@components/Career/LeaveYourCV";
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
 import urls from "constants/urls";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { CareerValueProps } from "types/careerValuesProps";
 import { axiosClient } from "utils/axiosClient";
 
 const Career = ({ careerData }: { careerData: CareerValueProps }) => {
     const { result } = careerData ?? [];
-    const [tabIndex, setTabIndex] = useState(0);
     return (
         <Layout
             title="Homaale | Careers"
@@ -91,91 +87,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                             />
                         </figure>
                     </div>
-                    {/* <div className="mt-5">
-                        <h4>New Job Listings</h4>
-                        <Tab
-                            items={[
-                                {
-                                    title: "All categories",
-                                    content: (
-                                        <Row className="gx-5">
-                                            {result?.map((values, key) => (
-                                                <Col
-                                                    lg={3}
-                                                    md={4}
-                                                    className="d-flex"
-                                                    key={key}
-                                                >
-                                                    <CareerCard
-                                                        values={values}
-                                                    />
-                                                </Col>
-                                            ))}
-                                        </Row>
-                                    ),
-                                },
-                                {
-                                    title: "Design",
-                                    content: (
-                                        <Row className="gx-5">
-                                            {careerCardValues?.map(
-                                                (values, key) => (
-                                                    <Col
-                                                        lg={4}
-                                                        md={6}
-                                                        className="d-flex"
-                                                        key={key}
-                                                    >
-                                                        test
-                                                    </Col>
-                                                )
-                                            )}
-                                        </Row>
-                                    ),
-                                },
-                                {
-                                    title: "Design",
-                                    content: (
-                                        <Row className="gx-5">
-                                            {careerCardValues?.map(
-                                                (values, key) => (
-                                                    <Col
-                                                        lg={4}
-                                                        md={6}
-                                                        className="d-flex"
-                                                        key={key}
-                                                    >
-                                                        test
-                                                    </Col>
-                                                )
-                                            )}
-                                        </Row>
-                                    ),
-                                },
-                                {
-                                    title: "Design",
-                                    content: (
-                                        <Row className="gx-5">
-                                            {careerCardValues?.map(
-                                                (values, key) => (
-                                                    <Col
-                                                        lg={4}
-                                                        md={6}
-                                                        className="d-flex"
-                                                        key={key}
-                                                    >
-                                                        test
-                                                    </Col>
-                                                )
-                                            )}
-                                        </Row>
-                                    ),
-                                },
-                            ]}
-                            activeIndex={tabIndex}
-                            onTabClick={setTabIndex}
-                        />
-                    </div> */}
+
                     {/* <HiringStage /> */}
                     <LeaveYourCV />
                 </Container>

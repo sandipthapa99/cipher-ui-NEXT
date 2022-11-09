@@ -12,7 +12,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { title } from "process";
 import type { ReactNode } from "react";
 import React from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";

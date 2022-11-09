@@ -35,7 +35,7 @@ const AddCardForm = ({
                     <Formik
                         initialValues={CreditCardFromData}
                         validationSchema={creditCardValidationSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={async () => {
                             setShowAddCardForm(false);
                             toggleSuccessModal();
                             // To be used for API

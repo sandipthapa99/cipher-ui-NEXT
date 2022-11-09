@@ -11,9 +11,7 @@ import { Search } from "@components/common/Search";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
-import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
-import { LoginPrompt } from "@components/model/LoginPrompt";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
@@ -24,8 +22,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
-import axios from "axios";
+import { Alert } from "@mantine/core";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -37,11 +34,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
-import {
-    useOpenLoginPrompt,
-    useShowLoginPrompt,
-    useWithLogin,
-} from "store/use-login-prompt-store";
+import { useOpenLoginPrompt, useWithLogin } from "store/use-login-prompt-store";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
@@ -75,7 +68,7 @@ const Home: NextPage<{
 }) => {
     const [isClient, setIsClient] = useState(false);
 
-    const loginPopup = useWithLogin();
+    // const loginPopup = useWithLogin();
 
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: profile } = useGetProfile();

@@ -8,12 +8,9 @@ import { useState } from "react";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
-import { ApproveNotify } from "./ApproveNotify";
 import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
-import { CreatedTask } from "./dropdown-notifications/CreatedTask";
 import { KycDetails } from "./KycDetails";
 import { PostNotifyTask } from "./PostedTask";
-import { ServiceAccept } from "./ServiceAccept";
 import { TaskStatus } from "./TaskStatus";
 
 export const NotificationDropdown = () => {

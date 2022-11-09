@@ -2,7 +2,7 @@ import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Loader, ScrollArea } from "@mantine/core";
+import { Alert, ScrollArea } from "@mantine/core";
 import { useSearchedTaskers } from "components/common/Search/searchStore";
 import { useTaskers } from "hooks/tasker/use-taskers";
 import { useInViewPort } from "hooks/use-in-viewport";

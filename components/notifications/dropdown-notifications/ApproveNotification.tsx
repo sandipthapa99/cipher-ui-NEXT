@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { format, formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
 import { AcceptReject } from "../AcceptReject";
-import { Pay } from "../Pay";
 
 interface BookingDetails {
     id: number;
@@ -175,7 +174,7 @@ export const ApproveNotification = ({
     return (
         <div
             className="d-flex approve-notification-dropdown"
-            style={{ backgroundColor: read === null ? "#ecf7ff" : "#ebf9f1" }}
+            style={{ backgroundColor: read === null ? "#ecf7ff" : "#f8f9fa" }}
         >
             <div className="d-flex">
                 <figure className="dropdown-notification-image">

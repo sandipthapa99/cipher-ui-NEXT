@@ -2,7 +2,6 @@ import {
     faArrowRightFromBracket,
     faBoxOpen,
     faChartSimpleHorizontal,
-    faFileInvoiceDollar,
     faGauge,
     faGear,
     faGift,

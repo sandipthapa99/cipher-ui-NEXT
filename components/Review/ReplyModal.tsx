@@ -1,10 +1,8 @@
-import CardBtn from "@components/common/CardBtn";
 import { Button } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
-import { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
@@ -45,7 +43,7 @@ export const ReplyModal = ({
                     queryClient.invalidateQueries(["tasker-rating"]);
                     handleClose();
                 },
-                onError: (err: any) => {
+                onError: () => {
                     toast.error("Replied Failed");
                 },
             });

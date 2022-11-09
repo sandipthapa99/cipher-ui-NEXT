@@ -156,7 +156,7 @@ export const EachTimeline = ({
                                 setRevisionText(values?.revision_reason);
                             }}
                         >
-                            {({ setFieldValue, errors, touched }) => {
+                            {({ errors, touched }) => {
                                 return (
                                     <Form>
                                         <InputField

@@ -1,4 +1,3 @@
-import DatePickerField from "@components/common/DateTimeField";
 import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
@@ -41,7 +40,7 @@ const PostModal = ({
                     <Formik
                         initialValues={PostTaskFormData}
                         validationSchema={profileEditFormSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={async () => {
                             setshowPostModel(false);
                             toggleSuccessModal();
                             // To be used for API
