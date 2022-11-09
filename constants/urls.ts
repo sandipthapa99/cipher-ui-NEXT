@@ -43,7 +43,8 @@ const urls = {
         experience: `${taskerPath}experience/`,
         certifications: `${taskerPath}certification/`,
         rating: `/task/rating`,
-        my_bookings: `/task/entity/service-booking/`,
+        other_bookings: `/task/entity/service-booking/`,
+        my_bookings: `/task/entity/service-mybooking/`,
     },
     tasker: {
         list: taskerPath,

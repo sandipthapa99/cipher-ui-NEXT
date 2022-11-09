@@ -106,18 +106,6 @@ export const SearchCategory = ({
             value: "False",
         },
     ];
-    const viewData: SelectItem[] = [
-        {
-            id: "1",
-            label: "By Other",
-            value: "by_other",
-        },
-        {
-            id: "2",
-            label: "By Me",
-            value: "by_me",
-        },
-    ];
     const statusData: SelectItem[] = [
         {
             id: "1",
@@ -472,12 +460,6 @@ export const SearchCategory = ({
                             Clear filters
                         </Button>
                     )}
-                    <Select
-                        onChange={(value) => onSelectChange("ordering", value)}
-                        defaultValue={"by_other"}
-                        data={viewData}
-                        className={"w-50 ms-auto"}
-                    />
                 </Col>
             )}
         </Row>

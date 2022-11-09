@@ -1,4 +1,5 @@
 import { MyBookedTaskCard } from "@components/Cards/MyBookedTaskCard";
+import { MyBookingTaskCard } from "@components/Cards/MyBookingTaskCard";
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import {
     useClearSearchedTaskers,
@@ -6,7 +7,7 @@ import {
     useSearchQuery,
 } from "@components/common/Search/searchStore";
 import { SearchCategory } from "@components/SearchTask/SearchCategory";
-import { Alert, Col, Grid, Skeleton } from "@mantine/core";
+import { Alert, Col, Grid, Select, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useServices } from "hooks/service/use-services";
@@ -22,37 +23,44 @@ import { MyTaskOrder } from "./MyTaskOrder";
 
 export const MyBookings = () => {
     const [searchParam, setSearchParam] = useState("");
-    console.log(
-        "🚀 ~ file: MyBookings.tsx ~ line 35 ~ MyBookings ~ searchParam",
-        searchParam
-    );
     const clearSearchedTaskers = useClearSearchedTaskers();
     const clearSearchQuery = useClearSearchQuery();
 
+    const [value, setValue] = useState<string | null>("other");
+
+    //----------For other booking------------
     const {
         data: bookingPages,
-        isLoading,
-        hasNextPage,
-        isFetchingNextPage,
-        fetchNextPage,
-    } = useBooking(searchParam, "true");
+        isLoading: bookingLoading,
+        // hasNextPage,
+        // isFetchingNextPage,
+        // fetchNextPage,
+    } = useBooking(searchParam);
 
     const bookings = useMemo(
         () =>
             bookingPages?.pages
-                .map((servicePage) => servicePage.result)
+                .map((bookingPage) => bookingPage.result)
                 .flat() ?? [],
         [bookingPages?.pages]
     );
-    console.log(
-        "🚀 ~ file: MyBookings.tsx ~ line 53 ~ MyBookings ~ bookings",
-        bookings
+    //----------For other booking------------
+    //----------For my bookings------------
+    const {
+        data: myBookingPages,
+        isLoading: myBookingLoading,
+        // hasNextPage,
+        // isFetchingNextPage,
+        // fetchNextPage,
+    } = useBooking(searchParam);
+
+    const mybookings = useMemo(
+        () =>
+            myBookingPages?.pages
+                .map((myBookingPage) => myBookingPage.result)
+                .flat() ?? [],
+        [myBookingPages?.pages]
     );
-
-    const totalbookings = bookings?.length;
-
-    const searchQuery = useSearchQuery();
-
     const handleSearchParamChange = (searchParam: string) => {
         // clear the existing search data when searchparam changes and has value
         if (searchParam) {
@@ -64,14 +72,28 @@ export const MyBookings = () => {
 
     return (
         <>
-            <SearchCategory
-                searchModal="booking"
-                onSearchParamChange={handleSearchParamChange}
-                onFilterClear={() => setSearchParam("")}
-            />
+            <Grid className="d-flex align-items-center">
+                <Grid.Col md={10}>
+                    <SearchCategory
+                        searchModal="booking"
+                        onSearchParamChange={handleSearchParamChange}
+                        onFilterClear={() => setSearchParam("")}
+                    />
+                </Grid.Col>
+                <Grid.Col md={2}>
+                    <Select
+                        value={value}
+                        onChange={setValue}
+                        data={[
+                            { value: "me", label: "By Me" },
+                            { value: "other", label: "By Other" },
+                        ]}
+                    />
+                </Grid.Col>
+            </Grid>
             {/* <h3>My Bookings</h3> */}
             <div className="">
-                {isLoading && (
+                {bookingLoading && (
                     <Grid className="p-5">
                         <Col span={3}>
                             <Skeleton height={150} mb="xl" />
@@ -87,17 +109,31 @@ export const MyBookings = () => {
                     </Grid>
                 )}
                 <Grid>
-                    {!isLoading &&
-                        bookings &&
-                        bookings?.length >= 0 &&
-                        bookings?.map((item, index) => (
-                            <Grid.Col lg={4} sm={6} key={index}>
-                                <MyBookedTaskCard item={item} />
-                            </Grid.Col>
-                        ))}
+                    <>
+                        {!bookingLoading &&
+                            value === "other" &&
+                            bookings &&
+                            bookings?.length >= 0 &&
+                            bookings?.map((item, index) => (
+                                <Grid.Col lg={4} sm={6} key={index}>
+                                    <MyBookedTaskCard item={item} />
+                                </Grid.Col>
+                            ))}
+                    </>
+                    <>
+                        {!myBookingLoading &&
+                            value === "me" &&
+                            mybookings &&
+                            mybookings?.length >= 0 &&
+                            mybookings?.map((item, index) => (
+                                <Grid.Col lg={4} sm={6} key={index}>
+                                    <MyBookingTaskCard item={item} />
+                                </Grid.Col>
+                            ))}
+                    </>
                 </Grid>
             </div>
-            {!isLoading && bookings && bookings?.length <= 0 && (
+            {!bookingLoading && bookings && bookings?.length <= 0 && (
                 <ApplyPostComponent
                     model="service"
                     title="No Bookings Available"

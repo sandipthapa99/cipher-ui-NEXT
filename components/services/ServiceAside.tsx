@@ -20,7 +20,6 @@ interface ServiceAside {
     searchParam: string;
 }
 const ServiceAside = ({ searchParam, children }: ServiceAside) => {
-    const router = useRouter();
     const searchedService = useSearchedServices();
     const {
         data: servicePages,

@@ -43,7 +43,7 @@ export const MyBookedTaskCard = ({
                 </div>
                 <div className="price d-flex flex-column align-items-end">
                     <h2 className="text-nowrap">
-                        {item?.entity_service?.currency?.symbol}
+                        {item?.entity_service?.currency?.symbol} {""}
                         {item?.budget_to}
                     </h2>
                     <p>{item?.entity_service?.budget_type}</p>

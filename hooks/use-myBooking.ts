@@ -4,13 +4,13 @@ import type { MyBookingServiceProps } from "types/myBookingProps";
 import { axiosClient } from "utils/axiosClient";
 import { getNextPageParam } from "utils/getNextPageParam";
 
-export const useBooking = (searchParam?: string) => {
+export const useMyBooking = (searchParam?: string) => {
     return useInfiniteQuery(
-        ["Booking", searchParam],
+        ["my-Booking", searchParam],
         ({ pageParam = 1 }) =>
             axiosClient
                 .get<MyBookingServiceProps>(
-                    `${urls.profile.other_bookings}?${searchParam}`
+                    `${urls.profile.my_bookings}?${searchParam}`
                 )
                 .then((response) => response.data),
         { getNextPageParam }
