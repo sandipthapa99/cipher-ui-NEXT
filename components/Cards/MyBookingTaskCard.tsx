@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock, faPeriod } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Badge } from "@mantine/core";
+import { Badge, RingProgress, Text } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
@@ -37,44 +37,57 @@ export const MyBookingTaskCard = () => {
                 </div>
             </div>
 
-            <div className="name-and-location">
-                <div className="location d-flex align-items-center">
-                    <FontAwesomeIcon
-                        icon={faLocationDot}
-                        className="location-icon"
-                    />
-                    <span>Anamnagar, Baneshor, KTM, Nepal</span>
+            <div className="center-section d-flex justify-content-between">
+                <div className="name-and-location">
+                    <div className="location d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faLocationDot}
+                            className="svg-icon"
+                        />
+                        <span>Anamnagar, Baneshor, KTM, Nepal</span>
+                    </div>
+                    <div className="location d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faLocationArrow}
+                            className="svg-icon"
+                        />
+                        <span>2 Km away</span>
+                    </div>
+                    <div className="location d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faHourglassClock}
+                            className="svg-icon"
+                        />
+                        30 May, 2022
+                    </div>
+                    {/* <div className="location">
+                        <FontAwesomeIcon
+                            icon={faUserGroup}
+                            className="svg-icon"
+                        />
+                        <span>100 Applied</span>
+                    </div> */}
                 </div>
-                <div className="location">
-                    <FontAwesomeIcon
-                        icon={faLocationArrow}
-                        className="location-icon"
-                    />
-                    <span>2 Km away</span>
-                </div>
-                <div className="location">
-                    <FontAwesomeIcon
-                        icon={faHourglassClock}
-                        className="location-icon"
-                    />
-                    N/A
-                </div>
-                <div className="location">
-                    <FontAwesomeIcon
-                        icon={faUserGroup}
-                        className="location-icon"
-                    />
-                    <span>100 Applied</span>
-                </div>
+                <RingProgress
+                    sections={[{ value: 40, color: "blue" }]}
+                    label={
+                        <Text
+                            color="blue"
+                            weight={600}
+                            align="center"
+                            size="xl"
+                        >
+                            40%
+                        </Text>
+                    }
+                />
             </div>
 
             <div className="d-flex justify-content-between align-items-center card-footer-section ">
                 <Badge color="green">Open</Badge>
-                <div className="icons-section d-flex">
-                    <div className="share-icon">
-                        <ShareIcon url={""} quote={""} hashtag={""} showText />
-                    </div>
-                    <SaveIcon object_id={""} model={""} showText />
+
+                <div className="share-icon">
+                    <ShareIcon url={""} quote={""} hashtag={""} showText />
                 </div>
             </div>
         </div>

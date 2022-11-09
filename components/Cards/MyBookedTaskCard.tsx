@@ -25,14 +25,14 @@ export const MyBookedTaskCard = () => {
                     <div className="location d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationDot}
-                            className="location-icon"
+                            className="svg-icon"
                         />
                         <span>Anamnagar, Baneshor, KTM, Nepal</span>
                     </div>
                     <div className="time d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faHourglassClock}
-                            className="location-icon"
+                            className="svg-icon"
                         />
                         N/A
                     </div>

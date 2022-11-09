@@ -11,7 +11,7 @@
             h3 {
                 font: 500 1.8rem $poppins-font;
                 margin: 0 0 0.8rem;
-                height: 5rem;
+                height: 5.2rem;
                 overflow: hidden;
             }
 
@@ -41,21 +41,22 @@
             }
         }
     }
-
-    .name-and-location {
+    .center-section {
         border-bottom: 1px solid #e9ecef;
-        font: 400 1.4rem $poppins-font;
-        .location {
-            margin: 0 0 1.4rem;
-            svg {
-                color: #868e96;
-                margin: 0 0.8rem 0 0;
-                height: 2.4rem;
-                width: 2.4rem;
+        .name-and-location {
+            font: 400 1.4rem $poppins-font;
+            .location {
+                margin: 0 0 1.4rem;
+                svg {
+                    color: #868e96;
+                    margin: 0 0.8rem 0 0;
+                    height: 1.6rem;
+                    width: 1.6rem;
+                }
             }
-        }
-        .time {
-            margin: 0 0 1.4rem;
+            .time {
+                margin: 0 0 1.4rem;
+            }
         }
     }
 
