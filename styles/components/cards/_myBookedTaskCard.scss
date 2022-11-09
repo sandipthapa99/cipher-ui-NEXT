@@ -16,10 +16,13 @@
             h3 {
                 font: 500 1.8rem $poppins-font;
                 margin: 0 0 0.8rem;
+                height: 5rem;
+                overflow: hidden;
             }
         }
 
         .price {
+            text-align: right;
             h2 {
                 font: 500 2.4rem $poppins-font;
                 margin: 0 0 0.5rem;

@@ -10,9 +10,9 @@ import React from "react";
 export const MyBookedTaskCard = () => {
     return (
         <div className="my-booked-task-card">
-            <div className="title-price-wrapper d-flex justify-content-between">
+            <div className="title-price-wrapper d-flex justify-content-between gap-5">
                 <div className="title-and-date">
-                    <h3>Need a house Painter</h3>
+                    <h3>Need a house Painter </h3>
                     <p>Posted on 25 May, 2022</p>
                 </div>
                 <div className="price d-flex flex-column align-items-end">
