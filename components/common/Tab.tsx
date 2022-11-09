@@ -69,7 +69,7 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
     };
     return (
         <div className="custom-tab">
-            <div className="custom-tab__headers">{renderTabItems()}</div>
+            <div className="custom-tab__headers mb-3">{renderTabItems()}</div>
             {currentActiveIndex !== undefined &&
             typeof currentActiveIndex === "number" &&
             items[currentActiveIndex] ? (
