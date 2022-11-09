@@ -175,7 +175,7 @@ export const ApproveNotification = ({
     return (
         <div
             className="d-flex approve-notification-dropdown"
-            style={{ backgroundColor: read === null ? "#ecf7ff" : "#ebf9f1" }}
+            style={{ backgroundColor: read === null ? "#ecf7ff" : "#f8f9fa" }}
         >
             <div className="d-flex">
                 <figure className="dropdown-notification-image">
