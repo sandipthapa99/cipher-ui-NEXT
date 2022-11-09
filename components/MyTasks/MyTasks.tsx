@@ -80,6 +80,6 @@ export const MyTasks = () => {
         //     </div>
         // </div>
         // <MyBookedTaskCard />
-        <MyBookingTaskCard />
+        <h1>task to be added</h1>
     );
 };

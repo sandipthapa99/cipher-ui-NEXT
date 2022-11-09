@@ -10,18 +10,7 @@ const ApplyPost = () => {
     const query = router.query;
     return (
         <div className="post-task__apply-post">
-            <Row>
-                <Col md={Number(query.activeTab) === 5 ? 12 : 8}>
-                    <SearchBySort />
-                </Col>
-                {Number(query.activeTab) !== 5 && (
-                    <Col md={4}>
-                        <div className="getting-started">
-                            <GettingStartedTask />
-                        </div>
-                    </Col>
-                )}
-            </Row>
+            <SearchBySort />
         </div>
     );
 };
