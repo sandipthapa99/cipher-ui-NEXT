@@ -32,7 +32,12 @@ export const MyBookedTaskCard = ({
         <div className="my-booked-task-card">
             <div className="title-price-wrapper d-flex justify-content-between gap-5">
                 <div className="title-and-date">
-                    <h3>{item?.entity_service?.title}</h3>
+                    <h3>
+                        {item?.entity_service?.title?.length > 40
+                            ? item?.entity_service?.title.substring(0, 40) +
+                              "..."
+                            : item?.entity_service?.title}
+                    </h3>
                     <p>
                         Posted on{" "}
                         {format(

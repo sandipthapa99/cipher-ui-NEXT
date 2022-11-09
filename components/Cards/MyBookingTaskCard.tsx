@@ -1,9 +1,7 @@
-import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import {
     faLocationArrow,
     faLocationDot,
-    faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock, faPeriod } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +20,12 @@ export const MyBookingTaskCard = ({
         <div className="my-booking-task-card">
             <div className="title-price-wrapper d-flex justify-content-between gap-5">
                 <div className="title-and-date">
-                    <h3>{item?.entity_service?.title}</h3>
+                    <h3>
+                        {item?.entity_service?.title?.length > 40
+                            ? item?.entity_service?.title.substring(0, 40) +
+                              "..."
+                            : item?.entity_service?.title}
+                    </h3>
                     <div className="image-and-date d-flex align-items-center">
                         <Image
                             src="/groupB.png"
@@ -86,6 +89,8 @@ export const MyBookingTaskCard = ({
                 </div>
                 <RingProgress
                     sections={[{ value: 40, color: "blue" }]}
+                    thickness={9}
+                    roundCaps
                     label={
                         <Text
                             color="blue"
@@ -101,11 +106,8 @@ export const MyBookingTaskCard = ({
 
             <div className="d-flex justify-content-between align-items-center card-footer-section ">
                 <Badge color="green">{item.status}</Badge>
-                <div className="icons-section d-flex">
-                    <div className="share-icon">
-                        <ShareIcon url={""} quote={""} hashtag={""} showText />
-                    </div>
-                    <SaveIcon object_id={""} model={""} showText />
+                <div className="share-icon">
+                    <ShareIcon url={""} quote={""} hashtag={""} showText />
                 </div>
             </div>
         </div>
