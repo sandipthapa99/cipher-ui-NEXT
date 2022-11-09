@@ -6,10 +6,6 @@
     padding: 1.6rem;
 
     .title-price-wrapper {
-        .profile-image {
-            border-radius: 50%;
-            margin: 0 0.8rem 0 0;
-        }
         margin: 0 0 1.9rem;
         p {
             font: 400 1.2rem $poppins-font;
@@ -36,15 +32,14 @@
         font: 400 1.4rem $poppins-font;
         svg {
             color: #868e96;
-            margin: 0 1.8rem 0 0;
+            margin: 0 0.8rem 0 0;
+            height: 2.4rem;
+            width: 2.4rem;
         }
 
         .name-and-location {
             .location {
                 margin: 0 0 1.4rem;
-                svg {
-                    margin: 0 2.2rem 0 0;
-                }
             }
             .time {
                 margin: 0 0 1.4rem;

@@ -13,11 +13,11 @@ import React from "react";
 
 export const MyBookingTaskCard = () => {
     return (
-        <div className="my-booked-task-card">
-            <div className="title-price-wrapper d-flex justify-content-between">
+        <div className="my-booking-task-card">
+            <div className="title-price-wrapper d-flex justify-content-between gap-5">
                 <div className="title-and-date">
                     <h3>Need a house Painter</h3>
-                    <div className="image-and-date d-flex">
+                    <div className="image-and-date d-flex align-items-center">
                         <Image
                             src="/groupB.png"
                             alt="circle image"
@@ -38,7 +38,7 @@ export const MyBookingTaskCard = () => {
             </div>
 
             <div className="name-and-location">
-                <div className="location">
+                <div className="location d-flex align-items-center">
                     <FontAwesomeIcon
                         icon={faLocationDot}
                         className="location-icon"
@@ -52,7 +52,7 @@ export const MyBookingTaskCard = () => {
                     />
                     <span>2 Km away</span>
                 </div>
-                <div className="time">
+                <div className="location">
                     <FontAwesomeIcon
                         icon={faHourglassClock}
                         className="location-icon"
