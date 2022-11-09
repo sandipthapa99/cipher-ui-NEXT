@@ -36,7 +36,7 @@ export const KycDetails = ({
     return (
         <div
             className="d-flex align-items-center justify-content-between accepted-notification"
-            style={{ backgroundColor: read === null ? "#ecf7ff" : "#ebf9f1" }}
+            style={{ backgroundColor: read === null ? "#ecf7ff" : "#f8f9fa" }}
             // onClick={() => {
             //     is_requested
             //         ? router.push(`/task/${slug}`)
