@@ -1,13 +1,8 @@
-import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import OtpInput from "react-otp-input";
-import { toast } from "utils/toast";
 
-import AddBank from "./bankDetail";
 import BankForm from "./bankDetail";
 
 interface BankDetailModalProps {

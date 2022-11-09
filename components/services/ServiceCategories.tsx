@@ -1,4 +1,3 @@
-import CategoryCard from "@components/common/CategoryCard";
 import { useQuery } from "@tanstack/react-query";
 import { Col } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";

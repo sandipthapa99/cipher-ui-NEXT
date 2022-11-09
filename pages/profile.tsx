@@ -12,14 +12,12 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const { data: profileDetails, isLoading } = useGetProfile();
-    const router = useRouter();
+    const { data: profileDetails } = useGetProfile();
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],

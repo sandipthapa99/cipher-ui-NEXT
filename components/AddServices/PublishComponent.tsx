@@ -1,6 +1,4 @@
 import BigButton from "@components/common/Button";
-import PackageOffersCard from "@components/common/packageCard";
-import ServiceHighlights from "@components/common/ServiceHighlights";
 import ServiceProviderCard from "@components/common/serviceProviderCard";
 import Image from "next/image";
 import React from "react";

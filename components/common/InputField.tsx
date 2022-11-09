@@ -1,7 +1,7 @@
 import TooltipMessage from "@components/common/Tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
-import type { HTMLAttributes, InputHTMLAttributes } from "react";
+import type { InputHTMLAttributes } from "react";
 import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 

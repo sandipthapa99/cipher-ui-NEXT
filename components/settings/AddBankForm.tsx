@@ -3,14 +3,13 @@ import InputField from "@components/common/InputField";
 import type { SelectItem } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
-import { profile } from "console";
 import { Field, Form, Formik } from "formik";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import type {
     BankBranchResult,
@@ -21,8 +20,6 @@ import type {
 import { bankFormSchema } from "utils/formValidation/bankDetailsValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
-
-import { CompleteProfile } from "./ProfileForm";
 
 interface editProps {
     id?: number;

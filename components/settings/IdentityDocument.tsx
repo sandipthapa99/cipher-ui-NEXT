@@ -1,18 +1,15 @@
 import { CustomDropZone } from "@components/common/CustomDropZone";
-import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
 import { useDocumentKYC } from "hooks/profile/kyc/use-Kyc-Document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
-import { useRouter } from "next/router";
 import { Button, Col, Row } from "react-bootstrap";
 import { KYCDocumentSchema } from "utils/formValidation/kycDocument";
 import { isSubmittingClass } from "utils/helpers";
@@ -31,8 +28,6 @@ export const IdentityDocument = () => {
     const { data: KYCData } = useGetKYC();
     const { mutate, isLoading } = useDocumentKYC();
     const { data: KycDocuments, refetch } = useGetKYCDocument();
-    const queryClient = new QueryClient();
-    const router = useRouter();
 
     // if (isLoading) return <FullPageLoader />;
 

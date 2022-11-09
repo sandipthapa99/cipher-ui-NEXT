@@ -6,7 +6,6 @@ import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { Button } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
-import changePasswordFormSchema from "utils/formValidation/changePasswordFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 import * as Yup from "yup";

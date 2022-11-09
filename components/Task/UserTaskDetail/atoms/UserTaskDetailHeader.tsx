@@ -1,5 +1,4 @@
 import CardBtn from "@components/common/CardBtn";
-import { RatingStars } from "@components/common/RatingStars";
 import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";

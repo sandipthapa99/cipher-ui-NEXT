@@ -17,9 +17,9 @@ const Advertisement = () => {
         (ad: any) => ad.mode === "Landscape"
     );
 
-    const boxImages = Advertisement?.data?.result.filter(
-        (ad: any) => ad.mode === "Box"
-    );
+    // const boxImages = Advertisement?.data?.result.filter(
+    //     (ad: any) => ad.mode === "Box"
+    // );
 
     const landscape = landscapedImages?.map((ad: any) => {
         return (
@@ -35,13 +35,13 @@ const Advertisement = () => {
             </div>
         );
     });
-    const box = boxImages?.map((ad: any) => {
-        return (
-            <div key={ad.id}>
-                <Image src={ad.image} alt={ad.mode} width={400} height={400} />
-            </div>
-        );
-    });
+    // const box = boxImages?.map((ad: any) => {
+    //     return (
+    //         <div key={ad.id}>
+    //             <Image src={ad.image} alt={ad.mode} width={400} height={400} />
+    //         </div>
+    //     );
+    // });
 
     return (
         <>

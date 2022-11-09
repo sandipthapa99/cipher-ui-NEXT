@@ -1,4 +1,3 @@
-import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMediaQuery } from "@mantine/hooks";

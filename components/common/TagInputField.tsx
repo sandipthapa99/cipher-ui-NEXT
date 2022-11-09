@@ -1,4 +1,4 @@
-import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS
+import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS`
 
 import { MultiSelect } from "@mantine/core";
 import { ErrorMessage, Field } from "formik";

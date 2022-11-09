@@ -3,7 +3,7 @@ import FormButton from "@components/common/FormButton";
 import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import { useMutation } from "@tanstack/react-query";
-import { Form, Formik, validateYupSchema } from "formik";
+import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
@@ -31,7 +31,7 @@ export const ChangePhoneNumber = () => {
                     password: "",
                 }}
                 //validationSchema={changePasswordFormSchema}
-                onSubmit={async (values, action) => {
+                onSubmit={async (values) => {
                     console.log(values);
 
                     changePhoneNumber.mutate(values, {

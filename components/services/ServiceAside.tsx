@@ -3,7 +3,7 @@ import ServiceNearYouCard from "@components/SearchTask/searchAside";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Loader, ScrollArea } from "@mantine/core";
+import { Alert, ScrollArea } from "@mantine/core";
 import { useServices } from "hooks/service/use-services";
 import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
@@ -20,7 +20,6 @@ interface ServiceAside {
     searchParam: string;
 }
 const ServiceAside = ({ searchParam, children }: ServiceAside) => {
-    const router = useRouter();
     const searchedService = useSearchedServices();
     const {
         data: servicePages,
@@ -49,14 +48,8 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
 
     const allServices = searchedService.length > 0 ? searchedService : services;
 
-    const sortedServices = sortItemsByActive<IService>({
-        type: "service",
-        services: allServices,
-        activeId: router.query.slug?.toString() as string,
-    });
-
     const renderServiceCards = () =>
-        sortedServices?.map((task, index) => {
+        allServices?.map((task, index) => {
             return (
                 <div
                     key={`${task.id}-${index}`}

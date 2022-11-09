@@ -1,14 +1,10 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { log } from "console";
 import { useGoogle } from "hooks/auth/use-Google";
-import { useData } from "hooks/use-data";
-import Cookies from "js-cookie";
 import localforage from "localforage";
 import type { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { forwardRef } from "react";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";

@@ -1,10 +1,7 @@
-import { AllCategories } from "@components/AllCategories";
 import { AllCategoriesCard } from "@components/AllCategoriesCard";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import urls from "constants/urls";
-import parse from "html-react-parser";
 import type { GetStaticProps, NextPage } from "next";
 import { Container } from "react-bootstrap";
 import type { NestedCategoriesDataProps } from "types/nestedCategoryProps";
@@ -16,8 +13,6 @@ interface CategoriesPageProps {
 const CategoriesPage: NextPage<{
     nestedCategoriesData: CategoriesPageProps["nestedCategoriesData"];
 }> = ({ nestedCategoriesData }) => {
-    //
-
     return (
         <Layout title="Categories | Homaale">
             <Container fluid="xl" className="px-5">

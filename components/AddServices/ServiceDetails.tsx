@@ -3,7 +3,6 @@ import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import AddRequirements from "@components/PostTask/AddRequirements";
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { SelectOptionProps } from "types/selectInputField";
 import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
@@ -15,8 +14,6 @@ interface ServiceDetailsProps {
 }
 
 export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
-    const [reqList, setReqList] = useState([]);
-
     const serviceDetailsData = {
         service_title: "",
         service_description: "",
@@ -44,13 +41,12 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                 <Formik
                                     initialValues={serviceDetailsData}
                                     validationSchema={addServiceFormSchema}
-                                    onSubmit={(values) => {
+                                    onSubmit={() => {
                                         //  console.log(values);
                                     }}
                                 >
                                     {({
                                         setFieldValue,
-                                        isSubmitting,
                                         errors,
                                         touched,
                                         values,

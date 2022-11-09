@@ -2,7 +2,7 @@ import CardBtn from "@components/common/CardBtn";
 import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Modal, Stack, Textarea } from "@mantine/core";
+import { Modal, Textarea } from "@mantine/core";
 import { Rating } from "@mantine/core";
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";

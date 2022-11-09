@@ -8,15 +8,21 @@ import {
 import { faHourglassClock, faPeriod } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, RingProgress, Text } from "@mantine/core";
+import { format } from "date-fns";
 import Image from "next/image";
 import React from "react";
+import type { MyBookingServiceProps } from "types/myBookingProps";
 
-export const MyBookingTaskCard = () => {
+export const MyBookingTaskCard = ({
+    item,
+}: {
+    item: MyBookingServiceProps["result"][0];
+}) => {
     return (
         <div className="my-booking-task-card">
             <div className="title-price-wrapper d-flex justify-content-between gap-5">
                 <div className="title-and-date">
-                    <h3>Need a house Painter</h3>
+                    <h3>{item?.entity_service?.title}</h3>
                     <div className="image-and-date d-flex align-items-center">
                         <Image
                             src="/groupB.png"
@@ -26,14 +32,24 @@ export const MyBookingTaskCard = () => {
                             objectFit="cover"
                             className="profile-image"
                         />
-                        <span>Jane Cooper</span>
-                        <FontAwesomeIcon icon={faPeriod} />
-                        <span>25 May, 2022</span>
+                        <span>
+                            {item?.created_by?.user?.first_name}{" "}
+                            {item?.created_by?.user?.middle_name}{" "}
+                            {item?.created_by?.user?.last_name}
+                        </span>
+                        <FontAwesomeIcon
+                            icon={faPeriod}
+                            className={"svg-icon"}
+                        />
+                        <span>{format(new Date(item?.created_at), "PP")}</span>
                     </div>
                 </div>
                 <div className="price d-flex flex-column align-items-end">
-                    <h2>Rs 200</h2>
-                    <p>per hour</p>
+                    <h2 className="text-nowrap">
+                        {item?.entity_service?.currency?.symbol} {""}
+                        {item?.budget_to}
+                    </h2>
+                    <p>{item?.entity_service?.budget_type}</p>
                 </div>
             </div>
 
@@ -84,10 +100,12 @@ export const MyBookingTaskCard = () => {
             </div>
 
             <div className="d-flex justify-content-between align-items-center card-footer-section ">
-                <Badge color="green">Open</Badge>
-
-                <div className="share-icon">
-                    <ShareIcon url={""} quote={""} hashtag={""} showText />
+                <Badge color="green">{item.status}</Badge>
+                <div className="icons-section d-flex">
+                    <div className="share-icon">
+                        <ShareIcon url={""} quote={""} hashtag={""} showText />
+                    </div>
+                    <SaveIcon object_id={""} model={""} showText />
                 </div>
             </div>
         </div>

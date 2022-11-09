@@ -87,7 +87,7 @@ const ForgotPassword = () => {
                                     });
                                 }
                             },
-                            onError: (error) => {
+                            onError: () => {
                                 toast.error("please enter valid user");
                             },
                         });

@@ -1,4 +1,3 @@
-import { faLoveseat } from "@fortawesome/pro-regular-svg-icons";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { Dispatch, SetStateAction } from "react";
 import { forwardRef } from "react";
@@ -14,7 +13,6 @@ interface ImageUploadProps {
     setIsEditButtonClicked: Dispatch<SetStateAction<boolean>>;
     showEditForm: boolean;
     handleClose: () => void;
-    handleSubmit?: () => void;
     onChange: (e: any) => void;
     isEditButtonClicked?: boolean;
     display: boolean;
@@ -34,7 +32,6 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
             setShowEditForm,
             showEditForm,
             handleClose,
-            handleSubmit,
             isEditButtonClicked,
 
             onPhotoEdit,
@@ -66,17 +63,3 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
         );
     }
 );
-
-// {
-//     name,
-//     ref,
-//     onChange,
-//     photo,
-//     setShowEditForm,
-//     showEditForm,
-//     handleClose,
-//     handleSubmit,
-//     isEditButtonClicked,
-//     display,
-// }: // display,
-// ImageUploadProps
