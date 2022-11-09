@@ -78,6 +78,7 @@ export const MyTasks = () => {
         //         )}
         //     </div>
         // </div>
-        <MyBookedTaskCard />
+        // <MyBookedTaskCard />
+        <h1>task to be added</h1>
     );
 };

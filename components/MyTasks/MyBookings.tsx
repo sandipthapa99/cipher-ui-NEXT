@@ -1,29 +1,76 @@
+import { MyBookedTaskCard } from "@components/Cards/MyBookedTaskCard";
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
+import {
+    useClearSearchedTaskers,
+    useClearSearchQuery,
+    useSearchQuery,
+} from "@components/common/Search/searchStore";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import { Alert, Col, Grid, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
+import { useServices } from "hooks/service/use-services";
+import { useBooking } from "hooks/use-bookings";
+import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
-import React from "react";
+import React, { useMemo, useState } from "react";
+import { Col as BootCol, Row } from "react-bootstrap";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 import { axiosClient } from "utils/axiosClient";
 
 import { MyTaskOrder } from "./MyTaskOrder";
 
 export const MyBookings = () => {
-    const { data: myBookingData, isLoading } = useQuery(
-        ["my-booking"],
-        async () => {
-            const response = await axiosClient.get<MyBookingServiceProps>(
-                urls.profile.my_bookings
-            );
-            return response.data.result;
-        }
+    const [searchParam, setSearchParam] = useState("");
+    console.log(
+        "🚀 ~ file: MyBookings.tsx ~ line 35 ~ MyBookings ~ searchParam",
+        searchParam
+    );
+    const clearSearchedTaskers = useClearSearchedTaskers();
+    const clearSearchQuery = useClearSearchQuery();
+
+    const {
+        data: bookingPages,
+        isLoading,
+        hasNextPage,
+        isFetchingNextPage,
+        fetchNextPage,
+    } = useBooking(searchParam, "true");
+
+    const bookings = useMemo(
+        () =>
+            bookingPages?.pages
+                .map((servicePage) => servicePage.result)
+                .flat() ?? [],
+        [bookingPages?.pages]
+    );
+    console.log(
+        "🚀 ~ file: MyBookings.tsx ~ line 53 ~ MyBookings ~ bookings",
+        bookings
     );
 
+    const totalbookings = bookings?.length;
+
+    const searchQuery = useSearchQuery();
+
+    const handleSearchParamChange = (searchParam: string) => {
+        // clear the existing search data when searchparam changes and has value
+        if (searchParam) {
+            clearSearchedTaskers();
+            clearSearchQuery();
+        }
+        setSearchParam(searchParam);
+    };
+
     return (
-        <div className="my-task">
+        <>
+            <SearchCategory
+                searchModal="booking"
+                onSearchParamChange={handleSearchParamChange}
+                onFilterClear={() => setSearchParam("")}
+            />
             {/* <h3>My Bookings</h3> */}
-            <div className="my-task__each-orders">
+            <div className="">
                 {isLoading && (
                     <Grid className="p-5">
                         <Col span={3}>
@@ -39,43 +86,18 @@ export const MyBookings = () => {
                         </Col>
                     </Grid>
                 )}
-                {!isLoading &&
-                    myBookingData &&
-                    myBookingData?.length >= 0 &&
-                    myBookingData?.map((item, index) => (
-                        <div className="booking-wrapper" key={index}>
-                            <MyTaskOrder
-                                task_id={item?.entity_service?.id}
-                                assigner_id={String(
-                                    item?.entity_service?.created_by?.id
-                                )}
-                                created_at={item?.created_at}
-                                image={
-                                    item?.entity_service?.images[0]?.media
-                                        ? item?.entity_service?.images[0]?.media
-                                        : "/placeholder/taskPlaceholder.png"
-                                }
-                                title={item?.entity_service?.title}
-                                assigner_name={`${
-                                    item?.entity_service?.created_by?.first_name
-                                } ${
-                                    item?.created_by?.user?.middle_name
-                                        ? item?.created_by?.user?.middle_name
-                                        : ""
-                                } ${item?.created_by?.user?.last_name}`}
-                                budget_from={item?.budget_from}
-                                budget_to={item?.budget_to}
-                                budget_type={item?.entity_service?.budget_type}
-                                status={item?.status}
-                                currency={
-                                    item?.entity_service?.currency?.symbol
-                                }
-                                taskID={item?.id.toString()}
-                            />
-                        </div>
-                    ))}
+                <Grid>
+                    {!isLoading &&
+                        bookings &&
+                        bookings?.length >= 0 &&
+                        bookings?.map((item, index) => (
+                            <Grid.Col lg={4} sm={6} key={index}>
+                                <MyBookedTaskCard item={item} />
+                            </Grid.Col>
+                        ))}
+                </Grid>
             </div>
-            {!isLoading && myBookingData && myBookingData?.length <= 0 && (
+            {!isLoading && bookings && bookings?.length <= 0 && (
                 <ApplyPostComponent
                     model="service"
                     title="No Bookings Available"
@@ -83,6 +105,6 @@ export const MyBookings = () => {
                     buttonText="Book a service"
                 />
             )}
-        </div>
+        </>
     );
 };

@@ -49,14 +49,8 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
 
     const allServices = searchedService.length > 0 ? searchedService : services;
 
-    const sortedServices = sortItemsByActive<IService>({
-        type: "service",
-        services: allServices,
-        activeId: router.query.slug?.toString() as string,
-    });
-
     const renderServiceCards = () =>
-        sortedServices?.map((task, index) => {
+        allServices?.map((task, index) => {
             return (
                 <div
                     key={`${task.id}-${index}`}

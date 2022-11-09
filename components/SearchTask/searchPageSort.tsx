@@ -36,16 +36,8 @@ const SearchBySort = () => {
                         content: <MyTasks />,
                     },
                     {
-                        title: "My Bookings",
+                        title: "Bookings",
                         content: <MyBookings />,
-                    },
-                    {
-                        title: "In Progress",
-                        content: <InProgress />,
-                    },
-                    {
-                        title: "To Approve",
-                        content: <ToReview />,
                     },
                     {
                         title: "Payment History",
