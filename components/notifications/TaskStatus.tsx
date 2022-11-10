@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
