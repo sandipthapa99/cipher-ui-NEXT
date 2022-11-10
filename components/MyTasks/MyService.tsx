@@ -1,81 +1,105 @@
+import { MyBookedTaskCard } from "@components/Cards/MyBookedTaskCard";
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
-import { Col, Grid, Skeleton } from "@mantine/core";
+import {
+    useClearSearchedTaskers,
+    useClearSearchQuery,
+} from "@components/common/Search/searchStore";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
+import SkeletonBookingCard from "@components/Skeletons/SkeletonBookingCard";
+import { Grid, Pagination } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
-import React from "react";
+import React, { useState } from "react";
 import type { MyTaskProps } from "types/myTasksProps";
 import { axiosClient } from "utils/axiosClient";
 
-import { MyTaskOrder } from "./MyTaskOrder";
-
 export const MyService = () => {
+    const [searchParam, setSearchParam] = useState("");
+    const clearSearchedTaskers = useClearSearchedTaskers();
+    const clearSearchQuery = useClearSearchQuery();
+    const [bookingPageNo, setBookingPageNo] = useState<number>(1);
+
     const { data: userData } = useUser();
     const userId = userData?.id ?? "";
-    const { data: mytaskData, isLoading } = useQuery(
-        ["my-service", userId],
+    const { data: myServiceData, isLoading } = useQuery(
+        ["my-service", userId, searchParam, bookingPageNo],
         async () => {
             const response = await axiosClient.get(
-                `${urls.task.service}&user=${userId}`
+                `${urls.task.service}&user=${userId}&${searchParam}&page_size=9&page=${bookingPageNo}`
             );
-            return response.data.result;
+            return response.data;
         },
         {
             enabled: !!userId,
         }
     );
+    const handleSearchParamChange = (searchParam: string) => {
+        // clear the existing search data when searchparam changes and has value
+        if (searchParam) {
+            clearSearchedTaskers();
+            clearSearchQuery();
+        }
+        setSearchParam(searchParam);
+    };
 
     return (
-        <div className="my-task">
-            {/* <h3>My Tasks</h3> */}
-
-            <div className="my-task__each-orders">
-                {isLoading ? (
-                    <Grid className="p-5">
-                        <Col span={3}>
-                            <Skeleton height={150} mb="xl" />
-                        </Col>
-                        <Col span={9}>
-                            <Skeleton
-                                height={50}
-                                radius="sm"
-                                className="mb-4"
-                            />
-                            <Skeleton height={50} radius="sm" />
-                        </Col>
-                    </Grid>
-                ) : mytaskData?.length ? (
-                    mytaskData?.map((item: MyTaskProps, index: number) => (
-                        <div className="task-wrapper" key={index}>
-                            <MyTaskOrder
-                                task_id={item?.id}
-                                assigner_id={item?.created_by?.id}
-                                created_at={item?.created_at}
-                                image={item?.images[0]?.media}
-                                title={item?.title}
-                                assigner_name={item?.created_by?.first_name}
-                                budget_from={item?.budget_from}
-                                budget-to={item?.budget_to}
-                                budget_type={item?.budget_type}
-                                status={item?.status}
-                                currency={item?.currency?.symbol}
-                                budget_to={item?.budget_to}
-                                taskID={item?.id}
-                            />
-                        </div>
-                    ))
-                ) : (
-                    <ApplyPostComponent
-                        model="task"
-                        title="No Tasks Available"
-                        subtitle="Post a task to the marketplace and let merchant come to you."
-                        buttonText="Post a Task"
+        <>
+            <Grid className="d-flex align-items-center">
+                <Grid.Col md={10}>
+                    <SearchCategory
+                        searchModal="task"
+                        onSearchParamChange={handleSearchParamChange}
+                        onFilterClear={() => setSearchParam("")}
                     />
-                    // <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                    //     Sorry, You have no task data to show
-                    // </Alert>
+                </Grid.Col>
+            </Grid>
+            {/* <h3>My Bookings</h3> */}
+            <div className="overflow-hidden">
+                {isLoading && (
+                    <Grid>
+                        {Array.from({ length: 9 }).map((_, index) => (
+                            <Grid.Col lg={4} sm={6} key={index}>
+                                <SkeletonBookingCard />
+                            </Grid.Col>
+                        ))}
+                    </Grid>
+                )}
+                <Grid>
+                    <>
+                        {!isLoading &&
+                            myServiceData.result &&
+                            myServiceData?.result?.length >= 0 &&
+                            myServiceData?.result.map(
+                                (item: MyTaskProps, index: number) => (
+                                    <Grid.Col lg={4} sm={6} key={index}>
+                                        <MyBookedTaskCard myTask={item} />
+                                    </Grid.Col>
+                                )
+                            )}
+                    </>
+                </Grid>
+                {myServiceData?.result && (
+                    <span className="d-flex justify-content-center mt-4">
+                        <Pagination
+                            total={myServiceData?.total_pages}
+                            color="yellow"
+                            initialPage={bookingPageNo}
+                            onChange={(value) => {
+                                setBookingPageNo(value);
+                            }}
+                        />
+                    </span>
                 )}
             </div>
-        </div>
+            {!isLoading && myServiceData?.result?.length <= 0 && (
+                <ApplyPostComponent
+                    model="service"
+                    title="No Bookings Available"
+                    subtitle="Book a service to the marketplace and let merchant come to you."
+                    buttonText="Book a service"
+                />
+            )}
+        </>
     );
 };

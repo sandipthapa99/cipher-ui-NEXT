@@ -16,6 +16,24 @@ export const MyBookingTaskCard = ({
 }: {
     item: MyBookingServiceProps["result"][0];
 }) => {
+    let color, progress, type;
+    if (item?.status === "Open") {
+        color = "blue";
+        progress = 0;
+    } else if (item?.status === "On Progress") {
+        color = "yellow";
+        progress = 40;
+    } else if (item?.status === "Complete") {
+        color = "green";
+        progress = 60;
+    } else if (item?.status === "Cancelled") {
+        color = "red";
+        progress = 0;
+        type = "cancelled";
+    } else {
+        color = "grey";
+        progress = 0;
+    }
     return (
         <div className="my-booking-task-card">
             <div className="title-price-wrapper d-flex justify-content-between gap-5">
@@ -88,26 +106,28 @@ export const MyBookingTaskCard = ({
                     </div> */}
                 </div>
                 <RingProgress
-                    sections={[{ value: 40, color: "blue" }]}
+                    sections={[{ value: progress, color: color }]}
                     thickness={9}
                     roundCaps
                     label={
                         <Text
-                            color="blue"
+                            color={color}
                             weight={600}
                             align="center"
                             size="xl"
                         >
-                            40%
+                            {!type ? progress : 0}%
                         </Text>
                     }
                 />
             </div>
 
             <div className="d-flex justify-content-between align-items-center card-footer-section ">
-                <Badge color="green">{item.status}</Badge>
-                <div className="share-icon">
-                    <ShareIcon url={""} quote={""} hashtag={""} showText />
+                <Badge color={color}>{item.status}</Badge>
+                <div className="icons-section d-flex">
+                    <div className="share-icon">
+                        <ShareIcon url={""} quote={""} hashtag={""} showText />
+                    </div>
                 </div>
             </div>
         </div>
