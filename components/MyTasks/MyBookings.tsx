@@ -102,7 +102,10 @@ export const MyBookings = () => {
                                     index: number
                                 ) => (
                                     <Grid.Col lg={4} sm={6} key={index}>
-                                        <MyBookedTaskCard item={item} />
+                                        <MyBookedTaskCard
+                                            item={item}
+                                            linkTo={""}
+                                        />
                                     </Grid.Col>
                                 )
                             )}
