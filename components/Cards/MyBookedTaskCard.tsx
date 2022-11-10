@@ -58,18 +58,6 @@ export const MyBookedTaskCard = ({
                                     ? myTask?.title.substring(0, 40) + "..."
                                     : myTask?.title}
                             </h3>
-                            <p>
-                                Posted on{" "}
-                                {item?.entity_service?.created_at &&
-                                    format(
-                                        new Date(
-                                            item?.entity_service?.created_at
-                                        ),
-                                        "PPP"
-                                    )}
-                                {myTask?.created_at &&
-                                    format(new Date(myTask?.created_at), "PPP")}
-                            </p>
                         </div>
                         <div className="price d-flex flex-column align-items-end">
                             <h2 className="text-nowrap">
@@ -87,6 +75,16 @@ export const MyBookedTaskCard = ({
                             </p>
                         </div>
                     </div>
+                    <p className="posted-date">
+                        Posted on{" "}
+                        {item?.entity_service?.created_at &&
+                            format(
+                                new Date(item?.entity_service?.created_at),
+                                "PPP"
+                            )}
+                        {myTask?.created_at &&
+                            format(new Date(myTask?.created_at), "PPP")}
+                    </p>
                     <div className="center-section d-flex justify-content-between">
                         <div className="name-and-location">
                             <div className="d-flex align-items-center location">

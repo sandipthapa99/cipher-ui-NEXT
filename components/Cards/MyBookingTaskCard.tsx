@@ -44,26 +44,6 @@ export const MyBookingTaskCard = ({
                               "..."
                             : item?.entity_service?.title}
                     </h3>
-                    <div className="image-and-date d-flex align-items-center">
-                        <Image
-                            src="/groupB.png"
-                            alt="circle image"
-                            height={25}
-                            width={25}
-                            objectFit="cover"
-                            className="profile-image"
-                        />
-                        <span>
-                            {item?.created_by?.user?.first_name}{" "}
-                            {item?.created_by?.user?.middle_name}{" "}
-                            {item?.created_by?.user?.last_name}
-                        </span>
-                        <FontAwesomeIcon
-                            icon={faPeriod}
-                            className={"svg-icon"}
-                        />
-                        <span>{format(new Date(item?.created_at), "PP")}</span>
-                    </div>
                 </div>
                 <div className="price d-flex flex-column align-items-end">
                     <h2 className="text-nowrap">
@@ -72,6 +52,23 @@ export const MyBookingTaskCard = ({
                     </h2>
                     <p>{item?.entity_service?.budget_type}</p>
                 </div>
+            </div>
+            <div className="image-and-date d-flex align-items-center">
+                <Image
+                    src="/groupB.png"
+                    alt="circle image"
+                    height={25}
+                    width={25}
+                    objectFit="cover"
+                    className="profile-image"
+                />
+                <span>
+                    {item?.created_by?.user?.first_name}{" "}
+                    {item?.created_by?.user?.middle_name}{" "}
+                    {item?.created_by?.user?.last_name}
+                </span>
+                <FontAwesomeIcon icon={faPeriod} className={"svg-icon"} />
+                <span>{format(new Date(item?.created_at), "PP")}</span>
             </div>
 
             <div className="center-section d-flex justify-content-between">
