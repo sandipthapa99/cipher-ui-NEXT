@@ -20,59 +20,6 @@ import { format } from "date-fns";
 import { useGetTransactionHistory } from "hooks/use-transaction-history";
 import { useState } from "react";
 
-const elements = [
-    {
-        id: 1,
-        position: `06/20/2022, 03:00 PM`,
-        mass: 12.011,
-        symbol: "C",
-        name: "Carbon",
-        status: "Pending",
-        ammount: "Rs 100.00",
-        is_earn: true,
-    },
-    {
-        id: 2,
-        position: `06/20/2022, 03:00 PM`,
-        mass: 14.007,
-        symbol: "N",
-        name: "Nitrogen",
-        status: "Success",
-        ammount: "Rs 150.00",
-        is_earn: true,
-    },
-    {
-        id: 3,
-        position: `06/20/2022, 03:00 PM`,
-        mass: 88.906,
-        symbol: "Y",
-        name: "Yttrium",
-        status: "Failed",
-        ammount: "Rs 330.00",
-        is_earn: true,
-    },
-    {
-        id: 4,
-        position: `06/20/2022, 03:00 PM`,
-        mass: 137.33,
-        symbol: "Ba",
-        name: "Barium",
-        status: "Pending",
-        ammount: "Rs 330.00",
-        is_earn: true,
-    },
-    {
-        id: 5,
-        position: `06/20/2022, 03:00 PM`,
-        mass: 140.12,
-        symbol: "Ce",
-        name: "Cerium",
-        status: "Success",
-        ammount: "Rs 1000.00",
-        is_earn: true,
-    },
-];
-
 export const PaymentHistory = () => {
     const [checkedIds, setCheckedIds] = useState<any>([]);
 

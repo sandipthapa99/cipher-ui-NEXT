@@ -14,16 +14,20 @@ export const MyBookedTaskCard = ({
 }: {
     item: MyBookingServiceProps["result"][0];
 }) => {
-    let color, progress;
+    let color, progress, type;
     if (item?.status === "Open") {
         color = "blue";
-        progress = 20;
+        progress = 0;
     } else if (item?.status === "On Progress") {
         color = "yellow";
         progress = 40;
     } else if (item?.status === "Complete") {
         color = "green";
         progress = 60;
+    } else if (item?.status === "Cancelled") {
+        color = "red";
+        progress = 0;
+        type = "cancelled";
     } else {
         color = "grey";
         progress = 0;
@@ -101,12 +105,12 @@ export const MyBookedTaskCard = ({
                         roundCaps
                         label={
                             <Text
-                                color="blue"
+                                color={color}
                                 weight={600}
                                 align="center"
                                 size="xl"
                             >
-                                {progress}%
+                                {!type ? progress : 0}%
                             </Text>
                         }
                     />
