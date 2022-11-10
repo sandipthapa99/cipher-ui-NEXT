@@ -147,7 +147,7 @@ export const PaymentHistory = () => {
           ));
 
     return (
-        <div className="bg-white pt-5 payment-history">
+        <div className="bg-white pt-5 payment-history mt-5">
             <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
                 <TextInput
                     icon={
