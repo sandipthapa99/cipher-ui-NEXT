@@ -66,7 +66,9 @@ export const MyBookedTaskCard = ({
                         {item?.entity_service?.currency?.symbol} {""}
                         {item?.budget_to}
                         {myTask?.currency?.symbol} {""}
-                        {myTask?.budget_from && `${myTask?.budget_from} -`}{" "}
+                        {myTask?.budget_from
+                            ? `${myTask?.budget_from} -`
+                            : ""}{" "}
                         {myTask?.budget_to}
                     </h2>
                     <p>
@@ -93,8 +95,9 @@ export const MyBookedTaskCard = ({
                         />
                         {item?.start_date &&
                             format(new Date(item?.start_date), "PPP")}
-                        {myTask?.start_date &&
-                            format(new Date(myTask?.start_date), "PPP")}
+                        {myTask?.start_date
+                            ? format(new Date(myTask?.start_date), "PPP")
+                            : "Flexible"}
                     </div>
                     {!myTask && (
                         <div className="name-and-image d-flex">

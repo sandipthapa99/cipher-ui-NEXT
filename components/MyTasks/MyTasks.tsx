@@ -68,7 +68,7 @@ export const MyTasks = () => {
                 <Grid>
                     <>
                         {!isLoading &&
-                            mytaskData.result &&
+                            mytaskData?.result &&
                             mytaskData?.result?.length >= 0 &&
                             mytaskData?.result.map(
                                 (item: MyTaskProps, index: number) => (
@@ -79,7 +79,7 @@ export const MyTasks = () => {
                             )}
                     </>
                 </Grid>
-                {mytaskData && (
+                {mytaskData?.result?.length < 0 && (
                     <span className="d-flex justify-content-center mt-4">
                         <Pagination
                             total={mytaskData?.total_pages}
@@ -92,7 +92,7 @@ export const MyTasks = () => {
                     </span>
                 )}
             </div>
-            {!isLoading && mytaskData && mytaskData?.length <= 0 && (
+            {!isLoading && mytaskData?.result?.length <= 0 && (
                 <ApplyPostComponent
                     model="service"
                     title="No Bookings Available"
