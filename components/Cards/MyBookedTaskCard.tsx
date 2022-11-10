@@ -6,6 +6,7 @@ import { RingProgress, Text } from "@mantine/core";
 import { Badge } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 import type { MyTaskProps } from "types/myTasksProps";
@@ -13,9 +14,11 @@ import type { MyTaskProps } from "types/myTasksProps";
 export const MyBookedTaskCard = ({
     item,
     myTask,
+    linkTo,
 }: {
     item?: MyBookingServiceProps["result"][0];
     myTask?: MyTaskProps;
+    linkTo: string;
 }) => {
     let color, progress, type;
     if (item?.status === "Open") {
@@ -35,6 +38,7 @@ export const MyBookedTaskCard = ({
         color = "grey";
         progress = 0;
     }
+
     return (
         <div className="my-booked-task-card">
             <div className="title-price-wrapper d-flex justify-content-between gap-5">
@@ -97,7 +101,7 @@ export const MyBookedTaskCard = ({
                             format(new Date(item?.start_date), "PPP")}
                         {myTask?.start_date
                             ? format(new Date(myTask?.start_date), "PPP")
-                            : "Flexible"}
+                            : ""}
                     </div>
                     {!myTask && (
                         <div className="name-and-image d-flex">
@@ -149,7 +153,6 @@ export const MyBookedTaskCard = ({
                     </div>
                 )}
             </div>
-
             <div className="d-flex justify-content-between align-items-center card-footer-section ">
                 {!myTask && <Badge color={color}>{item?.status}</Badge>}
                 <div className="share-icon">
