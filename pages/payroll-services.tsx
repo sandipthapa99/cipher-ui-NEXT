@@ -40,7 +40,7 @@ const PayrollServices: NextPage = () => {
                                         <CardBtn
                                             btnTitle="Contact Us"
                                             color="#fff"
-                                            backgroundColor="primary-color"
+                                            backgroundColor="#211d4f"
                                         />
                                     </a>
                                 </Link>
