@@ -106,17 +106,17 @@ export const MyBookingTaskCard = ({
                     </div> */}
                 </div>
                 <RingProgress
-                    sections={[{ value: 40, color: "blue" }]}
+                    sections={[{ value: progress, color: color }]}
                     thickness={9}
                     roundCaps
                     label={
                         <Text
-                            color="blue"
+                            color={color}
                             weight={600}
                             align="center"
                             size="xl"
                         >
-                            40%
+                            {!type ? progress : 0}%
                         </Text>
                     }
                 />
@@ -128,7 +128,6 @@ export const MyBookingTaskCard = ({
                     <div className="share-icon">
                         <ShareIcon url={""} quote={""} hashtag={""} showText />
                     </div>
-                    <SaveIcon object_id={""} model={""} showText />
                 </div>
             </div>
         </div>
