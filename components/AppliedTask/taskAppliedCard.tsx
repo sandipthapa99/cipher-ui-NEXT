@@ -12,7 +12,6 @@ import { useData } from "hooks/use-data";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ITask, TaskerCount } from "types/task";
-import { getPageUrl } from "utils/helpers";
 // import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
 

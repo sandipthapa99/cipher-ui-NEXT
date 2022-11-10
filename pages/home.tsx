@@ -1,15 +1,10 @@
-import DiscountCard from "@components/common/discountCard";
-import ServiceCard from "@components/common/ServiceCard";
 import WelcomeUser from "@components/common/WelcomeUser";
 import Layout from "@components/Layout";
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
-import Link from "next/link";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
 // this gets rid of the hydration error
 // since the data required for this component comes from localstorage, there's no need for ssr

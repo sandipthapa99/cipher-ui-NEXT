@@ -4,7 +4,6 @@ import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import Layout from "@components/Layout";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { TRUE } from "sass";
 import { growBusinessSteps } from "staticData/growBusiness";
 import { browseTasks, rules } from "staticData/how-to-find";
 const HowToFindTasks = () => {

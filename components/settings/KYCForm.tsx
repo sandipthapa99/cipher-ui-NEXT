@@ -20,7 +20,6 @@ import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
 import { IdentityDocument } from "./IdentityDocument";
-import { KYCStatus } from "./KycStatus";
 
 // const dropdownCountryOptions = [
 //     { id: 1, label: "Citizenship ", value: "citizenship" },
@@ -29,7 +28,7 @@ import { KYCStatus } from "./KycStatus";
 // ];
 
 const KYCForm = () => {
-    const { data: KYCData, refetch: refetchKycData, error } = useGetKYC();
+    const { data: KYCData, refetch: refetchKycData } = useGetKYC();
 
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
@@ -56,10 +55,7 @@ const KYCForm = () => {
     };
     const country = profileDetails?.country ? profileDetails?.country : "";
 
-    const queryClient = new QueryClient();
-
-    const foundCountry = countryResults.find((item) => item.label === country);
-    const router = useRouter();
+    // const foundCountry = countryResults.find((item) => item.label === country);
     // const [showKYCRead, setShowKYCRead] = useState(false);
 
     if (!profileDetails) return null;
@@ -146,7 +142,7 @@ const KYCForm = () => {
                                 // );
 
                                 mutate(values, {
-                                    onSuccess: (data) => {
+                                    onSuccess: () => {
                                         // toggleSuccessModal();
                                         refetchKycData();
                                         toast.success(

@@ -1,8 +1,4 @@
-import {
-    faEyeSlash,
-    faPencil,
-    faTrashCan,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ReactNode } from "react";
 import Dropdown from "react-bootstrap/Dropdown";

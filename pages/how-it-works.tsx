@@ -3,7 +3,6 @@ import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MessageCard from "@components/common/MessageCard";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
-import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { messageCard } from "staticData/messageCard";
 

@@ -9,7 +9,6 @@ import { createStyles, Text } from "@mantine/core";
 import { format } from "date-fns";
 import { Col, Row } from "react-bootstrap";
 import type { ITasker } from "types/tasker";
-import { formatTime } from "utils/formatTime";
 
 interface UserShortIntroProps {
     user: ITasker;

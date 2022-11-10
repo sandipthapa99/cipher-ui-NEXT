@@ -1,16 +1,9 @@
-import { MyBookedTaskCard } from "@components/Cards/MyBookedTaskCard";
 import { MyBookingTaskCard } from "@components/Cards/MyBookingTaskCard";
-import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
-import { Alert, Col, Grid, Loader, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
-import { useRouter } from "next/router";
 import React from "react";
-import type { MyTaskProps } from "types/myTasksProps";
 import { axiosClient } from "utils/axiosClient";
-
-import { MyTaskOrder } from "./MyTaskOrder";
 
 export const MyTasks = () => {
     const { data: userData } = useUser();

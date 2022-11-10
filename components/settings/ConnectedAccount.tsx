@@ -1,7 +1,6 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
-import React, { useState } from "react";
 import { axiosClient } from "utils/axiosClient";
 
 import ConnectAccount from "./ConnectAccount";

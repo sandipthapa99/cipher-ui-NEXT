@@ -192,31 +192,6 @@ const AddService: NextPage<{
         });
     };
 
-    // Fetch the category list from the API as the per user keywords request
-    // const { isFetching: isCategoryFetching } = useQuery(
-    //     ["category-options", onSearchCategory],
-    //     () =>
-    //         axiosClient
-    //             .get<CategoryFieldProps>(
-    //                 `/task/cms/task-category/list/?search=${onSearchCategory}`
-    //             )
-    //             .then((response) => response.data),
-    //     {
-    //         enabled: !!searchCategory || !!rowId,
-    //         onSuccess: (data) => {
-    //             const categoryOptions = data?.map(
-    //                 ({ id, name }: { id: number; name: string }) => {
-    //                     return {
-    //                         value: String(id),
-    //                         label: name,
-    //                     };
-    //                 }
-    //             );
-    //             setCategoryOptions(categoryOptions);
-    //         },
-    //     }
-    // );
-
     const toggleSuccessModal = useToggleSuccessModal();
     return (
         <Layout title="Add-service | Homaale">

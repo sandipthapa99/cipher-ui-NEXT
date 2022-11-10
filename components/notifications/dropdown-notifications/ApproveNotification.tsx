@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { format, formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
 import { AcceptReject } from "../AcceptReject";
-import { Pay } from "../Pay";
 
 interface BookingDetails {
     id: number;
@@ -181,7 +180,7 @@ export const ApproveNotification = ({
                 <figure className="dropdown-notification-image">
                     <Image
                         alt="testimage"
-                        src="/userprofile/unknownPerson.jpg"
+                        src="/logo/homaale-favicon.png"
                         height={50}
                         width={50}
                     />

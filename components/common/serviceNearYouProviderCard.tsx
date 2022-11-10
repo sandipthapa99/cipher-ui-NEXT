@@ -5,7 +5,6 @@ import { useState } from "react";
 import type { ServiceNearYouProviderCardProps } from "types/serviceNearYouCards";
 
 import BookNowButton from "./BookNowButton";
-import ModalCard from "./BookNowModalCard";
 const ServiceNearYouProviderCard = ({
     image,
     name,

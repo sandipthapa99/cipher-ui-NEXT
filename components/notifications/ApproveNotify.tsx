@@ -1,11 +1,8 @@
-import { faXmark } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import React from "react";
 
-import { AcceptReject } from "./AcceptReject";
 interface Approve {
     date: string;
     title: string;

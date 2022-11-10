@@ -1,13 +1,11 @@
-import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import {
     faLocationArrow,
     faLocationDot,
-    faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock, faPeriod } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Badge } from "@mantine/core";
+import { Badge, RingProgress, Text } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
 import React from "react";
@@ -40,7 +38,12 @@ export const MyBookingTaskCard = ({
         <div className="my-booking-task-card">
             <div className="title-price-wrapper d-flex justify-content-between gap-5">
                 <div className="title-and-date">
-                    <h3>{item?.entity_service?.title}</h3>
+                    <h3>
+                        {item?.entity_service?.title?.length > 40
+                            ? item?.entity_service?.title.substring(0, 40) +
+                              "..."
+                            : item?.entity_service?.title}
+                    </h3>
                     <div className="image-and-date d-flex align-items-center">
                         <Image
                             src="/groupB.png"
@@ -71,36 +74,52 @@ export const MyBookingTaskCard = ({
                 </div>
             </div>
 
-            <div className="name-and-location">
-                <div className="location d-flex align-items-center">
-                    <FontAwesomeIcon
-                        icon={faLocationDot}
-                        className="location-icon"
-                    />
-                    <span>{item?.location}</span>
+            <div className="center-section d-flex justify-content-between">
+                <div className="name-and-location">
+                    <div className="location d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faLocationDot}
+                            className="svg-icon"
+                        />
+                        <span>Anamnagar, Baneshor, KTM, Nepal</span>
+                    </div>
+                    <div className="location d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faLocationArrow}
+                            className="svg-icon"
+                        />
+                        <span>2 Km away</span>
+                    </div>
+                    <div className="location d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faHourglassClock}
+                            className="svg-icon"
+                        />
+                        30 May, 2022
+                    </div>
+                    {/* <div className="location">
+                        <FontAwesomeIcon
+                            icon={faUserGroup}
+                            className="svg-icon"
+                        />
+                        <span>100 Applied</span>
+                    </div> */}
                 </div>
-                {/* <div className="location">
-                    <FontAwesomeIcon
-                        icon={faLocationArrow}
-                        className="location-icon"
-                    />
-                    <span>2 Km away</span>
-                </div> */}
-                <div className="location">
-                    <FontAwesomeIcon
-                        icon={faHourglassClock}
-                        className="location-icon"
-                    />
-                    {item?.start_date &&
-                        format(new Date(item?.start_date), "PPP")}
-                </div>
-                {/* <div className="location">
-                    <FontAwesomeIcon
-                        icon={faUserGroup}
-                        className="location-icon"
-                    />
-                    <span>100 Applied</span>
-                </div> */}
+                <RingProgress
+                    sections={[{ value: 40, color: "blue" }]}
+                    thickness={9}
+                    roundCaps
+                    label={
+                        <Text
+                            color="blue"
+                            weight={600}
+                            align="center"
+                            size="xl"
+                        >
+                            40%
+                        </Text>
+                    }
+                />
             </div>
 
             <div className="d-flex justify-content-between align-items-center card-footer-section ">

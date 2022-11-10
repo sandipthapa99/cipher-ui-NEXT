@@ -2,9 +2,7 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
 import { AllOffers } from "@components/Offers/AllOffers";
-import { createStyles, Tabs } from "@mantine/core";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 

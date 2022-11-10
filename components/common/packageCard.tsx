@@ -1,5 +1,4 @@
 import Image from "next/image";
-import type { Key } from "react";
 import type { PacakageCardProps } from "types/packageCard";
 
 import CardBtn from "./CardBtn";

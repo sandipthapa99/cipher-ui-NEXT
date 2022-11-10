@@ -6,10 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
 
-import type {
-    ServiceCardType,
-    ServiceNearYouCardProps,
-} from "../../types/serviceNearYouCard";
+import type { ServiceCardType } from "../../types/serviceNearYouCard";
 
 export type ServiceProvider = {
     id: string;

@@ -1,8 +1,7 @@
 import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useCities } from "hooks/use-cities";
-import { useEffect, useMemo, useState } from "react";
-import type { CityOptionsProps } from "types/cityOptionsProps";
+import { useEffect, useState } from "react";
 
 interface SelectCityProps extends Omit<SelectProps, "data"> {
     data?: SelectItem[];

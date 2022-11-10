@@ -3,11 +3,11 @@ import { Row } from "react-bootstrap";
 
 import { MembershipPackage } from "./MembershipPackage";
 
-interface PaymentAccordion {
-    children: ReactNode;
-    eventKey: string;
-    callback: any;
-}
+// interface PaymentAccordion {
+//     children: ReactNode;
+//     eventKey: string;
+//     callback: any;
+// }
 
 // function ContextAwareToggle({
 //     children,

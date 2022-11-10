@@ -5,10 +5,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useAppliedTasks } from "hooks/task/use-applied-tasks";
 import type { MyBookings } from "hooks/task/use-get-service-booking";
 import { useGetTasks } from "hooks/task/use-get-service-booking";
-import { useLeaveTask } from "hooks/task/use-leave-task";
 import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
 import type { GetStaticProps } from "next";
@@ -75,14 +73,14 @@ const SimpleProfileCard = ({
     const handleLeaveTask = () => {
         if (!requestedTask) return;
         mutate(requestedTask?.id, {
-            onSuccess: (message) => {
+            onSuccess: () => {
                 queryClient.invalidateQueries(["my-requested-task"]);
                 queryClient.invalidateQueries(["approved-task"]);
                 toast.success("Booking successfully cancelled.");
                 queryClient.invalidateQueries(["get-task-applicants"]);
                 onApply?.();
             },
-            onError: async (error: any) => {
+            onError: async () => {
                 toast.error("Already cancellerd");
             },
         });

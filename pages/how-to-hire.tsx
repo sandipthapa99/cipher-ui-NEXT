@@ -4,7 +4,6 @@ import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
-import Image from "next/image";
 import { Container } from "react-bootstrap";
 import { Carousel } from "react-bootstrap";
 import {

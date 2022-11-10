@@ -23,7 +23,6 @@ import { profileEditFormSchema } from "utils/formValidation/profileEditFormValid
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
-import PhoneNumberInput from "./PhoneNumberInput";
 import TagInputField from "./TagInputField";
 
 interface ProfileEditProps {
@@ -105,7 +104,7 @@ const ProfileEditForm = ({
                             linkedAccounts: "",
                         }}
                         validationSchema={profileEditFormSchema}
-                        onSubmit={async (values: any, actions: any) => {
+                        onSubmit={async (values: any) => {
                             const newValidatedValues = {
                                 ...values,
                                 active_hour_start: new Date(
@@ -122,7 +121,7 @@ const ProfileEditForm = ({
                             // toggleSuccessModal();
                         }}
                     >
-                        {({ isSubmitting, errors, touched, values }) => (
+                        {({ isSubmitting, errors, touched }) => (
                             <Form>
                                 {/* <pre>{JSON.stringify(values, null, 4)}</pre>; */}
                                 <Row>

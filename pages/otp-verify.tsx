@@ -9,7 +9,6 @@ import { useToggleSuccessModal } from "store/use-success-modal";
 import { resetFormSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
-import { object } from "yup";
 
 const VerifyOtp = () => {
     const router = useRouter();
@@ -45,7 +44,7 @@ const VerifyOtp = () => {
                                     pathname: "/login",
                                 });
                             },
-                            onError: (error) => {
+                            onError: () => {
                                 toast.error(
                                     "You have entered old password or you entered wrong OTP"
                                 );

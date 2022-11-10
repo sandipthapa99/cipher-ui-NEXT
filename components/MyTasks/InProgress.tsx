@@ -1,5 +1,4 @@
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
-import { ReviewModal } from "@components/Review/ReviewModal";
 import { Col, Grid, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";

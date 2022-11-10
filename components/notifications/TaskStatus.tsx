@@ -1,13 +1,8 @@
-import { faXmark } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { format, formatDistanceToNow } from "date-fns";
-import type { NotificationResponse } from "hooks/Notifications/use-notification";
+import { formatDistanceToNow } from "date-fns";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
-import { AcceptReject } from "./AcceptReject";
 interface TaskStatusProps {
     taskTitle: string;
     taskObject: string;
@@ -50,17 +45,17 @@ export const TaskStatus = ({
             // }}
         >
             <div className="d-flex notification-wrapper">
-                {/* <figure className="d-flex flex-column justify-content-center notification-image">
+                <figure className="d-flex flex-column justify-content-center notification-image">
                     <Image
                         alt="testimage"
                         src={
                             profile?.profile_image ??
-                            "/userprofile/unknownPerson.jpg"
+                            "/logo/homaale-favicon.png"
                         }
                         height={50}
                         width={50}
                     />
-                </figure> */}
+                </figure>
                 <div className="description-section">
                     <p>
                         <span className="span-name" onClick={handleClick}>

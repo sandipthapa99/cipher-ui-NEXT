@@ -3,7 +3,6 @@ import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
-import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
@@ -18,16 +17,13 @@ import {
     faSquareCheck,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
-import { faDisplay } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { createStyles } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { getYearsRange } from "@mantine/dates";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
-import dayjs from "dayjs";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
@@ -43,15 +39,12 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 import type { UserBankDetails } from "types/bankDetail";
-import type { CityOptionsProps } from "types/cityOptionsProps";
 import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { safeParse } from "utils/safeParse";
 import { toast } from "utils/toast";
 
 import { FillKyc } from "./FillKyc";
-import { CompleteProfile } from "./ProfileForm";
 import ProfileSuccessModalCard from "./ProfileSuccessModal";
 
 const task_preferences = [
@@ -100,7 +93,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
-    const { data: profile, isLoading } = useGetProfile();
+    const { data: profile } = useGetProfile();
     const { data: KYCData } = useGetKYC();
     const [blobUrl, setBlobUrl] = useState<RequestInfo | URL | undefined>();
     const [image, setImage] = useState();

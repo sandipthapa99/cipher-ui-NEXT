@@ -1,6 +1,5 @@
 import type { ModalProps } from "@mantine/core";
-import { Blockquote } from "@mantine/core";
-import { Button, Text } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { Group } from "@mantine/core";
 import { Highlight, Modal } from "@mantine/core";
 import { useDeactivateTask } from "hooks/task/use-deactivate-task";

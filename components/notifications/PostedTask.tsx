@@ -1,13 +1,9 @@
-import { faXmark } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatDistanceToNow } from "date-fns";
-import type { NotificationResponse } from "hooks/Notifications/use-notification";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
-import { AcceptReject } from "./AcceptReject";
 interface PostedNotifyProps {
     taskTitle: string;
     taskObject: string;
