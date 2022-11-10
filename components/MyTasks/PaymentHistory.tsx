@@ -12,6 +12,7 @@ import {
     Pagination,
     ScrollArea,
     Select,
+    Skeleton,
     Table,
     TextInput,
 } from "@mantine/core";
@@ -47,60 +48,103 @@ export const PaymentHistory = () => {
     const [allChecked, setAllChecked] = useState(false);
     const allIds = newElements?.map((element) => element.id);
 
-    const rows = newElements?.map((element) => (
-        <tr key={element.id}>
-            <td>
-                <Checkbox
-                    checked={checkedIds.includes(element.id)}
-                    onChange={(event) =>
-                        setCheckedIds((previousIds: any) => {
-                            if (event.target.checked) {
-                                return [...previousIds, element.id];
-                            }
-                            return previousIds.filter(
-                                (currentId: any) => currentId !== element.id
-                            );
-                        })
-                    }
-                />
-            </td>
-            <td>{element.position}</td>
-            <td>{element.id.substring(0, 8)}</td>
-            <td>{element.symbol}</td>
-            <td>{element.mass}</td>
-            <td>{element.paymentMethod}</td>
-            <td>
-                {element.status === "completed" ? (
-                    <Button className="w-100" color="green">
-                        Success
-                    </Button>
-                ) : element.status === "cancelled" ? (
-                    <Button className="w-100" color="red">
-                        Failed
-                    </Button>
-                ) : element.status === "on_hold" ? (
-                    <Button className="w-100" color="gray">
-                        onHold
-                    </Button>
-                ) : element.status === "initiated" ? (
-                    <Button className="w-100" color="blue">
-                        Initiated
-                    </Button>
-                ) : (
-                    <Button className="w-100" color="yellow">
-                        Pending
-                    </Button>
-                )}
-            </td>
-            <td>{element.ammount}</td>
-            <td className="text-center">
-                <FontAwesomeIcon
-                    icon={faEllipsisVertical}
-                    className="svg-icon"
-                />
-            </td>
-        </tr>
-    ));
+    const rows = newElements
+        ? newElements?.map((element) => (
+              <tr key={element.id}>
+                  <td>
+                      <Checkbox
+                          checked={checkedIds.includes(element.id)}
+                          onChange={(event) =>
+                              setCheckedIds((previousIds: any) => {
+                                  if (event.target.checked) {
+                                      return [...previousIds, element.id];
+                                  }
+                                  return previousIds.filter(
+                                      (currentId: any) =>
+                                          currentId !== element.id
+                                  );
+                              })
+                          }
+                      />
+                  </td>
+                  <td>{element.position}</td>
+                  <td>{element.id.substring(0, 8)}</td>
+                  <td>{element.symbol}</td>
+                  <td>{element.mass}</td>
+                  <td>{element.paymentMethod}</td>
+                  <td>
+                      {element.status === "completed" ? (
+                          <Button className="w-100" color="green">
+                              Success
+                          </Button>
+                      ) : element.status === "cancelled" ? (
+                          <Button className="w-100" color="red">
+                              Failed
+                          </Button>
+                      ) : element.status === "on_hold" ? (
+                          <Button className="w-100" color="gray">
+                              onHold
+                          </Button>
+                      ) : element.status === "initiated" ? (
+                          <Button className="w-100" color="blue">
+                              Initiated
+                          </Button>
+                      ) : (
+                          <Button className="w-100" color="yellow">
+                              Pending
+                          </Button>
+                      )}
+                  </td>
+                  <td>{element.ammount}</td>
+                  <td className="text-center">
+                      <FontAwesomeIcon
+                          icon={faEllipsisVertical}
+                          className="svg-icon"
+                      />
+                  </td>
+              </tr>
+          ))
+        : Array.from({ length: 10 }).map((_, key) => (
+              <tr key={key}>
+                  <td>
+                      <Skeleton height={30} width={"80%"} radius="md" />
+                  </td>
+                  <td>
+                      <Skeleton height={20} width={"100%"} radius="md" />
+                  </td>
+                  <td>
+                      <Skeleton height={20} width={"100%"} radius="md" />
+                  </td>
+                  <td>
+                      <Skeleton height={20} width={"100%"} radius="md" />
+                  </td>
+                  <td>
+                      <Skeleton height={20} width={"100%"} radius="md" />
+                  </td>
+                  <td>
+                      <Skeleton height={20} width={"100%"} radius="md" />
+                  </td>
+                  <td>
+                      <Skeleton height={40} width={"100%"} radius="md" />
+                  </td>
+                  <td>
+                      <Skeleton
+                          className="mx-auto"
+                          height={20}
+                          width={"100%"}
+                          radius="md"
+                      />
+                  </td>
+                  <td>
+                      <Skeleton
+                          className="mx-auto"
+                          height={20}
+                          width={"10%"}
+                          radius="md"
+                      />
+                  </td>
+              </tr>
+          ));
 
     return (
         <div className="bg-white pt-5 payment-history">
