@@ -1,14 +1,12 @@
 import ShareIcon from "@components/common/ShareIcon";
-import {
-    faLocationArrow,
-    faLocationDot,
-} from "@fortawesome/pro-regular-svg-icons";
+import BookingDetails from "@components/SearchTask/BookingDetails";
+import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock, faPeriod } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, RingProgress, Text } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 
 export const MyBookingTaskCard = ({
@@ -16,6 +14,7 @@ export const MyBookingTaskCard = ({
 }: {
     item: MyBookingServiceProps["result"][0];
 }) => {
+    const [opened, setOpened] = useState(false);
     let color, progress, type;
     if (item?.status === "Open") {
         color = "blue";
@@ -36,7 +35,10 @@ export const MyBookingTaskCard = ({
     }
     return (
         <div className="my-booking-task-card">
-            <div className="title-price-wrapper d-flex justify-content-between gap-5">
+            <div
+                className="title-price-wrapper d-flex justify-content-between gap-5"
+                onClick={() => setOpened(true)}
+            >
                 <div className="title-and-date">
                     <h3>
                         {item?.entity_service?.title?.length > 40
@@ -45,18 +47,33 @@ export const MyBookingTaskCard = ({
                             : item?.entity_service?.title}
                     </h3>
                     <div className="image-and-date d-flex align-items-center">
-                        <Image
-                            src="/groupB.png"
-                            alt="circle image"
-                            height={25}
-                            width={25}
-                            objectFit="cover"
-                            className="profile-image"
-                        />
+                        {item?.entity_service?.created_by?.profile_image ? (
+                            <Image
+                                src={
+                                    item?.entity_service?.created_by
+                                        ?.profile_image
+                                }
+                                alt="circle image"
+                                height={25}
+                                width={25}
+                                objectFit="cover"
+                                className="profile-image"
+                            />
+                        ) : (
+                            <Image
+                                src={"/placeholder/profilePlaceholder.png"}
+                                alt="circle image"
+                                height={25}
+                                width={25}
+                                objectFit="cover"
+                                className="profile-image"
+                            />
+                        )}
+
                         <span>
-                            {item?.created_by?.user?.first_name}{" "}
-                            {item?.created_by?.user?.middle_name}{" "}
-                            {item?.created_by?.user?.last_name}
+                            {item?.entity_service?.created_by?.first_name}{" "}
+                            {item?.entity_service?.created_by?.middle_name}{" "}
+                            {item?.entity_service?.created_by?.last_name}
                         </span>
                         <FontAwesomeIcon
                             icon={faPeriod}
@@ -74,28 +91,22 @@ export const MyBookingTaskCard = ({
                 </div>
             </div>
 
-            <div className="center-section d-flex justify-content-between">
+            <div className="center-section d-flex align-items-center justify-content-between">
                 <div className="name-and-location">
                     <div className="location d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationDot}
                             className="svg-icon"
                         />
-                        <span>Anamnagar, Baneshor, KTM, Nepal</span>
-                    </div>
-                    <div className="location d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faLocationArrow}
-                            className="svg-icon"
-                        />
-                        <span>2 Km away</span>
+                        <span>{item?.location}</span>
                     </div>
                     <div className="location d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faHourglassClock}
                             className="svg-icon"
                         />
-                        30 May, 2022
+                        {item?.start_date &&
+                            format(new Date(item?.start_date), "PP")}
                     </div>
                     {/* <div className="location">
                         <FontAwesomeIcon
@@ -130,6 +141,11 @@ export const MyBookingTaskCard = ({
                     </div>
                 </div>
             </div>
+            <BookingDetails
+                show={opened}
+                setShow={setOpened}
+                bookingId={String(item.id) ?? ""}
+            />
         </div>
     );
 };
