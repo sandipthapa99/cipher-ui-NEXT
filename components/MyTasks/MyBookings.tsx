@@ -104,7 +104,7 @@ export const MyBookings = () => {
                                     <Grid.Col lg={4} sm={6} key={index}>
                                         <MyBookedTaskCard
                                             item={item}
-                                            linkTo={""}
+                                            linkTo={"#!"}
                                         />
                                     </Grid.Col>
                                 )

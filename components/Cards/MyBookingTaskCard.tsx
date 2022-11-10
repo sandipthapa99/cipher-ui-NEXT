@@ -37,6 +37,7 @@ export const MyBookingTaskCard = ({
         <div className="my-booking-task-card">
             <div
                 className="title-price-wrapper d-flex justify-content-between gap-5"
+                role={"button"}
                 onClick={() => setOpened(true)}
             >
                 <div className="title-and-date">
@@ -82,7 +83,10 @@ export const MyBookingTaskCard = ({
                         <span>{format(new Date(item?.created_at), "PP")}</span>
                     </div>
                 </div>
-                <div className="price d-flex flex-column align-items-end">
+                <div
+                    className="price d-flex flex-column align-items-end"
+                    onClick={() => setOpened(true)}
+                >
                     <h2 className="text-nowrap">
                         {item?.entity_service?.currency?.symbol} {""}
                         {item?.budget_to}
@@ -91,7 +95,11 @@ export const MyBookingTaskCard = ({
                 </div>
             </div>
 
-            <div className="center-section d-flex align-items-center justify-content-between">
+            <div
+                className="center-section d-flex align-items-center justify-content-between"
+                role={"button"}
+                onClick={() => setOpened(true)}
+            >
                 <div className="name-and-location">
                     <div className="location d-flex align-items-center">
                         <FontAwesomeIcon
@@ -144,7 +152,7 @@ export const MyBookingTaskCard = ({
             <BookingDetails
                 show={opened}
                 setShow={setOpened}
-                bookingId={String(item.id) ?? ""}
+                bookingId={String(item?.id) ?? ""}
             />
         </div>
     );

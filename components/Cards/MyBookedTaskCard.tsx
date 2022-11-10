@@ -1,4 +1,5 @@
 import ShareIcon from "@components/common/ShareIcon";
+import BookingDetails from "@components/SearchTask/BookingDetails";
 import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +8,7 @@ import { Badge } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 import type { MyTaskProps } from "types/myTasksProps";
 
@@ -20,6 +21,7 @@ export const MyBookedTaskCard = ({
     myTask?: MyTaskProps;
     linkTo: string;
 }) => {
+    const [opened, setOpened] = useState(false);
     let color, progress, type;
     if (item?.status === "Open") {
         color = "blue";
@@ -43,7 +45,11 @@ export const MyBookedTaskCard = ({
         <div className="my-booked-task-card">
             <Link href={linkTo}>
                 <a>
-                    <div className="title-price-wrapper d-flex justify-content-between gap-5">
+                    <div
+                        className="title-price-wrapper d-flex justify-content-between gap-5"
+                        role={"button"}
+                        onClick={() => setOpened(true)}
+                    >
                         <div className="title-and-date">
                             <h3>
                                 {item?.entity_service?.title &&
@@ -87,7 +93,11 @@ export const MyBookedTaskCard = ({
                             </p>
                         </div>
                     </div>
-                    <div className="center-section d-flex justify-content-between">
+                    <div
+                        className="center-section d-flex justify-content-between"
+                        role={"button"}
+                        onClick={() => setOpened(true)}
+                    >
                         <div className="name-and-location">
                             <div className="d-flex align-items-center location">
                                 <FontAwesomeIcon
@@ -176,6 +186,11 @@ export const MyBookedTaskCard = ({
                     <ShareIcon url={""} quote={""} hashtag={""} showText />
                 </div>
             </div>
+            <BookingDetails
+                show={opened}
+                setShow={setOpened}
+                bookingId={String(item?.id) ?? ""}
+            />
         </div>
     );
 };
