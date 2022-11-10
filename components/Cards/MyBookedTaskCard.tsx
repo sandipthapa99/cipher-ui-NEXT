@@ -101,7 +101,7 @@ export const MyBookedTaskCard = ({
                             format(new Date(item?.start_date), "PPP")}
                         {myTask?.start_date
                             ? format(new Date(myTask?.start_date), "PPP")
-                            : "Flexible"}
+                            : ""}
                     </div>
                     {!myTask && (
                         <div className="name-and-image d-flex">
