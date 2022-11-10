@@ -21,6 +21,7 @@
                 margin: 0 0 0.8rem;
                 height: 5.2rem;
                 overflow: hidden;
+                color: #211d4f;
             }
         }
 
@@ -29,6 +30,7 @@
             h2 {
                 font: 500 2.4rem $poppins-font;
                 margin: 0 0 0.5rem;
+                color: #343a40;
             }
         }
     }
@@ -36,6 +38,7 @@
     .center-section {
         border-bottom: 1px solid #e9ecef;
         font: 400 1.4rem $poppins-font;
+        color: #343a40;
 
         .name-and-location {
             svg {

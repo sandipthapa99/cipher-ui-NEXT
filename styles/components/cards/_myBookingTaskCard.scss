@@ -25,6 +25,7 @@
                 margin: 0 0 0.8rem;
                 height: 5.2rem;
                 overflow: hidden;
+                color: #211d4f;
             }
         }
 
@@ -33,6 +34,7 @@
                 font: 500 2.4rem $poppins-font;
                 margin: 0 0 0.5rem;
                 text-align: right;
+                color: #343a40;
             }
             p {
                 font: 400 1.2rem $poppins-font;
@@ -45,6 +47,7 @@
         border-bottom: 1px solid #e9ecef;
         .name-and-location {
             font: 400 1.4rem $poppins-font;
+            color: #343a40;
             .location {
                 margin: 0 0 1.4rem;
                 svg {

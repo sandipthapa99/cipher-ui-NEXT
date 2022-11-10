@@ -73,7 +73,10 @@ export const MyTasks = () => {
                             mytaskData?.result.map(
                                 (item: MyTaskProps, index: number) => (
                                     <Grid.Col lg={4} sm={6} key={index}>
-                                        <MyBookedTaskCard myTask={item} />
+                                        <MyBookedTaskCard
+                                            linkTo={`/task/${item?.id}`}
+                                            myTask={item}
+                                        />
                                     </Grid.Col>
                                 )
                             )}
