@@ -1,14 +1,12 @@
 import ShareIcon from "@components/common/ShareIcon";
-import {
-    faLocationArrow,
-    faLocationDot,
-} from "@fortawesome/pro-regular-svg-icons";
+import BookingDetails from "@components/SearchTask/BookingDetails";
+import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock, faPeriod } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, RingProgress, Text } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 
 export const MyBookingTaskCard = ({
@@ -16,7 +14,8 @@ export const MyBookingTaskCard = ({
 }: {
     item: MyBookingServiceProps["result"][0];
 }) => {
-    let color, progress, type;
+    const [opened, setOpened] = useState(false);
+    let color, progress;
     if (item?.status === "Open") {
         color = "blue";
         progress = 0;
@@ -28,15 +27,18 @@ export const MyBookingTaskCard = ({
         progress = 60;
     } else if (item?.status === "Cancelled") {
         color = "red";
-        progress = 0;
-        type = "cancelled";
+        progress = 50;
     } else {
         color = "grey";
         progress = 0;
     }
     return (
         <div className="my-booking-task-card">
-            <div className="title-price-wrapper d-flex justify-content-between gap-5">
+            <div
+                className="title-price-wrapper d-flex justify-content-between gap-5"
+                role={"button"}
+                onClick={() => setOpened(true)}
+            >
                 <div className="title-and-date">
                     <h3>
                         {item?.entity_service?.title?.length > 40
@@ -44,8 +46,46 @@ export const MyBookingTaskCard = ({
                               "..."
                             : item?.entity_service?.title}
                     </h3>
+                    <div className="image-and-date d-flex align-items-center">
+                        {item?.entity_service?.created_by?.profile_image ? (
+                            <Image
+                                src={
+                                    item?.entity_service?.created_by
+                                        ?.profile_image
+                                }
+                                alt="circle image"
+                                height={25}
+                                width={25}
+                                objectFit="cover"
+                                className="profile-image"
+                            />
+                        ) : (
+                            <Image
+                                src={"/placeholder/profilePlaceholder.png"}
+                                alt="circle image"
+                                height={25}
+                                width={25}
+                                objectFit="cover"
+                                className="profile-image"
+                            />
+                        )}
+
+                        <span>
+                            {item?.entity_service?.created_by?.first_name}{" "}
+                            {item?.entity_service?.created_by?.middle_name}{" "}
+                            {item?.entity_service?.created_by?.last_name}
+                        </span>
+                        <FontAwesomeIcon
+                            icon={faPeriod}
+                            className={"svg-icon"}
+                        />
+                        <span>{format(new Date(item?.created_at), "PP")}</span>
+                    </div>
                 </div>
-                <div className="price d-flex flex-column align-items-end">
+                <div
+                    className="price d-flex flex-column align-items-end"
+                    onClick={() => setOpened(true)}
+                >
                     <h2 className="text-nowrap">
                         {item?.entity_service?.currency?.symbol} {""}
                         {item?.budget_to}
@@ -53,46 +93,27 @@ export const MyBookingTaskCard = ({
                     <p>{item?.entity_service?.budget_type}</p>
                 </div>
             </div>
-            <div className="image-and-date d-flex align-items-center">
-                <Image
-                    src="/groupB.png"
-                    alt="circle image"
-                    height={25}
-                    width={25}
-                    objectFit="cover"
-                    className="profile-image"
-                />
-                <span>
-                    {item?.created_by?.user?.first_name}{" "}
-                    {item?.created_by?.user?.middle_name}{" "}
-                    {item?.created_by?.user?.last_name}
-                </span>
-                <FontAwesomeIcon icon={faPeriod} className={"svg-icon"} />
-                <span>{format(new Date(item?.created_at), "PP")}</span>
-            </div>
 
-            <div className="center-section d-flex justify-content-between">
+            <div
+                className="center-section d-flex align-items-center justify-content-between"
+                role={"button"}
+                onClick={() => setOpened(true)}
+            >
                 <div className="name-and-location">
                     <div className="location d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationDot}
                             className="svg-icon"
                         />
-                        <span>Anamnagar, Baneshor, KTM, Nepal</span>
-                    </div>
-                    <div className="location d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faLocationArrow}
-                            className="svg-icon"
-                        />
-                        <span>2 Km away</span>
+                        <span>{item?.location}</span>
                     </div>
                     <div className="location d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faHourglassClock}
                             className="svg-icon"
                         />
-                        30 May, 2022
+                        {item?.start_date &&
+                            format(new Date(item?.start_date), "PP")}
                     </div>
                     {/* <div className="location">
                         <FontAwesomeIcon
@@ -113,7 +134,7 @@ export const MyBookingTaskCard = ({
                             align="center"
                             size="xl"
                         >
-                            {!type ? progress : 0}%
+                            {progress}%
                         </Text>
                     }
                 />
@@ -127,6 +148,11 @@ export const MyBookingTaskCard = ({
                     </div>
                 </div>
             </div>
+            <BookingDetails
+                show={opened}
+                setShow={setOpened}
+                bookingId={String(item?.id) ?? ""}
+            />
         </div>
     );
 };

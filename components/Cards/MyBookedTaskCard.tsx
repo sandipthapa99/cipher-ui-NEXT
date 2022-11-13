@@ -1,4 +1,5 @@
 import ShareIcon from "@components/common/ShareIcon";
+import BookingDetails from "@components/SearchTask/BookingDetails";
 import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +8,8 @@ import { Badge } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 import type { MyTaskProps } from "types/myTasksProps";
 
@@ -20,7 +22,8 @@ export const MyBookedTaskCard = ({
     myTask?: MyTaskProps;
     linkTo: string;
 }) => {
-    let color, progress, type;
+    const [opened, setOpened] = useState(false);
+    let color, progress;
     if (item?.status === "Open") {
         color = "blue";
         progress = 0;
@@ -32,18 +35,22 @@ export const MyBookedTaskCard = ({
         progress = 60;
     } else if (item?.status === "Cancelled") {
         color = "red";
-        progress = 0;
-        type = "cancelled";
+        progress = 50;
     } else {
         color = "grey";
         progress = 0;
     }
 
+    const router = useRouter();
     return (
         <div className="my-booked-task-card">
             <Link href={linkTo}>
                 <a>
-                    <div className="title-price-wrapper d-flex justify-content-between gap-5">
+                    <div
+                        className="title-price-wrapper d-flex justify-content-between gap-5"
+                        role={"button"}
+                        onClick={() => setOpened(true)}
+                    >
                         <div className="title-and-date">
                             <h3>
                                 {item?.entity_service?.title &&
@@ -85,7 +92,11 @@ export const MyBookedTaskCard = ({
                         {myTask?.created_at &&
                             format(new Date(myTask?.created_at), "PPP")}
                     </p>
-                    <div className="center-section d-flex justify-content-between">
+                    <div
+                        className="center-section d-flex justify-content-between"
+                        role={"button"}
+                        onClick={() => setOpened(true)}
+                    >
                         <div className="name-and-location">
                             <div className="d-flex align-items-center location">
                                 <FontAwesomeIcon
@@ -108,7 +119,7 @@ export const MyBookedTaskCard = ({
                                           new Date(myTask?.start_date),
                                           "PPP"
                                       )
-                                    : "Flexible"}
+                                    : ""}
                             </div>
                             {!myTask && (
                                 <div className="name-and-image d-flex">
@@ -159,7 +170,7 @@ export const MyBookedTaskCard = ({
                                             align="center"
                                             size="xl"
                                         >
-                                            {!type ? progress : 0}%
+                                            {progress}%
                                         </Text>
                                     }
                                 />
@@ -174,6 +185,13 @@ export const MyBookedTaskCard = ({
                     <ShareIcon url={""} quote={""} hashtag={""} showText />
                 </div>
             </div>
+            {router.query.activeTab === "2" && (
+                <BookingDetails
+                    show={opened}
+                    setShow={setOpened}
+                    bookingId={String(item?.id) ?? ""}
+                />
+            )}
         </div>
     );
 };
