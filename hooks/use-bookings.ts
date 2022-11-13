@@ -53,7 +53,7 @@ export const useBooking = (searchParam?: string, page?: number) => {
     useEffect(() => {
         setChangePage(page);
     }, [page]);
-    return useQuery(["my-Booking", searchParam, changePage], () =>
+    return useQuery(["Booking", searchParam, changePage], () =>
         axiosClient
             .get<MyBookingServiceProps>(
                 `${urls.profile.other_bookings}?${searchParam}&page_size=9&page=${changePage}`

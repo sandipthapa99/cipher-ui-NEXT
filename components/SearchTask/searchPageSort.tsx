@@ -1,10 +1,9 @@
 import { Tab } from "@components/common/Tab";
-import { InProgress } from "@components/MyTasks/InProgress";
+import { AllList } from "@components/MyTasks/AllList";
+import { ApprovedTask } from "@components/MyTasks/ApprovedTask";
 import { MyBookings } from "@components/MyTasks/MyBookings";
 import { MyService } from "@components/MyTasks/MyService";
-import { MyTasks } from "@components/MyTasks/MyTasks";
 import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
-import { ToReview } from "@components/MyTasks/ToReview";
 import { useState } from "react";
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -27,16 +26,16 @@ const SearchBySort = () => {
                 onTabClick={setActiveTabIdx}
                 items={[
                     {
-                        title: "My Services",
-                        content: <MyService />,
-                    },
-                    {
-                        title: "My Tasks",
-                        content: <MyTasks />,
+                        title: "All List",
+                        content: <AllList />,
                     },
                     {
                         title: "Bookings",
                         content: <MyBookings />,
+                    },
+                    {
+                        title: "Approved Task",
+                        content: <ApprovedTask />,
                     },
                     {
                         title: "Payment History",
