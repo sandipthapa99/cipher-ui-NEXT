@@ -1,5 +1,4 @@
 import { MyBookedTaskCard } from "@components/Cards/MyBookedTaskCard";
-import { MyBookingTaskCard } from "@components/Cards/MyBookingTaskCard";
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import {
     useClearSearchedTaskers,
@@ -8,37 +7,26 @@ import {
 import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import SkeletonBookingCard from "@components/Skeletons/SkeletonBookingCard";
 import { Grid, Pagination, Select } from "@mantine/core";
-import { useBooking } from "hooks/use-bookings";
-import { useMyBooking } from "hooks/use-myBooking";
+import { useApprovedTask } from "hooks/use-approvedTask";
 import React, { useState } from "react";
-import type { MyBookingServiceProps } from "types/myBookingProps";
+import type { ApprovedTaskProps } from "types/approvedTaskProps";
 
-export const MyBookings = () => {
+export const ApprovedTask = () => {
     const [searchParam, setSearchParam] = useState("");
     const clearSearchedTaskers = useClearSearchedTaskers();
     const clearSearchQuery = useClearSearchQuery();
 
-    const [value, setValue] = useState<string | null>("other");
+    const [value, setValue] = useState<string | null>("true");
 
     const [bookingPageNo, setBookingPageNo] = useState<number>(1);
-    const [myBookingPageNo, setMyBookingPageNo] = useState<number>(1);
 
     //----------For other booking------------
-    const { data: bookingPages, isLoading: bookingLoading } = useBooking(
+    const { data: othersTaskList, isLoading: bookingLoading } = useApprovedTask(
         searchParam,
-        bookingPageNo
+        bookingPageNo,
+        value
     );
-
-    const bookings = bookingPages?.result;
-
-    //----------For other booking------------
-    //----------For my bookings------------
-    const { data: myBookingPages, isLoading: myBookingLoading } = useMyBooking(
-        searchParam,
-        myBookingPageNo
-    );
-
-    const mybookings = myBookingPages?.result;
+    const othersTask = othersTaskList?.result;
 
     const handleSearchParamChange = (searchParam: string) => {
         // clear the existing search data when searchparam changes and has value
@@ -64,8 +52,8 @@ export const MyBookings = () => {
                         value={value}
                         onChange={setValue}
                         data={[
-                            { value: "me", label: "By Me" },
-                            { value: "other", label: "By Other" },
+                            { value: "true", label: "By Me" },
+                            { value: "false", label: "By Other" },
                         ]}
                     />
                 </Grid.Col>
@@ -81,56 +69,30 @@ export const MyBookings = () => {
                         ))}
                     </Grid>
                 )}
-                {myBookingLoading && (
-                    <Grid>
-                        {Array.from({ length: 9 }).map((_, index) => (
-                            <Grid.Col lg={4} sm={6} key={index}>
-                                <SkeletonBookingCard />
-                            </Grid.Col>
-                        ))}
-                    </Grid>
-                )}
                 <Grid>
                     <>
                         {!bookingLoading &&
-                            value === "other" &&
-                            bookings &&
-                            bookings?.length >= 0 &&
-                            bookings?.map(
+                            othersTask &&
+                            othersTask?.length >= 0 &&
+                            othersTask?.map(
                                 (
-                                    item: MyBookingServiceProps["result"][0],
+                                    item: ApprovedTaskProps["result"][0],
                                     index: number
                                 ) => (
                                     <Grid.Col lg={4} sm={6} key={index}>
                                         <MyBookedTaskCard
-                                            item={item}
+                                            Approvedtask={item}
                                             linkTo={"#!"}
                                         />
                                     </Grid.Col>
                                 )
                             )}
                     </>
-                    <>
-                        {!myBookingLoading &&
-                            value === "me" &&
-                            mybookings &&
-                            mybookings?.length >= 0 &&
-                            mybookings?.map(
-                                (
-                                    item: MyBookingServiceProps["result"][0],
-                                    index: number
-                                ) => (
-                                    <Grid.Col lg={4} sm={6} key={index}>
-                                        <MyBookingTaskCard item={item} />
-                                    </Grid.Col>
-                                )
-                            )}
-                    </>
                 </Grid>
-                {value === "other" && bookings?.length > 0 && (
+                {othersTaskList && (
                     <span className="d-flex justify-content-center mt-4">
                         <Pagination
-                            total={bookingPages?.total_pages}
+                            total={othersTaskList?.total_pages}
                             color="yellow"
                             initialPage={bookingPageNo}
                             onChange={(value) => {
@@ -139,25 +101,13 @@ export const MyBookings = () => {
                         />
                     </span>
                 )}
-                {value === "me" && myBookingPages && (
-                    <span className="d-flex justify-content-center mt-4">
-                        <Pagination
-                            total={myBookingPages?.total_pages}
-                            color="yellow"
-                            initialPage={myBookingPageNo}
-                            onChange={(value) => {
-                                setMyBookingPageNo(value);
-                            }}
-                        />
-                    </span>
-                )}
             </div>
-            {!bookingLoading && bookings && bookings?.length <= 0 && (
+            {!bookingLoading && !othersTask && (
                 <ApplyPostComponent
                     model="service"
-                    title="No Bookings Available"
-                    subtitle="Book a service to the marketplace and let merchant come to you."
-                    buttonText="Book a service"
+                    title="No Approved Tasks Available"
+                    subtitle="Approved a Tasks to the marketplace and let merchant come to you."
+                    buttonText="Book a Task"
                 />
             )}
         </>
