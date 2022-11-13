@@ -27,16 +27,11 @@ export const MyTaskOrder = ({
     status,
     taskID,
 }: MyTaskOrderProps) => {
-    console.log(
-        "🚀 ~ file: MyTaskOrder.tsx ~ line 30 ~ applied_id",
-        applied_id
-    );
     const [isAuthor, setIsAuthor] = useState(false);
     const { data: userData } = useUser();
 
     const router = useRouter();
     const [openReviewModal, setOpenReviewModal] = useState(false);
-    console.log("task_id", task_id);
 
     useEffect(() => {
         if (userData?.id === assigner_id) {

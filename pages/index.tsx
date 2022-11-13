@@ -350,12 +350,14 @@ const Home: NextPage<{
                 </Container>
             </section>
             {/* Services near you section end */}
-
-            <section id="services-near-you" className="services-near-you">
-                <Container fluid="xl" className="px-5">
-                    {servicesData &&
-                        servicesData?.result?.filter((q) => q.is_professional)
-                            .length > 0 && (
+            {servicesData &&
+                servicesData?.result?.filter((q) => q.is_professional).length >
+                    0 && (
+                    <section
+                        id="services-near-you"
+                        className="services-near-you"
+                    >
+                        <Container fluid="xl" className="px-5">
                             <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                                 <h2 className="heading-title">
                                     Professional Services
@@ -370,30 +372,31 @@ const Home: NextPage<{
                                     </a>
                                 </Link>
                             </div>
-                        )}
-                    <Row className="gx-5">
-                        {servicesData &&
-                            servicesData?.result
-                                ?.filter((q) => q.is_professional)
-                                .slice(0, 4)
-                                .map((service) => {
-                                    return (
-                                        <Col
-                                            sm={6}
-                                            md={4}
-                                            lg={3}
-                                            key={service.id}
-                                            className="d-flex"
-                                        >
-                                            <ServiceCard
-                                                serviceCard={service}
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                    </Row>
-                </Container>
-            </section>
+
+                            <Row className="gx-5">
+                                {servicesData &&
+                                    servicesData?.result
+                                        ?.filter((q) => q.is_professional)
+                                        .slice(0, 4)
+                                        .map((service) => {
+                                            return (
+                                                <Col
+                                                    sm={6}
+                                                    md={4}
+                                                    lg={3}
+                                                    key={service.id}
+                                                    className="d-flex"
+                                                >
+                                                    <ServiceCard
+                                                        serviceCard={service}
+                                                    />
+                                                </Col>
+                                            );
+                                        })}
+                            </Row>
+                        </Container>
+                    </section>
+                )}
 
             {/* Get services section start */}
             {/* <section className="get-services">

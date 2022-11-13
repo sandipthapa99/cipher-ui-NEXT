@@ -16,6 +16,24 @@ export const MyBookingTaskCard = ({
 }: {
     item: MyBookingServiceProps["result"][0];
 }) => {
+    let color, progress, type;
+    if (item?.status === "Open") {
+        color = "blue";
+        progress = 0;
+    } else if (item?.status === "On Progress") {
+        color = "yellow";
+        progress = 40;
+    } else if (item?.status === "Complete") {
+        color = "green";
+        progress = 60;
+    } else if (item?.status === "Cancelled") {
+        color = "red";
+        progress = 0;
+        type = "cancelled";
+    } else {
+        color = "grey";
+        progress = 0;
+    }
     return (
         <div className="my-booking-task-card">
             <div className="title-price-wrapper d-flex justify-content-between gap-5">
@@ -26,26 +44,6 @@ export const MyBookingTaskCard = ({
                               "..."
                             : item?.entity_service?.title}
                     </h3>
-                    <div className="image-and-date d-flex align-items-center">
-                        <Image
-                            src="/groupB.png"
-                            alt="circle image"
-                            height={25}
-                            width={25}
-                            objectFit="cover"
-                            className="profile-image"
-                        />
-                        <span>
-                            {item?.created_by?.user?.first_name}{" "}
-                            {item?.created_by?.user?.middle_name}{" "}
-                            {item?.created_by?.user?.last_name}
-                        </span>
-                        <FontAwesomeIcon
-                            icon={faPeriod}
-                            className={"svg-icon"}
-                        />
-                        <span>{format(new Date(item?.created_at), "PP")}</span>
-                    </div>
                 </div>
                 <div className="price d-flex flex-column align-items-end">
                     <h2 className="text-nowrap">
@@ -54,6 +52,23 @@ export const MyBookingTaskCard = ({
                     </h2>
                     <p>{item?.entity_service?.budget_type}</p>
                 </div>
+            </div>
+            <div className="image-and-date d-flex align-items-center">
+                <Image
+                    src="/groupB.png"
+                    alt="circle image"
+                    height={25}
+                    width={25}
+                    objectFit="cover"
+                    className="profile-image"
+                />
+                <span>
+                    {item?.created_by?.user?.first_name}{" "}
+                    {item?.created_by?.user?.middle_name}{" "}
+                    {item?.created_by?.user?.last_name}
+                </span>
+                <FontAwesomeIcon icon={faPeriod} className={"svg-icon"} />
+                <span>{format(new Date(item?.created_at), "PP")}</span>
             </div>
 
             <div className="center-section d-flex justify-content-between">
@@ -88,26 +103,28 @@ export const MyBookingTaskCard = ({
                     </div> */}
                 </div>
                 <RingProgress
-                    sections={[{ value: 40, color: "blue" }]}
+                    sections={[{ value: progress, color: color }]}
                     thickness={9}
                     roundCaps
                     label={
                         <Text
-                            color="blue"
+                            color={color}
                             weight={600}
                             align="center"
                             size="xl"
                         >
-                            40%
+                            {!type ? progress : 0}%
                         </Text>
                     }
                 />
             </div>
 
             <div className="d-flex justify-content-between align-items-center card-footer-section ">
-                <Badge color="green">{item.status}</Badge>
-                <div className="share-icon">
-                    <ShareIcon url={""} quote={""} hashtag={""} showText />
+                <Badge color={color}>{item.status}</Badge>
+                <div className="icons-section d-flex">
+                    <div className="share-icon">
+                        <ShareIcon url={""} quote={""} hashtag={""} showText />
+                    </div>
                 </div>
             </div>
         </div>

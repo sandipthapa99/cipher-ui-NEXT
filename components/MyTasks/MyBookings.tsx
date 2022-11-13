@@ -4,22 +4,14 @@ import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import {
     useClearSearchedTaskers,
     useClearSearchQuery,
-    useSearchQuery,
 } from "@components/common/Search/searchStore";
 import { SearchCategory } from "@components/SearchTask/SearchCategory";
-import { Alert, Col, Grid, Select, Skeleton } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
-import urls from "constants/urls";
-import { useServices } from "hooks/service/use-services";
+import SkeletonBookingCard from "@components/Skeletons/SkeletonBookingCard";
+import { Grid, Pagination, Select } from "@mantine/core";
 import { useBooking } from "hooks/use-bookings";
-import { useInViewPort } from "hooks/use-in-viewport";
-import Link from "next/link";
-import React, { useMemo, useState } from "react";
-import { Col as BootCol, Row } from "react-bootstrap";
+import { useMyBooking } from "hooks/use-myBooking";
+import React, { useState } from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
-import { axiosClient } from "utils/axiosClient";
-
-import { MyTaskOrder } from "./MyTaskOrder";
 
 export const MyBookings = () => {
     const [searchParam, setSearchParam] = useState("");
@@ -28,39 +20,26 @@ export const MyBookings = () => {
 
     const [value, setValue] = useState<string | null>("other");
 
-    //----------For other booking------------
-    const {
-        data: bookingPages,
-        isLoading: bookingLoading,
-        // hasNextPage,
-        // isFetchingNextPage,
-        // fetchNextPage,
-    } = useBooking(searchParam);
+    const [bookingPageNo, setBookingPageNo] = useState<number>(1);
+    const [myBookingPageNo, setMyBookingPageNo] = useState<number>(1);
 
-    const bookings = useMemo(
-        () =>
-            bookingPages?.pages
-                .map((bookingPage) => bookingPage.result)
-                .flat() ?? [],
-        [bookingPages?.pages]
+    //----------For other booking------------
+    const { data: bookingPages, isLoading: bookingLoading } = useBooking(
+        searchParam,
+        bookingPageNo
     );
+
+    const bookings = bookingPages?.result;
+
     //----------For other booking------------
     //----------For my bookings------------
-    const {
-        data: myBookingPages,
-        isLoading: myBookingLoading,
-        // hasNextPage,
-        // isFetchingNextPage,
-        // fetchNextPage,
-    } = useBooking(searchParam);
-
-    const mybookings = useMemo(
-        () =>
-            myBookingPages?.pages
-                .map((myBookingPage) => myBookingPage.result)
-                .flat() ?? [],
-        [myBookingPages?.pages]
+    const { data: myBookingPages, isLoading: myBookingLoading } = useMyBooking(
+        searchParam,
+        myBookingPageNo
     );
+
+    const mybookings = myBookingPages?.result;
+
     const handleSearchParamChange = (searchParam: string) => {
         // clear the existing search data when searchparam changes and has value
         if (searchParam) {
@@ -92,20 +71,23 @@ export const MyBookings = () => {
                 </Grid.Col>
             </Grid>
             {/* <h3>My Bookings</h3> */}
-            <div className="">
+            <div className="overflow-hidden">
                 {bookingLoading && (
-                    <Grid className="p-5">
-                        <Col span={3}>
-                            <Skeleton height={150} mb="xl" />
-                        </Col>
-                        <Col span={9}>
-                            <Skeleton
-                                height={50}
-                                radius="sm"
-                                className="mb-4"
-                            />
-                            <Skeleton height={50} radius="sm" />
-                        </Col>
+                    <Grid>
+                        {Array.from({ length: 9 }).map((_, index) => (
+                            <Grid.Col lg={4} sm={6} key={index}>
+                                <SkeletonBookingCard />
+                            </Grid.Col>
+                        ))}
+                    </Grid>
+                )}
+                {myBookingLoading && (
+                    <Grid>
+                        {Array.from({ length: 9 }).map((_, index) => (
+                            <Grid.Col lg={4} sm={6} key={index}>
+                                <SkeletonBookingCard />
+                            </Grid.Col>
+                        ))}
                     </Grid>
                 )}
                 <Grid>
@@ -114,24 +96,61 @@ export const MyBookings = () => {
                             value === "other" &&
                             bookings &&
                             bookings?.length >= 0 &&
-                            bookings?.map((item, index) => (
-                                <Grid.Col lg={4} sm={6} key={index}>
-                                    <MyBookedTaskCard item={item} />
-                                </Grid.Col>
-                            ))}
+                            bookings?.map(
+                                (
+                                    item: MyBookingServiceProps["result"][0],
+                                    index: number
+                                ) => (
+                                    <Grid.Col lg={4} sm={6} key={index}>
+                                        <MyBookedTaskCard
+                                            item={item}
+                                            linkTo={""}
+                                        />
+                                    </Grid.Col>
+                                )
+                            )}
                     </>
                     <>
                         {!myBookingLoading &&
                             value === "me" &&
                             mybookings &&
                             mybookings?.length >= 0 &&
-                            mybookings?.map((item, index) => (
-                                <Grid.Col lg={4} sm={6} key={index}>
-                                    <MyBookingTaskCard item={item} />
-                                </Grid.Col>
-                            ))}
+                            mybookings?.map(
+                                (
+                                    item: MyBookingServiceProps["result"][0],
+                                    index: number
+                                ) => (
+                                    <Grid.Col lg={4} sm={6} key={index}>
+                                        <MyBookingTaskCard item={item} />
+                                    </Grid.Col>
+                                )
+                            )}
                     </>
                 </Grid>
+                {value === "other" && bookingPages && (
+                    <span className="d-flex justify-content-center mt-4">
+                        <Pagination
+                            total={bookingPages?.total_pages}
+                            color="yellow"
+                            initialPage={bookingPageNo}
+                            onChange={(value) => {
+                                setBookingPageNo(value);
+                            }}
+                        />
+                    </span>
+                )}
+                {value === "me" && myBookingPages && (
+                    <span className="d-flex justify-content-center mt-4">
+                        <Pagination
+                            total={myBookingPages?.total_pages}
+                            color="yellow"
+                            initialPage={myBookingPageNo}
+                            onChange={(value) => {
+                                setMyBookingPageNo(value);
+                            }}
+                        />
+                    </span>
+                )}
             </div>
             {!bookingLoading && bookings && bookings?.length <= 0 && (
                 <ApplyPostComponent
