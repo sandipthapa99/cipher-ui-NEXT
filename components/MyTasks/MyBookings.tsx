@@ -127,7 +127,7 @@ export const MyBookings = () => {
                             )}
                     </>
                 </Grid>
-                {value === "other" && bookingPages && (
+                {value === "other" && bookings?.length > 0 && (
                     <span className="d-flex justify-content-center mt-4">
                         <Pagination
                             total={bookingPages?.total_pages}

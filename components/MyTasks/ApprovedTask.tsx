@@ -102,12 +102,12 @@ export const ApprovedTask = () => {
                     </span>
                 )}
             </div>
-            {!bookingLoading && othersTask && othersTask?.length <= 0 && (
+            {!bookingLoading && !othersTask && (
                 <ApplyPostComponent
                     model="service"
-                    title="No Bookings Available"
-                    subtitle="Book a service to the marketplace and let merchant come to you."
-                    buttonText="Book a service"
+                    title="No Approved Tasks Available"
+                    subtitle="Approved a Tasks to the marketplace and let merchant come to you."
+                    buttonText="Book a Task"
                 />
             )}
         </>

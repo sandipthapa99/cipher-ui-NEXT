@@ -46,7 +46,7 @@ export const MyBookedTaskCard = ({
         progress = 90;
     } else if (status === "Cancelled") {
         color = "red";
-        progress = 100;
+        progress = 50;
     } else if (status === "Closed") {
         color = "green";
         progress = 100;
