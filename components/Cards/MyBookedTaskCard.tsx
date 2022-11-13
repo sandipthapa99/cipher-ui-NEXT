@@ -8,6 +8,7 @@ import { Badge } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 import type { MyTaskProps } from "types/myTasksProps";
@@ -22,7 +23,7 @@ export const MyBookedTaskCard = ({
     linkTo: string;
 }) => {
     const [opened, setOpened] = useState(false);
-    let color, progress, type;
+    let color, progress;
     if (item?.status === "Open") {
         color = "blue";
         progress = 0;
@@ -34,13 +35,13 @@ export const MyBookedTaskCard = ({
         progress = 60;
     } else if (item?.status === "Cancelled") {
         color = "red";
-        progress = 0;
-        type = "cancelled";
+        progress = 50;
     } else {
         color = "grey";
         progress = 0;
     }
 
+    const router = useRouter();
     return (
         <div className="my-booked-task-card">
             <Link href={linkTo}>
@@ -64,18 +65,6 @@ export const MyBookedTaskCard = ({
                                     ? myTask?.title.substring(0, 40) + "..."
                                     : myTask?.title}
                             </h3>
-                            <p>
-                                Posted on{" "}
-                                {item?.entity_service?.created_at &&
-                                    format(
-                                        new Date(
-                                            item?.entity_service?.created_at
-                                        ),
-                                        "PPP"
-                                    )}
-                                {myTask?.created_at &&
-                                    format(new Date(myTask?.created_at), "PPP")}
-                            </p>
                         </div>
                         <div className="price d-flex flex-column align-items-end">
                             <h2 className="text-nowrap">
@@ -93,6 +82,16 @@ export const MyBookedTaskCard = ({
                             </p>
                         </div>
                     </div>
+                    <p className="posted-date">
+                        Posted on{" "}
+                        {item?.entity_service?.created_at &&
+                            format(
+                                new Date(item?.entity_service?.created_at),
+                                "PPP"
+                            )}
+                        {myTask?.created_at &&
+                            format(new Date(myTask?.created_at), "PPP")}
+                    </p>
                     <div
                         className="center-section d-flex justify-content-between"
                         role={"button"}
@@ -120,7 +119,7 @@ export const MyBookedTaskCard = ({
                                           new Date(myTask?.start_date),
                                           "PPP"
                                       )
-                                    : "Flexible"}
+                                    : ""}
                             </div>
                             {!myTask && (
                                 <div className="name-and-image d-flex">
@@ -171,7 +170,7 @@ export const MyBookedTaskCard = ({
                                             align="center"
                                             size="xl"
                                         >
-                                            {!type ? progress : 0}%
+                                            {progress}%
                                         </Text>
                                     }
                                 />
@@ -186,11 +185,13 @@ export const MyBookedTaskCard = ({
                     <ShareIcon url={""} quote={""} hashtag={""} showText />
                 </div>
             </div>
-            <BookingDetails
-                show={opened}
-                setShow={setOpened}
-                bookingId={String(item?.id) ?? ""}
-            />
+            {router.query.activeTab === "2" && (
+                <BookingDetails
+                    show={opened}
+                    setShow={setOpened}
+                    bookingId={String(item?.id) ?? ""}
+                />
+            )}
         </div>
     );
 };

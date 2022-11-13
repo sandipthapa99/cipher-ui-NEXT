@@ -15,7 +15,7 @@ export const MyBookingTaskCard = ({
     item: MyBookingServiceProps["result"][0];
 }) => {
     const [opened, setOpened] = useState(false);
-    let color, progress, type;
+    let color, progress;
     if (item?.status === "Open") {
         color = "blue";
         progress = 0;
@@ -27,8 +27,7 @@ export const MyBookingTaskCard = ({
         progress = 60;
     } else if (item?.status === "Cancelled") {
         color = "red";
-        progress = 0;
-        type = "cancelled";
+        progress = 50;
     } else {
         color = "grey";
         progress = 0;
@@ -135,7 +134,7 @@ export const MyBookingTaskCard = ({
                             align="center"
                             size="xl"
                         >
-                            {!type ? progress : 0}%
+                            {progress}%
                         </Text>
                     }
                 />
