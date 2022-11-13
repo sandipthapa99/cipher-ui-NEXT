@@ -12,7 +12,7 @@ const PROTECTED_ROUTES = [
     "/my-order",
     "/checkout",
 ];
-const RESTRICTED_ROUTES_ON_LOGGED_IN = ["/login"];
+const RESTRICTED_ROUTES_ON_LOGGED_IN = ["/login", "/signup"];
 
 const fetchUser = async (access?: string) => {
     if (!access) return undefined;

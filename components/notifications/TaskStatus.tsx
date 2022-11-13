@@ -50,8 +50,9 @@ export const TaskStatus = ({
                     <Image
                         alt="testimage"
                         src={
-                            profile?.profile_image ??
-                            "/logo/homaale-favicon.png"
+                            profile
+                                ? profile?.profile_image
+                                : "/logo/homaale-favicon.png"
                         }
                         height={50}
                         width={50}
