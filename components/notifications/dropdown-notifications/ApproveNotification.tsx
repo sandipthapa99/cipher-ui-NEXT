@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
@@ -161,6 +162,7 @@ export const ApproveNotification = ({
     is_requested,
     read,
 }: ApproveNotificationProps) => {
+    const { data: profile } = useGetProfile();
     const { data: bookingData } = useQuery<BookingDetails>(
         ["booking", bookingId],
         async () => {
@@ -180,7 +182,11 @@ export const ApproveNotification = ({
                 <figure className="dropdown-notification-image">
                     <Image
                         alt="testimage"
-                        src="/logo/homaale-favicon.png"
+                        src={
+                            profile
+                                ? profile?.profile_image
+                                : "/logo/homaale-favicon.png"
+                        }
                         height={50}
                         width={50}
                     />
