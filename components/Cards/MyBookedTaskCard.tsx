@@ -1,4 +1,5 @@
 import ShareIcon from "@components/common/ShareIcon";
+import BookingDetails from "@components/SearchTask/BookingDetails";
 import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,43 +8,63 @@ import { Badge } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import type { ApprovedTaskProps } from "types/approvedTaskProps";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 import type { MyTaskProps } from "types/myTasksProps";
 
 export const MyBookedTaskCard = ({
     item,
     myTask,
+    Approvedtask,
     linkTo,
 }: {
     item?: MyBookingServiceProps["result"][0];
     myTask?: MyTaskProps;
+    Approvedtask?: ApprovedTaskProps["result"][0];
     linkTo: string;
 }) => {
-    let color, progress, type;
-    if (item?.status === "Open") {
+    const [opened, setOpened] = useState(false);
+    let status;
+    if (item) {
+        status = item?.status;
+    }
+    if (Approvedtask) {
+        status = Approvedtask?.status;
+    }
+
+    let color, progress;
+    if (status === "Open") {
         color = "blue";
         progress = 0;
-    } else if (item?.status === "On Progress") {
+    } else if (status === "On Progress") {
         color = "yellow";
         progress = 40;
-    } else if (item?.status === "Complete") {
-        color = "green";
-        progress = 60;
-    } else if (item?.status === "Cancelled") {
+    } else if (status === "Completed") {
+        color = "cyan";
+        progress = 90;
+    } else if (status === "Cancelled") {
         color = "red";
-        progress = 0;
-        type = "cancelled";
+        progress = 50;
+    } else if (status === "Closed") {
+        color = "green";
+        progress = 100;
     } else {
         color = "grey";
         progress = 0;
     }
 
+    const router = useRouter();
     return (
         <div className="my-booked-task-card">
             <Link href={linkTo}>
                 <a>
-                    <div className="title-price-wrapper d-flex justify-content-between gap-5">
+                    <div
+                        className="title-price-wrapper d-flex justify-content-between gap-5"
+                        role={"button"}
+                        onClick={() => setOpened(true)}
+                    >
                         <div className="title-and-date">
                             <h3>
                                 {item?.entity_service?.title &&
@@ -57,6 +78,12 @@ export const MyBookedTaskCard = ({
                                 {myTask?.title && myTask?.title?.length > 40
                                     ? myTask?.title.substring(0, 40) + "..."
                                     : myTask?.title}
+
+                                {Approvedtask?.title &&
+                                Approvedtask?.title?.length > 40
+                                    ? Approvedtask?.title.substring(0, 40) +
+                                      "..."
+                                    : Approvedtask?.title}
                             </h3>
                         </div>
                         <div className="price d-flex flex-column align-items-end">
@@ -68,14 +95,17 @@ export const MyBookedTaskCard = ({
                                     ? `${myTask?.budget_from} -`
                                     : ""}{" "}
                                 {myTask?.budget_to}
+                                {Approvedtask?.currency?.symbol} {""}
+                                {Approvedtask?.charge}
                             </h2>
                             <p>
                                 {item?.entity_service?.budget_type}{" "}
                                 {myTask?.budget_type}
+                                {Approvedtask?.entity_service?.budget_type}
                             </p>
                         </div>
                     </div>
-                    <p className="posted-date">
+                    <p className="posted-date" onClick={() => setOpened(true)}>
                         Posted on{" "}
                         {item?.entity_service?.created_at &&
                             format(
@@ -84,8 +114,14 @@ export const MyBookedTaskCard = ({
                             )}
                         {myTask?.created_at &&
                             format(new Date(myTask?.created_at), "PPP")}
+                        {Approvedtask?.created_at &&
+                            format(new Date(Approvedtask?.created_at), "PPP")}
                     </p>
-                    <div className="center-section d-flex justify-content-between">
+                    <div
+                        className="center-section d-flex justify-content-between"
+                        role={"button"}
+                        onClick={() => setOpened(true)}
+                    >
                         <div className="name-and-location">
                             <div className="d-flex align-items-center location">
                                 <FontAwesomeIcon
@@ -93,7 +129,8 @@ export const MyBookedTaskCard = ({
                                     className="svg-icon me-4"
                                 />
                                 <span>
-                                    {item?.location} {myTask?.location}
+                                    {item?.location} {myTask?.location}{" "}
+                                    {Approvedtask?.location}
                                 </span>
                             </div>
                             <div className="time d-flex align-items-center">
@@ -108,9 +145,15 @@ export const MyBookedTaskCard = ({
                                           new Date(myTask?.start_date),
                                           "PPP"
                                       )
-                                    : "Flexible"}
+                                    : ""}
+                                {Approvedtask?.start_date
+                                    ? format(
+                                          new Date(Approvedtask?.start_date),
+                                          "PPP"
+                                      )
+                                    : ""}
                             </div>
-                            {!myTask && (
+                            {!myTask && !Approvedtask && (
                                 <div className="name-and-image d-flex">
                                     {item?.created_by?.profile_image ? (
                                         <Image
@@ -126,7 +169,7 @@ export const MyBookedTaskCard = ({
                                     ) : (
                                         <Image
                                             src={
-                                                "/placeholder/taskPlaceholder.png"
+                                                "/placeholder/profilePlaceholder.png"
                                             }
                                             alt="circle image"
                                             height={25}
@@ -140,6 +183,40 @@ export const MyBookedTaskCard = ({
                                         {item?.created_by?.user?.first_name}{" "}
                                         {item?.created_by?.user?.middle_name}
                                         {item?.created_by?.user?.last_name}
+                                    </span>
+                                </div>
+                            )}
+                            {Approvedtask && (
+                                <div className="name-and-image d-flex">
+                                    {Approvedtask?.assigner?.profile_image ? (
+                                        <Image
+                                            src={
+                                                Approvedtask?.assigner
+                                                    ?.profile_image
+                                            }
+                                            alt="circle image"
+                                            height={25}
+                                            width={25}
+                                            objectFit="cover"
+                                            className="profile-image"
+                                        />
+                                    ) : (
+                                        <Image
+                                            src={
+                                                "/placeholder/profilePlaceholder.png"
+                                            }
+                                            alt="circle image"
+                                            height={25}
+                                            width={25}
+                                            objectFit="cover"
+                                            className="profile-image"
+                                        />
+                                    )}
+
+                                    <span>
+                                        {Approvedtask?.assigner?.first_name}{" "}
+                                        {Approvedtask?.assigner?.middle_name}
+                                        {Approvedtask?.assigner?.last_name}
                                     </span>
                                 </div>
                             )}
@@ -159,7 +236,7 @@ export const MyBookedTaskCard = ({
                                             align="center"
                                             size="xl"
                                         >
-                                            {!type ? progress : 0}%
+                                            {progress}%
                                         </Text>
                                     }
                                 />
@@ -169,11 +246,23 @@ export const MyBookedTaskCard = ({
                 </a>
             </Link>
             <div className="d-flex justify-content-between align-items-center card-footer-section ">
-                {!myTask && <Badge color={color}>{item?.status}</Badge>}
+                {!myTask && !Approvedtask && (
+                    <Badge color={color}>{item?.status}</Badge>
+                )}
+                {Approvedtask && (
+                    <Badge color={color}>{Approvedtask?.status}</Badge>
+                )}
                 <div className="share-icon">
                     <ShareIcon url={""} quote={""} hashtag={""} showText />
                 </div>
             </div>
+            {router.query.activeTab === "1" && (
+                <BookingDetails
+                    show={opened}
+                    setShow={setOpened}
+                    bookingId={String(item?.id) ?? ""}
+                />
+            )}
         </div>
     );
 };

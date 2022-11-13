@@ -27,7 +27,7 @@ const urls = {
         requested_task: `${myBookings}?is_requested=true`,
         my_applicants: `${bookings}`,
         taskApplicantsNumber: `${tasks}tasker-count`,
-        approvedTaskList: `${tasks}task/list`,
+        approvedTaskList: `${tasks}task/list/`,
         application: "/task/application",
         cancelApplication: `task/entity/service-booking/cancel`,
         assigneeDetail: "task/asignee-task-detail/",

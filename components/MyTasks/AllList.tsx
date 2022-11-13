@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import type { MyTaskProps } from "types/myTasksProps";
 import { axiosClient } from "utils/axiosClient";
 
-export const MyTasks = () => {
+export const AllList = () => {
     const [searchParam, setSearchParam] = useState("");
     const clearSearchedTaskers = useClearSearchedTaskers();
     const clearSearchQuery = useClearSearchQuery();
@@ -23,10 +23,10 @@ export const MyTasks = () => {
     const { data: userData } = useUser();
     const userId = userData?.id ?? "";
     const { data: mytaskData, isLoading } = useQuery(
-        ["my-task", userId, searchParam, bookingPageNo],
+        ["all-task-service", userId, searchParam, bookingPageNo],
         async () => {
             const response = await axiosClient.get(
-                `${urls.task.task}&user=${userId}&${searchParam}&page_size=9&page=${bookingPageNo}`
+                `${urls.task.list}?user=${userId}&${searchParam}&page_size=9&page=${bookingPageNo}`
             );
             return response.data;
         },
@@ -48,7 +48,7 @@ export const MyTasks = () => {
             <Grid className="d-flex align-items-center">
                 <Grid.Col md={10}>
                     <SearchCategory
-                        searchModal="task"
+                        searchModal="booking"
                         onSearchParamChange={handleSearchParamChange}
                         onFilterClear={() => setSearchParam("")}
                     />
@@ -82,7 +82,7 @@ export const MyTasks = () => {
                             )}
                     </>
                 </Grid>
-                {mytaskData?.result?.length < 0 && (
+                {mytaskData?.result?.length > 0 && (
                     <span className="d-flex justify-content-center mt-4">
                         <Pagination
                             total={mytaskData?.total_pages}
