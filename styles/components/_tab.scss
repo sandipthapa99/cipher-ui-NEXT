@@ -23,7 +23,11 @@
         margin: 2.4rem 0 3.6rem 0;
         .tab-wrapper {
             display: flex;
-            gap: 6rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+            @include respond(md){
+                gap: 6rem;
+            }
 
             .tabs {
                 display: flex;

@@ -17,8 +17,8 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
             description="Find the Job openings at Homaale"
         >
             <section id="careers-section" className="careers-section">
-                <BreadCrumb currentPage="Career" />
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
+                    <BreadCrumb currentPage="Career" />
                     <div className="d-flex justify-content-between align-items-center flex-column-reverse flex-md-row">
                         <div className="careers-index">
                             <h1>
@@ -74,7 +74,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                             </Row>
                         </Col>
                     </Row>
-                    <div className="d-flex justify-content-between align-items-lg-center pe-0 part-wrapper">
+                    {/* <div className="d-flex justify-content-between align-items-lg-center pe-0 part-wrapper">
                         <div className="part-wrapper__details">
                             Join for Internships at <span>Homaale</span>
                             <p>Boost your skills and excel with us.</p>
@@ -86,7 +86,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                                 layout="fill"
                             />
                         </figure>
-                    </div>
+                    </div> */}
 
                     {/* <HiringStage /> */}
                     <LeaveYourCV />
