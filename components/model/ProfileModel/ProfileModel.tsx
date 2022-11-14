@@ -5,6 +5,7 @@ import {
     faGauge,
     faGear,
     faGift,
+    faTicket,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Button, Divider, Text } from "@mantine/core";
@@ -130,6 +131,14 @@ const PROFILE_LINKS = {
             color: "#495057",
         },
         {
+            title: "My Tickets",
+            icon: (
+                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faTicket} />
+            ),
+            href: "/my-tickets",
+            color: "#495057",
+        },
+        {
             title: "My Orders",
             icon: (
                 <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faBoxOpen} />
@@ -137,6 +146,7 @@ const PROFILE_LINKS = {
             href: "/my-order",
             color: "#495057",
         },
+
         {
             title: "Offers",
             icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,

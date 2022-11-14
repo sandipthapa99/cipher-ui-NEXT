@@ -78,7 +78,7 @@ axiosClient.interceptors.response.use(
             if (isTokenExpired(access)) {
                 refreshAuthTokens(refresh);
             }
-        }  
+        }
         return Promise.reject(error);
     }
 );
