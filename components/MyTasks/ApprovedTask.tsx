@@ -1,4 +1,5 @@
 import { MyBookedTaskCard } from "@components/Cards/MyBookedTaskCard";
+import { MyBookingTaskCard } from "@components/Cards/MyBookingTaskCard";
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import {
     useClearSearchedTaskers,
@@ -16,7 +17,7 @@ export const ApprovedTask = () => {
     const clearSearchedTaskers = useClearSearchedTaskers();
     const clearSearchQuery = useClearSearchQuery();
 
-    const [value, setValue] = useState<string | null>("true");
+    const [value, setValue] = useState<string | null>("false");
 
     const [bookingPageNo, setBookingPageNo] = useState<number>(1);
 
@@ -72,6 +73,25 @@ export const ApprovedTask = () => {
                 <Grid>
                     <>
                         {!bookingLoading &&
+                            othersTask &&
+                            value === "true" &&
+                            othersTask?.length >= 0 &&
+                            othersTask?.map(
+                                (
+                                    item: ApprovedTaskProps["result"][0],
+                                    index: number
+                                ) => (
+                                    <Grid.Col lg={4} sm={6} key={index}>
+                                        <MyBookingTaskCard
+                                            Approvedtask={item}
+                                        />
+                                    </Grid.Col>
+                                )
+                            )}
+                    </>
+                    <>
+                        {!bookingLoading &&
+                            value === "false" &&
                             othersTask &&
                             othersTask?.length >= 0 &&
                             othersTask?.map(

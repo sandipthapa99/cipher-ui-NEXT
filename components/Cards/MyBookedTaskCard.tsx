@@ -188,10 +188,10 @@ export const MyBookedTaskCard = ({
                             )}
                             {Approvedtask && (
                                 <div className="name-and-image d-flex">
-                                    {Approvedtask?.assigner?.profile_image ? (
+                                    {Approvedtask?.assignee?.profile_image ? (
                                         <Image
                                             src={
-                                                Approvedtask?.assigner
+                                                Approvedtask?.assignee
                                                     ?.profile_image
                                             }
                                             alt="circle image"
@@ -214,9 +214,9 @@ export const MyBookedTaskCard = ({
                                     )}
 
                                     <span>
-                                        {Approvedtask?.assigner?.first_name}{" "}
-                                        {Approvedtask?.assigner?.middle_name}
-                                        {Approvedtask?.assigner?.last_name}
+                                        {Approvedtask?.assignee?.first_name}{" "}
+                                        {Approvedtask?.assignee?.middle_name}
+                                        {Approvedtask?.assignee?.last_name}
                                     </span>
                                 </div>
                             )}
