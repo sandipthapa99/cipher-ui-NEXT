@@ -2,6 +2,7 @@ import { Tab } from "@components/common/Tab";
 import { AllList } from "@components/MyTasks/AllList";
 import { ApprovedTask } from "@components/MyTasks/ApprovedTask";
 import { MyBookings } from "@components/MyTasks/MyBookings";
+import { MyOrder } from "@components/MyTasks/MyOrder";
 import { MyService } from "@components/MyTasks/MyService";
 import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
 import { useState } from "react";
@@ -36,6 +37,10 @@ const SearchBySort = () => {
                     {
                         title: "Approved Task",
                         content: <ApprovedTask />,
+                    },
+                    {
+                        title: "Orders",
+                        content: <MyOrder />,
                     },
                     {
                         title: "Payment History",

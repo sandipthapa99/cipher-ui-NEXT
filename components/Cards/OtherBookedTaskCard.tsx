@@ -3,7 +3,7 @@ import BookingDetails from "@components/SearchTask/BookingDetails";
 import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { RingProgress, Text } from "@mantine/core";
+import { Button, RingProgress, Text } from "@mantine/core";
 import { Badge } from "@mantine/core";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import type { ApprovedTaskProps } from "types/approvedTaskProps";
 import type { MyBookingServiceProps } from "types/myBookingProps";
+import type { MyOrderProps } from "types/myOrderProps";
 import type { MyTaskProps } from "types/myTasksProps";
 
 export const OtherBookedTaskCard = ({
@@ -19,11 +20,13 @@ export const OtherBookedTaskCard = ({
     myTask,
     Approvedtask,
     linkTo,
+    order,
 }: {
     item?: MyBookingServiceProps["result"][0];
     myTask?: MyTaskProps;
     Approvedtask?: ApprovedTaskProps["result"][0];
     linkTo: string;
+    order?: MyOrderProps["result"][0]["order_item"]["0"];
 }) => {
     const [opened, setOpened] = useState(false);
     let status;
@@ -84,6 +87,7 @@ export const OtherBookedTaskCard = ({
                                     ? Approvedtask?.title.substring(0, 40) +
                                       "..."
                                     : Approvedtask?.title}
+                                {order?.item?.title}
                             </h3>
                         </div>
                         <div className="price d-flex flex-column align-items-end">
@@ -252,9 +256,25 @@ export const OtherBookedTaskCard = ({
                 {Approvedtask && (
                     <Badge color={color}>{Approvedtask?.status}</Badge>
                 )}
-                <div className="share-icon">
-                    <ShareIcon url={""} quote={""} hashtag={""} showText />
-                </div>
+                <span className="d-flex gap-3">
+                    {Approvedtask && Approvedtask?.status === "Open" && (
+                        <Button
+                            variant="light"
+                            onClick={() =>
+                                router.push({
+                                    pathname: "/home",
+                                    query: `activeTab=3&name=${Approvedtask?.title}`,
+                                })
+                            }
+                        >
+                            Pay Now
+                        </Button>
+                    )}
+
+                    <div className="share-icon">
+                        <ShareIcon url={""} quote={""} hashtag={""} showText />
+                    </div>
+                </span>
             </div>
             {router.query.activeTab === "1" && (
                 <BookingDetails
