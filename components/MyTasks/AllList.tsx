@@ -1,4 +1,4 @@
-import { MyBookedTaskCard } from "@components/Cards/MyBookedTaskCard";
+import { OtherBookedTaskCard } from "@components/Cards/OtherBookedTaskCard";
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import {
     useClearSearchedTaskers,
@@ -73,7 +73,7 @@ export const AllList = () => {
                             mytaskData?.result.map(
                                 (item: MyTaskProps, index: number) => (
                                     <Grid.Col lg={4} sm={6} key={index}>
-                                        <MyBookedTaskCard
+                                        <OtherBookedTaskCard
                                             linkTo={`/task/${item?.id}`}
                                             myTask={item}
                                         />

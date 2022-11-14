@@ -1,5 +1,5 @@
-import { MyBookedTaskCard } from "@components/Cards/MyBookedTaskCard";
 import { MyBookingTaskCard } from "@components/Cards/MyBookingTaskCard";
+import { OtherBookedTaskCard } from "@components/Cards/OtherBookedTaskCard";
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import {
     useClearSearchedTaskers,
@@ -102,7 +102,7 @@ export const MyBookings = () => {
                                     index: number
                                 ) => (
                                     <Grid.Col lg={4} sm={6} key={index}>
-                                        <MyBookedTaskCard
+                                        <OtherBookedTaskCard
                                             item={item}
                                             linkTo={"#!"}
                                         />

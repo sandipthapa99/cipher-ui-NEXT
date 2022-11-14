@@ -14,7 +14,7 @@ import type { ApprovedTaskProps } from "types/approvedTaskProps";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 import type { MyTaskProps } from "types/myTasksProps";
 
-export const MyBookedTaskCard = ({
+export const OtherBookedTaskCard = ({
     item,
     myTask,
     Approvedtask,
@@ -221,7 +221,7 @@ export const MyBookedTaskCard = ({
                                 </div>
                             )}
                         </div>
-                        {!myTask && (
+                        {Approvedtask && (
                             <div className="ring-progress-bar">
                                 <RingProgress
                                     sections={[

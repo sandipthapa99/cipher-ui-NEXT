@@ -19,9 +19,9 @@ export const MyBookingTaskCard = ({
 }) => {
     const [opened, setOpened] = useState(false);
     let status;
-    if (item) {
-        status = item?.status;
-    }
+    // if (item) {
+    //     status = item?.status;
+    // }
     if (Approvedtask) {
         status = Approvedtask?.status;
     }
@@ -65,7 +65,7 @@ export const MyBookingTaskCard = ({
                             : Approvedtask?.title}
                     </h3>
                     <div className="image-and-date d-flex align-items-center">
-                        {item?.entity_service?.created_by?.profile_image && (
+                        {item?.entity_service?.created_by && (
                             <Image
                                 src={
                                     item?.entity_service?.created_by
@@ -81,7 +81,7 @@ export const MyBookingTaskCard = ({
                                 className="profile-image"
                             />
                         )}
-                        {Approvedtask?.assignee?.profile_image && (
+                        {Approvedtask?.assignee && (
                             <Image
                                 src={
                                     Approvedtask?.assigner?.profile_image
@@ -101,7 +101,7 @@ export const MyBookingTaskCard = ({
                             {item?.entity_service?.created_by?.middle_name}{" "}
                             {item?.entity_service?.created_by?.last_name}
                             {Approvedtask?.assigner?.first_name}{" "}
-                            {Approvedtask?.assigner?.middle_name}
+                            {Approvedtask?.assigner?.middle_name}{" "}
                             {Approvedtask?.assigner?.last_name}
                         </span>
                         <FontAwesomeIcon
@@ -169,21 +169,23 @@ export const MyBookingTaskCard = ({
                         <span>100 Applied</span>
                     </div> */}
                 </div>
-                <RingProgress
-                    sections={[{ value: progress, color: color }]}
-                    thickness={9}
-                    roundCaps
-                    label={
-                        <Text
-                            color={color}
-                            weight={600}
-                            align="center"
-                            size="xl"
-                        >
-                            {progress}%
-                        </Text>
-                    }
-                />
+                {Approvedtask && (
+                    <RingProgress
+                        sections={[{ value: progress, color: color }]}
+                        thickness={9}
+                        roundCaps
+                        label={
+                            <Text
+                                color={color}
+                                weight={600}
+                                align="center"
+                                size="xl"
+                            >
+                                {progress}%
+                            </Text>
+                        }
+                    />
+                )}
             </div>
 
             <div className="d-flex justify-content-between align-items-center card-footer-section ">
