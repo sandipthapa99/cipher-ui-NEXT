@@ -119,10 +119,6 @@ const UserProfileCard = ({
         active_hour_end?.charAt(0) === "0"
             ? active_hour_end?.slice(1)
             : active_hour_end;
-    console.log(
-        "🚀 ~ file: UserProfile.tsx ~ line 120 ~ active_hour_start",
-        active_hour_start
-    );
 
     interface DropdownProps {
         children?: ReactNode;
@@ -153,17 +149,6 @@ const UserProfileCard = ({
                         {children && <>{children}</>}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => setShowEdit(!showEdit)}
-                            className="d-flex align-items-center"
-                        >
-                            <FontAwesomeIcon
-                                className="svg-icon"
-                                icon={faPencil}
-                            />
-                            Edit
-                        </Dropdown.Item>
                         <Link href="/settings/account/individual">
                             <Dropdown.Item
                                 href="#/action-3"
