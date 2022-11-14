@@ -25,7 +25,7 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
-            @include respond(md){
+            @include respond(md) {
                 gap: 6rem;
             }
 
