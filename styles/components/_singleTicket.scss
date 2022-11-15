@@ -1,40 +1,69 @@
-.single-ticket {
+.all-support {
     background-color: #fff;
     border-radius: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    .support-figure {
+        flex: 0.4;
 
-    .single-ticket-content {
-        padding: 3rem 2.5rem;
-
-        .head-text {
-            margin: 0;
-            font-size: 2rem;
-            font-weight: 600;
-            color: #000;
+        img {
+            border-radius: 1rem;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         }
-        .date-text-ticket {
-            margin: 0;
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #000;
-        }
-        .desc-cont {
-            margin-top: 0.7rem;
-            width: 85%;
+    }
 
-            @include respond(xs) {
-                width: 100%;
+    .single-ticket {
+        flex: 3;
+        // background-color: #fff;
+
+        // align-items: center;
+
+        @include respond(xs) {
+            flex-direction: column;
+        }
+
+        .single-ticket-content {
+            padding: 3rem 2.5rem;
+
+            .reason-cont {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .head-text {
+                    margin: 0;
+                    font-size: 2rem;
+                    font-weight: 600;
+                    color: #000;
+                }
+                .date-text-ticket {
+                    margin: 0;
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    color: #000;
+                }
             }
 
-            .desc-para {
-                margin: 0;
-                font-size: 1.4rem;
-                color: #000;
+            .desc-cont {
+                margin-top: 0.7rem;
+                width: 85%;
+
+                @include respond(xs) {
+                    width: 100%;
+                }
+
+                .desc-para {
+                    margin: 0;
+                    font-size: 1.4rem;
+                    color: #000;
+                }
             }
-        }
-        .badge-cont {
-            margin-top: 1rem;
-            display: flex;
-            gap: 1rem;
+            .badge-cont {
+                margin-top: 1rem;
+                display: flex;
+                gap: 1rem;
+            }
         }
     }
 }

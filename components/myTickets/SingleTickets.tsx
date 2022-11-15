@@ -1,5 +1,6 @@
 import { Badge } from "@mantine/core";
 import { formatDistanceToNow } from "date-fns";
+import Image from "next/image";
 
 interface SupportProps {
     reason: string;
@@ -16,11 +17,24 @@ const SingleTickets = ({
     status,
     supportId,
 }: SupportProps) => {
+    const badgeColor = (status: string): string => {
+        if (status === "open") {
+            return "blue";
+        } else if (status === "assigned") {
+            return "orange";
+        } else if (status === "cancelled") {
+            return "red";
+        } else if (status === "resolved") {
+            return "green";
+        }
+        return "";
+    };
+
     return (
         <div className="single-ticket">
             <div className="single-ticket-content">
-                <div className="d-flex justify-content-between align-items-center">
-                    <p className="head-text">{reason} ab</p>
+                <div className="reason-cont">
+                    <p className="head-text">{reason}</p>
                     <p className="date-text-ticket">
                         {formatDistanceToNow(new Date(createdAt), {
                             addSuffix: true,
@@ -28,19 +42,12 @@ const SingleTickets = ({
                     </p>
                 </div>
                 <div className="desc-cont">
-                    <p className="desc-para">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Suscipit aut repudiandae aperiam, vero laudantium
-                        quam harum explicabo magni provident quibusdam corporis
-                        ipsam, quae, animi unde exercitationem nulla enim
-                        voluptatum voluptatibus corrupti dolor reiciendis.
-                        Eveniet ipsum autem corporis voluptatem, accusamus ex
-                        quasi laborum vitae dolorem maiores doloribus aliquam
-                        obcaecati expedita? Pariatur.
-                    </p>
+                    <p className="desc-para">{description}</p>
                 </div>
                 <div className="badge-cont">
-                    <Badge size="lg">{status}</Badge>
+                    <Badge size="lg" color={badgeColor(status)}>
+                        {status}
+                    </Badge>
                     <Badge color="gray" size="lg" variant="outline">
                         {supportId}
                     </Badge>
