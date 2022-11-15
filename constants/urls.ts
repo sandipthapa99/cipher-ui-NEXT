@@ -71,6 +71,7 @@ const urls = {
     payment: {
         method: `${payment}cms/payment-method/`,
         intent: `${payment}intent/`,
+        order: `${payment}order/`,
     },
 };
 
