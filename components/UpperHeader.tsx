@@ -1,8 +1,7 @@
 import { ProfileModel } from "@components/model/ProfileModel";
 import { PostTaskModal } from "@components/Task/PostTaskModal";
-import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     Avatar,
     Button as MantineButton,
@@ -11,15 +10,16 @@ import {
     Text,
 } from "@mantine/core";
 import { useClickOutside, useToggle } from "@mantine/hooks";
+import { cleanNotifications } from "@mantine/notifications";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, Container, Form, Navbar } from "react-bootstrap";
-import { toast } from "react-toastify";
+import { Container, Navbar } from "react-bootstrap";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import { handleMenuActive } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import { PostCard } from "./PostTask/PostCard";
 
@@ -34,29 +34,30 @@ export function UpperHeader() {
         toggleShowProfileModal(false)
     );
 
-    const checkPageForHeader =
-        router.pathname !== "/" &&
-        router.pathname !== "/about" &&
-        router.pathname !== "/contact-us" &&
-        router.pathname !== "/career" &&
-        router.pathname !== "/discover" &&
-        router.pathname !== "/help" &&
-        router.pathname !== "/privacy-policy" &&
-        router.pathname !== "/terms-conditions" &&
-        router.pathname !== "/faq" &&
-        router.pathname !== "/blogs";
+    // const checkPageForHeader =
+    //     router.pathname !== "/" &&
+    //     router.pathname !== "/about" &&
+    //     router.pathname !== "/contact-us" &&
+    //     router.pathname !== "/career" &&
+    //     router.pathname !== "/discover" &&
+    //     router.pathname !== "/help" &&
+    //     router.pathname !== "/privacy-policy" &&
+    //     router.pathname !== "/terms-conditions" &&
+    //     router.pathname !== "/faq" &&
+    //     router.pathname !== "/blogs";
 
     const { data: profileDetails } = useGetProfile();
 
     const handleShowPostTaskModal = () => {
         if (!profile) {
-            toast.error(
-                <ProfileNotCompleteToast text="Please complete your profile before posting a task." />,
-                {
-                    icon: false,
-                    autoClose: false,
-                }
+            toast.showComponent(
+                "Profile Incomplete",
+                <ProfileNotCompleteToast text="Please complete your profile before posting a task." />
             );
+            return;
+        }
+        if (!user?.is_kyc_verified) {
+            toast.showComponent("KYC Incomplete", <KYCIncompleteToast />);
             return;
         }
         toggleShowPostTaskModal();
@@ -230,12 +231,19 @@ export const ProfileNotCompleteToast = ({ text }: ProfileNotComplete) => {
         <Stack>
             <Text>{text}</Text>
             <Group>
-                <MantineButton variant="white" color="gray">
+                <MantineButton
+                    variant="white"
+                    color="gray"
+                    onClick={() => cleanNotifications()}
+                >
                     Cancel
                 </MantineButton>
                 <MantineButton
                     color="yellow"
-                    onClick={() => router.push("/profile")}
+                    onClick={() => {
+                        cleanNotifications();
+                        router.push("/profile");
+                    }}
                 >
                     Complete Profile
                 </MantineButton>

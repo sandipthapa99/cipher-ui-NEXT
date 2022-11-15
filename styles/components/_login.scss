@@ -63,6 +63,7 @@
             position: absolute;
             top: 4rem;
             left: 4rem;
+            z-index: 1;
         }
     }
 
@@ -113,12 +114,14 @@
 
         .redirection-text {
             position: absolute;
-            bottom: 0;
+            right: 20px;
+            top: 20px;
+            // bottom: 0;
 
-            @include respond(lg) {
-                top: 4rem;
-                right: 4rem;
-            }
+            // @include respond(lg) {
+            //     top: 4rem;
+            //     right: 4rem;
+            // }
 
             p {
                 font-family: $poppins-font;
@@ -161,6 +164,7 @@
 }
 
 .form-content {
+    margin: 2rem 0 0;
     .form-group {
         a {
             font-size: 1.2rem;

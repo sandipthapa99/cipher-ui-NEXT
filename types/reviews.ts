@@ -3,7 +3,14 @@ export interface ReviewsProps {
     ratings: number;
     description: string;
     time: any;
-    image?: string;
+    ratedByImage?: string;
+    ratedToImage?: string;
     raterEmail?: string;
     raterId?: string;
+    id?: number;
+    replied?: boolean;
+    repliedText?: string;
+    repliedBy?: string;
+    repliedDate?: string;
+    ratedToId?: string;
 }

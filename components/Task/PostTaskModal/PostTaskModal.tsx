@@ -30,7 +30,6 @@ import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { useEditTaskDetail } from "store/use-edit-task";
 import {
     usePostTaskModalType,
@@ -40,6 +39,7 @@ import {
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { ReactQueryKeys } from "types/queryKeys";
 import { safeParse } from "utils/safeParse";
+import { toast } from "utils/toast";
 
 export interface PostTaskPayload {
     title: string;
@@ -241,6 +241,7 @@ export const PostTaskModal = () => {
             <Modal
                 opened={!isCreateTaskLoading && showPostTaskModal}
                 onClose={handleCloseModal}
+                closeOnClickOutside={false}
                 overlayColor="rgba(0, 0, 0, 0.25)"
                 title="Post a Task or Service"
                 size="xl"
@@ -286,7 +287,7 @@ export const PostTaskModal = () => {
                                 error={getFieldError("highlights")}
                                 {...getFieldProps("highlights")}
                                 labelName="Requirements"
-                                description="This helps tasker to find about your requirements better."
+                                description="This helps the tasker understand about your task better"
                             />
 
                             <SelectCity

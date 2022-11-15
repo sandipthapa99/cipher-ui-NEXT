@@ -12,7 +12,7 @@ const TaskDetail = () => {
     const { data: taskDetail } = useTaskDetail((id as string) ?? "");
     return (
         <>
-            <AppliedLayout>
+            <AppliedLayout title={taskDetail?.title}>
                 {taskDetail && <AppliedTaskDetail taskDetail={taskDetail} />}
             </AppliedLayout>
         </>

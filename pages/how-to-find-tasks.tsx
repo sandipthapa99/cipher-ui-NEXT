@@ -22,6 +22,7 @@ const HowToFindTasks = () => {
                             image="/how-to-find/home.svg"
                             imageOnRight={true}
                             description={browseTasks}
+                            homeImage={true}
                         />
                     </section>
                     {/* Notable quality section ends  */}
@@ -94,6 +95,7 @@ const HowToFindTasks = () => {
                             Our service fees are taken as a percentage of your earnings. We charge you based on lifetime earnings with each client:"
                             description={rules}
                             imageOnRight={false}
+                            homeImage={false}
                         />
                     </div>
                 </section>

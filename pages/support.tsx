@@ -2,24 +2,26 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
+import ReCaptchaV3 from "@components/common/ReCaptchaV3";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import { useQuery } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useSupport } from "hooks/support/useSupport";
 import Image from "next/image";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 import { SupportFormData } from "utils/contactFormData";
 import { SupportFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const Support = () => {
     const { data } = useQuery(["support-tickets"], async () => {
-        return axiosClient.get("/support/support-ticket-type/options/");
+        return axiosClient.get("support/support-ticket-type/options/");
     });
-
     const renderIssueTypes = data?.data?.map((item: any) => {
         return {
             label: item?.name,
@@ -28,12 +30,17 @@ const Support = () => {
         };
     });
 
-    const { mutate } = useSupport();
+    const { data: userData } = useUser();
+
+    const { mutate, isLoading } = useSupport();
+    const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
+
+    const [token, setToken] = useState("");
 
     return (
         <>
             <Layout title="Feedback | Homaale">
-                <BreadCrumb currentPage="Feedback" />
+                <BreadCrumb currentPage="Support" />
 
                 <section className="site-feedback">
                     <Container fluid="xl">
@@ -56,9 +63,21 @@ const Support = () => {
                                 </p>
                                 <Formik
                                     initialValues={SupportFormData}
-                                    validationSchema={SupportFormSchema}
+                                    validationSchema={SupportFormSchema(
+                                        userData
+                                    )}
                                     onSubmit={async (values, action) => {
-                                        mutate(values, {
+                                        const formData = new FormData();
+
+                                        formData.append(
+                                            "g_recaptcha_response",
+                                            token
+                                        );
+                                        const newData = {
+                                            ...values,
+                                            g_recaptcha_response: token,
+                                        };
+                                        mutate(newData, {
                                             onSuccess: () => {
                                                 toast.success(
                                                     "Successfully submitted"
@@ -73,37 +92,47 @@ const Support = () => {
                                 >
                                     {({ isSubmitting, errors, touched }) => (
                                         <Form>
-                                            <InputField
-                                                type="text"
-                                                name="full_name"
-                                                labelName="Your Name"
-                                                error={errors.full_name}
-                                                touch={touched.full_name}
-                                                placeHolder="Enter your full name"
-                                            />
-                                            <InputField
-                                                type="email"
-                                                name="email"
-                                                labelName="Email"
-                                                error={errors.email}
-                                                touch={touched.email}
-                                                placeHolder="Enter your email"
-                                            />
-                                            <PhoneNumberInput
-                                                name={"phone"}
-                                                labelName="Phone Number"
-                                                touch={touched.phone}
-                                                error={errors.phone}
-                                                placeHolder={
-                                                    "Enter your Phone Number"
-                                                }
-                                            />
+                                            {!userData && (
+                                                <>
+                                                    <InputField
+                                                        type="text"
+                                                        name="full_name"
+                                                        labelName="Your Name"
+                                                        error={errors.full_name}
+                                                        touch={
+                                                            touched.full_name
+                                                        }
+                                                        placeHolder="Enter your full name"
+                                                        fieldRequired
+                                                    />
+                                                    <InputField
+                                                        type="email"
+                                                        name="email"
+                                                        labelName="Email"
+                                                        error={errors.email}
+                                                        touch={touched.email}
+                                                        placeHolder="Enter your email"
+                                                        fieldRequired
+                                                    />
+                                                    <PhoneNumberInput
+                                                        name={"phone"}
+                                                        labelName="Phone Number"
+                                                        touch={touched.phone}
+                                                        error={errors.phone}
+                                                        placeHolder={
+                                                            "Enter your Phone Number"
+                                                        }
+                                                        fieldRequired
+                                                    />
+                                                </>
+                                            )}
+
                                             <SelectInputField
                                                 name="type"
-                                                placeHolder="Technical"
+                                                placeHolder="Select an Issue Type"
                                                 labelName="Issue Type"
                                                 options={renderIssueTypes}
-                                                // fieldRequired
+                                                fieldRequired
                                             />
                                             <InputField
                                                 name="reason"
@@ -112,17 +141,28 @@ const Support = () => {
                                                 error={errors.reason}
                                                 placeHolder="Write your message here..."
                                                 as="textarea"
+                                                fieldRequired
                                             />
 
+                                            <ReCaptchaV3
+                                                refresher={refreshReCaptcha}
+                                                render={(token) =>
+                                                    setToken(token)
+                                                }
+                                            />
                                             <FormButton
                                                 type="submit"
                                                 variant="primary"
                                                 name="Send"
                                                 className="submit-btn"
+                                                isLoading={isLoading}
                                                 isSubmitting={isSubmitting}
                                                 isSubmittingClass={isSubmittingClass(
                                                     isSubmitting
                                                 )}
+                                                onClick={() =>
+                                                    setRefreshReCaptcha(true)
+                                                }
                                             />
                                         </Form>
                                     )}

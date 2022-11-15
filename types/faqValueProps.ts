@@ -34,3 +34,14 @@ export interface FAQTopicValueProps {
         topic: string;
     }[];
 }
+
+export interface FAQValuePropsAll {
+    id: number;
+    topic: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: any;
+    status: string;
+    title: string;
+    content: string;
+}

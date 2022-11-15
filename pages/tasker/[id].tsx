@@ -3,6 +3,7 @@ import TaskerLayout from "@components/Tasker/TaskerLayout";
 import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { ServicesValueProps } from "types/serviceCard";
+import type { ITasker } from "types/tasker";
 import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
 
@@ -10,12 +11,16 @@ const TaskerDetail = ({
     tasker,
     taskerService,
 }: {
-    tasker: TaskerProps["result"][0];
+    tasker: ITasker;
     taskerService: ServicesValueProps;
 }) => {
     return (
         <>
-            <TaskerLayout>
+            <TaskerLayout
+                title={`${tasker?.user?.first_name}${" "}${
+                    tasker?.user?.last_name
+                }`}
+            >
                 <UserTaskDetail
                     taskerService={taskerService}
                     taskerDetail={tasker}
@@ -61,10 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             revalidate: 10,
         };
     } catch (error: any) {
-        console.log(
-            "🚀 ~ file: [id].tsx ~ line 64 ~ constgetStaticProps:GetStaticProps= ~ error",
-            error
-        );
+        console.log(error);
         return {
             props: {
                 tasker: {},

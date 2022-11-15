@@ -1,12 +1,10 @@
 import {
     faBell,
     faObjectsColumn,
-    faRightToBracket,
     faUser,
-    faUserPlus,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Group, Navbar, ScrollArea } from "@mantine/core";
+import { Box, Navbar, ScrollArea } from "@mantine/core";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
@@ -103,6 +101,7 @@ const Layout: FC<MetaDataProps> = ({
                     <Navbar height={"100vh"} p="xs" width={{ base: 270 }}>
                         <Navbar.Section>
                             <Box
+                                className="pb-0"
                                 sx={(theme) => ({
                                     paddingLeft: theme.spacing.xs,
                                     paddingRight: theme.spacing.xs,
@@ -117,9 +116,9 @@ const Layout: FC<MetaDataProps> = ({
                                 <Link href="/">
                                     <a>
                                         <Image
-                                            src="/logo/logo.svg"
+                                            src="/logo/homaale-logo_svg.svg"
                                             alt="Logo"
-                                            width={95}
+                                            width={120}
                                             height={48}
                                             priority
                                         />
@@ -154,24 +153,6 @@ const Layout: FC<MetaDataProps> = ({
                                 })}
                             > */}
                             <div className="all-sidebar-items">
-                                <div className="d-flex align-items-center gap-4 text-icon">
-                                    <FontAwesomeIcon
-                                        icon={faRightToBracket}
-                                        className="side-bar-icon"
-                                    />
-                                    <Link href="/login">
-                                        <p>Login</p>
-                                    </Link>
-                                </div>
-                                <div className="d-flex align-items-center gap-4 text-icon">
-                                    <FontAwesomeIcon
-                                        icon={faUserPlus}
-                                        className="side-bar-icon"
-                                    />
-                                    <Link href="/sign-up">
-                                        <p>Sign-up</p>
-                                    </Link>
-                                </div>
                                 <div className="d-flex align-items-center gap-4 text-icon">
                                     <FontAwesomeIcon
                                         icon={faBell}

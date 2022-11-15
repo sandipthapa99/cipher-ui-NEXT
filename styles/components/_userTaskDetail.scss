@@ -76,6 +76,8 @@
     .td-user-image-container {
         position: relative;
         width: fit-content;
+        min-height: 150px;
+        min-width: 150px;
         padding-right: 1.8rem;
         display: flex;
         align-items: center;
@@ -84,8 +86,12 @@
         &__badge {
             position: absolute;
             left: 50%;
-            bottom: 0;
+            bottom: -0.5rem;
             transform: translateX(-50%);
+            color: #3eaeff;
+            z-index: 2;
+            height: 2.5rem;
+            width: 3rem;
         }
     }
     .td-user-name {
@@ -110,6 +116,12 @@
             opacity: 1;
             visibility: visible;
         }
+    }
+    .star {
+        width: 2.3rem;
+        color: #fab005;
+        height: 2.3rem;
+        margin-left: 0.5rem;
     }
     .td-hire-me-btn {
         width: 16rem;
@@ -180,6 +192,7 @@
                 margin-bottom: 0rem;
             }
         }
+
         .review-container {
             margin-bottom: 2rem;
             padding-bottom: 2rem;
@@ -187,7 +200,12 @@
             padding: 0 0 2.5rem 2rem;
         }
     }
-
+    .review-block {
+        .icons {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+    }
     .review {
         span {
             margin-left: 0rem;
@@ -276,6 +294,21 @@
         @include respond(xs) {
             width: 100%;
             margin-left: 0;
+        }
+    }
+    .ratings {
+        .star {
+            width: 2.3rem;
+            color: #fab005;
+            height: 2.3rem;
+            margin-left: 0.5rem;
+        }
+        .mantine-1jqub9a,
+        .mantine-oumttf {
+            width: 2.3rem;
+            color: #fab005;
+            height: 2.3rem;
+            margin-left: 0.5rem;
         }
     }
 }

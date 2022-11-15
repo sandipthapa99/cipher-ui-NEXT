@@ -191,11 +191,15 @@ const Gardening = ({
                                         >
                                             <MerchantCard
                                                 merchantImage={
-                                                    merchant?.user
-                                                        ?.profile_image
+                                                    merchant?.profile_image
                                                 }
                                                 merchantName={
-                                                    merchant?.user?.first_name
+                                                    merchant?.user?.first_name +
+                                                    " " +
+                                                    merchant?.user
+                                                        ?.middle_name +
+                                                    " " +
+                                                    merchant?.user?.last_name
                                                 }
                                                 merchantCategory={
                                                     merchant?.designation
@@ -212,8 +216,6 @@ const Gardening = ({
                                                     merchant?.rating?.avg_rating
                                                 }
                                                 merchantPrice={
-                                                    merchant?.charge_currency
-                                                        ?.code +
                                                     merchant?.hourly_rate
                                                 }
                                                 happyClients={
@@ -221,10 +223,15 @@ const Gardening = ({
                                                         ?.happy_clients
                                                 }
                                                 successRate={
-                                                    merchant?.stats
-                                                        ?.success_rate
+                                                    +merchant?.stats?.success_rate?.toFixed(
+                                                        1
+                                                    )
                                                 }
                                                 merchantId={merchant?.user?.id}
+                                                currency={
+                                                    merchant?.charge_currency
+                                                        ?.symbol
+                                                }
                                             />
                                         </Col>
                                     );
@@ -237,7 +244,7 @@ const Gardening = ({
                         <h1 className="section-main-title">
                             Explore Categories
                         </h1>
-                        <Row>
+                        <Row className="g-4">
                             {heroCategoryData &&
                                 heroCategoryData?.map((category, key) => (
                                     <Col lg={2} md={4} sm={6} key={key}>

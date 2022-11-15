@@ -1,10 +1,13 @@
-import { Rating } from "@smastrom/react-rating";
-import { Formik, useFormik } from "formik";
+import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Rating } from "@mantine/core";
+// import { Rating } from "@smastrom/react-rating";
+import { useFormik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { useForm } from "hooks/use-form";
 import { Col, Form, Row } from "react-bootstrap";
 import { useWithLogin } from "store/use-login-prompt-store";
-
 interface ReviewData {
     review: string;
     rating: number;
@@ -21,15 +24,19 @@ export const AddReviewForm = () => {
                 rating: 0,
             },
             onSubmit: (values) => {
-                console.log(values);
+                const newValue = {
+                    review: values.review,
+                    rating: values.rating,
+                    task: "",
+                };
+                // console.log(newValue);
 
-                //
-                mutate(values, {
+                mutate(newValue, {
                     onSuccess: async () => {
                         // queryClient.invalidateQueries(["tasker-experience"]);
                         // toast.success("Experience detail added successfully");
                     },
-                    onError: async (error) => {
+                    onError: async () => {
                         // toast.error(error.message);
                     },
                 });
@@ -52,9 +59,29 @@ export const AddReviewForm = () => {
                     </Form.Group>
                     <div className="td-mt-24">
                         <p className="td-add-review-label">Give your rating</p>
-                        <Rating
+                        {/* <Rating
                             style={{ maxWidth: 200 }}
                             value={values.rating}
+                            onChange={(selectedValue) => {
+                                setFieldValue("rating", selectedValue);
+                            }}
+                        /> */}
+                        <Rating
+                            fractions={2}
+                            defaultValue={0}
+                            value={values.rating}
+                            emptySymbol={
+                                <FontAwesomeIcon
+                                    icon={emptyStar}
+                                    className="star"
+                                />
+                            }
+                            fullSymbol={
+                                <FontAwesomeIcon
+                                    icon={faStar}
+                                    className="star"
+                                />
+                            }
                             onChange={(selectedValue) => {
                                 setFieldValue("rating", selectedValue);
                             }}

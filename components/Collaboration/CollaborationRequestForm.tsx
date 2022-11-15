@@ -58,7 +58,7 @@ export const CollaborationRequestForm = ({
                         <Formik
                             initialValues={initialValues}
                             validationSchema={collaborationRequestFormSchema}
-                            onSubmit={async (values) => {
+                            onSubmit={async () => {
                                 toggleSuccessModal();
                             }}
                         >

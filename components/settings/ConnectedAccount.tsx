@@ -1,11 +1,6 @@
-import BigButton from "@components/common/Button";
-import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { faTrashCan } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
-import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
 import ConnectAccount from "./ConnectAccount";
@@ -50,57 +45,66 @@ const ConnectedAccount = () => {
         <div className="account-form">
             <h2>Connected Accounts</h2>
             <div className="account-wrapper">
-                {linkedAccounts?.data &&
+                {linkedAccounts && linkedAccounts?.data.length > 1 ? (
                     linkedAccounts?.data.map((values, key) => (
-                        // <SocialConnection key={key} values={linkedAccounts} />
-                        <div className="social-connection me-4" key={values.id}>
-                            {/* <span className="d-flex flex-col align-items-center justify-content-center my-4"> */}
-                            <div className="d-flex align-items-center justify-content-center">
-                                <FontAwesomeIcon
-                                    icon={
-                                        values.provider === "google-oauth2"
-                                            ? faGoogle
-                                            : faFacebookF
-                                    }
-                                    className="svg-icon google"
+                        <ConnectAccount
+                            connected={true}
+                            name={values?.provider.substring(
+                                values?.provider.indexOf("-"),
+                                0
+                            )}
+                            uid={values.uid}
+                            id={values.id}
+                            key={values.id}
+                            facebookName={values.extra_data.name}
+                        />
+                    ))
+                ) : linkedAccounts?.data.length === 1 ? (
+                    linkedAccounts?.data.map((values, key) =>
+                        values.provider !== "google-oauth2" ? (
+                            <>
+                                <ConnectAccount
+                                    connected={true}
+                                    name={values?.provider.substring(
+                                        values?.provider.indexOf("-"),
+                                        0
+                                    )}
+                                    uid={values.uid}
+                                    id={values.id}
+                                    key={values.id}
+                                    facebookName={values.extra_data.name}
                                 />
-                            </div>
-
-                            <h4 className="text-center">
-                                {values?.provider.substring(
-                                    values?.provider.indexOf("-"),
-                                    0
-                                )}
-                            </h4>
-                            {/* </span> */}
-                            <p>{values.uid}</p>
-                            <div className="d-flex button-wrapper align-items-stretch justify-content-center my-4">
-                                {/* <Button className="btn close-btn px-5">
-                                    Update
-                                </Button> */}
-                                <BigButton
-                                    btnTitle={"Update"}
-                                    backgroundColor={"#211d4f"}
-                                    textColor={"#fff"}
-                                    //  handleClick={handleCloseModal}
+                                <ConnectAccount
+                                    connected={false}
+                                    name={"Google"}
                                 />
-                                <div className="delete-wrapper">
-                                    <FontAwesomeIcon
-                                        icon={faTrashCan}
-                                        className="svg-icon"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                {linkedAccounts?.data &&
-                    linkedAccounts.data.map((values, key) =>
-                        values.provider !== "facebook-oauth2" ? (
-                            <ConnectAccount name={"Facebook"} />
+                            </>
                         ) : (
-                            ""
+                            <>
+                                <ConnectAccount
+                                    connected={true}
+                                    name={values?.provider.substring(
+                                        values?.provider.indexOf("-"),
+                                        0
+                                    )}
+                                    uid={values.uid}
+                                    id={values.id}
+                                    key={values.id}
+                                    facebookName={values.extra_data.name}
+                                />
+                                <ConnectAccount
+                                    connected={false}
+                                    name={"Facebook"}
+                                />
+                            </>
                         )
-                    )}
+                    )
+                ) : (
+                    <>
+                        <ConnectAccount connected={false} name={"Facebook"} />
+                        <ConnectAccount connected={false} name={"Google"} />
+                    </>
+                )}
             </div>
         </div>
     );

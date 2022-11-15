@@ -1,3 +1,4 @@
+import type { IService } from "types/service";
 import type { ITasker } from "types/tasker";
 import create from "zustand";
 
@@ -11,8 +12,8 @@ export interface SearchStore {
     searchedTaskers: ITasker[];
     setSearchedTaskers: (taskers: ITasker[]) => void;
     clearSearchedTaskers: () => void;
-    searchedServices: any[];
-    setSearchedServices: (services: any[]) => void;
+    searchedServices: IService[];
+    setSearchedServices: (services: IService[]) => void;
     clearSearchedServices: () => void;
     query?: SearchQuery;
     setQuery: (query: SearchQuery) => void;
@@ -52,3 +53,7 @@ export const useSearchQuery = () => searchStore((state) => state.query);
 export const useSetSearchQuery = () => searchStore((state) => state.setQuery);
 export const useClearSearchQuery = () =>
     searchStore((state) => state.clearSearchQuery);
+
+searchStore.subscribe((state) => {
+    const { searchedServices } = state;
+});

@@ -5,7 +5,6 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -24,8 +23,7 @@ interface TaskCardProps {
     isSaved?: boolean;
 }
 const TaskCard = ({ task, isSaved }: TaskCardProps) => {
-    const { title, description, location, status, currency, slug, images, id } =
-        task;
+    const { title, description, location, status, currency, slug, id } = task;
 
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", id],
@@ -109,7 +107,15 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                             }
                         />
 
-                        <ShareIcon url={""} quote={""} hashtag={""} />
+                        <ShareIcon
+                            url={
+                                typeof window !== "undefined"
+                                    ? window.location.origin + `/task/${id}`
+                                    : ""
+                            }
+                            quote={""}
+                            hashtag={""}
+                        />
                     </div>
                     {/* <div className="share d-flex align-items-center">
                         <ShareIcon url={""} quote={""} hashtag={""} />

@@ -77,7 +77,7 @@ export const ReportRevisionForm = ({
                                 toggleSuccessModal();
                             }}
                         >
-                            {({ setFieldValue, errors, touched }) => {
+                            {({ errors, touched }) => {
                                 return (
                                     <Form>
                                         <SelectInputField

@@ -4,13 +4,11 @@ import {
     useElements,
     useStripe,
 } from "@stripe/react-stripe-js";
-import { useRouter } from "next/router";
 import React from "react";
 
 export default function CheckoutForm() {
     const stripe = useStripe();
     const elements = useElements();
-    const router = useRouter();
 
     const [message, setMessage] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(false);

@@ -1,6 +1,5 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
-import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
@@ -17,7 +16,6 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { reviewsContent } from "staticData/reviews";
 import { serviceProvider } from "staticData/serviceProvider";
 import type { ServicesValueProps } from "types/serviceCard";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
@@ -52,7 +50,12 @@ const ServiceDetail: NextPage = () => {
                                         </div>
                                         <span className="d-flex align-items-center">
                                             <ShareIcon
-                                                url={""}
+                                                url={
+                                                    typeof window !==
+                                                    "undefined"
+                                                        ? window.location.origin
+                                                        : ""
+                                                }
                                                 quote={""}
                                                 hashtag={""}
                                             />
@@ -193,7 +196,7 @@ const ServiceDetail: NextPage = () => {
                                 />
                             </Formik>
                         </div>
-                        <div className="review-container">
+                        {/* <div className="review-container">
                             <Row className="gx-5">
                                 {reviewsContent &&
                                     reviewsContent.map((review) => (
@@ -209,7 +212,7 @@ const ServiceDetail: NextPage = () => {
                                     ))}
                             </Row>
                             <Link href="#!">See all reviews</Link>
-                        </div>
+                        </div> */}
                     </div>
                     {/* Service detail reviews setion end */}
 

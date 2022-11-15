@@ -7,7 +7,6 @@ import { useTaskers } from "hooks/tasker/use-taskers";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { hireInNepalBrowseTalent } from "staticData/hireInNepal";
 
 import { useTopSkills } from "./freelance-tasks";
 
@@ -27,19 +26,19 @@ const HireInNepal: NextPage = () => {
                 <section className="hire-in-nepal">
                     <BreadCrumb currentPage="Hire in Nepal" />
 
-                    <div className="__top-container">
-                        {hireInNepalBrowseTalent &&
-                            hireInNepalBrowseTalent.map((info) => (
-                                <LongSquareImageCard
-                                    title={info.title}
-                                    image={info.image}
-                                    description={info.description}
-                                    key={info.id}
-                                    homeImage={true}
-                                    buttonText={info.buttonText}
-                                    imageOnRight={info.imageOnRight}
-                                />
-                            ))}
+                    <div className="hire-in-nepal__top-container">
+                        <LongSquareImageCard
+                            title={
+                                "Post a job today and simplify the process of finding the talents"
+                            }
+                            image="/hireinnepal/main.svg"
+                            description={
+                                "We make the process of searching and applying for jobs easier for you. Post a job from anywhere in the world and find the best right person to get it done."
+                            }
+                            homeImage={true}
+                            buttonText={"Browse Talents"}
+                            imageOnRight={false}
+                        />
                     </div>
                     <div className="hire-in-nepal__hire-tasker">
                         <h1>Hire a tasker from Nepal</h1>
@@ -92,9 +91,9 @@ const HireInNepal: NextPage = () => {
                                         happyClients={
                                             item?.stats?.happy_clients
                                         }
-                                        awardPercentage={
-                                            item?.stats?.success_rate
-                                        }
+                                        awardPercentage={item?.stats?.success_rate.toFixed(
+                                            2
+                                        )}
                                         location={item?.country.name}
                                         distance={""}
                                         bio={item?.bio}

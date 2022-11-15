@@ -1,33 +1,32 @@
 import CareerCard from "@components/Career/CareerCard";
-import HiringStage from "@components/Career/HiringStage";
 import LeaveYourCV from "@components/Career/LeaveYourCV";
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
 import urls from "constants/urls";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { CareerValueProps } from "types/careerValuesProps";
 import { axiosClient } from "utils/axiosClient";
 
 const Career = ({ careerData }: { careerData: CareerValueProps }) => {
     const { result } = careerData ?? [];
-    const [tabIndex, setTabIndex] = useState(0);
     return (
-        <Layout title="Homaale | Careers">
+        <Layout
+            title="Homaale | Careers"
+            description="Find the Job openings at Homaale"
+        >
             <section id="careers-section" className="careers-section">
-                <BreadCrumb currentPage="Career" />
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
+                    <BreadCrumb currentPage="Career" />
                     <div className="d-flex justify-content-between align-items-center flex-column-reverse flex-md-row">
                         <div className="careers-index">
-                            <h1>Find the career you deserve</h1>
+                            <h1>
+                                Discover your career opportunities with Homaale!
+                            </h1>
                             <p>
-                                With 1000 of job opportunities since we began:
-                                <br />
-                                creating jobs and income isn’t just a by-product
-                                of the work we do, it’s our core purpose.
+                                Homaale is always ready to welcome talents who
+                                can help us grow and achieve higher milestones.
                             </p>
                             {/* <div className="careers-index__popular">
                                 Popular Categories:{" "}
@@ -56,7 +55,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                             </figure>
                         </Col>
                         <Col md={12} lg={9}>
-                            <h2>Demanded Positions</h2>
+                            <h2>Job Openings</h2>
                             <Row className="gx-5">
                                 {result
                                     ? result
@@ -75,9 +74,9 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                             </Row>
                         </Col>
                     </Row>
-                    <div className="d-flex justify-content-between align-items-lg-center pe-0 part-wrapper">
+                    {/* <div className="d-flex justify-content-between align-items-lg-center pe-0 part-wrapper">
                         <div className="part-wrapper__details">
-                            Become a part of <span>Homaale</span>
+                            Join for Internships at <span>Homaale</span>
                             <p>Boost your skills and excel with us.</p>
                         </div>
                         <figure>
@@ -87,93 +86,9 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                                 layout="fill"
                             />
                         </figure>
-                    </div>
-                    {/* <div className="mt-5">
-                        <h4>New Job Listings</h4>
-                        <Tab
-                            items={[
-                                {
-                                    title: "All categories",
-                                    content: (
-                                        <Row className="gx-5">
-                                            {result?.map((values, key) => (
-                                                <Col
-                                                    lg={3}
-                                                    md={4}
-                                                    className="d-flex"
-                                                    key={key}
-                                                >
-                                                    <CareerCard
-                                                        values={values}
-                                                    />
-                                                </Col>
-                                            ))}
-                                        </Row>
-                                    ),
-                                },
-                                {
-                                    title: "Design",
-                                    content: (
-                                        <Row className="gx-5">
-                                            {careerCardValues?.map(
-                                                (values, key) => (
-                                                    <Col
-                                                        lg={4}
-                                                        md={6}
-                                                        className="d-flex"
-                                                        key={key}
-                                                    >
-                                                        test
-                                                    </Col>
-                                                )
-                                            )}
-                                        </Row>
-                                    ),
-                                },
-                                {
-                                    title: "Design",
-                                    content: (
-                                        <Row className="gx-5">
-                                            {careerCardValues?.map(
-                                                (values, key) => (
-                                                    <Col
-                                                        lg={4}
-                                                        md={6}
-                                                        className="d-flex"
-                                                        key={key}
-                                                    >
-                                                        test
-                                                    </Col>
-                                                )
-                                            )}
-                                        </Row>
-                                    ),
-                                },
-                                {
-                                    title: "Design",
-                                    content: (
-                                        <Row className="gx-5">
-                                            {careerCardValues?.map(
-                                                (values, key) => (
-                                                    <Col
-                                                        lg={4}
-                                                        md={6}
-                                                        className="d-flex"
-                                                        key={key}
-                                                    >
-                                                        test
-                                                    </Col>
-                                                )
-                                            )}
-                                        </Row>
-                                    ),
-                                },
-                            ]}
-                            activeIndex={tabIndex}
-                            onTabClick={setTabIndex}
-                        />
                     </div> */}
-                    <HiringStage />
+
+                    {/* <HiringStage /> */}
                     <LeaveYourCV />
                 </Container>
             </section>

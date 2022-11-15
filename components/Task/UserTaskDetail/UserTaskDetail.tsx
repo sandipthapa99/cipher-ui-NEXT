@@ -7,13 +7,13 @@ import Link from "next/link";
 import type { HTMLAttributes } from "react";
 import React from "react";
 import type { ServicesValueProps } from "types/serviceCard";
-import type { TaskerProps } from "types/taskerProps";
+import type { ITasker } from "types/tasker";
 
 import { UserTaskDetailTabs } from "./atoms/UserTaskDetailTabs";
 
 interface UserTaskDetailProps extends HTMLAttributes<HTMLDivElement> {
     maxHeaderWidth?: string;
-    taskerDetail: TaskerProps["result"][0];
+    taskerDetail: ITasker;
     taskerService: ServicesValueProps;
 }
 

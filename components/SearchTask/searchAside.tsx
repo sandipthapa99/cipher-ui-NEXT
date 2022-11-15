@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
 
-import type { ServiceNearYouCardProps } from "../../types/serviceNearYouCard";
+import type { ServiceCardType } from "../../types/serviceNearYouCard";
 
 export type ServiceProvider = {
     id: string;
@@ -36,7 +36,7 @@ const ServiceNearYouCard = ({
     discount,
     currency,
     onServiceClick,
-}: ServiceNearYouCardProps) => {
+}: ServiceCardType) => {
     const router = useRouter();
     const path = router.query.slug;
 
@@ -109,7 +109,10 @@ const ServiceNearYouCard = ({
                                         className="star svg-icon"
                                     />
 
-                                    <p>{serviceRating ?? "0(0)"}</p>
+                                    <p>
+                                        {+Number(serviceRating).toFixed(1) ??
+                                            "0(0)"}
+                                    </p>
                                 </div>
                             </div>
                             <div></div>

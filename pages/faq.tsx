@@ -8,15 +8,20 @@ import { Form, Formik } from "formik";
 import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
 import type { GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
 import { Accordion, Container } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
-import type { FAQTopicValueProps, FAQValueProps } from "types/faqValueProps";
+import type {
+    FAQTopicValueProps,
+    FAQValueProps,
+    FAQValuePropsAll,
+} from "types/faqValueProps";
 import { axiosClient } from "utils/axiosClient";
 import { FaqFormData } from "utils/contactFormData";
 import { FaqFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 interface FAQData {
     faqData: FAQValueProps;
@@ -28,6 +33,15 @@ const FAQ = ({ faqTopicData }: FAQData) => {
         ["all-faq"],
         "/support/faq/"
     );
+
+    const { data: topicData } = useData<FAQValuePropsAll[]>(
+        ["topic-faqs"],
+        "support/faq/?page=-1"
+    );
+    const router = useRouter();
+
+    const defaultActiveKey = router.query.topic ? router.query.topic : "";
+
     const { mutate } = useForm("/support/contactus/");
     const toggleSuccessModal = useToggleSuccessModal();
     return (
@@ -48,7 +62,7 @@ const FAQ = ({ faqTopicData }: FAQData) => {
                 <section className="faq-body-section">
                     <Container>
                         <section className="popular-faqs">
-                            <h1>Popular FAQs</h1>
+                            <h1>Mostly Asked FAQs</h1>
                             <Accordion flush>
                                 {(faqData?.data?.result ?? []).length > 0
                                     ? faqData?.data?.result?.map(
@@ -70,14 +84,17 @@ const FAQ = ({ faqTopicData }: FAQData) => {
                             </Accordion>
                         </section>
 
-                        <section className="faq-topics">
+                        <section className="faq-topics" id="faq-topics">
                             <h1>Topics</h1>
-                            <Accordion flush>
+                            <Accordion
+                                defaultActiveKey={defaultActiveKey}
+                                flush
+                            >
                                 {faqTopicData?.result?.length > 0
                                     ? faqTopicData?.result?.map(
                                           (value, key) => (
                                               <Accordion.Item
-                                                  eventKey={key.toString()}
+                                                  eventKey={value?.topic}
                                                   key={key}
                                               >
                                                   <Accordion.Header>
@@ -86,7 +103,7 @@ const FAQ = ({ faqTopicData }: FAQData) => {
                                                   <Accordion.Body>
                                                       <div className="inner-accordion">
                                                           <Accordion flush>
-                                                              {faqData?.data?.result
+                                                              {topicData?.data
                                                                   ?.filter(
                                                                       (item) =>
                                                                           item.topic ===

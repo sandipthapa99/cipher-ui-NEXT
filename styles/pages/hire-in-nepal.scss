@@ -5,37 +5,40 @@
         padding-bottom: 0.6rem;
         margin-bottom: 0rem;
     }
+
     p {
         font-size: 1.3rem;
         font-weight: 400;
     }
     &__top-container {
         background: #e3d5fa;
-        .card-content {
+
+        .long-square-image-card {
             padding: 2.5rem 5rem !important;
-            padding-left: 6rem !important;
+            padding-right: 2rem;
         }
+
         .description {
-            padding-top: 5rem !important;
-            padding-right: 2.4rem !important;
+            padding-top: 5rem;
+            padding-right: 2.4rem;
         }
 
         h1 {
-            font-size: 3rem !important;
-            line-height: 4rem !important;
+            font-size: 3rem;
+            line-height: 4rem;
             font-weight: 500;
         }
         p {
-            padding-top: 2rem !important;
-            padding-bottom: 3.5rem !important;
-            font-size: 1.4rem !important;
-            font-weight: 500 !important;
+            padding-top: 2rem;
+            padding-bottom: 3.5rem;
+            font-size: 1.4rem;
+            font-weight: 500;
             margin-bottom: 0rem;
         }
         .card-btn {
-            background-color: #fff !important;
-            color: #111 !important;
-            margin-bottom: 6rem !important;
+            background-color: #fff;
+            color: #111;
+            margin-bottom: 6rem;
         }
     }
     &__hire-tasker {
@@ -49,8 +52,8 @@
                 height: 4.7rem;
                 color: $primary-color;
                 border-radius: 0rem;
-                border-left: none !important;
-                background-color: #fff !important;
+                border-left: none;
+                background-color: #fff;
                 border: 0.1rem solid #dee2e6;
 
                 .svg-icon {

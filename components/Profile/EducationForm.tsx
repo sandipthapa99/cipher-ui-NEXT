@@ -4,7 +4,6 @@ import MantineDateField from "@components/common/MantineDateField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import { RichText } from "@components/RichText";
-import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import {
     faCalendarDays,
     faSquareCheck,
@@ -21,12 +20,10 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
-import { TRUE } from "sass";
 import type { EducationValueProps } from "types/educationValueProps";
-import { EducationFormData } from "utils/formData";
 import { educationFormSchema } from "utils/formValidation/educationFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 interface EducationProps {
     show?: boolean;

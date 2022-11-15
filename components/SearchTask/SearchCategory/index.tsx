@@ -1,4 +1,10 @@
 import {
+    useClearSearchedServices,
+    useClearSearchedTaskers,
+    useClearSearchQuery,
+    useSearchQuery,
+} from "@components/common/Search/searchStore";
+import {
     faCity,
     faClose,
     faDollarSign,
@@ -22,7 +28,7 @@ import { Col, Row } from "react-bootstrap";
 
 import { ActionKind, searchReducer } from "./reducers/searchReducer";
 
-type SearchModal = "task" | "tasker" | "service";
+type SearchModal = "task" | "tasker" | "service" | "booking";
 interface SearchCategoryProps {
     searchModal: SearchModal;
     onSearchParamChange: (searchParam: string) => void;
@@ -43,11 +49,18 @@ export const SearchCategory = ({
 }: SearchCategoryProps) => {
     const { classes } = useStyles();
 
+    const countryId = "";
+
     const [params, dispatch] = useReducer(searchReducer, {});
     const [cityQuery, setCityQuery] = useState("");
-    const { data: cities } = useCities(cityQuery);
+    const { data: cities } = useCities(cityQuery, countryId);
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
+
+    const searchQuery = useSearchQuery();
+    const clearSearchedServices = useClearSearchedServices();
+    const clearSearchedTaskers = useClearSearchedTaskers();
+    const clearSearchQuery = useClearSearchQuery();
 
     const { data: servicesOptionsData = [] } = useServiceOptions();
     const citiesData: SelectItem[] = cities.map((city) => ({
@@ -79,6 +92,45 @@ export const SearchCategory = ({
             id: "2",
             label: "High to Low",
             value: "-budget_to",
+        },
+    ];
+    const serviceTypeData: SelectItem[] = [
+        {
+            id: "1",
+            label: "Show Task",
+            value: "True",
+        },
+        {
+            id: "2",
+            label: "Show Service",
+            value: "False",
+        },
+    ];
+    const statusData: SelectItem[] = [
+        {
+            id: "1",
+            label: "Open",
+            value: "Open",
+        },
+        {
+            id: "2",
+            label: "On Progress",
+            value: "On Progress",
+        },
+        {
+            id: "3",
+            label: "Completed",
+            value: "Completed",
+        },
+        {
+            id: "4",
+            label: "Cancelled",
+            value: "Cancelled",
+        },
+        {
+            id: "5",
+            label: "Closed",
+            value: "Closed",
         },
     ];
     const orderTaskersData: SelectItem[] = [
@@ -129,7 +181,14 @@ export const SearchCategory = ({
 
     const hasParams = Object.keys(params).length > 0;
 
+    const clearSearchData = () => {
+        clearSearchQuery();
+        clearSearchedServices();
+        clearSearchedTaskers();
+    };
     const onSelectChange = (key: string, value: string | null) => {
+        console.log("hellol", key, value);
+
         if (!value) {
             dispatch({ type: ActionKind.REMOVE, payload: { key } });
             return;
@@ -138,6 +197,7 @@ export const SearchCategory = ({
     };
 
     const handleClearFilters = () => {
+        clearSearchData();
         dispatch({ type: ActionKind.CLEAR });
         onFilterClear();
     };
@@ -158,35 +218,42 @@ export const SearchCategory = ({
 
     useEffect(() => {
         const urlSearchParams = new URLSearchParams();
+
         for (const key in params) {
+            console.log("abc", params[key]);
             urlSearchParams.append(key, params[key]);
         }
+        console.log(urlSearchParams);
         const searchParams = urlSearchParams.toString();
+        console.log("search", searchParams);
+
         onSearchParamChange(searchParams);
     }, [onSearchParamChange, params]);
     return (
         <Row className={classes.container}>
-            <Col md={4}>
-                <TextInput
-                    value={params.search ?? ""}
-                    icon={
-                        <FontAwesomeIcon
-                            icon={faSearch}
-                            className="me-0 svg-icon"
-                        />
-                    }
-                    placeholder="Enter a search keyword"
-                    onChange={handleSearchChange}
-                />
-            </Col>
+            {searchModal !== "booking" && (
+                <Col md={4}>
+                    <TextInput
+                        value={params.search ?? ""}
+                        icon={
+                            <FontAwesomeIcon
+                                icon={faSearch}
+                                className="me-0 svg-icon"
+                            />
+                        }
+                        placeholder="Enter a search keyword"
+                        onChange={handleSearchChange}
+                    />
+                </Col>
+            )}
 
-            <Col md={8} className="filter">
+            <Col md={searchModal !== "booking" ? 8 : 9} className="filter">
                 <Box
                     className={
                         classes.categoriesContainer + " " + "box-modifier"
                     }
                 >
-                    {hasParams && (
+                    {searchModal !== "booking" && (hasParams || searchQuery) && (
                         <Button
                             leftIcon={
                                 <FontAwesomeIcon
@@ -213,7 +280,7 @@ export const SearchCategory = ({
                                         icon={faGrid2}
                                     />
                                 }
-                                placeholder="Filter by service"
+                                placeholder="Filter by Service"
                                 value={params.service ?? ""}
                                 data={servicesOptionsData}
                                 onChange={(value) =>
@@ -318,8 +385,90 @@ export const SearchCategory = ({
                             data={orderServiceData}
                         />
                     )}
+                    {searchModal === "booking" && (
+                        <Col className="d-flex justify-content-between gap-5">
+                            <div className="d-flex justify-content-between gap-2">
+                                <TextInput
+                                    value={params.search ?? ""}
+                                    icon={
+                                        <FontAwesomeIcon
+                                            icon={faSearch}
+                                            className="me-0 svg-icon"
+                                        />
+                                    }
+                                    placeholder="Search"
+                                    onChange={handleSearchChange}
+                                    className={"w-50"}
+                                />
+                                <Select
+                                    placeholder="Type"
+                                    value={params.is_requested ?? ""}
+                                    onChange={(value) =>
+                                        onSelectChange("is_requested", value)
+                                    }
+                                    data={serviceTypeData}
+                                />
+                                <Select
+                                    clearable
+                                    searchable
+                                    placeholder="Any Category"
+                                    value={params.service ?? ""}
+                                    data={servicesOptionsData}
+                                    onChange={(value) =>
+                                        onSelectChange("service", value)
+                                    }
+                                />
+                                <Select
+                                    clearable
+                                    placeholder="Any Status"
+                                    value={params.status ?? ""}
+                                    onChange={(value) =>
+                                        onSelectChange("status", value)
+                                    }
+                                    data={statusData}
+                                />
+                                {/* <Select
+                                    clearable
+                                    placeholder="Any Date"
+                                    value={params.ordering ?? ""}
+                                    onChange={(value) =>
+                                        onSelectChange("ordering", value)
+                                    }
+                                    data={orderServiceData}
+                                /> */}
+                                <Select
+                                    clearable
+                                    placeholder="Sort"
+                                    value={params.ordering ?? ""}
+                                    onChange={(value) =>
+                                        onSelectChange("ordering", value)
+                                    }
+                                    data={orderServiceData}
+                                />
+                            </div>
+                        </Col>
+                    )}
                 </Box>
             </Col>
+            {searchModal === "booking" && (
+                <Col md={3} className={"d-flex"}>
+                    {(hasParams || searchQuery) && (
+                        <Button
+                            leftIcon={
+                                <FontAwesomeIcon
+                                    icon={faClose}
+                                    className="me-0 svg-icon"
+                                />
+                            }
+                            variant="white"
+                            color="red"
+                            onClick={handleClearFilters}
+                        >
+                            Clear filters
+                        </Button>
+                    )}
+                </Col>
+            )}
         </Row>
     );
 };

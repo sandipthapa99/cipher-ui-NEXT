@@ -1,6 +1,4 @@
 .my-task {
-    background: #fff;
-
     h3 {
         font: 500 1.6rem $poppins-font;
         padding: 2.4rem;
@@ -92,6 +90,8 @@
                     &__Draft,
                     &__Pending,
                     &__Paid,
+                    &__Cancelled,
+                    &__Closed,
                     &__Open {
                         font: 400 1.2rem $poppins-font;
                         padding: 0.4rem 0.8rem;
@@ -102,6 +102,9 @@
 
                     &__Completed {
                         background: #3eaeff;
+                    }
+                    &__Closed {
+                        background: #296378;
                     }
 
                     &__Paid {
@@ -114,7 +117,10 @@
                     }
 
                     &__Open {
-                        background: red;
+                        background: #38c675;
+                    }
+                    &__Cancelled {
+                        background: #e41f1f;
                     }
                 }
             }

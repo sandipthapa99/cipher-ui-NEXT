@@ -5,6 +5,7 @@ import { KYCStatus } from "@components/settings/KycStatus";
 import { CompleteProfile } from "@components/settings/ProfileForm";
 import SettingsLayout from "@components/SettingsLayout";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
@@ -21,6 +22,7 @@ const Individual = () => {
     );
     const LinkedBank = BankDetails?.data.result;
     const { data: profile } = useGetProfile();
+    const { data: kycDocument } = useGetKYCDocument();
     const [showBankForm, setShowBankForm] = useState(
         !profile && LinkedBank && LinkedBank?.length > 0 ? false : true
     );
@@ -31,7 +33,7 @@ const Individual = () => {
 
     return (
         <>
-            <SettingsLayout>
+            <SettingsLayout title="Account Settings">
                 {!showBankForm || (!showAccountForm && !profile) ? (
                     <CompleteProfile
                         onClick={() => {
@@ -44,7 +46,7 @@ const Individual = () => {
                     ""
                 )}{" "}
                 <AccountForm showAccountForm={showAccountForm} />
-                {!KycData && <KYCForm />}
+                {KycData && kycDocument?.length !== 0 ? null : <KYCForm />}
                 {KycData && <KYCStatus />}
                 <AddBank
                     showBankForm={!profile ? false : true}

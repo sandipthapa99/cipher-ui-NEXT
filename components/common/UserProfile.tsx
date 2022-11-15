@@ -1,5 +1,3 @@
-import PhotoEdit from "@components/Profile/PhotoEdit";
-import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import {
     faAt,
     faCircleQuestion,
@@ -9,12 +7,15 @@ import {
     faPencil,
     faPhone,
     faSparkles,
+    faStar as emptyStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { faCircle } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
+import { Rating } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
@@ -24,14 +25,12 @@ import type { ReactNode } from "react";
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
-import { toast } from "react-toastify";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
-import { getPageUrl } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import ProfileEditForm from "./ProfileEditForm";
-import { RatingStars } from "./RatingStars";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 const UserProfileCard = ({
@@ -150,17 +149,6 @@ const UserProfileCard = ({
                         {children && <>{children}</>}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item
-                            href="#/action-1"
-                            onClick={() => setShowEdit(!showEdit)}
-                            className="d-flex align-items-center"
-                        >
-                            <FontAwesomeIcon
-                                className="svg-icon"
-                                icon={faPencil}
-                            />
-                            Edit
-                        </Dropdown.Item>
                         <Link href="/settings/account/individual">
                             <Dropdown.Item
                                 href="#/action-3"
@@ -234,13 +222,13 @@ const UserProfileCard = ({
                         />
                     </figure>
 
-                    <PhotoEdit
+                    {/* <PhotoEdit
                         photo={image}
                         show={showEditForm}
                         setShowEditForm={setShowEditForm}
                         handleClose={() => setShowEditForm(false)}
                         handleSubmit={() => onEditProfile(image)}
-                    />
+                    /> */}
                     <div className="profile-intro d-flex">
                         <h1 className="name text-center">{full_name}</h1>
                         {/* <div className="active"></div> */}
@@ -250,8 +238,26 @@ const UserProfileCard = ({
                         />
                     </div>
                     {renderType}
+                    <div className="rating">
+                        {" "}
+                        <Rating
+                            defaultValue={rating > 0 ? rating : 0}
+                            readOnly
+                            emptySymbol={
+                                <FontAwesomeIcon
+                                    icon={emptyStar}
+                                    className="unrated-star star"
+                                />
+                            }
+                            fullSymbol={
+                                <FontAwesomeIcon
+                                    icon={faStar}
+                                    className="star"
+                                />
+                            }
+                        />
+                    </div>
 
-                    <RatingStars value={rating > 0 ? rating : 0} />
                     <div className="price">
                         {charge_currency} {hourly_rate}/hr
                     </div>
@@ -327,7 +333,7 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>{address_line2}</p>
+                                    <p>{address_line1}</p>
                                 </div>
 
                                 <div className="type d-flex flex-col">
@@ -436,7 +442,9 @@ const UserProfileCard = ({
                         <Col md={3} xs={6}>
                             <div className="type success-rate">
                                 <h1 className="number">
-                                    {stats?.success_rate}
+                                    {stats?.success_rate
+                                        ? stats?.success_rate.toFixed(1)
+                                        : 0}
                                 </h1>
                                 <p>
                                     Success

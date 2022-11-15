@@ -1,10 +1,12 @@
 import CardBtn from "@components/common/CardBtn";
-import { RatingStars } from "@components/common/RatingStars";
 import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";
+import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Rating } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -12,14 +14,14 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskerDetails } from "staticData/taskDetail";
+import type { ITasker } from "types/tasker";
 import { getPageUrl } from "utils/helpers";
 import { safeParse } from "utils/safeParse";
 
 import { UserStats } from "./UserStats";
 
 interface UserTaskDetailHeaderProps {
-    taskerDetail: TaskerDetails;
+    taskerDetail: ITasker;
     maxHeaderWidth?: string;
 }
 
@@ -48,7 +50,7 @@ export const UserTaskDetailHeader = ({
                 taskerDetail={taskerDetail}
             />
             <Row style={{ maxWidth: maxHeaderWidth ?? undefined }}>
-                <Col md={8} className="d-flex">
+                <Col md={3} className="d-flex">
                     {/* {taskerDetail?.profile_image && (
                         <div className="td-user-image-container">
                             <Image
@@ -86,11 +88,13 @@ export const UserTaskDetailHeader = ({
                                 />
                             </div>
                         ))} */}
+
                     <figure className="td-user-image-container">
                         {taskerDetail?.is_profile_verified ? (
                             <FontAwesomeIcon
                                 icon={faBadgeCheck}
-                                className="badge-icon"
+                                // className="badge-icon"
+                                className="td-user-image-container__badge"
                             />
                         ) : (
                             ""
@@ -138,21 +142,36 @@ export const UserTaskDetailHeader = ({
                             priority={true}
                         />
                     </figure>
+                </Col>
 
+                <Col md={5}>
                     <div>
                         <h4
-                            className="td-user-name"
+                            className="td-user-name mt-1"
                             data-is-online={JSON.stringify(true)}
                         >
-                            {`${taskerDetail?.user.first_name} ${taskerDetail?.user.middle_name} ${taskerDetail?.user.last_name}`}
+                            {`${taskerDetail?.user?.first_name} ${taskerDetail?.user?.middle_name} ${taskerDetail?.user?.last_name}`}
                         </h4>
                         <p className="td-text mb-4">{userType}</p>
 
-                        <RatingStars
+                        <Rating
                             value={
                                 taskerDetail?.rating?.avg_rating > 0
                                     ? taskerDetail?.rating?.avg_rating
                                     : 0
+                            }
+                            readOnly
+                            emptySymbol={
+                                <FontAwesomeIcon
+                                    icon={emptyStar}
+                                    className="star"
+                                />
+                            }
+                            fullSymbol={
+                                <FontAwesomeIcon
+                                    icon={faStar}
+                                    className="star"
+                                />
                             }
                         />
 

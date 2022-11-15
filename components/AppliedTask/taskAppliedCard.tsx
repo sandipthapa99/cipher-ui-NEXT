@@ -12,7 +12,6 @@ import { useData } from "hooks/use-data";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ITask, TaskerCount } from "types/task";
-import { getPageUrl } from "utils/helpers";
 // import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
 
@@ -125,7 +124,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
             </Link>
             <div className="d-flex mt-4 align-items-center task-applied-card-block__footer">
                 <ShareIcon
-                    url={getPageUrl()}
+                    url={`https://homaale.com/task/${taskId}`}
                     quote="Please Share this task for all"
                     hashtag="Homaale-task"
                     showText

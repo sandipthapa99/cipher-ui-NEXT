@@ -4,13 +4,13 @@ import { AboutTasker } from "@components/Tasker/AboutTasker";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Alert, Highlight } from "@mantine/core";
+import { Alert } from "@mantine/core";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
-import type { TaskerProps } from "types/taskerProps";
+import type { ITasker } from "types/tasker";
 
 interface UserTaskDetailTabsProps {
-    taskerDetail: TaskerProps["result"][0];
+    taskerDetail: ITasker;
     taskerService: ServicesValueProps;
 }
 
@@ -43,7 +43,7 @@ const ServiceList = ({
     taskerService: ServicesValueProps;
 }) => {
     return (
-        <>
+        <div>
             <Carousel
                 withIndicators
                 slideSize="40%"
@@ -78,6 +78,6 @@ const ServiceList = ({
                         There are No Services by this user
                     </Alert>
                 ))}
-        </>
+        </div>
     );
 };

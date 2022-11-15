@@ -1,0 +1,70 @@
+.my-booking-task-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    border-radius: 4px;
+    padding: 1.6rem;
+
+    .image-and-date {
+        margin: 0 0 1.9rem;
+        .profile-image {
+            border-radius: 50%;
+            margin: 0 0.8rem 0 0;
+        }
+        span {
+            font: 400 1.2rem $poppins-font;
+            color: $gray-text-color;
+            margin: 0 1rem;
+        }
+    }
+
+    .title-price-wrapper {
+        .title-and-date {
+            h3 {
+                font: 500 1.8rem $poppins-font;
+                margin: 0 0 0.8rem;
+                height: 5.2rem;
+                overflow: hidden;
+                color: #211d4f;
+            }
+        }
+
+        .price {
+            h2 {
+                font: 500 2.4rem $poppins-font;
+                margin: 0 0 0.5rem;
+                text-align: right;
+                color: #343a40;
+            }
+            p {
+                font: 400 1.2rem $poppins-font;
+                color: $gray-text-color;
+                margin: 0;
+            }
+        }
+    }
+    .center-section {
+        border-bottom: 1px solid #e9ecef;
+        .name-and-location {
+            font: 400 1.4rem $poppins-font;
+            color: #343a40;
+            .location {
+                margin: 0 0 1.4rem;
+                svg {
+                    color: #868e96;
+                    margin: 0 0.8rem 0 0;
+                    height: 1.6rem;
+                    width: 1.6rem;
+                }
+            }
+            .time {
+                margin: 0 0 1.4rem;
+            }
+        }
+    }
+
+    .card-footer-section {
+        margin: 1.7rem 0 0;
+        flex-wrap: wrap;
+    }
+}

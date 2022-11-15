@@ -7,16 +7,16 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Radio } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
 import {
     clientEmailSignUpSchema,
     clientPhoneSignUpSchema,
 } from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const SignUp = () => {
     const router = useRouter();
@@ -32,10 +32,11 @@ const SignUp = () => {
         <OnBoardingLayout
             topLeftText="Already have an account ?"
             topRightText="Login"
-            headerText="Signing up as a Client"
+            headerText="Sign Up"
             mainImg="/illustrations/rocket.svg"
             redirectionLink="/login"
             currentPage="client-signup"
+            title="Homaale | Signup"
         >
             <div className="cipher modals signup">
                 <Formik
@@ -68,11 +69,19 @@ const SignUp = () => {
                             { ...payloadValue() },
                             {
                                 onSuccess: async () => {
-                                    if (choosedValue === "phone") {
+                                    if (
+                                        choosedValue === "phone" &&
+                                        phone !== undefined
+                                    ) {
+                                        Cookies.set("phone", phone);
                                         setShow(true);
                                     }
 
-                                    if (choosedValue === "email") {
+                                    if (
+                                        choosedValue === "email" &&
+                                        email !== undefined
+                                    ) {
+                                        Cookies.set("email", email);
                                         router.push({ pathname: "/login" });
                                     }
 
@@ -95,7 +104,7 @@ const SignUp = () => {
                         <Form className="login-form">
                             <div className="choose-email-or-phone mb-5">
                                 <Radio.Group
-                                    label="Please select one for Signup process Email Or Phone Number"
+                                    label="Sign Up Using:"
                                     onChange={(value) => setChoosedValue(value)}
                                     size="md"
                                     defaultValue="email"
@@ -167,6 +176,7 @@ const SignUp = () => {
                     handleClose={handleClose}
                     phone={phoneNumber}
                     setShowForm={setShow}
+                    scope="verify"
                 />
             </div>
         </OnBoardingLayout>

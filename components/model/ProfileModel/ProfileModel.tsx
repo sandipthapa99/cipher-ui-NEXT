@@ -2,10 +2,10 @@ import {
     faArrowRightFromBracket,
     faBoxOpen,
     faChartSimpleHorizontal,
-    faFileInvoiceDollar,
     faGauge,
     faGear,
     faGift,
+    faTicket,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Button, Divider, Text } from "@mantine/core";
@@ -73,8 +73,8 @@ export const ProfileModel = () => {
                 <div>
                     <Text className={classes.username}>
                         {profileDetails
-                            ? `${profileDetails.user?.first_name} ${profileDetails.user?.last_name}`
-                            : "Howdy User"}
+                            ? `${profileDetails.user?.first_name} ${profileDetails.user?.middle_name} ${profileDetails.user?.last_name}`
+                            : "Hello User"}
                     </Text>
                     <Text className={classes.profileType}>
                         {profileDetails && profileDetails?.profile_visibility}
@@ -131,24 +131,22 @@ const PROFILE_LINKS = {
             color: "#495057",
         },
         {
+            title: "My Tickets",
+            icon: (
+                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faTicket} />
+            ),
+            href: "/my-tickets",
+            color: "#495057",
+        },
+        {
             title: "My Orders",
             icon: (
                 <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faBoxOpen} />
             ),
-            href: "/myorders",
+            href: "/my-order",
             color: "#495057",
         },
-        {
-            title: "Payment History",
-            icon: (
-                <FontAwesomeIcon
-                    color={REGULAR_ICON_COLOR}
-                    icon={faFileInvoiceDollar}
-                />
-            ),
-            href: "/payment-history",
-            color: "#495057",
-        },
+
         {
             title: "Offers",
             icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,

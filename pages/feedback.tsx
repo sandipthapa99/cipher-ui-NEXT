@@ -6,12 +6,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type { FeedbackValuesProps } from "types/contact";
 import { axiosClient } from "utils/axiosClient";
 import { FeedbackFormData } from "utils/contactFormData";
 import { FeedbackFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const Feedback = () => {
     const { data } = useQuery(["feedback-category"], () => {
@@ -101,7 +101,7 @@ const Feedback = () => {
 
                                             <InputField
                                                 name="description"
-                                                labelName="Feedback"
+                                                labelName="Description"
                                                 touch={touched.description}
                                                 error={errors.description}
                                                 placeHolder="Write your message here..."
@@ -110,7 +110,7 @@ const Feedback = () => {
                                             <FormButton
                                                 type="submit"
                                                 variant="primary"
-                                                name="Submit Feedback"
+                                                name="Submit"
                                                 className="submit-btn"
                                                 isSubmitting={isSubmitting}
                                                 isSubmittingClass={isSubmittingClass(
@@ -129,6 +129,6 @@ const Feedback = () => {
     );
 };
 export default Feedback;
-function useFeedback(): { mutate: any; isLoading: any } {
-    throw new Error("Function not implemented.");
-}
+// function useFeedback(): { mutate: any; isLoading: any } {
+//     throw new Error("Function not implemented.");
+// }

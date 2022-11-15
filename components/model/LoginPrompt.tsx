@@ -23,6 +23,8 @@ export const LoginPrompt = () => {
     const pausedFunction = usePausedFunction();
     const clearPausedFunction = useClearPausedFunction();
 
+    // const theme = useMantineTheme();
+
     const router = useRouter();
 
     useEffect(() => {
@@ -35,6 +37,7 @@ export const LoginPrompt = () => {
     }, [hideLoginPrompt, router.events]);
     return (
         <Modal
+            overlayColor="rgba(0, 0, 0, 0.35)"
             centered
             opened={showLoginPrompt}
             onClose={hideLoginPrompt}

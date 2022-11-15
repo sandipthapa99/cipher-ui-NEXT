@@ -15,11 +15,11 @@
     }
 
     &__bottom-container {
-        padding-top: 5rem;
+        padding-top: 0;
         background: #ffffff;
         margin-bottom: 5rem;
         .custom-tab__headers {
-            padding-left: 2rem;
+            padding-left: 3.6rem;
             flex-wrap: wrap;
             gap: 7rem;
 
@@ -56,7 +56,7 @@
                     font-size: 1.7rem;
                 }
                 @include respond(md) {
-                    padding: 0rem 2.5rem;
+                    padding: 2rem 2.5rem;
                 }
                 .select-field {
                     padding-top: 2rem;

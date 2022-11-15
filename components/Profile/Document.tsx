@@ -1,15 +1,14 @@
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 const UserDocument = () => {
     // const [fileName, setFileName] = useState("");
-    const inputRef = useRef<HTMLInputElement>(null);
-    const onButtonClick = () => {
-        inputRef?.current?.click();
-    };
+    // const inputRef = useRef<HTMLInputElement>(null);
+    // const onButtonClick = () => {
+    //     inputRef?.current?.click();
+    // };
 
     const { data: documents } = useData<UserProfileProps["documentData"]>(
         ["tasker-document"],
@@ -79,13 +78,13 @@ const UserDocument = () => {
                     )}
                 </Row>
             </div>
-            <input
+            {/* <input
                 type={"file"}
                 id="choosefile"
                 ref={inputRef}
                 style={{ display: "none" }}
                 //onChange={uploadFile}
-            />
+            /> */}
         </div>
     );
 };

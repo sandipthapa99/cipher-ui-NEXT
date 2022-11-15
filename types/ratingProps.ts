@@ -14,18 +14,22 @@ export interface RatingResult {
     rating: number;
     review: string;
     task_detail: number;
+    reply: string;
+    replied_date: string;
 }
 
 export interface RatedTo {
     id: string;
     email: string;
-    full_name: string;
+    first_name: string;
+    last_name: string;
     profile_image: string;
 }
 
 export interface RatedBy {
     id: string;
     email: string;
-    full_name: string;
+    first_name: string;
+    last_name: string;
     profile_image: string;
 }

@@ -1,8 +1,9 @@
 import { Tab } from "@components/common/Tab";
+import { AllList } from "@components/MyTasks/AllList";
+import { ApprovedTask } from "@components/MyTasks/ApprovedTask";
 import { MyBookings } from "@components/MyTasks/MyBookings";
-import { MyTasks } from "@components/MyTasks/MyTasks";
+import { MyService } from "@components/MyTasks/MyService";
 import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
-import { TaskYouMayLike } from "@components/MyTasks/TaskYouMayLike";
 import { useState } from "react";
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -25,56 +26,22 @@ const SearchBySort = () => {
                 onTabClick={setActiveTabIdx}
                 items={[
                     {
-                        title: "My Tasks",
-                        content: <MyTasks />,
+                        title: "All List",
+                        content: <AllList />,
                     },
                     {
-                        title: "My Bookings",
+                        title: "Bookings",
                         content: <MyBookings />,
                     },
                     {
-                        title: "Task You May Like",
-                        content: <TaskYouMayLike />,
+                        title: "Approved Task",
+                        content: <ApprovedTask />,
                     },
                     {
                         title: "Payment History",
                         content: <PaymentHistory />,
                     },
                 ]}
-                // icons={[
-                //     {
-                //         index: 0,
-                //         type: (
-                //             <Popover width={300} trapFocus position="bottom">
-                //                 <Popover.Target>
-                //                     <button className="btn">
-                //                         <FontAwesomeIcon
-                //                             icon={faMagnifyingGlass}
-                //                             className="svg-icon"
-                //                         />
-                //                     </button>
-                //                 </Popover.Target>
-                //                 <Popover.Dropdown>
-                //                     <RenderInputBox />
-                //                 </Popover.Dropdown>
-                //             </Popover>
-                //         ),
-                //     },
-                //     {
-                //         index: 1,
-                //         type: (
-                //             <EllipsisDropdown
-                //                 showModal={true}
-                //                 handleOnClick={() => setShowModal(true)}
-                //             >
-                //                 <FontAwesomeIcon
-                //                     icon={faFilterList}
-                //                     className="svg-icon"
-                //                 />
-                //             </EllipsisDropdown>
-                //         ),
-                //     },
-                // ]}
             />
         </>
     );

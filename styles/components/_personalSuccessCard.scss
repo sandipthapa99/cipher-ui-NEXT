@@ -38,6 +38,10 @@
     &__content {
         padding: 3rem;
 
+        .success-story-description {
+            text-align: justify;
+        }
+
         .description {
             .title {
                 svg {

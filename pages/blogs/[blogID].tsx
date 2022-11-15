@@ -7,17 +7,17 @@ import type { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { FacebookShareButton, TwitterShareButton } from "next-share";
 import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type { BlogDetailData, BlogValueProps } from "types/blogs";
 import { axiosClient } from "utils/axiosClient";
 import { formatMonthDate, getPageUrl } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
     // const blogData = blog?.data ?? {};
     // const category = JSON.parse(blog?.category);
     if (!blog) return null;
     return (
-        <Layout>
+        <Layout title={`Homaale Blog | ${blog?.title}`}>
             <section className="single-blog">
                 <Container fluid="xl" className="px-4">
                     <div className="single-blog__heading-section">

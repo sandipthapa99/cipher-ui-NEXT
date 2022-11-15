@@ -1,5 +1,5 @@
-import type { Dispatch, LegacyRef, SetStateAction } from "react";
-import { useRef } from "react";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { Dispatch, SetStateAction } from "react";
 import { forwardRef } from "react";
 
 import PhotoEdit from "./Profile/PhotoEdit";
@@ -9,12 +9,14 @@ interface ImageUploadProps {
     // ref: React.RefObject<HTMLInputElement>;
     photo: any;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
+
+    setIsEditButtonClicked: Dispatch<SetStateAction<boolean>>;
     showEditForm: boolean;
     handleClose: () => void;
-    handleSubmit?: () => void;
     onChange: (e: any) => void;
     isEditButtonClicked?: boolean;
     display: boolean;
+    onPhotoEdit: (url: RequestInfo | URL, file: File) => void;
 }
 
 // eslint-disable-next-line react/display-name
@@ -25,15 +27,18 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
         const {
             name,
             onChange,
+            setIsEditButtonClicked,
             photo,
             setShowEditForm,
             showEditForm,
             handleClose,
-            handleSubmit,
             isEditButtonClicked,
-            display,
+
+            onPhotoEdit,
         } = props;
-        console.log("🚀 ~ file: ImageUpload.tsx ~ line 28 ~ photo", photo);
+        const profile = useGetProfile();
+        const profileImage = profile.data?.profile_image;
+
         return (
             <>
                 <input
@@ -45,28 +50,16 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
                     // onClick={}
                 />
                 <PhotoEdit
-                    photo={photo}
+                    setIsEditButtonClicked={setIsEditButtonClicked}
                     show={showEditForm}
                     setShowEditForm={setShowEditForm}
                     handleClose={handleClose}
-                    handleSubmit={handleSubmit}
                     isEditButtonClicked={isEditButtonClicked}
+                    onPhotoEdit={onPhotoEdit}
+                    haveImage={profileImage ? true : false}
+                    photo={profileImage ? profileImage : photo}
                 />
             </>
         );
     }
 );
-
-// {
-//     name,
-//     ref,
-//     onChange,
-//     photo,
-//     setShowEditForm,
-//     showEditForm,
-//     handleClose,
-//     handleSubmit,
-//     isEditButtonClicked,
-//     display,
-// }: // display,
-// ImageUploadProps

@@ -1,21 +1,26 @@
+import AuthenticationModalCard from "@components/AuthenticationModal";
 import FormButton from "@components/common/FormButton";
 import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 export const ChangePhoneNumber = () => {
     const { data: userDetails } = useUser();
+    const [myOtp, setMyOtp] = useState(false);
+    const handleClose = () => setMyOtp(false);
 
     const url = "/tasker/change-phone/";
     const changePhoneNumber = useMutation((values: any) => {
         return axiosClient.post(url, values);
     });
+
     return (
         <div className="p-0">
             {/* <h2>Password</h2> */}
@@ -26,30 +31,31 @@ export const ChangePhoneNumber = () => {
                     password: "",
                 }}
                 //validationSchema={changePasswordFormSchema}
-                onSubmit={async (values, action) => {
+                onSubmit={async (values) => {
                     console.log(values);
 
                     changePhoneNumber.mutate(values, {
                         onSuccess: () => {
-                            userDetails?.phone === ""
-                                ? toast.success(
-                                      "Phone Number added successfully"
-                                  )
-                                : toast.success(
-                                      "Phone number changed successfully"
-                                  );
+                            setMyOtp(true);
+                            // userDetails?.phone === ""
+                            //     ? toast.success(
+                            //           "Phone Number added successfully"
+                            //       )
+                            //     : toast.success(
+                            //           "Phone number changed successfully"
+                            //       );
                         },
                         onError: (err: any) => {
                             toast.error(err.message);
                         },
                     });
 
-                    action.resetForm();
+                    // action.resetForm();
                 }}
             >
-                {({ isSubmitting, errors, touched, resetForm }) => (
+                {({ isSubmitting, errors, touched, resetForm, values }) => (
                     <Form autoComplete="off">
-                        {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                        {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
                         {/* <InputField
                             type="text"
                             name="current_phone"
@@ -71,10 +77,10 @@ export const ChangePhoneNumber = () => {
                         <PasswordField
                             name="password"
                             typeOf="password"
-                            labelName="Confirm Password"
+                            labelName="Password"
                             error={errors.password}
                             touch={touched.password}
-                            placeHolder="Confirm Password"
+                            placeHolder="Password"
                             // fieldRequired
                             // required={true}
                         />
@@ -101,6 +107,13 @@ export const ChangePhoneNumber = () => {
                                 )}
                             />
                         </div>
+                        <AuthenticationModalCard
+                            show={myOtp}
+                            handleClose={handleClose}
+                            phone={values.phone}
+                            setShowForm={setMyOtp}
+                            scope="change number"
+                        />
                     </Form>
                 )}
             </Formik>

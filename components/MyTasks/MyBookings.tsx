@@ -1,103 +1,165 @@
+import { MyBookingTaskCard } from "@components/Cards/MyBookingTaskCard";
+import { OtherBookedTaskCard } from "@components/Cards/OtherBookedTaskCard";
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
-import { Alert, Col, Grid, Skeleton } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
-import urls from "constants/urls";
-import Link from "next/link";
-import React from "react";
+import {
+    useClearSearchedTaskers,
+    useClearSearchQuery,
+} from "@components/common/Search/searchStore";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
+import SkeletonBookingCard from "@components/Skeletons/SkeletonBookingCard";
+import { Grid, Pagination, Select } from "@mantine/core";
+import { useBooking } from "hooks/use-bookings";
+import { useMyBooking } from "hooks/use-myBooking";
+import React, { useState } from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
-import { axiosClient } from "utils/axiosClient";
-
-import { MyTaskOrder } from "./MyTaskOrder";
 
 export const MyBookings = () => {
-    const { data: myBookingData, isLoading } = useQuery(
-        ["my-booking"],
-        async () => {
-            const response = await axiosClient.get<MyBookingServiceProps>(
-                urls.profile.my_bookings
-            );
-            return response.data.result;
-        }
+    const [searchParam, setSearchParam] = useState("");
+    const clearSearchedTaskers = useClearSearchedTaskers();
+    const clearSearchQuery = useClearSearchQuery();
+
+    const [value, setValue] = useState<string | null>("other");
+
+    const [bookingPageNo, setBookingPageNo] = useState<number>(1);
+    const [myBookingPageNo, setMyBookingPageNo] = useState<number>(1);
+
+    //----------For other booking------------
+    const { data: bookingPages, isLoading: bookingLoading } = useBooking(
+        searchParam,
+        bookingPageNo
     );
 
+    const bookings = bookingPages?.result;
+
+    //----------For other booking------------
+    //----------For my bookings------------
+    const { data: myBookingPages, isLoading: myBookingLoading } = useMyBooking(
+        searchParam,
+        myBookingPageNo
+    );
+
+    const mybookings = myBookingPages?.result;
+
+    const handleSearchParamChange = (searchParam: string) => {
+        // clear the existing search data when searchparam changes and has value
+        if (searchParam) {
+            clearSearchedTaskers();
+            clearSearchQuery();
+        }
+        setSearchParam(searchParam);
+    };
+
     return (
-        <div className="my-task">
+        <>
+            <Grid className="d-flex align-items-center">
+                <Grid.Col md={10}>
+                    <SearchCategory
+                        searchModal="booking"
+                        onSearchParamChange={handleSearchParamChange}
+                        onFilterClear={() => setSearchParam("")}
+                    />
+                </Grid.Col>
+                <Grid.Col md={2}>
+                    <Select
+                        value={value}
+                        onChange={setValue}
+                        data={[
+                            { value: "me", label: "By Me" },
+                            { value: "other", label: "By Other" },
+                        ]}
+                    />
+                </Grid.Col>
+            </Grid>
             {/* <h3>My Bookings</h3> */}
-            <div className="my-task__each-orders">
-                {isLoading && (
-                    <Grid className="p-5">
-                        <Col span={3}>
-                            <Skeleton height={150} mb="xl" />
-                        </Col>
-                        <Col span={9}>
-                            <Skeleton
-                                height={50}
-                                radius="sm"
-                                className="mb-4"
-                            />
-                            <Skeleton height={50} radius="sm" />
-                        </Col>
+            <div className="overflow-hidden">
+                {bookingLoading && (
+                    <Grid>
+                        {Array.from({ length: 9 }).map((_, index) => (
+                            <Grid.Col lg={4} sm={6} key={index}>
+                                <SkeletonBookingCard />
+                            </Grid.Col>
+                        ))}
                     </Grid>
                 )}
-                {!isLoading && myBookingData?.length ? (
-                    myBookingData?.map((item, index) => (
-                        <div className="booking-wrapper" key={index}>
-                            <Link
-                                href={{
-                                    pathname: "/checkout/",
-                                    query: { id: item?.entity_service?.id },
-                                }}
-                            >
-                                <a>
-                                    <MyTaskOrder
-                                        task_id={item?.entity_service?.id}
-                                        assigner_id={String(
-                                            item?.entity_service?.created_by?.id
-                                        )}
-                                        created_at={item?.created_at}
-                                        image={
-                                            item?.entity_service?.images[0]
-                                                ?.media
-                                                ? item?.entity_service
-                                                      ?.images[0]?.media
-                                                : "/placeholder/taskPlaceholder.png"
-                                        }
-                                        title={item?.entity_service?.title}
-                                        assigner_name={`${
-                                            item?.entity_service?.created_by
-                                                ?.first_name
-                                        } ${
-                                            item?.created_by?.user?.middle_name
-                                                ? item?.created_by?.user
-                                                      ?.middle_name
-                                                : ""
-                                        } ${item?.created_by?.user?.last_name}`}
-                                        budget_from={item?.budget_from}
-                                        budget_to={item?.budget_to}
-                                        budget_type={
-                                            item?.entity_service?.budget_type
-                                        }
-                                        status={item?.status}
-                                        currency={
-                                            item?.entity_service?.currency
-                                                ?.symbol
-                                        }
-                                    />
-                                </a>
-                            </Link>
-                        </div>
-                    ))
-                ) : (
-                    <ApplyPostComponent
-                        title="No Bookings Available"
-                        subtitle="Book a service to the marketplace and let merchant come to you."
-                        buttonText="Book a service"
-                    />
-                    // <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                    //     Sorry, You have no booking to show.
-                    // </Alert>
+                {myBookingLoading && (
+                    <Grid>
+                        {Array.from({ length: 9 }).map((_, index) => (
+                            <Grid.Col lg={4} sm={6} key={index}>
+                                <SkeletonBookingCard />
+                            </Grid.Col>
+                        ))}
+                    </Grid>
+                )}
+                <Grid>
+                    <>
+                        {!bookingLoading &&
+                            value === "other" &&
+                            bookings &&
+                            bookings?.length >= 0 &&
+                            bookings?.map(
+                                (
+                                    item: MyBookingServiceProps["result"][0],
+                                    index: number
+                                ) => (
+                                    <Grid.Col lg={4} sm={6} key={index}>
+                                        <OtherBookedTaskCard
+                                            item={item}
+                                            linkTo={"#!"}
+                                        />
+                                    </Grid.Col>
+                                )
+                            )}
+                    </>
+                    <>
+                        {!myBookingLoading &&
+                            value === "me" &&
+                            mybookings &&
+                            mybookings?.length >= 0 &&
+                            mybookings?.map(
+                                (
+                                    item: MyBookingServiceProps["result"][0],
+                                    index: number
+                                ) => (
+                                    <Grid.Col lg={4} sm={6} key={index}>
+                                        <MyBookingTaskCard item={item} />
+                                    </Grid.Col>
+                                )
+                            )}
+                    </>
+                </Grid>
+                {value === "other" && bookings?.length > 0 && (
+                    <span className="d-flex justify-content-center mt-4">
+                        <Pagination
+                            total={bookingPages?.total_pages}
+                            color="yellow"
+                            initialPage={bookingPageNo}
+                            onChange={(value) => {
+                                setBookingPageNo(value);
+                            }}
+                        />
+                    </span>
+                )}
+                {value === "me" && myBookingPages && (
+                    <span className="d-flex justify-content-center mt-4">
+                        <Pagination
+                            total={myBookingPages?.total_pages}
+                            color="yellow"
+                            initialPage={myBookingPageNo}
+                            onChange={(value) => {
+                                setMyBookingPageNo(value);
+                            }}
+                        />
+                    </span>
                 )}
             </div>
-        </div>
+            {!bookingLoading && bookings && bookings?.length <= 0 && (
+                <ApplyPostComponent
+                    model="service"
+                    title="No Bookings Available"
+                    subtitle="Book a service to the marketplace and let merchant come to you."
+                    buttonText="Book a service"
+                />
+            )}
+        </>
     );
 };

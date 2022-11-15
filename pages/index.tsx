@@ -11,9 +11,8 @@ import { Search } from "@components/common/Search";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
-import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
-import { LoginPrompt } from "@components/model/LoginPrompt";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faAngleRight,
@@ -23,7 +22,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
+import { Alert } from "@mantine/core";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -33,14 +32,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
-import { toast } from "react-toastify";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
-import {
-    useOpenLoginPrompt,
-    useShowLoginPrompt,
-    useWithLogin,
-} from "store/use-login-prompt-store";
+import { useOpenLoginPrompt, useWithLogin } from "store/use-login-prompt-store";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
@@ -51,6 +45,7 @@ import type { SuccessStoryProps } from "types/successStory";
 import type { ITaskApiResponse } from "types/task";
 import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 const Home: NextPage<{
     successStoryData: SuccessStoryProps;
@@ -73,7 +68,7 @@ const Home: NextPage<{
 }) => {
     const [isClient, setIsClient] = useState(false);
 
-    const loginPopup = useWithLogin();
+    // const loginPopup = useWithLogin();
 
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: profile } = useGetProfile();
@@ -86,19 +81,21 @@ const Home: NextPage<{
             return;
         }
         if (!profile) {
-            toast.error(
-                <ProfileNotCompleteToast text="Please create your profile to go on further." />,
-                {
-                    icon: false,
-                    autoClose: false,
-                }
+            toast.showComponent(
+                "Profile Incomplete",
+                <ProfileNotCompleteToast text="Please create your profile to go on further." />
             );
+            return;
+        }
+        if (!userData.is_kyc_verified) {
+            toast.showComponent("KYC Incomplete", <KYCIncompleteToast />);
             return;
         }
         toggleShowPostTaskModal();
     };
 
     useEffect(() => setIsClient(true), []);
+
     if (!isClient) return null;
     return (
         <Layout title="Homaale - Catering to Your Requirements">
@@ -232,24 +229,31 @@ const Home: NextPage<{
                 className="trusted-brand-section"
             >
                 {/* <Container fluid="xl" className="px-5"> */}
-                <Marquee gradient={true} className="marquee" speed={40}>
+                <Marquee
+                    gradient={true}
+                    className="marquee"
+                    speed={40}
+                    pauseOnHover
+                >
                     {trustedPartnerData?.map((value, key) => (
-                        <Link href={value?.redirect_url} key={key}>
-                            <li className="light">
-                                <a>
-                                    {value?.logo && (
-                                        <figure>
-                                            <Image
-                                                src={value?.logo}
-                                                alt={value?.alt_text}
-                                                layout="fill"
-                                                objectFit="contain"
-                                            ></Image>
-                                        </figure>
-                                    )}
-                                </a>
-                            </li>
-                        </Link>
+                        <li className="light" key={key}>
+                            <a
+                                href={value?.redirect_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {value?.logo && (
+                                    <figure>
+                                        <Image
+                                            src={value?.logo}
+                                            alt={value?.alt_text}
+                                            layout="fill"
+                                            objectFit="contain"
+                                        ></Image>
+                                    </figure>
+                                )}
+                            </a>
+                        </li>
                     ))}
                 </Marquee>
                 {/* </Container> */}
@@ -346,12 +350,14 @@ const Home: NextPage<{
                 </Container>
             </section>
             {/* Services near you section end */}
-
-            <section id="services-near-you" className="services-near-you">
-                <Container fluid="xl" className="px-5">
-                    {servicesData &&
-                        servicesData?.result?.filter((q) => q.is_professional)
-                            .length > 0 && (
+            {servicesData &&
+                servicesData?.result?.filter((q) => q.is_professional).length >
+                    0 && (
+                    <section
+                        id="services-near-you"
+                        className="services-near-you"
+                    >
+                        <Container fluid="xl" className="px-5">
                             <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                                 <h2 className="heading-title">
                                     Professional Services
@@ -366,30 +372,31 @@ const Home: NextPage<{
                                     </a>
                                 </Link>
                             </div>
-                        )}
-                    <Row className="gx-5">
-                        {servicesData &&
-                            servicesData?.result
-                                ?.filter((q) => q.is_professional)
-                                .slice(0, 4)
-                                .map((service) => {
-                                    return (
-                                        <Col
-                                            sm={6}
-                                            md={4}
-                                            lg={3}
-                                            key={service.id}
-                                            className="d-flex"
-                                        >
-                                            <ServiceCard
-                                                serviceCard={service}
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                    </Row>
-                </Container>
-            </section>
+
+                            <Row className="gx-5">
+                                {servicesData &&
+                                    servicesData?.result
+                                        ?.filter((q) => q.is_professional)
+                                        .slice(0, 4)
+                                        .map((service) => {
+                                            return (
+                                                <Col
+                                                    sm={6}
+                                                    md={4}
+                                                    lg={3}
+                                                    key={service.id}
+                                                    className="d-flex"
+                                                >
+                                                    <ServiceCard
+                                                        serviceCard={service}
+                                                    />
+                                                </Col>
+                                            );
+                                        })}
+                            </Row>
+                        </Container>
+                    </section>
+                )}
 
             {/* Get services section start */}
             {/* <section className="get-services">
@@ -549,13 +556,21 @@ const Home: NextPage<{
                                             >
                                                 <MerchantCard
                                                     merchantImage={
-                                                        merchant?.user
-                                                            ?.profile_image
+                                                        merchant?.profile_image
                                                     }
-                                                    merchantName={
+                                                    merchantName={`${
                                                         merchant?.user
                                                             ?.first_name
-                                                    }
+                                                    } ${
+                                                        merchant?.user
+                                                            ?.middle_name
+                                                            ? merchant?.user
+                                                                  ?.middle_name
+                                                            : ""
+                                                    } ${
+                                                        merchant?.user
+                                                            ?.last_name
+                                                    }`}
                                                     merchantCategory={
                                                         merchant?.designation
                                                     }
@@ -577,16 +592,17 @@ const Home: NextPage<{
                                                     currency={
                                                         merchant
                                                             ?.charge_currency
-                                                            ?.code
+                                                            ?.symbol
                                                     }
                                                     happyClients={
                                                         merchant?.stats
                                                             ?.happy_clients
                                                     }
-                                                    successRate={
-                                                        merchant?.stats
-                                                            ?.success_rate
-                                                    }
+                                                    successRate={parseFloat(
+                                                        merchant?.stats?.success_rate.toFixed(
+                                                            1
+                                                        )
+                                                    )}
                                                     merchantId={
                                                         merchant?.user?.id
                                                     }
@@ -603,11 +619,22 @@ const Home: NextPage<{
             {/* Gradient Banner section Start */}
             <section className="gradient-banner">
                 <Container fluid="xl" className="px-5">
-                    <GradientBanner
+                    {/* <GradientBanner
                         title="Looking for work is not that difficult as it sounds any more"
                         subTitle="Allow us to accompany you on your journey"
                         image="/gradient-updated.png"
-                    />
+                    /> */}
+                    <Link href="/offers">
+                        <a>
+                            <Image
+                                src={"/offer-banner.svg"}
+                                alt={"gradient-image"}
+                                height={550}
+                                width={1300}
+                                objectFit="cover"
+                            />
+                        </a>
+                    </Link>
                 </Container>
             </section>
             {/* Gradient Banner section End */}
@@ -662,10 +689,10 @@ const Home: NextPage<{
             >
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
-                        <h1 className="text-center">
+                        {/* <h1 className="text-center">
                             Bridging the gap between individuals
-                        </h1>
-                        <h3 className="text-center">HOMAALE Stories</h3>
+                        </h1> */}
+                        {/* <h3 className="text-center">HOMAALE Stories</h3> */}
                     </div>
                     {topCategoryData?.length <= 0 && (
                         <Alert
@@ -707,7 +734,7 @@ const Home: NextPage<{
             <section id="notable-quality" className="notable-quality">
                 <Container fluid="xl" className="px-5">
                     <LongSquareImageCard
-                        title="Homaale Notable quality"
+                        title="Homaale Notable Qualities"
                         image="/groupB.png"
                         imageOnRight={true}
                         homeImage={true}
@@ -724,7 +751,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     {blogData && blogData?.result?.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                            <h2 className="heading-title">Our blogs</h2>
+                            <h2 className="heading-title">Our Blogs</h2>
                             <Link href="/blogs">
                                 <a className="view-more">
                                     view more{" "}
@@ -770,8 +797,7 @@ const Home: NextPage<{
                         <div className="overlay">
                             <>
                                 <h1>
-                                    Nepali <span>Income Tax</span> and{" "}
-                                    <span>Pay Calculator</span>
+                                    Nepali <span>Income Tax Calculator</span>
                                 </h1>
                                 <div className="bottom-content">
                                     <p>

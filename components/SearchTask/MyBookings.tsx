@@ -13,9 +13,9 @@ import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import type { Tasker } from "types/tasks";
 import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 import BigButton from "../common/Button";
 import ShareIcon from "../common/ShareIcon";
@@ -175,7 +175,16 @@ export const MyBookingsCard = ({
                             }
                             className={"me-3"}
                         />
-                        <ShareIcon url={""} quote={""} hashtag={""} />
+                        <ShareIcon
+                            url={
+                                typeof window !== "undefined"
+                                    ? window.location.origin +
+                                      `/tasker/${userId}`
+                                    : ""
+                            }
+                            quote={""}
+                            hashtag={""}
+                        />
                     </div>
                     <div className="d-flex align-items-center gap-3 approve-reject-buttons">
                         {isApproved === false && (
@@ -221,6 +230,9 @@ export const MyBookingsCard = ({
                                             toast.success("Booking Approved");
                                             queryClient.invalidateQueries([
                                                 "get-my-bookings",
+                                            ]);
+                                            queryClient.invalidateQueries([
+                                                "notification",
                                             ]);
                                         },
                                         onError: (error: any) => {

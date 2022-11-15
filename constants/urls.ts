@@ -7,6 +7,7 @@ const bookings = "/task/entity/service-booking/";
 const myBookings = "/task/entity/service-mybooking/";
 const tasks = "/task/entity/service/";
 const support = "/support/";
+const payment = "/payment/";
 
 const urls = {
     user: {
@@ -14,6 +15,7 @@ const urls = {
         signup: "/user/signup/",
         changePassword: "/user/password/change/",
         google: "/user/register/social/google-oauth2/",
+        facebook: "/user/register/social/facebook/",
     },
     task: {
         list: taskPath,
@@ -25,7 +27,7 @@ const urls = {
         requested_task: `${myBookings}?is_requested=true`,
         my_applicants: `${bookings}`,
         taskApplicantsNumber: `${tasks}tasker-count`,
-        approvedTaskList: `${tasks}task/list`,
+        approvedTaskList: `${tasks}task/list/`,
         application: "/task/application",
         cancelApplication: `task/entity/service-booking/cancel`,
         assigneeDetail: "task/asignee-task-detail/",
@@ -41,7 +43,8 @@ const urls = {
         experience: `${taskerPath}experience/`,
         certifications: `${taskerPath}certification/`,
         rating: `/task/rating`,
-        my_bookings: `/task/entity/service-mybooking/?is_requested=false`,
+        other_bookings: `/task/entity/service-booking/`,
+        my_bookings: `/task/entity/service-mybooking/`,
     },
     tasker: {
         list: taskerPath,
@@ -58,13 +61,17 @@ const urls = {
     bookmark: "/task/bookmark/",
     locale: {
         localePath,
-        city: `${localePath}city/options?search=`,
+        city: `${localePath}city/options/?search=`,
     },
     trusted_partners: "/landingpage/trusted-partner/",
     hero_category: "/task/hero-category/",
     privacyPolicy: "/landingpage/content/privacy-policy/",
     termsandconditions: "/landingpage/content/terms-conditions/",
     support: { help: `${support}help/`, helpTopics: `${support}help/topic/` },
+    payment: {
+        method: `${payment}cms/payment-method/`,
+        intent: `${payment}intent/`,
+    },
 };
 
 export default urls;

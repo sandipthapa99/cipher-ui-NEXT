@@ -1,8 +1,7 @@
-import { faShare, faShareNodes } from "@fortawesome/pro-regular-svg-icons";
+import { faShareNodes } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import couponWrapperBlack from "public/offers/bar1.png";
-import couponWrapperOrange from "public/offers/bar2.png";
 import React from "react";
 import { Card } from "react-bootstrap";
 

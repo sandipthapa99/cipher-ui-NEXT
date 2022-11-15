@@ -3,11 +3,13 @@ import CardBtn from "@components/common/CardBtn";
 import EllipsisDropdownService from "@components/common/EllipsisDropdownService";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
+import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
 import { EditService } from "@components/services/EditService";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faCalendar,
@@ -21,7 +23,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Text } from "@mantine/core";
-import { Alert, Highlight, Spoiler } from "@mantine/core";
+import { Alert, Spoiler } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -36,16 +38,17 @@ import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { getReviews } from "services/commonServices";
 import { useWithLogin } from "store/use-login-prompt-store";
+import type { RatingResponse } from "types/ratingProps";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
+import { toast } from "utils/toast";
 
 import { MyBookingsCard } from "./MyBookings";
 
@@ -64,12 +67,12 @@ const SearchResultsDetail = ({
     serviceViews,
     currency,
     service,
+    ratedTo,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     // const setBookNowDetails = useSetBookNowDetails();
-    const reviewsContent = getReviews();
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
 
@@ -77,6 +80,10 @@ const SearchResultsDetail = ({
         ...(service?.images ?? []),
         ...(service?.videos ?? []),
     ];
+    const { data: serviceRating } = useData<RatingResponse>(
+        ["tasker-rating", serviceId],
+        `${urls.profile.rating}?service=${serviceId}?rated_to=${ratedTo}`
+    );
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
     const { data: servicesData } = useData<ServicesValueProps>(
@@ -183,7 +190,6 @@ const SearchResultsDetail = ({
     };
 
     const isUserService = user ? serviceProviderId === user?.id : false;
-    console.log(myBookings, "myBookings");
 
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
@@ -201,7 +207,7 @@ const SearchResultsDetail = ({
                     distance={""}
                     bio={item?.created_by?.bio}
                     charge={item?.entity_service?.discount_value}
-                    tasker={""}
+                    tasker={item?.created_by?.user.id}
                     isApproved={item?.is_accepted}
                     designation={item?.created_by.designation}
                 />
@@ -283,13 +289,14 @@ const SearchResultsDetail = ({
     // };
     const handleClickBookNow = () => {
         if (!profile) {
-            toast.error(
-                <ProfileNotCompleteToast text="Please complete your profile before booking a service." />,
-                {
-                    icon: false,
-                    autoClose: false,
-                }
+            toast.showComponent(
+                "Profile Incomplete",
+                <ProfileNotCompleteToast text="Please complete your profile before booking a service." />
             );
+            return;
+        }
+        if (!user?.is_kyc_verified) {
+            toast.showComponent("KYC Incomplete", <KYCIncompleteToast />);
             return;
         }
         setShow(true);
@@ -353,8 +360,8 @@ const SearchResultsDetail = ({
                 <Row>
                     <Col md={12} lg={7}>
                         {(taskVideosAndImages ?? []).length === 1 &&
-                            taskVideosAndImages.map((file) => (
-                                <>
+                            taskVideosAndImages.map((file, index) => (
+                                <Fragment key={index}>
                                     {isImage(file.media_type) ? (
                                         <figure className="thumbnail-img">
                                             <Image
@@ -380,7 +387,7 @@ const SearchResultsDetail = ({
                                             playing videos.
                                         </video>
                                     ) : null}
-                                </>
+                                </Fragment>
                             ))}
                         {(taskVideosAndImages ?? []).length > 1 ? (
                             <Carousel
@@ -476,7 +483,10 @@ const SearchResultsDetail = ({
                                                 {serviceProvider}
                                             </p>
                                             <p className="job">
-                                                {serviceTitle}
+                                                {`${service?.created_by?.bio?.slice(
+                                                    0,
+                                                    20
+                                                )}...`}
                                             </p>
                                         </div>
                                     </div>
@@ -691,23 +701,48 @@ const SearchResultsDetail = ({
                         </div>
                     )}
                 </section>
-                <FilterReview totalReviews={reviewsContent.length} />
+                <hr />
+                <FilterReview
+                    totalReviews={serviceRating?.data?.result?.length}
+                />
+                <hr />
                 <Spoiler
                     maxHeight={450}
                     hideLabel={"Hide all reviews"}
                     showLabel={"See all reviews"}
                     className={"mb-5"}
                 >
-                    {/* {reviewsContent.map((reviewContent, index) => (
-                    <Reviews key={index} {...reviewContent} />
-                ))} */}
-                    <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="Feature TO-BE Implemented"
-                        color="teal"
-                    >
-                        This feature is to be Implemented
-                    </Alert>
+                    {serviceRating &&
+                    serviceRating?.data?.result?.length > 0 ? (
+                        serviceRating?.data?.result?.map((review) => (
+                            <Col md={8} key={review.id}>
+                                <Reviews
+                                    repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
+                                    repliedText={review.reply}
+                                    replied={
+                                        review.reply === null ? false : true
+                                    }
+                                    id={review?.id}
+                                    name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
+                                    raterEmail={review?.rated_by.email}
+                                    ratings={review?.rating}
+                                    description={review?.review}
+                                    time={review?.created_at}
+                                    raterId={review?.rated_by.id}
+                                    ratedByImage={
+                                        review?.rated_by?.profile_image
+                                    }
+                                    ratedToImage={review.rated_to.profile_image}
+                                    ratedToId={review.rated_to.id}
+                                    repliedDate={review.updated_at}
+                                />
+                            </Col>
+                        ))
+                    ) : (
+                        <Alert title="NO DATA AVAILABLE !!!" color="orange">
+                            Sorry, You have no task data to show
+                        </Alert>
+                    )}
                 </Spoiler>
                 <span className="td-divider"></span>
                 {/* <Row className="gx-5">

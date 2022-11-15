@@ -1,4 +1,3 @@
-import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
@@ -22,11 +21,10 @@ import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
 import type { CertificationValueProps } from "types/certificationValueProps";
-import { CertificationFormData } from "utils/formData";
 import { certificateFormSchema } from "utils/formValidation/certificateFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 interface CertificationProps {
     show?: boolean;
@@ -122,10 +120,6 @@ const CertificationForm = ({
                                 };
                                 newValue = newvalidatedValue;
                             }
-                            console.log(
-                                "🚀 ~ file: CertificationForm.tsx ~ line 124 ~ onSubmit={ ~ newValue",
-                                newValue
-                            );
 
                             {
                                 editDetails && isEditProfile

@@ -1,19 +1,22 @@
 import { EditService } from "@components/services/EditService";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
+import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import parse from "html-react-parser";
-import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 // import { parse } from "path";
 import { useState } from "react";
+import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
+import { toast } from "utils/toast";
 
 import ModalCard from "./BookNowModalCard";
 import CardBtn from "./CardBtn";
@@ -27,10 +30,10 @@ const ServiceCard = ({
     serviceCard: ServicesValueProps["result"][0];
     className?: string;
 }) => {
+    const { data: user } = useUser();
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
-
-    const loggedIn = Cookies.get("access");
+    const withLogin = useWithLogin();
 
     const userId = profileDetails?.user.id;
 
@@ -42,9 +45,13 @@ const ServiceCard = ({
     const [showEditModal, setShowEditModal] = useState(false);
 
     const handleShowModal = () => {
-        if (loggedIn && !canEdit) {
+        if (!user?.is_kyc_verified) {
+            toast.showComponent("KYC Incomplete", <KYCIncompleteToast />);
+            return;
+        }
+        if (user && !canEdit) {
             setShowModal(true);
-        } else if (loggedIn && canEdit) {
+        } else if (user && canEdit) {
             setShowEditModal(true);
         } else {
             router.push({
@@ -191,7 +198,7 @@ const ServiceCard = ({
                         </div>
                     </a>
                 </Link>
-                <div className="d-flex justify-content-between align-items-center">
+                <div className="d-flex justify-content-between gap-5 align-items-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
                         {serviceProviderId === userId ? (
                             ""
@@ -208,7 +215,16 @@ const ServiceCard = ({
                                 }
                             />
                         )}
-                        <ShareIcon url={""} quote={""} hashtag={""} />
+                        <ShareIcon
+                            url={
+                                typeof window !== "undefined"
+                                    ? window.location.origin +
+                                      `/service/${serviceCard?.id}`
+                                    : ""
+                            }
+                            quote={""}
+                            hashtag={""}
+                        />
                     </div>
                     {/* <CardBtn
                         btnTitle={`${
@@ -226,7 +242,7 @@ const ServiceCard = ({
                                 : "Book Now"
                         }`}
                         backgroundColor="#211D4F"
-                        handleClick={handleShowModal}
+                        handleClick={withLogin(handleShowModal)}
                     />
                 </div>
             </div>

@@ -1,21 +1,26 @@
+import { useSearchedServices } from "@components/common/Search/searchStore";
 import ServiceNearYouCard from "@components/SearchTask/searchAside";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Loader, ScrollArea } from "@mantine/core";
+import { Alert, ScrollArea } from "@mantine/core";
 import { useServices } from "hooks/service/use-services";
 import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
+import type { IService } from "types/service";
+import { sortItemsByActive } from "utils/sortItemsByActive";
 
 interface ServiceAside {
     children: ReactNode;
     searchParam: string;
 }
 const ServiceAside = ({ searchParam, children }: ServiceAside) => {
+    const searchedService = useSearchedServices();
     const {
         data: servicePages,
         isLoading,
@@ -41,8 +46,10 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
         }
     });
 
+    const allServices = searchedService.length > 0 ? searchedService : services;
+
     const renderServiceCards = () =>
-        services?.map((task, index) => {
+        allServices?.map((task, index) => {
             return (
                 <div
                     key={`${task.id}-${index}`}
@@ -61,7 +68,11 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                                         : " "
                                 }
                                 serviceTitle={task?.title}
-                                serviceRating={task?.rating[0].rating}
+                                serviceRating={
+                                    task?.rating?.length > 0
+                                        ? task?.rating[0].rating
+                                        : ""
+                                }
                                 serviceProviderLocation={task?.location}
                                 serviceSlug={task?.slug}
                                 discount={20} // To do form api
@@ -98,7 +109,7 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                         {isLoading && renderServiceSkeletons()}
                         {!isLoading && searchParam && totalServices > 0 ? (
                             <p className="search-results-text">
-                                {`${totalServices} service matching ${searchParam} found`}
+                                {`${totalServices} search results found`}
                             </p>
                         ) : null}
                         {!isLoading && renderServiceCards()}
@@ -117,7 +128,7 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                                 No Services available at the moment
                             </Alert>
                         )}
-                        {isFetchingNextPage ? <Loader /> : null}
+                        {isFetchingNextPage ? <SkeletonServiceCard /> : null}
                     </ScrollArea.Autosize>
                 </Col>
 

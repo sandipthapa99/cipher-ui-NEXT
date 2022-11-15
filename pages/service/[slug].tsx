@@ -17,7 +17,7 @@ const ServicesDetail = ({
 }) => {
     return (
         <>
-            <ServiceLayout>
+            <ServiceLayout title={service?.title}>
                 <SearchResultsDetail
                     image={service?.images}
                     budget_from={service?.budget_from}
@@ -45,6 +45,7 @@ const ServicesDetail = ({
                     currency={service?.currency?.symbol}
                     ProfileImage={service?.created_by?.profile_image}
                     service={service}
+                    ratedTo={service?.created_by?.email}
                 />
             </ServiceLayout>
         </>

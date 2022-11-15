@@ -9,6 +9,7 @@ import Layout from "@components/Layout";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
@@ -79,6 +80,10 @@ const Help: NextPage = () => {
                                                     router.push({
                                                         pathname:
                                                             help?.redirect,
+                                                        hash: "#faq-topics",
+                                                        query: {
+                                                            topic: help?.query,
+                                                        },
                                                     })
                                                 }
                                             >
@@ -186,15 +191,22 @@ const Help: NextPage = () => {
                         <h1>Frequently Asked Questions</h1>
                         <Accordion flush>
                             {faqData &&
-                                faqData?.data?.result?.map((faq, key) => (
-                                    <FaqContent
-                                        answer={faq.content}
-                                        key={key}
-                                        id={String(faq.id)}
-                                        question={faq.title}
-                                    />
-                                ))}
+                                faqData?.data?.result
+                                    ?.slice(0, 4)
+                                    ?.map((faq, key) => (
+                                        <FaqContent
+                                            answer={faq.content}
+                                            key={key}
+                                            id={String(faq.id)}
+                                            question={faq.title}
+                                        />
+                                    ))}
                         </Accordion>
+                        <Link href="/faq">
+                            <a className="d-flex justify-content-end mt-5">
+                                view more
+                            </a>
+                        </Link>
                     </div>
                 </Container>
             </section>

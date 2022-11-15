@@ -35,7 +35,7 @@ const EquipmentForm = ({
                     <Formik
                         initialValues={EquipmentFormData}
                         validationSchema={equipmentFormSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={async () => {
                             // To be used for API
                             // try {
                             //     axiosClient.post("/routes", values);

@@ -1,6 +1,6 @@
 .review-block {
     padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
     justify-content: center;
 
     @include respond(xs) {
@@ -20,22 +20,61 @@
         display: flex;
         flex-direction: column;
 
-        // justify-content: center;
-        // padding-top: 1rem;
-        padding-left: 1.8rem;
-
         @include respond(xs) {
-            padding-left: 0rem;
             padding-top: 1rem;
         }
         @include respond(sm) {
-            padding-left: 0rem;
+            padding-left: 2rem;
             padding-top: 1rem;
         }
         @include respond(md) {
-            padding-left: 3.8rem;
+            padding-left: 3rem;
         }
 
+        .reply-text {
+            font-size: 1.7rem;
+            cursor: pointer;
+            color: #0693e3;
+            text-decoration: underline;
+        }
+        .replied_by {
+            font-size: 1.4rem;
+        }
+        .reply-text:hover {
+            text-decoration: none;
+        }
+        .reviewer-image {
+            border-radius: 50%;
+        }
+        .Reply-cont {
+            border-bottom: 1px solid #212529;
+            .reply-input {
+                width: 100%;
+                border: none;
+                outline: none;
+                padding-bottom: 0.6rem;
+                font-size: 1.5rem;
+            }
+        }
+        .reply-btn {
+            display: flex;
+            margin-top: 1rem;
+            gap: 1rem;
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
+        .replied-text {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #212529;
+        }
+        .svg-icon {
+            cursor: pointer;
+        }
+        .icons {
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+        }
         .reviewer {
             display: flex;
             align-items: center;
@@ -76,7 +115,7 @@
             }
         }
         .description {
-            padding-top: 1.7rem;
+            // padding-top: 1.7rem;
             font-size: 1.4rem;
             margin-bottom: 0rem !important;
             color: $sub-title-color;

@@ -1,4 +1,3 @@
-import BigButton from "@components/common/Button";
 import {
     faCircleCheck,
     faCircleQuestion,
@@ -13,32 +12,29 @@ import { format } from "date-fns";
 import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useData } from "hooks/use-data";
 import Image from "next/image";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 
-interface KYCDocumentType {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    document_type: string;
-    document_id: string;
-    file: string;
-    issuer_organization: string;
-    issued_date: string;
-    valid_through: any;
-    is_verified: boolean;
-    is_company: boolean;
-    comment: any;
-}
+// interface KYCDocumentType {
+//     id: number;
+//     created_at: string;
+//     updated_at: string;
+//     document_type: string;
+//     document_id: string;
+//     file: string;
+//     issuer_organization: string;
+//     issued_date: string;
+//     valid_through: any;
+//     is_verified: boolean;
+//     is_company: boolean;
+//     comment: any;
+// }
 
 export const KYCStatus = () => {
     const { data: profileDetails } = useGetProfile();
     const { data: KycData } = useGetKYC();
     const { data: KycDocuments } = useGetKYCDocument();
 
-    //
-    //
     const renderDocuments = KycDocuments?.map((item, index: number) => {
         return (
             <Accordion.Item key={index} value={item?.document_id}>
@@ -182,9 +178,7 @@ export const KYCStatus = () => {
             <Row>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">Address</p>
-                    <p className="m-0 text-address">
-                        {profileDetails?.address_line1}
-                    </p>
+                    <p className="m-0 text-address">{KycData?.address}</p>
                 </Col>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">Kyc Verified</p>

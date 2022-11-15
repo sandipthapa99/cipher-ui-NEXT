@@ -1,10 +1,6 @@
 import SaveIcon from "@components/common/SaveIcon";
 import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
-import {
-    faAward,
-    faFaceGrinBeam,
-    faLocationArrow,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faAward, faFaceGrinBeam } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
@@ -16,7 +12,6 @@ import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
 import type { TaskApplicantsProps, TaskApprovedList } from "types/task";
 import type { Tasker } from "types/tasks";
 
@@ -34,7 +29,7 @@ interface Props {
     speciality?: string;
     rating?: number;
     happyClients?: number;
-    awardPercentage?: string | number;
+    awardPercentage?: string | number | any;
     location?: string;
     distance?: string;
     bio?: string;
@@ -168,7 +163,7 @@ export const TeamMembersCard = ({
                                     {rating &&
                                     rating > 0 &&
                                     Number.isSafeInteger(rating) ? (
-                                        <span>{`${rating}.0`}</span>
+                                        <span>{`${rating}`}</span>
                                     ) : rating === null || 0 ? (
                                         <span>0</span>
                                     ) : (
@@ -188,7 +183,7 @@ export const TeamMembersCard = ({
                                         className="award"
                                         icon={faAward}
                                     />
-                                    <span> {awardPercentage}</span>
+                                    <span>{awardPercentage}</span>
                                 </span>
                                 {/* <span className="location d-flex align-items-center">
                                     <FontAwesomeIcon
@@ -225,7 +220,11 @@ export const TeamMembersCard = ({
                             className={"me-3"}
                         />
                     ) : null}
-                    <ShareIcon url={""} quote={""} hashtag={""} />
+                    <ShareIcon
+                        url={`https://homaale.com/tasker/${tasker}`}
+                        quote={""}
+                        hashtag={""}
+                    />
                 </div>
                 <Link href={`/tasker/${tasker}/`}>
                     <a>

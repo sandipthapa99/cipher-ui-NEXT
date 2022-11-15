@@ -1,22 +1,19 @@
 import { CustomDropZone } from "@components/common/CustomDropZone";
-import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
 import { useDocumentKYC } from "hooks/profile/kyc/use-Kyc-Document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
-import { useRouter } from "next/router";
 import { Button, Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { KYCDocumentSchema } from "utils/formValidation/kycDocument";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 export type KYCDocuments = {
     kyc: number | undefined | string;
     document_type: string;
@@ -31,8 +28,6 @@ export const IdentityDocument = () => {
     const { data: KYCData } = useGetKYC();
     const { mutate, isLoading } = useDocumentKYC();
     const { data: KycDocuments, refetch } = useGetKYCDocument();
-    const queryClient = new QueryClient();
-    const router = useRouter();
 
     // if (isLoading) return <FullPageLoader />;
 
@@ -139,7 +134,7 @@ export const IdentityDocument = () => {
                                 labelName="Document ID"
                                 error={errors.document_id}
                                 touch={touched.document_id}
-                                placeHolder="Enter your Account Name"
+                                placeHolder="Enter your document number"
                             />
                         </Col>
                         <Col md={6}>
@@ -148,7 +143,7 @@ export const IdentityDocument = () => {
                                 labelName=" Issuer Organization"
                                 error={errors.issuer_organization}
                                 touch={touched.issuer_organization}
-                                placeHolder="Enter your Account Name"
+                                placeHolder="Enter document Issuer Organization"
                             />
                         </Col>
                     </Row>
@@ -173,7 +168,7 @@ export const IdentityDocument = () => {
                                         className="svg-icons"
                                     />
                                 }
-                                // minDate={new Date()}
+                                maxDate={new Date()}
                                 handleChange={(value) => {
                                     setFieldValue(
                                         "issued_date",
@@ -202,7 +197,7 @@ export const IdentityDocument = () => {
                                             className="svg-icons"
                                         />
                                     }
-                                    // minDate={new Date()}
+                                    minDate={new Date()}
                                     handleChange={(value) => {
                                         setFieldValue(
                                             "valid_through",

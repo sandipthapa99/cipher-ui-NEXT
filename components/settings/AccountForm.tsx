@@ -3,14 +3,12 @@ import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
-import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
 import { ImageUpload } from "@components/ImageUpload";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
-import PhotoEdit from "@components/Profile/PhotoEdit";
 import { SelectCity } from "@components/SelectCity";
 // import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { faCamera } from "@fortawesome/pro-light-svg-icons";
@@ -19,7 +17,6 @@ import {
     faSquareCheck,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
-import { faDisplay } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { createStyles } from "@mantine/core";
@@ -40,17 +37,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import ReactCrop from "react-image-crop";
 import { animateScroll as scroll } from "react-scroll";
-import { toast } from "react-toastify";
 import type { UserBankDetails } from "types/bankDetail";
 import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { safeParse } from "utils/safeParse";
+import { toast } from "utils/toast";
 
 import { FillKyc } from "./FillKyc";
-import { CompleteProfile } from "./ProfileForm";
 import ProfileSuccessModalCard from "./ProfileSuccessModal";
 
 const task_preferences = [
@@ -99,9 +93,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
-    const { data: profile, isLoading } = useGetProfile();
+    const { data: profile } = useGetProfile();
     const { data: KYCData } = useGetKYC();
-
+    const [blobUrl, setBlobUrl] = useState<RequestInfo | URL | undefined>();
     const [image, setImage] = useState();
     const [file, setFile] = useState("");
     const [display, setDisplay] = useState(false);
@@ -127,11 +121,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
     // const [city, setCity] = useState(profile?.city?.id);
 
     const country = profile?.country ? profile?.country.name : "";
-
-    // console.log(
-    //     "🚀 ~ file: AccountForm.tsx ~ line 122 ~ AccountForm ~ profile",
-    //     profile
-    // );
 
     const user_language = profile?.language ? profile?.language.name : "";
 
@@ -174,6 +163,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [languageChange, setLanguageChange] = useState<string | null>(
         user_language
     );
+    const [previewImage, setPreviewImage] = useState<
+        RequestInfo | URL | undefined
+    >();
     const [value, onChange] = useState(new Date());
     const userDateOfBirth = profile
         ? profile.date_of_birth
@@ -260,7 +252,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
         ["tasker-bank-account"],
         "/tasker/bank-details/"
     );
-    const LinkedBank = BankDetails?.data.result;
+
     const cityData = profile
         ? {
               initialId: profile?.city?.id?.toString() ?? "",
@@ -275,6 +267,18 @@ const AccountForm = ({ showAccountForm }: Display) => {
                   : [],
           }
         : {};
+    // {
+    //       initialId: CityFilter.id?.toString() ?? "",
+    //       initialData: CityFilter
+    //           ? [
+    //                 {
+    //                     id: CityFilter.id,
+    //                     label: CityFilter?.name,
+    //                     value: CityFilter.id?.toString(),
+    //                 },
+    //             ]
+    //           : [],
+    //   };
 
     const queryClient = useQueryClient();
 
@@ -294,8 +298,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
             />
         );
 
-    let previewImage: any;
-
     //edit profile
     function isValidURL(str: any) {
         const regex =
@@ -308,7 +310,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
     }
     const onButtonClick = () => {
         // `current` points to the mounted file input element
-        inputRef?.current?.click();
+        profile?.profile_image
+            ? setShowEditForm(true)
+            : inputRef?.current?.click();
+        // inputRef?.current?.click();
         setDisplay(true);
         //  setIsEdtButtonClicked(!isEditButtonClicked);
     };
@@ -408,6 +413,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 );
                             }
                         });
+
                         const editedData = formData;
                         {
                             isEditButtonClicked
@@ -484,6 +490,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 <ImageUpload
                                                     name="profile_image"
                                                     display={display}
+                                                    setIsEditButtonClicked={
+                                                        setIsEditButtonClicked
+                                                    }
                                                     // setDisplay={setDisplay}
                                                     ref={inputRef}
                                                     onChange={(e: any) => {
@@ -501,18 +510,13 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                         // );
 
                                                         setImage(files[0]);
-                                                        image
-                                                            ? (previewImage =
-                                                                  URL.createObjectURL(
-                                                                      image
-                                                                  ))
-                                                            : "";
-
-                                                        isEditButtonClicked
-                                                            ? setShowEditForm(
-                                                                  !showEditForm
-                                                              )
-                                                            : null;
+                                                        // image
+                                                        //     ? (previewImage =
+                                                        //           blobUrl)
+                                                        //     : "";
+                                                        setShowEditForm(
+                                                            !showEditForm
+                                                        );
                                                     }}
                                                     photo={image}
                                                     showEditForm={showEditForm}
@@ -535,6 +539,17 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                     isEditButtonClicked={
                                                         isEditButtonClicked
                                                     }
+                                                    onPhotoEdit={(
+                                                        data,
+                                                        file
+                                                    ) => {
+                                                        setPreviewImage(data);
+                                                        setBlobUrl(data);
+                                                        setFieldValue(
+                                                            "profile_image",
+                                                            file
+                                                        );
+                                                    }}
                                                 />
                                             </>
                                         ) : (
@@ -548,10 +563,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                             profile && profile.profile_image
                                                 ? profile.profile_image
                                                 : isNoProfileImage && file
-                                                ? file
+                                                ? "/userprofile/unknownPerson.jpg"
                                                 : isEditButtonClicked &&
                                                   !profile?.profile_image
                                                 ? "/userprofile/unknownPerson.jpg"
+                                                : !profile && previewImage
+                                                ? previewImage
                                                 : isEditButtonClicked
                                                 ? previewImage
                                                 : "/userprofile/unknownPerson.jpg"
@@ -712,14 +729,18 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     />
                                 }
                                 disabled={isInputDisabled}
-                                // minDate={new Date()}
                                 handleChange={(value) => {
                                     setFieldValue(
                                         "date_of_birth",
                                         format(new Date(value), "yyyy-MM-dd")
                                     );
                                 }}
+                                //    value={getYearsRange({ from: 2020, to: 2025 })}
+                                excludeDate={(date) =>
+                                    date.getFullYear() <= 1940
+                                }
                             />
+
                             {/* <DatePicker
                                 label="Date of birth"
                                 // value={
@@ -739,7 +760,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                             /> */}
                             <hr />
-                            <h3>Profession Information</h3>
+                            <h3>Professional Information</h3>
                             <h4>Select User Type</h4>
                             <div
                                 role="group"
@@ -851,7 +872,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                             />
                             <SelectCity
-                                disabled={isInputDisabled}
+                                disabled={isInputDisabled || !countryChange}
+                                countryId={countryChange ? countryChange : ""}
                                 label="City"
                                 placeholder="Select your city"
                                 onCityChange={(city) =>
@@ -875,7 +897,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <PlacesAutocomplete
                                 size="md"
                                 label="Address Line 1"
-                                placeholder="Enter your available address"
+                                placeholder="Enter your primary address"
                                 disabled={isInputDisabled}
                                 error={
                                     touched.address_line1 &&

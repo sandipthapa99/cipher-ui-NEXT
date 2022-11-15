@@ -25,13 +25,11 @@ import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
-import type { MyBookings } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useRef } from "react";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
@@ -53,15 +51,10 @@ const AppliedTaskDetail = ({
     type?: string;
     taskDetail: ITask;
 }) => {
-    const { data: myRequestedTask } = useData<MyBookings>(
-        ["my-requested-task"],
-        `${urls.task.requested_task}`
-    );
-
-    const requestedTask = myRequestedTask?.data.result.find(
-        (requestedTask: any) =>
-            requestedTask?.entity_service.id === taskDetail.id
-    );
+    // const { data: myRequestedTask } = useData<MyBookings>(
+    //     ["my-requested-task"],
+    //     `${urls.task.requested_task}`
+    // );
 
     // const taskId = taskDetail ? requestedTask?.entity_service.id : "";
 
@@ -166,7 +159,7 @@ const AppliedTaskDetail = ({
                             <Modal
                                 show={showModal}
                                 onHide={() => setShowModal(false)}
-                                backdrop="static"
+                                // backdrop="static"
                                 className="post-modal"
                             >
                                 <Modal.Header
@@ -297,7 +290,7 @@ const AppliedTaskDetail = ({
                         </span>
                     </p>
                     {taskDetail?.created_at && (
-                        <p>
+                        <p className="d-flex align-items-center">
                             <FontAwesomeIcon
                                 icon={faCalendar}
                                 className="svg-icon svg-icon-calender"
@@ -305,7 +298,7 @@ const AppliedTaskDetail = ({
                             {format(new Date(taskDetail?.created_at), "PP")}
                         </p>
                     )}
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon svg-icon-clock"
@@ -314,7 +307,7 @@ const AppliedTaskDetail = ({
                             ? format(new Date(taskDetail?.updated_at), "p")
                             : "N/A"}
                     </p>
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faEye}
                             className="svg-icon svg-icon-eye"

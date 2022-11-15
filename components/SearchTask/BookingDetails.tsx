@@ -1,12 +1,10 @@
 import ServiceHighlights from "@components/common/ServiceHighlights";
-import { Requirements } from "@components/UserTask/UserTaskDetail/atoms/Requirements";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Alert, Highlight, Modal, Spoiler } from "@mantine/core";
+import { Alert, Modal, Spoiler } from "@mantine/core";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
-import parse from "html-react-parser";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import { Fragment } from "react";
@@ -26,7 +24,8 @@ interface BookingDetailsProps {
 const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
     const { data } = useData<BookingDetailProps>(
         ["booking-deatil", bookingId],
-        `/task/entity/service-booking/${bookingId}`
+        `/task/entity/service-booking/${bookingId}`,
+        show
     );
 
     const BookingDetail = data?.data;

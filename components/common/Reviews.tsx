@@ -1,43 +1,68 @@
-import { formatDistanceToNow, parseISO } from "date-fns";
+import { RepliedModal } from "@components/Review/RepliedModal";
+import { ReplyModal } from "@components/Review/ReplyModal";
+import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Rating } from "@mantine/core";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { ReviewsProps } from "types/reviews";
+import { timeago } from "utils/timeago";
 
-import { RatingStars } from "./RatingStars";
 const Reviews = ({
     name,
     ratings,
     description,
     raterEmail,
     time,
-    image,
+    ratedByImage,
+    ratedToImage,
+    id,
+    replied,
+    repliedText,
+    repliedDate,
+    repliedBy,
+    ratedToId,
+    raterId,
 }: ReviewsProps) => {
-    const timeago = () => {
-        try {
-            return formatDistanceToNow(parseISO(time), { addSuffix: true });
-        } catch (error) {
-            return "a while ago";
-        }
+    const [replyState, setReplyState] = useState(false);
+    // const timeago = (time: any) => {
+    //     try {
+    //         return formatDistanceToNow(parseISO(time), { addSuffix: true });
+    //     } catch (error) {
+    //         return "a while ago";
+    //     }
+    // };
+    const handleClose = () => {
+        setReplyState(false);
     };
     //   const { data: profileDetails } = useGetProfileById(raterId);
+    const { data: profile } = useGetProfile();
 
     return (
         <>
             <div>
                 <Row className="review-block">
                     <Col md={1} className="image">
-                        <figure className="thumbnail-img">
-                            <Image
-                                src={
-                                    image
-                                        ? image
-                                        : "/userprofile/unknownPerson.jpg"
-                                }
-                                layout="fill"
-                                objectFit="cover"
-                                alt="referral-card-image"
-                            />
-                        </figure>
+                        <Link href={`/tasker/${raterId}/`}>
+                            <a target="_blank">
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={
+                                            ratedByImage
+                                                ? ratedByImage
+                                                : "/userprofile/unknownPerson.jpg"
+                                        }
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="reviewer-image"
+                                    />
+                                </figure>
+                            </a>
+                        </Link>
                     </Col>
                     <Col md={11}>
                         <div className="review-block__content">
@@ -46,12 +71,56 @@ const Reviews = ({
                                     {name ? name : raterEmail}
                                 </h3>
 
-                                <RatingStars value={ratings} />
-                                <span>{ratings}</span>
+                                <Rating
+                                    value={ratings}
+                                    readOnly
+                                    emptySymbol={
+                                        <FontAwesomeIcon
+                                            icon={emptyStar}
+                                            className="star"
+                                        />
+                                    }
+                                    fullSymbol={
+                                        <FontAwesomeIcon
+                                            icon={faStar}
+                                            className="star"
+                                        />
+                                    }
+                                />
+                                <span>{ratings > 5 ? 5 : ratings}</span>
                             </div>
 
-                            <p className="description">{description}</p>
-                            <p className="time">{timeago()}</p>
+                            <p className="description">
+                                {description ? description : "No Reviews yet"}
+                            </p>
+                            <p className="time">{timeago(time)}</p>
+                            {!replied &&
+                                profile &&
+                                profile?.user.id === ratedToId && (
+                                    <p
+                                        className="reply-text"
+                                        onClick={() => setReplyState(true)}
+                                    >
+                                        Reply
+                                    </p>
+                                )}
+                            {replyState && (
+                                <ReplyModal
+                                    handleClose={handleClose}
+                                    reviewId={id}
+                                    reply={replied}
+                                />
+                            )}
+                            {replied && (
+                                <RepliedModal
+                                    repliedText={repliedText}
+                                    reviewId={id ? id : 0}
+                                    repliedBy={repliedBy}
+                                    repliedDate={repliedDate}
+                                    ratedToImage={ratedToImage}
+                                    ratedToId={ratedToId}
+                                />
+                            )}
                         </div>
                     </Col>
                 </Row>

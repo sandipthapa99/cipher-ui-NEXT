@@ -102,6 +102,9 @@
 @import "components/editService";
 @import "components/comingSoon.scss";
 @import "components/bookingDetails";
+@import "components/reviewModalForm";
+@import "components/cards/myBookedTaskCard";
+@import "components/cards/myBookingTaskCard";
 
 // Pages
 @import "pages/privacyPolicy";
@@ -163,6 +166,7 @@
 @import "Profile/document.scss";
 @import "Profile/rewardcard.scss";
 @import "Profile/addportfolio.scss";
+@import "components/singleTicket";
 
 @import "components/applyPost";
 @import "components/userTaskCard";

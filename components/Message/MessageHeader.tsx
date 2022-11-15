@@ -22,7 +22,6 @@ export const MessageHeader = ({
     username,
     profileImage,
     lastMessage,
-    isOnline,
     isFavorite,
     onBackClick,
 }: MessageHeaderProps) => {

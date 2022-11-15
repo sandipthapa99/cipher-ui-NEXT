@@ -15,7 +15,7 @@ const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
     return (
         <Layout
             title="Blogs | Homaale"
-            description="Explore the insights provided by Homaale"
+            description="Explore the insights and blogs provided by Homaale"
         >
             {/* Recent Blogs Section Start */}
             <section id="recent-blogs" className="recent-blogs">
@@ -29,18 +29,10 @@ const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
                                         <span>Blogs</span>
                                     </h1>
                                     <p>
-                                        Amet minim mollit non deserunt ullamco
-                                        est sit aliqua dolor do amet sint. Velit
-                                        officia consequat duis enim velit
-                                        mollit. Exercitation veniam consequat
-                                        sunt nostrud amet.Amet minim mollit non
-                                        deserunt ullamco est sit aliqua dolor do
-                                        amet sint. Velit officia consequat duis
-                                        enim velit mollit. Exercitation veniam
-                                        consequat sunt nostrud amet.Amet minim
-                                        mollit non deserunt ullamco est sit
-                                        aliqua dolor do amet sint. Velit officia
-                                        consequat duis enim ved
+                                        Our blogs are not limited to our
+                                        services and technology. Find the blogs
+                                        that match your interests or reach out
+                                        to us to post your blogs as well.
                                     </p>
                                 </div>
                             </Col>
@@ -151,10 +143,7 @@ export const getStaticProps: GetStaticProps = async () => {
             revalidate: 10,
         };
     } catch (err: any) {
-        console.log(
-            "🚀 ~ file: index.tsx ~ line 154 ~ constgetStaticProps:GetStaticProps= ~ err",
-            err
-        );
+        console.log(err);
         return {
             props: {
                 blogsData: [],

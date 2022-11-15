@@ -6,6 +6,7 @@ import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox, LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
@@ -15,11 +16,11 @@ import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import { CustomDropZone } from "./CustomDropZone";
 import MantineDateField from "./MantineDateField";
@@ -47,7 +48,7 @@ const BookNowModalCard = ({
     const { mutate, isLoading: bookNowLoading } = useBookNowTask();
     const isBookLoading = uploadPhotoLoading || bookNowLoading;
     const toggleSuccessModal = useToggleSuccessModal();
-
+    const queryClient = new QueryClient();
     const parsedDescription = parse(description ?? "");
 
     return (
@@ -129,9 +130,13 @@ const BookNowModalCard = ({
                             mutate(newvalues, {
                                 onSuccess: () => {
                                     handleClose?.();
+                                    queryClient.invalidateQueries([
+                                        "notification",
+                                    ]);
                                     toggleSuccessModal(
                                         "Your Booking was sent for approval"
                                     );
+
                                     router.push("/home");
                                 },
                                 onError: (error) => {

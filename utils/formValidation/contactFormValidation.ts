@@ -1,3 +1,4 @@
+import type { User } from "types/user";
 import { phoneRegExp } from "utils/helpers";
 import * as Yup from "yup";
 
@@ -30,15 +31,20 @@ export const FeedbackFormSchema = Yup.object().shape({
     // isAgree: isCheckValidate,
     // g_recaptcha_response: stringReqOnly,
 });
-export const SupportFormSchema = Yup.object().shape({
-    full_name: stringValidate,
-    email: emailValidate,
-    phone: phoneValidate,
-    type: selectValidate,
-    reason: stringReqOnly,
-    // isAgree: isCheckValidate,
-    // g_recaptcha_response: stringReqOnly,
-});
+export const SupportFormSchema = (userData: User | null | undefined) =>
+    userData
+        ? Yup.object().shape({
+              type: selectValidate,
+              reason: stringReqOnly,
+          })
+        : Yup.object().shape({
+              full_name: stringValidate,
+              email: emailValidate,
+              phone: phoneValidate,
+              type: selectValidate,
+              reason: stringReqOnly,
+          });
+
 export const FaqFormSchema = Yup.object().shape({
     full_name: stringValidate,
     email: emailValidate,

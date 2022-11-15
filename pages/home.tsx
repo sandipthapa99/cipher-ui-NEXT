@@ -1,16 +1,10 @@
-import DiscountCard from "@components/common/discountCard";
-import ServiceCard from "@components/common/ServiceCard";
 import WelcomeUser from "@components/common/WelcomeUser";
 import Layout from "@components/Layout";
-import { ServiceCategories } from "@components/services/ServiceCategories";
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
-import Link from "next/link";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
 // this gets rid of the hydration error
 // since the data required for this component comes from localstorage, there's no need for ssr
@@ -34,12 +28,12 @@ const Home: NextPage = () => {
                 <Container fluid="xl" className="px-3 px-sm-5">
                     <ApplyPost />
 
-                    <div className="post-task__discount-card">
+                    {/* <div className="post-task__discount-card">
                         <h1>Special Offers &amp; Discount</h1>
 
                         <DiscountCard />
-                    </div>
-                    <div className="post-task__popular-services">
+                    </div> */}
+                    {/* <div className="post-task__popular-services">
                         <div className="title-wrapper d-flex justify-content-between">
                             <h1 className="heading-title">
                                 Popular on Homaale
@@ -74,7 +68,7 @@ const Home: NextPage = () => {
                                     }
                                 )}
                         </Row>
-                    </div>
+                    </div> */}
                 </Container>
             </section>
         </Layout>

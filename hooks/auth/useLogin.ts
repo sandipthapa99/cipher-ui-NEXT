@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import urls from "constants/urls";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
@@ -11,18 +12,29 @@ export interface LoginPayload {
 export interface LoginSuccessResponse {
     refresh: string;
     access: string;
+    has_profile: boolean;
 }
 
 export const useLogin = () => {
-    return useMutation<void, Error, LoginPayload>(async (loginPayload) => {
+    return useMutation<boolean, Error, LoginPayload>(async (loginPayload) => {
         try {
             const { data } = await axiosClient.post<LoginSuccessResponse>(
                 urls.user.login,
                 loginPayload
             );
             autoLogin(data.access, data.refresh);
+            return data.has_profile;
         } catch (error: any) {
-            throw new Error("Invalid email or password");
+            // if (error instanceof AxiosError) {
+            //     throw new Error(error.response?.data);
+            // }
+            throw new Error(
+                error.response.data.username
+                    ? error.response.data.username
+                    : error.response.data.password
+                    ? error.response.data.password
+                    : ""
+            );
         }
     });
 };

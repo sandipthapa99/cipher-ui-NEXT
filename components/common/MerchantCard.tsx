@@ -31,19 +31,16 @@ const MerchantCard = ({
         <div className="merchant-card-block">
             <Link href={`/tasker/${merchantId}`}>
                 <a>
-                    <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
+                    <div className="d-flex flex-column flex-sm-row merchant-intro">
                         <figure className="thumbnail-img">
-                            {!merchantImage ||
-                                (merchantImage?.length <= 0 && (
-                                    <Image
-                                        src={
-                                            "/placeholder/profilePlaceholder.png"
-                                        }
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="merchant-image"
-                                    />
-                                ))}
+                            {!merchantImage && (
+                                <Image
+                                    src={"/placeholder/profilePlaceholder.png"}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="merchant-image"
+                                />
+                            )}
                             {merchantImage && (
                                 <Image
                                     src={merchantImage}
@@ -162,7 +159,16 @@ const MerchantCard = ({
                                 ])
                             }
                         />
-                        <ShareIcon url={""} quote={""} hashtag={""} />
+                        <ShareIcon
+                            url={
+                                typeof window !== "undefined"
+                                    ? window.location.origin +
+                                      `/tasker/${merchantId}`
+                                    : ""
+                            }
+                            quote={""}
+                            hashtag={""}
+                        />
                     </div>
                     <Link href={`/tasker/${merchantId}`}>
                         <a>

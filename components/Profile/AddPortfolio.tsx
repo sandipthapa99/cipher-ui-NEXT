@@ -8,7 +8,7 @@ import { RichText } from "@components/RichText";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, LoadingOverlay } from "@mantine/core";
-import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { MIME_TYPES } from "@mantine/dropzone";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
@@ -20,12 +20,12 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
 import type { AddPortfolioProps } from "types/editProfile";
 import { axiosClient } from "utils/axiosClient";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 interface AddPortfolioModalProps {
     show?: boolean;
     id?: number;
@@ -307,10 +307,6 @@ const AddPortfolio = ({
 
                                 editData = newPayloadWithoutImageAndFile;
                             }
-                            console.log(
-                                "🚀 ~ file: AddPortfolio.tsx ~ line 285 ~ onSubmit={ ~ editData",
-                                editData
-                            );
 
                             // delete addPortfolioPayload.files;
                             // delete addPortfolioPayload.images;
@@ -520,7 +516,7 @@ const useStyles = createStyles(() => ({
     overlay: {
         postion: "fixed",
         inset: 0,
-        zIndex: 9999,
+        //zIndex: 9999,
     },
 }));
 export default AddPortfolio;

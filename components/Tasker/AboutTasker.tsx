@@ -1,19 +1,18 @@
 import PortfolioDetails from "@components/Profile/PortfolioDetail";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Highlight } from "@mantine/core";
+import { Alert } from "@mantine/core";
 import { format } from "date-fns";
+import parse from "html-react-parser";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskerProps } from "types/taskerProps";
-
-interface AboutTasker {
-    taskerDetail: TaskerProps["result"][0];
+import type { ITasker } from "types/tasker";
+interface AboutTaskerProps {
+    taskerDetail: ITasker;
 }
 
-export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
+export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
     const userSkills = taskerDetail?.skill
         ? JSON.parse(taskerDetail?.skill)
         : [];
@@ -149,9 +148,9 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                                         {value?.employment_type}
                                                     </p>
                                                 </div>
-                                                <p className="description">
-                                                    {value?.description}
-                                                </p>
+                                                <div className="description">
+                                                    {parse(value?.description)}
+                                                </div>
                                                 <p className="date">
                                                     {format(
                                                         new Date(
@@ -326,7 +325,9 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                                       {/* </Link> */}
                                                   </div>
                                                   <h3 className="program">
-                                                      {value?.description}
+                                                      {parse(
+                                                          value?.description
+                                                      )}
                                                   </h3>
                                                   <p className="date">
                                                       {format(

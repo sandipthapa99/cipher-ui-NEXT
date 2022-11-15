@@ -18,7 +18,6 @@ import {
     Modal,
     Stack,
     Text,
-    Textarea,
     TextInput,
     Title,
 } from "@mantine/core";
@@ -30,10 +29,10 @@ import Link from "next/link";
 import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ServicesValueProps } from "types/serviceCard";
 import { safeParse } from "utils/safeParse";
+import { toast } from "utils/toast";
 
 interface EditServiceProps {
     showEditModal: boolean;

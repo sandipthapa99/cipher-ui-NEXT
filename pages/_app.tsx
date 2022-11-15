@@ -1,14 +1,12 @@
-import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/bundle.scss";
-import "react-toastify/dist/ReactToastify.css";
 import "@smastrom/react-rating/style.css";
 
-// import "../public/firebase-messaging-sw";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
 import { MantineProvider } from "@mantine/core";
-import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
+import { Dialog, Text } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
+import { NotificationsProvider } from "@mantine/notifications";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
@@ -17,22 +15,26 @@ import {
     QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { clear } from "console";
-import { useUser } from "hooks/auth/useUser";
 import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 import { firebaseCloudMessaging } from "../firebase/firebase";
-
-// import { getFirebaseToken, onMessageListener } from "../utils/firebase";
 
 interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     pageProps: {
         dehydratedState: DehydratedState;
     };
 }
+const getReptcha = () => {
+    const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+    if (RECAPTCHA_SITE_KEY === undefined)
+        throw new Error(
+            "Please specify an RECAPTCHA_SITE_KEY in the environment variable RECAPTCHA_SITE_KEY"
+        );
+    return RECAPTCHA_SITE_KEY;
+};
 
 function MyApp({ Component, pageProps }: CustomAppProps) {
     const [queryClient] = useState(
@@ -88,24 +90,29 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             >
                 <QueryClientProvider client={queryClient}>
                     <ReactQueryDevtools />
-                    <ToastContainer
-                        position="top-center"
-                        hideProgressBar={true}
-                        autoClose={1000}
-                    />
                     <Hydrate state={pageProps.dehydratedState}>
                         <MantineProvider>
-                            <ModalsProvider
-                                labels={{
-                                    confirm: "Submit",
-                                    cancel: "Cancel",
-                                }}
+                            <NotificationsProvider
+                                limit={1}
+                                position="top-center"
+                                autoClose={3000}
                             >
-                                <RouterTransition />
-                                {/* <UserLoadingOverlay /> */}
-                                <LoginPrompt />
-                                <Component {...pageProps} />
-                            </ModalsProvider>
+                                <ModalsProvider
+                                    labels={{
+                                        confirm: "Submit",
+                                        cancel: "Cancel",
+                                    }}
+                                >
+                                    <RouterTransition />
+                                    {/* <UserLoadingOverlay /> */}
+                                    <LoginPrompt />
+                                    <GoogleReCaptchaProvider
+                                        reCaptchaKey={getReptcha()}
+                                    >
+                                        <Component {...pageProps} />
+                                    </GoogleReCaptchaProvider>
+                                </ModalsProvider>
+                            </NotificationsProvider>
                         </MantineProvider>
                     </Hydrate>
                 </QueryClientProvider>
@@ -115,13 +122,13 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 onClose={() => setOpened(false)}
                 size="lg"
                 radius="md"
-                className="d-flex gap-3"
+                className="d-flex gap-3 notification-dialog"
             >
                 <Text
                     size="sm"
                     className="m-0"
                     style={{ marginBottom: 10 }}
-                    weight={500}
+                    weight={400}
                 >
                     Allow notification for Web notifications.
                 </Text>

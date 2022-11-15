@@ -8,11 +8,10 @@ import { useState } from "react";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
-import { ApproveNotify } from "./ApproveNotify";
 import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
-import { CreatedTask } from "./dropdown-notifications/CreatedTask";
+import { KycDetails } from "./KycDetails";
 import { PostNotifyTask } from "./PostedTask";
-import { ServiceAccept } from "./ServiceAccept";
+import { TaskStatus } from "./TaskStatus";
 
 export const NotificationDropdown = () => {
     const { data: allNotifications, refetch } = useGetNotification();
@@ -58,8 +57,9 @@ export const NotificationDropdown = () => {
         refetch();
     };
 
-    const renderTodayNotifications = todayNotifications?.map(
-        (notification: any, index: number) => {
+    const renderNotifications = allNotifications?.result
+        .slice(0, 5)
+        .map((notification: any, index: number) => {
             if (notification.title === "created") {
                 return (
                     <div
@@ -75,7 +75,6 @@ export const NotificationDropdown = () => {
                             ]);
                         }}
                     >
-                        {/* <ApproveNotify date={notification.created_date} /> */}
                         <PostNotifyTask
                             read={notification?.read_date}
                             is_requested={notification.is_requested}
@@ -96,9 +95,77 @@ export const NotificationDropdown = () => {
                         />
                     </div>
                 );
-            } else if (notification.type === "task") {
+            } else if (notification.title === "status completed") {
                 return (
                     <div key={index}>
+                        <TaskStatus
+                            created_for={notification?.created_for}
+                            read={notification?.read_date}
+                            is_requested={notification.is_requested}
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
+                            notificationTaskStatus="completed"
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
+                                )
+                            }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "status closed") {
+                return (
+                    <div key={index}>
+                        <TaskStatus
+                            created_for={notification?.created_for}
+                            read={notification?.read_date}
+                            is_requested={notification.is_requested}
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
+                            notificationTaskStatus="closed"
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
+                                )
+                            }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "booking") {
+                return (
+                    <div
+                        key={index}
+                        onClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
+                            )
+                        }
+                    >
+                        {/* <ApproveNotify
+                        body={notification?.object}
+                        date={notification?.created_date}
+                        title={notification?.title}
+                        handleClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id
+                            )
+                        }
+                    /> */}
                         <PostNotifyTask
                             read={notification?.read_date}
                             is_requested={notification.is_requested}
@@ -106,6 +173,161 @@ export const NotificationDropdown = () => {
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
                             slug={notification?.object_slug}
+                            type={"booked"}
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
+                                )
+                            }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "approval") {
+                return (
+                    <div
+                        key={index}
+                        onClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
+                            )
+                        }
+                    >
+                        <ApproveNotification
+                            read={notification.read_date}
+                            bookingId={notification?.object_id}
+                            title="booked"
+                            body={notification?.object}
+                            user={notification?.created_for}
+                            accept={true}
+                            slug={notification?.object_slug}
+                            date={notification?.created_date}
+                            type={
+                                notification.is_requested ? "task" : "service"
+                            }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "Approved") {
+                return (
+                    <div
+                        key={index}
+                        onClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
+                            )
+                        }
+                    >
+                        <ApproveNotification
+                            read={notification?.read_date}
+                            is_requested={notification.is_requested}
+                            title="Approved"
+                            body={notification?.object}
+                            user={notification?.created_for}
+                            date={notification?.created_date}
+                            type="booking"
+                            slug={notification?.object_slug}
+                        />
+                    </div>
+                );
+            }
+        });
+
+    const renderTodayNotifications = todayNotifications?.map(
+        (notification: any, index: number) => {
+            if (notification.title === "created") {
+                return (
+                    <div
+                        key={index}
+                        onClick={async () => {
+                            router.push(`/task/${notification.object_slug}`);
+                            await axiosClient.get(
+                                `/notification/read/?id=${notification.id}`
+                            );
+
+                            await queryClient.invalidateQueries([
+                                "notification",
+                            ]);
+                        }}
+                    >
+                        <PostNotifyTask
+                            read={notification?.read_date}
+                            is_requested={notification.is_requested}
+                            taskTitle={`${notification.title} a service`}
+                            taskObject={notification.object}
+                            createdDate={notification.created_date}
+                            slug={notification.object_slug}
+                            type={"created"}
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
+                                )
+                            }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "status completed") {
+                return (
+                    <div key={index}>
+                        {/* <PostNotifyTask
+                        read={notification?.read_date}
+                        is_requested={notification.is_requested}
+                        taskTitle={notification?.title}
+                        taskObject={notification?.object}
+                        createdDate={notification?.created_date}
+                        slug={notification?.object_slug}
+                        handleClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
+                            )
+                        }
+                    /> */}
+                        <TaskStatus
+                            created_for={notification?.created_for}
+                            read={notification?.read_date}
+                            is_requested={notification.is_requested}
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
+                            notificationTaskStatus="completed"
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
+                                )
+                            }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "status closed") {
+                return (
+                    <div key={index}>
+                        <TaskStatus
+                            created_for={notification?.created_for}
+                            read={notification?.read_date}
+                            is_requested={notification.is_requested}
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
+                            notificationTaskStatus="closed"
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,
@@ -238,6 +460,24 @@ export const NotificationDropdown = () => {
                         />
                     </div>
                 );
+            } else if (notification.type === "kycdocument") {
+                return (
+                    <div
+                        key={index}
+                        onClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
+                            )
+                        }
+                    >
+                        <KycDetails
+                            createdDate={notification?.created_date}
+                            is_requested={notification.is_requested}
+                        />
+                    </div>
+                );
             }
         }
     );
@@ -275,12 +515,15 @@ export const NotificationDropdown = () => {
                     Mark all as read
                 </p>
             </div>
-            {todayNotifications.length === 0 && (
+            {/* {todayNotifications.length === 0 && (
                 <p className="text-center">
                     No today&apos;s notifications to show.
                 </p>
-            )}
-            {renderTodayNotifications}
+            )} */}
+            {/* {renderTodayNotifications} */}
+            {todayNotifications.length !== 0
+                ? renderTodayNotifications
+                : renderNotifications}
             {/* <ServiceAccept /> */}
 
             {/* <ApproveNotification pay={true} />

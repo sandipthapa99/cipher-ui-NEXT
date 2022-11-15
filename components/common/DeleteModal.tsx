@@ -3,7 +3,7 @@ import { useDeleteData } from "hooks/use-delete";
 import type { Dispatch, SetStateAction } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
+import { toast } from "utils/toast";
 
 interface DeleteModalProps {
     show?: boolean;
@@ -25,7 +25,7 @@ const DeleteModal = ({
     const { mutate } = useDeleteData(`/tasker/${modalName}/${id}/`);
 
     return (
-        <div className="share-modal">
+        <div className="share-modal delete-modal">
             {/* Modal component */}
             <Modal centered show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
@@ -33,7 +33,11 @@ const DeleteModal = ({
                     <h3>Are you sure you want to delete your {modalName}?</h3>
 
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button
+                            className="btn close-btn"
+                            variant="secondary"
+                            onClick={handleClose}
+                        >
                             No
                         </Button>
                         <Button

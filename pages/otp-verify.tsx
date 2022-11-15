@@ -5,11 +5,10 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { resetFormSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { object } from "yup";
+import { toast } from "utils/toast";
 
 const VerifyOtp = () => {
     const router = useRouter();
@@ -26,6 +25,7 @@ const VerifyOtp = () => {
             headerText="Reset your password?"
             mainImg="/illustrations/forgot-pass.svg"
             redirectionLink="/login"
+            title="OTP Verification"
         >
             <Formik
                 initialValues={{ otp: "", password: "", confirm_password: "" }}
@@ -44,7 +44,7 @@ const VerifyOtp = () => {
                                     pathname: "/login",
                                 });
                             },
-                            onError: (error) => {
+                            onError: () => {
                                 toast.error(
                                     "You have entered old password or you entered wrong OTP"
                                 );

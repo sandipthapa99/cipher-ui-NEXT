@@ -9,9 +9,8 @@ import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type {
     BankBranchResult,
     BankNamesResult,
@@ -20,8 +19,7 @@ import type {
 // import { BankFormData } from "utils/formData";
 import { bankFormSchema } from "utils/formValidation/bankDetailsValidation";
 import { isSubmittingClass } from "utils/helpers";
-
-import { CompleteProfile } from "./ProfileForm";
+import { toast } from "utils/toast";
 
 interface editProps {
     id?: number;
@@ -38,10 +36,17 @@ const BankForm = ({
     showBankForm,
 }: editProps & Display) => {
     const { mutate } = useForm(`/tasker/bank-details/`);
-
+    const [disableButton, setDisableButton] = useState(true);
     const [bankId, setBankId] = useState<string>(
         isEdit ? bankDetail.bank_name.id?.toString() || "" : ""
     );
+    const { data: profileDetails } = useGetProfile();
+    const userName =
+        profileDetails?.user.first_name +
+        " " +
+        profileDetails?.user.middle_name +
+        " " +
+        profileDetails?.user.last_name;
 
     useEffect(() => {
         if (id) {
@@ -239,6 +244,7 @@ const BankForm = ({
                             onChange={(value) => {
                                 handleBankNameChanged(value, setFieldValue);
                                 setBankId(value ? value : "");
+                                setDisableButton(false);
                             }}
                             data={bankNamesResults ?? []}
                             required
@@ -263,6 +269,7 @@ const BankForm = ({
                                 setChangeBranch(value ? value : "");
                                 handleBranchNameChanged(value, setFieldValue);
                                 setIsBankChanged(true);
+                                setDisableButton(false);
                             }}
                             data={
                                 !isLoading ? bankBranchResults : [" Loading..."]
@@ -276,8 +283,13 @@ const BankForm = ({
                                     labelName="Bank Account Name"
                                     error={errors.bank_account_name}
                                     touch={touched.bank_account_name}
-                                    placeHolder="Enter Account Name"
+                                    placeHolder={
+                                        userName
+                                            ? userName
+                                            : "Enter Account Name"
+                                    }
                                     fieldRequired
+                                    // onChange={() => setDisableButton(false)}
                                 />
                             </Col>
                             <Col md={6}>
@@ -288,6 +300,7 @@ const BankForm = ({
                                     error={errors.bank_account_number}
                                     touch={touched.bank_account_number}
                                     placeHolder="Enter Account Number"
+                                    // onChange={() => setDisableButton(false)}
                                     fieldRequired
                                 />
                             </Col>
@@ -308,7 +321,9 @@ const BankForm = ({
                         <div className="d-flex justify-content-end">
                             <Button
                                 className="me-3 mb-0 cancel-btn"
-                                onClick={() => resetForm()}
+                                onClick={() => {
+                                    resetForm();
+                                }}
                             >
                                 Clear
                             </Button>
@@ -317,6 +332,7 @@ const BankForm = ({
                                 type="submit"
                                 variant="primary"
                                 name="Apply"
+                                disabled={disableButton ? true : false}
                                 className="submit-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(

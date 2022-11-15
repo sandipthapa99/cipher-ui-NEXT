@@ -1,8 +1,6 @@
-import ShareIcon from "@components/common/ShareIcon";
-import { url } from "inspector";
 import Image from "next/image";
 import React from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 
 import OfferCard from "./OfferCard";
 

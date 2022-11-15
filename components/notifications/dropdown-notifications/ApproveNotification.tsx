@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
 import { AcceptReject } from "../AcceptReject";
-import { Pay } from "../Pay";
 
 interface BookingDetails {
     id: number;
@@ -162,6 +162,7 @@ export const ApproveNotification = ({
     is_requested,
     read,
 }: ApproveNotificationProps) => {
+    const { data: profile } = useGetProfile();
     const { data: bookingData } = useQuery<BookingDetails>(
         ["booking", bookingId],
         async () => {
@@ -175,13 +176,17 @@ export const ApproveNotification = ({
     return (
         <div
             className="d-flex approve-notification-dropdown"
-            style={{ backgroundColor: read === null ? "#ecf7ff" : "#ebf9f1" }}
+            style={{ backgroundColor: read === null ? "#ecf7ff" : "#f8f9fa" }}
         >
             <div className="d-flex">
                 <figure className="dropdown-notification-image">
                     <Image
                         alt="testimage"
-                        src="/userprofile/unknownPerson.jpg"
+                        src={
+                            profile
+                                ? profile?.profile_image
+                                : "/logo/homaale-favicon.png"
+                        }
                         height={50}
                         width={50}
                     />
@@ -202,10 +207,9 @@ export const ApproveNotification = ({
                     <div className=" mt-1 date-approve-section">
                         <p className="date m-0">
                             {date
-                                ? format(
-                                      new Date(date),
-                                      "EEEE, do LLL, hh:mm a"
-                                  )
+                                ? formatDistanceToNow(new Date(date), {
+                                      addSuffix: true,
+                                  })
                                 : ""}
                         </p>
 

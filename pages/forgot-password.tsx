@@ -6,13 +6,13 @@ import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import {
     emailValidationSchema,
     phoneNumberValidationSchema,
 } from "utils/formValidation/emailValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const ForgotPassword = () => {
     const [sendOnce, setSendOnce] = useState(false);
@@ -30,6 +30,7 @@ const ForgotPassword = () => {
             mainImg="/illustrations/forgot-pass.svg"
             redirectionLink="/login"
             currentPage="forgot-password"
+            title="Forgot Password"
         >
             <div className="choose-email-or-phone mb-5">
                 <Radio.Group
@@ -86,7 +87,7 @@ const ForgotPassword = () => {
                                     });
                                 }
                             },
-                            onError: (error) => {
+                            onError: () => {
                                 toast.error("please enter valid user");
                             },
                         });

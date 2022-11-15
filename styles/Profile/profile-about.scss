@@ -1,5 +1,4 @@
 .about-profile {
-    padding-bottom: 2.5rem;
     p {
         margin-bottom: 0rem;
     }
@@ -10,6 +9,16 @@
     }
     .file-attachment {
         display: none;
+    }
+    .program,
+    .description {
+        p {
+            margin-bottom: 0rem;
+        }
+    }
+    .mantine-1js7218,
+    .mantine-14msfi2 {
+        font-weight: 400;
     }
     h3 {
         font-size: 1.4rem;
@@ -30,11 +39,24 @@
         font-size: 1.3rem;
         font-weight: 400;
     }
+    .star {
+        width: 2.3rem;
+        color: #fab005;
+        height: 2.3rem;
+        margin-left: 0.5rem;
+    }
+    .mantine-1jqub9a,
+    .mantine-oumttf {
+        width: 2.3rem;
+        color: #fab005;
+        height: 2.3rem;
+        margin-left: 0.5rem;
+    }
     .type {
         padding-top: 2rem;
         border-bottom: 0.1rem solid $border-color;
-        padding-left: 2.5rem;
-        padding-right: 3rem;
+        padding-left: 3.6rem;
+        padding-right: 3.6rem;
 
         &:last-child {
             border-bottom: none;
@@ -134,6 +156,10 @@
     }
 
     .experience {
+        .mantine-1js7218,
+        .mantine-14msfi2 {
+            font-weight: 400;
+        }
         &__type {
             margin-top: 1.6rem;
             &:last-child {

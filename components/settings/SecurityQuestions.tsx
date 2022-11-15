@@ -15,9 +15,9 @@ import { useEditForm } from "hooks/use-edit-form";
 import type { GetStaticProps } from "next";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 export const SecurityQuestions = () => {
     const [openInput, setOpenInput] = useState(false);
@@ -145,7 +145,7 @@ export const SecurityQuestions = () => {
                                 initialValues={{
                                     answer: item?.answer,
                                 }}
-                                onSubmit={async (values, action) => {
+                                onSubmit={async (values) => {
                                     editAnswer(values, {
                                         onSuccess: () => {
                                             toast.success(
