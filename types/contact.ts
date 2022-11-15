@@ -12,6 +12,8 @@ export interface SupportValuesProps {
     full_name: string;
     email: string;
     phone: string;
+    attachment: any[];
+    imagePreviewUrl?: any[];
     type: string;
     reason: string;
 }

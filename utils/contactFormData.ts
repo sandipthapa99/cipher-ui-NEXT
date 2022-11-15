@@ -18,6 +18,8 @@ export const FeedbackFormData: FeedbackValuesProps = {
 export const SupportFormData: SupportValuesProps = {
     full_name: "",
     email: "",
+    attachment: [],
+    imagePreviewUrl: [],
     phone: "",
     type: "",
     reason: "",
