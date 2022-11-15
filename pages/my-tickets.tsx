@@ -1,8 +1,11 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
-import { Button, Col, Grid, Skeleton } from "@mantine/core";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, Col, Grid, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import Image from "next/image";
 import React from "react";
 import { Container } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
@@ -75,11 +78,18 @@ const MyTickets = () => {
             }
         }
     );
-    console.log("data", supportTickets?.result);
 
     const renderAllTickets = supportTickets?.result.map((ticket) => {
         return (
-            <div key={ticket.id}>
+            <div key={ticket.id} className="all-support">
+                <figure className="m-4 support-figure">
+                    <Image
+                        alt="support"
+                        src={"/logo/homaale-logo_png.png"}
+                        width={400}
+                        height={400}
+                    />
+                </figure>
                 <SingleTickets
                     reason={ticket?.type.name}
                     description={ticket?.reason}
@@ -96,7 +106,17 @@ const MyTickets = () => {
             <section className="my-order-section" id="my-order-section">
                 <BreadCrumb currentPage="My-Tickets" />
                 <Container fluid="xl">
-                    {renderAllTickets}
+                    {supportTickets?.result.length === 0 && !isFetching ? (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title={"No Tickets Avaiable."}
+                            color="orange"
+                        >
+                            {`You dont have opened any support tickets.`}
+                        </Alert>
+                    ) : (
+                        renderAllTickets
+                    )}
                     {isFetching && (
                         <Grid className="p-5">
                             <Col span={3}>
