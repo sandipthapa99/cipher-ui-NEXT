@@ -57,8 +57,8 @@ const CareerDeatils = ({
                             Apply
                         </AnchorButton>
                     </div>
-                    <HiringStage />
-                    <LeaveYourCV />
+                    {/* <HiringStage />
+                    <LeaveYourCV /> */}
                 </Container>
             </section>
         </Layout>
