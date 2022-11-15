@@ -41,6 +41,8 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
             opened={show}
             onClose={() => setShow(false)}
             title=" Booking Details"
+            overlayOpacity={0.55}
+            overlayBlur={3}
             size="xl"
         >
             <div className="border-0 p-2 my-5 my-lg-0 booking-detail">
