@@ -1,14 +1,18 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
+import { CustomDropZone } from "@components/common/CustomDropZone";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import ReCaptchaV3 from "@components/common/ReCaptchaV3";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
-import { useQuery } from "@tanstack/react-query";
+import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { useSupport } from "hooks/support/useSupport";
+import { useUploadFile } from "hooks/use-upload-file";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -22,6 +26,8 @@ const Support = () => {
     const { data } = useQuery(["support-tickets"], async () => {
         return axiosClient.get("support/support-ticket-type/options/");
     });
+
+    const { mutateAsync, isLoading: uploadPhotoLoading } = useUploadFile();
     const renderIssueTypes = data?.data?.map((item: any) => {
         return {
             label: item?.name,
@@ -69,12 +75,17 @@ const Support = () => {
                                     onSubmit={async (values, action) => {
                                         const formData = new FormData();
 
+                                        const imageIds = await mutateAsync({
+                                            files: values.attachment,
+                                        });
+
                                         formData.append(
                                             "g_recaptcha_response",
                                             token
                                         );
                                         const newData = {
                                             ...values,
+                                            attachment: imageIds,
                                             g_recaptcha_response: token,
                                         };
                                         mutate(newData, {
@@ -90,7 +101,12 @@ const Support = () => {
                                         });
                                     }}
                                 >
-                                    {({ isSubmitting, errors, touched }) => (
+                                    {({
+                                        isSubmitting,
+                                        errors,
+                                        touched,
+                                        setFieldValue,
+                                    }) => (
                                         <Form>
                                             {!userData && (
                                                 <>
@@ -143,6 +159,18 @@ const Support = () => {
                                                 as="textarea"
                                                 fieldRequired
                                             />
+                                            <CustomDropZone
+                                                accept={IMAGE_MIME_TYPE}
+                                                fileType="image"
+                                                sx={{ maxWidth: "30rem" }}
+                                                name="attachment"
+                                                onDrop={(images) =>
+                                                    setFieldValue(
+                                                        "attachment",
+                                                        images
+                                                    )
+                                                }
+                                            />
 
                                             <ReCaptchaV3
                                                 refresher={refreshReCaptcha}
@@ -154,7 +182,7 @@ const Support = () => {
                                                 type="submit"
                                                 variant="primary"
                                                 name="Send"
-                                                className="submit-btn"
+                                                className="submit-btn mt-5"
                                                 isLoading={isLoading}
                                                 isSubmitting={isSubmitting}
                                                 isSubmittingClass={isSubmittingClass(
