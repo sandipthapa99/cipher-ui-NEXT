@@ -1,42 +1,40 @@
-.single-ticket{
+.single-ticket {
     background-color: #fff;
     border-radius: 1rem;
 
-    .single-ticket-content{
-        padding:3rem 2.5rem;
+    .single-ticket-content {
+        padding: 3rem 2.5rem;
 
-        .head-text{
-            margin:0;
-            font-size:2rem;
-            font-weight:600;
-            color:#000;
-
+        .head-text {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #000;
         }
-        .date-text-ticket{
-            margin:0;
-            font-size:1.4rem;
-            font-weight:600;
-            color:#000;
+        .date-text-ticket {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #000;
         }
-        .desc-cont{
-            margin-top:0.7rem;
-            width:85%;
+        .desc-cont {
+            margin-top: 0.7rem;
+            width: 85%;
 
-            @include respond(xs){
-                width:100%
+            @include respond(xs) {
+                width: 100%;
             }
-            
 
-            .desc-para{
+            .desc-para {
                 margin: 0;
-                font-size:1.4rem;
-                color:#000;
+                font-size: 1.4rem;
+                color: #000;
             }
         }
-        .badge-cont{
+        .badge-cont {
             margin-top: 1rem;
-            display:flex;
-            gap:1rem;
+            display: flex;
+            gap: 1rem;
         }
     }
 }
