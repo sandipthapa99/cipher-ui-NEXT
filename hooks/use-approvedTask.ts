@@ -14,7 +14,7 @@ export const useApprovedTask = (
         setChangePage(page);
     }, [page]);
     return useQuery(
-        ["create-task", searchParam, changePage, myState],
+        ["approved-task", searchParam, changePage, myState],
         () =>
             axiosClient
                 .get<ApprovedTaskProps>(
