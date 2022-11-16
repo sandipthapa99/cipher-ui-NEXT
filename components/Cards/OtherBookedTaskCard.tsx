@@ -52,13 +52,10 @@ export const OtherBookedTaskCard = ({
 
     const taskCloseHandler = (task_id: string) => {
         taskCloseMutaion.mutate(
-            { id: task_id, status: "Close" },
+            { id: task_id, status: "Closed" },
             {
                 onSuccess: async (message) => {
-                    await queryClient.invalidateQueries([
-                        "approved-task",
-                        task_id,
-                    ]);
+                    await queryClient.invalidateQueries(["approved-task"]);
                     setOpenReviewModal(true);
                     toast.success(message);
                 },
@@ -300,7 +297,7 @@ export const OtherBookedTaskCard = ({
                     <div className="share-icon">
                         <ShareIcon url={""} quote={""} hashtag={""} showText />
                     </div>
-                    {Approvedtask && Approvedtask?.status === "Open" && (
+                    {Approvedtask && Approvedtask?.is_paid === false && (
                         <Button
                             variant="light"
                             onClick={() =>
@@ -313,19 +310,21 @@ export const OtherBookedTaskCard = ({
                             Pay Now
                         </Button>
                     )}
-                    {Approvedtask && Approvedtask?.status === "Completed" && (
-                        <Button
-                            variant="light"
-                            color="green"
-                            onClick={() => {
-                                taskCloseHandler(
-                                    Approvedtask?.id ? Approvedtask?.id : ""
-                                );
-                            }}
-                        >
-                            Close
-                        </Button>
-                    )}
+                    {Approvedtask &&
+                        Approvedtask?.status === "Completed" &&
+                        Approvedtask?.is_paid && (
+                            <Button
+                                variant="light"
+                                color="green"
+                                onClick={() => {
+                                    taskCloseHandler(
+                                        Approvedtask?.id ? Approvedtask?.id : ""
+                                    );
+                                }}
+                            >
+                                Close
+                            </Button>
+                        )}
                 </span>
             </div>
             {router.query.activeTab === "1" && (

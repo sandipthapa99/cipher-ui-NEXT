@@ -123,7 +123,7 @@ export const MyOrder = () => {
                             )
                         )}
                 </div>
-                {!isLoading && orders.length <= 0 && (
+                {!isLoading && orders?.length <= 0 && (
                     <div className="bg-white p-5 text-center">
                         <figure className="position-relative">
                             <Image
