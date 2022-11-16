@@ -17,7 +17,7 @@ export const ApprovedTask = () => {
     const clearSearchedTaskers = useClearSearchedTaskers();
     const clearSearchQuery = useClearSearchQuery();
 
-    const [value, setValue] = useState<string | null>("false");
+    const [value, setValue] = useState<string | null>("true");
 
     const [bookingPageNo, setBookingPageNo] = useState<number>(1);
 
@@ -48,7 +48,7 @@ export const ApprovedTask = () => {
                         onFilterClear={() => setSearchParam("")}
                     />
                 </Grid.Col>
-                <Grid.Col md={2}>
+                <Grid.Col md={2} sm={2}>
                     <Select
                         value={value}
                         onChange={setValue}

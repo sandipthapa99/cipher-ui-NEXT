@@ -72,12 +72,18 @@ export const AllList = () => {
                             mytaskData?.result?.length >= 0 &&
                             mytaskData?.result.map(
                                 (item: MyTaskProps, index: number) => (
-                                    <Grid.Col lg={4} sm={6} key={index}>
-                                        <OtherBookedTaskCard
-                                            linkTo={`/task/${item?.id}`}
-                                            myTask={item}
-                                        />
-                                    </Grid.Col>
+                                    <>
+                                        <Grid.Col lg={4} sm={6} key={index}>
+                                            <OtherBookedTaskCard
+                                                linkTo={
+                                                    item.is_requested === false
+                                                        ? `/service/${item?.id}`
+                                                        : `/task/${item?.id}`
+                                                }
+                                                myTask={item}
+                                            />
+                                        </Grid.Col>
+                                    </>
                                 )
                             )}
                     </>

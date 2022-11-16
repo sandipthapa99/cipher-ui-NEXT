@@ -1,10 +1,12 @@
 import ShareIcon from "@components/common/ShareIcon";
+import { ReviewModal } from "@components/Review/ReviewModal";
 import BookingDetails from "@components/SearchTask/BookingDetails";
 import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
 import { faHourglassClock } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, RingProgress, Text } from "@mantine/core";
 import { Badge } from "@mantine/core";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +16,8 @@ import type { ApprovedTaskProps } from "types/approvedTaskProps";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 import type { MyOrderProps } from "types/myOrderProps";
 import type { MyTaskProps } from "types/myTasksProps";
+import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
 export const OtherBookedTaskCard = ({
     item,
@@ -29,6 +33,42 @@ export const OtherBookedTaskCard = ({
     order?: MyOrderProps["result"][0]["order_item"]["0"];
 }) => {
     const [opened, setOpened] = useState(false);
+    const [openReviewModal, setOpenReviewModal] = useState(false);
+
+    const taskCloseMutaion = useMutation<
+        string,
+        Error,
+        { id: string; status: string }
+    >(async ({ id, status }) =>
+        axiosClient
+            .post("/task/entity/service/task/status/", { task: id, status })
+            .then((res) => res.data.message)
+            .catch((error) => {
+                throw new Error(error?.response?.data);
+            })
+    );
+
+    const queryClient = useQueryClient();
+
+    const taskCloseHandler = (task_id: string) => {
+        taskCloseMutaion.mutate(
+            { id: task_id, status: "Close" },
+            {
+                onSuccess: async (message) => {
+                    await queryClient.invalidateQueries([
+                        "approved-task",
+                        task_id,
+                    ]);
+                    setOpenReviewModal(true);
+                    toast.success(message);
+                },
+                onError: (error) => {
+                    toast.error(error.message);
+                },
+            }
+        );
+    };
+
     let status;
     if (item) {
         status = item?.status;
@@ -122,7 +162,7 @@ export const OtherBookedTaskCard = ({
                             format(new Date(Approvedtask?.created_at), "PPP")}
                     </p>
                     <div
-                        className="center-section d-flex justify-content-between"
+                        className="center-section d-flex flex-column flex-sm-row justify-content-between"
                         role={"button"}
                         onClick={() => setOpened(true)}
                     >
@@ -249,7 +289,7 @@ export const OtherBookedTaskCard = ({
                     </div>
                 </a>
             </Link>
-            <div className="d-flex justify-content-between align-items-center card-footer-section ">
+            <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center card-footer-section ">
                 {!myTask && !Approvedtask && (
                     <Badge color={color}>{item?.status}</Badge>
                 )}
@@ -257,6 +297,9 @@ export const OtherBookedTaskCard = ({
                     <Badge color={color}>{Approvedtask?.status}</Badge>
                 )}
                 <span className="d-flex gap-3">
+                    <div className="share-icon">
+                        <ShareIcon url={""} quote={""} hashtag={""} showText />
+                    </div>
                     {Approvedtask && Approvedtask?.status === "Open" && (
                         <Button
                             variant="light"
@@ -270,10 +313,19 @@ export const OtherBookedTaskCard = ({
                             Pay Now
                         </Button>
                     )}
-
-                    <div className="share-icon">
-                        <ShareIcon url={""} quote={""} hashtag={""} showText />
-                    </div>
+                    {Approvedtask && Approvedtask?.status === "Completed" && (
+                        <Button
+                            variant="light"
+                            color="green"
+                            onClick={() => {
+                                taskCloseHandler(
+                                    Approvedtask?.id ? Approvedtask?.id : ""
+                                );
+                            }}
+                        >
+                            Close
+                        </Button>
+                    )}
                 </span>
             </div>
             {router.query.activeTab === "1" && (
@@ -281,6 +333,15 @@ export const OtherBookedTaskCard = ({
                     show={opened}
                     setShow={setOpened}
                     bookingId={String(item?.id) ?? ""}
+                />
+            )}
+            {Approvedtask?.id && (
+                <ReviewModal
+                    open={
+                        (status === "Completed" || "closed") && openReviewModal
+                    }
+                    handleClose={() => setOpenReviewModal(false)}
+                    taskId={Approvedtask?.id}
                 />
             )}
         </div>
