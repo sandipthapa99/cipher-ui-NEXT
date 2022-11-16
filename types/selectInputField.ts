@@ -4,6 +4,12 @@ export interface SelectOptionProps {
     label: string;
 }
 
+export interface SelectOptionRevisionProps {
+    id: number | string;
+    value: string;
+    label: string;
+}
+
 export interface SelectInputFieldProps {
     name: string;
     labelName?: string;
