@@ -138,14 +138,6 @@ const PROFILE_LINKS = {
             href: "/my-tickets",
             color: "#495057",
         },
-        {
-            title: "My Orders",
-            icon: (
-                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faBoxOpen} />
-            ),
-            href: "/my-order",
-            color: "#495057",
-        },
 
         {
             title: "Offers",

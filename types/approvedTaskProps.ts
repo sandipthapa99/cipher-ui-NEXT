@@ -63,6 +63,7 @@ export type ApprovedTaskProps = {
         estimated_time: number;
         slug: string;
         start_date: string;
+        is_paid: boolean;
         end_date: string;
         completed_on: string;
         start_time: string;

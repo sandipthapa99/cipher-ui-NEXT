@@ -117,6 +117,7 @@ export interface UserProfileProps {
             content_type: any;
             action_time: string;
             object_id: any;
+            object_repr: string;
             action: string;
             change_message: string;
             user: string;
