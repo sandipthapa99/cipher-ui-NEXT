@@ -48,7 +48,7 @@ export const ApprovedTask = () => {
                         onFilterClear={() => setSearchParam("")}
                     />
                 </Grid.Col>
-                <Grid.Col md={2}>
+                <Grid.Col md={2} sm={2}>
                     <Select
                         value={value}
                         onChange={setValue}
