@@ -82,7 +82,7 @@ const MyTickets = () => {
     const renderAllTickets = supportTickets?.result.map((ticket) => {
         return (
             <div key={ticket.id} className="all-support">
-                <figure className="support-figure">
+                <figure className="m-4 support-figure">
                     <Image
                         alt="support"
                         src={
@@ -92,7 +92,6 @@ const MyTickets = () => {
                         }
                         width={350}
                         height={250}
-                        object-fit="cover"
                     />
                 </figure>
                 <SingleTickets
