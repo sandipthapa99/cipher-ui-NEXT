@@ -85,9 +85,13 @@ const MyTickets = () => {
                 <figure className="m-4 support-figure">
                     <Image
                         alt="support"
-                        src={"/logo/homaale-logo_png.png"}
-                        width={400}
-                        height={400}
+                        src={
+                            ticket.attachment.length !== 0
+                                ? ticket?.attachment[0]?.media
+                                : "/logo/homaale-logo_png.png"
+                        }
+                        width={350}
+                        height={250}
                     />
                 </figure>
                 <SingleTickets
