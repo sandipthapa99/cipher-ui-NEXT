@@ -18,7 +18,7 @@ export const MyBookings = () => {
     const clearSearchedTaskers = useClearSearchedTaskers();
     const clearSearchQuery = useClearSearchQuery();
 
-    const [value, setValue] = useState<string | null>("other");
+    const [value, setValue] = useState<string | null>("me");
 
     const [bookingPageNo, setBookingPageNo] = useState<number>(1);
     const [myBookingPageNo, setMyBookingPageNo] = useState<number>(1);
@@ -52,14 +52,14 @@ export const MyBookings = () => {
     return (
         <>
             <Grid className="d-flex align-items-center">
-                <Grid.Col md={10}>
+                <Grid.Col lg={10} md={9}>
                     <SearchCategory
                         searchModal="booking"
                         onSearchParamChange={handleSearchParamChange}
                         onFilterClear={() => setSearchParam("")}
                     />
                 </Grid.Col>
-                <Grid.Col md={2}>
+                <Grid.Col lg={2} sm={3}>
                     <Select
                         value={value}
                         onChange={setValue}
