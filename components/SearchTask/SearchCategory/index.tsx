@@ -247,7 +247,7 @@ export const SearchCategory = ({
                 </Col>
             )}
 
-            <Col md={searchModal !== "booking" ? 8 : 9} className="filter">
+            <Col md={searchModal !== "booking" ? 8 : 9} className="filter my-4">
                 <Box
                     className={
                         classes.categoriesContainer + " " + "box-modifier"
@@ -387,7 +387,7 @@ export const SearchCategory = ({
                     )}
                     {searchModal === "booking" && (
                         <Col className="d-flex justify-content-between gap-5">
-                            <div className="d-flex justify-content-between gap-2">
+                            <div className="d-flex flex-column flex-sm-row justify-content-between gap-2">
                                 <TextInput
                                     value={params.search ?? ""}
                                     icon={
@@ -474,7 +474,6 @@ export const SearchCategory = ({
 };
 const useStyles = createStyles(() => ({
     container: {
-        marginBlock: "2.4rem !important",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
