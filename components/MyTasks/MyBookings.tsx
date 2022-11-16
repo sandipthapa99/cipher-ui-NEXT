@@ -18,7 +18,7 @@ export const MyBookings = () => {
     const clearSearchedTaskers = useClearSearchedTaskers();
     const clearSearchQuery = useClearSearchQuery();
 
-    const [value, setValue] = useState<string | null>("other");
+    const [value, setValue] = useState<string | null>("me");
 
     const [bookingPageNo, setBookingPageNo] = useState<number>(1);
     const [myBookingPageNo, setMyBookingPageNo] = useState<number>(1);

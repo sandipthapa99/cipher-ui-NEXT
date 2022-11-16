@@ -17,7 +17,7 @@ export const ApprovedTask = () => {
     const clearSearchedTaskers = useClearSearchedTaskers();
     const clearSearchQuery = useClearSearchQuery();
 
-    const [value, setValue] = useState<string | null>("false");
+    const [value, setValue] = useState<string | null>("true");
 
     const [bookingPageNo, setBookingPageNo] = useState<number>(1);
 

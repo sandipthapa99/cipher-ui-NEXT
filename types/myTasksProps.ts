@@ -75,6 +75,7 @@ export type MyTaskProps = {
     no_of_recursion: number;
     extra_data: any;
     is_negotiable: boolean;
+    is_requested: boolean;
     meta_title: any;
     meta_description: any;
     meta_keyword: any;
