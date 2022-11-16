@@ -45,8 +45,10 @@ export const MyBookingTaskCard = ({
             {
                 onSuccess: async (message) => {
                     await queryClient.invalidateQueries(["approved-task"]);
-                    setOpenReviewModal(true);
                     toast.success(message);
+                    setTimeout(() => {
+                        setOpenReviewModal(true);
+                    }, 1000);
                 },
                 onError: (error) => {
                     toast.error(error.message);

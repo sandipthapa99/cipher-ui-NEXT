@@ -7,7 +7,7 @@ import ReCaptchaV3 from "@components/common/ReCaptchaV3";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
@@ -42,6 +42,7 @@ const Support = () => {
     const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
 
     const [token, setToken] = useState("");
+    const queryClient = new QueryClient();
 
     return (
         <>
@@ -90,9 +91,13 @@ const Support = () => {
                                         };
                                         mutate(newData, {
                                             onSuccess: () => {
+                                                queryClient.invalidateQueries([
+                                                    "my-tickets",
+                                                ]);
                                                 toast.success(
                                                     "Successfully submitted"
                                                 );
+
                                                 action.resetForm();
                                             },
                                             onError: (error) => {
