@@ -59,15 +59,7 @@ const UserActivities = () => {
                                         }
                                     ></div>
                                     <div className="desc">
-                                        {/* <figure className="thumbnail-img">
-                                            <Image
-                                                src={activity.image}
-                                                layout="fill"
-                                                objectFit="cover"
-                                                alt="service-icon"
-                                            />
-                                        </figure> */}
-                                        {activity.action.includes("Login") ? (
+                                        {activity.action === "Login" && (
                                             <figure className="thumbnail-img">
                                                 <Image
                                                     src="/userprofile/activities/loggedin.svg"
@@ -76,8 +68,36 @@ const UserActivities = () => {
                                                     alt="service-icon"
                                                 />
                                             </figure>
-                                        ) : (
-                                            ""
+                                        )}
+                                        {activity.action === "Create" && (
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src="/userprofile/activities/create.svg"
+                                                    layout="fill"
+                                                    objectFit="cover"
+                                                    alt="service-icon"
+                                                />
+                                            </figure>
+                                        )}
+                                        {activity.action === "Update" && (
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src="/userprofile/activities/update.svg"
+                                                    layout="fill"
+                                                    objectFit="cover"
+                                                    alt="service-icon"
+                                                />
+                                            </figure>
+                                        )}
+                                        {activity.action === "Delete" && (
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src="/userprofile/activities/delete.svg"
+                                                    layout="fill"
+                                                    objectFit="cover"
+                                                    alt="service-icon"
+                                                />
+                                            </figure>
                                         )}
                                         <div className="detail">
                                             <p>{activity.action}</p>
