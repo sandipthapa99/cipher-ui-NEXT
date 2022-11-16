@@ -1,6 +1,5 @@
 import { Badge } from "@mantine/core";
 import { formatDistanceToNow } from "date-fns";
-import Image from "next/image";
 
 interface SupportProps {
     reason: string;

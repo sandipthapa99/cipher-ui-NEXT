@@ -82,12 +82,17 @@ const MyTickets = () => {
     const renderAllTickets = supportTickets?.result.map((ticket) => {
         return (
             <div key={ticket.id} className="all-support">
-                <figure className="m-4 support-figure">
+                <figure className="support-figure">
                     <Image
                         alt="support"
-                        src={"/logo/homaale-logo_png.png"}
-                        width={400}
-                        height={400}
+                        src={
+                            ticket.attachment.length !== 0
+                                ? ticket?.attachment[0]?.media
+                                : "/logo/homaale-logo_png.png"
+                        }
+                        width={350}
+                        height={250}
+                        object-fit="cover"
                     />
                 </figure>
                 <SingleTickets
