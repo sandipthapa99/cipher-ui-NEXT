@@ -152,15 +152,30 @@ export const MyBookings = () => {
                     </span>
                 )}
             </div>
-            {!bookingLoading && bookings && bookings?.length <= 0 && (
-                <ApplyPostComponent
-                    model="service"
-                    title="No Bookings Available"
-                    subtitle="Book a service to the marketplace and let merchant come to you."
-                    buttonText="Book a service"
-                    href="/service"
-                />
-            )}
+            {value === "other" &&
+                !bookingLoading &&
+                bookings &&
+                bookings?.length <= 0 && (
+                    <ApplyPostComponent
+                        model="service"
+                        title="No Bookings Available"
+                        subtitle="Book a service to the marketplace and let merchant come to you."
+                        buttonText="Book a service"
+                        href="/service"
+                    />
+                )}
+            {value === "me" &&
+                !myBookingLoading &&
+                mybookings &&
+                mybookings?.length <= 0 && (
+                    <ApplyPostComponent
+                        model="service"
+                        title="No Bookings Available"
+                        subtitle="Book a service to the marketplace and let merchant come to you."
+                        buttonText="Book a service"
+                        href="/service"
+                    />
+                )}
         </>
     );
 };
