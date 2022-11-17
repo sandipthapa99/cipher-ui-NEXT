@@ -4,6 +4,10 @@
     }
 }
 
+.revision_report_image {
+    margin: 0 5rem 0 0;
+}
+
 .description-text,
 .full-description {
     font: 400 1.4rem $poppins-font;
@@ -17,6 +21,7 @@
     }
 }
 .button-section {
+    flex-wrap: wrap;
     .cancel-button {
         button {
             background-color: white;
