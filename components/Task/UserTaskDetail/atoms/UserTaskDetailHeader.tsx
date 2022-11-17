@@ -1,4 +1,5 @@
 import CardBtn from "@components/common/CardBtn";
+import { ElipsisReport } from "@components/common/ElipsisReport";
 import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";
@@ -202,6 +203,18 @@ export const UserTaskDetailHeader = ({
                             url={getPageUrl()}
                             quote={"Tasker from Homaale project"}
                             hashtag={"Homaale-tasker"}
+                        />
+                        <ElipsisReport
+                            tasker={true}
+                            taskerId={taskerDetail?.user?.id}
+                            taskerName={
+                                taskerDetail?.user?.first_name +
+                                " " +
+                                taskerDetail?.user?.middle_name +
+                                " " +
+                                taskerDetail?.user?.last_name
+                            }
+                            taskerDescription={taskerDetail?.bio}
                         />
                         {/* <EllipsisDropdown
                             showModal={showMenu}

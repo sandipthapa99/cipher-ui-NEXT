@@ -156,7 +156,13 @@ const AppliedTaskDetail = ({
                                     className="svg-icon option"
                                 />
                             </EllipsisDropdown> */}
-                            <ElipsisReport />
+                            <ElipsisReport
+                                task={true}
+                                taskId={taskDetail?.id}
+                                taskTitle={taskDetail?.title}
+                                taskDescription={taskDetail?.description}
+                                owner={isUserTask}
+                            />
                             <Modal
                                 show={showModal}
                                 onHide={() => setShowModal(false)}
