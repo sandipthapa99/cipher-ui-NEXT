@@ -1,10 +1,11 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Checkbox, LoadingOverlay } from "@mantine/core";
+import { LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -105,7 +106,7 @@ const BookNowModalCard = ({
                             budget_to: budget_to,
                             videos: "",
                             requirements: "",
-                            location: "false",
+                            location: "",
                         }}
                         validationSchema={() =>
                             bookServiceSchema({
@@ -145,7 +146,14 @@ const BookNowModalCard = ({
                             });
                         }}
                     >
-                        {({ isSubmitting, errors, touched, setFieldValue }) => (
+                        {({
+                            isSubmitting,
+                            errors,
+                            touched,
+                            setFieldValue,
+                            getFieldProps,
+                            values,
+                        }) => (
                             <Form encType="multipart/formData">
                                 <div className="problem">
                                     <InputField
@@ -266,7 +274,23 @@ const BookNowModalCard = ({
                                     </Col>
                                 </Row>
                                 <Row className="mt-2 mb-3">
-                                    <Checkbox
+                                    <PlacesAutocomplete
+                                        size="md"
+                                        label="Location"
+                                        placeholder="Enter your primary address"
+                                        // disabled={isInputDisabled}
+                                        error={
+                                            touched.location && errors.location
+                                                ? errors.location
+                                                : undefined
+                                        }
+                                        {...getFieldProps("location")}
+                                        value={values.location}
+                                        onPlaceChange={(value) =>
+                                            setFieldValue("location", value)
+                                        }
+                                    />
+                                    {/* <Checkbox
                                         label="Share my location"
                                         onChange={(e) => {
                                             setFieldValue(
@@ -287,7 +311,7 @@ const BookNowModalCard = ({
                                                 );
                                             }
                                         }}
-                                    />
+                                    /> */}
                                 </Row>
                                 <SelectCity
                                     onCitySelect={(cityId) =>
@@ -305,6 +329,7 @@ const BookNowModalCard = ({
                                                 accept={IMAGE_MIME_TYPE}
                                                 fileType="image"
                                                 sx={{ maxWidth: "30rem" }}
+                                                maxSize={5 * 1024 ** 2}
                                                 name="task-image"
                                                 onDrop={(images) =>
                                                     setFieldValue(
@@ -320,6 +345,7 @@ const BookNowModalCard = ({
                                             <CustomDropZone
                                                 accept={IMAGE_MIME_TYPE}
                                                 fileType="video"
+                                                maxSize={100 * 1024 ** 2}
                                                 sx={{ maxWidth: "30rem" }}
                                                 name="task-video"
                                                 onDrop={(videos) =>

@@ -372,6 +372,7 @@ export const PostTaskModal = () => {
                                     uploadedFiles={taskDetail?.images ?? []}
                                     fileType="image"
                                     sx={{ maxWidth: "30rem" }}
+                                    maxSize={5 * 1024 ** 2}
                                     name="task-image"
                                     onRemoveUploadedFiles={setInitialImageIds}
                                     onDrop={(images) =>
@@ -390,6 +391,7 @@ export const PostTaskModal = () => {
                                     uploadedFiles={taskDetail?.videos ?? []}
                                     fileType="video"
                                     name="task-video"
+                                    maxSize={100 * 1024 ** 2}
                                     onRemoveUploadedFiles={setInitialVideoIds}
                                     onDrop={(videos) =>
                                         setFieldValue("videos", videos)
