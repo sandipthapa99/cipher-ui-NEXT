@@ -5,7 +5,7 @@ import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Checkbox, LoadingOverlay } from "@mantine/core";
+import { LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -329,6 +329,7 @@ const BookNowModalCard = ({
                                                 accept={IMAGE_MIME_TYPE}
                                                 fileType="image"
                                                 sx={{ maxWidth: "30rem" }}
+                                                maxSize={5 * 1024 ** 2}
                                                 name="task-image"
                                                 onDrop={(images) =>
                                                     setFieldValue(
@@ -344,6 +345,7 @@ const BookNowModalCard = ({
                                             <CustomDropZone
                                                 accept={IMAGE_MIME_TYPE}
                                                 fileType="video"
+                                                maxSize={100 * 1024 ** 2}
                                                 sx={{ maxWidth: "30rem" }}
                                                 name="task-video"
                                                 onDrop={(videos) =>
