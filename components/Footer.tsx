@@ -52,7 +52,10 @@ const Footer = () => {
 
     return (
         <>
-            <footer id="site-footer" className="site-footer">
+            <footer
+                id="site-footer"
+                className="site-footer position-sticky bottom-0"
+            >
                 <Container fluid="xl" className="px-5 site-footer__container">
                     {/* Cipher Newsletter section start */}
                     <div className="site-footer__newsletter">
