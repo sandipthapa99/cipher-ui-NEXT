@@ -52,17 +52,19 @@ export const MyOrder = () => {
     return (
         <>
             <Grid className="d-flex align-items-center">
-                <SearchCategory
-                    searchModal="booking"
-                    onSearchParamChange={handleSearchParamChange}
-                    onFilterClear={() => setSearchParam("")}
-                />
+                <Grid.Col md={12}>
+                    <SearchCategory
+                        searchModal="booking"
+                        onSearchParamChange={handleSearchParamChange}
+                        onFilterClear={() => setSearchParam("")}
+                    />
+                </Grid.Col>
             </Grid>
             {/* <h3>My Bookings</h3> */}
             <div className="my-task">
                 {/* <h3>My Tasks</h3> */}
 
-                <div className="my-task__each-orders">
+                <div className="my-task__each-orders mt-4">
                     {isLoading && (
                         <Grid className="p-5">
                             <Col span={3}>
@@ -86,7 +88,7 @@ export const MyOrder = () => {
                                 index: number
                             ) => (
                                 <div
-                                    className="task-wrapper my-task-order bg-light"
+                                    className="task-wrapper my-task-order mb-5 rounded"
                                     key={index}
                                 >
                                     <div className="d-flex justify-content-between align-items-center order-section">
