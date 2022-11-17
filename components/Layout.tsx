@@ -87,12 +87,14 @@ const Layout: FC<MetaDataProps> = ({
                 />
                 <meta name="robots" content="index, follow" />
             </Head>
-            <section id="header-section" className="sticky-wrapper-header">
-                {<UpperHeader />}
-                <Header />
-            </section>
+            <main className="main">
+                <section id="header-section" className="sticky-wrapper-header">
+                    {<UpperHeader />}
+                    <Header />
+                </section>
 
-            {children}
+                {children}
+            </main>
             <Footer />
             {<MobileNav getSide={setSidebarOpened} />}
 

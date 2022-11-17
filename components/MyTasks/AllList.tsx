@@ -104,9 +104,10 @@ export const AllList = () => {
             {!isLoading && mytaskData?.result?.length <= 0 && (
                 <ApplyPostComponent
                     model="service"
-                    title="No Bookings Available"
+                    title="No Listings Available"
                     subtitle="Book a service to the marketplace and let merchant come to you."
                     buttonText="Book a service"
+                    href="/service"
                 />
             )}
         </>

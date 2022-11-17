@@ -27,7 +27,7 @@ const SearchBySort = () => {
                 onTabClick={setActiveTabIdx}
                 items={[
                     {
-                        title: "All List",
+                        title: "My Listings",
                         content: <AllList />,
                     },
                     {

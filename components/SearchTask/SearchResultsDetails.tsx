@@ -1,5 +1,6 @@
 import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
+import { ElipsisReport } from "@components/common/ElipsisReport";
 import EllipsisDropdownService from "@components/common/EllipsisDropdownService";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
@@ -349,17 +350,26 @@ const SearchResultsDetail = ({
                                 quote={"Service from Homaale Project"}
                                 hashtag={"Homaale-services"}
                             />
-                            {isUserService && (
-                                <EllipsisDropdownService
-                                    handleEdit={handleEdit}
-                                    handleDelete={handleDelete}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faEllipsisVertical}
-                                        className="svg-icon option"
-                                    />
-                                </EllipsisDropdownService>
-                            )}
+
+                            {/* <EllipsisDropdownService
+                                handleEdit={handleEdit}
+                                handleDelete={handleDelete}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faEllipsisVertical}
+                                    className="svg-icon option"
+                                />
+                            </EllipsisDropdownService> */}
+
+                            <ElipsisReport
+                                service={true}
+                                serviceTitle={serviceTitle}
+                                serviceDescription={serviceDescription}
+                                serviceId={serviceId}
+                                owner={isUserService}
+                                handleEdit={handleEdit}
+                                handleDelete={handleDelete}
+                            />
                         </div>
                     </div>
                 </Row>

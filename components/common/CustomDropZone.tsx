@@ -67,6 +67,8 @@ export const CustomDropZone = ({
     const [files, setFiles] = useState<File[]>([]);
     const [previewFiles, setPreviewFiles] = useState(() => uploadedFiles ?? []);
 
+    const [fileError, setFileError] = useState<string | null>();
+
     const previewVideos = useMemo(() => {
         const videoFiles = files.filter((file) => file.type.includes("video"));
         return videoFiles.map((file) => ({
@@ -159,7 +161,12 @@ export const CustomDropZone = ({
     ];
 
     return (
-        <div onClick={focusDropzone} className={classes.dropzoneContainer}>
+        <div
+            onClick={focusDropzone}
+            className={`${classes.dropzoneContainer} ${
+                fileError && "border-danger"
+            }`}
+        >
             {combinedPreviewVideos.length > 0 ? (
                 <PreviewFiles
                     isVideo
@@ -192,6 +199,18 @@ export const CustomDropZone = ({
                 name={name}
                 onDrop={handleOnDrop}
                 ref={dropzoneRef}
+                maxSize={maxSize}
+                onReject={(files) => {
+                    files
+                        .map((file) => file.errors.map((val) => val.message))[0]
+                        .toString();
+                    setFileError(
+                        `Your image is larger than ${
+                            maxSize && maxSize / 1048576
+                        } MB`
+                    );
+                }}
+                onChange={() => setFileError(null)}
                 className={classes.dropzone}
                 {...rest}
             >
@@ -213,12 +232,17 @@ export const CustomDropZone = ({
             ) : null}
             {minSize && (
                 <Text mt="xl" className={classes.text}>
-                    Minimum image size is {maxSize} MB
+                    Minimum File size is {maxSize} MB
                 </Text>
             )}
             {maxSize && (
                 <Text mt="xs" className={classes.text}>
-                    Maximum image size is {minSize} MB
+                    Maximum File size is {maxSize / 1048576} MB
+                </Text>
+            )}
+            {fileError && (
+                <Text mt="xs" className={classes.text} color={"red"}>
+                    {fileError}
                 </Text>
             )}
         </div>
@@ -293,7 +317,6 @@ const useStyles = createStyles({
     },
     text: {
         fontSize: "1.2rem",
-        color: "#868E96",
         textAlign: "center",
     },
     dropzone: {

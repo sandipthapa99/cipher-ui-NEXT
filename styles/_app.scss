@@ -145,7 +145,14 @@ section {
         margin-bottom: 8rem;
     }
 }
-
+.main {
+    position: relative;
+    z-index: 3;
+    background: #edf4ff;
+    padding-bottom: 0.1rem;
+    border-bottom-left-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+}
 .thumbnail-img {
     overflow: hidden;
     position: relative;

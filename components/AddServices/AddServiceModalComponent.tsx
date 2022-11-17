@@ -234,13 +234,6 @@ export const AddServiceModalComponent = () => {
                                 : ""
                         }
                     />
-                    <SelectTaskType
-                        location={values.location}
-                        setFieldValue={setFieldValue}
-                        onTypeChange={(type) => setFieldValue("location", type)}
-                        {...getFieldProps("location")}
-                        error={getFieldError("location")}
-                    />
                     <TaskBudget
                         initialBudgetFrom={taskDetail?.budget_from}
                         initialBudgetTo={taskDetail?.budget_to}
@@ -260,6 +253,7 @@ export const AddServiceModalComponent = () => {
                         <CustomDropZone
                             accept={IMAGE_MIME_TYPE}
                             fileType="image"
+                            maxSize={5 * 1024 ** 2}
                             sx={{ maxWidth: "30rem" }}
                             name="task-image"
                             onDrop={(images) => setFieldValue("images", images)}
@@ -275,6 +269,7 @@ export const AddServiceModalComponent = () => {
                             accept={[MIME_TYPES.mp4]}
                             fileType="video"
                             name="task-video"
+                            maxSize={100 * 1024 ** 2}
                             onDrop={(videos) => setFieldValue("videos", videos)}
                         />
                     </Stack>
