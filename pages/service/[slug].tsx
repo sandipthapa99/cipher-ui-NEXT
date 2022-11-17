@@ -45,7 +45,7 @@ const ServicesDetail = ({
                     currency={service?.currency?.symbol}
                     ProfileImage={service?.created_by?.profile_image}
                     service={service}
-                    ratedTo={service?.created_by?.email}
+                    ratedTo={service?.created_by?.id}
                 />
             </ServiceLayout>
         </>

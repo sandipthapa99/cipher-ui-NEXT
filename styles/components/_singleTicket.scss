@@ -7,21 +7,13 @@
 
     @include respond(xs) {
         flex-direction: column;
-       
-       
     }
     .support-figure {
-        
         flex: 0.4;
-        border-radius:0.6rem;
-       
-       
+        border-radius: 0.6rem;
 
         img {
-          
-           
-            
-            padding:1rem !important;
+            padding: 1rem !important;
         }
     }
 
@@ -31,12 +23,8 @@
 
         // align-items: center;
         @include respond(xs) {
-           width:100%;
-           
-           
+            width: 100%;
         }
-
-        
 
         .single-ticket-content {
             padding: 3rem 2.5rem;
