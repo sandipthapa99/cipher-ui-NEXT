@@ -12,14 +12,10 @@ export const useCities = (searchQuery: string, countryId: string) =>
         ["cities", searchQuery, countryId],
         () =>
             axiosClient
-                .get<TaskCity[]>(
-                    `${urls.locale.city}${searchQuery}&country=${countryId}`
-                )
+                .get<TaskCity[]>(`${urls.locale.city}${searchQuery}`)
                 .then((response) => response.data),
         {
             initialData: [],
-            enabled: Boolean(
-                searchQuery && searchQuery.length > 2 && countryId !== ""
-            ),
+            enabled: Boolean(searchQuery && searchQuery.length > 2),
         }
     );

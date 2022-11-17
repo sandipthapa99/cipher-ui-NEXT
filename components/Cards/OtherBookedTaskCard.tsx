@@ -170,7 +170,10 @@ export const OtherBookedTaskCard = ({
                                     className="svg-icon me-4"
                                 />
                                 <span>
-                                    {item?.location} {myTask?.location}{" "}
+                                    {item?.location}{" "}
+                                    {myTask?.is_requested
+                                        ? myTask?.location
+                                        : myTask?.city?.name}{" "}
                                     {Approvedtask?.location}
                                 </span>
                             </div>
@@ -181,12 +184,14 @@ export const OtherBookedTaskCard = ({
                                 />
                                 {item?.start_date &&
                                     format(new Date(item?.start_date), "PPP")}
-                                {myTask?.start_date
-                                    ? format(
-                                          new Date(myTask?.start_date),
-                                          "PPP"
-                                      )
-                                    : ""}
+                                {myTask?.is_requested
+                                    ? myTask?.start_date
+                                        ? format(
+                                              new Date(myTask?.start_date),
+                                              "PPP"
+                                          )
+                                        : ""
+                                    : "Flexible"}
                                 {Approvedtask?.start_date
                                     ? format(
                                           new Date(Approvedtask?.start_date),

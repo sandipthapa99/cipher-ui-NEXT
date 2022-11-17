@@ -139,7 +139,7 @@ export const MyBookings = () => {
                         />
                     </span>
                 )}
-                {value === "me" && myBookingPages && (
+                {value === "me" && mybookings?.length > 0 && (
                     <span className="d-flex justify-content-center mt-4">
                         <Pagination
                             total={myBookingPages?.total_pages}
@@ -152,14 +152,30 @@ export const MyBookings = () => {
                     </span>
                 )}
             </div>
-            {!bookingLoading && bookings && bookings?.length <= 0 && (
-                <ApplyPostComponent
-                    model="service"
-                    title="No Bookings Available"
-                    subtitle="Book a service to the marketplace and let merchant come to you."
-                    buttonText="Book a service"
-                />
-            )}
+            {value === "other" &&
+                !bookingLoading &&
+                bookings &&
+                bookings?.length <= 0 && (
+                    <ApplyPostComponent
+                        model="service"
+                        title="No Bookings Available"
+                        subtitle="Book a service to the marketplace and let merchant come to you."
+                        buttonText="Book a service"
+                        href="/service"
+                    />
+                )}
+            {value === "me" &&
+                !myBookingLoading &&
+                mybookings &&
+                mybookings?.length <= 0 && (
+                    <ApplyPostComponent
+                        model="service"
+                        title="No Bookings Available"
+                        subtitle="Book a service to the marketplace and let merchant come to you."
+                        buttonText="Book a service"
+                        href="/service"
+                    />
+                )}
         </>
     );
 };
