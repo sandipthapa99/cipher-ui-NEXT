@@ -10,12 +10,13 @@ export const ApplyPostComponent = ({
     title,
     subtitle,
     buttonText,
+    href,
 }: NoTasksProps) => {
     const router = useRouter();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
     const handleClick = () => {
-        const navigateToService = () => router.push("/service");
+        const navigateToService = () => router.push(href);
         const func =
             model === "task" ? toggleShowPostTaskModal : navigateToService;
         func();

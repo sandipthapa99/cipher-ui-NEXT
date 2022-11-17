@@ -101,6 +101,7 @@ export const MyService = () => {
                     title="No Bookings Available"
                     subtitle="Book a service to the marketplace and let merchant come to you."
                     buttonText="Book a service"
+                    href="/service"
                 />
             )}
         </>

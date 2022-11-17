@@ -9,6 +9,11 @@
     padding: 4rem 0 2rem 0;
     font-family: $inter-font;
     font-size: 1.5rem;
+    position: relative;
+
+    @include respond(sm) {
+        position: sticky;
+    }
     &__newsletter {
         border: 2px solid #ffffff40;
         border-radius: 0.4rem;
