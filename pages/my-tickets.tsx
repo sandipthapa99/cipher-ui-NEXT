@@ -58,6 +58,7 @@ interface TicketResponse {
         email: string;
         phone: string;
         reason: string;
+        is_resolved: boolean;
     }[];
 }
 
@@ -100,6 +101,7 @@ const MyTickets = () => {
                     createdAt={ticket?.created_at}
                     status={ticket?.status}
                     supportId={ticket?.id.toString()}
+                    isResolved={ticket?.is_resolved}
                 />
             </div>
         );
