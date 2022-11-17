@@ -234,13 +234,6 @@ export const AddServiceModalComponent = () => {
                                 : ""
                         }
                     />
-                    <SelectTaskType
-                        location={values.location}
-                        setFieldValue={setFieldValue}
-                        onTypeChange={(type) => setFieldValue("location", type)}
-                        {...getFieldProps("location")}
-                        error={getFieldError("location")}
-                    />
                     <TaskBudget
                         initialBudgetFrom={taskDetail?.budget_from}
                         initialBudgetTo={taskDetail?.budget_to}
