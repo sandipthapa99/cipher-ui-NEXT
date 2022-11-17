@@ -139,7 +139,7 @@ export const MyBookings = () => {
                         />
                     </span>
                 )}
-                {value === "me" && myBookingPages && (
+                {value === "me" && mybookings?.length > 0 && (
                     <span className="d-flex justify-content-center mt-4">
                         <Pagination
                             total={myBookingPages?.total_pages}
@@ -158,6 +158,7 @@ export const MyBookings = () => {
                     title="No Bookings Available"
                     subtitle="Book a service to the marketplace and let merchant come to you."
                     buttonText="Book a service"
+                    href="/service"
                 />
             )}
         </>

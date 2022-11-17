@@ -109,7 +109,7 @@ export const ApprovedTask = () => {
                             )}
                     </>
                 </Grid>
-                {othersTaskList && (
+                {othersTaskList && othersTask?.length > 0 && (
                     <span className="d-flex justify-content-center mt-4">
                         <Pagination
                             total={othersTaskList?.total_pages}
@@ -122,12 +122,13 @@ export const ApprovedTask = () => {
                     </span>
                 )}
             </div>
-            {!bookingLoading && !othersTask && (
+            {!bookingLoading && othersTask?.length <= 0 && (
                 <ApplyPostComponent
                     model="service"
                     title="No Approved Tasks Available"
                     subtitle="Approved a Tasks to the marketplace and let merchant come to you."
                     buttonText="Book a Task"
+                    href="/home?activeTab=1"
                 />
             )}
         </>

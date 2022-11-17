@@ -43,6 +43,7 @@ export const UserClient = () => {
                                         content: (
                                             <ApplyPostComponent
                                                 model={"task"}
+                                                href={"/task"}
                                             />
                                         ),
                                     },

@@ -1,3 +1,4 @@
+import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import {
     faEllipsisVertical,
     faFilter,
@@ -249,6 +250,15 @@ export const PaymentHistory = () => {
                     </thead>
                     <tbody>{rows}</tbody>
                 </Table>
+                {newElements && newElements?.length >= 0 && (
+                    <ApplyPostComponent
+                        model="service"
+                        title="No Payment History Available"
+                        subtitle="There is no Transaction created yet"
+                        buttonText="Go to Bookings"
+                        href="/home?activeTab=1"
+                    />
+                )}
             </ScrollArea>
             <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
                 <Select
