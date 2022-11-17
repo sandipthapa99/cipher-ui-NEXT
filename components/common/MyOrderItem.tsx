@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
@@ -14,19 +13,7 @@ export const MyOrderItem = ({
             {orderItem?.map((item, key) => {
                 return (
                     <div className="my-task-order text-black-50" key={key}>
-                        <div className="d-flex justify-content-between align-items-start align-items-lg-center order-section">
-                            <span className="order-id">
-                                Item ID: #{item?.id.slice(0, 8)}
-                            </span>
-                            <span className="ordered-date">
-                                {format(
-                                    new Date(item?.created_at),
-                                    "EEEE, dd LLLL yyyy"
-                                )}
-                            </span>
-                        </div>
-
-                        <div className="order-detail-section">
+                        <div className="order-detail-section border-bottom-0 bg-white">
                             <Row>
                                 <Col lg={2} md={6} sm={6} xs={12}>
                                     <Link
@@ -45,7 +32,7 @@ export const MyOrderItem = ({
                                                         }
                                                         alt="order-detail-image"
                                                         height={160}
-                                                        width={140}
+                                                        width={180}
                                                     />
                                                 ) : (
                                                     <Image
@@ -110,6 +97,10 @@ export const MyOrderItem = ({
                                                             : "/project"}
                                                     </span>
                                                 </div>
+                                                <span className="item-id p-3 rounded">
+                                                    Item ID: #
+                                                    {item?.id.slice(0, 8)}
+                                                </span>
                                             </div>
                                         </a>
                                     </Link>
