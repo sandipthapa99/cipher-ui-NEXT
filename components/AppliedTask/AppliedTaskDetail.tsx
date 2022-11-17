@@ -1,4 +1,5 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
+import { ElipsisReport } from "@components/common/ElipsisReport";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { GoBack } from "@components/common/GoBack";
 import SaveIcon from "@components/common/SaveIcon";
@@ -144,18 +145,18 @@ const AppliedTaskDetail = ({
                                 quote={"This is the task from Homaale"}
                                 hashtag={"cipher-task"}
                             />
-                            {isUserTask && (
-                                <EllipsisDropdown
-                                    task={taskDetail}
-                                    showModal={true}
-                                    handleOnClick={() => setShowModal(true)}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faEllipsisVertical}
-                                        className="svg-icon option"
-                                    />
-                                </EllipsisDropdown>
-                            )}
+
+                            {/* <EllipsisDropdown
+                                task={taskDetail}
+                                showModal={true}
+                                handleOnClick={() => setShowModal(true)}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faEllipsisVertical}
+                                    className="svg-icon option"
+                                />
+                            </EllipsisDropdown> */}
+                            <ElipsisReport />
                             <Modal
                                 show={showModal}
                                 onHide={() => setShowModal(false)}

@@ -1,0 +1,36 @@
+.revision-title-section {
+    h3 {
+        font: 500 2rem $poppins-font;
+    }
+}
+
+.description-text,
+.full-description {
+    font: 400 1.4rem $poppins-font;
+    color: #495057;
+}
+
+.service-description {
+    .description-title {
+        font: 500 1.4rem $poppins-font;
+        color: #343a40;
+    }
+}
+.button-section {
+    .cancel-button {
+        button {
+            background-color: white;
+            color: $primary-color;
+            border: 1px solid #211d4f;
+            border-radius: 0.4rem;
+            padding: 0.3rem 6.5rem;
+        }
+    }
+
+    button {
+        background-color: $primary-color;
+        color: white;
+        padding: 0.3rem 6.5rem;
+        border-radius: 0.4rem;
+    }
+}
