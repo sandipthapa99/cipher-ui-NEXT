@@ -11,9 +11,18 @@
     .support-figure {
         flex: 0.4;
         border-radius: 0.6rem;
+        margin: 0.5rem;
+
+        @include respond(xs) {
+            margin: 0;
+        }
 
         img {
             padding: 1rem !important;
+
+            @include respond(xs) {
+                padding: 0;
+            }
         }
     }
 
@@ -29,10 +38,18 @@
         .single-ticket-content {
             padding: 3rem 2.5rem;
 
+            @include respond(xs) {
+                padding: 0 2.5rem 1rem 2.5rem;
+            }
+
             .reason-cont {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+
+                @include respond(xs) {
+                    flex-direction: column;
+                }
 
                 .head-text {
                     margin: 0;
