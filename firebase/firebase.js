@@ -16,13 +16,13 @@ import { toast } from "utils/toast";
 //     measurementId: "G-XBZJZJR692",
 // };
 const firebaseConfig = {
-    apiKey: "AIzaSyBK_aeh-FDu7UcboGVaJl3Fq5a9U0HUw4I",
-    authDomain: "homaale-fcm-948ec.firebaseapp.com",
-    projectId: "homaale-fcm-948ec",
-    storageBucket: "homaale-fcm-948ec.appspot.com",
-    messagingSenderId: "668178213848",
-    appId: "1:668178213848:web:7b90a94c07862bfb4aa0ad",
-    measurementId: "G-6V8N7CTPRG",
+    apiKey: "AIzaSyCLuF1edAPq4Gvej1R_G5wBcCiCFt2y5t4",
+    authDomain: "homaale-764c8.firebaseapp.com",
+    projectId: "homaale-764c8",
+    storageBucket: "homaale-764c8.appspot.com",
+    messagingSenderId: "362172779022",
+    appId: "1:362172779022:web:cef284f3c10f83ca158a5f",
+    measurementId: "G-4EP20LV48R",
 };
 
 // Initialize Firebase
@@ -62,7 +62,7 @@ const firebaseCloudMessaging = {
             await Notification.requestPermission();
             getToken(messaging, {
                 vapidKey:
-                    "BGz8L5135QkuuscXYI-djbUGfQZx0tERIq6tfM1SL549J7YkbXiGR-Lamiwv2KCnkDS7bI7tgRKz7WvUqydh4gg",
+                    "BLR-4uFjaYkQCfCoZbrfumHEfC984YmJlF9KITKRqXFPFdfxA_Igke2YAInyhf-CNT8KXBUe6usJXK0Mf3In4aU",
             })
                 .then((currentToken) => {
                     //

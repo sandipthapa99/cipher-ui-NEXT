@@ -1,20 +1,12 @@
-.message-page {
-    max-height: 70vh;
-    overflow-y: scroll;
-}
 /* ===================== ContactListSidebar.tsx ===================== */
 .contact-sidebar {
     background-color: $white;
     border-radius: 4px;
     margin-bottom: 70px;
-    display: flex;
-    align-items: flex-start;
 }
 
 /* ===================== ContactList.tsx ===================== */
 .contact-list {
-    max-width: 305px;
-    min-width: 305px;
     border-right: 1px solid #edf4ff;
     &__title {
         font-size: 16px;
@@ -67,6 +59,10 @@
     padding: 16px 48px;
     border-bottom: 1px solid #edf4ff;
     height: 82px;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
 
     @include media("<=tablet") {
         flex-direction: column;
@@ -137,6 +133,10 @@
     border: 1px solid #dee2e6;
     border-radius: 4px;
     overflow: hidden;
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    background-color: white;
 
     &__input {
         flex: 1;
