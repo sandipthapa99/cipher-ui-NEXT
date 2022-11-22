@@ -24,7 +24,6 @@ interface ReviewModalProps {
 }
 
 const ReviewModalSchema = Yup.object().shape({
-    review: Yup.string().required("Review is required"),
     rating: Yup.number().required("Rating is required"),
 });
 
@@ -86,7 +85,6 @@ export const ReviewModal = ({
                             }}
                         /> */}
                             <Rating
-                                fractions={2}
                                 defaultValue={0}
                                 value={values.rating}
                                 emptySymbol={

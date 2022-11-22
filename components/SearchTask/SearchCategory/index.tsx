@@ -52,6 +52,8 @@ export const SearchCategory = ({
     const countryId = "";
 
     const [params, dispatch] = useReducer(searchReducer, {});
+    console.log("params", params);
+
     const [cityQuery, setCityQuery] = useState("");
     const { data: cities } = useCities(cityQuery, countryId);
     const { data: countries } = useCountry();
@@ -187,8 +189,6 @@ export const SearchCategory = ({
         clearSearchedTaskers();
     };
     const onSelectChange = (key: string, value: string | null) => {
-        console.log("hellol", key, value);
-
         if (!value) {
             dispatch({ type: ActionKind.REMOVE, payload: { key } });
             return;
@@ -220,13 +220,9 @@ export const SearchCategory = ({
         const urlSearchParams = new URLSearchParams();
 
         for (const key in params) {
-            console.log("abc", params[key]);
             urlSearchParams.append(key, params[key]);
         }
-        console.log(urlSearchParams);
         const searchParams = urlSearchParams.toString();
-        console.log("search", searchParams);
-
         onSearchParamChange(searchParams);
     }, [onSearchParamChange, params]);
     return (

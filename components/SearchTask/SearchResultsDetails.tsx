@@ -81,10 +81,16 @@ const SearchResultsDetail = ({
         ...(service?.images ?? []),
         ...(service?.videos ?? []),
     ];
+
+    const isService = !!serviceId && !!ratedTo;
     const { data: serviceRating } = useData<RatingResponse>(
         ["tasker-rating", serviceId],
-        `${urls.profile.rating}?service=${serviceId}?rated_to=${ratedTo}`
+        `${urls.profile.rating}?service=${serviceId}?rated_to=${ratedTo}`,
+        isService
     );
+
+    console.log(serviceId, ratedTo);
+
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
     const { data: servicesData } = useData<ServicesValueProps>(
