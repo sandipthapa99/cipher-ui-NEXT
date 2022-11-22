@@ -1,0 +1,38 @@
+.whole-earning-cont {
+    background-color: $primary-color;
+    position: relative;
+    border-radius: 4px;
+
+    .whole-cont-earning {
+        padding: 8px 16px 12px 16px;
+
+        .current-balance {
+            color: #fff;
+        }
+        .current-amount {
+            color: $secondary-color;
+            font-size: 3.2rem;
+            margin: 1rem 0 0 0;
+            font-weight: 500;
+        }
+        .lower-transaction {
+            margin-top: 1.4rem;
+
+            .latest-transaction {
+                color: #fff;
+                font-weight: 600;
+                font-size: 12px;
+            }
+            .weekly-points {
+                color: #fff;
+                font-weight: 400;
+                font-size: 14px;
+            }
+        }
+        .div-invoice {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+    }
+}

@@ -1,3 +1,4 @@
+import { MyEarnings } from "@components/Profile/MyEarnings";
 import {
     faAt,
     faCircleQuestion,
@@ -439,7 +440,7 @@ const UserProfileCard = ({
                         </Col>
                     </Row>
                     <Row className="d-flex status">
-                        <Col md={3} xs={6}>
+                        <Col md={2} xs={6}>
                             <div className="type success-rate">
                                 <h1 className="number">
                                     {stats?.success_rate
@@ -453,7 +454,7 @@ const UserProfileCard = ({
                                 </p>
                             </div>
                         </Col>
-                        <Col md={3} xs={6}>
+                        <Col md={2} xs={6}>
                             <div className="type happy-clients">
                                 <h1 className="number">
                                     {stats?.happy_clients}
@@ -466,7 +467,7 @@ const UserProfileCard = ({
                             </div>
                         </Col>
 
-                        <Col md={3} xs={6}>
+                        <Col md={2} xs={6}>
                             <div className="type task-completed">
                                 <h1 className="number">
                                     {stats?.task_completed}
@@ -478,8 +479,7 @@ const UserProfileCard = ({
                                 </p>
                             </div>
                         </Col>
-                        <Col md={3} xs={6}>
-                            {" "}
+                        <Col md={2} xs={6}>
                             <div className="type user-reviews">
                                 <h1 className="number">
                                     {stats?.user_reviews}
@@ -490,6 +490,9 @@ const UserProfileCard = ({
                                     Reviews
                                 </p>
                             </div>
+                        </Col>
+                        <Col md={4}>
+                            <MyEarnings />
                         </Col>
                     </Row>
                 </Col>
