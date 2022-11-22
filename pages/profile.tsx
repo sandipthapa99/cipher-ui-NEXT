@@ -129,10 +129,10 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                                         title: "About",
                                         content: <AboutProfile />,
                                     },
-                                    {
-                                        title: "Services",
-                                        content: <TasksProfileCard />,
-                                    },
+                                    // {
+                                    //     title: "Services",
+                                    //     content: <TasksProfileCard />,
+                                    // },
                                     {
                                         title: "Saved",
                                         content: <SavedBookings />,

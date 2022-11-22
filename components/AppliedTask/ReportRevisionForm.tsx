@@ -2,7 +2,10 @@ import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import FormButton from "@components/common/FormButton";
 import { Modal, Select, Textarea, useMantineTheme } from "@mantine/core";
+import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useUploadFile } from "hooks/use-upload-file";
 import parse from "html-react-parser";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
@@ -10,7 +13,9 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { SelectOptionRevisionProps } from "types/selectInputField";
+import { axiosClient } from "utils/axiosClient";
 import { reportRevisionFormSchema } from "utils/formValidation/ReportRevisionFormValidation";
+import { toast } from "utils/toast";
 
 interface ReportRevisionFormProps {
     show: boolean;
@@ -31,10 +36,17 @@ interface ReportRevisionFormProps {
     taskerDescription?: string;
 }
 
+type ReportValues = {
+    model: string;
+    object_id: string;
+    reason: string;
+    description: string;
+    attachment: number[];
+};
+
 export const ReportRevisionForm = ({
     show,
     handleClose,
-    handleButtonClick,
     task,
     service,
     taskId,
@@ -49,9 +61,25 @@ export const ReportRevisionForm = ({
     taskerDescription,
 }: ReportRevisionFormProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
+
     const initialValues = {
+        model: service
+            ? "entityservice"
+            : task
+            ? "entityservice"
+            : tasker
+            ? "user"
+            : "",
+        object_id: serviceId
+            ? serviceId
+            : taskId
+            ? taskId
+            : taskerId
+            ? taskerId
+            : "",
         reason: "",
         description: "",
+        attachment: "",
     };
 
     const options: SelectOptionRevisionProps[] = [
@@ -87,6 +115,12 @@ export const ReportRevisionForm = ({
     ];
 
     const theme = useMantineTheme();
+
+    const reportMutation = useMutation<any, Error, ReportValues>((data) => {
+        return axiosClient.post("/tasker/report/", data);
+    });
+
+    const { mutateAsync, isLoading: isImageLoading } = useUploadFile();
 
     return (
         <div className="collaboration-request-form">
@@ -164,11 +198,26 @@ export const ReportRevisionForm = ({
                         initialValues={initialValues}
                         validationSchema={reportRevisionFormSchema}
                         onSubmit={async (values) => {
-                            console.log(values);
-                            toggleSuccessModal();
+                            const imageIds = await mutateAsync({
+                                files: values.attachment,
+                            });
+
+                            const newValues = {
+                                ...values,
+                                attachment: imageIds,
+                            };
+                            reportMutation.mutate(newValues, {
+                                onSuccess: () => {
+                                    handleClose();
+                                    toggleSuccessModal();
+                                },
+                                onError: () => {
+                                    toast.error("Something went wrong");
+                                },
+                            });
                         }}
                     >
-                        {({ errors, touched }) => {
+                        {({ errors, touched, setFieldValue }) => {
                             return (
                                 <Form>
                                     <Select
@@ -176,6 +225,11 @@ export const ReportRevisionForm = ({
                                         placeholder="Pick one"
                                         data={options}
                                         className="mb-5"
+                                        error={errors.reason}
+                                        name="reason"
+                                        onChange={(value) =>
+                                            setFieldValue("reason", value)
+                                        }
                                     />
 
                                     <Textarea
@@ -184,6 +238,13 @@ export const ReportRevisionForm = ({
                                         autosize
                                         minRows={4}
                                         className="mb-5"
+                                        name="description"
+                                        onChange={(e) =>
+                                            setFieldValue(
+                                                "description",
+                                                e.target.value
+                                            )
+                                        }
                                     />
 
                                     <Row className="mb-5">
@@ -191,7 +252,17 @@ export const ReportRevisionForm = ({
                                             <p className="m-1 report-image-label">
                                                 Images
                                             </p>
-                                            <CustomDropZone name={"Images"} />
+                                            <CustomDropZone
+                                                name={"attachment"}
+                                                fileType="image"
+                                                accept={IMAGE_MIME_TYPE}
+                                                onDrop={(images) =>
+                                                    setFieldValue(
+                                                        "attachment",
+                                                        images
+                                                    )
+                                                }
+                                            />
                                         </Col>
                                     </Row>
 
@@ -204,8 +275,12 @@ export const ReportRevisionForm = ({
                                             />
                                         </span>
                                         <FormButton
-                                            handleClick={handleButtonClick}
+                                            type="submit"
                                             name={"Report"}
+                                            isLoading={
+                                                reportMutation.isLoading ||
+                                                isImageLoading
+                                            }
                                         />
                                     </div>
                                 </Form>

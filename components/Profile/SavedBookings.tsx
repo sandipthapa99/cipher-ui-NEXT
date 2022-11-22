@@ -18,7 +18,7 @@ const SavedBookings = () => {
     return (
         <div className="saved-bookings px-5">
             <Row>
-                <h3>Services ({serviceBookmarks.length})</h3>
+                <h3 className="py-4">Services ({serviceBookmarks.length})</h3>
                 {serviceBookmarks.map((bookmark) => (
                     <Col md={4} lg={3} key={bookmark.id}>
                         <ServiceCard
