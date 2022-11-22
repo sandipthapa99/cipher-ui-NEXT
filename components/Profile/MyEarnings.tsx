@@ -28,13 +28,17 @@ export const MyEarnings = () => {
             <div className="whole-cont-earning">
                 <p className="m-0 current-balance">Current Balance</p>
                 <p className="current-amount">
-                    {`${myWallet?.data[0]?.available_balance}  ${myWallet?.data[0]?.currency} `}
+                    {myWallet?.data.length !== 0
+                        ? `${myWallet?.data[0]?.available_balance}  ${myWallet?.data[0]?.currency} `
+                        : "0 "}
                 </p>
                 <div className="d-flex align-items-center justify-content-between lower-transaction">
                     <p className="m-0 latest-transaction">Latest Transaction</p>
                     <div className="d-flex align-items-center justify-content-center gap-3">
                         <p className="m-0 weekly-points">
-                            {myWallet?.data[0]?.last_received}
+                            {myWallet?.data.length !== 0
+                                ? myWallet?.data[0]?.last_received
+                                : "0"}
                         </p>
                         <FontAwesomeIcon
                             icon={faArrowUp}
@@ -44,7 +48,9 @@ export const MyEarnings = () => {
                     </div>
                     <div className="d-flex align-items-center justify-content-center gap-3">
                         <p className="m-0 weekly-points">
-                            {myWallet?.data[0]?.last_paid}
+                            {myWallet?.data.length !== 0
+                                ? myWallet?.data[0]?.last_paid
+                                : "0"}
                         </p>
                         <FontAwesomeIcon
                             icon={faArrowDown}
