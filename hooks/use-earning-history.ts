@@ -13,7 +13,7 @@ interface EarningHistory {
         amount: number;
         wallet: number;
         transaction: string;
-        task_title: string;
+        task_title: string[];
     }>;
 }
 
