@@ -54,7 +54,7 @@ const MyEarnings = () => {
             id: item.id,
             transactionId: item.transaction,
             user: item.sender,
-            details: item.task_title,
+            details: item.task_title.toString(),
             transactionDate: format(
                 new Date(item?.created_at),
                 "dd/MM/yyyy, hh:mm a"
@@ -75,21 +75,21 @@ const MyEarnings = () => {
             color: "#211D4F",
         },
         {
-            id: 1,
+            id: 2,
             title: "Total Earnings",
             amount: myWallet ? myWallet[0].total_income : 0,
             icon: faPiggyBank,
             color: "#38C675",
         },
         {
-            id: 1,
+            id: 3,
             title: "Total Withdrawals",
             amount: myWallet ? myWallet[0].total_withdrawals : 0,
             icon: faMoneyFromBracket,
             color: "#FE5050",
         },
         {
-            id: 1,
+            id: 4,
             title: "Pending Amount",
             amount: myWallet ? myWallet[0].frozen_amount : 0,
             icon: faFileInvoiceDollar,
@@ -133,7 +133,15 @@ const MyEarnings = () => {
                       )}
                   </td>
 
-                  <td>{element.amount}</td>
+                  <td
+                      style={{
+                          color: `${
+                              element.amount > 0 ? "#38C675" : "#FE5050"
+                          }`,
+                      }}
+                  >
+                      {element.amount}
+                  </td>
                   <td className="text-center">
                       <FontAwesomeIcon
                           icon={faEllipsisVertical}
