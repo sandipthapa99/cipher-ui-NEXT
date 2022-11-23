@@ -24,7 +24,9 @@ import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { Field, Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
@@ -44,6 +46,7 @@ import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
+import { db } from "../../firebase/firebase";
 import { FillKyc } from "./FillKyc";
 import ProfileSuccessModalCard from "./ProfileSuccessModal";
 
@@ -253,6 +256,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
         "/tasker/bank-details/"
     );
 
+    const { data: userData } = useUser();
+
     const cityData = profile
         ? {
               initialId: profile?.city?.id?.toString() ?? "",
@@ -317,7 +322,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
         setDisplay(true);
         //  setIsEdtButtonClicked(!isEditButtonClicked);
     };
-
     return (
         <>
             {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}
@@ -376,6 +380,23 @@ const AccountForm = ({ showAccountForm }: Display) => {
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
                         const formData = new FormData();
+                        {
+                            userData?.id &&
+                                (await setDoc(doc(db, "users", userData?.id), {
+                                    name: `${values.first_name}`,
+                                    email: values.email,
+                                    uuid: userData?.id,
+                                }));
+                        }
+
+                        {
+                            userData?.id &&
+                                (await setDoc(
+                                    doc(db, "userChats", userData?.id),
+                                    {}
+                                ));
+                        }
+
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),

@@ -9,7 +9,16 @@ import { LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import {
+    doc,
+    getDoc,
+    serverTimestamp,
+    setDoc,
+    updateDoc,
+} from "firebase/firestore";
 import { Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import parse from "html-react-parser";
@@ -23,6 +32,7 @@ import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidatio
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
+import { db } from "../../firebase/firebase";
 import { CustomDropZone } from "./CustomDropZone";
 import MantineDateField from "./MantineDateField";
 
@@ -37,9 +47,12 @@ const BookNowModalCard = ({
     title,
     budget_from,
     budget_to,
+    tasker_img,
+    tasker_name,
     budget_type,
     description,
     currencySymbol,
+    tasker_id,
     show,
     handleClose,
     entity_service_id,
@@ -51,6 +64,64 @@ const BookNowModalCard = ({
     const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = new QueryClient();
     const parsedDescription = parse(description ?? "");
+
+    const { data: user } = useUser();
+
+    const { data: profile } = useGetProfile();
+
+    const userFullName =
+        profile?.user &&
+        profile?.user?.first_name +
+            " " +
+            profile?.user?.middle_name +
+            " " +
+            profile?.user?.last_name;
+
+    const handleRoomcreate = async () => {
+        if (user?.id) {
+            const combinedId =
+                user?.id > tasker_id
+                    ? user?.id + tasker_id
+                    : tasker_id + user?.id;
+
+            try {
+                const res = await getDoc(doc(db, "chats", combinedId));
+
+                if (!res.exists()) {
+                    await setDoc(doc(db, "chats", combinedId), {
+                        messages: [],
+                    });
+
+                    try {
+                        await updateDoc(doc(db, "userChats", user?.id), {
+                            [combinedId + ".userInfo"]: {
+                                uid: tasker_id,
+                                displayName: tasker_name,
+                                photoURL: tasker_img,
+                            },
+                            [combinedId + ".date"]: serverTimestamp(),
+                        });
+                    } catch (error) {
+                        console.log(
+                            "🚀 ~ file: MyBookings.tsx ~ line 109 ~ handleRoomcreate ~ error",
+                            error
+                        );
+                    }
+
+                    await updateDoc(doc(db, "userChats", tasker_id), {
+                        [combinedId + ".userInfo"]: {
+                            uid: user?.id,
+                            displayName: userFullName,
+                            photoURL: profile?.user?.profile_image,
+                        },
+                        [combinedId + ".date"]: serverTimestamp(),
+                    });
+                }
+            } catch (error) {
+                console.log("this isit", error);
+            }
+        }
+    };
 
     return (
         <>
@@ -134,6 +205,7 @@ const BookNowModalCard = ({
                                     queryClient.invalidateQueries([
                                         "notification",
                                     ]);
+                                    handleRoomcreate();
                                     toggleSuccessModal(
                                         "Your Booking was sent for approval"
                                     );

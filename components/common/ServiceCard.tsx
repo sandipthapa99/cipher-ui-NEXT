@@ -259,6 +259,15 @@ const ServiceCard = ({
                 setShow={setShowModal}
                 handleClose={() => setShowModal(false)}
                 images={[]}
+                tasker_id={serviceCard?.created_by?.id}
+                tasker_img={serviceCard?.created_by?.profile_image}
+                tasker_name={
+                    serviceCard?.created_by?.first_name +
+                    " " +
+                    serviceCard?.created_by?.middle_name +
+                    " " +
+                    serviceCard?.created_by?.last_name
+                }
             />
             <EditService
                 showEditModal={showEditModal}

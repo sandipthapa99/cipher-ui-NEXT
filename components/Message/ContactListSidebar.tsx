@@ -1,37 +1,59 @@
 import { ContactList } from "@components/Message/ContactList";
 import { MessageListSidebar } from "@components/Message/MessageListSidebar";
-import { useState } from "react";
+import { ScrollArea } from "@mantine/core";
+import type { DocumentData } from "firebase/firestore";
+import { collection, doc, getDoc, onSnapshot, query } from "firebase/firestore";
+import { useUser } from "hooks/auth/useUser";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import type { Contact } from "staticData/messages";
 
-interface ContactsProps {
-    contacts: Contact[];
-}
-export const ContactListSideBar = ({ contacts }: ContactsProps) => {
-    const [activeContact, setActiveContact] = useState<Contact | undefined>();
+import { db } from "../../firebase/firebase";
 
-    const removeActiveContact = () => setActiveContact(undefined);
+export const ContactListSideBar = () => {
+    const [chatRoom, setChatRoom] = useState<DocumentData>();
+
+    const { data } = useUser();
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (data?.id) {
+            const unsub = onSnapshot(doc(db, "userChats", data?.id), (doc) => {
+                setChatRoom(doc.data());
+            });
+            return () => {
+                unsub;
+            };
+        }
+    }, [data?.id]);
     return (
         <div className="contact-sidebar">
-            <div className="contact-sidebar__contacts">
-                <ContactList
-                    title="Today"
-                    contacts={contacts}
-                    onContactClick={setActiveContact}
-                />
-                <ContactList
-                    title="Earlier"
-                    contacts={contacts}
-                    onContactClick={setActiveContact}
-                />
-            </div>
-            {activeContact !== undefined && (
-                <div className="aside-detail-wrapper flex-fill">
-                    <MessageListSidebar
-                        onBackClick={removeActiveContact}
-                        contact={activeContact}
-                    />
-                </div>
-            )}
+            <Row>
+                <Col md={3}>
+                    <ScrollArea
+                        style={{ height: 700 }}
+                        offsetScrollbars
+                        scrollbarSize={6}
+                    >
+                        {chatRoom &&
+                            Object?.entries(chatRoom)?.map((chat, index) => (
+                                <ContactList
+                                    key={index}
+                                    title="Today"
+                                    contactId={chat[0]}
+                                    contacts={chat[1]}
+                                />
+                            ))}
+                    </ScrollArea>
+                </Col>
+                <Col md={9}>
+                    {router?.query?.client && (
+                        <MessageListSidebar query={router?.query?.client} />
+                    )}
+                </Col>
+            </Row>
         </div>
     );
 };

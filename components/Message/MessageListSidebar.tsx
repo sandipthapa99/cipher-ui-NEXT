@@ -1,28 +1,63 @@
 import { MessageHeader } from "@components/Message/MessageHeader";
 import { MessageList } from "@components/Message/MessageList";
+import { ScrollArea } from "@mantine/core";
+import type { DocumentData } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    onSnapshot,
+    orderBy,
+    query,
+    QuerySnapshot,
+} from "firebase/firestore";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import type { Contact } from "staticData/messages";
 
+import { db } from "../../firebase/firebase";
+import { SendMessageInput } from "./SendMessageInput";
+
 interface MessageListSidebarProps {
-    contact: Contact;
-    onBackClick: () => void;
+    query: string | string[];
 }
-export const MessageListSidebar = ({
-    contact,
-    onBackClick,
-}: MessageListSidebarProps) => {
-    const { name, profileImage, messages, isOnline, isFavorite, lastMessage } =
-        contact;
+export const MessageListSidebar = ({ query }: MessageListSidebarProps) => {
+    // const { name, profileImage, messages, isOnline, isFavorite, lastMessage } =
+    //     contact;
+
+    // const [message, setMessage] = useState<DocumentData>();
+    // console.log(
+    //     "🚀 ~ file: MessageListSidebar.tsx ~ line 31 ~ message",
+    //     message
+    // );
+
+    // useEffect(() => {
+    //     if (query) {
+    //         const unsub = onSnapshot(doc(db, "chats", query), (doc) => {
+    //             setMessage(doc.data());
+    //         });
+    //         return () => {
+    //             unsub;
+    //         };
+    //     }
+    // }, [query]);
+
     return (
-        <div className="message-list-sidebar">
-            <MessageHeader
+        <div className="message-list-sidebar pb-5">
+            {/* <MessageHeader
                 username={name}
-                profileImage={profileImage}
+                // profileImage={profileImage}
                 isOnline={isOnline}
-                onBackClick={onBackClick}
                 lastMessage={lastMessage}
                 isFavorite={isFavorite}
-            />
-            <MessageList messages={messages} />
+            /> */}
+            <ScrollArea
+                style={{ height: 650, width: "100%" }}
+                offsetScrollbars
+                scrollbarSize={6}
+            >
+                <MessageList />
+            </ScrollArea>
+            <SendMessageInput placeholder="Type a message" />
         </div>
     );
 };
