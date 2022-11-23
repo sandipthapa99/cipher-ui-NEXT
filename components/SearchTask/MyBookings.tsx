@@ -9,6 +9,16 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+    doc,
+    getDoc,
+    getDocs,
+    serverTimestamp,
+    setDoc,
+    updateDoc,
+} from "firebase/firestore";
+import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -17,6 +27,7 @@ import type { Tasker } from "types/tasks";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
+import { db } from "../../firebase/firebase";
 import BigButton from "../common/Button";
 import ShareIcon from "../common/ShareIcon";
 import BookingDetails from "./BookingDetails";

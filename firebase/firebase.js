@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 // Import the functions you need from the SDKs you need
 import { getApp, getApps, initializeApp } from "firebase/app";
+import { doc, getFirestore, getStorage, setDoc } from "firebase/firestore";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
-// import { doc, getFirestore, setDoc } from "firebase/firestore";
 import localforage from "localforage";
 import { toast } from "utils/toast";
 
@@ -16,18 +16,17 @@ import { toast } from "utils/toast";
 //     measurementId: "G-XBZJZJR692",
 // };
 const firebaseConfig = {
-    apiKey: "AIzaSyCLuF1edAPq4Gvej1R_G5wBcCiCFt2y5t4",
-    authDomain: "homaale-764c8.firebaseapp.com",
-    projectId: "homaale-764c8",
-    storageBucket: "homaale-764c8.appspot.com",
-    messagingSenderId: "362172779022",
-    appId: "1:362172779022:web:cef284f3c10f83ca158a5f",
-    measurementId: "G-4EP20LV48R",
+    apiKey: "AIzaSyBYnEmAHcAjLEnwYRHsD-U6jOitzaOLyA0",
+    authDomain: "homaale-c945b.firebaseapp.com",
+    projectId: "homaale-c945b",
+    storageBucket: "homaale-c945b.appspot.com",
+    messagingSenderId: "17609084275",
+    appId: "1:17609084275:web:3e820a0e0c64bbe7bc8906",
+    measurementId: "G-6MNMFK079G",
 };
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-// const db = getFirestore();
 
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
@@ -62,7 +61,7 @@ const firebaseCloudMessaging = {
             await Notification.requestPermission();
             getToken(messaging, {
                 vapidKey:
-                    "BLR-4uFjaYkQCfCoZbrfumHEfC984YmJlF9KITKRqXFPFdfxA_Igke2YAInyhf-CNT8KXBUe6usJXK0Mf3In4aU",
+                    "BOP205JIvgHBRt71rjOD_jnopyOUbGElHjXMXYXyt45roXqjrZO9UFF9dkGBkjQjUczl57MMWYWRgGsx9fUg27o",
             })
                 .then((currentToken) => {
                     //
@@ -91,3 +90,4 @@ const firebaseCloudMessaging = {
 };
 
 export { firebaseCloudMessaging };
+export const db = getFirestore();

@@ -4,8 +4,16 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
+import {
+    doc,
+    getDoc,
+    serverTimestamp,
+    setDoc,
+    updateDoc,
+} from "firebase/firestore";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
 import parse from "html-react-parser";
 import { useRouter } from "next/router";
@@ -18,24 +26,25 @@ import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
+import { db } from "../../firebase/firebase";
+
 const AppliedForm = ({
     service_id,
     title,
     budget_from,
     budget_to,
+    tasker_id,
     budget_type,
     description,
+    tasker_name,
+    tasker_img,
     show,
     currency,
     setShow,
     handleClose,
 }: BookNowModalCardProps) => {
     const router = useRouter();
-    const {
-        mutate,
-        isLoading: applyTaskLoading,
-        data: BookingData,
-    } = useBookNowTask();
+    const { mutate } = useBookNowTask();
 
     // const loadingOverlayVisible = useMemo(
     //     () => applyTaskLoading,
@@ -61,6 +70,62 @@ const AppliedForm = ({
         ? description.replace(/<[^>]+>/g, "")
         : "";
     const { data: user } = useUser();
+
+    const { data: profile } = useGetProfile();
+
+    const userFullName =
+        profile?.user &&
+        profile?.user?.first_name +
+            " " +
+            profile?.user?.middle_name +
+            " " +
+            profile?.user?.last_name;
+
+    const handleRoomcreate = async () => {
+        if (user?.id) {
+            const combinedId =
+                user?.id > tasker_id
+                    ? user?.id + tasker_id
+                    : tasker_id + user?.id;
+
+            try {
+                const res = await getDoc(doc(db, "chats", combinedId));
+
+                if (!res.exists()) {
+                    await setDoc(doc(db, "chats", combinedId), {
+                        messages: [],
+                    });
+
+                    try {
+                        await updateDoc(doc(db, "userChats", user?.id), {
+                            [combinedId + ".userInfo"]: {
+                                uid: tasker_id,
+                                displayName: tasker_name,
+                                photoURL: tasker_img,
+                            },
+                            [combinedId + ".date"]: serverTimestamp(),
+                        });
+                    } catch (error) {
+                        console.log(
+                            "🚀 ~ file: MyBookings.tsx ~ line 109 ~ handleRoomcreate ~ error",
+                            error
+                        );
+                    }
+
+                    await updateDoc(doc(db, "userChats", tasker_id), {
+                        [combinedId + ".userInfo"]: {
+                            uid: user?.id,
+                            displayName: userFullName,
+                            photoURL: profile?.user?.profile_image,
+                        },
+                        [combinedId + ".date"]: serverTimestamp(),
+                    });
+                }
+            } catch (error) {
+                console.log("this isit", error);
+            }
+        }
+    };
     return (
         <>
             {/* Modal component */}
@@ -133,6 +198,8 @@ const AppliedForm = ({
                                     //toggleSuccessModal();
                                     setShow(false);
                                     router.push("/home");
+
+                                    handleRoomcreate();
                                 },
                                 onError: (error) => {
                                     setShow(false);
