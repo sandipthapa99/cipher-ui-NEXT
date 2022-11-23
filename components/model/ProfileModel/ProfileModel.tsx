@@ -5,6 +5,7 @@ import {
     faGauge,
     faGear,
     faGift,
+    faSackDollar,
     faTicket,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -128,6 +129,17 @@ const PROFILE_LINKS = {
                 />
             ),
             href: "/profile",
+            color: "#495057",
+        },
+        {
+            title: "My Earnings",
+            icon: (
+                <FontAwesomeIcon
+                    color={REGULAR_ICON_COLOR}
+                    icon={faSackDollar}
+                />
+            ),
+            href: "/my-Earnings",
             color: "#495057",
         },
         {
