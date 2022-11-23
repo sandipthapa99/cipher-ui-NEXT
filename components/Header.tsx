@@ -3,6 +3,8 @@ import {
     faBell,
     faListCheck,
     faLocationDot,
+    faMessage,
+    faMessageCaptions,
     faObjectsColumn,
     faTelescope,
 } from "@fortawesome/pro-regular-svg-icons";
@@ -173,6 +175,19 @@ const Header = () => {
                                 </a>
                             </Link>
                         )}
+                        {profileDetails ? (
+                            <Link href="/client/message">
+                                <a
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    style={{ marginRight: "1.6rem" }}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faMessageCaptions}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        ) : null}
 
                         {profileDetails ? (
                             <div

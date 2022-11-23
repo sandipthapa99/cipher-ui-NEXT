@@ -796,6 +796,21 @@ const SearchResultsDetail = ({
             </Row> */}
                 <BookNowModalCard
                     entity_service_id={serviceId}
+                    tasker_id={
+                        service?.created_by?.id ? service?.created_by?.id : ""
+                    }
+                    tasker_img={
+                        service?.created_by?.profile_image &&
+                        service?.created_by?.profile_image
+                    }
+                    tasker_name={
+                        service?.created_by &&
+                        service?.created_by?.first_name +
+                            " " +
+                            service?.created_by?.middle_name +
+                            " " +
+                            service?.created_by?.last_name
+                    }
                     title={serviceTitle}
                     budget_to={budget_to}
                     budget_from={budget_from}

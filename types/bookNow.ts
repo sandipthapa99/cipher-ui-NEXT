@@ -8,8 +8,11 @@ interface Currency {
 export interface BookNowModalCardProps {
     service_id?: string | undefined;
     title: string | undefined;
+    tasker_id: string;
+    tasker_name?: string;
     budget_from?: number;
     budget_to?: number;
+    tasker_img?: string;
     description: string | undefined;
     show?: boolean;
     handleClose?: () => void;
