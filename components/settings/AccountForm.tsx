@@ -169,10 +169,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [previewImage, setPreviewImage] = useState<
         RequestInfo | URL | undefined
     >();
-    const [value, onChange] = useState(new Date());
-    const userDateOfBirth = profile
-        ? profile.date_of_birth
-        : new Date("2022-09-09");
+    // const [value, onChange] = useState(new Date());
+    // const userDateOfBirth = profile
+    //     ? profile.date_of_birth
+    //     : new Date("2022-09-09");
     // const [dateOfBirth, setDateOfBirth] = useState<string | null>(
     //     userDateOfBirth
     // );
@@ -251,10 +251,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
     // const userType = "";
     //for city select field
-    const { data: BankDetails } = useData<UserBankDetails>(
-        ["tasker-bank-account"],
-        "/tasker/bank-details/"
-    );
+    // const { data: BankDetails } = useData<UserBankDetails>(
+    //     ["tasker-bank-account"],
+    //     "/tasker/bank-details/"
+    // );
 
     const { data: userData } = useUser();
 
@@ -378,13 +378,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         designation: profile?.designation ?? "",
                     }}
                     validationSchema={accountFormSchema}
-                    onSubmit={async (values, action) => {
+                    onSubmit={async (values) => {
                         const formData = new FormData();
                         {
                             userData?.id &&
                                 (await setDoc(doc(db, "users", userData?.id), {
-                                    name: `${values.first_name}`,
+                                    name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
                                     email: values.email,
+                                    profile: values.profile_image,
                                     uuid: userData?.id,
                                 }));
                         }

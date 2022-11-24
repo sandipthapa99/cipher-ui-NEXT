@@ -2,12 +2,12 @@ import { ContactList } from "@components/Message/ContactList";
 import { MessageListSidebar } from "@components/Message/MessageListSidebar";
 import { ScrollArea } from "@mantine/core";
 import type { DocumentData } from "firebase/firestore";
-import { collection, doc, getDoc, onSnapshot, query } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { useUser } from "hooks/auth/useUser";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { Contact } from "staticData/messages";
 
 import { db } from "../../firebase/firebase";
 
@@ -16,7 +16,7 @@ export const ContactListSideBar = () => {
 
     const { data } = useUser();
 
-    const router = useRouter();
+    const router: any = useRouter();
 
     useEffect(() => {
         if (data?.id) {
@@ -49,8 +49,22 @@ export const ContactListSideBar = () => {
                     </ScrollArea>
                 </Col>
                 <Col md={9}>
-                    {router?.query?.client && (
+                    {router?.query?.client ? (
                         <MessageListSidebar query={router?.query?.client} />
+                    ) : (
+                        <div className="p-5 text-center">
+                            <figure className="position-relative">
+                                <Image
+                                    src={"/emptyChat.png"}
+                                    alt="order-empty-img"
+                                    height={243}
+                                    width={243}
+                                />
+                            </figure>
+                            <p className="mb-3" style={{ fontSize: "2.4rem" }}>
+                                Start a Conversation
+                            </p>
+                        </div>
                     )}
                 </Col>
             </Row>

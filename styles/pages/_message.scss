@@ -92,7 +92,7 @@
     padding: 128px 48px 40px;
     display: flex;
     flex-direction: column;
-    gap: 56px;
+    gap: 2rem;
 
     @include media("<=tablet") {
         padding: 64px 16px 16px;
