@@ -59,13 +59,15 @@ export const NotificationDropdown = () => {
 
     const renderNotifications = allNotifications?.result
         .slice(0, 5)
-        .map((notification: any, index: number) => {
+        .map((notification, index) => {
             if (notification.title === "created") {
                 return (
                     <div
                         key={index}
                         onClick={async () => {
-                            router.push(`/task/${notification.object_slug}`);
+                            router.push(
+                                `/task/${notification?.content_object?.slug}`
+                            );
                             await axiosClient.get(
                                 `/notification/read/?id=${notification.id}`
                             );
@@ -77,17 +79,19 @@ export const NotificationDropdown = () => {
                     >
                         <PostNotifyTask
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.is_requested
+                            }
                             taskTitle={`${notification.title} a service`}
-                            taskObject={notification.object}
+                            taskObject={notification?.content_object?.title}
                             createdDate={notification.created_date}
-                            slug={notification.object_slug}
+                            slug={notification?.content_object?.slug}
                             type={"created"}
                             handleClick={() =>
                                 readSingleNotification(
-                                    notification?.object_slug,
+                                    notification?.content_object?.slug,
                                     notification?.id,
-                                    notification?.is_requested
+                                    notification?.content_object?.is_requested
                                         ? "task"
                                         : "service"
                                 )
@@ -99,19 +103,30 @@ export const NotificationDropdown = () => {
                 return (
                     <div key={index}>
                         <TaskStatus
-                            created_for={notification?.created_for}
+                            created_for={notification?.created_for?.full_name}
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                            }
                             taskTitle={notification?.title}
-                            taskObject={notification?.object}
+                            taskObject={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
                             createdDate={notification?.created_date}
-                            slug={notification?.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                             notificationTaskStatus="completed"
                             handleClick={() =>
                                 readSingleNotification(
-                                    notification?.object_slug,
+                                    notification?.content_object?.entity_service
+                                        ?.slug,
                                     notification?.id,
-                                    notification?.is_requested
+                                    notification?.content_object?.entity_service
+                                        ?.is_requested
                                         ? "task"
                                         : "service"
                                 )
@@ -123,19 +138,30 @@ export const NotificationDropdown = () => {
                 return (
                     <div key={index}>
                         <TaskStatus
-                            created_for={notification?.created_for}
+                            created_for={notification?.created_for?.full_name}
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                            }
                             taskTitle={notification?.title}
-                            taskObject={notification?.object}
+                            taskObject={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
                             createdDate={notification?.created_date}
-                            slug={notification?.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                             notificationTaskStatus="closed"
                             handleClick={() =>
                                 readSingleNotification(
-                                    notification?.object_slug,
+                                    notification?.content_object?.entity_service
+                                        ?.slug,
                                     notification?.id,
-                                    notification?.is_requested
+                                    notification?.content_object?.entity_service
+                                        ?.is_requested
                                         ? "task"
                                         : "service"
                                 )
@@ -149,36 +175,40 @@ export const NotificationDropdown = () => {
                         key={index}
                         onClick={() =>
                             readSingleNotification(
-                                notification?.object_slug,
+                                notification?.content_object?.entity_service
+                                    ?.slug,
                                 notification?.id,
-                                notification?.is_requested ? "task" : "service"
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                                    ? "task"
+                                    : "service"
                             )
                         }
                     >
-                        {/* <ApproveNotify
-                        body={notification?.object}
-                        date={notification?.created_date}
-                        title={notification?.title}
-                        handleClick={() =>
-                            readSingleNotification(
-                                notification?.object_slug,
-                                notification?.id
-                            )
-                        }
-                    /> */}
                         <PostNotifyTask
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                            }
                             taskTitle={notification?.title}
-                            taskObject={notification?.object}
+                            taskObject={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
                             createdDate={notification?.created_date}
-                            slug={notification?.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                             type={"booked"}
                             handleClick={() =>
                                 readSingleNotification(
-                                    notification?.object_slug,
+                                    notification?.content_object?.entity_service
+                                        ?.slug,
                                     notification?.id,
-                                    notification?.is_requested
+                                    notification?.content_object?.entity_service
+                                        ?.is_requested
                                         ? "task"
                                         : "service"
                                 )
@@ -192,23 +222,36 @@ export const NotificationDropdown = () => {
                         key={index}
                         onClick={() =>
                             readSingleNotification(
-                                notification?.object_slug,
+                                notification?.content_object?.entity_service
+                                    ?.slug,
                                 notification?.id,
-                                notification?.is_requested ? "task" : "service"
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                                    ? "task"
+                                    : "service"
                             )
                         }
                     >
                         <ApproveNotification
                             read={notification.read_date}
-                            bookingId={notification?.object_id}
+                            bookingId={notification?.content_object?.id}
                             title="booked"
-                            body={notification?.object}
-                            user={notification?.created_for}
+                            body={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
+                            user={notification?.created_for?.full_name}
                             accept={true}
-                            slug={notification?.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                             date={notification?.created_date}
                             type={
-                                notification.is_requested ? "task" : "service"
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                                    ? "task"
+                                    : "service"
                             }
                         />
                     </div>
@@ -219,21 +262,34 @@ export const NotificationDropdown = () => {
                         key={index}
                         onClick={() =>
                             readSingleNotification(
-                                notification?.object_slug,
+                                notification?.content_object?.entity_service
+                                    ?.slug,
                                 notification?.id,
-                                notification?.is_requested ? "task" : "service"
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                                    ? "task"
+                                    : "service"
                             )
                         }
                     >
                         <ApproveNotification
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                            }
                             title="Approved"
-                            body={notification?.object}
-                            user={notification?.created_for}
+                            body={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
+                            user={notification?.created_for?.full_name}
                             date={notification?.created_date}
                             type="booking"
-                            slug={notification?.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                         />
                     </div>
                 );
@@ -247,7 +303,9 @@ export const NotificationDropdown = () => {
                     <div
                         key={index}
                         onClick={async () => {
-                            router.push(`/task/${notification.object_slug}`);
+                            router.push(
+                                `/task/${notification?.content_object?.entity_service?.slug}`
+                            );
                             await axiosClient.get(
                                 `/notification/read/?id=${notification.id}`
                             );
@@ -259,17 +317,28 @@ export const NotificationDropdown = () => {
                     >
                         <PostNotifyTask
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                            }
                             taskTitle={`${notification.title} a service`}
-                            taskObject={notification.object}
+                            taskObject={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
                             createdDate={notification.created_date}
-                            slug={notification.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                             type={"created"}
                             handleClick={() =>
                                 readSingleNotification(
-                                    notification?.object_slug,
+                                    notification?.content_object?.entity_service
+                                        ?.slug,
                                     notification?.id,
-                                    notification?.is_requested
+                                    notification?.content_object?.entity_service
+                                        ?.is_requested
                                         ? "task"
                                         : "service"
                                 )
@@ -280,35 +349,31 @@ export const NotificationDropdown = () => {
             } else if (notification.title === "status completed") {
                 return (
                     <div key={index}>
-                        {/* <PostNotifyTask
-                        read={notification?.read_date}
-                        is_requested={notification.is_requested}
-                        taskTitle={notification?.title}
-                        taskObject={notification?.object}
-                        createdDate={notification?.created_date}
-                        slug={notification?.object_slug}
-                        handleClick={() =>
-                            readSingleNotification(
-                                notification?.object_slug,
-                                notification?.id,
-                                notification?.is_requested ? "task" : "service"
-                            )
-                        }
-                    /> */}
                         <TaskStatus
-                            created_for={notification?.created_for}
+                            created_for={notification?.created_for?.full_name}
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                            }
                             taskTitle={notification?.title}
-                            taskObject={notification?.object}
+                            taskObject={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
                             createdDate={notification?.created_date}
-                            slug={notification?.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                             notificationTaskStatus="completed"
                             handleClick={() =>
                                 readSingleNotification(
-                                    notification?.object_slug,
+                                    notification?.content_object?.entity_service
+                                        ?.slug,
                                     notification?.id,
-                                    notification?.is_requested
+                                    notification?.content_object?.entity_service
+                                        ?.is_requested
                                         ? "task"
                                         : "service"
                                 )
@@ -320,19 +385,30 @@ export const NotificationDropdown = () => {
                 return (
                     <div key={index}>
                         <TaskStatus
-                            created_for={notification?.created_for}
+                            created_for={notification?.created_for?.full_name}
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                            }
                             taskTitle={notification?.title}
-                            taskObject={notification?.object}
+                            taskObject={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
                             createdDate={notification?.created_date}
-                            slug={notification?.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                             notificationTaskStatus="closed"
                             handleClick={() =>
                                 readSingleNotification(
-                                    notification?.object_slug,
+                                    notification?.content_object?.entity_service
+                                        ?.slug,
                                     notification?.id,
-                                    notification?.is_requested
+                                    notification?.content_object?.entity_service
+                                        ?.is_requested
                                         ? "task"
                                         : "service"
                                 )
@@ -340,68 +416,46 @@ export const NotificationDropdown = () => {
                         />
                     </div>
                 );
-            }
-            // if (notification.type === "entityservice") {
-            //     return (
-            //         <div key={index}>
-            //             <PostNotifyTask
-            //                 taskTitle={notification?.title}
-            //                 taskObject={notification?.object}
-            //                 createdDate={notification?.created_date}
-            //                 slug={notification?.object_slug}
-            //                 handleClick={() =>
-            //                     readSingleNotification(
-            //                         notification?.object_slug,
-            //                         notification?.id
-            //                     )
-            //                 }
-            //             />
-            //         </div>
-            //     );
-            // }
-            // else if (notification.type === "service") {
-            //     return (
-            //         <div key={index}>
-            //             <ServiceAccept />
-            //         </div>
-            //     );
-            // }
-            else if (notification.title === "booking") {
+            } else if (notification.title === "booking") {
                 return (
                     <div
                         key={index}
                         onClick={() =>
                             readSingleNotification(
-                                notification?.object_slug,
+                                notification?.content_object?.entity_service
+                                    ?.slug,
                                 notification?.id,
-                                notification?.is_requested ? "task" : "service"
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                                    ? "task"
+                                    : "service"
                             )
                         }
                     >
-                        {/* <ApproveNotify
-                            body={notification?.object}
-                            date={notification?.created_date}
-                            title={notification?.title}
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.object_slug,
-                                    notification?.id
-                                )
-                            }
-                        /> */}
                         <PostNotifyTask
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                            }
                             taskTitle={notification?.title}
-                            taskObject={notification?.object}
+                            taskObject={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
                             createdDate={notification?.created_date}
-                            slug={notification?.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                             type={"booked"}
                             handleClick={() =>
                                 readSingleNotification(
-                                    notification?.object_slug,
+                                    notification?.content_object?.entity_service
+                                        ?.slug,
                                     notification?.id,
-                                    notification?.is_requested
+                                    notification?.content_object?.entity_service
+                                        ?.is_requested
                                         ? "task"
                                         : "service"
                                 )
@@ -415,23 +469,36 @@ export const NotificationDropdown = () => {
                         key={index}
                         onClick={() =>
                             readSingleNotification(
-                                notification?.object_slug,
+                                notification?.content_object?.entity_service
+                                    ?.slug,
                                 notification?.id,
-                                notification?.is_requested ? "task" : "service"
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                                    ? "task"
+                                    : "service"
                             )
                         }
                     >
                         <ApproveNotification
                             read={notification.read_date}
-                            bookingId={notification?.object_id}
+                            bookingId={notification?.content_object?.id}
                             title="booked"
-                            body={notification?.object}
-                            user={notification?.created_for}
+                            body={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
+                            user={notification?.created_for?.full_name}
                             accept={true}
-                            slug={notification?.object_slug}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                             date={notification?.created_date}
                             type={
-                                notification.is_requested ? "task" : "service"
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                                    ? "task"
+                                    : "service"
                             }
                         />
                     </div>
@@ -442,39 +509,34 @@ export const NotificationDropdown = () => {
                         key={index}
                         onClick={() =>
                             readSingleNotification(
-                                notification?.object_slug,
+                                notification?.content_object?.entity_service
+                                    ?.slug,
                                 notification?.id,
-                                notification?.is_requested ? "task" : "service"
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                                    ? "task"
+                                    : "service"
                             )
                         }
                     >
                         <ApproveNotification
                             read={notification?.read_date}
-                            is_requested={notification.is_requested}
+                            is_requested={
+                                notification?.content_object?.entity_service
+                                    ?.is_requested
+                            }
                             title="Approved"
-                            body={notification?.object}
-                            user={notification?.created_for}
+                            body={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
+                            user={notification?.created_for?.full_name}
                             date={notification?.created_date}
                             type="booking"
-                            slug={notification?.object_slug}
-                        />
-                    </div>
-                );
-            } else if (notification.type === "kycdocument") {
-                return (
-                    <div
-                        key={index}
-                        onClick={() =>
-                            readSingleNotification(
-                                notification?.object_slug,
-                                notification?.id,
-                                notification?.is_requested ? "task" : "service"
-                            )
-                        }
-                    >
-                        <KycDetails
-                            createdDate={notification?.created_date}
-                            is_requested={notification.is_requested}
+                            slug={
+                                notification?.content_object?.entity_service
+                                    ?.slug
+                            }
                         />
                     </div>
                 );
@@ -482,11 +544,11 @@ export const NotificationDropdown = () => {
         }
     );
 
-    // const readSinggleNotificationMutation = allNotifications?.result?.map(
-    //     (item) => {
-    //         return item?.id !== item?.id;
-    //     }
-    // );
+    const readSinggleNotificationMutation = allNotifications?.result?.map(
+        (item) => {
+            return item?.id !== item?.id;
+        }
+    );
 
     return (
         <div className="notification-dropdown">
@@ -515,12 +577,7 @@ export const NotificationDropdown = () => {
                     Mark all as read
                 </p>
             </div>
-            {/* {todayNotifications.length === 0 && (
-                <p className="text-center">
-                    No today&apos;s notifications to show.
-                </p>
-            )} */}
-            {/* {renderTodayNotifications} */}
+
             {todayNotifications.length !== 0
                 ? renderTodayNotifications
                 : renderNotifications}

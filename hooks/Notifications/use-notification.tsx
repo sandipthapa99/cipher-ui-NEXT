@@ -4,20 +4,37 @@ import { AxiosError } from "axios";
 import { useUser } from "hooks/auth/useUser";
 import { axiosClient } from "utils/axiosClient";
 
+export interface CreatedFor {
+    id: string;
+    full_name: string;
+    profile_image: string;
+}
+
+export interface ContentObject {
+    entity_service: EntityService;
+    id: string;
+    title: string;
+    is_requested: boolean;
+    slug: string;
+    created_by: string;
+}
+
+export interface EntityService {
+    id: string;
+    title: string;
+    is_requested: boolean;
+    slug: string;
+    created_by: string;
+}
 export type NotificationResponse = {
     result: Array<{
         id: number;
         user: string;
-        type: string;
+        created_for: CreatedFor;
+        content_object: ContentObject;
         title: string;
-        object: string;
         created_date: string;
-        read_date: any;
-        content: any;
-        object_slug: string;
-        object_id: string;
-        created_for: string;
-        is_requested: boolean;
+        read_date: string;
     }>;
     unread_count: number;
 };
