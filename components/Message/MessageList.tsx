@@ -1,12 +1,15 @@
 import { format, formatDistanceToNow } from "date-fns";
 import type { DocumentData } from "firebase/firestore";
 import { doc, onSnapshot } from "firebase/firestore";
+import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 import { db } from "../../firebase/firebase";
 
-export const MessageList = () => {
+export const MessageList = ({ imageUrl }: { imageUrl: string }) => {
     const router = useRouter();
     const chatId: any = router?.query?.chatId;
     const senderId: any = router?.query?.client;
@@ -34,6 +37,8 @@ export const MessageList = () => {
             });
     }, [message]);
 
+    const { data } = useGetProfile();
+
     const currentDate = format(new Date(), "PPPP");
     const renderMessages = () => {
         return (
@@ -55,36 +60,66 @@ export const MessageList = () => {
 
                     return (
                         <div className="message" key={index} ref={ref}>
-                            {/* <Image
-                    src={
-                        message.user.profileImage ??
-                        "/userprofile/unknownPerson.jpg"
-                    }
-                    width="40px"
-                    height="40px"
-                    alt="Profile Image"
-                    className="rounded-circle"
-                /> */}
-                            <div
-                                className={`message__info ${
-                                    senderId !== message.senderId
-                                        ? "ms-auto"
-                                        : "me-auto"
-                                }`}
-                            >
-                                <p className="message__info--text">
-                                    {message.text}
-                                </p>
-                                <span className="message__info--createdAt">
-                                    {/* {formatDistanceToNow(
-                                        new Date(
-                                            message.date.seconds * 1000
-                                        ).toLocaleDateString(),
-                                        { addSuffix: true }
-                                    )} */}
-                                    {formateedDate}
-                                </span>
-                            </div>
+                            {senderId !== message.senderId && (
+                                <div
+                                    className={`d-flex gap-2 ms-auto align-items-start flex-row-reverse`}
+                                >
+                                    <Image
+                                        src={
+                                            data?.user?.profile_image ??
+                                            "/userprofile/unknownPerson.jpg"
+                                        }
+                                        width={40}
+                                        height={40}
+                                        alt="Profile Image"
+                                        className="rounded-circle"
+                                    />
+                                    <div
+                                        className={`message__info ${
+                                            senderId !== message.senderId
+                                                ? "ms-auto"
+                                                : "me-auto"
+                                        }`}
+                                    >
+                                        <p className="message__info--text">
+                                            {message.text}
+                                        </p>
+                                        <span className="message__info--createdAt">
+                                            {formateedDate}
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
+                            {senderId === message.senderId && (
+                                <div
+                                    className={`d-flex gap-2 align-items-start me-auto`}
+                                >
+                                    <Image
+                                        src={
+                                            imageUrl ??
+                                            "/userprofile/unknownPerson.jpg"
+                                        }
+                                        width={40}
+                                        height={40}
+                                        alt="Profile Image"
+                                        className="rounded-circle"
+                                    />
+                                    <div
+                                        className={`message__info ${
+                                            senderId !== message.senderId
+                                                ? "ms-auto"
+                                                : "me-auto"
+                                        }`}
+                                    >
+                                        <p className="message__info--text">
+                                            {message.text}
+                                        </p>
+                                        <span className="message__info--createdAt">
+                                            {formateedDate}
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     );
                 }
