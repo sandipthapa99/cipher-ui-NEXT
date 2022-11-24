@@ -16,6 +16,7 @@ interface TaskStatusProps {
     read?: string | null;
     created_for: string;
     notificationTaskStatus: string;
+    userPhoto: string;
 }
 
 export const TaskStatus = ({
@@ -30,6 +31,7 @@ export const TaskStatus = ({
     read,
     created_for,
     notificationTaskStatus,
+    userPhoto,
 }: TaskStatusProps) => {
     const { data: profile } = useGetProfile();
     const router = useRouter();
@@ -50,9 +52,7 @@ export const TaskStatus = ({
                     <Image
                         alt="testimage"
                         src={
-                            profile
-                                ? profile?.profile_image
-                                : "/logo/homaale-favicon.png"
+                            userPhoto ? userPhoto : "/logo/homaale-favicon.png"
                         }
                         height={50}
                         width={50}
