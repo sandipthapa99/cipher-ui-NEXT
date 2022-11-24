@@ -105,6 +105,7 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <TaskStatus
+                            userPhoto={notification?.created_for?.profile_image}
                             created_for={notification?.created_for?.full_name}
                             read={notification?.read_date}
                             is_requested={
@@ -140,6 +141,7 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <TaskStatus
+                            userPhoto={notification?.created_for?.profile_image}
                             created_for={notification?.created_for?.full_name}
                             read={notification?.read_date}
                             is_requested={
@@ -235,6 +237,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            userPhoto={notification?.created_for?.profile_image}
                             read={notification.read_date}
                             bookingId={notification?.content_object?.id}
                             title="booked"
@@ -275,6 +278,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            userPhoto={notification?.created_for?.profile_image}
                             read={notification?.read_date}
                             is_requested={
                                 notification?.content_object?.entity_service
@@ -354,6 +358,7 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <TaskStatus
+                            userPhoto={notification?.created_for?.profile_image}
                             created_for={notification?.created_for?.full_name}
                             read={notification?.read_date}
                             is_requested={
@@ -389,6 +394,7 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <TaskStatus
+                            userPhoto={notification?.created_for?.profile_image}
                             created_for={notification?.created_for?.full_name}
                             read={notification?.read_date}
                             is_requested={
@@ -484,6 +490,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            userPhoto={notification?.created_for?.profile_image}
                             read={notification.read_date}
                             bookingId={notification?.content_object?.id}
                             title="booked"
@@ -524,6 +531,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            userPhoto={notification?.created_for?.profile_image}
                             read={notification?.read_date}
                             is_requested={
                                 notification?.content_object?.entity_service

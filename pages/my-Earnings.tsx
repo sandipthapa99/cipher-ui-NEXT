@@ -70,28 +70,40 @@ const MyEarnings = () => {
         {
             id: 1,
             title: "Current Balance",
-            amount: myWallet ? myWallet[0].available_balance : 0,
+            amount:
+                myWallet?.length !== 0 && myWallet
+                    ? myWallet[0]?.available_balance
+                    : 0,
             icon: faSackDollar,
             color: "#211D4F",
         },
         {
             id: 2,
             title: "Total Earnings",
-            amount: myWallet ? myWallet[0].total_income : 0,
+            amount:
+                myWallet?.length !== 0 && myWallet
+                    ? myWallet[0]?.total_income
+                    : 0,
             icon: faPiggyBank,
             color: "#38C675",
         },
         {
             id: 3,
             title: "Total Withdrawals",
-            amount: myWallet ? myWallet[0].total_withdrawals : 0,
+            amount:
+                myWallet?.length !== 0 && myWallet
+                    ? myWallet[0]?.total_withdrawals
+                    : 0,
             icon: faMoneyFromBracket,
             color: "#FE5050",
         },
         {
             id: 4,
             title: "Pending Amount",
-            amount: myWallet ? myWallet[0].frozen_amount : 0,
+            amount:
+                myWallet?.length !== 0 && myWallet
+                    ? myWallet[0]?.frozen_amount
+                    : 0,
             icon: faFileInvoiceDollar,
             color: "#FF9700",
         },

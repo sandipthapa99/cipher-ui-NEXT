@@ -147,6 +147,7 @@ interface ApproveNotificationProps {
     bookingId?: string;
     is_requested?: boolean;
     read?: string;
+    userPhoto: string;
 }
 
 export const ApproveNotification = ({
@@ -161,6 +162,7 @@ export const ApproveNotification = ({
     bookingId,
     is_requested,
     read,
+    userPhoto,
 }: ApproveNotificationProps) => {
     const { data: profile } = useGetProfile();
     const { data: bookingData } = useQuery<BookingDetails>(
@@ -183,9 +185,7 @@ export const ApproveNotification = ({
                     <Image
                         alt="testimage"
                         src={
-                            profile
-                                ? profile?.profile_image
-                                : "/logo/homaale-favicon.png"
+                            userPhoto ? userPhoto : "/logo/homaale-favicon.png"
                         }
                         height={50}
                         width={50}
