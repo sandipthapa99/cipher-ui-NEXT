@@ -70,12 +70,12 @@ const Login = () => {
         setIsPhoneNumber(false);
     };
 
-    const HandleUserFetchFlow = () => {
-        const { data } = useUser();
-        if (data) {
-            localStorage.setItem("user", JSON.stringify(data));
-        }
-    };
+    // const HandleUserFetchFlow = () => {
+    //     const { data } = useUser();
+    //     if (data) {
+    //         localStorage.setItem("user", JSON.stringify(data));
+    //     }
+    // };
 
     return (
         <OnBoardingLayout
@@ -123,7 +123,7 @@ const Login = () => {
                                     : next
                                     ? next
                                     : "/home";
-                                await HandleUserFetchFlow();
+                                // await HandleUserFetchFlow();
                                 router.push(redirectUrl.toString());
                                 toast.success("Login successful");
                             },

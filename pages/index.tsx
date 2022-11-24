@@ -69,8 +69,8 @@ const Home: NextPage<{
 }) => {
     const [isClient, setIsClient] = useState(false);
 
-    const data = localStorage.getItem("user");
-    console.log("🚀 ~ file: index.tsx ~ line 73 ~ data", data);
+    // const data = localStorage.getItem("user");
+    // console.log("🚀 ~ file: index.tsx ~ line 73 ~ data", data);
 
     // const loginPopup = useWithLogin();
 
