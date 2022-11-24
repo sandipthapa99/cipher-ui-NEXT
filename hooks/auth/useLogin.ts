@@ -4,6 +4,8 @@ import urls from "constants/urls";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 
+import { useUser } from "./useUser";
+
 export interface LoginPayload {
     username: string;
     password: string;
@@ -23,6 +25,7 @@ export const useLogin = () => {
                 loginPayload
             );
             autoLogin(data.access, data.refresh);
+
             return data.has_profile;
         } catch (error: any) {
             // if (error instanceof AxiosError) {
