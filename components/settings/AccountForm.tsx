@@ -24,7 +24,7 @@ import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { Field, Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { useCountry } from "hooks/dropdown/useCountry";
@@ -391,7 +391,16 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         }
 
                         {
-                            userData?.id &&
+                            const res = await getDoc(
+                                doc(
+                                    db,
+                                    "userChats",
+                                    userData?.id ? userData?.id : ""
+                                )
+                            );
+
+                            !res.exists() &&
+                                userData?.id &&
                                 (await setDoc(
                                     doc(db, "userChats", userData?.id),
                                     {}

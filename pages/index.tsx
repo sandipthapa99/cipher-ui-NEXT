@@ -36,6 +36,7 @@ import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
 import { useOpenLoginPrompt, useWithLogin } from "store/use-login-prompt-store";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
+import { useUserStoreGet } from "store/use-user-store";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { CategoryDataProps } from "types/categoryData";
@@ -67,6 +68,9 @@ const Home: NextPage<{
     servicesData,
 }) => {
     const [isClient, setIsClient] = useState(false);
+
+    const data = localStorage.getItem("user");
+    console.log("🚀 ~ file: index.tsx ~ line 73 ~ data", data);
 
     // const loginPopup = useWithLogin();
 

@@ -7,11 +7,13 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
+import { useUser } from "hooks/auth/useUser";
 import Cookies from "js-cookie";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
+import { useUserStoreSet } from "store/use-user-store";
 import { axiosClient } from "utils/axiosClient";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -51,6 +53,8 @@ const Login = () => {
         }
     });
 
+    // useStoreUser(userData ? userData : {});
+
     const handleChange = (
         event: ChangeEvent<HTMLInputElement>,
         setFieldValue: (field: string, value: any) => void
@@ -64,6 +68,13 @@ const Login = () => {
             return;
         }
         setIsPhoneNumber(false);
+    };
+
+    const HandleUserFetchFlow = () => {
+        const { data } = useUser();
+        if (data) {
+            localStorage.setItem("user", JSON.stringify(data));
+        }
     };
 
     return (
@@ -112,6 +123,7 @@ const Login = () => {
                                     : next
                                     ? next
                                     : "/home";
+                                await HandleUserFetchFlow();
                                 router.push(redirectUrl.toString());
                                 toast.success("Login successful");
                             },
