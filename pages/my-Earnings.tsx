@@ -27,18 +27,26 @@ import { DateRangePicker } from "@mantine/dates";
 import { format } from "date-fns";
 import { useGetEarningHistory } from "hooks/use-earning-history";
 import { useMyWallet } from "hooks/use-wallet";
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { convertAmount } from "utils/convertAmount.js";
 
 type INCOME_DATA_TYPE = {
     id: number;
     title: string;
-    amount: number;
+    amount: number | undefined | string;
     icon: IconDefinition;
     color: string;
 }[];
 
 const MyEarnings = () => {
+    let available_balance;
+    let total_income;
+    let total_withdrawals;
+    let frozen_amount;
+
     const [checkedIds, setCheckedIds] = useState<any>([]);
 
     const [paginationNumber, setPaginationNumber] = useState(1);
@@ -64,46 +72,40 @@ const MyEarnings = () => {
         };
     });
     const allIds = newElements?.map((element) => element.id);
-    const { data: myWallet } = useMyWallet();
+    const { data: myWallet, isLoading } = useMyWallet();
+    if (myWallet?.length !== 0 && myWallet) {
+        available_balance = convertAmount(myWallet[0]?.available_balance);
+        total_income = convertAmount(myWallet[0]?.available_balance);
+        total_withdrawals = convertAmount(myWallet[0]?.total_withdrawals);
+        frozen_amount = convertAmount(myWallet[0]?.frozen_amount);
+    }
 
     const INCOME_DATA: INCOME_DATA_TYPE = [
         {
             id: 1,
             title: "Current Balance",
-            amount:
-                myWallet?.length !== 0 && myWallet
-                    ? myWallet[0]?.available_balance
-                    : 0,
+            amount: myWallet?.length !== 0 && myWallet ? available_balance : 0,
             icon: faSackDollar,
             color: "#211D4F",
         },
         {
             id: 2,
             title: "Total Earnings",
-            amount:
-                myWallet?.length !== 0 && myWallet
-                    ? myWallet[0]?.total_income
-                    : 0,
+            amount: myWallet?.length !== 0 && myWallet ? total_income : 0,
             icon: faPiggyBank,
             color: "#38C675",
         },
         {
             id: 3,
             title: "Total Withdrawals",
-            amount:
-                myWallet?.length !== 0 && myWallet
-                    ? myWallet[0]?.total_withdrawals
-                    : 0,
+            amount: myWallet?.length !== 0 && myWallet ? total_withdrawals : 0,
             icon: faMoneyFromBracket,
             color: "#FE5050",
         },
         {
             id: 4,
             title: "Pending Amount",
-            amount:
-                myWallet?.length !== 0 && myWallet
-                    ? myWallet[0]?.frozen_amount
-                    : 0,
+            amount: myWallet?.length !== 0 && myWallet ? frozen_amount : 0,
             icon: faFileInvoiceDollar,
             color: "#FF9700",
         },
@@ -230,121 +232,128 @@ const MyEarnings = () => {
                 <Container>
                     <p className="my-earnings-text">My Earnings</p>
                     <Row className="gap-3">{renderIncome}</Row>
-                    <div className="bg-white pt-5 payment-history mt-5">
-                        <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
-                            <TextInput
-                                icon={
-                                    <FontAwesomeIcon
-                                        icon={faSearch}
-                                        className="me-0 svg-icon"
-                                    />
-                                }
-                                placeholder="Enter a search keyword"
-                            />
-                            <div className="d-flex mt-3 mt-sm-0">
-                                <Menu shadow="md" width={350}>
-                                    <Menu.Target>
-                                        <Button
-                                            color="gray"
-                                            className="d-flex align-items-center me-4"
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={faFilter}
-                                                className="svg-icon"
+                    {myWallet?.length !== 0 && !isLoading ? (
+                        <div className="bg-white pt-5 payment-history mt-5">
+                            <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
+                                <TextInput
+                                    icon={
+                                        <FontAwesomeIcon
+                                            icon={faSearch}
+                                            className="me-0 svg-icon"
+                                        />
+                                    }
+                                    placeholder="Enter a search keyword"
+                                />
+                                <div className="d-flex mt-3 mt-sm-0">
+                                    <Menu shadow="md" width={350}>
+                                        <Menu.Target>
+                                            <Button
+                                                color="gray"
+                                                className="d-flex align-items-center me-4"
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faFilter}
+                                                    className="svg-icon"
+                                                />
+                                                Filter
+                                            </Button>
+                                        </Menu.Target>
+
+                                        <Menu.Dropdown>
+                                            <h3>Filter Options</h3>
+                                            <DateRangePicker
+                                                label="Date"
+                                                placeholder="Pick dates range"
+                                                className="py-3"
                                             />
-                                            Filter
-                                        </Button>
-                                    </Menu.Target>
-
-                                    <Menu.Dropdown>
-                                        <h3>Filter Options</h3>
-                                        <DateRangePicker
-                                            label="Date"
-                                            placeholder="Pick dates range"
-                                            className="py-3"
-                                        />
-                                        <Select
-                                            data={[
-                                                "React",
-                                                "Angular",
-                                                "Svelte",
-                                                "Vue",
-                                            ]}
-                                            placeholder="Pick one"
-                                            label="Status"
-                                            className="py-3"
-                                        />
-                                        <Select
-                                            data={[
-                                                "React",
-                                                "Angular",
-                                                "Svelte",
-                                                "Vue",
-                                            ]}
-                                            placeholder="Pick one"
-                                            label="Type"
-                                            className="py-3"
-                                        />
-                                    </Menu.Dropdown>
-                                </Menu>
-
-                                <Menu shadow="md" width={160}>
-                                    <Menu.Target>
-                                        <Button
-                                            color="gray"
-                                            className="d-flex align-items-center"
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={faPrint}
-                                                className="svg-icon"
+                                            <Select
+                                                data={[
+                                                    "React",
+                                                    "Angular",
+                                                    "Svelte",
+                                                    "Vue",
+                                                ]}
+                                                placeholder="Pick one"
+                                                label="Status"
+                                                className="py-3"
                                             />
-                                            Export
-                                        </Button>
-                                    </Menu.Target>
+                                            <Select
+                                                data={[
+                                                    "React",
+                                                    "Angular",
+                                                    "Svelte",
+                                                    "Vue",
+                                                ]}
+                                                placeholder="Pick one"
+                                                label="Type"
+                                                className="py-3"
+                                            />
+                                        </Menu.Dropdown>
+                                    </Menu>
 
-                                    <Menu.Dropdown>
-                                        <Button className="bg-white text-black">
-                                            Export to Excel
-                                        </Button>
-                                        <Button className="bg-white text-black">
-                                            Export to CSV
-                                        </Button>
-                                    </Menu.Dropdown>
-                                </Menu>
+                                    <Menu shadow="md" width={160}>
+                                        <Menu.Target>
+                                            <Button
+                                                color="gray"
+                                                className="d-flex align-items-center"
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faPrint}
+                                                    className="svg-icon"
+                                                />
+                                                Export
+                                            </Button>
+                                        </Menu.Target>
+
+                                        <Menu.Dropdown>
+                                            <Button className="bg-white text-black">
+                                                Export to Excel
+                                            </Button>
+                                            <Button className="bg-white text-black">
+                                                Export to CSV
+                                            </Button>
+                                        </Menu.Dropdown>
+                                    </Menu>
+                                </div>
                             </div>
-                        </div>
-                        <ScrollArea>
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <Checkbox
-                                                checked={allChecked}
-                                                onChange={(event) => {
-                                                    setAllChecked(
-                                                        event.target.checked
-                                                    );
-                                                    if (event.target.checked) {
-                                                        setCheckedIds(allIds);
-                                                    } else {
-                                                        setCheckedIds([]);
-                                                    }
-                                                }}
-                                            />
-                                        </th>
-                                        <th>Transaction ID</th>
-                                        <th>User</th>
+                            <ScrollArea>
+                                <Table>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <Checkbox
+                                                    checked={allChecked}
+                                                    onChange={(event) => {
+                                                        setAllChecked(
+                                                            event.target.checked
+                                                        );
+                                                        if (
+                                                            event.target.checked
+                                                        ) {
+                                                            setCheckedIds(
+                                                                allIds
+                                                            );
+                                                        } else {
+                                                            setCheckedIds([]);
+                                                        }
+                                                    }}
+                                                />
+                                            </th>
+                                            <th>Transaction ID</th>
+                                            <th>User</th>
 
-                                        <th>Details</th>
-                                        <th>Transaction Date</th>
-                                        <th className="text-center">Status</th>
-                                        <th>Amount</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>{rows}</tbody>
-                            </Table>
-                            {/* {newElements && newElements?.length >= 0 && (
+                                            <th>Details</th>
+                                            <th>Transaction Date</th>
+                                            <th className="text-center">
+                                                Status
+                                            </th>
+                                            <th>Amount</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>{rows}</tbody>
+                                </Table>
+                                {/* {newElements && newElements?.length >= 0 && (
                                 <ApplyPostComponent
                                     model="service"
                                     title="No Payment History Available"
@@ -353,29 +362,50 @@ const MyEarnings = () => {
                                     href="/home?activeTab=1"
                                 />
                             )} */}
-                        </ScrollArea>
-                        <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
-                            <Select
-                                data={["10", "20"]}
-                                placeholder="10"
-                                className="py-3"
-                                onChange={(value) => {
-                                    if (value) setPageSize(value);
-                                }}
-                            />
-                            <Pagination
-                                total={
-                                    EarningHistory
-                                        ? EarningHistory?.result.length
-                                        : 0
-                                }
-                                color="yellow"
-                                onChange={(value) => {
-                                    setPaginationNumber(value);
-                                }}
-                            />
+                            </ScrollArea>
+                            <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
+                                <Select
+                                    data={["10", "20"]}
+                                    placeholder="10"
+                                    className="py-3"
+                                    onChange={(value) => {
+                                        if (value) setPageSize(value);
+                                    }}
+                                />
+                                <Pagination
+                                    total={
+                                        EarningHistory
+                                            ? EarningHistory?.result.length
+                                            : 0
+                                    }
+                                    color="yellow"
+                                    onChange={(value) => {
+                                        setPaginationNumber(value);
+                                    }}
+                                />
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="bg-white p-5 text-center mt-5">
+                            <figure className="position-relative">
+                                <Image
+                                    src={"/orderEmpty.png"}
+                                    alt="order-empty-img"
+                                    height={243}
+                                    width={243}
+                                />
+                            </figure>
+                            <p className="mb-3" style={{ fontSize: "2.4rem" }}>
+                                You Have No Earning History.
+                            </p>
+                            <p>
+                                <Link href={"/home?activeTab=1"}>
+                                    <a>Click here </a>
+                                </Link>
+                                to see your booking details.
+                            </p>
+                        </div>
+                    )}
                 </Container>
             </section>
         </Layout>

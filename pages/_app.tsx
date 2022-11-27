@@ -17,7 +17,7 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 import { firebaseCloudMessaging } from "../firebase/firebase";
@@ -37,6 +37,18 @@ const getReptcha = () => {
 };
 
 function MyApp({ Component, pageProps }: CustomAppProps) {
+    // const queryClient = useMemo(
+    //     () =>
+    //         new QueryClient({
+    //             defaultOptions: {
+    //                 queries: {
+    //                     refetchOnWindowFocus: false,
+    //                     retry: false,
+    //                 },
+    //             },
+    //         }),
+    //     []
+    // );
     const [queryClient] = useState(
         () =>
             new QueryClient({
