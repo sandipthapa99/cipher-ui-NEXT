@@ -66,8 +66,9 @@ export const MessageList = ({ imageUrl }: { imageUrl: string }) => {
                                 >
                                     <Image
                                         src={
-                                            data?.user?.profile_image ??
-                                            "/userprofile/unknownPerson.jpg"
+                                            data?.user?.profile_image
+                                                ? data?.user?.profile_image
+                                                : "/placeholder/profilePlaceholder.png"
                                         }
                                         width={40}
                                         height={40}
@@ -96,8 +97,9 @@ export const MessageList = ({ imageUrl }: { imageUrl: string }) => {
                                 >
                                     <Image
                                         src={
-                                            imageUrl ??
-                                            "/userprofile/unknownPerson.jpg"
+                                            imageUrl
+                                                ? imageUrl
+                                                : "/placeholder/profilePlaceholder.png"
                                         }
                                         width={40}
                                         height={40}

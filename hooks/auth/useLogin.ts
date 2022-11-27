@@ -1,10 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import urls from "constants/urls";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
-
-import { useUser } from "./useUser";
 
 export interface LoginPayload {
     username: string;

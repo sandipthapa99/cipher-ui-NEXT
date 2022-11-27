@@ -23,4 +23,5 @@ export const autoLogout = () => {
     Cookies.remove("access");
     Cookies.remove("refresh");
     Cookies.remove("credentials");
+    localStorage.removeItem("user");
 };

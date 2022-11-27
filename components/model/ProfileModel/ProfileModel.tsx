@@ -1,6 +1,5 @@
 import {
     faArrowRightFromBracket,
-    faBoxOpen,
     faChartSimpleHorizontal,
     faGauge,
     faGear,
@@ -34,6 +33,7 @@ export const ProfileModel = () => {
                 pathname: "/login",
                 query: { next: router.pathname },
             });
+            // remove();
         },
     });
 
