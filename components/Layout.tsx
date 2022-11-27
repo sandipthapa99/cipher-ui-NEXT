@@ -14,7 +14,9 @@ import type { FC } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import useUserStore from "store/use-user-store";
 import type { MetaDataProps } from "types/metaData";
+import type { User } from "types/user";
 
 import meta from "../staticData/siteMetaData.json";
 import Footer from "./Footer";
@@ -53,7 +55,14 @@ const Layout: FC<MetaDataProps> = ({
         }
     }, [sidebar]);
 
-    const { data } = useUser();
+    let userdata!: User;
+    if (typeof window !== "undefined") {
+        const userJson = localStorage.getItem("user");
+        if (userJson) {
+            const res = JSON.parse(userJson);
+            userdata = res.data;
+        }
+    }
 
     return (
         <>
@@ -95,7 +104,7 @@ const Layout: FC<MetaDataProps> = ({
                 <section id="header-section" className="sticky-wrapper-header">
                     {<UpperHeader />}
                     <Header />
-                    {data?.is_suspended && (
+                    {userdata?.is_suspended && (
                         <Alert color="orange" sx={{ zIndex: -1 }}>
                             <Container className="px-5">
                                 <span className="text-danger font-weight-bold">

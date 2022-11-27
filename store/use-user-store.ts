@@ -1,15 +1,26 @@
 import type { User } from "types/user";
-import { createStore, useStore } from "zustand";
+import create from "zustand";
+
+let user: User;
+
+if (typeof window !== "undefined") {
+    const userJson = localStorage.getItem("user");
+    if (userJson) {
+        const res = JSON.parse(userJson);
+        user = res.data;
+    }
+}
 
 type UseUserStoreProps = {
     user: User | undefined;
     setUser: (detail: User | any) => void;
+    removeUser: () => void;
 };
 
-const useUserStore = createStore<UseUserStoreProps>((set) => ({
-    user: undefined,
-    setUser: (detail) => set((state) => ({ ...state, user: detail })),
+const useUserStore = create<UseUserStoreProps>((set) => ({
+    user: user ? user : undefined,
+    setUser: (detail: User) => set(() => ({ user: detail })),
+    removeUser: () => set(() => ({ user: undefined })),
 }));
 
-export const useUserStoreSet = () => useStore(useUserStore).setUser;
-export const useUserStoreGet = () => useStore(useUserStore).user;
+export default useUserStore;

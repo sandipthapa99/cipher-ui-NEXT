@@ -4,20 +4,24 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { async } from "@firebase/util";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
 import { useUser } from "hooks/auth/useUser";
 import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { useUserStoreSet } from "store/use-user-store";
+import { UserService } from "services/userService";
+import useUserStore from "store/use-user-store";
 import { axiosClient } from "utils/axiosClient";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
+import { useStore } from "zustand";
 
 interface ResendEmailVerification {
     email: string;
@@ -69,13 +73,21 @@ const Login = () => {
         }
         setIsPhoneNumber(false);
     };
+    const userSet = useUserStore((state) => state.setUser);
 
-    // const HandleUserFetchFlow = () => {
-    //     const { data } = useUser();
-    //     if (data) {
-    //         localStorage.setItem("user", JSON.stringify(data));
-    //     }
-    // };
+    const HandleUserFetchFlow = async () => {
+        const access = Cookies.get("access");
+        if (access === undefined) return null;
+
+        const user = await UserService.fetchUser(access);
+        try {
+            const res = await axiosClient.get(`/user/${user?.id}`);
+            localStorage.setItem("user", JSON.stringify(res));
+            userSet(res);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <OnBoardingLayout
@@ -123,7 +135,7 @@ const Login = () => {
                                     : next
                                     ? next
                                     : "/home";
-                                // await HandleUserFetchFlow();
+                                await HandleUserFetchFlow();
                                 router.push(redirectUrl.toString());
                                 toast.success("Login successful");
                             },
