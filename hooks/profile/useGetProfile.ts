@@ -16,6 +16,7 @@ export type ProfileResponse = {
         name: string;
         country: number;
     };
+    followers_count: number;
     user: {
         id: string;
         username: string;
