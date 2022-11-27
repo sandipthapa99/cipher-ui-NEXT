@@ -1,0 +1,24 @@
+.change-notification-head-div {
+    margin-bottom: 4rem;
+    .notification-header {
+        font-size: 3rem;
+    }
+    .notification-text {
+        font-size: 2.2rem;
+     
+        
+    }
+}
+
+.change-notification {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+    .change-notify-label {
+        font-size: 1.6rem;
+        font-weight: 400;
+        margin: 2rem 0 0 0;
+    }
+}
