@@ -14,7 +14,7 @@ export interface IUserActivityApiResponse {
     next: any;
     previous: any;
     page_size: number;
-    result: ITask[];
+    result: IActivity[];
 }
 
 export interface Media {
