@@ -1,6 +1,7 @@
 import { ScrollArea } from "@mantine/core";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
+import { useInViewPort } from "hooks/use-in-viewport";
 import { useUserActivities } from "hooks/userActivities/use-userActivities";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,11 +21,16 @@ const UserActivities = () => {
     const activities = activityPages?.pages[0];
     console.log("Infinite", activities);
 
-    // const { data: activities } = useData<UserProfileProps["activitiesData"]>(
-    //     ["tasker-activities"],
-    //     "/history/my-activities/?page_size=40"
-    // );
-    // console.log("query", activities?.data);
+    const totalActivities = activities?.result[0].length;
+    const isLastActivityOnPage = (index: number) =>
+        index === totalActivities - 1;
+
+    const { ref } = useInViewPort<HTMLDivElement>(() => {
+        if (hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
+    });
+
     const [id, setId] = useState<number | undefined>(activities?.result[0].id);
     const [showFirstDate, setShowFirstDate] = useState(true);
 
@@ -38,7 +44,7 @@ const UserActivities = () => {
                 scrollbarSize={5}
             >
                 {activities && activities?.result.length > 0 ? (
-                    activities?.result?.map((activity) => (
+                    activities?.result?.map((activity, index) => (
                         <div
                             className="timeline"
                             key={activity.id}
@@ -47,6 +53,7 @@ const UserActivities = () => {
                                 setShowFirstDate(false);
                                 idFirst = 0;
                             }}
+                            ref={isLastActivityOnPage(index) ? ref : null}
                         >
                             <Row className="w-100">
                                 <Col md={1} sm={2} xs={2}>
