@@ -1,6 +1,7 @@
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import urls from "constants/urls";
+import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Link from "next/link";
 import type { ReactNode } from "react";
