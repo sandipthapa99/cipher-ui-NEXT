@@ -129,7 +129,11 @@ const Home: NextPage<{
                                             Earn Money as a Professional
                                         </a>
                                     </Link>
+<<<<<<< HEAD
                                     {/* {!userGet().is_suspended && (
+=======
+                                    {!userGet()?.is_suspended && (
+>>>>>>> e4d468478531017d00828e85571f8c92cf571f3c
                                         <a
                                             className="hero-cta"
                                             onClick={handleShowPostTaskModal}
