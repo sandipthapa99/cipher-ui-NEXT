@@ -63,6 +63,7 @@ const UserProfileCard = ({
     const [showEdit, setShowEdit] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
     const [showFollowers, setShowFollowers] = useState(false);
+    const [followerClick, setFollowerClick] = useState("followers");
     const { data: countryData } = useGetCountryBYId(country.id);
     const [image, setImage] = useState();
     const services = skill ? JSON.parse(skill) : [];
@@ -246,13 +247,19 @@ const UserProfileCard = ({
                     <div className="followers-following d-flex justify-content-between gap-5 px-2 py-4 text-sm">
                         <span
                             className="followers"
-                            onClick={() => setShowFollowers(true)}
+                            onClick={() => {
+                                setShowFollowers(true);
+                                setFollowerClick("followers");
+                            }}
                         >
                             <strong>{followers_count}</strong> Followers
                         </span>
                         <span
                             className="following"
-                            onClick={() => setShowFollowers(true)}
+                            onClick={() => {
+                                setShowFollowers(true);
+                                setFollowerClick("following");
+                            }}
                         >
                             <strong>20k</strong> Following
                         </span>
@@ -518,6 +525,11 @@ const UserProfileCard = ({
             <UserFollowersModal
                 opened={showFollowers}
                 setShowFollowers={setShowFollowers}
+                title={
+                    followerClick == "followers"
+                        ? "My Followers"
+                        : "My Followings"
+                }
             />
         </div>
     );
