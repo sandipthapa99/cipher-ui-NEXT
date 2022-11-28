@@ -39,7 +39,6 @@ const SimpleProfileCard = ({
         ({} as ApprovedTaskDetailProps["assigner"]);
     const { charge, currency } =
         approvedTaskDetail || ({} as ApprovedTaskDetailProps);
-    console.log("🚀 ~ file: SimpleProfileCard.tsx ~ line 41 ~ charge", charge);
     const { data: profile } = useGetProfile();
 
     // const created_by = task?.created_by.id === profile?.user.id;
