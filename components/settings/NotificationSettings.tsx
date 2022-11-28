@@ -66,39 +66,14 @@ const newLabel = NOTIFICATION_PREFERENCES.filter(
 );
 
 const NotificationSettings = () => {
-    const [notificationData, setNotificationData] =
-        useState<TNotificationPreferenceID>({
-            update_notification: false,
-            reminder_notification: false,
-            alert_notification: false,
-            geolocation_notification: false,
-            muted: false,
-        });
     const { data: notifcationPreferences, isLoading } = useQuery(
         ["notification-preferences"],
         () => {
             return axiosClient.get<TNotificationPreferences[]>(
                 "/notification/list-preference/"
             );
-        },
-        {
-            onSuccess: (notification) => {
-                const newValues = {
-                    update_notification:
-                        notification.data[0].update_notification,
-                    reminder_notification:
-                        notification.data[0].reminder_notification,
-                    alert_notification: notification.data[0].alert_notification,
-                    geolocation_notification:
-                        notification.data[0].geolocation_notification,
-                    muted: notification.data[0].muted,
-                };
-                setNotificationData(newValues);
-            },
         }
     );
-
-    // const notificationSettings: any = notifcationPreferences?.data[0];
 
     const changeNotificationSetting = useMutation(
         (data: TNotificationPreferenceID) =>
@@ -109,7 +84,17 @@ const NotificationSettings = () => {
 
     const { handleSubmit, setFieldValue, values } = useFormik({
         enableReinitialize: true,
-        initialValues: notificationData,
+        initialValues: {
+            update_notification:
+                notifcationPreferences?.data[0].update_notification,
+            reminder_notification:
+                notifcationPreferences?.data[0].reminder_notification,
+            alert_notification:
+                notifcationPreferences?.data[0].alert_notification,
+            geolocation_notification:
+                notifcationPreferences?.data[0].geolocation_notification,
+            muted: notifcationPreferences?.data[0].muted,
+        },
 
         onSubmit: (values: any) => {
             changeNotificationSetting.mutate(values, {
@@ -185,18 +170,17 @@ const ChangeNotificationSettings = ({
     values: TNotificationPreferenceID;
 }) => {
     const handleChange = (change: ChangeEvent<HTMLInputElement>) => {
-        const checkedItems = Object.entries(values)
-            .map((item) => {
-                const [key, value] = item;
-                return typeof value === "boolean" && key === "muted";
-            })
-            .filter((item) => item === true);
+        const checkedItems = Object.entries(values).map((item) => {
+            const [key, value] = item;
+            return value;
+        });
         fieldValue(name, change.currentTarget.checked);
         if (name === "muted") {
             newLabel.forEach((element) => {
                 fieldValue(element.name, !change.currentTarget.checked);
             });
         }
+        console.log(checkedItems);
     };
     return (
         <div className="change-notification">
