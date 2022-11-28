@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
 import { UserService } from "services/userService";
-import useUserStore from "store/use-user-store";
+// import useUserStore from "store/use-user-store";
 import { axiosClient } from "utils/axiosClient";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -73,21 +73,21 @@ const Login = () => {
         }
         setIsPhoneNumber(false);
     };
-    const userSet = useUserStore((state) => state.setUser);
+    // const userSet = useUserStore((state) => state.setUser);
 
-    const HandleUserFetchFlow = async () => {
-        const access = Cookies.get("access");
-        if (access === undefined) return null;
+    // const HandleUserFetchFlow = async () => {
+    //     const access = Cookies.get("access");
+    //     if (access === undefined) return null;
 
-        const user = await UserService.fetchUser(access);
-        try {
-            const res = await axiosClient.get(`/user/${user?.id}`);
-            localStorage.setItem("user", JSON.stringify(res));
-            userSet(res);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    //     const user = await UserService.fetchUser(access);
+    //     try {
+    //         const res = await axiosClient.get(`/user/${user?.id}`);
+    //         localStorage.setItem("user", JSON.stringify(res));
+    //         userSet(res);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     return (
         <OnBoardingLayout
@@ -135,7 +135,7 @@ const Login = () => {
                                     : next
                                     ? next
                                     : "/home";
-                                await HandleUserFetchFlow();
+                                // await HandleUserFetchFlow();
                                 router.push(redirectUrl.toString());
                                 toast.success("Login successful");
                             },

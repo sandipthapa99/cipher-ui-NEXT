@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import { userGet } from "utils/auth";
+// import { userGet } from "utils/auth";
 
 const CardBtn = ({
     btnTitle,
@@ -19,7 +19,7 @@ const CardBtn = ({
             <Button
                 onClick={handleClick}
                 className="card-btn"
-                disabled={userGet()?.is_suspended}
+                // disabled={userGet()?.is_suspended}
                 style={{
                     backgroundColor: `${backgroundColor}`,
                     color: `${color}`,

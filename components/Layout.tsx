@@ -56,13 +56,13 @@ const Layout: FC<MetaDataProps> = ({
     }, [sidebar]);
 
     let userdata!: User;
-    if (typeof window !== "undefined") {
-        const userJson = localStorage.getItem("user");
-        if (userJson) {
-            const res = JSON.parse(userJson);
-            userdata = res.data;
-        }
-    }
+    // if (typeof window !== "undefined") {
+    //     const userJson = localStorage.getItem("user");
+    //     if (userJson) {
+    //         const res = JSON.parse(userJson);
+    //         userdata = res.data;
+    //     }
+    // }
 
     return (
         <>

@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Container, Navbar } from "react-bootstrap";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
-import { userGet } from "utils/auth";
+// import { userGet } from "utils/auth";
 import { handleMenuActive } from "utils/helpers";
 import { toast } from "utils/toast";
 
@@ -162,7 +162,7 @@ export function UpperHeader() {
                                     onClick={() => handleShowPostTaskModal()}
                                     type="button"
                                     className="nav-cta-btn"
-                                    disabled={userGet()?.is_suspended}
+                                    // disabled={userGet()?.is_suspended}
                                 >
                                     Post Task
                                 </button>

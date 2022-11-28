@@ -41,7 +41,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 import type { UserBankDetails } from "types/bankDetail";
-import { userGet } from "utils/auth";
+// import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -620,9 +620,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 className="sticky-wrapper"
                                                 btnTitle={"Edit Profile"}
                                                 backgroundColor={"#FFCA6A"}
-                                                disabled={
-                                                    userGet()?.is_suspended
-                                                }
+                                                // disabled={
+                                                //     userGet()?.is_suspended
+                                                // }
                                                 textColor={"#212529"}
                                                 handleClick={() =>
                                                     setIsEditButtonClicked(true)

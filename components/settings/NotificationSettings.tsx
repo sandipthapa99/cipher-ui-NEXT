@@ -5,6 +5,7 @@ import { data } from "cheerio/lib/api/attributes";
 import { useFormik } from "formik";
 import { Formik } from "formik";
 import { type } from "os";
+import type { ChangeEvent } from "react";
 import React, { useCallback, useState } from "react";
 import { Col, Form } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
@@ -60,6 +61,10 @@ const NOTIFICATION_PREFERENCES: NotificationSettings[] = [
     },
 ];
 
+const newLabel = NOTIFICATION_PREFERENCES.filter(
+    (item) => item.name !== "muted"
+);
+
 const NotificationSettings = () => {
     const [notificationData, setNotificationData] =
         useState<TNotificationPreferenceID>({
@@ -103,6 +108,7 @@ const NotificationSettings = () => {
     const queryClient = new QueryClient();
 
     const { handleSubmit, setFieldValue, values } = useFormik({
+        enableReinitialize: true,
         initialValues: notificationData,
 
         onSubmit: (values: any) => {
@@ -129,6 +135,7 @@ const NotificationSettings = () => {
                     label={item?.label}
                     fieldValue={setFieldValue}
                     checked={newvalues[item.name]}
+                    values={values}
                 />
             );
         }
@@ -169,21 +176,35 @@ const ChangeNotificationSettings = ({
     checked,
     name,
     fieldValue,
+    values,
 }: {
     label: string;
     checked?: boolean;
     name: string;
     fieldValue: (name: string, value: any) => void;
+    values: TNotificationPreferenceID;
 }) => {
+    const handleChange = (change: ChangeEvent<HTMLInputElement>) => {
+        const checkedItems = Object.entries(values)
+            .map((item) => {
+                const [key, value] = item;
+                return typeof value === "boolean" && key === "muted";
+            })
+            .filter((item) => item === true);
+        fieldValue(name, change.currentTarget.checked);
+        if (name === "muted") {
+            newLabel.forEach((element) => {
+                fieldValue(element.name, !change.currentTarget.checked);
+            });
+        }
+    };
     return (
         <div className="change-notification">
             <p className="change-notify-label">{label}</p>
             <Switch
                 name={name}
                 size="md"
-                onChange={(change) =>
-                    fieldValue(name, change.currentTarget.checked)
-                }
+                onChange={handleChange}
                 checked={checked}
             />
         </div>
