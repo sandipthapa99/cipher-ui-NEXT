@@ -59,6 +59,7 @@ export interface UserProfileInfoProps {
         last_name: string;
         profile_image: string;
     };
+    followers_count?: number;
     stats: {
         success_rate: number;
         happy_clients: number;

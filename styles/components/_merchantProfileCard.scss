@@ -33,6 +33,16 @@
             margin-bottom: 0rem;
             font-weight: 400;
         }
+
+        .followers-following {
+            font: 400 1.2rem $poppins-font;
+            color: #495057;
+
+            .followers,
+            .following {
+                cursor: pointer;
+            }
+        }
         .rating {
             display: flex;
             margin-bottom: 1.9rem;

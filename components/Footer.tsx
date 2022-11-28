@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { NewsletterDataTypes } from "types/newsletter";
+import type { User } from "types/user";
 import { axiosClient } from "utils/axiosClient";
 import { emailValidationSchema } from "utils/formValidation/emailValidation";
 import { toast } from "utils/toast";
@@ -23,7 +24,14 @@ import CommingSoonModal from "./common/ComingSoonModal";
 import InputField from "./common/InputField";
 
 const Footer = () => {
-    const { data: userData } = useUser();
+    let userdata!: User;
+    if (typeof window !== "undefined") {
+        const userJson = localStorage.getItem("user");
+        if (userJson) {
+            const res = JSON.parse(userJson);
+            userdata = res.data;
+        }
+    }
 
     const emailSubsMutation = useMutation((data: NewsletterDataTypes) =>
         axiosClient.post("/support/newsletter/subscribe/", data)
@@ -140,7 +148,7 @@ const Footer = () => {
                                         <li>
                                             <Link
                                                 href={
-                                                    userData
+                                                    userdata
                                                         ? `/feedback`
                                                         : `/login?next=/feedback`
                                                 }
@@ -217,7 +225,7 @@ const Footer = () => {
                                         <li>
                                             <Link
                                                 href={
-                                                    userData
+                                                    userdata
                                                         ? "/settings/account/individual"
                                                         : "/login"
                                                 }

@@ -36,6 +36,7 @@ import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
 import { useOpenLoginPrompt, useWithLogin } from "store/use-login-prompt-store";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
+import useUserStore from "store/use-user-store";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { CategoryDataProps } from "types/categoryData";
@@ -44,6 +45,7 @@ import type { ServicesValueProps } from "types/serviceCard";
 import type { SuccessStoryProps } from "types/successStory";
 import type { ITaskApiResponse } from "types/task";
 import type { TaskerProps } from "types/taskerProps";
+import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
@@ -67,8 +69,6 @@ const Home: NextPage<{
     servicesData,
 }) => {
     const [isClient, setIsClient] = useState(false);
-
-    // const loginPopup = useWithLogin();
 
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: profile } = useGetProfile();
@@ -129,13 +129,14 @@ const Home: NextPage<{
                                             Earn Money as a Professional
                                         </a>
                                     </Link>
-
-                                    <a
-                                        className="hero-cta"
-                                        onClick={handleShowPostTaskModal}
-                                    >
-                                        Post a Task
-                                    </a>
+                                    {!userGet()?.is_suspended && (
+                                        <a
+                                            className="hero-cta"
+                                            onClick={handleShowPostTaskModal}
+                                        >
+                                            Post a Task
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </Col>

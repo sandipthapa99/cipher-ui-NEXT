@@ -26,7 +26,7 @@ export const AllList = () => {
         ["all-task-service", userId, searchParam, bookingPageNo],
         async () => {
             const response = await axiosClient.get(
-                `${urls.task.list}?user=${userId}&${searchParam}&page_size=9&page=${bookingPageNo}`
+                `${urls.task.list}?created_by=${userId}&${searchParam}&page_size=9&page=${bookingPageNo}`
             );
             return response.data;
         },
