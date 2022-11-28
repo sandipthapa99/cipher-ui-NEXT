@@ -250,7 +250,7 @@ export const PaymentHistory = () => {
                     </thead>
                     <tbody>{rows}</tbody>
                 </Table>
-                {newElements && newElements?.length >= 0 && (
+                {newElements && newElements?.length <= 0 && (
                     <ApplyPostComponent
                         model="service"
                         title="No Payment History Available"
