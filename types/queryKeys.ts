@@ -4,4 +4,5 @@ export enum ReactQueryKeys {
     TASKERS = "taskers",
     TASK_DETAIL = "task-detail",
     NEARBY_SERVICES = "nearby-services",
+    USER_ACTIVITIES = "user-activities",
 }

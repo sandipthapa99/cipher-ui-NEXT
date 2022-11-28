@@ -190,6 +190,11 @@
                 &:focus {
                     box-shadow: none;
                 }
+                &:disabled {
+                    background: rgb(219 211 211);
+                    color: grey;
+                    cursor: not-allowed;
+                }
             }
         }
     }

@@ -10,7 +10,6 @@ export const useUser = () => {
             const access = Cookies.get("access");
             if (access === undefined) return null;
             const user = await UserService.fetchUser(access);
-            console.log(user);
 
             return user;
         },

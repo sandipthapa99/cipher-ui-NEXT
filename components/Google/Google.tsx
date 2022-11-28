@@ -44,11 +44,6 @@ const Google = ({ login }: { login: boolean }) => {
             console.log(error);
         }
     };
-    // interface GoogleResponse {
-    //     clientId: string;
-    //     credential: string;
-    //     select_by: string;
-    // }
 
     return (
         <GoogleLogin
@@ -74,7 +69,7 @@ const Google = ({ login }: { login: boolean }) => {
                                       "linked-accounts",
                                   ]);
                                   queryClient.invalidateQueries(["profile"]);
-                                  HandleUserFetchFlow();
+                                  //   HandleUserFetchFlow();
                               },
                               onError: (err) => {
                                   toast.error(err.message);

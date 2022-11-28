@@ -10,6 +10,7 @@ import { useState } from "react";
 // import { BookingDetails } from "staticData/bookNowModalCard";
 import type { ServiceProviderCardProps } from "types/serviceDetail";
 
+// import { userGet } from "utils/auth";
 import BookNowButton from "./BookNowButton";
 
 const ServiceProviderCard = ({
@@ -89,6 +90,7 @@ const ServiceProviderCard = ({
                         <BookNowButton
                             btnTitle="Edit Service"
                             backgroundColor="#fff"
+                            // disabled={userGet()?.is_suspended}
                             handleOnClick={handleShowModal}
                         />
                     </span>
@@ -96,6 +98,7 @@ const ServiceProviderCard = ({
                     <BookNowButton
                         btnTitle="Book Now"
                         backgroundColor="$primary-color"
+                        // disabled={userGet()?.is_suspended}
                         //  showModal={true}
                         handleOnClick={handleShowModal}
                     />

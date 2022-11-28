@@ -28,6 +28,7 @@ import { Col, Row } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
+// import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
@@ -292,6 +293,7 @@ const UserProfileCard = ({
                         onClick={() =>
                             router.push("/settings/account/individual")
                         }
+                        // disabled={userGet()?.is_suspended}
                     >
                         Edit Profile
                     </button>
