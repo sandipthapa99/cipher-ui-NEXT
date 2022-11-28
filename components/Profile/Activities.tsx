@@ -1,9 +1,12 @@
 import { ScrollArea } from "@mantine/core";
+import { Skeleton } from "@mantine/core";
+import { index } from "cheerio/lib/api/traversing";
 import { format } from "date-fns";
 import { useInViewPort } from "hooks/use-in-viewport";
 import { useUserActivities } from "hooks/userActivities/use-userActivities";
 import Image from "next/image";
 import Link from "next/link";
+import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 
 const UserActivities = () => {
@@ -15,10 +18,16 @@ const UserActivities = () => {
         isFetchingNextPage,
         fetchNextPage,
     } = useUserActivities();
-    const activities = activityPages?.pages[0];
-    console.log("Infinite", activities);
 
-    const totalActivities = activities?.result[0].length;
+    const activities = useMemo(
+        () =>
+            activityPages?.pages
+                .map((activityPage) => activityPage.result)
+                .flat() ?? [],
+        [activityPages?.pages]
+    );
+
+    const totalActivities = activities?.length;
     const isLastActivityOnPage = (index: number) =>
         index === totalActivities - 1;
 
@@ -27,6 +36,9 @@ const UserActivities = () => {
             fetchNextPage();
         }
     });
+
+    // const activities = activityPages?.pages[0];
+    // console.log("Infinite", activities);
 
     // const [id, setId] = useState<number | undefined>(activities?.result[0].id);
     // const [showFirstDate, setShowFirstDate] = useState(true);
@@ -40,8 +52,8 @@ const UserActivities = () => {
                 offsetScrollbars
                 scrollbarSize={5}
             >
-                {activities && activities?.result.length > 0 ? (
-                    activities?.result?.map((activity, index) => (
+                {activities && activities.length > 0 ? (
+                    activities?.map((activity, index) => (
                         <div
                             className="timeline"
                             key={activity.id}
@@ -123,17 +135,19 @@ const UserActivities = () => {
                 ) : (
                     <p>You have no activities</p>
                 )}
-
-                <div>
-                    <button
-                        onClick={() => fetchNextPage()}
-                        disabled={!hasNextPage}
-                    >
-                        Load more
-                    </button>
-                </div>
-                <div>
-                    {isFetching && !isFetchingNextPage ? "Fetching..." : null}
+                <div className="mt-3">
+                    {isFetchingNextPage ? (
+                        <>
+                            <Skeleton height={8} radius="xl" />
+                            <Skeleton height={8} mt={6} radius="xl" />
+                            <Skeleton
+                                height={8}
+                                mt={6}
+                                width="70%"
+                                radius="xl"
+                            />
+                        </>
+                    ) : null}
                 </div>
             </ScrollArea.Autosize>
         </div>

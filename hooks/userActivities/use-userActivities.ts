@@ -11,7 +11,7 @@ export const useUserActivities = () => {
         ({ pageParam = 1 }) =>
             axiosClient
                 .get<IUserActivityApiResponse>(
-                    `${urls.user.activity}?page=${pageParam}&page_size=40`
+                    `${urls.user.activity}?page=${pageParam}`
                 )
                 .then((response) => response.data),
         {
