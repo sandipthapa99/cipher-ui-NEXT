@@ -7,6 +7,16 @@ export interface ITaskApiResponse {
     page_size: number;
     result: ITask[];
 }
+export interface IUserActivityApiResponse {
+    total_pages: number;
+    count: number;
+    current: number;
+    next: any;
+    previous: any;
+    page_size: number;
+    result: IActivity[];
+    length?: number;
+}
 
 export interface Media {
     id: number;
@@ -15,6 +25,16 @@ export interface Media {
     media: string;
     media_type: "image" | "video" | "pdf";
     placeholder: string;
+}
+export interface IActivity {
+    id: number;
+    content_type: string;
+    action_time: string;
+    object_id: string;
+    object_repr: string;
+    action: string;
+    change_message: string;
+    user: string;
 }
 export interface ITask {
     service: { id: string; title: string };
