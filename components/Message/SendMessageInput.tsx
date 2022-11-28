@@ -24,16 +24,8 @@ export const SendMessageInput = (props: SendMessageInputProps) => {
     const router = useRouter();
 
     const chatId: any = router.query.chatId;
-    console.log(
-        "🚀 ~ file: SendMessageInput.tsx ~ line 26 ~ SendMessageInput ~ chatId",
-        chatId
-    );
 
     const senderId: any = router.query.client;
-    console.log(
-        "🚀 ~ file: SendMessageInput.tsx ~ line 28 ~ SendMessageInput ~ senderId",
-        senderId
-    );
 
     const renderIcons = () => {
         return icons.map((icon, index) => (
@@ -47,16 +39,8 @@ export const SendMessageInput = (props: SendMessageInputProps) => {
     };
 
     const { data: userId } = useUser();
-    console.log(
-        "🚀 ~ file: SendMessageInput.tsx ~ line 45 ~ SendMessageInput ~ userId",
-        userId
-    );
 
     const [text, setText] = useState("");
-    console.log(
-        "🚀 ~ file: SendMessageInput.tsx ~ line 56 ~ SendMessageInput ~ text",
-        text
-    );
 
     const handleSend = async () => {
         await updateDoc(doc(db, "chats", chatId), {
