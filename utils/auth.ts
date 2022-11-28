@@ -27,14 +27,14 @@ export const autoLogout = () => {
     localStorage.removeItem("user");
 };
 
-// export const userGet = () => {
-//     let userdata!: User;
-//     if (typeof window !== "undefined") {
-//         const userJson = localStorage.getItem("user");
-//         if (userJson) {
-//             const res = JSON.parse(userJson);
-//             userdata = res.data;
-//         }
-//     }
-//     return userdata;
-// };
+export const userGet = () => {
+    let userdata!: User;
+    if (typeof window !== "undefined") {
+        const userJson = localStorage.getItem("user");
+        if (userJson) {
+            const res = JSON.parse(userJson);
+            userdata = res.data;
+        }
+    }
+    return userdata;
+};
