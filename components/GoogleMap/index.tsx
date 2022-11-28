@@ -72,7 +72,7 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
             {...rest}
             zoom={zoom}
             options={options}
-            mapContainerStyle={{ width: "100%", height: "60rem" }}
+            mapContainerStyle={{ width: "100%", height: "74rem" }}
             center={center}
             onLoad={onLoad}
             onUnmount={onUnmount}
