@@ -17,7 +17,8 @@ import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
 import { Rating } from "@mantine/core";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
 import Link from "next/link";
@@ -59,6 +60,7 @@ const UserProfileCard = ({
     tooltipMessage,
     is_profile_verified,
     followers_count,
+    following_count,
     field,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
@@ -88,6 +90,16 @@ const UserProfileCard = ({
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );
+
+    const { data: followersData } = useQuery(["followers"], async () => {
+        const data = await axiosClient.get(urls.followers.list);
+        return data.data.result;
+    });
+
+    const { data: followingsData } = useQuery(["followings"], async () => {
+        const data = await axiosClient.get(urls.followings.list);
+        return data.data.result;
+    });
 
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
@@ -262,7 +274,7 @@ const UserProfileCard = ({
                                 setFollowerClick("following");
                             }}
                         >
-                            <strong>20k</strong> Following
+                            <strong>{following_count}</strong> Followings
                         </span>
                     </div>
                     <div className="rating">
@@ -336,7 +348,10 @@ const UserProfileCard = ({
                                             className="thumbnail-img"
                                         />
 
-                                        <p>{user.email}</p>
+                           const { data: followersData } = useQuery(["followers"], async () => {
+        const data = await axiosClient.get(urls.followers.list);
+        return data.data.result;
+    });             <p>{user.email}</p>
                                     </div>
                                 )} */}
                                 <div className="type d-flex flex-col">
@@ -531,6 +546,11 @@ const UserProfileCard = ({
                     followerClick == "followers"
                         ? "My Followers"
                         : "My Followings"
+                }
+                followersData={
+                    followerClick === "followers"
+                        ? followersData
+                        : followingsData
                 }
             />
         </div>
