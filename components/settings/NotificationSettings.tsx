@@ -111,15 +111,13 @@ const NotificationSettings = () => {
 
     const renderNotificationReferences = NOTIFICATION_PREFERENCES.map(
         (item) => {
-            const newvalues: any = { ...values };
-
             return (
                 <ChangeNotificationSettings
                     key={item?.id}
                     name={item?.name}
                     label={item?.label}
                     fieldValue={setFieldValue}
-                    checked={newvalues[item.name]}
+                    checked={Boolean(values[item.name as keyof typeof values])}
                     values={values}
                 />
             );
@@ -170,18 +168,16 @@ const ChangeNotificationSettings = ({
     values: TNotificationPreferenceID;
 }) => {
     const handleChange = (change: ChangeEvent<HTMLInputElement>) => {
-        const checkedItems = Object.entries(values).map((item) => {
-            const [key, value] = item;
-            return value;
-        });
         fieldValue(name, change.currentTarget.checked);
         if (name === "muted") {
             newLabel.forEach((element) => {
                 fieldValue(element.name, !change.currentTarget.checked);
             });
+        } else {
+            fieldValue("muted", !change.currentTarget.checked);
         }
-        console.log(checkedItems);
     };
+
     return (
         <div className="change-notification">
             <p className="change-notify-label">{label}</p>
