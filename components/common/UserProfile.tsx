@@ -35,6 +35,7 @@ import { toast } from "utils/toast";
 import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
+import { UserFollowersModal } from "./UserFollowersModal";
 const UserProfileCard = ({
     profile_image,
     user,
@@ -57,10 +58,12 @@ const UserProfileCard = ({
     pointGoal,
     tooltipMessage,
     is_profile_verified,
+    followers_count,
     field,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
+    const [showFollowers, setShowFollowers] = useState(false);
     const { data: countryData } = useGetCountryBYId(country.id);
     const [image, setImage] = useState();
     const services = skill ? JSON.parse(skill) : [];
@@ -239,7 +242,22 @@ const UserProfileCard = ({
                             className="svg-icon active"
                         />
                     </div>
+
                     {renderType}
+                    <div className="followers-following d-flex justify-content-between gap-5 px-2 py-4 text-sm">
+                        <span
+                            className="followers"
+                            onClick={() => setShowFollowers(true)}
+                        >
+                            <strong>{followers_count}</strong> Followers
+                        </span>
+                        <span
+                            className="following"
+                            onClick={() => setShowFollowers(true)}
+                        >
+                            <strong>20k</strong> Following
+                        </span>
+                    </div>
                     <div className="rating">
                         {" "}
                         <Rating
@@ -499,6 +517,10 @@ const UserProfileCard = ({
                     </Row>
                 </Col>
             </Row>
+            <UserFollowersModal
+                opened={showFollowers}
+                setShowFollowers={setShowFollowers}
+            />
         </div>
     );
 };

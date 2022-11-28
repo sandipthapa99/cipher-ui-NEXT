@@ -28,6 +28,8 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // if (isLoading || !data) return <FullPageLoader />;
     //
 
+    console.log("profileDetails", profileDetails);
+
     const remaining = {
         userRating: 4,
         userBadge: "Gold",
@@ -116,6 +118,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             is_profile_verified={
                                 profileDetails?.is_profile_verified
                             }
+                            followers_count={profileDetails?.followers_count}
                         />
                     </section>
 
