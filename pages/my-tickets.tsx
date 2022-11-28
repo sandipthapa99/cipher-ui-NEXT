@@ -83,7 +83,7 @@ const MyTickets = () => {
     const renderAllTickets = supportTickets?.result.map((ticket) => {
         return (
             <div key={ticket.id} className="all-support">
-                <figure className="support-figure">
+                <figure className="support-figure d-none d-md-block">
                     <Image
                         alt="support"
                         src={
@@ -110,9 +110,9 @@ const MyTickets = () => {
 
     return (
         <Layout title="My Tickets | Homaale">
-            <section className="my-order-section" id="my-order-section">
+            <section className="my-order-section px-5" id="my-order-section">
                 <BreadCrumb currentPage="My-Tickets" />
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-0">
                     {supportTickets?.result.length === 0 && !isFetching ? (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
