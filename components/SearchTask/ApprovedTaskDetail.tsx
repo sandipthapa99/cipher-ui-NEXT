@@ -26,10 +26,8 @@ import { useRef, useState } from "react";
 import { Fragment } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import type {
-    ApprovedTaskDetailProps,
-    ApprovedTaskProps,
-} from "types/approvedTaskProps";
+import type { ApprovedTaskDetailProps } from "types/approvedTaskProps";
+import type { TaskTimeLineProps } from "types/taskTimeLine";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
@@ -50,6 +48,12 @@ export const ApprovedTaskDetail = ({
     const { data: approvedTask } = useData<ApprovedTaskDetailProps>(
         ["approved-data", approvedId],
         `/task/entity/service/task/${approvedId}`,
+        show && !!approvedId
+    );
+
+    const { data: timeline } = useData<TaskTimeLineProps>(
+        ["timeline-data", approvedId],
+        `/history/task/timeline/${approvedId}`,
         show && !!approvedId
     );
 
@@ -307,7 +311,7 @@ export const ApprovedTaskDetail = ({
                             </>
                         )}
                 </div>
-                <TimelineTab />
+                {timeline && <TimelineTab TimeLine={timeline?.data} />}
             </div>
         </Modal>
     );
