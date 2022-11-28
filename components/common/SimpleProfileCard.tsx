@@ -15,7 +15,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ITask, TaskApprovedList } from "types/task";
-import { userGet } from "utils/auth";
+// import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
@@ -204,14 +204,14 @@ const SimpleProfileCard = ({
                 requestedTask?.status === "Cancelled" ? (
                     <BookNowButton
                         btnTitle="Apply Now"
-                        disabled={userGet()?.is_suspended}
+                        // disabled={userGet()?.is_suspended}
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
                 ) : requestedTask?.status === "On Progress" ? (
                     <BookNowButton
                         btnTitle={"On Progress"}
-                        disabled={userGet()?.is_suspended}
+                        // disabled={userGet()?.is_suspended}
                         backgroundColor={"#38C675"}
                         showModal={true}
                         //handleOnClick={withLogin(() => setShowModal(true))}
@@ -219,7 +219,7 @@ const SimpleProfileCard = ({
                 ) : requestedTask?.status === "Completed" ? (
                     <BookNowButton
                         btnTitle={"Completed"}
-                        disabled={userGet()?.is_suspended}
+                        // disabled={userGet()?.is_suspended}
                         backgroundColor={"#3776db"}
                         showModal={true}
                         //handleOnClick={withLogin(() => setShowModal(true))}
@@ -228,7 +228,7 @@ const SimpleProfileCard = ({
                     <BookNowButton
                         btnTitle="Apply Now"
                         // backgroundColor="#5e5d6b"
-                        disabled={userGet()?.is_suspended}
+                        // disabled={userGet()?.is_suspended}
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
@@ -243,21 +243,21 @@ const SimpleProfileCard = ({
                     <BookNowButton
                         btnTitle="Declined"
                         backgroundColor="#FE5050"
-                        disabled={userGet()?.is_suspended}
+                        // disabled={userGet()?.is_suspended}
 
                         //handleOnClick={handleLeaveTask}
                     />
                 ) : appliedTask?.status === "Open" ? (
                     <BookNowButton
                         btnTitle="Leave Task"
-                        disabled={userGet()?.is_suspended}
+                        // disabled={userGet()?.is_suspended}
                         backgroundColor="#FE5050"
                         handleOnClick={handleLeaveTask}
                     />
                 ) : (
                     <BookNowButton
                         btnTitle="Leave Task"
-                        disabled={userGet()?.is_suspended}
+                        // disabled={userGet()?.is_suspended}
                         backgroundColor="#FE5050"
                         handleOnClick={handleLeaveTask}
                     />

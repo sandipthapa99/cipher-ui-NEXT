@@ -5,6 +5,7 @@ import { data } from "cheerio/lib/api/attributes";
 import { useFormik } from "formik";
 import { Formik } from "formik";
 import { type } from "os";
+import type { ChangeEvent } from "react";
 import React, { useCallback, useState } from "react";
 import { Col, Form } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
@@ -60,40 +61,19 @@ const NOTIFICATION_PREFERENCES: NotificationSettings[] = [
     },
 ];
 
+const newLabel = NOTIFICATION_PREFERENCES.filter(
+    (item) => item.name !== "muted"
+);
+
 const NotificationSettings = () => {
-    const [notificationData, setNotificationData] =
-        useState<TNotificationPreferenceID>({
-            update_notification: false,
-            reminder_notification: false,
-            alert_notification: false,
-            geolocation_notification: false,
-            muted: false,
-        });
     const { data: notifcationPreferences, isLoading } = useQuery(
         ["notification-preferences"],
         () => {
             return axiosClient.get<TNotificationPreferences[]>(
                 "/notification/list-preference/"
             );
-        },
-        {
-            onSuccess: (notification) => {
-                const newValues = {
-                    update_notification:
-                        notification.data[0].update_notification,
-                    reminder_notification:
-                        notification.data[0].reminder_notification,
-                    alert_notification: notification.data[0].alert_notification,
-                    geolocation_notification:
-                        notification.data[0].geolocation_notification,
-                    muted: notification.data[0].muted,
-                };
-                setNotificationData(newValues);
-            },
         }
     );
-
-    // const notificationSettings: any = notifcationPreferences?.data[0];
 
     const changeNotificationSetting = useMutation(
         (data: TNotificationPreferenceID) =>
@@ -103,7 +83,18 @@ const NotificationSettings = () => {
     const queryClient = new QueryClient();
 
     const { handleSubmit, setFieldValue, values } = useFormik({
-        initialValues: notificationData,
+        enableReinitialize: true,
+        initialValues: {
+            update_notification:
+                notifcationPreferences?.data[0].update_notification,
+            reminder_notification:
+                notifcationPreferences?.data[0].reminder_notification,
+            alert_notification:
+                notifcationPreferences?.data[0].alert_notification,
+            geolocation_notification:
+                notifcationPreferences?.data[0].geolocation_notification,
+            muted: notifcationPreferences?.data[0].muted,
+        },
 
         onSubmit: (values: any) => {
             changeNotificationSetting.mutate(values, {
@@ -120,15 +111,14 @@ const NotificationSettings = () => {
 
     const renderNotificationReferences = NOTIFICATION_PREFERENCES.map(
         (item) => {
-            const newvalues: any = { ...values };
-
             return (
                 <ChangeNotificationSettings
                     key={item?.id}
                     name={item?.name}
                     label={item?.label}
                     fieldValue={setFieldValue}
-                    checked={newvalues[item.name]}
+                    checked={Boolean(values[item.name as keyof typeof values])}
+                    values={values}
                 />
             );
         }
@@ -169,21 +159,32 @@ const ChangeNotificationSettings = ({
     checked,
     name,
     fieldValue,
+    values,
 }: {
     label: string;
     checked?: boolean;
     name: string;
     fieldValue: (name: string, value: any) => void;
+    values: TNotificationPreferenceID;
 }) => {
+    const handleChange = (change: ChangeEvent<HTMLInputElement>) => {
+        fieldValue(name, change.currentTarget.checked);
+        if (name === "muted") {
+            newLabel.forEach((element) => {
+                fieldValue(element.name, !change.currentTarget.checked);
+            });
+        } else {
+            fieldValue("muted", !change.currentTarget.checked);
+        }
+    };
+
     return (
         <div className="change-notification">
             <p className="change-notify-label">{label}</p>
             <Switch
                 name={name}
                 size="md"
-                onChange={(change) =>
-                    fieldValue(name, change.currentTarget.checked)
-                }
+                onChange={handleChange}
                 checked={checked}
             />
         </div>

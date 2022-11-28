@@ -3,13 +3,13 @@ import create from "zustand";
 
 let user: User;
 
-if (typeof window !== "undefined") {
-    const userJson = localStorage.getItem("user");
-    if (userJson) {
-        const res = JSON.parse(userJson);
-        user = res.data;
-    }
-}
+// if (typeof window !== "undefined") {
+//     const userJson = localStorage.getItem("user");
+//     if (userJson) {
+//         const res = JSON?.parse(userJson);
+//         user = res.data;
+//     }
+// }
 
 type UseUserStoreProps = {
     user: User | undefined;
