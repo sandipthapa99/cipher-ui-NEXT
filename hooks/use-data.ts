@@ -4,6 +4,6 @@ import { axiosClient } from "utils/axiosClient";
 export const useData = <T>(key: any[], url: string, enable?: boolean) => {
     return useQuery(key, () => axiosClient.get<T>(url), {
         enabled: enable,
-        staleTime: Infinity,
+        staleTime: 9000,
     });
 };
