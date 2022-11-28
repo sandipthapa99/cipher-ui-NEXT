@@ -1,0 +1,68 @@
+.user-followers-modal {
+    margin-bottom: 3rem;
+    @include respond(xs) {
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .image-description {
+        .followers-profile-image {
+            height: 6rem;
+            width: 6rem;
+
+            @include respond(xs) {
+                height: 3rem;
+                width: 3rem;
+            }
+        }
+        img {
+            border-radius: 50%;
+        }
+
+        .name-description {
+            margin-left: 2rem;
+
+            @include respond(xs) {
+                margin-left: 1rem;
+            }
+
+            .name {
+                margin: 0 0 0.8rem 0;
+            }
+
+            h4 {
+                font: 500 1.6rem $poppins-font;
+                margin: 0 1rem 0 0;
+                color: $primary-color;
+
+                @include respond(xs) {
+                    font: 500 1.2rem $poppins-font;
+                    margin: 0 1rem 0 0;
+                }
+            }
+            h5 {
+                font: 400 1.4rem $poppins-font;
+                color: $gray-text-color;
+                margin: 0;
+
+                @include respond(xs) {
+                    font: 400 1rem $poppins-font;
+                }
+            }
+        }
+    }
+
+    .follow-btn {
+        button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1.3rem;
+        }
+        @include respond(xs) {
+            margin-left: 3.5rem;
+            button {
+                font: 400 1.2rem $poppins-font;
+                padding: 0.4rem 1rem;
+            }
+        }
+    }
+}
