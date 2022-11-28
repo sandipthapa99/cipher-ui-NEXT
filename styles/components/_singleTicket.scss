@@ -39,7 +39,7 @@
             padding: 3rem 2.5rem;
 
             @include respond(xs) {
-                padding: 1.2rem ;
+                padding: 1.2rem;
             }
 
             .reason-cont {
@@ -56,7 +56,7 @@
                     font-size: 1.4rem;
                     font-weight: 500;
                     color: $primary-color;
-                    @include respond(sm){
+                    @include respond(sm) {
                         font-size: 2rem;
                     }
                 }
@@ -65,7 +65,7 @@
                     font-size: 1.2rem;
                     font-weight: 500;
                     color: #909296;
-                    @include respond(sm){
+                    @include respond(sm) {
                         font-size: 1.4rem;
                     }
                 }
@@ -82,9 +82,9 @@
                 .desc-para {
                     margin: 0;
                     font-size: 1.2rem;
-                    color: #5C5F66;
+                    color: #5c5f66;
                     text-align: justify;
-                    @include respond(sm){
+                    @include respond(sm) {
                         font-size: 1.4rem;
                     }
                 }
@@ -93,8 +93,8 @@
                 margin-top: 1rem;
                 display: flex;
                 gap: 1rem;
-                .ticket-id{
-                    color: #5C5F66;
+                .ticket-id {
+                    color: #5c5f66;
                     font-size: 1.4rem;
                 }
             }
