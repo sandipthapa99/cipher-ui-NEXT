@@ -14,6 +14,7 @@ import { useUser } from "hooks/auth/useUser";
 import { useSupport } from "hooks/support/useSupport";
 import { useUploadFile } from "hooks/use-upload-file";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
@@ -43,6 +44,7 @@ const Support = () => {
 
     const [token, setToken] = useState("");
     const queryClient = new QueryClient();
+    const router = useRouter();
 
     return (
         <>
@@ -99,6 +101,7 @@ const Support = () => {
                                                 );
 
                                                 action.resetForm();
+                                                router.push("/my-tickets");
                                             },
                                             onError: (error) => {
                                                 toast.error(error?.message);

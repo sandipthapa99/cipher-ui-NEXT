@@ -57,16 +57,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             await axiosClient.get<ServicesValueProps>(
                 `${urls.task.service_per_user}${params?.id}`
             );
-
         return {
             props: {
                 tasker: data,
-                taskerService,
+                taskerService: taskerService,
             },
             revalidate: 10,
         };
     } catch (error: any) {
-        console.log(error);
         return {
             props: {
                 tasker: {},
