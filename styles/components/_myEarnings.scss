@@ -5,15 +5,14 @@
 
     .whole-cont-earning {
         padding: 8px 12px;
-        @include respond(lg){
+        @include respond(lg) {
             padding: 8px 16px;
-
         }
 
         .current-balance {
             color: #fff;
             font-size: 1.2rem;
-            @include respond(md){
+            @include respond(md) {
                 font-size: 1.4rem;
             }
         }
@@ -25,7 +24,7 @@
             // @include respond(md){
             //     font-size: 2.4rem;
             // }
-            @include respond(lg){
+            @include respond(lg) {
                 font-size: 3.2rem;
             }
         }
