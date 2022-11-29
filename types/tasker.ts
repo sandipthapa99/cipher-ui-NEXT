@@ -44,6 +44,7 @@ export interface ITasker {
     points: number;
     subscription: any[];
     security_questions: any[];
+    is_followed: boolean;
 }
 
 export interface ChargeCurrency {

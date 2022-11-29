@@ -9,6 +9,14 @@
     // margin: 0 0 3rem;
     // overflow-y: auto;
 
+    .svg-follow-icon {
+        cursor: pointer;
+
+        &:hover {
+            color: rgb(45, 45, 131);
+        }
+    }
+
     span {
         margin-left: 0.4rem;
         font-size: 1.4rem;

@@ -177,6 +177,8 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["all-services"]),
             queryClient.prefetchQuery(["bookmarks", "user"]),
             queryClient.prefetchQuery(["bookmarks", "entityservice"]),
+            queryClient.prefetchQuery(["followers"]),
+            queryClient.prefetchQuery(["followings"]),
         ]);
         return {
             props: {

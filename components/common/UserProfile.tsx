@@ -24,6 +24,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -91,15 +92,21 @@ const UserProfileCard = ({
         axiosClient.patch("/tasker/profile/", data)
     );
 
-    const { data: followersData } = useQuery(["followers"], async () => {
-        const data = await axiosClient.get(urls.followers.list);
-        return data.data.result;
-    });
+    const { data: followersData, refetch: refetchFollowers } = useQuery(
+        ["followers"],
+        async () => {
+            const data = await axiosClient.get(urls.followers.list);
+            return data.data.result;
+        }
+    );
 
-    const { data: followingsData } = useQuery(["followings"], async () => {
-        const data = await axiosClient.get(urls.followings.list);
-        return data.data.result;
-    });
+    const { data: followingsData, refetch: refetchFollowings } = useQuery(
+        ["followings"],
+        async () => {
+            const data = await axiosClient.get(urls.followings.list);
+            return data.data.result;
+        }
+    );
 
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
@@ -126,6 +133,14 @@ const UserProfileCard = ({
             </p>
         );
     });
+
+    // Modal close when the following list is empty
+
+    useEffect(() => {
+        if (following_count === 0) {
+            setShowFollowers(false);
+        }
+    }, [following_count]);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -261,7 +276,11 @@ const UserProfileCard = ({
                         <span
                             className="followers"
                             onClick={() => {
-                                setShowFollowers(true);
+                                if (followers_count === 0) {
+                                    toast.message("You have no followers");
+                                } else {
+                                    setShowFollowers(true);
+                                }
                                 setFollowerClick("followers");
                             }}
                         >
@@ -270,7 +289,12 @@ const UserProfileCard = ({
                         <span
                             className="following"
                             onClick={() => {
-                                setShowFollowers(true);
+                                if (following_count === 0) {
+                                    toast.message("You have no followings");
+                                } else {
+                                    setShowFollowers(true);
+                                }
+
                                 setFollowerClick("following");
                             }}
                         >
@@ -552,6 +576,7 @@ const UserProfileCard = ({
                         ? followersData
                         : followingsData
                 }
+                followerClick={followerClick}
             />
         </div>
     );

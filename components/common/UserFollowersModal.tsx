@@ -1,10 +1,10 @@
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
@@ -32,9 +32,10 @@ interface UserFollowersProps {
     setShowFollowers: (arg: boolean) => void;
     title: string;
     followersData: FollowersData[];
+    followerClick: string;
 }
 
-interface FollowMutationData {
+export interface FollowMutationData {
     user: string;
     follow: boolean;
 }
@@ -44,16 +45,18 @@ export const UserFollowersModal = ({
     setShowFollowers,
     title,
     followersData,
+    followerClick,
 }: UserFollowersProps) => {
     const followMutation = useMutation((data: FollowMutationData) => {
         return axiosClient.post(urls.follow, data);
     });
 
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
 
     const handleFollowClick = (user: string, type: string) => {
         followMutation.mutate(
             { user, follow: type === "follow" ? true : false },
+
             {
                 onSuccess: () => {
                     type === "follow"
@@ -61,6 +64,7 @@ export const UserFollowersModal = ({
                         : toast.success("Unfollowed successfully");
                     queryClient.invalidateQueries(["followers"]);
                     queryClient.invalidateQueries(["followings"]);
+                    queryClient.invalidateQueries(["profile"]);
                 },
             }
         );
@@ -82,27 +86,35 @@ export const UserFollowersModal = ({
                         key={index}
                     >
                         <div className="image-description d-flex align-items-center justify-content-start">
-                            <figure className="followers-profile-image">
-                                <Image
-                                    src={
-                                        item?.profile_image
-                                            ? item?.profile_image
-                                            : "/community/gallery1.png"
-                                    }
-                                    alt={"profile image"}
-                                    height={62}
-                                    width={62}
-                                />
-                            </figure>
+                            <Link href={`/tasker/${item?.id}`}>
+                                <a>
+                                    <figure className="followers-profile-image">
+                                        <Image
+                                            src={
+                                                item?.profile_image
+                                                    ? item?.profile_image
+                                                    : "/community/gallery1.png"
+                                            }
+                                            alt={"profile image"}
+                                            height={62}
+                                            width={62}
+                                        />
+                                    </figure>
+                                </a>
+                            </Link>
                             <div className="name-description d-flex flex-column  justify-content-center ml-4">
                                 <div className="name d-flex align-items-center">
-                                    <h4 className="pr-5">
-                                        {item?.first_name +
-                                            " " +
-                                            item?.middle_name +
-                                            " " +
-                                            item?.last_name}
-                                    </h4>{" "}
+                                    <Link href={`/tasker/${item?.id}`}>
+                                        <a>
+                                            <h4 className="pr-5">
+                                                {item?.first_name +
+                                                    " " +
+                                                    item?.middle_name +
+                                                    " " +
+                                                    item?.last_name}
+                                            </h4>{" "}
+                                        </a>
+                                    </Link>
                                     {item?.is_profile_verified && (
                                         <FontAwesomeIcon
                                             icon={faBadgeCheck}
@@ -117,28 +129,36 @@ export const UserFollowersModal = ({
                             </div>
                         </div>
                         <div className="follow-btn d-flex align-items-center">
-                            {title === "My Followers" && !item?.is_followed && (
-                                <CardBtn
-                                    btnTitle={"Follow"}
-                                    backgroundColor={"#211D4F"}
-                                    handleClick={() =>
-                                        handleFollowClick(item?.id, "follow")
-                                    }
-                                />
-                            )}
-                            {title === "My Followers" && item?.is_followed && (
-                                <CardBtn
-                                    btnTitle={"Unfollow"}
-                                    backgroundColor={"#ffffff"}
-                                    color={"#FE5050"}
-                                    handleClick={() =>
-                                        handleFollowClick(item?.id, "unfollow")
-                                    }
-                                    border={"2px solid #FE5050"}
-                                />
-                            )}
+                            {followerClick === "followers" &&
+                                !item?.is_followed && (
+                                    <CardBtn
+                                        btnTitle={"Follow"}
+                                        backgroundColor={"#211D4F"}
+                                        handleClick={() =>
+                                            handleFollowClick(
+                                                item?.id,
+                                                "follow"
+                                            )
+                                        }
+                                    />
+                                )}
+                            {followerClick === "followers" &&
+                                item?.is_followed && (
+                                    <CardBtn
+                                        btnTitle={"Unfollow"}
+                                        backgroundColor={"#ffffff"}
+                                        color={"#FE5050"}
+                                        handleClick={() =>
+                                            handleFollowClick(
+                                                item?.id,
+                                                "unfollow"
+                                            )
+                                        }
+                                        border={"2px solid #FE5050"}
+                                    />
+                                )}
 
-                            {title === "My Followings" && (
+                            {followerClick === "following" && (
                                 <CardBtn
                                     btnTitle={"Unfollow"}
                                     backgroundColor={"#ffffff"}
