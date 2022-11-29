@@ -19,7 +19,7 @@ const BillingLocation = ({ location }: BillingLocationProps) => {
                     />
                     {location}
                 </span>
-                <AnchorButton className={"px-5"} href={""} varient={""}>
+                <AnchorButton className={"px-4"} href={""} varient={""}>
                     Change
                 </AnchorButton>
             </div>

@@ -158,7 +158,7 @@ const TaxCalculator: NextPage = () => {
     return (
         <Layout title="Tax-Calculator | Homaale">
             <section className="tax-calculator ">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Tax Calculator" />
                     <div className="card-block">
                         <div className="header">

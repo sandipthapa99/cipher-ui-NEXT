@@ -110,7 +110,7 @@ const MyTickets = () => {
 
     return (
         <Layout title="My Tickets | Homaale">
-            <section className="my-order-section px-5" id="my-order-section">
+            <section className="my-order-section px-4" id="my-order-section">
                 <BreadCrumb currentPage="My-Tickets" />
                 <Container fluid="xl" className="px-0">
                     {supportTickets?.result.length === 0 && !isFetching ? (

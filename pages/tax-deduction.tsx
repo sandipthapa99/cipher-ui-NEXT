@@ -14,7 +14,7 @@ const TaxDeduction: NextPage = () => {
     return (
         <Layout title="Tax-Deduction | Homaale">
             <section className="tax-deduction">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Tax Deduction" />
                     <div className="tax-deduction__header">
                         <h1 className="text-center">Tax Deduction</h1>

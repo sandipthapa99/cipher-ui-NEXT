@@ -34,7 +34,7 @@ const AppliedLayout = ({
     return (
         <Layout title={`Homaale | ${title ? title : `Find Tasks`}`}>
             <section className="Tasks-section mb-5" id="Tasks-section">
-                <Container fluid="xl" className="px-5 pb-5">
+                <Container fluid="xl" className="px-4 pb-5">
                     <SearchCategory
                         searchModal="task"
                         onFilterClear={() => setSearchParam("")}

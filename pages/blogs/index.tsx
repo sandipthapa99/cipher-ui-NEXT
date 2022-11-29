@@ -20,7 +20,7 @@ const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
             {/* Recent Blogs Section Start */}
             <section id="recent-blogs" className="recent-blogs">
                 <section className="recent-blogs__hero-section">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <Row>
                             <Col md={6}>
                                 <div className="hero-text">
@@ -50,7 +50,7 @@ const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
                     </Container>
                 </section>
                 <div className="recent-blogs__blog-listings">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <Row className="gx-5 mt-5">
                             {result && result.length > 0 ? (
                                 result?.map((blog) => {
