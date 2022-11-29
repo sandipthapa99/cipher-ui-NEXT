@@ -8,7 +8,7 @@ interface ServiceHighlightsProps {
 const ServiceHighlights = ({ highlights = [] }: ServiceHighlightsProps) => {
     return (
         <>
-            {highlights.map((value, key) => (
+            {highlights?.map((value, key) => (
                 <p className="mb-4" key={key}>
                     <FontAwesomeIcon
                         icon={faCheck}

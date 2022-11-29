@@ -99,6 +99,31 @@ export const NotificationDropdown = () => {
                         />
                     </div>
                 );
+            } else if (notification.title === "KYC Verification") {
+                return (
+                    <div
+                        key={index}
+                        onClick={async () => {
+                            await axiosClient.get(
+                                `/notification/read/?id=${notification.id}`
+                            );
+
+                            await queryClient.invalidateQueries([
+                                "notification",
+                            ]);
+                        }}
+                    >
+                        <KycDetails
+                            userPhoto={notification?.created_for?.profile_image}
+                            read={notification?.read_date}
+                            is_requested={
+                                notification?.content_object?.is_requested
+                            }
+                            createdDate={notification.created_date}
+                            handleClick={() => console.log("clicked")}
+                        />
+                    </div>
+                );
             } else if (notification.title === "status completed") {
                 return (
                     <div key={index}>
@@ -347,6 +372,31 @@ export const NotificationDropdown = () => {
                                         : "service"
                                 )
                             }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "KYC Verification") {
+                return (
+                    <div
+                        key={index}
+                        onClick={async () => {
+                            await axiosClient.get(
+                                `/notification/read/?id=${notification.id}`
+                            );
+
+                            await queryClient.invalidateQueries([
+                                "notification",
+                            ]);
+                        }}
+                    >
+                        <KycDetails
+                            userPhoto={notification?.created_for?.profile_image}
+                            read={notification?.read_date}
+                            is_requested={
+                                notification?.content_object?.is_requested
+                            }
+                            createdDate={notification.created_date}
+                            handleClick={() => console.log("clicked")}
                         />
                     </div>
                 );

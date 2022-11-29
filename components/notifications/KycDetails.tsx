@@ -13,6 +13,7 @@ interface KycDetailsProps {
     type?: string;
     is_requested: boolean;
     read?: string | null;
+    userPhoto: string;
 }
 
 export const KycDetails = ({
@@ -25,6 +26,7 @@ export const KycDetails = ({
     is_requested,
     type,
     read,
+    userPhoto,
 }: KycDetailsProps) => {
     const { data: profile } = useGetProfile();
 
@@ -44,9 +46,9 @@ export const KycDetails = ({
                     <Image
                         alt="testimage"
                         src={
-                            profile?.profile_image
-                                ? "/userprofile/unknownPerson.jpg"
-                                : "/logo/homaale-favicon.png"
+                            userPhoto
+                                ? userPhoto
+                                : "/userprofile/unknownPerson.jpg"
                         }
                         height={50}
                         width={50}
