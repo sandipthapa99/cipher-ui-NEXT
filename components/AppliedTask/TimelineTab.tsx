@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { TaskDetailTimelineData } from "staticData/taskDetailTimeline";
+import type { TaskTimeLineProps } from "types/taskTimeLine";
 
 import { EachTimeline } from "./EachTimeline";
 
-export const TimelineTab = () => {
+export const TimelineTab = ({ TimeLine }: { TimeLine: TaskTimeLineProps }) => {
     const [activeId, setActiveId] = useState<number>(1);
     const [isGivingRevision, setIsGivingRevision] = useState(false);
 
@@ -13,10 +14,13 @@ export const TimelineTab = () => {
 
     return (
         <div className="timeline-tab-component">
-            {TaskDetailTimelineData.map((item) => (
+            {TimeLine.map((item, key) => (
                 <EachTimeline
+                    id={key}
+                    task_status={item?.change_message}
+                    date={item?.action_time}
                     {...item}
-                    key={item?.id}
+                    key={key}
                     buttonName="Request for revision"
                     activeId={activeId}
                     setActiveId={setActiveId}

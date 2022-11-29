@@ -11,7 +11,6 @@ import PostModal from "@components/PostTask/PostModal";
 import {
     faCalendar,
     faClockEight,
-    faEllipsisVertical,
     faEye,
     faLocationDot,
     faUserGroup,
@@ -43,7 +42,6 @@ import { isVideo } from "utils/isVideo";
 import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
-import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail = ({
     type,
@@ -369,7 +367,6 @@ const AppliedTaskDetail = ({
                                     />
                                 ),
                             },
-                            { title: "Timeline", content: <TimelineTab /> },
                             {
                                 title: "Collaboration",
                                 content: <Collaboration />,
