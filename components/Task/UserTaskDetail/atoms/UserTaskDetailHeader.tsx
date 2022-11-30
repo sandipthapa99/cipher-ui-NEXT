@@ -62,8 +62,10 @@ export const UserTaskDetailHeader = ({
                     type === "follow"
                         ? toast.success("followed successfully")
                         : toast.success("Unfollowed successfully");
-                    queryClient.invalidateQueries(["followers"]);
-                    queryClient.invalidateQueries(["followings"]);
+                    queryClient.invalidateQueries(["tasker-detail-data"]);
+                },
+                onError: (error: any) => {
+                    toast.error(error.response.data.message);
                 },
             }
         );
@@ -71,8 +73,6 @@ export const UserTaskDetailHeader = ({
 
     const isBookmarked = useIsBookmarked("user", taskerDetail?.user?.id);
     const isSelf = user?.id === taskerDetail?.user?.id;
-
-    console.log("is followed", taskerDetail?.is_followed);
 
     return (
         <>
