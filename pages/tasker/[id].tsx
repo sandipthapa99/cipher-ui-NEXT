@@ -18,7 +18,7 @@ const TaskerDetail = ({
 }) => {
     const router = useRouter();
 
-    const { data, isFetching } = useData<ITasker>(
+    const { data, isLoading } = useData<ITasker>(
         ["tasker-detail-data", router.query.id],
         `${urls.tasker.profile}${router.query.id}/`,
         !!router.query.id
@@ -31,7 +31,7 @@ const TaskerDetail = ({
                     tasker?.user?.last_name
                 }`}
             >
-                {!isFetching ? (
+                {!isLoading ? (
                     <UserTaskDetail
                         taskerService={taskerService}
                         taskerDetail={tasker ?? ({} as ITasker)}

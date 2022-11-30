@@ -108,7 +108,7 @@ export const AddServiceModalComponent = () => {
             // end_date: "",
             // start_time: "",
             // end_time: "",
-            currency: "113",
+            currency: "114",
             images: "",
             videos: "",
             is_active: true,
