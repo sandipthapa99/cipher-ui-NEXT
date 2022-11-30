@@ -1,17 +1,20 @@
+import { async } from "@firebase/util";
 import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { Button } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useData } from "hooks/use-data";
+import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import React, { useState } from "react";
 import type { AvatarProps } from "types/avatarProps";
 import type { ServiceCategoryOptions } from "types/serviceCategoryOptions";
+import { axiosClient } from "utils/axiosClient";
 
 const AvatarForm = () => {
     const [value, setValue] = useState<string>("1");
-    const [urls, setUrls] = useState<string>();
+    const [ids, setIds] = useState<number | null>();
     const { data: nestedData } = useData<ServiceCategoryOptions>(
         ["category-list"],
         "/task/cms/task-category/list/"
@@ -31,8 +34,14 @@ const AvatarForm = () => {
         !!value
     );
 
-    const HandleSubmit = () => {
-        console.log("first");
+    const HandleSubmit = async () => {
+        try {
+            const res = await axiosClient.patch("/tasker/profile/", {
+                avatar: ids,
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -44,7 +53,7 @@ const AvatarForm = () => {
                     value={value}
                     onChange={(id: string) => {
                         setValue(id ?? "");
-                        setUrls("");
+                        setIds(null);
                     }}
                     searchable
                     data={serviceItems}
@@ -56,9 +65,9 @@ const AvatarForm = () => {
                           <figure
                               key={key}
                               onClick={() => {
-                                  urls === item?.image
-                                      ? setUrls("")
-                                      : setUrls(item?.image);
+                                  ids === item?.id
+                                      ? setIds(null)
+                                      : setIds(item?.id);
                               }}
                               className={"position-relative"}
                           >
@@ -75,7 +84,7 @@ const AvatarForm = () => {
                               />
                               <div
                                   className={`position-absolute rounded-circle ${
-                                      urls && "avatar-section__click"
+                                      ids && "avatar-section__click"
                                   }`}
                               >
                                   <FontAwesomeIcon
