@@ -1,15 +1,10 @@
-import FormButton from "@components/common/FormButton";
 import { Button, Grid, Skeleton, Switch } from "@mantine/core";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import { data } from "cheerio/lib/api/attributes";
 import { useFormik } from "formik";
-import { Formik } from "formik";
-import { type } from "os";
 import type { ChangeEvent } from "react";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { Col, Form } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
-import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
 interface TNotificationPreferences {
@@ -140,16 +135,44 @@ const NotificationSettings = () => {
                     </div>
                 </Form>
             ) : (
-                <Grid className="p-5">
-                    <Col span={9}>
-                        <Skeleton height={50} radius="sm" className="mb-4" />
-                        <Skeleton height={50} radius="sm" />
-                    </Col>
-                    <Col span={9}>
-                        <Skeleton height={50} radius="sm" className="mb-4" />
-                        <Skeleton height={50} radius="sm" />
-                    </Col>
-                </Grid>
+                <>
+                    <Grid className="p-5">
+                        <Col span={9}>
+                            <Skeleton
+                                height={50}
+                                radius="sm"
+                                className="mb-4"
+                            />
+                            <Skeleton height={50} radius="sm" />
+                        </Col>
+                        <Col span={9}>
+                            <Skeleton
+                                height={50}
+                                radius="sm"
+                                className="mb-4"
+                            />
+                            <Skeleton height={50} radius="sm" />
+                        </Col>
+                    </Grid>
+                    <Grid className="p-5">
+                        <Col span={9}>
+                            <Skeleton
+                                height={50}
+                                radius="sm"
+                                className="mb-4"
+                            />
+                            <Skeleton height={50} radius="sm" />
+                        </Col>
+                        <Col span={9}>
+                            <Skeleton
+                                height={50}
+                                radius="sm"
+                                className="mb-4"
+                            />
+                            <Skeleton height={50} radius="sm" />
+                        </Col>
+                    </Grid>
+                </>
             )}
         </div>
     );
@@ -159,13 +182,12 @@ const ChangeNotificationSettings = ({
     checked,
     name,
     fieldValue,
-    values,
 }: {
     label: string;
     checked?: boolean;
     name: string;
     fieldValue: (name: string, value: any) => void;
-    values: TNotificationPreferenceID;
+    values?: TNotificationPreferenceID;
 }) => {
     const handleChange = (change: ChangeEvent<HTMLInputElement>) => {
         fieldValue(name, change.currentTarget.checked);

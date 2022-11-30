@@ -12,8 +12,8 @@
     }
     .thumbnail-img {
         border-radius: 50%;
-        height: 7rem;
-        width: 7rem;
+        height: 5.6rem;
+        width: 5.6rem;
         // padding-top: 1.7rem;
     }
     &__content {
@@ -29,6 +29,9 @@
         }
         @include respond(md) {
             padding-left: 3rem;
+        }
+        @include respond(lg) {
+            padding-left: 0;
         }
 
         .reply-text {

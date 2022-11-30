@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useWithLogin } from "store/use-login-prompt-store";
+import type { ApprovedTaskDetailProps } from "types/approvedTaskProps";
 import type { ITask, TaskApprovedList } from "types/task";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
@@ -22,16 +23,24 @@ import { toast } from "utils/toast";
 import BookNowButton from "./BookNowButton";
 
 interface SimpleProfileCardProps {
-    task: ITask;
+    task?: ITask;
+    approvedTaskDetail?: ApprovedTaskDetailProps;
     handleScroll?: () => void;
     onApply?: () => void;
 }
 const SimpleProfileCard = ({
     task,
     onApply,
+    approvedTaskDetail,
     handleScroll,
 }: SimpleProfileCardProps) => {
+    const { first_name, middle_name, last_name, bio, profile_image } =
+        approvedTaskDetail?.assignee ||
+        ({} as ApprovedTaskDetailProps["assigner"]);
+    const { charge, currency } =
+        approvedTaskDetail || ({} as ApprovedTaskDetailProps);
     const { data: profile } = useGetProfile();
+
     // const created_by = task?.created_by.id === profile?.user.id;
     //
     //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 34 ~ SimpleProfileCard ~ created_by",
@@ -48,11 +57,11 @@ const SimpleProfileCard = ({
     );
 
     const requestedTask = myRequestedTask?.data.result.find(
-        (requestedTask: any) => requestedTask?.entity_service.id === task.id
+        (requestedTask: any) => requestedTask?.entity_service.id === task?.id
     );
 
     const appliedTask = appliedTasks?.result.find(
-        (appliedTask: any) => appliedTask?.id !== task.id
+        (appliedTask: any) => appliedTask?.id !== task?.id
     );
     const { data: approvedTasks } = useData<TaskApprovedList>(
         ["approved-task"],
@@ -62,7 +71,7 @@ const SimpleProfileCard = ({
     const approvedTask = approvedTasks?.data.result.find(
         (appliedTask: any) =>
             appliedTask.assignee.id === profile?.user.id &&
-            appliedTask?.entity_service === task.id
+            appliedTask?.entity_service === task?.id
     );
 
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
@@ -105,30 +114,32 @@ const SimpleProfileCard = ({
                 <Link href={`/tasker/${task?.created_by?.id}/`}>
                     <a>
                         <figure className="thumbnail-img">
-                            <Image
-                                src={
-                                    task?.created_by?.profile_image
-                                        ? task?.created_by?.profile_image
-                                        : "/placeholder/profilePlaceholder.png"
-                                }
-                                layout="fill"
-                                objectFit="cover"
-                                alt="serviceprovider-image"
-                            />
+                            {task?.created_by?.profile_image && (
+                                <Image
+                                    src={
+                                        task?.created_by?.profile_image
+                                            ? task?.created_by?.profile_image
+                                            : "/placeholder/profilePlaceholder.png"
+                                    }
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="serviceprovider-image"
+                                />
+                            )}
+
+                            {profile_image && (
+                                <Image
+                                    src={
+                                        profile_image
+                                            ? profile_image
+                                            : "/placeholder/profilePlaceholder.png"
+                                    }
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="serviceprovider-image"
+                                />
+                            )}
                         </figure>
-                        {!task?.created_by?.profile_image ||
-                            (task?.created_by?.profile_image.length <= 0 && (
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src={
-                                            "/placeholder/profilePlaceholder.png"
-                                        }
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="serviceprovider-image"
-                                    />
-                                </figure>
-                            ))}
                     </a>
                 </Link>
                 {/* <span>{task.created_by.bio}</span> */}
@@ -137,11 +148,15 @@ const SimpleProfileCard = ({
                         {task?.created_by?.first_name}{" "}
                         {task?.created_by?.middle_name}{" "}
                         {task?.created_by?.last_name}
+                        {first_name} {middle_name} {last_name}
                     </p>
                     <Spoiler hideLabel="" showLabel="" maxHeight={50}>
                         {task?.created_by?.bio ?? ""}
+                        {bio}
                     </Spoiler>
-                    <p className="job">{task.status}</p>
+                    <p className="job">
+                        {task?.status} {}
+                    </p>
                 </div>
             </div>
 
@@ -176,39 +191,51 @@ const SimpleProfileCard = ({
             )} */}
 
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row simple-card__price">
-                {task?.budget_from && task?.budget_to ? (
-                    <>
-                        <span>Budget Range</span>
-                        <span>
-                            {task?.currency?.symbol} &nbsp;
-                            {task?.budget_from} - {task?.budget_to}
-                            {task?.budget_type === "Hourly"
-                                ? "/hr"
-                                : task?.budget_type === "Monthly"
-                                ? "/mn"
-                                : ""}
-                        </span>
-                    </>
-                ) : (
+                {task &&
+                    (task?.budget_from && task?.budget_to ? (
+                        <>
+                            <span>Budget Range</span>
+                            <span>
+                                {task?.currency?.symbol} &nbsp;
+                                {task?.budget_from} - {task?.budget_to}
+                                {task?.budget_type === "Hourly"
+                                    ? "/hr"
+                                    : task?.budget_type === "Monthly"
+                                    ? "/mn"
+                                    : ""}
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            <span>Budget</span>
+                            <span>
+                                {`${task?.currency?.symbol ?? ""} ${
+                                    task?.budget_to
+                                } / ${task?.budget_type}`}
+                            </span>
+                        </>
+                    ))}
+
+                {charge && (
                     <>
                         <span>Budget</span>
                         <span>
-                            {`${task?.currency?.symbol ?? ""} ${
-                                task?.budget_to
-                            } / ${task?.budget_type}`}
+                            {currency?.symbol}
+                            {charge}
                         </span>
                     </>
                 )}
             </div>
             {!isUserTask ? (
-                requestedTask?.status === "Cancelled" ? (
+                !approvedTaskDetail && requestedTask?.status === "Cancelled" ? (
                     <BookNowButton
                         btnTitle="Apply Now"
                         // disabled={userGet()?.is_suspended}
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : requestedTask?.status === "On Progress" ? (
+                ) : !approvedTaskDetail &&
+                  requestedTask?.status === "On Progress" ? (
                     <BookNowButton
                         btnTitle={"On Progress"}
                         // disabled={userGet()?.is_suspended}
@@ -216,7 +243,8 @@ const SimpleProfileCard = ({
                         showModal={true}
                         //handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : requestedTask?.status === "Completed" ? (
+                ) : !approvedTaskDetail &&
+                  requestedTask?.status === "Completed" ? (
                     <BookNowButton
                         btnTitle={"Completed"}
                         // disabled={userGet()?.is_suspended}
@@ -224,7 +252,7 @@ const SimpleProfileCard = ({
                         showModal={true}
                         //handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : !requestedTask ? (
+                ) : !approvedTaskDetail && !requestedTask ? (
                     <BookNowButton
                         btnTitle="Apply Now"
                         // backgroundColor="#5e5d6b"
@@ -232,14 +260,16 @@ const SimpleProfileCard = ({
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : requestedTask.is_accepted ? (
+                ) : !approvedTaskDetail && requestedTask?.is_accepted ? (
                     <BookNowButton
                         btnTitle="Approved"
                         backgroundColor={"#30b32c"}
                         disabled={true}
                         //handleOnClick={handleLeaveTask}
                     />
-                ) : !requestedTask.is_accepted && !requestedTask.is_active ? (
+                ) : !approvedTaskDetail &&
+                  !requestedTask?.is_accepted &&
+                  !requestedTask?.is_active ? (
                     <BookNowButton
                         btnTitle="Declined"
                         backgroundColor="#FE5050"
@@ -271,8 +301,8 @@ const SimpleProfileCard = ({
             )}
 
             <AppliedForm
-                service_id={task.id}
-                title={task.title}
+                service_id={task?.id}
+                title={task?.title}
                 budget_from={task?.budget_from}
                 budget_to={task?.budget_to}
                 budget_type={task?.budget_type}
@@ -280,8 +310,8 @@ const SimpleProfileCard = ({
                 show={showModal}
                 setShow={setShowModal}
                 handleClose={() => setShowModal(false)}
-                currency={task.currency}
-                tasker_id={task?.created_by?.id}
+                currency={task?.currency}
+                tasker_id={task?.created_by?.id ? task?.created_by?.id : ""}
                 tasker_name={
                     task?.created_by?.first_name +
                     " " +

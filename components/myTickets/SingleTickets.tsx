@@ -57,9 +57,9 @@ const SingleTickets = ({
                         {status}
                     </Badge>
 
-                    <Badge color="gray" size="lg" variant="outline">
-                        {supportId}
-                    </Badge>
+                    <span className="ticket-id d-flex align-items-center">
+                        # {supportId}
+                    </span>
                 </div>
             </div>
         </div>

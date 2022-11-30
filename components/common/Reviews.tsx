@@ -46,7 +46,10 @@ const Reviews = ({
         <>
             <div>
                 <Row className="review-block">
-                    <Col md={1} className="image">
+                    <Col
+                        md={1}
+                        className="image d-md-flex justify-content-center"
+                    >
                         <Link href={`/tasker/${raterId}/`}>
                             <a target="_blank">
                                 <figure className="thumbnail-img">

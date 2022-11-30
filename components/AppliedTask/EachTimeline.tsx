@@ -3,6 +3,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { faCircleDot, faCircleSmall } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useEffect, useState } from "react";
@@ -114,7 +115,7 @@ export const EachTimeline = ({
 
                         <div className="title-date-section">
                             <h4>{task_status}</h4>
-                            <h5>{date}</h5>
+                            <h5>{format(new Date(date), "PP")}</h5>
                         </div>
                     </div>
 

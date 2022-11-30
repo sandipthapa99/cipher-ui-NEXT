@@ -59,7 +59,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             await axiosClient.get<ServicesValueProps>(
                 `/task/entity/service/?created_by=${params?.id}&is_requested=false`
             );
-
         return {
             props: {
                 taskerService: taskerService,

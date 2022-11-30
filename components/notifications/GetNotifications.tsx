@@ -80,7 +80,10 @@ export default function GetNotifications() {
                                     ?.is_requested
                             }
                             taskTitle={`${notification.title} a service`}
-                            taskObject={notification?.content_object?.title}
+                            taskObject={
+                                notification?.content_object?.entity_service
+                                    ?.title
+                            }
                             createdDate={notification.created_date}
                             slug={
                                 notification?.content_object?.entity_service
@@ -98,6 +101,31 @@ export default function GetNotifications() {
                                         : "service"
                                 )
                             }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "KYC Verification") {
+                return (
+                    <div
+                        key={index}
+                        onClick={async () => {
+                            await axiosClient.get(
+                                `/notification/read/?id=${notification.id}`
+                            );
+
+                            await queryClient.invalidateQueries([
+                                "notification",
+                            ]);
+                        }}
+                    >
+                        <KycDetails
+                            userPhoto={notification?.created_for?.profile_image}
+                            read={notification?.read_date}
+                            is_requested={
+                                notification?.content_object?.is_requested
+                            }
+                            createdDate={notification.created_date}
+                            handleClick={() => console.log("clicked")}
                         />
                     </div>
                 );
@@ -351,6 +379,31 @@ export default function GetNotifications() {
                                         : "service"
                                 )
                             }
+                        />
+                    </div>
+                );
+            } else if (notification.title === "KYC Verification") {
+                return (
+                    <div
+                        key={index}
+                        onClick={async () => {
+                            await axiosClient.get(
+                                `/notification/read/?id=${notification.id}`
+                            );
+
+                            await queryClient.invalidateQueries([
+                                "notification",
+                            ]);
+                        }}
+                    >
+                        <KycDetails
+                            userPhoto={notification?.created_for?.profile_image}
+                            read={notification?.read_date}
+                            is_requested={
+                                notification?.content_object?.is_requested
+                            }
+                            createdDate={notification.created_date}
+                            handleClick={() => console.log("clicked")}
                         />
                     </div>
                 );
