@@ -60,6 +60,7 @@ export interface UserProfileInfoProps {
         profile_image: string;
     };
     followers_count?: number;
+    following_count?: number;
     stats: {
         success_rate: number;
         happy_clients: number;

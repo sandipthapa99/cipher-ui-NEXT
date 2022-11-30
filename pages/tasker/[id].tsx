@@ -1,6 +1,8 @@
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
 import urls from "constants/urls";
+import { connectFirestoreEmulator } from "firebase/firestore";
+import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ITasker } from "types/tasker";
@@ -8,12 +10,15 @@ import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
 
 const TaskerDetail = ({
-    tasker,
     taskerService,
 }: {
-    tasker: ITasker;
     taskerService: ServicesValueProps;
 }) => {
+    const { data } = useData<ITasker>(
+        ["tasker-detail-data"],
+        `${urls.tasker.profile}addc7448-9129-431c-b14c-d6d66e3ea7a4/`
+    );
+    const tasker = data?.data;
     return (
         <>
             <TaskerLayout
@@ -23,7 +28,7 @@ const TaskerDetail = ({
             >
                 <UserTaskDetail
                     taskerService={taskerService}
-                    taskerDetail={tasker}
+                    taskerDetail={tasker ?? ({} as ITasker)}
                 />
             </TaskerLayout>
         </>
@@ -50,16 +55,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
-        const { data } = await axiosClient.get<TaskerProps["result"][0]>(
-            `${urls.tasker.profile}${params?.id}/`
-        );
         const { data: taskerService } =
             await axiosClient.get<ServicesValueProps>(
-                `${urls.task.service_per_user}${params?.id}`
+                `/task/entity/service/?created_by=${params?.id}&is_requested=false`
             );
         return {
             props: {
-                tasker: data,
                 taskerService: taskerService,
             },
             revalidate: 10,
@@ -67,7 +68,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     } catch (error: any) {
         return {
             props: {
-                tasker: {},
                 taskerService: {},
             },
             revalidate: 10,

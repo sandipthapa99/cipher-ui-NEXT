@@ -31,4 +31,12 @@ export const toast = {
             disallowClose: true,
         });
     },
+    message: (message: ReactNode) => {
+        showNotification({
+            title: "Message",
+            message,
+            color: "blue",
+            icon: <FontAwesomeIcon icon={faExclamationCircle} />,
+        });
+    },
 };
