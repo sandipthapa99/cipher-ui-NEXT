@@ -1,4 +1,7 @@
 import { getCroppedImg } from "@components/AppliedTask/Crop";
+import { Tab } from "@components/common/Tab";
+import { MyBookings } from "@components/MyTasks/MyBookings";
+import AvatarForm from "@components/settings/AvatarForm";
 import { Slider } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -166,6 +169,7 @@ const PhotoEdit = ({
         onEditProfile(blob ? blob : toBeCroppedImage);
     };
 
+    const [activeTabIdx, setActiveTabIdx] = useState(0);
     // useEffect(() => {
     //     console.log({ croppedImage });
     // }, [croppedImage]);
@@ -186,101 +190,121 @@ const PhotoEdit = ({
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal image-crop">
                     <h3>Edit Photo</h3>
+                    <Tab
+                        activeIndex={activeTabIdx}
+                        onTabClick={setActiveTabIdx}
+                        items={[
+                            {
+                                title: "Avatar",
+                                content: <AvatarForm />,
+                            },
+                            {
+                                title: "Upload",
+                                content: (
+                                    <>
+                                        <input
+                                            type="file"
+                                            onChange={(e) => {
+                                                setClickedUpload(true);
+                                                const files = e.target.files;
+                                                setUploadedFile(
+                                                    files && files[0]
+                                                );
+                                            }}
+                                            className={classes.input}
+                                            // onClick={}
+                                        />
+                                        <br />
 
-                    <input
-                        type="file"
-                        onChange={(e) => {
-                            setClickedUpload(true);
-                            const files = e.target.files;
-                            setUploadedFile(files && files[0]);
-                        }}
-                        className={classes.input}
-                        // onClick={}
+                                        <Modal.Body className="crop-container">
+                                            <Cropper
+                                                zoomWithScroll
+                                                image={
+                                                    clickedUpload
+                                                        ? uploadPreview
+                                                        : reactImage
+                                                        ? reactImage
+                                                        : profile.data
+                                                              ?.profile_image
+                                                        ? profileImage
+                                                        : photo
+                                                        ? toBeCroppedImage
+                                                        : ""
+                                                }
+                                                //     objectFit="horizontal-cover"
+                                                rotation={rotation}
+                                                crop={crop}
+                                                zoom={zoom}
+                                                cropShape="round"
+                                                aspect={1}
+                                                onCropChange={setCrop}
+                                                onCropComplete={onCropComplete}
+                                                onZoomChange={setZoom}
+                                                onRotationChange={setRotation}
+                                            />
+                                        </Modal.Body>
+                                        <div className="controls">
+                                            <h4>Zoom</h4>
+                                            <Slider
+                                                // type="range"
+                                                value={zoom}
+                                                min={1}
+                                                max={3}
+                                                step={0.1}
+                                                aria-labelledby="Zoom"
+                                                onChange={setZoom}
+                                                className="zoom-range"
+                                            />
+                                            <br />
+                                            <h4>Rotate</h4>
+
+                                            <Slider
+                                                // type="range"
+                                                value={rotation}
+                                                min={0}
+                                                max={360}
+                                                step={1}
+                                                aria-labelledby="Rotation"
+                                                onChange={setRotation}
+                                                className="zoom-range"
+                                            />
+                                        </div>
+
+                                        <Modal.Footer>
+                                            <Button
+                                                onClick={() => {
+                                                    setShowEditForm(false);
+                                                    setClickedUpload(false);
+                                                    setUploadedFile(null);
+                                                }}
+                                            >
+                                                Cancel
+                                            </Button>
+                                            <Button
+                                                className="btn close-btn"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    isEditButtonClicked ||
+                                                    haveImage
+                                                        ? submit()
+                                                        : submit();
+                                                }}
+                                            >
+                                                Apply
+                                            </Button>
+                                            {/* <FormButton
+                                    type="submit"
+                                    variant="primary"
+                                    name="Apply"
+                                    className="submit-btn"
+                                    onCli
+                                /> */}
+                                        </Modal.Footer>
+                                    </>
+                                ),
+                            },
+                        ]}
                     />
-                    <br />
-
-                    <Modal.Body className="crop-container">
-                        <Cropper
-                            zoomWithScroll
-                            image={
-                                clickedUpload
-                                    ? uploadPreview
-                                    : reactImage
-                                    ? reactImage
-                                    : profile.data?.profile_image
-                                    ? profileImage
-                                    : photo
-                                    ? toBeCroppedImage
-                                    : ""
-                            }
-                            //     objectFit="horizontal-cover"
-                            rotation={rotation}
-                            crop={crop}
-                            zoom={zoom}
-                            cropShape="round"
-                            aspect={1}
-                            onCropChange={setCrop}
-                            onCropComplete={onCropComplete}
-                            onZoomChange={setZoom}
-                            onRotationChange={setRotation}
-                        />
-                    </Modal.Body>
-                    <div className="controls">
-                        <h4>Zoom</h4>
-                        <Slider
-                            // type="range"
-                            value={zoom}
-                            min={1}
-                            max={3}
-                            step={0.1}
-                            aria-labelledby="Zoom"
-                            onChange={setZoom}
-                            className="zoom-range"
-                        />
-                        <br />
-                        <h4>Rotate</h4>
-
-                        <Slider
-                            // type="range"
-                            value={rotation}
-                            min={0}
-                            max={360}
-                            step={1}
-                            aria-labelledby="Rotation"
-                            onChange={setRotation}
-                            className="zoom-range"
-                        />
-                    </div>
-
-                    <Modal.Footer>
-                        <Button
-                            onClick={() => {
-                                setShowEditForm(false);
-                                setClickedUpload(false);
-                                setUploadedFile(null);
-                            }}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            className="btn close-btn"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                isEditButtonClicked || haveImage
-                                    ? submit()
-                                    : submit();
-                            }}
-                        >
-                            Apply
-                        </Button>
-                        {/* <FormButton
-                            type="submit"
-                            variant="primary"
-                            name="Apply"
-                            className="submit-btn"
-                            onCli
-                        /> */}
-                    </Modal.Footer>
                 </div>
             </Modal>
         </>
