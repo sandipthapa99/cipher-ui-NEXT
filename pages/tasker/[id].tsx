@@ -1,9 +1,11 @@
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
+import { Skeleton } from "@mantine/core";
 import urls from "constants/urls";
 import { connectFirestoreEmulator } from "firebase/firestore";
 import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ITasker } from "types/tasker";
 import type { TaskerProps } from "types/taskerProps";
@@ -14,9 +16,12 @@ const TaskerDetail = ({
 }: {
     taskerService: ServicesValueProps;
 }) => {
-    const { data } = useData<ITasker>(
-        ["tasker-detail-data"],
-        `${urls.tasker.profile}addc7448-9129-431c-b14c-d6d66e3ea7a4/`
+    const router = useRouter();
+
+    const { data, isFetching } = useData<ITasker>(
+        ["tasker-detail-data", router.query.id],
+        `${urls.tasker.profile}${router.query.id}/`,
+        !!router.query.id
     );
     const tasker = data?.data;
     return (
@@ -26,10 +31,18 @@ const TaskerDetail = ({
                     tasker?.user?.last_name
                 }`}
             >
-                <UserTaskDetail
-                    taskerService={taskerService}
-                    taskerDetail={tasker ?? ({} as ITasker)}
-                />
+                {!isFetching ? (
+                    <UserTaskDetail
+                        taskerService={taskerService}
+                        taskerDetail={tasker ?? ({} as ITasker)}
+                    />
+                ) : (
+                    <>
+                        <Skeleton height={100} circle mb="xl" />
+                        <Skeleton height={20} radius="xl" />
+                        <Skeleton height={20} mt={6} radius="xl" />
+                    </>
+                )}
             </TaskerLayout>
         </>
     );
