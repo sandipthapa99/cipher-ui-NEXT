@@ -71,6 +71,9 @@
         padding-bottom: 0rem;
         position: relative;
         @include respond(md) {
+            padding: 0.8rem;
+        }
+        @include respond(lg) {
             padding: 3rem;
         }
         h1 {

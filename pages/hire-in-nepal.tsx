@@ -22,7 +22,7 @@ const HireInNepal: NextPage = () => {
 
     return (
         <Layout title="Hire in Nepal | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <section className="hire-in-nepal">
                     <BreadCrumb currentPage="Hire in Nepal" />
 

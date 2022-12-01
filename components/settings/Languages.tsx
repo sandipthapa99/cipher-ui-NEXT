@@ -18,7 +18,7 @@ const LanguagesSettings = () => {
                         {value.title}
                         {value.isDefault ? (
                             <button
-                                className="btn default ms-0 ms-md-5 px-5 mt-3 mt-md-0"
+                                className="btn default ms-0 ms-md-5 px-4 mt-3 mt-md-0"
                                 disabled
                             >
                                 Default

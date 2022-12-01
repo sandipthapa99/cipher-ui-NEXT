@@ -11,7 +11,7 @@ const About: NextPage = () => {
         <Layout title="About Us | Homaale">
             <div className="about-page">
                 <BreadCrumb currentPage="About Us" />
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="about-page__top-container">
                         <div className="main-image">
                             <figure className="thumbnail-img">

@@ -13,7 +13,7 @@ const PayrollServices: NextPage = () => {
         <Layout title="Payroll-Services | Homaale">
             <section className="payroll-services">
                 <section className="payroll-services__header">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <BreadCrumb currentPage="Payroll Services" />
                         <Row className="d-flex gx-5 align-items-center">
                             <Col md={6}>
@@ -49,7 +49,7 @@ const PayrollServices: NextPage = () => {
                     </Container>
                 </section>
                 <div className="payroll-services__content">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <div className="clients">
                             <LongSquareImageCard
                                 title="Service Providers in HOMAALE"

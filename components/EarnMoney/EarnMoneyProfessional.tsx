@@ -17,7 +17,7 @@ export const EarnMoneyProfessional = () => {
                 id="earn-money-professional-top-section"
                 className="earn-money-professional-top-section"
             >
-                <Container className="px-5" fluid="xl">
+                <Container className="px-4" fluid="xl">
                     <EarnMoneyVideoComponent />
                 </Container>
             </section>
@@ -26,7 +26,7 @@ export const EarnMoneyProfessional = () => {
                 id="earn-money-professional-get-started-section"
                 className="earn-money-professional-get-started-section"
             >
-                <Container className="px-5" fluid="xl">
+                <Container className="px-4" fluid="xl">
                     <h1>How do I get Started ?</h1>
                     {GetStartedData?.map((item, index) => (
                         <GetStartedCard

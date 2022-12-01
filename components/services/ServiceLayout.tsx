@@ -39,7 +39,7 @@ const ServiceLayout = ({
     return (
         <Layout title={`Homaale | ${title ? title : `Find Services`}`}>
             <section className="service-section mb-5" id="service-section">
-                <Container fluid="xl" className="px-5 pb-5">
+                <Container fluid="xl" className="px-4 pb-5">
                     <SearchCategory
                         searchModal="service"
                         onSearchParamChange={handleSearchChange}

@@ -12,7 +12,7 @@ const Saved: NextPage = () => {
         <Layout title="Saved | Homaale">
             <section className="saved-page">
                 <section className="saved-page__header">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <BreadCrumb currentPage="Saved" />
                         <Row className="d-flex align-items-center">
                             <Col md={6}>

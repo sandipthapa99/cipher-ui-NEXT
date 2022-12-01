@@ -16,7 +16,7 @@ const About: NextPage = () => {
     return (
         <Layout title="Referral Programs | Homaale">
             <div className="referral-page">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Referral programs" />
                     <div className="referral-page__top-container">
                         <h1 className='"pt-1'>

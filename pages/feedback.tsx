@@ -50,7 +50,7 @@ const Feedback = () => {
     return (
         <>
             <Layout title="Feedback | Homaale">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <section className="site-feedback">
                         <Row className="gx-5">
                             <Col md={6} className="d-none d-md-flex">

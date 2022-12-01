@@ -100,7 +100,7 @@ const PaymentSuccess = () => {
     return (
         <>
             <Layout title="Payment Verification | Homaale">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     {isLoading || !showSuccess ? (
                         <PaymentSuccessSkeleton />
                     ) : (
