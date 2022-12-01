@@ -13,7 +13,7 @@ const Community: NextPage = () => {
     return (
         <Layout title="Community | Homaale">
             <section className="community-page">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Community" />
 
                     <div className="community-page__top-container">
@@ -45,7 +45,7 @@ const Community: NextPage = () => {
 
                                 {accessToken !== undefined ? (
                                     <AnchorButton
-                                        className={"px-5"}
+                                        className={"px-4"}
                                         href={"/explore-services"}
                                         varient={"secondary"}
                                     >
@@ -53,7 +53,7 @@ const Community: NextPage = () => {
                                     </AnchorButton>
                                 ) : (
                                     <AnchorButton
-                                        className={"px-5"}
+                                        className={"px-4"}
                                         href={"/signup"}
                                         varient={"secondary"}
                                     >
@@ -66,7 +66,7 @@ const Community: NextPage = () => {
                 </Container>
             </section>
             <section className="community-page-main">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="community-page-main__gallery">
                         <h1>Community Gallery</h1>
 

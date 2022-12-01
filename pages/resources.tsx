@@ -20,7 +20,7 @@ const Resources: NextPage = () => {
         <Layout title="Resources | Homaale">
             <section className="resource-page">
                 <section className="resource-page__header">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <BreadCrumb currentPage="Resources" />
                         <Row className="d-flex align-items-center">
                             <Col md={6}>
@@ -50,7 +50,7 @@ const Resources: NextPage = () => {
                     </Container>
                 </section>
                 <div className="resource-page__content">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <div className="carousel">
                             <Carousel>
                                 {resourceCarouselContent &&

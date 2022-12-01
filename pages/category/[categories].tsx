@@ -45,7 +45,7 @@ const Gardening = ({
             title={`${categoryName ? categoryName : "Loading..."} | Homaale`}
         >
             <div className="gardening -page">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb
                         currentPage={categoryName ? categoryName : "Loading..."}
                     />

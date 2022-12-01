@@ -15,7 +15,7 @@ import {
 const HowToHire: NextPage = () => {
     return (
         <Layout title="How To Hire | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <section className="how-to-hire">
                     <BreadCrumb currentPage="How To Hire" />
 

@@ -12,7 +12,7 @@ const Offers = () => {
     return (
         <Layout title="Homaale | Offers">
             <section className="offers">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage={"Offers"} />
                     <div className="dashain mb-5">
                         <figure className="offer-img">

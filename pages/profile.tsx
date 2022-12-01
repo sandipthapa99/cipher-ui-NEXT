@@ -49,7 +49,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         return (
             <>
                 <Layout title="Profile | Homaale">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
@@ -74,7 +74,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
 
     return (
         <Layout title="Profile | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <section className="user-profile">
                     <BreadCrumb currentPage="Profile" />
 

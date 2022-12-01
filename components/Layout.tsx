@@ -106,7 +106,7 @@ const Layout: FC<MetaDataProps> = ({
                     <Header />
                     {userdata?.is_suspended && (
                         <Alert color="orange" sx={{ zIndex: -1 }}>
-                            <Container className="px-5">
+                            <Container className="px-4">
                                 <span className="text-danger font-weight-bold">
                                     Account Suspended !{" "}
                                 </span>

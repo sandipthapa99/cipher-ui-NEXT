@@ -90,7 +90,7 @@ const LongSquareImageCard = ({
                                     <div>
                                         {user ? (
                                             <AnchorButton
-                                                className={"px-5"}
+                                                className={"px-4"}
                                                 href={"/service"}
                                                 varient={"secondary"}
                                             >
@@ -98,7 +98,7 @@ const LongSquareImageCard = ({
                                             </AnchorButton>
                                         ) : (
                                             <AnchorButton
-                                                className={"px-5"}
+                                                className={"px-4"}
                                                 href={"/signup"}
                                                 varient={"secondary"}
                                             >
@@ -171,7 +171,7 @@ const LongSquareImageCard = ({
                                     <div>
                                         {user ? (
                                             <AnchorButton
-                                                className={"px-5"}
+                                                className={"px-4"}
                                                 href={"/service"}
                                                 varient={"secondary"}
                                             >
@@ -179,7 +179,7 @@ const LongSquareImageCard = ({
                                             </AnchorButton>
                                         ) : (
                                             <AnchorButton
-                                                className={"px-5"}
+                                                className={"px-4"}
                                                 href={"/signup"}
                                                 varient={"secondary"}
                                             >

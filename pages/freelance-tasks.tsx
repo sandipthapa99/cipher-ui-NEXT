@@ -39,7 +39,7 @@ const FreelanceTasks: NextPage = () => {
     );
     return (
         <Layout title="Freelance Tasks | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <section className="freelance-tasks">
                     <BreadCrumb currentPage="Freelance Tasks" />
 

@@ -9,7 +9,7 @@ import { browseTasks, rules } from "staticData/how-to-find";
 const HowToFindTasks = () => {
     return (
         <Layout title="How to find tasks | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <section className="find-tasks">
                     <BreadCrumb currentPage="How to find tasks" />
                     {/* Notable quality section starts  */}
