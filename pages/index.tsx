@@ -99,14 +99,14 @@ const Home: NextPage<{
 
     if (!isClient) return null;
     return (
-        <Layout title="Homaale - Catering to Your Requirements">
+        <Layout title="Homaale - Catering Your Requirements">
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
                     <Row className="gx-5 hero-content">
                         <Col md="6" className="left">
                             <div className="content">
                                 {/* Hero Text Start Here */}
-                                <h1>Catering To Your Requirements</h1>
+                                <h1>Catering Your Requirements</h1>
                                 {/* Hero Text End Here */}
                             </div>
                             <Search />
