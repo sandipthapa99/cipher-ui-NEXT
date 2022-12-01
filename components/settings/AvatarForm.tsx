@@ -1,20 +1,26 @@
-import { async } from "@firebase/util";
 import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { Button } from "@mantine/core";
 import { Select } from "@mantine/core";
+import { QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
-import { useForm } from "hooks/use-form";
 import Image from "next/image";
-import React, { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState } from "react";
 import type { AvatarProps } from "types/avatarProps";
 import type { ServiceCategoryOptions } from "types/serviceCategoryOptions";
 import { axiosClient } from "utils/axiosClient";
 
-const AvatarForm = () => {
+const AvatarForm = ({
+    onAvatarEdit,
+    setShowEditForm,
+}: {
+    onAvatarEdit: (avatar: AvatarProps[0]) => void;
+    setShowEditForm: Dispatch<SetStateAction<boolean>>;
+}) => {
     const [value, setValue] = useState<string>("1");
-    const [ids, setIds] = useState<number | null>();
+    const [avatarData, setAvatarData] = useState<AvatarProps[0] | null>();
     const { data: nestedData } = useData<ServiceCategoryOptions>(
         ["category-list"],
         "/task/cms/task-category/list/"
@@ -34,14 +40,22 @@ const AvatarForm = () => {
         !!value
     );
 
+    const queryClient = new QueryClient();
+
     const HandleSubmit = async () => {
         try {
-            const res = await axiosClient.patch("/tasker/profile/", {
-                avatar: ids,
+            await axiosClient.patch("/tasker/profile/", {
+                avatar: avatarData?.id,
             });
+            await queryClient.invalidateQueries([
+                "profile",
+                "ed79f07f-adba-41c8-bb07-36df124c58a0",
+            ]);
         } catch (error) {
             console.log(error);
         }
+        avatarData && onAvatarEdit(avatarData);
+        setShowEditForm(avatarData ? false : true);
     };
 
     return (
@@ -53,7 +67,7 @@ const AvatarForm = () => {
                     value={value}
                     onChange={(id: string) => {
                         setValue(id ?? "");
-                        setIds(null);
+                        setAvatarData(null);
                     }}
                     searchable
                     data={serviceItems}
@@ -65,9 +79,9 @@ const AvatarForm = () => {
                           <figure
                               key={key}
                               onClick={() => {
-                                  ids === item?.id
-                                      ? setIds(null)
-                                      : setIds(item?.id);
+                                  avatarData?.id === item?.id
+                                      ? setAvatarData(null)
+                                      : setAvatarData(item);
                               }}
                               className={"position-relative"}
                           >
@@ -84,7 +98,8 @@ const AvatarForm = () => {
                               />
                               <div
                                   className={`position-absolute rounded-circle ${
-                                      ids && "avatar-section__click"
+                                      avatarData?.id === item?.id &&
+                                      "avatar-section__click"
                                   }`}
                               >
                                   <FontAwesomeIcon
@@ -97,10 +112,11 @@ const AvatarForm = () => {
                     : "no image"}
             </div>
             <div className="d-flex gap-3 align-items-center justify-content-center">
-                <Button>Cancel</Button>
+                <Button className="btn close-btn px-4">Cancel</Button>
                 <Button
                     className="btn close-btn px-4"
                     onClick={() => HandleSubmit()}
+                    disabled={!avatarData}
                 >
                     Apply
                 </Button>

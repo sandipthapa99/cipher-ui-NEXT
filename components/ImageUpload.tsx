@@ -1,6 +1,7 @@
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { Dispatch, SetStateAction } from "react";
 import { forwardRef } from "react";
+import type { AvatarProps } from "types/avatarProps";
 
 import PhotoEdit from "./Profile/PhotoEdit";
 
@@ -17,6 +18,7 @@ interface ImageUploadProps {
     isEditButtonClicked?: boolean;
     display: boolean;
     onPhotoEdit: (url: RequestInfo | URL, file: File) => void;
+    onAvatarEdit: (avatar: AvatarProps[0]) => void;
 }
 
 // eslint-disable-next-line react/display-name
@@ -32,6 +34,7 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
             setShowEditForm,
             showEditForm,
             handleClose,
+            onAvatarEdit,
             isEditButtonClicked,
 
             onPhotoEdit,
@@ -41,13 +44,11 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
 
         return (
             <>
-                <input
+                <span
                     hidden
-                    type="file"
-                    name={name}
                     ref={ref}
                     onChange={onChange}
-                    // onClick={}
+                    onClick={() => setShowEditForm(true)}
                 />
                 <PhotoEdit
                     setIsEditButtonClicked={setIsEditButtonClicked}
@@ -56,6 +57,7 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
                     handleClose={handleClose}
                     isEditButtonClicked={isEditButtonClicked}
                     onPhotoEdit={onPhotoEdit}
+                    onAvatarEdit={onAvatarEdit}
                     haveImage={profileImage ? true : false}
                     photo={profileImage ? profileImage : photo}
                 />

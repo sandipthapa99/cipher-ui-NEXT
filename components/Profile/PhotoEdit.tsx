@@ -2,10 +2,15 @@ import { getCroppedImg } from "@components/AppliedTask/Crop";
 import { Tab } from "@components/common/Tab";
 import { MyBookings } from "@components/MyTasks/MyBookings";
 import AvatarForm from "@components/settings/AvatarForm";
-import { Slider } from "@mantine/core";
+import { faCheck } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { SelectItem } from "@mantine/core";
+import { Select, Slider } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useData } from "hooks/use-data";
+import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
 import React, { useMemo, useState } from "react";
@@ -13,6 +18,8 @@ import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Cropper from "react-easy-crop";
 import type { Area } from "react-easy-crop/types";
+import type { AvatarProps } from "types/avatarProps";
+import type { ServiceCategoryOptions } from "types/serviceCategoryOptions";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
@@ -27,6 +34,7 @@ interface editProfileProps {
     haveImage: boolean;
     isEditButtonClicked?: boolean;
     onPhotoEdit: (url: RequestInfo | URL, file: File) => void;
+    onAvatarEdit: (avatar: AvatarProps[0]) => void;
 }
 
 const PhotoEdit = ({
@@ -35,6 +43,7 @@ const PhotoEdit = ({
     setIsEditButtonClicked,
     setShowEditForm,
     photo,
+    onAvatarEdit,
     isEditButtonClicked,
     onPhotoEdit,
     haveImage,
@@ -170,6 +179,38 @@ const PhotoEdit = ({
     };
 
     const [activeTabIdx, setActiveTabIdx] = useState(0);
+
+    const [value, setValue] = useState<string>("1");
+    const [ids, setIds] = useState<number | null>();
+    const [urls, setUrls] = useState<string | null>();
+    const { data: nestedData } = useData<ServiceCategoryOptions>(
+        ["category-list"],
+        "/task/cms/task-category/list/"
+    );
+
+    const serviceItems: SelectItem[] = nestedData
+        ? nestedData?.data.map((service) => ({
+              id: service?.id,
+              label: service?.name,
+              value: service?.id,
+          }))
+        : [];
+
+    const { data: Avatar } = useData<AvatarProps>(
+        ["Avatar-list", value],
+        `/task/avatar/list?category=${value}`,
+        !!value
+    );
+
+    const HandleSubmit = async () => {
+        try {
+            await axiosClient.patch("/tasker/profile/", {
+                avatar: ids,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
     // useEffect(() => {
     //     console.log({ croppedImage });
     // }, [croppedImage]);
@@ -196,7 +237,12 @@ const PhotoEdit = ({
                         items={[
                             {
                                 title: "Avatar",
-                                content: <AvatarForm />,
+                                content: (
+                                    <AvatarForm
+                                        setShowEditForm={setShowEditForm}
+                                        onAvatarEdit={onAvatarEdit}
+                                    />
+                                ),
                             },
                             {
                                 title: "Upload",
