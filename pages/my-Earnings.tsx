@@ -59,10 +59,10 @@ const MyEarnings = () => {
 
     const newElements = EarningHistory?.result.map((item) => {
         return {
-            id: item.id,
-            transactionId: item.transaction,
-            user: item.sender,
-            details: item.task_title.toString(),
+            id: item?.id,
+            transactionId: item?.transaction,
+            user: item?.sender,
+            details: item?.task_title?.toString(),
             transactionDate: format(
                 new Date(item?.created_at),
                 "dd/MM/yyyy, hh:mm a"
