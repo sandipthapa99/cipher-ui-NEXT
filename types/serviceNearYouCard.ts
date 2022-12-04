@@ -36,6 +36,14 @@ export interface ServiceNearYouCardProps {
     service?: ServicesValueProps["result"][0];
     ProfileImage?: string;
     ratedTo: string;
+    offers?: {
+        id: number;
+        code: string;
+        description: string;
+        image: string;
+        offer_type: string;
+        title: string;
+    }[];
 }
 
 export type ServiceCardType = Omit<ServiceNearYouCardProps, "ratedTo">;

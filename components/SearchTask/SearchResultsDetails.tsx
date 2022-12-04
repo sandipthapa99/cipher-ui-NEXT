@@ -1,8 +1,10 @@
+import AdvertisementCard from "@components/common/AdvertisementCard";
 import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
 import { ElipsisReport } from "@components/common/ElipsisReport";
 import EllipsisDropdownService from "@components/common/EllipsisDropdownService";
 import { FilterReview } from "@components/common/FilterReview";
+import OfferCard from "@components/common/OfferCard";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
@@ -68,6 +70,7 @@ const SearchResultsDetail = ({
     serviceViews,
     currency,
     service,
+    offers,
     ratedTo,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
@@ -88,8 +91,6 @@ const SearchResultsDetail = ({
         `${urls.profile.rating}?service=${serviceId}?rated_to=${ratedTo}`,
         isService
     );
-
-    console.log(serviceId, ratedTo);
 
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
@@ -603,8 +604,23 @@ const SearchResultsDetail = ({
                         <ServiceHighlights highlights={highlights} />
                     </div>
                 )}
+                {offers && offers.length > 0 ? (
+                    <section className="service-details__offers">
+                        <h1>Offers</h1>
+                        <Row>
+                            {offers.map((offer) => (
+                                <Col md={6} key={offer.id}>
+                                    <OfferCard
+                                        title={offer.title}
+                                        image={offer.image}
+                                    />{" "}
+                                </Col>
+                            ))}
+                        </Row>
+                    </section>
+                ) : null}
                 <section
-                    className="service-details__offers"
+                    className="service-details__package-offers"
                     style={{ margin: "41px 0 0 0" }}
                 >
                     <h1>Packages &amp; Offers</h1>
