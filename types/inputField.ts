@@ -16,4 +16,5 @@ export interface InputFieldProps {
     data?: any;
     haveIcon?: boolean;
     inputIcon?: any;
+    create?: boolean;
 }

@@ -915,6 +915,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 labelName="Specialities"
                                 placeHolder="Enter your skills"
                                 disabled={isInputDisabled}
+                                create={true}
                             />
                             <TagInputField
                                 data={interestValues}
@@ -923,6 +924,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 // touch={!profile && touched.skill}
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
+                                create={false}
                                 // onchange={(value) =>
                                 //     setFieldValue("interests", value)
                                 // }
