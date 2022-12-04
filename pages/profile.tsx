@@ -18,6 +18,7 @@ import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails } = useGetProfile();
+    console.log("🚀 ~ file: profile.tsx:21 ~ profileDetails", profileDetails);
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],

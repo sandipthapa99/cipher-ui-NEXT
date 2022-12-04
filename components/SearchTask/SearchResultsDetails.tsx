@@ -1,7 +1,6 @@
 import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
 import { ElipsisReport } from "@components/common/ElipsisReport";
-import EllipsisDropdownService from "@components/common/EllipsisDropdownService";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
@@ -16,7 +15,6 @@ import {
     faCalendar,
     faChevronLeft,
     faClockEight,
-    faEllipsisVertical,
     faEye,
     faLocationDot,
     faWarning,
@@ -38,7 +36,7 @@ import { useDeleteData } from "hooks/use-delete";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { Fragment, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { getReviews } from "services/commonServices";
@@ -88,8 +86,6 @@ const SearchResultsDetail = ({
         `${urls.profile.rating}?service=${serviceId}?rated_to=${ratedTo}`,
         isService
     );
-
-    console.log(serviceId, ratedTo);
 
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
@@ -224,18 +220,12 @@ const SearchResultsDetail = ({
 
     // check if current logged in user is the owner of the current service
     const isCurrentUserService = () => {
-        const service = servicesData?.data.result.find(
-            (service) => service.id === serviceId
-        );
-        return service && user ? service?.created_by?.id === user?.id : false;
+        if (service?.created_by?.id === user?.id) {
+            return true;
+        } else {
+            return false;
+        }
     };
-
-    // const handleViewApplicants = () => {
-    //     // @TODO : REPLACE WITH SOMETHING MEANINGFUL
-    //     toast.success(
-    //         "You have 100 Morbillion applicants for this service.Congrats!!"
-    //     );
-    // };
 
     const handleEdit = () => {
         setEditModal(true);
