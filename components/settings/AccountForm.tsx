@@ -118,7 +118,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
 
-    const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
+    const skills = profile?.skill ? JSON.parse(profile?.skill) : [];
 
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
@@ -340,7 +340,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
                   return { label: item?.name, value: item?.id };
               })
             : [];
-    // console.log(interestValues);
+
+    const defaultInterests: unknown = profile?.interests.map((item: any) => {
+        return item.id;
+    });
 
     return (
         <>
@@ -909,6 +912,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <TagInputField
                                 data={skills}
                                 name="skill"
+                                defaultValue={defaultInterests as string}
                                 // error={!profile && errors.skill}
                                 // touch={!profile && touched.skill}
 
@@ -925,10 +929,11 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
                                 create={false}
+                                disabled={isInputDisabled}
+
                                 // onchange={(value) =>
                                 //     setFieldValue("interests", value)
                                 // }
-                                disabled={isInputDisabled}
                             />
 
                             {/* <MultiSelect
