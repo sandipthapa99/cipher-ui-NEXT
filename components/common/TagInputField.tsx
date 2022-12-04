@@ -15,6 +15,7 @@ const TagInputField = ({
     labelName,
     textMuted,
     disabled,
+    create,
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
     const { data: profile, isLoading } = useGetProfile();
@@ -43,7 +44,7 @@ const TagInputField = ({
                             className={checkFormControl(error, touch)}
                             variant="unstyled"
                             searchable
-                            creatable
+                            creatable={create}
                             getCreateLabel={(query) => `+ Create ${query}`}
                             onChange={(val) => setFieldValue(name, val)}
                             clearButtonLabel="Clear selection"
