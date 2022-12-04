@@ -136,7 +136,7 @@ const MerchantCard = ({
                                     className="svg-icon star"
                                 />
                                 {merchantRating && merchantRating > 0
-                                    ? merchantRating
+                                    ? merchantRating?.toFixed(2)
                                     : 0}
                             </p>
                             <p className="price">

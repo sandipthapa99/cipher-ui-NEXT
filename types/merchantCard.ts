@@ -5,7 +5,7 @@ export interface MerchantCardProps {
     merchantCategory: string | null | undefined;
     merchantLocation: string | null | undefined;
     merchantDescription: string | null | undefined;
-    merchantRating: number | string | null | undefined;
+    merchantRating: number;
     merchantPrice: string | null | undefined | number;
     happyClients: number | undefined | null;
     successRate: number | undefined | null | string;
