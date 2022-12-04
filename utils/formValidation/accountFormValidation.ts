@@ -7,6 +7,7 @@ const emailValidate = Yup.string()
     .email("Invalid email address")
     .required("Required field");
 const tagValidate = Yup.array(Yup.string()).required("Required field");
+const interestValidate = Yup.array(Yup.number()).required("Required Field");
 
 export const accountFormSchema = Yup.object().shape({
     // full_name: stringReqOnly,
@@ -32,5 +33,6 @@ export const accountFormSchema = Yup.object().shape({
     profile_visibility: stringReqOnly,
     task_preferences: stringReqOnly,
     designation: stringReqOnly,
+    interests: interestValidate,
     // profile_image: stringReqOnly,
 });

@@ -1,11 +1,14 @@
 import { Button, Grid, Skeleton, Switch } from "@mantine/core";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { val } from "cheerio/lib/api/attributes";
+import { isValid } from "date-fns";
 import { useFormik } from "formik";
 import type { ChangeEvent } from "react";
 import React from "react";
 import { Col, Form } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
+import { TypeOf } from "yup";
 
 interface TNotificationPreferences {
     id: number;
@@ -182,6 +185,7 @@ const ChangeNotificationSettings = ({
     checked,
     name,
     fieldValue,
+    values,
 }: {
     label: string;
     checked?: boolean;
@@ -195,9 +199,35 @@ const ChangeNotificationSettings = ({
             newLabel.forEach((element) => {
                 fieldValue(element.name, !change.currentTarget.checked);
             });
-        } else {
-            fieldValue("muted", !change.currentTarget.checked);
         }
+        if (name !== "muted" && !checked) {
+            fieldValue("muted", false);
+        }
+        // const newChecked =
+        //     values &&
+        //     Object.entries(values).reduce((acc: any, curr) => {
+        //         const [key, value] = curr;
+        //         const newValues = [
+        //             ...acc,
+        //             acc.push({ name: key, checked: value }),
+        //         ];
+        //         return acc;
+        //     }, []);
+        // newChecked.forEach((element: { name: string; checked: boolean }) => {
+        //     let isValid = false;
+        //     if (element.name !== "muted" && element.checked === true) {
+        //         isValid = true;
+        //     }
+        //     console.log(isValid, "isvlid");
+
+        //     if (!isValid) {
+        //         fieldValue("muted", true);
+        //     }
+        // });
+
+        //  else {
+        //     fieldValue("muted", !change.currentTarget.checked);
+        // }
     };
 
     return (
