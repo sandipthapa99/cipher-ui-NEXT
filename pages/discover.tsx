@@ -99,6 +99,9 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
                                             <MerchantCard
                                                 merchantImage={
                                                     merchant?.profile_image
+                                                        ? merchant?.profile_image
+                                                        : merchant?.avatar
+                                                              ?.image
                                                 }
                                                 merchantName={
                                                     merchant?.user?.first_name

@@ -52,7 +52,6 @@ export const SearchCategory = ({
     const countryId = "";
 
     const [params, dispatch] = useReducer(searchReducer, {});
-    console.log("params", params);
 
     const [cityQuery, setCityQuery] = useState("");
     const { data: cities } = useCities(cityQuery, countryId);

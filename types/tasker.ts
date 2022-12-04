@@ -28,6 +28,7 @@ export interface ITasker {
     bio: string;
     gender: string;
     profile_image: string;
+    avatar: { image: string };
     date_of_birth: string;
     skill: string;
     active_hour_start: string;
