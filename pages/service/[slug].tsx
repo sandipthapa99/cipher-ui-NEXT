@@ -15,6 +15,7 @@ const ServicesDetail = ({
     service: ServicesValueProps["result"][0];
     servicePackage: ServicesPackageProps;
 }) => {
+    console.log("serviuce detail", service);
     return (
         <>
             <ServiceLayout title={service?.title}>
@@ -46,6 +47,7 @@ const ServicesDetail = ({
                     ProfileImage={service?.created_by?.profile_image}
                     service={service}
                     ratedTo={service?.created_by?.id}
+                    offers={service?.offers}
                 />
             </ServiceLayout>
         </>

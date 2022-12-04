@@ -18,15 +18,17 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
     //         );
     //     }
     // );
+    const taskerId = activeTaskId;
 
     const { data: taskerRatingData, isLoading: ratingLoading } =
         useData<RatingResponse>(
             ["tasker-rating", search],
-            `${urls.profile.rating}?ordering=${search}`
+            `${urls.profile.rating}/list/${taskerId}?ordering=${search}`
         );
     const [show, setShow] = useState<boolean>(false);
 
     const ratingData = taskerRatingData?.data?.result;
+
     return (
         <>
             {/* <FilterReview totalReviews={ratingData?.length} /> */}

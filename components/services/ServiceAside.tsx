@@ -134,7 +134,7 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
 
                 <Col md={8}>
                     <ScrollArea.Autosize
-                        maxHeight={750}
+                        maxHeight={850}
                         offsetScrollbars
                         scrollbarSize={5}
                     >
