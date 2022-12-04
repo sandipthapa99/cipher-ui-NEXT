@@ -929,7 +929,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             </Row>
                             <Row>
                                 <Col md={3}>
-                                    {/* <InputField
+                                    <InputField
                                         type="number"
                                         name="hourly_rate"
                                         labelName="Base Rate Per Hour"
@@ -937,7 +937,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                         touch={touched.hourly_rate}
                                         disabled={isInputDisabled}
                                         placeHolder="Base Rate Per Hour"
-                                    /> */}
+                                    />
                                 </Col>
                             </Row>
                             <h3>Address</h3>
