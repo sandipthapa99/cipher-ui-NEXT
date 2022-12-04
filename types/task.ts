@@ -58,6 +58,7 @@ export interface ITask {
     };
     location: string;
     created_by: {
+        avatar: { image: string };
         id: string;
         email: string;
         first_name: string;

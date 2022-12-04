@@ -24,12 +24,12 @@
             gap: 7rem;
             overflow: auto;
             white-space: nowrap;
-            @include respond (sm){
+            @include respond(sm) {
                 overflow: inherit;
             }
-            .tab-wrapper{
+            .tab-wrapper {
                 display: inline-block;
-                @include respond(md){
+                @include respond(md) {
                     display: flex;
                 }
             }

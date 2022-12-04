@@ -19,6 +19,7 @@ export interface RatingResult {
 }
 
 export interface RatedTo {
+    avatar: { image: string };
     id: string;
     email: string;
     first_name: string;
@@ -27,6 +28,7 @@ export interface RatedTo {
 }
 
 export interface RatedBy {
+    avatar: { image: string };
     id: string;
     email: string;
     first_name: string;

@@ -77,7 +77,7 @@ export const AllList = () => {
                                             <OtherBookedTaskCard
                                                 linkTo={
                                                     item.is_requested === false
-                                                        ? `/service/${item?.id}`
+                                                        ? `/service/${item?.slug}`
                                                         : `/task/${item?.id}`
                                                 }
                                                 myTask={item}

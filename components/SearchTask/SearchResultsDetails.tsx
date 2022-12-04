@@ -2,7 +2,6 @@ import AdvertisementCard from "@components/common/AdvertisementCard";
 import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
 import { ElipsisReport } from "@components/common/ElipsisReport";
-import EllipsisDropdownService from "@components/common/EllipsisDropdownService";
 import { FilterReview } from "@components/common/FilterReview";
 import OfferCard from "@components/common/OfferCard";
 import PackageOffersCard from "@components/common/packageCard";
@@ -18,7 +17,6 @@ import {
     faCalendar,
     faChevronLeft,
     faClockEight,
-    faEllipsisVertical,
     faEye,
     faLocationDot,
     faWarning,
@@ -40,7 +38,7 @@ import { useDeleteData } from "hooks/use-delete";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { Fragment, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { getReviews } from "services/commonServices";
@@ -225,18 +223,12 @@ const SearchResultsDetail = ({
 
     // check if current logged in user is the owner of the current service
     const isCurrentUserService = () => {
-        const service = servicesData?.data.result.find(
-            (service) => service.id === serviceId
-        );
-        return service && user ? service?.created_by?.id === user?.id : false;
+        if (service?.created_by?.id === user?.id) {
+            return true;
+        } else {
+            return false;
+        }
     };
-
-    // const handleViewApplicants = () => {
-    //     // @TODO : REPLACE WITH SOMETHING MEANINGFUL
-    //     toast.success(
-    //         "You have 100 Morbillion applicants for this service.Congrats!!"
-    //     );
-    // };
 
     const handleEdit = () => {
         setEditModal(true);
@@ -465,36 +457,46 @@ const SearchResultsDetail = ({
                             <Link href={`/tasker/${serviceProviderId}`}>
                                 <a>
                                     <div className="d-flex align-items-center simple-card__profile">
-                                        {service?.created_by?.profile_image && (
-                                            <figure className="thumbnail-img">
-                                                <Image
-                                                    src={
-                                                        service?.created_by
-                                                            ?.profile_image
-                                                    }
-                                                    layout="fill"
-                                                    objectFit="cover"
-                                                    placeholder="blur"
-                                                    blurDataURL="/placeholder/profilePlaceholder.png"
-                                                    alt="serviceprovider-image"
-                                                />
-                                            </figure>
-                                        )}
-                                        {!service?.created_by
-                                            ?.profile_image && (
-                                            <figure className="thumbnail-img">
-                                                <Image
-                                                    src={
-                                                        "/placeholder/profilePlaceholder.png"
-                                                    }
-                                                    layout="fill"
-                                                    objectFit="cover"
-                                                    placeholder="blur"
-                                                    blurDataURL="/placeholder/profilePlaceholder.png"
-                                                    alt="serviceprovider-image"
-                                                />
-                                            </figure>
-                                        )}
+                                        {service?.created_by?.profile_image ||
+                                            (service?.created_by?.avatar
+                                                ?.image && (
+                                                <figure className="thumbnail-img">
+                                                    <Image
+                                                        src={
+                                                            service?.created_by
+                                                                ?.profile_image
+                                                                ? service
+                                                                      ?.created_by
+                                                                      ?.profile_image
+                                                                : service
+                                                                      ?.created_by
+                                                                      ?.avatar
+                                                                      ?.image
+                                                        }
+                                                        layout="fill"
+                                                        objectFit="cover"
+                                                        placeholder="blur"
+                                                        blurDataURL="/placeholder/profilePlaceholder.png"
+                                                        alt="serviceprovider-image"
+                                                    />
+                                                </figure>
+                                            ))}
+                                        {!service?.created_by?.profile_image &&
+                                            !service?.created_by?.avatar
+                                                ?.image && (
+                                                <figure className="thumbnail-img">
+                                                    <Image
+                                                        src={
+                                                            "/placeholder/profilePlaceholder.png"
+                                                        }
+                                                        layout="fill"
+                                                        objectFit="cover"
+                                                        placeholder="blur"
+                                                        blurDataURL="/placeholder/profilePlaceholder.png"
+                                                        alt="serviceprovider-image"
+                                                    />
+                                                </figure>
+                                            )}
                                         <div className="intro">
                                             <p className="name">
                                                 {serviceProvider}

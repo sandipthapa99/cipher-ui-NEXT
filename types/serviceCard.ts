@@ -32,6 +32,7 @@ export interface ServicesValueProps {
         };
         city: any;
         created_by: {
+            avatar: { image: string };
             id: string;
             username: string;
             email: string;
