@@ -28,7 +28,7 @@ interface editProfileProps {
     handleClose?: () => void;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
     setIsEditButtonClicked: Dispatch<SetStateAction<boolean>>;
-
+    userId?: string;
     photo?: any;
     handleSubmit?: () => void;
     haveImage: boolean;
@@ -42,6 +42,7 @@ const PhotoEdit = ({
     handleClose,
     setIsEditButtonClicked,
     setShowEditForm,
+    userId,
     photo,
     onAvatarEdit,
     isEditButtonClicked,
@@ -239,6 +240,7 @@ const PhotoEdit = ({
                                 title: "Avatar",
                                 content: (
                                     <AvatarForm
+                                        userId={userId}
                                         setShowEditForm={setShowEditForm}
                                         onAvatarEdit={onAvatarEdit}
                                     />

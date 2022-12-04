@@ -522,6 +522,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                     setIsEditButtonClicked={
                                                         setIsEditButtonClicked
                                                     }
+                                                    userId={profile?.id.toString()}
                                                     // setDisplay={setDisplay}
                                                     ref={inputRef}
                                                     onChange={(e: any) => {

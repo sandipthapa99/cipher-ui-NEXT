@@ -15,9 +15,11 @@ import { axiosClient } from "utils/axiosClient";
 const AvatarForm = ({
     onAvatarEdit,
     setShowEditForm,
+    userId,
 }: {
     onAvatarEdit: (avatar: AvatarProps[0]) => void;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
+    userId?: string;
 }) => {
     const [value, setValue] = useState<string>("1");
     const [avatarData, setAvatarData] = useState<AvatarProps[0] | null>();
@@ -46,11 +48,10 @@ const AvatarForm = ({
         try {
             await axiosClient.patch("/tasker/profile/", {
                 avatar: avatarData?.id,
+                profile_image: null,
             });
-            await queryClient.invalidateQueries([
-                "profile",
-                "ed79f07f-adba-41c8-bb07-36df124c58a0",
-            ]);
+            await queryClient.invalidateQueries(["profile", userId]);
+            window.location.reload();
         } catch (error) {
             console.log(error);
         }

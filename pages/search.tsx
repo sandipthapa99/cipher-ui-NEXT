@@ -186,6 +186,9 @@ const SearchPage: NextPage = () => {
                                                 <MerchantCard
                                                     merchantImage={
                                                         merchant?.profile_image
+                                                            ? merchant?.profile_image
+                                                            : merchant?.avatar
+                                                                  ?.image
                                                     }
                                                     merchantName={
                                                         merchant?.user

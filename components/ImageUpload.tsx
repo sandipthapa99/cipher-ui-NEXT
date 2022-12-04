@@ -16,6 +16,7 @@ interface ImageUploadProps {
     handleClose: () => void;
     onChange: (e: any) => void;
     isEditButtonClicked?: boolean;
+    userId?: string;
     display: boolean;
     onPhotoEdit: (url: RequestInfo | URL, file: File) => void;
     onAvatarEdit: (avatar: AvatarProps[0]) => void;
@@ -35,6 +36,7 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
             showEditForm,
             handleClose,
             onAvatarEdit,
+            userId,
             isEditButtonClicked,
 
             onPhotoEdit,
@@ -53,6 +55,7 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
                 <PhotoEdit
                     setIsEditButtonClicked={setIsEditButtonClicked}
                     show={showEditForm}
+                    userId={userId}
                     setShowEditForm={setShowEditForm}
                     handleClose={handleClose}
                     isEditButtonClicked={isEditButtonClicked}
