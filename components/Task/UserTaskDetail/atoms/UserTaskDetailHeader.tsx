@@ -164,6 +164,8 @@ export const UserTaskDetailHeader = ({
                             src={
                                 taskerDetail?.profile_image
                                     ? taskerDetail?.profile_image
+                                    : taskerDetail?.avatar?.image
+                                    ? taskerDetail?.avatar?.image
                                     : "/userprofile/unknownPerson.jpg"
                             }
                             alt="profile-pic"

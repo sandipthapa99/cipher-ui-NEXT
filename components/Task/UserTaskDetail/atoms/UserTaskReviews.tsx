@@ -24,6 +24,10 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             ["tasker-rating", search],
             `${urls.profile.rating}?ordering=${search}`
         );
+    console.log(
+        "🚀 ~ file: UserTaskReviews.tsx:23 ~ UserTaskReviews ~ taskerRatingData",
+        taskerRatingData
+    );
     const [show, setShow] = useState<boolean>(false);
 
     const ratingData = taskerRatingData?.data?.result;
@@ -108,8 +112,16 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                             description={review?.review}
                             time={review?.updated_at}
                             raterId={review?.rated_by.id}
-                            ratedByImage={review?.rated_by?.profile_image}
-                            ratedToImage={review.rated_to.profile_image}
+                            ratedByImage={
+                                review?.rated_by?.profile_image
+                                    ? review?.rated_by?.profile_image
+                                    : review?.rated_by?.avatar?.image
+                            }
+                            ratedToImage={
+                                review?.rated_to?.profile_image
+                                    ? review?.rated_to?.profile_image
+                                    : review?.rated_to?.avatar?.image
+                            }
                             ratedToId={review.rated_to.id}
                             repliedDate={review.updated_at}
                         />

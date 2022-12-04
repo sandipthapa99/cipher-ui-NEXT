@@ -457,36 +457,46 @@ const SearchResultsDetail = ({
                             <Link href={`/tasker/${serviceProviderId}`}>
                                 <a>
                                     <div className="d-flex align-items-center simple-card__profile">
-                                        {service?.created_by?.profile_image && (
-                                            <figure className="thumbnail-img">
-                                                <Image
-                                                    src={
-                                                        service?.created_by
-                                                            ?.profile_image
-                                                    }
-                                                    layout="fill"
-                                                    objectFit="cover"
-                                                    placeholder="blur"
-                                                    blurDataURL="/placeholder/profilePlaceholder.png"
-                                                    alt="serviceprovider-image"
-                                                />
-                                            </figure>
-                                        )}
-                                        {!service?.created_by
-                                            ?.profile_image && (
-                                            <figure className="thumbnail-img">
-                                                <Image
-                                                    src={
-                                                        "/placeholder/profilePlaceholder.png"
-                                                    }
-                                                    layout="fill"
-                                                    objectFit="cover"
-                                                    placeholder="blur"
-                                                    blurDataURL="/placeholder/profilePlaceholder.png"
-                                                    alt="serviceprovider-image"
-                                                />
-                                            </figure>
-                                        )}
+                                        {service?.created_by?.profile_image ||
+                                            (service?.created_by?.avatar
+                                                ?.image && (
+                                                <figure className="thumbnail-img">
+                                                    <Image
+                                                        src={
+                                                            service?.created_by
+                                                                ?.profile_image
+                                                                ? service
+                                                                      ?.created_by
+                                                                      ?.profile_image
+                                                                : service
+                                                                      ?.created_by
+                                                                      ?.avatar
+                                                                      ?.image
+                                                        }
+                                                        layout="fill"
+                                                        objectFit="cover"
+                                                        placeholder="blur"
+                                                        blurDataURL="/placeholder/profilePlaceholder.png"
+                                                        alt="serviceprovider-image"
+                                                    />
+                                                </figure>
+                                            ))}
+                                        {!service?.created_by?.profile_image &&
+                                            !service?.created_by?.avatar
+                                                ?.image && (
+                                                <figure className="thumbnail-img">
+                                                    <Image
+                                                        src={
+                                                            "/placeholder/profilePlaceholder.png"
+                                                        }
+                                                        layout="fill"
+                                                        objectFit="cover"
+                                                        placeholder="blur"
+                                                        blurDataURL="/placeholder/profilePlaceholder.png"
+                                                        alt="serviceprovider-image"
+                                                    />
+                                                </figure>
+                                            )}
                                         <div className="intro">
                                             <p className="name">
                                                 {serviceProvider}

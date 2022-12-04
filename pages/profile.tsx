@@ -18,7 +18,6 @@ import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails } = useGetProfile();
-    console.log("🚀 ~ file: profile.tsx:21 ~ profileDetails", profileDetails);
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
@@ -89,9 +88,13 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             key={profileDetails?.id}
                             points={profileDetails?.points}
                             profile_image={
-                                profileDetails?.user?.profile_image ??
-                                "/userprofile/unknownPerson.jpg"
+                                profileDetails?.user?.profile_image
+                                    ? profileDetails?.user?.profile_image
+                                    : profileDetails?.avatar?.image
+                                    ? profileDetails?.avatar?.image
+                                    : "/userprofile/unknownPerson.jpg"
                             }
+                            badge={profileDetails?.badge}
                             full_name={`${profileDetails?.user?.first_name} ${profileDetails?.user?.middle_name} ${profileDetails?.user?.last_name}`}
                             user_type={profileDetails?.user_type}
                             rating={profileDetails?.rating?.avg_rating}

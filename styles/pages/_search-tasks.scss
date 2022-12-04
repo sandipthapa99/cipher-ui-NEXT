@@ -128,17 +128,17 @@
         }
     }
 }
-.post-task__apply-post{
-    .custom-tab{
-        &__headers{
+.post-task__apply-post {
+    .custom-tab {
+        &__headers {
             overflow: scroll;
             white-space: nowrap;
-            @include respond(sm){
+            @include respond(sm) {
                 overflow: inherit;
             }
-            .tab-wrapper{
+            .tab-wrapper {
                 display: inline-block;
-                @include respond(md){
+                @include respond(md) {
                     display: flex;
                 }
             }

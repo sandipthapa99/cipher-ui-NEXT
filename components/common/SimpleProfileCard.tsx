@@ -114,18 +114,18 @@ const SimpleProfileCard = ({
                 <Link href={`/tasker/${task?.created_by?.id}/`}>
                     <a>
                         <figure className="thumbnail-img">
-                            {task?.created_by?.profile_image && (
-                                <Image
-                                    src={
-                                        task?.created_by?.profile_image
-                                            ? task?.created_by?.profile_image
-                                            : "/placeholder/profilePlaceholder.png"
-                                    }
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="serviceprovider-image"
-                                />
-                            )}
+                            <Image
+                                src={
+                                    task?.created_by?.profile_image
+                                        ? task?.created_by?.profile_image
+                                        : task?.created_by?.avatar?.image
+                                        ? task?.created_by?.avatar?.image
+                                        : "/placeholder/profilePlaceholder.png"
+                                }
+                                layout="fill"
+                                objectFit="cover"
+                                alt="serviceprovider-image"
+                            />
 
                             {profile_image && (
                                 <Image
