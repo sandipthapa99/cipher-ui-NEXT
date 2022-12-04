@@ -79,7 +79,7 @@ export default function GetNotifications() {
                                 notification?.content_object?.entity_service
                                     ?.is_requested
                             }
-                            taskTitle={`${notification.title} a service`}
+                            taskTitle={`${notification?.content_object.title}`}
                             taskObject={
                                 notification?.content_object?.entity_service
                                     ?.title
@@ -357,7 +357,7 @@ export default function GetNotifications() {
                                 notification?.content_object?.entity_service
                                     ?.is_requested
                             }
-                            taskTitle={`${notification.title} a service`}
+                            taskTitle={`${notification?.content_object.title}`}
                             taskObject={
                                 notification?.content_object?.entity_service
                                     ?.title
