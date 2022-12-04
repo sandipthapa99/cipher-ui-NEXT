@@ -5,7 +5,7 @@ section {
     h1 {
         font-size: 2.5rem;
         font-weight: 500;
-
+        color: $primary-color;
         @include respond(xs) {
             font-size: 1.6rem;
         }
@@ -95,9 +95,22 @@ section {
     }
 
     &__offers {
+        //padding-bottom: 5rem;
+        padding: 2.5rem 0rem;
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            @include respond(xs) {
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    &__package-offers {
         padding-bottom: 5rem;
         h1 {
             font-size: 2rem;
+            font-weight: 500;
             @include respond(xs) {
                 font-size: 1.6rem;
             }
