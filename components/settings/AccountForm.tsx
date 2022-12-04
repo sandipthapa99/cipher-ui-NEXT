@@ -19,10 +19,11 @@ import {
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
+import { MultiSelect } from "@mantine/core";
 import { createStyles } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Field, Form, Formik } from "formik";
@@ -85,17 +86,28 @@ const profile_visibility = [
 interface Display {
     showAccountForm: boolean;
 }
+interface IAllCategory {
+    id: number;
+    name: string;
+    slug: string;
+    icon: string;
+}
 
 const AccountForm = ({ showAccountForm }: Display) => {
     const [scrollPosition, setScrollPosition] = useState(0);
     //profile success modal
     const [show, setShow] = useState(false);
+
     //hooks call
+
     const { mutate, isLoading: postProfileLoading } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
+    const { data: allCategory } = useQuery(["all-category"], () => {
+        return axiosClient.get<IAllCategory[]>("/task/cms/task-category/list/");
+    });
     const { data: KYCData } = useGetKYC();
     const [blobUrl, setBlobUrl] = useState<RequestInfo | URL | undefined>();
     const [image, setImage] = useState();
@@ -321,6 +333,15 @@ const AccountForm = ({ showAccountForm }: Display) => {
         setDisplay(true);
         //  setIsEdtButtonClicked(!isEditButtonClicked);
     };
+
+    const interestValues =
+        allCategory?.data.length !== 0
+            ? allCategory?.data?.map((item) => {
+                  return { label: item?.name, value: item?.id };
+              })
+            : [];
+    // console.log(interestValues);
+
     return (
         <>
             {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}
@@ -358,6 +379,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 ? parseISO(profile.date_of_birth)
                                 : "",
                         skill: profile?.skill ? skills : "",
+                        interests: [],
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start:
                             new Date(`2022-09-24 ${startTime}`) ?? "",
@@ -378,38 +400,43 @@ const AccountForm = ({ showAccountForm }: Display) => {
                     }}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values) => {
+                        console.log(values);
+
                         const formData = new FormData();
-                        {
-                            userData?.id &&
-                                (await setDoc(doc(db, "users", userData?.id), {
-                                    name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
-                                    email: values.email,
-                                    profile: values.profile_image,
-                                    uuid: userData?.id,
-                                }));
-                        }
+                        console.log(values, formData);
 
-                        {
-                            const res = await getDoc(
-                                doc(
-                                    db,
-                                    "userChats",
-                                    userData?.id ? userData?.id : ""
-                                )
-                            );
+                        // {
+                        //     userData?.id &&
+                        //         (await setDoc(doc(db, "users", userData?.id), {
+                        //             name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
+                        //             email: values.email,
+                        //             profile: values.profile_image,
+                        //             uuid: userData?.id,
+                        //         }));
+                        // }
 
-                            !res.exists() &&
-                                userData?.id &&
-                                (await setDoc(
-                                    doc(db, "userChats", userData?.id),
-                                    {}
-                                ));
-                        }
+                        // {
+                        //     const res = await getDoc(
+                        //         doc(
+                        //             db,
+                        //             "userChats",
+                        //             userData?.id ? userData?.id : ""
+                        //         )
+                        //     );
+
+                        //     !res.exists() &&
+                        //         userData?.id &&
+                        //         (await setDoc(
+                        //             doc(db, "userChats", userData?.id),
+                        //             {}
+                        //         ));
+                        // }
 
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
                             skill: JSON.stringify(values.skill),
+                            interests: JSON.stringify(values.interests),
                             active_hour_start: new Date(
                                 values.active_hour_start ?? ""
                             )?.toLocaleTimeString(),
@@ -432,10 +459,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 return false;
                             }
                             if (key !== "profile_image") {
-                                formData.append(
-                                    key,
-                                    value ? value?.toString() : ""
-                                );
+                                formData.append(key, value ? value : "");
                             } else {
                                 formData.append(
                                     "profile_image",
@@ -887,10 +911,37 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 name="skill"
                                 // error={!profile && errors.skill}
                                 // touch={!profile && touched.skill}
+
                                 labelName="Specialities"
                                 placeHolder="Enter your skills"
                                 disabled={isInputDisabled}
+                                create={true}
                             />
+                            <TagInputField
+                                data={interestValues}
+                                name="interests"
+                                // error={!profile && errors.skill}
+                                // touch={!profile && touched.skill}
+                                labelName="Interests"
+                                placeHolder="Enter your Interests"
+                                create={false}
+                                // onchange={(value) =>
+                                //     setFieldValue("interests", value)
+                                // }
+                                disabled={isInputDisabled}
+                            />
+
+                            {/* <MultiSelect
+                                name="interests"
+                                data={interestValues}
+                                // error={!profile && errors.skill}
+                                // touch={!profile && touched.skill}
+                                labelName="Interests"
+                                placeHolder="Enter your Interests"
+                                onChange={(val) => {
+                                    setFieldValue("interests", val);
+                                }}
+                            /> */}
                             <RadioField
                                 type="radio"
                                 name="experience_level"

@@ -91,7 +91,7 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
 
                 <Col md={8} className="right">
                     <ScrollArea.Autosize
-                        maxHeight={750}
+                        maxHeight={850}
                         offsetScrollbars
                         scrollbarSize={5}
                     >

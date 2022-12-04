@@ -1,3 +1,5 @@
+import { StringLocale } from "yup/lib/locale";
+
 export interface ServiceCardProps {
     serviceImage: string;
     serviceTitle: string;
@@ -91,6 +93,14 @@ export interface ServicesValueProps {
         videos: any[];
         rating: {
             rating: number;
+        }[];
+        offers: {
+            id: number;
+            code: string;
+            description: string;
+            image: string;
+            offer_type: string;
+            title: string;
         }[];
     }[];
 }

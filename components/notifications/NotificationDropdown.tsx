@@ -82,7 +82,7 @@ export const NotificationDropdown = () => {
                             is_requested={
                                 notification?.content_object?.is_requested
                             }
-                            taskTitle={`${notification.title} a service`}
+                            taskTitle={`${notification?.content_object.title}`}
                             taskObject={notification?.content_object?.title}
                             createdDate={notification.created_date}
                             slug={notification?.content_object?.slug}
@@ -350,7 +350,7 @@ export const NotificationDropdown = () => {
                                 notification?.content_object?.entity_service
                                     ?.is_requested
                             }
-                            taskTitle={`${notification.title} a service`}
+                            taskTitle={`${notification?.content_object?.title} `}
                             taskObject={
                                 notification?.content_object?.entity_service
                                     ?.title
