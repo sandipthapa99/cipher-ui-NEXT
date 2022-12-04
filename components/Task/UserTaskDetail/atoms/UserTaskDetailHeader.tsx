@@ -2,13 +2,19 @@ import CardBtn from "@components/common/CardBtn";
 import { ElipsisReport } from "@components/common/ElipsisReport";
 import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
+import type { FollowMutationData } from "@components/common/UserFollowersModal";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";
-import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faStar as emptyStar,
+    faUserCheck,
+    faUserPlus,
+} from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
@@ -16,8 +22,10 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { ITasker } from "types/tasker";
+import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { safeParse } from "utils/safeParse";
+import { toast } from "utils/toast";
 
 import { UserStats } from "./UserStats";
 
@@ -39,9 +47,32 @@ export const UserTaskDetailHeader = ({
         initialData: [],
     }).join(", ");
 
+    const followMutation = useMutation((data: FollowMutationData) => {
+        return axiosClient.post(urls.follow, data);
+    });
+
+    const queryClient = useQueryClient();
+
+    const handleFollowClick = (user: string, type: string) => {
+        followMutation.mutate(
+            { user, follow: type === "follow" ? true : false },
+
+            {
+                onSuccess: () => {
+                    type === "follow"
+                        ? toast.success("followed successfully")
+                        : toast.success("Unfollowed successfully");
+                    queryClient.invalidateQueries(["tasker-detail-data"]);
+                },
+                onError: (error: any) => {
+                    toast.error(error.response.data.message);
+                },
+            }
+        );
+    };
+
     const isBookmarked = useIsBookmarked("user", taskerDetail?.user?.id);
     const isSelf = user?.id === taskerDetail?.user?.id;
-    const queryClient = useQueryClient();
 
     return (
         <>
@@ -186,6 +217,35 @@ export const UserTaskDetailHeader = ({
                 </Col>
                 <Col md={4} className="d-flex flex-column align-items-end">
                     <div className="td-task-detail-header-icons">
+                        {taskerDetail?.is_followed ? (
+                            <FontAwesomeIcon
+                                icon={faUserCheck}
+                                color="#297796"
+                                height={24}
+                                width={24}
+                                className="svg-follow-icon"
+                                onClick={() =>
+                                    handleFollowClick(
+                                        taskerDetail?.user?.id,
+                                        "unfollow"
+                                    )
+                                }
+                            />
+                        ) : (
+                            <FontAwesomeIcon
+                                icon={faUserPlus}
+                                color="#297796"
+                                height={24}
+                                width={24}
+                                className="svg-follow-icon"
+                                onClick={() =>
+                                    handleFollowClick(
+                                        taskerDetail?.user?.id,
+                                        "follow"
+                                    )
+                                }
+                            />
+                        )}
                         <SaveIcon
                             showText
                             model="user"

@@ -12,7 +12,7 @@ const rasifal = () => {
                 id="rasifal-details-section"
                 className="rasifal-details-section"
             >
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <RasifalDetails />
                 </Container>
             </section>

@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 function Notifications() {
     return (
         <Layout title="Notifications | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <BreadCrumb currentPage="Notifications" />
                 <GetNotifications />
             </Container>

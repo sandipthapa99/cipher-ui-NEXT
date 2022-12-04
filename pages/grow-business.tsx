@@ -24,7 +24,7 @@ const GrowYourBusiness: NextPage = () => {
     );
     return (
         <Layout title="Grow Your Business | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <section className="grow-business">
                     <BreadCrumb currentPage="Grow Your Business" />
 

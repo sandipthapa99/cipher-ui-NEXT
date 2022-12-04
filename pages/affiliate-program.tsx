@@ -24,7 +24,7 @@ const AffiliateProgram: NextPage<{
     return (
         <Layout title="Affiliate Program | Cipher">
             <section className="affiliate-hero-section">
-                <Container className="px-5" fluid="xl">
+                <Container className="px-4" fluid="xl">
                     <BreadCrumb currentPage="Affiliate Program" />
                     <Row className="gx-5">
                         <Col
@@ -62,7 +62,7 @@ const AffiliateProgram: NextPage<{
 
                                 {accessToken !== undefined ? (
                                     <AnchorButton
-                                        className={"px-5"}
+                                        className={"px-4"}
                                         href={"/service/"}
                                         varient={"secondary"}
                                     >
@@ -70,7 +70,7 @@ const AffiliateProgram: NextPage<{
                                     </AnchorButton>
                                 ) : (
                                     <AnchorButton
-                                        className={"px-5"}
+                                        className={"px-4"}
                                         href={"/signup"}
                                         varient={"secondary"}
                                     >
@@ -86,7 +86,7 @@ const AffiliateProgram: NextPage<{
                 id="trusted-brand-section"
                 className="trusted-brand-section"
             >
-                {/* <Container fluid="xl" className="px-5"> */}
+                {/* <Container fluid="xl" className="px-4"> */}
                 <Marquee gradient={true} className="marquee" speed={40}>
                     {trustedPartnerData?.map((value, key) => (
                         <Link href={value?.redirect_url} key={key}>
@@ -109,7 +109,7 @@ const AffiliateProgram: NextPage<{
                 </Marquee>
                 {/* </Container> */}
             </section>
-            <Container className="px-5" fluid="xl">
+            <Container className="px-4" fluid="xl">
                 <section className="affiliate-get-started-section">
                     <h1 className="heading-title">Get started</h1>
                     <h2>It&apos;s easy to </h2>

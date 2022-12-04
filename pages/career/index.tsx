@@ -17,7 +17,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
             description="Find the Job openings at Homaale"
         >
             <section id="careers-section" className="careers-section">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Career" />
                     <div className="d-flex justify-content-between align-items-center flex-column-reverse flex-md-row">
                         <div className="careers-index">

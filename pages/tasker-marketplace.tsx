@@ -41,7 +41,7 @@ const TaskerMarketPlace: NextPage<{
         <Layout title="Tasker Marketplace | Homaale">
             <BreadCrumb currentPage="Tasker Marketplace" />
             <section className="tasker-marketplace">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="tasker-marketplace__top-container">
                         <LongSquareImageCard
                             title="Post a job today, hire tomorrow"
@@ -112,7 +112,7 @@ const TaskerMarketPlace: NextPage<{
                 </Marquee>
             </section>
             <section className="tasker-marketplace__faq">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <h1>Frequently Asked Questions</h1>
                     <Accordion flush>
                         {(faqData?.result ?? []).length > 0

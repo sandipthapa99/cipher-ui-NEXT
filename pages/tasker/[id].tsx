@@ -1,19 +1,29 @@
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
+import { Skeleton } from "@mantine/core";
 import urls from "constants/urls";
+import { connectFirestoreEmulator } from "firebase/firestore";
+import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ITasker } from "types/tasker";
 import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
 
 const TaskerDetail = ({
-    tasker,
     taskerService,
 }: {
-    tasker: ITasker;
     taskerService: ServicesValueProps;
 }) => {
+    const router = useRouter();
+
+    const { data, isLoading } = useData<ITasker>(
+        ["tasker-detail-data", router.query.id],
+        `${urls.tasker.profile}${router.query.id}/`,
+        !!router.query.id
+    );
+    const tasker = data?.data;
     return (
         <>
             <TaskerLayout
@@ -21,10 +31,18 @@ const TaskerDetail = ({
                     tasker?.user?.last_name
                 }`}
             >
-                <UserTaskDetail
-                    taskerService={taskerService}
-                    taskerDetail={tasker}
-                />
+                {!isLoading ? (
+                    <UserTaskDetail
+                        taskerService={taskerService}
+                        taskerDetail={tasker ?? ({} as ITasker)}
+                    />
+                ) : (
+                    <>
+                        <Skeleton height={100} circle mb="xl" />
+                        <Skeleton height={20} radius="xl" />
+                        <Skeleton height={20} mt={6} radius="xl" />
+                    </>
+                )}
             </TaskerLayout>
         </>
     );
@@ -50,16 +68,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
-        const { data } = await axiosClient.get<TaskerProps["result"][0]>(
-            `${urls.tasker.profile}${params?.id}/`
-        );
         const { data: taskerService } =
             await axiosClient.get<ServicesValueProps>(
-                `${urls.task.service_per_user}${params?.id}`
+                `/task/entity/service/?created_by=${params?.id}&is_requested=false`
             );
         return {
             props: {
-                tasker: data,
                 taskerService: taskerService,
             },
             revalidate: 10,
@@ -67,7 +81,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     } catch (error: any) {
         return {
             props: {
-                tasker: {},
                 taskerService: {},
             },
             revalidate: 10,

@@ -39,7 +39,7 @@ const SearchPage: NextPage = () => {
     return (
         <>
             <Layout title="Search | Homaale">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage={"Search"} />
                     <section className="services-near-you">
                         <h1 className="heading-title mt-3">

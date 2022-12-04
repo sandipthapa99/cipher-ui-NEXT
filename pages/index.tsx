@@ -99,14 +99,14 @@ const Home: NextPage<{
 
     if (!isClient) return null;
     return (
-        <Layout title="Homaale - Catering to Your Requirements">
+        <Layout title="Homaale - Catering Your Requirements">
             <section className="landing-main-banner">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <Row className="gx-5 hero-content">
                         <Col md="6" className="left">
                             <div className="content">
                                 {/* Hero Text Start Here */}
-                                <h1>Catering To Your Requirements</h1>
+                                <h1>Catering Your Requirements</h1>
                                 {/* Hero Text End Here */}
                             </div>
                             <Search />
@@ -230,7 +230,7 @@ const Home: NextPage<{
                 id="trusted-brand-section"
                 className="trusted-brand-section"
             >
-                {/* <Container fluid="xl" className="px-5"> */}
+                {/* <Container fluid="xl" className="px-4"> */}
                 <Marquee
                     gradient={true}
                     className="marquee"
@@ -263,7 +263,7 @@ const Home: NextPage<{
 
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline mt-5">
                         {servicesData && servicesData?.result?.length > 0 && (
                             <>
@@ -311,7 +311,7 @@ const Home: NextPage<{
 
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     {servicesData && servicesData?.result?.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                             <h2 className="heading-title">Services near you</h2>
@@ -359,7 +359,7 @@ const Home: NextPage<{
                         id="services-near-you"
                         className="services-near-you"
                     >
-                        <Container fluid="xl" className="px-5">
+                        <Container fluid="xl" className="px-4">
                             <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                                 <h2 className="heading-title">
                                     Professional Services
@@ -402,7 +402,7 @@ const Home: NextPage<{
 
             {/* Get services section start */}
             {/* <section className="get-services">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <h1 className="section-main-title">
                         Book Your Services in an Instant
                     </h1>
@@ -485,7 +485,7 @@ const Home: NextPage<{
 
             {/* Find & Hire section start */}
             <section id="find-hire" className="find-hire mt-4">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <h1 className="section-main-title">Find &amp; Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
                     <Row className="gx-5">
@@ -514,7 +514,7 @@ const Home: NextPage<{
             {/* Top Taksers Section Start */}
             {topTaskerData?.result?.length != 0 && (
                 <section id="top-merchants" className="top-merchants">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                             <h2 className="heading-title">Top Taskers</h2>
                             {topTaskerData?.result &&
@@ -623,7 +623,7 @@ const Home: NextPage<{
 
             {/* Gradient Banner section Start */}
             <section className="gradient-banner">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     {/* <GradientBanner
                         title="Looking for work is not that difficult as it sounds any more"
                         subTitle="Allow us to accompany you on your journey"
@@ -649,7 +649,7 @@ const Home: NextPage<{
                 id="win-new-clients-slider-section"
                 className="win-new-clients-slider-section"
             >
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <ExploreWithSlider />
                 </Container>
             </section>
@@ -657,7 +657,7 @@ const Home: NextPage<{
 
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     {recommendedTasksData &&
                         recommendedTasksData?.result?.length > 0 && (
                             <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
@@ -692,7 +692,7 @@ const Home: NextPage<{
                 id="some-success-stories-section"
                 className="some-success-stories-section"
             >
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="success-sroties-header">
                         {/* <h1 className="text-center">
                             Bridging the gap between individuals
@@ -737,7 +737,7 @@ const Home: NextPage<{
 
             {/* Notable quality section starts  */}
             <section id="notable-quality" className="notable-quality">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <LongSquareImageCard
                         title="Homaale Notable Qualities"
                         image="/groupB.png"
@@ -753,7 +753,7 @@ const Home: NextPage<{
 
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     {blogData && blogData?.result?.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                             <h2 className="heading-title">Our Blogs</h2>
@@ -788,7 +788,7 @@ const Home: NextPage<{
 
             {/* Tax calculator section start */}
             <section className="tax-calculator">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="gradient-wrapper">
                         <span className="gradient"></span>
                         <figure className="gradient-img">
@@ -828,7 +828,7 @@ const Home: NextPage<{
 
             {/* Expore marketplace section start */}
             <section className="explore-marketplace">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <h1 className="section-main-title">
                         Explore Our Marketplace
                     </h1>
@@ -869,7 +869,7 @@ const Home: NextPage<{
 
             {topCategoryData && (
                 <section className="top-categories-section">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <h1 className="section-main-title">Top Categories</h1>
                         <h2 className="section-sub-title">
                             See some of our top categories in your area

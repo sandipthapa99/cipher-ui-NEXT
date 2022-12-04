@@ -81,14 +81,14 @@ const NotificationSettings = () => {
         enableReinitialize: true,
         initialValues: {
             update_notification:
-                notifcationPreferences?.data[0].update_notification,
+                notifcationPreferences?.data[0]?.update_notification,
             reminder_notification:
-                notifcationPreferences?.data[0].reminder_notification,
+                notifcationPreferences?.data[0]?.reminder_notification,
             alert_notification:
-                notifcationPreferences?.data[0].alert_notification,
+                notifcationPreferences?.data[0]?.alert_notification,
             geolocation_notification:
-                notifcationPreferences?.data[0].geolocation_notification,
-            muted: notifcationPreferences?.data[0].muted,
+                notifcationPreferences?.data[0]?.geolocation_notification,
+            muted: notifcationPreferences?.data[0]?.muted,
         },
 
         onSubmit: (values: any) => {

@@ -11,7 +11,7 @@ const TermsConditions: NextPage<
 > = ({ content }) => {
     return (
         <Layout title="Terms &amp; Conditions | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <BreadCrumb currentPage="Terms &amp; Conditions" />
                 <section className="privacy-policy">
                     <section className="privacy-policy__intro inner-section">
