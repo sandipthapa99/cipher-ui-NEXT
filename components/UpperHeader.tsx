@@ -177,7 +177,12 @@ export function UpperHeader() {
                                         onClick={() => toggleShowProfileModal()}
                                     >
                                         <Avatar
-                                            src={profileDetails?.profile_image}
+                                            src={
+                                                profileDetails?.profile_image
+                                                    ? profileDetails?.profile_image
+                                                    : profileDetails?.avatar
+                                                          ?.image
+                                            }
                                             radius="xl"
                                             size={44}
                                             alt="it's me"

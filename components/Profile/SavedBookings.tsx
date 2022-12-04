@@ -54,9 +54,9 @@ const SavedBookings = () => {
                         {userBookmark.data ? (
                             <MerchantCard
                                 merchantImage={
-                                    userBookmark.data
+                                    userBookmark.data?.profile_image
                                         ? userBookmark.data?.profile_image
-                                        : ""
+                                        : userBookmark.data?.profile_image
                                 }
                                 merchantName={
                                     userBookmark.data?.user

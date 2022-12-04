@@ -1,8 +1,16 @@
 import { getCroppedImg } from "@components/AppliedTask/Crop";
-import { Slider } from "@mantine/core";
+import { Tab } from "@components/common/Tab";
+import { MyBookings } from "@components/MyTasks/MyBookings";
+import AvatarForm from "@components/settings/AvatarForm";
+import { faCheck } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { SelectItem } from "@mantine/core";
+import { Select, Slider } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useData } from "hooks/use-data";
+import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
 import React, { useMemo, useState } from "react";
@@ -10,6 +18,8 @@ import { Modal } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Cropper from "react-easy-crop";
 import type { Area } from "react-easy-crop/types";
+import type { AvatarProps } from "types/avatarProps";
+import type { ServiceCategoryOptions } from "types/serviceCategoryOptions";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
@@ -18,12 +28,13 @@ interface editProfileProps {
     handleClose?: () => void;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
     setIsEditButtonClicked: Dispatch<SetStateAction<boolean>>;
-
+    userId?: string;
     photo?: any;
     handleSubmit?: () => void;
     haveImage: boolean;
     isEditButtonClicked?: boolean;
     onPhotoEdit: (url: RequestInfo | URL, file: File) => void;
+    onAvatarEdit: (avatar: AvatarProps[0]) => void;
 }
 
 const PhotoEdit = ({
@@ -31,7 +42,9 @@ const PhotoEdit = ({
     handleClose,
     setIsEditButtonClicked,
     setShowEditForm,
+    userId,
     photo,
+    onAvatarEdit,
     isEditButtonClicked,
     onPhotoEdit,
     haveImage,
@@ -166,6 +179,39 @@ const PhotoEdit = ({
         onEditProfile(blob ? blob : toBeCroppedImage);
     };
 
+    const [activeTabIdx, setActiveTabIdx] = useState(0);
+
+    const [value, setValue] = useState<string>("1");
+    const [ids, setIds] = useState<number | null>();
+    const [urls, setUrls] = useState<string | null>();
+    const { data: nestedData } = useData<ServiceCategoryOptions>(
+        ["category-list"],
+        "/task/cms/task-category/list/"
+    );
+
+    const serviceItems: SelectItem[] = nestedData
+        ? nestedData?.data.map((service) => ({
+              id: service?.id,
+              label: service?.name,
+              value: service?.id,
+          }))
+        : [];
+
+    const { data: Avatar } = useData<AvatarProps>(
+        ["Avatar-list", value],
+        `/task/avatar/list?category=${value}`,
+        !!value
+    );
+
+    const HandleSubmit = async () => {
+        try {
+            await axiosClient.patch("/tasker/profile/", {
+                avatar: ids,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
     // useEffect(() => {
     //     console.log({ croppedImage });
     // }, [croppedImage]);
@@ -186,101 +232,127 @@ const PhotoEdit = ({
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal image-crop">
                     <h3>Edit Photo</h3>
+                    <Tab
+                        activeIndex={activeTabIdx}
+                        onTabClick={setActiveTabIdx}
+                        items={[
+                            {
+                                title: "Avatar",
+                                content: (
+                                    <AvatarForm
+                                        userId={userId}
+                                        setShowEditForm={setShowEditForm}
+                                        onAvatarEdit={onAvatarEdit}
+                                    />
+                                ),
+                            },
+                            {
+                                title: "Upload",
+                                content: (
+                                    <>
+                                        <input
+                                            type="file"
+                                            onChange={(e) => {
+                                                setClickedUpload(true);
+                                                const files = e.target.files;
+                                                setUploadedFile(
+                                                    files && files[0]
+                                                );
+                                            }}
+                                            className={classes.input}
+                                            // onClick={}
+                                        />
+                                        <br />
 
-                    <input
-                        type="file"
-                        onChange={(e) => {
-                            setClickedUpload(true);
-                            const files = e.target.files;
-                            setUploadedFile(files && files[0]);
-                        }}
-                        className={classes.input}
-                        // onClick={}
+                                        <Modal.Body className="crop-container">
+                                            <Cropper
+                                                zoomWithScroll
+                                                image={
+                                                    clickedUpload
+                                                        ? uploadPreview
+                                                        : reactImage
+                                                        ? reactImage
+                                                        : profile.data
+                                                              ?.profile_image
+                                                        ? profileImage
+                                                        : photo
+                                                        ? toBeCroppedImage
+                                                        : ""
+                                                }
+                                                //     objectFit="horizontal-cover"
+                                                rotation={rotation}
+                                                crop={crop}
+                                                zoom={zoom}
+                                                cropShape="round"
+                                                aspect={1}
+                                                onCropChange={setCrop}
+                                                onCropComplete={onCropComplete}
+                                                onZoomChange={setZoom}
+                                                onRotationChange={setRotation}
+                                            />
+                                        </Modal.Body>
+                                        <div className="controls">
+                                            <h4>Zoom</h4>
+                                            <Slider
+                                                // type="range"
+                                                value={zoom}
+                                                min={1}
+                                                max={3}
+                                                step={0.1}
+                                                aria-labelledby="Zoom"
+                                                onChange={setZoom}
+                                                className="zoom-range"
+                                            />
+                                            <br />
+                                            <h4>Rotate</h4>
+
+                                            <Slider
+                                                // type="range"
+                                                value={rotation}
+                                                min={0}
+                                                max={360}
+                                                step={1}
+                                                aria-labelledby="Rotation"
+                                                onChange={setRotation}
+                                                className="zoom-range"
+                                            />
+                                        </div>
+
+                                        <Modal.Footer>
+                                            <Button
+                                                onClick={() => {
+                                                    setShowEditForm(false);
+                                                    setClickedUpload(false);
+                                                    setUploadedFile(null);
+                                                }}
+                                            >
+                                                Cancel
+                                            </Button>
+                                            <Button
+                                                className="btn close-btn"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    isEditButtonClicked ||
+                                                    haveImage
+                                                        ? submit()
+                                                        : submit();
+                                                }}
+                                            >
+                                                Apply
+                                            </Button>
+                                            {/* <FormButton
+                                    type="submit"
+                                    variant="primary"
+                                    name="Apply"
+                                    className="submit-btn"
+                                    onCli
+                                /> */}
+                                        </Modal.Footer>
+                                    </>
+                                ),
+                            },
+                        ]}
                     />
-                    <br />
-
-                    <Modal.Body className="crop-container">
-                        <Cropper
-                            zoomWithScroll
-                            image={
-                                clickedUpload
-                                    ? uploadPreview
-                                    : reactImage
-                                    ? reactImage
-                                    : profile.data?.profile_image
-                                    ? profileImage
-                                    : photo
-                                    ? toBeCroppedImage
-                                    : ""
-                            }
-                            //     objectFit="horizontal-cover"
-                            rotation={rotation}
-                            crop={crop}
-                            zoom={zoom}
-                            cropShape="round"
-                            aspect={1}
-                            onCropChange={setCrop}
-                            onCropComplete={onCropComplete}
-                            onZoomChange={setZoom}
-                            onRotationChange={setRotation}
-                        />
-                    </Modal.Body>
-                    <div className="controls">
-                        <h4>Zoom</h4>
-                        <Slider
-                            // type="range"
-                            value={zoom}
-                            min={1}
-                            max={3}
-                            step={0.1}
-                            aria-labelledby="Zoom"
-                            onChange={setZoom}
-                            className="zoom-range"
-                        />
-                        <br />
-                        <h4>Rotate</h4>
-
-                        <Slider
-                            // type="range"
-                            value={rotation}
-                            min={0}
-                            max={360}
-                            step={1}
-                            aria-labelledby="Rotation"
-                            onChange={setRotation}
-                            className="zoom-range"
-                        />
-                    </div>
-
-                    <Modal.Footer>
-                        <Button
-                            onClick={() => {
-                                setShowEditForm(false);
-                                setClickedUpload(false);
-                                setUploadedFile(null);
-                            }}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            className="btn close-btn"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                isEditButtonClicked || haveImage
-                                    ? submit()
-                                    : submit();
-                            }}
-                        >
-                            Apply
-                        </Button>
-                        {/* <FormButton
-                            type="submit"
-                            variant="primary"
-                            name="Apply"
-                            className="submit-btn"
-                            onCli
-                        /> */}
-                    </Modal.Footer>
                 </div>
             </Modal>
         </>
