@@ -16,7 +16,7 @@ const SavedBookings = () => {
     );
 
     return (
-        <div className="saved-bookings px-5">
+        <div className="saved-bookings px-4">
             <Row>
                 <h3 className="py-4">Services ({serviceBookmarks.length})</h3>
                 {serviceBookmarks.map((bookmark) => (
@@ -54,9 +54,9 @@ const SavedBookings = () => {
                         {userBookmark.data ? (
                             <MerchantCard
                                 merchantImage={
-                                    userBookmark.data
+                                    userBookmark.data?.profile_image
                                         ? userBookmark.data?.profile_image
-                                        : ""
+                                        : userBookmark.data?.profile_image
                                 }
                                 merchantName={
                                     userBookmark.data?.user

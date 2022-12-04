@@ -1,5 +1,5 @@
 export type ServiceCategoryOptions = Array<{
-    id: number;
+    id: string;
     name: string;
     slug: string;
     icon: string;

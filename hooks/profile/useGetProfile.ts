@@ -17,6 +17,7 @@ export type ProfileResponse = {
         country: number;
     };
     followers_count: number;
+    following_count: number;
     user: {
         id: string;
         username: string;
@@ -69,6 +70,7 @@ export type ProfileResponse = {
     task_preferences: string;
     address_line1: string;
     address_line2: string;
+    avatar: { image: string };
     is_profile_verified: boolean;
     designation: any;
     points: number;

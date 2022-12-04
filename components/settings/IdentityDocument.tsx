@@ -5,6 +5,7 @@ import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
@@ -215,9 +216,11 @@ export const IdentityDocument = () => {
                     </Row>
                     <Col md={5}>
                         <CustomDropZone
+                            accept={IMAGE_MIME_TYPE}
+                            fileType="image"
+                            sx={{ maxWidth: "30rem" }}
+                            maxSize={5 * 1024 ** 2}
                             name="file"
-                            maxSize={200}
-                            minSize={20}
                             onDrop={(files) => setFieldValue("file", files[0])}
                         />
                     </Col>

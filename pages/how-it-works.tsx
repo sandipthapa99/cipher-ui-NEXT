@@ -9,7 +9,7 @@ import { messageCard } from "staticData/messageCard";
 const HowItWorks: NextPage = () => {
     return (
         <Layout title="How it Works | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <section className="how-it-works">
                     <BreadCrumb currentPage="How it Works" />
 

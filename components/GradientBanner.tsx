@@ -34,7 +34,7 @@ const GradientBanner = ({
                 </p>
                 {user ? (
                     <AnchorButton
-                        className={"px-5"}
+                        className={"px-4"}
                         href={"/service"}
                         varient={"secondary"}
                     >
@@ -42,7 +42,7 @@ const GradientBanner = ({
                     </AnchorButton>
                 ) : (
                     <AnchorButton
-                        className={"px-5"}
+                        className={"px-4"}
                         href={"/signup"}
                         varient={"secondary"}
                     >

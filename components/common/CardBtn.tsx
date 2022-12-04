@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import { Button } from "react-bootstrap";
 // import { userGet } from "utils/auth";
 
@@ -7,12 +8,16 @@ const CardBtn = ({
     color,
     handleClick,
     id,
+    border,
+    loading,
 }: {
     btnTitle: string;
     backgroundColor: string;
     color?: string;
     handleClick?: () => void;
     id?: string;
+    border?: string;
+    loading?: boolean;
 }) => {
     return (
         <>
@@ -23,9 +28,10 @@ const CardBtn = ({
                 style={{
                     backgroundColor: `${backgroundColor}`,
                     color: `${color}`,
+                    border: border,
                 }}
             >
-                <span>{btnTitle}</span>
+                <span>{loading ? <Loader size={"sm"} /> : btnTitle}</span>
             </Button>
         </>
     );

@@ -59,7 +59,11 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                 <TeamMembersCard
                     isTasker={true}
                     tasker={tasker?.user?.id}
-                    image={tasker?.profile_image}
+                    image={
+                        tasker?.profile_image
+                            ? tasker?.profile_image
+                            : tasker?.avatar?.image
+                    }
                     name={`${tasker?.user.first_name} ${tasker?.user.middle_name} ${tasker?.user.last_name}`}
                     speciality={tasker?.designation} //doesnt come from api
                     rating={tasker?.rating.avg_rating}

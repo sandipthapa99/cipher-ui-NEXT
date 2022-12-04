@@ -15,7 +15,7 @@ const CategoriesPage: NextPage<{
 }> = ({ nestedCategoriesData }) => {
     return (
         <Layout title="Categories | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <BreadCrumb currentPage={"Categories"} />
 
                 <h2 className="all-categories-title">

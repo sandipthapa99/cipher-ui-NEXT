@@ -39,7 +39,7 @@ const TaskerLayout = ({
             title={`${title ? `Taskers | ${title}` : "Find Taskers | Homaale"}`}
         >
             <section className="Tasker-section" id="Tasker-section">
-                <Container fluid="xl" className="px-5 pb-5">
+                <Container fluid="xl" className="px-4 pb-5">
                     <SearchCategory
                         searchModal="tasker"
                         onSearchParamChange={handleSearchParamChange}

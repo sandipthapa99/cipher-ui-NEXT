@@ -17,12 +17,14 @@ import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
 import { Rating } from "@mantine/core";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -59,6 +61,7 @@ const UserProfileCard = ({
     tooltipMessage,
     is_profile_verified,
     followers_count,
+    following_count,
     field,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
@@ -89,6 +92,22 @@ const UserProfileCard = ({
         axiosClient.patch("/tasker/profile/", data)
     );
 
+    const { data: followersData, refetch: refetchFollowers } = useQuery(
+        ["followers"],
+        async () => {
+            const data = await axiosClient.get(urls.followers.list);
+            return data.data.result;
+        }
+    );
+
+    const { data: followingsData, refetch: refetchFollowings } = useQuery(
+        ["followings"],
+        async () => {
+            const data = await axiosClient.get(urls.followings.list);
+            return data.data.result;
+        }
+    );
+
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
         formData.append("profile_image", data);
@@ -114,6 +133,14 @@ const UserProfileCard = ({
             </p>
         );
     });
+
+    // Modal close when the following list is empty
+
+    useEffect(() => {
+        if (following_count === 0) {
+            setShowFollowers(false);
+        }
+    }, [following_count]);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -249,7 +276,11 @@ const UserProfileCard = ({
                         <span
                             className="followers"
                             onClick={() => {
-                                setShowFollowers(true);
+                                if (followers_count === 0) {
+                                    toast.message("You have no followers");
+                                } else {
+                                    setShowFollowers(true);
+                                }
                                 setFollowerClick("followers");
                             }}
                         >
@@ -258,11 +289,16 @@ const UserProfileCard = ({
                         <span
                             className="following"
                             onClick={() => {
-                                setShowFollowers(true);
+                                if (following_count === 0) {
+                                    toast.message("You have no followings");
+                                } else {
+                                    setShowFollowers(true);
+                                }
+
                                 setFollowerClick("following");
                             }}
                         >
-                            <strong>20k</strong> Following
+                            <strong>{following_count}</strong> Followings
                         </span>
                     </div>
                     <div className="rating">
@@ -336,7 +372,10 @@ const UserProfileCard = ({
                                             className="thumbnail-img"
                                         />
 
-                                        <p>{user.email}</p>
+                           const { data: followersData } = useQuery(["followers"], async () => {
+        const data = await axiosClient.get(urls.followers.list);
+        return data.data.result;
+    });             <p>{user.email}</p>
                                     </div>
                                 )} */}
                                 <div className="type d-flex flex-col">
@@ -532,6 +571,12 @@ const UserProfileCard = ({
                         ? "My Followers"
                         : "My Followings"
                 }
+                followersData={
+                    followerClick === "followers"
+                        ? followersData
+                        : followingsData
+                }
+                followerClick={followerClick}
             />
         </div>
     );

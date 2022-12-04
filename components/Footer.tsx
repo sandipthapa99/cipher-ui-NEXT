@@ -24,7 +24,7 @@ import CommingSoonModal from "./common/ComingSoonModal";
 import InputField from "./common/InputField";
 
 const Footer = () => {
-    let userdata!: User;
+    // let userdata!: User;
     // if (typeof window !== "undefined") {
     //     const userJson = localStorage.getItem("user");
     //     if (userJson) {
@@ -33,6 +33,7 @@ const Footer = () => {
     //     }
     // }
 
+    const { data: userdata } = useUser();
     const emailSubsMutation = useMutation((data: NewsletterDataTypes) =>
         axiosClient.post("/support/newsletter/subscribe/", data)
     );
@@ -61,7 +62,7 @@ const Footer = () => {
     return (
         <>
             <footer id="site-footer" className="site-footer bottom-0">
-                <Container fluid="xl" className="px-5 site-footer__container">
+                <Container fluid="xl" className="px-4 site-footer__container">
                     {/* Cipher Newsletter section start */}
                     <div className="site-footer__newsletter">
                         <Row>
@@ -398,4 +399,5 @@ const Footer = () => {
         </>
     );
 };
+
 export default Footer;

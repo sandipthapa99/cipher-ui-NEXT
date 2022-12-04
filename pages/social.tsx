@@ -17,7 +17,7 @@ const SocialResponsibilities: NextPage = () => {
     return (
         <Layout title="Social Responsibilities | Homaale">
             <section className="social-page">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Social responsibilities" />
                     <div className="social-page__top-container">
                         <h1>Social Responsibilites</h1>

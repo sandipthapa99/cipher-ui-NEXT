@@ -28,7 +28,7 @@ const Help: NextPage = () => {
     return (
         <Layout title="Help &amp; Support | Homaale">
             <section className="help-page-header">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Help &amp; Support" />
                     <div className="help-page-header__top-container">
                         <Row className="d-flex align-items-center gx-5">
@@ -60,7 +60,7 @@ const Help: NextPage = () => {
                 </Container>
             </section>
             <section className="help-page-content">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="help-page-content__browse-container">
                         <h1>Browse help categories</h1>
                         <Row className="gx-5">

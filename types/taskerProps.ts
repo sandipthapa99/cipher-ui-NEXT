@@ -105,6 +105,7 @@ export interface TaskerProps {
         active_hour_end: string;
         experience_level: string;
         user_type: string;
+        avatar: { image: string };
         hourly_rate: number;
         profile_visibility: string;
         task_preferences: string;

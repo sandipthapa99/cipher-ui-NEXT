@@ -27,9 +27,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
 
     // if (isLoading || !data) return <FullPageLoader />;
     //
-
-    console.log("profileDetails", profileDetails);
-
     const remaining = {
         userRating: 4,
         userBadge: "Gold",
@@ -52,7 +49,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         return (
             <>
                 <Layout title="Profile | Homaale">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
@@ -77,7 +74,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
 
     return (
         <Layout title="Profile | Homaale">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-4">
                 <section className="user-profile">
                     <BreadCrumb currentPage="Profile" />
 
@@ -119,6 +116,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                                 profileDetails?.is_profile_verified
                             }
                             followers_count={profileDetails?.followers_count}
+                            following_count={profileDetails?.following_count}
                         />
                     </section>
 
@@ -179,6 +177,8 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["all-services"]),
             queryClient.prefetchQuery(["bookmarks", "user"]),
             queryClient.prefetchQuery(["bookmarks", "entityservice"]),
+            queryClient.prefetchQuery(["followers"]),
+            queryClient.prefetchQuery(["followings"]),
         ]);
         return {
             props: {
