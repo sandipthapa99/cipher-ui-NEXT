@@ -100,47 +100,6 @@ const KYCForm = () => {
                             }}
                             validationSchema={KYCFormSchema}
                             onSubmit={async (values, action) => {
-                                // const formData = new FormData();
-
-                                // const newvalidatedValue = {
-                                //     ...values,
-                                //     identity_issued_date: format(
-                                //         new Date(values.identity_issued_date),
-                                //         "yyyy-MM-dd"
-                                //     ),
-                                //     identity_valid_through: format(
-                                //         new Date(values.identity_valid_through),
-                                //         "yyyy-MM-dd"
-                                //     ),
-                                //     pan_issued_date: format(
-                                //         new Date(values.pan_issued_date),
-                                //         "yyyy-MM-dd"
-                                //     ),
-                                // };
-                                // Object.entries(values).forEach((entry) => {
-                                //     const [key, value] = entry;
-                                //     if (value && key !== "passport_size_photo") {
-                                //         formData.append(key, value.toString());
-                                //     }
-                                // });
-                                // formData.append(
-                                //     "passport_size_photo",
-                                //     values.passport_size_photo
-                                // );
-                                // Object.entries(values).forEach((entry) => {
-                                //     const [key, value] = entry;
-                                //     if (
-                                //         value &&
-                                //         key !== "personal_address_verification_document"
-                                //     ) {
-                                //         formData.append(key, value.toString());
-                                //     }
-                                // });
-                                // formData.append(
-                                //     "personal_address_verification_document",
-                                //     values.personal_address_verification_document
-                                // );
-
                                 mutate(values, {
                                     onSuccess: () => {
                                         // toggleSuccessModal();
