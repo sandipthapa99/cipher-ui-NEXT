@@ -1,0 +1,43 @@
+.advertisement-card {
+    margin: 0 0 3rem;
+    margin-top: 2rem;
+    border-radius: 0.4rem;
+    box-shadow: 0rem 0.4rem 0.6rem rgba(33, 29, 79, 0.1);
+    background: rgba(255, 255, 255, 0.4);
+    border: 0.1rem solid rgba(0, 0, 0, 0.1);
+    &__content {
+        padding: 1.8rem 1.5rem;
+
+        &--info {
+            display: flex;
+
+            .thumbnail-img {
+                width: 22rem;
+                height: 8rem;
+                border-radius: 0.4rem;
+            }
+            .main-info {
+                padding-left: 1.3rem;
+                h3,
+                p {
+                    margin-bottom: 0;
+                }
+                h3 {
+                    font-weight: 400;
+                    color: #0307c0;
+                    font-size: 1.6rem;
+                }
+                p {
+                    font-weight: 400;
+                }
+                .price,
+                p {
+                    color: $default-text-color;
+                }
+                .price {
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}

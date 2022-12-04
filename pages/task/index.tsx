@@ -1,4 +1,5 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
+import AdvertisementCard from "@components/common/AdvertisementCard";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps } from "next";
 import dynamic from "next/dynamic";
@@ -14,6 +15,14 @@ const AppliedTask = () => {
     return (
         <AppliedLayout>
             <NearbyTasksMap />
+            <AdvertisementCard
+                title="Gardening Services"
+                type="The Merch"
+                currency="Rs"
+                price="1250.00"
+                buttonTitle="Book Now"
+                cardImage="/service-details/garden-cleaning.png"
+            />
         </AppliedLayout>
     );
 };
