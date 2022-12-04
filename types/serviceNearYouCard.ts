@@ -36,7 +36,7 @@ export interface ServiceNearYouCardProps {
     service?: ServicesValueProps["result"][0];
     ProfileImage?: string;
     ratedTo: string;
-    offers: {
+    offers?: {
         id: number;
         code: string;
         description: string;
