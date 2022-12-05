@@ -3,6 +3,7 @@ import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
+import TagMultiSelectField from "@components/common/MultiSelectField";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
@@ -19,7 +20,6 @@ import {
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
-import { MultiSelect } from "@mantine/core";
 import { createStyles } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
@@ -28,7 +28,6 @@ import { format, parseISO } from "date-fns";
 import dayjs from "dayjs";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Field, Form, Formik } from "formik";
-import { useUser } from "hooks/auth/useUser";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
@@ -268,8 +267,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
     //     "/tasker/bank-details/"
     // );
 
-    const { data: userData } = useUser();
-
     const cityData = profile
         ? {
               initialId: profile?.city?.id?.toString() ?? "",
@@ -306,6 +303,13 @@ const AccountForm = ({ showAccountForm }: Display) => {
         () => editProfile.isLoading,
         [editProfile.isLoading]
     );
+    const defaultInterests: unknown = useMemo(() => {
+        return profile?.interests.map((item: any) => ({
+            id: item.id,
+            value: item.id,
+            label: item.name,
+        }));
+    }, [profile]);
     if (loadingOverlayVisible)
         return (
             <LoadingOverlay
@@ -341,10 +345,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                   return { label: item?.name, value: item?.id };
               })
             : [];
-
-    const defaultInterests: unknown = profile?.interests.map((item: any) => {
-        return item.id;
-    });
 
     return (
         <>
@@ -875,7 +875,15 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                                 create={true}
                             />
-                            <TagInputField
+                            <TagMultiSelectField
+                                defaultValue={defaultInterests as string}
+                                name="interests"
+                                labelName="Interests"
+                                placeHolder="Enter your Interests"
+                                disabled={isInputDisabled}
+                                data={interestValues}
+                            />
+                            {/* <TagInputField
                                 data={interestValues}
                                 name="interests"
                                 // error={!profile && errors.skill}
@@ -888,7 +896,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 // onchange={(value) =>
                                 //     setFieldValue("interests", value)
                                 // }
-                            />
+                            /> */}
 
                             {/* <MultiSelect
                                 name="interests"
