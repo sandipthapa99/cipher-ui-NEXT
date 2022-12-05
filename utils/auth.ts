@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import localforage from "localforage";
 import type { User } from "types/user";
 
 /**
@@ -25,6 +26,7 @@ export const autoLogout = () => {
     Cookies.remove("refresh");
     Cookies.remove("credentials");
     localStorage.removeItem("user");
+    localforage.removeItem("fcm_token");
 };
 
 export const userGet = () => {

@@ -27,11 +27,13 @@ export const EarnMoneyVideoComponent = () => {
                 </Col>
                 <Col md={5} sm={12}>
                     <div className="description">
-                        <h1>what are the tasks I can pursue?</h1>
+                        <h1>What are the tasks I can pursue?</h1>
                         <p>
-                            Whatever the job, you can find it on Homeaale.
-                            Complete your profile so that we can find right
-                            tasks for you.
+                            Once you create your profile as a tasker, your
+                            skills and experiences will be saved with us. The
+                            tasks will be displayed as per your experience on
+                            your profile, or you can also search the tasks and
+                            apply as per your preference.
                         </p>
                         <BigButton
                             btnTitle={"Browse Tasks"}
