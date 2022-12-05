@@ -9,6 +9,7 @@ import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import SkeletonBookingCard from "@components/Skeletons/SkeletonBookingCard";
 import { Grid, Pagination, Select } from "@mantine/core";
 import { useApprovedTask } from "hooks/use-approvedTask";
+import { debounce } from "lodash";
 import React, { useState } from "react";
 import type { ApprovedTaskProps } from "types/approvedTaskProps";
 
@@ -29,14 +30,14 @@ export const ApprovedTask = () => {
     );
     const othersTask = othersTaskList?.result;
 
-    const handleSearchParamChange = (searchParam: string) => {
+    const handleSearchParamChange = debounce((searchParam: string) => {
         // clear the existing search data when searchparam changes and has value
         if (searchParam) {
             clearSearchedTaskers();
             clearSearchQuery();
         }
         setSearchParam(searchParam);
-    };
+    }, 500);
 
     return (
         <>

@@ -3,6 +3,7 @@ import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
+import { debounce } from "lodash";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -21,6 +22,7 @@ export const useSearchTask = (searchQuery: string) => {
         { initialData: [] }
     );
 };
+
 const AppliedLayout = ({
     children,
     type,
@@ -38,7 +40,7 @@ const AppliedLayout = ({
                     <SearchCategory
                         searchModal="task"
                         onFilterClear={() => setSearchParam("")}
-                        onSearchParamChange={setSearchParam}
+                        onSearchParamChange={debounce(setSearchParam, 500)}
                     />
                     <TaskAside query={searchParam} type={type ?? ""}>
                         {children}

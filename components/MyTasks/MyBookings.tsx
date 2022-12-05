@@ -10,6 +10,7 @@ import SkeletonBookingCard from "@components/Skeletons/SkeletonBookingCard";
 import { Grid, Pagination, Select } from "@mantine/core";
 import { useBooking } from "hooks/use-bookings";
 import { useMyBooking } from "hooks/use-myBooking";
+import { debounce } from "lodash";
 import React, { useState } from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
 
@@ -40,14 +41,14 @@ export const MyBookings = () => {
 
     const mybookings = myBookingPages?.result;
 
-    const handleSearchParamChange = (searchParam: string) => {
+    const handleSearchParamChange = debounce((searchParam: string) => {
         // clear the existing search data when searchparam changes and has value
         if (searchParam) {
             clearSearchedTaskers();
             clearSearchQuery();
         }
         setSearchParam(searchParam);
-    };
+    }, 500);
 
     return (
         <>
