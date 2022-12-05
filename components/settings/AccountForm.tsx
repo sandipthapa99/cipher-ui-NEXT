@@ -25,6 +25,7 @@ import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
+import dayjs from "dayjs";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Field, Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
@@ -623,80 +624,30 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                         )}
                                     </div>
 
-                                    {!profile?.avatar?.image ||
-                                        (profile?.profile_image && (
-                                            <Image
-                                                //src={"/userprofile/unknownPerson.jpg"}
-                                                src={
-                                                    profile &&
-                                                    profile.profile_image
-                                                        ? profile.profile_image
-                                                        : isNoProfileImage &&
-                                                          file
-                                                        ? "/userprofile/unknownPerson.jpg"
-                                                        : isEditButtonClicked &&
-                                                          !profile?.profile_image
-                                                        ? "/userprofile/unknownPerson.jpg"
-                                                        : !profile &&
-                                                          previewImage
-                                                        ? previewImage
-                                                        : isEditButtonClicked
-                                                        ? previewImage
-                                                        : "/userprofile/unknownPerson.jpg"
-                                                }
-                                                layout="fill"
-                                                alt="profile-pic"
-                                                className="rounded-circle"
-                                                objectFit="cover"
-                                                priority={true}
-                                            />
-                                        ))}
-
-                                    {profile?.avatar?.image &&
-                                        !profile?.profile_image && (
-                                            <Image
-                                                //src={"/userprofile/unknownPerson.jpg"}
-                                                src={
-                                                    previewImage
-                                                        ? (previewImage as string)
-                                                        : profile?.avatar?.image
-                                                        ? profile?.avatar?.image
-                                                        : "/userprofile/unknownPerson.jpg"
-                                                }
-                                                layout="fill"
-                                                alt="profile-pic"
-                                                className="rounded-circle"
-                                                objectFit="cover"
-                                                priority={true}
-                                            />
-                                        )}
-
-                                    {!profile?.profile_image &&
-                                        !profile?.avatar?.image &&
-                                        previewImage && (
-                                            <Image
-                                                //src={"/userprofile/unknownPerson.jpg"}
-                                                src={
-                                                    profile &&
-                                                    profile.profile_image
-                                                        ? profile.profile_image
-                                                        : isNoProfileImage &&
-                                                          file
-                                                        ? "/userprofile/unknownPerson.jpg"
-                                                        : !profile &&
-                                                          previewImage
-                                                        ? previewImage
-                                                        : isEditButtonClicked
-                                                        ? previewImage
-                                                        : "/userprofile/unknownPerson.jpg"
-                                                }
-                                                layout="fill"
-                                                alt="profile-pic"
-                                                className="rounded-circle"
-                                                objectFit="cover"
-                                                priority={true}
-                                            />
-                                        )}
+                                    <Image
+                                        //src={"/userprofile/unknownPerson.jpg"}
+                                        src={
+                                            profile && profile.profile_image
+                                                ? profile.profile_image
+                                                : profile?.avatar?.image
+                                                ? profile?.avatar?.image
+                                                : isNoProfileImage && file
+                                                ? "/userprofile/unknownPerson.jpg"
+                                                : isEditButtonClicked &&
+                                                  !profile?.profile_image
+                                                ? "/userprofile/unknownPerson.jpg"
+                                                : !profile && previewImage
+                                                ? previewImage
+                                                : isEditButtonClicked
+                                                ? previewImage
+                                                : "/userprofile/unknownPerson.jpg"
+                                        }
+                                        layout="fill"
+                                        alt="profile-pic"
+                                        className="rounded-circle"
+                                        objectFit="cover"
+                                        priority={true}
+                                    />
                                 </figure>
                                 {profile ? (
                                     <div>
@@ -850,6 +801,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     />
                                 }
                                 disabled={isInputDisabled}
+                                maxDate={dayjs(new Date(Date.now()))
+                                    .subtract(16, "years")
+                                    .toDate()}
                                 handleChange={(value) => {
                                     setFieldValue(
                                         "date_of_birth",

@@ -52,7 +52,7 @@ export const WinNewClientData = [
     {
         id: "1",
         title: "Win new clients ",
-        image: "/utility-images/with-new-client.png",
+        image: "/utility-images/with-new-client.jpg",
         description:
             "With our diverse service categories, get a chance to win new clients and opportunities through us. Post your skills or apply for tasks, the choice is yours.",
         buttonText: "Explore Tasks",

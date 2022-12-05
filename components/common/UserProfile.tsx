@@ -53,6 +53,7 @@ const UserProfileCard = ({
     bio,
     phone,
     userBadge,
+    badge,
     address_line2,
     full_name,
     points,
@@ -465,7 +466,11 @@ const UserProfileCard = ({
                             <div className="user-type-status">
                                 <figure className="thumbnail-img">
                                     <Image
-                                        src="/userprofile/userprofile.jpg"
+                                        src={
+                                            badge?.image
+                                                ? badge?.image
+                                                : "/userprofile/userprofile.jpg"
+                                        }
                                         layout="fill"
                                         objectFit="cover"
                                         alt="user-type-icon"
@@ -477,7 +482,7 @@ const UserProfileCard = ({
                                             message={tooltipMessage}
                                             place="top"
                                         >
-                                            <h1>{userBadge}</h1>
+                                            <h1>{badge?.title}</h1>
                                         </TooltipMessage>
                                         <FontAwesomeIcon
                                             icon={faCircleQuestion}
@@ -486,21 +491,34 @@ const UserProfileCard = ({
                                     </div>
 
                                     <p className="user-point">
-                                        {points} points
+                                        {badge?.next ? points : "Max Level"}{" "}
+                                        points
                                     </p>
                                     <div>
                                         <Progress
                                             color="yellow"
-                                            value={points}
+                                            value={
+                                                badge?.next
+                                                    ? (points /
+                                                          badge?.next
+                                                              ?.progress_level_start) *
+                                                      100
+                                                    : 100
+                                            }
                                         />
                                     </div>
                                     {/* <div className="progress-bar">
                                         <div className="inside-progress-bar"></div>
                                     </div> */}
-                                    <p>
-                                        Earn {100 - points} points more to reach
-                                        Gold
-                                    </p>
+                                    {badge?.next && (
+                                        <p>
+                                            Earn{" "}
+                                            {badge?.next?.progress_level_start -
+                                                points}{" "}
+                                            points more to reach {""}
+                                            {badge?.next?.title}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </Col>

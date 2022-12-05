@@ -57,6 +57,20 @@ export type ProfileResponse = {
     };
     status: string;
     bio: string;
+    badge: {
+        id: number;
+        image: string;
+        title: string;
+        progress_level_start: number;
+        progress_level_end: number;
+        next: {
+            id: number;
+            image: string;
+            title: string;
+            progress_level_start: number;
+            progress_level_end: number;
+        };
+    };
     gender: string;
     profile_image: any;
     date_of_birth: string;

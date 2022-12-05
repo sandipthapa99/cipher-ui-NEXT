@@ -234,7 +234,7 @@ export const EditService = ({
                                               id: serviceDetail?.currency?.id,
                                               label: serviceDetail?.currency
                                                   ?.name,
-                                              value: serviceDetail?.currency?.id.toString(),
+                                              value: serviceDetail?.currency?.id?.toString(),
                                           },
                                       ]
                                     : []

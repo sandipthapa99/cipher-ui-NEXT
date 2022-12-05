@@ -1,7 +1,7 @@
 export const findHire = [
     {
         id: "0",
-        thumbnailImg: "/services/hire1.png",
+        thumbnailImg: "/services/hire1.jpg",
         title: "Post a Task",
         description:
             "Have a project that you need to finish ? Log in to HOMAALE, type in the requirements, your budget, time constraints and post the same. Sit back, and relax while HOMAALE finds a suitable tasker for you.",
@@ -20,7 +20,7 @@ export const findHire = [
         thumbnailImg: "/services/hire3.png",
         title: "Get Help",
         description:
-            "Stuck somewhere on HOMAALE, have questions ? Fret not, our hands on team is always ready to address your queries, and provide you with real time soultions.",
+            "Stuck somewhere on HOMAALE, have questions ? Fret not, our hands on team is always ready to address your queries, and provide you with real time solutions.",
         redirectTo: "help",
     },
 ];

@@ -88,6 +88,20 @@ export interface UserProfileInfoProps {
     active_hour_start: string;
     active_hour_end: string;
     bio: string;
+    badge: {
+        id: number;
+        image: string;
+        title: string;
+        progress_level_start: number;
+        progress_level_end: number;
+        next: {
+            id: number;
+            image: string;
+            title: string;
+            progress_level_start: number;
+            progress_level_end: number;
+        };
+    };
     userBadge: string;
     userPoints: number;
     pointGoal: number;

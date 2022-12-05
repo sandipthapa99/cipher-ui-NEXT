@@ -826,9 +826,17 @@ const AboutProfile = () => {
                                         raterId={review?.rated_by.id}
                                         ratedByImage={
                                             review?.rated_by?.profile_image
+                                                ? review?.rated_by
+                                                      ?.profile_image
+                                                : review?.rated_by?.avatar
+                                                      ?.image
                                         }
                                         ratedToImage={
-                                            review.rated_to.profile_image
+                                            review?.rated_to?.profile_image
+                                                ? review?.rated_to
+                                                      ?.profile_image
+                                                : review?.rated_to?.avatar
+                                                      ?.image
                                         }
                                         ratedToId={review.rated_to.id}
                                         repliedDate={review.updated_at}
