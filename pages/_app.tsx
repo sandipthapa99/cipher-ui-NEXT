@@ -63,12 +63,22 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     );
     const [mounted, setMounted] = useState(false);
     const [opened, setOpened] = useState(false);
+    const [token, setToken] = useState("");
     const cookies = Cookies.get("access");
     const cookiesProvided = cookies ? true : false;
 
     if (mounted) {
         firebaseCloudMessaging.onMessage();
     }
+
+    firebaseCloudMessaging
+        .tokenInlocalforage()
+        .then((data) => {
+            setToken(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 
     useEffect(() => {
         firebaseCloudMessaging.init();
@@ -80,7 +90,16 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             }
         };
         const result = setToken();
-    }, []);
+    }, [token]);
+
+    useEffect(() => {
+        if (!token && typeof window !== "undefined") {
+            navigator.serviceWorker.getRegistrations().then((r) => {
+                return Promise.all(r.map((reg) => reg.unregister()));
+            });
+        }
+    }, [token]);
+
     useEffect(() => {
         if (
             (Notification.permission === "default" ||

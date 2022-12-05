@@ -88,7 +88,7 @@ const SearchResultsDetail = ({
     const isService = !!serviceId && !!ratedTo;
     const { data: serviceRating } = useData<RatingResponse>(
         ["tasker-rating", serviceId],
-        `${urls.profile.rating}?service=${serviceId}?rated_to=${ratedTo}`,
+        `${urls.profile.rating}?rated_to=${ratedTo}&service=${serviceId}`,
         isService
     );
 
@@ -735,7 +735,9 @@ const SearchResultsDetail = ({
                 </section>
                 <hr />
                 <FilterReview
-                    totalReviews={serviceRating?.data?.result?.length}
+                    totalReviews={
+                        serviceRating ? serviceRating?.data?.result?.length : 0
+                    }
                 />
                 <hr />
                 <Spoiler
@@ -772,7 +774,7 @@ const SearchResultsDetail = ({
                         ))
                     ) : (
                         <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                            Sorry, You have no task data to show
+                            Sorry, You have no Review data to show
                         </Alert>
                     )}
                 </Spoiler>
