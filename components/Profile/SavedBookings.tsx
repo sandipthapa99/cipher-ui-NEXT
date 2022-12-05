@@ -6,11 +6,13 @@ import { Col, Row } from "react-bootstrap";
 
 const SavedBookings = () => {
     const { data: serviceOrTaskBookmarks } = useBookmarks("entityservice");
+
     const { data: userBookmarks } = useBookmarks("user");
 
     const serviceBookmarks = serviceOrTaskBookmarks.filter(
         (bookmark) => !bookmark.data.is_requested
     );
+
     const taskBookmarks = serviceOrTaskBookmarks.filter(
         (bookmark) => bookmark.data.is_requested
     );
@@ -22,7 +24,6 @@ const SavedBookings = () => {
                 {serviceBookmarks.map((bookmark) => (
                     <Col md={4} lg={3} key={bookmark.id}>
                         <ServiceCard
-                            key={bookmark.id}
                             serviceCard={bookmark.data as any}
                             // isSaved={true}
                         />

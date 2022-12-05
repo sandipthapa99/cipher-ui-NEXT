@@ -6,6 +6,7 @@ import {
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import { Box, Highlight, Space } from "@mantine/core";
+import { debounce } from "lodash";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -27,14 +28,14 @@ const ServiceLayout = ({
     const clearSearchedServices = useClearSearchedServices();
     const searchQuery = useSearchQuery();
 
-    const handleSearchChange = (query: string) => {
+    const handleSearchChange = debounce((query: string) => {
         // clear the searched services and search query only when search query has value from search field
         if (query) {
             clearSearchQuery();
             clearSearchedServices();
         }
         setSearchParam(query);
-    };
+    }, 500);
 
     return (
         <Layout title={`Homaale | ${title ? title : `Find Services`}`}>
