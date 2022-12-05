@@ -594,6 +594,7 @@ const SearchResultsDetail = ({
                                     <OfferCard
                                         title={offer.title}
                                         image={offer.image}
+                                        description={offer.description}
                                     />{" "}
                                 </Col>
                             ))}

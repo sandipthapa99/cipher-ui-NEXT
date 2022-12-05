@@ -8,8 +8,9 @@ interface OfferCardProps {
     // currency: string;
     title: string;
     image: string;
+    description: string;
 }
-const OfferCard = ({ title, image }: OfferCardProps) => {
+const OfferCard = ({ title, description, image }: OfferCardProps) => {
     return (
         <div className="offer-card">
             <Row className="d-flex offer-card__content justify-content-center">
@@ -30,9 +31,7 @@ const OfferCard = ({ title, image }: OfferCardProps) => {
                             {rewardPoint} reward points */}
                             {title}
                         </h3>
-                        <span>
-                            {/* Max {maxRewardPoint} reward points per service */}
-                        </span>
+                        <span>{description}</span>
                     </div>
                 </Col>
             </Row>
