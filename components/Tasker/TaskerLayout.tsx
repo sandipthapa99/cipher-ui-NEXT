@@ -6,6 +6,7 @@ import {
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import { Highlight, Space } from "@mantine/core";
+import { debounce } from "lodash";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -26,14 +27,14 @@ const TaskerLayout = ({
     const clearSearchQuery = useClearSearchQuery();
     const searchQuery = useSearchQuery();
 
-    const handleSearchParamChange = (searchParam: string) => {
+    const handleSearchParamChange = debounce((searchParam: string) => {
         // clear the existing search data when searchparam changes and has value
         if (searchParam) {
             clearSearchedTaskers();
             clearSearchQuery();
         }
         setSearchParam(searchParam);
-    };
+    }, 500);
     return (
         <Layout
             title={`${title ? `Taskers | ${title}` : "Find Taskers | Homaale"}`}
