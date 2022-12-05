@@ -127,7 +127,7 @@ const Home: NextPage<{
                                 <div className="d-flex buttons">
                                     <Link href="/earn-money">
                                         <a className="hero-cta">
-                                            Earn Money as a Professional
+                                            Earn as a Professional
                                         </a>
                                     </Link>
                                     {!userGet()?.is_suspended && (
@@ -694,10 +694,10 @@ const Home: NextPage<{
             >
                 <Container fluid="xl" className="px-4">
                     <div className="success-sroties-header">
-                        {/* <h1 className="text-center">
+                        <h1 className="text-center">
                             Bridging the gap between individuals
-                        </h1> */}
-                        {/* <h3 className="text-center">HOMAALE Stories</h3> */}
+                        </h1>
+                        <h3 className="text-center">HOMAALE Stories</h3>
                     </div>
                     {topCategoryData?.length <= 0 && (
                         <Alert
@@ -740,7 +740,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-4">
                     <LongSquareImageCard
                         title="Homaale Notable Qualities"
-                        image="/groupB.png"
+                        image="/notableQuality.jpg"
                         imageOnRight={true}
                         homeImage={true}
                         description={quality}

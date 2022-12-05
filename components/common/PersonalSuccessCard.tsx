@@ -1,3 +1,5 @@
+import { faCircleQuestion, faStar } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
@@ -30,20 +32,20 @@ export const PersonalSuccessCard = ({
                     <Col md={7} sm={12}>
                         <div className="d-flex flex-column justify-content-center  personal-success-card__content">
                             <h3>{successStoryData?.full_name}</h3>
-                            {/* {successStoryData?.specialities && (
+                            {successStoryData?.specialities && (
                                 <h6>
                                     Specialities:{" "}
                                     {successStoryData?.specialities}
                                 </h6>
-                            )} */}
+                            )}
                             <div
                                 className="success-story-description"
                                 dangerouslySetInnerHTML={{
                                     __html: successStoryData?.content,
                                 }}
                             ></div>
-                            {/* <h4>Badges</h4> */}
-                            {/* <div className="d-flex flex-column flex-sm-row align-items-stretch badge-section">
+                            <h4>Badges</h4>
+                            <div className="d-flex flex-column flex-sm-row align-items-stretch badge-section">
                                 <figure className="mx-auto mx-sm-0 badge-section__img">
                                     <Image
                                         src={"/utility-images/award-image.png"}
@@ -65,13 +67,13 @@ export const PersonalSuccessCard = ({
                                         Based on Completion Rating & Earnings
                                     </h6>
                                 </div>
-                            </div> */}
-                            {/* <div className="d-flex footer">
+                            </div>
+                            <div className="d-flex footer">
                                 <span>
                                     <FontAwesomeIcon icon={faStar} />
                                 </span>
                                 <span>4.5 stars from 400 reviews</span>
-                            </div> */}
+                            </div>
                         </div>
                     </Col>
                 </Row>

@@ -24,8 +24,8 @@ export const WinClientCard = ({
                     <figure className="win-client-image">
                         <Image
                             src={image}
-                            height={460}
-                            width={451}
+                            height={465}
+                            width={570}
                             alt="growyourbusiness-image"
                         />
                     </figure>
