@@ -2,10 +2,8 @@ import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS`
 
 import { MultiSelect } from "@mantine/core";
 import { ErrorMessage, Field } from "formik";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
-
 const TagInputField = ({
     name,
     error,
@@ -18,7 +16,6 @@ const TagInputField = ({
     create,
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
-    const { data: profile, isLoading } = useGetProfile();
     return (
         <div className={checkFormGroup(error)}>
             {labelName && (
@@ -46,7 +43,10 @@ const TagInputField = ({
                             searchable
                             creatable={create}
                             getCreateLabel={(query) => `+ Create ${query}`}
-                            onChange={(val) => setFieldValue(name, val)}
+                            onChange={(val) => {
+                                setFieldValue(name, val);
+                                console.log(val, name);
+                            }}
                             clearButtonLabel="Clear selection"
                             clearable
                         />
