@@ -10,6 +10,7 @@ import { Grid, Pagination } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
+import { debounce } from "lodash";
 import React, { useState } from "react";
 import type { MyTaskProps } from "types/myTasksProps";
 import { axiosClient } from "utils/axiosClient";
@@ -34,14 +35,14 @@ export const AllList = () => {
             enabled: !!userId,
         }
     );
-    const handleSearchParamChange = (searchParam: string) => {
+    const handleSearchParamChange = debounce((searchParam: string) => {
         // clear the existing search data when searchparam changes and has value
         if (searchParam) {
             clearSearchedTaskers();
             clearSearchQuery();
         }
         setSearchParam(searchParam);
-    };
+    }, 500);
 
     return (
         <>
