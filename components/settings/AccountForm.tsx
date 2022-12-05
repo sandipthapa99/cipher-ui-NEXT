@@ -882,7 +882,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 // touch={!profile && touched.skill}
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
-                                create={false}
+                                create={true}
                                 disabled={isInputDisabled}
 
                                 // onchange={(value) =>
