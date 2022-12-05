@@ -1,4 +1,5 @@
 import parse from "date-fns/parse";
+import dayjs from "dayjs";
 import * as Yup from "yup";
 const stringReqOnly = Yup.string().required("Required field");
 const stringUnReq = Yup.string();
@@ -18,7 +19,10 @@ export const accountFormSchema = Yup.object().shape({
     bio: stringReqOnly,
     gender: stringReqOnly,
     date_of_birth: Yup.date()
-        .max(new Date(Date.now() - 410240376), "You must be at least 13 years")
+        .max(
+            dayjs(new Date()).endOf("month").subtract(16, "years").toDate(),
+            "You must be at least 16 years"
+        )
         .required("Required"),
     skill: tagValidate,
     active_hour_start: dateValidation,
