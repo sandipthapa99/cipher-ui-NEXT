@@ -113,7 +113,12 @@ const AvatarForm = ({
                     : "no image"}
             </div>
             <div className="d-flex gap-3 align-items-center justify-content-center">
-                <Button className="btn close-btn px-4">Cancel</Button>
+                <Button
+                    className="btn close-btn px-4"
+                    onClick={() => setShowEditForm(false)}
+                >
+                    Cancel
+                </Button>
                 <Button
                     className="btn close-btn px-4"
                     onClick={() => HandleSubmit()}

@@ -601,54 +601,46 @@ const SearchResultsDetail = ({
                         </Row>
                     </section>
                 ) : null}
-                <section
-                    className="service-details__package-offers"
-                    style={{ margin: "41px 0 0 0" }}
-                >
-                    <h1>Packages &amp; Offers</h1>
-                    {getPackageAccordingService &&
-                        getPackageAccordingService?.length <= 0 && (
-                            <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
-                                color="orange"
-                                radius="md"
-                                sx={{ minWidth: 100 }}
-                            >
-                                There are No Packages Available for this service
-                            </Alert>
-                        )}
-                    <Carousel
-                        slideSize="32%"
-                        slideGap="sm"
-                        align="start"
-                        breakpoints={[
-                            { maxWidth: "md", slideSize: "50%" },
-                            {
-                                maxWidth: "sm",
-                                slideSize: "90%",
-                                slideGap: 10,
-                            },
-                        ]}
-                        styles={{
-                            control: {
-                                "&[data-inactive]": {
-                                    opacity: 0,
-                                    cursor: "default",
-                                },
-                            },
-                        }}
-                        className="pt-4"
-                    >
-                        {getPackageAccordingService &&
-                            getPackageAccordingService
-                                // .filter(
-                                //     (service) =>
-                                //         service.service.slug === servSlug
-                                // )
-                                .map(
-                                    (offer, key) =>
-                                        offer && (
+
+                {getPackageAccordingService &&
+                    getPackageAccordingService
+                        // .filter(
+                        //     (service) =>
+                        //         service.service.slug === servSlug
+                        // )
+                        .map(
+                            (offer, key) =>
+                                offer && (
+                                    <section
+                                        className="service-details__package-offers"
+                                        style={{ margin: "41px 0 0 0" }}
+                                    >
+                                        <h1>Packages &amp; Offers</h1>
+                                        <Carousel
+                                            slideSize="32%"
+                                            slideGap="sm"
+                                            align="start"
+                                            breakpoints={[
+                                                {
+                                                    maxWidth: "md",
+                                                    slideSize: "50%",
+                                                },
+                                                {
+                                                    maxWidth: "sm",
+                                                    slideSize: "90%",
+                                                    slideGap: 10,
+                                                },
+                                            ]}
+                                            styles={{
+                                                control: {
+                                                    "&[data-inactive]": {
+                                                        opacity: 0,
+                                                        cursor: "default",
+                                                    },
+                                                },
+                                            }}
+                                            className="pt-4"
+                                        >
                                             <Carousel.Slide key={key}>
                                                 <PackageOffersCard
                                                     title={offer.title}
@@ -670,10 +662,10 @@ const SearchResultsDetail = ({
                                                     }
                                                 />
                                             </Carousel.Slide>
-                                        )
-                                )}
-                    </Carousel>
-                </section>
+                                        </Carousel>
+                                    </section>
+                                )
+                        )}
                 <section>
                     {isCurrentUserService() && (
                         <div ref={tabRef}>
@@ -722,44 +714,32 @@ const SearchResultsDetail = ({
                     }
                 />
                 <hr />
-                <Spoiler
-                    maxHeight={450}
-                    hideLabel={"Hide all reviews"}
-                    showLabel={"See all reviews"}
-                    className={"mb-5"}
-                >
-                    {serviceRating &&
-                    serviceRating?.data?.result?.length > 0 ? (
-                        serviceRating?.data?.result?.map((review) => (
-                            <Col md={8} key={review.id}>
-                                <Reviews
-                                    repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
-                                    repliedText={review.reply}
-                                    replied={
-                                        review.reply === null ? false : true
-                                    }
-                                    id={review?.id}
-                                    name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
-                                    raterEmail={review?.rated_by.email}
-                                    ratings={review?.rating}
-                                    description={review?.review}
-                                    time={review?.created_at}
-                                    raterId={review?.rated_by.id}
-                                    ratedByImage={
-                                        review?.rated_by?.profile_image
-                                    }
-                                    ratedToImage={review.rated_to.profile_image}
-                                    ratedToId={review.rated_to.id}
-                                    repliedDate={review.updated_at}
-                                />
-                            </Col>
-                        ))
-                    ) : (
-                        <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                            Sorry, You have no Review data to show
-                        </Alert>
-                    )}
-                </Spoiler>
+                {serviceRating && serviceRating?.data?.result?.length > 0 ? (
+                    serviceRating?.data?.result?.map((review) => (
+                        <Col md={8} key={review.id}>
+                            <Reviews
+                                repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
+                                repliedText={review.reply}
+                                replied={review.reply === null ? false : true}
+                                id={review?.id}
+                                name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
+                                raterEmail={review?.rated_by.email}
+                                ratings={review?.rating}
+                                description={review?.review}
+                                time={review?.created_at}
+                                raterId={review?.rated_by.id}
+                                ratedByImage={review?.rated_by?.profile_image}
+                                ratedToImage={review.rated_to.profile_image}
+                                ratedToId={review.rated_to.id}
+                                repliedDate={review.updated_at}
+                            />
+                        </Col>
+                    ))
+                ) : (
+                    <Alert title="NO DATA AVAILABLE !!!" color="orange">
+                        Sorry, You have no task data to show
+                    </Alert>
+                )}
                 <span className="td-divider"></span>
                 {/* <Row className="gx-5">
                 <h4>Similar Services</h4>

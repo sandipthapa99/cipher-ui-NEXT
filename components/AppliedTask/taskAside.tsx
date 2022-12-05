@@ -2,13 +2,10 @@ import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { ScrollArea, Space } from "@mantine/core";
 import { useTasks } from "hooks/task/use-tasks";
 import { useInViewPort } from "hooks/use-in-viewport";
-import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { ITask } from "types/task";
-import { sortItemsByActive } from "utils/sortItemsByActive";
 
 import TaskAppliedCard from "./taskAppliedCard";
 
@@ -18,7 +15,6 @@ interface TaskAsideProps {
     type?: string;
 }
 const TaskAside = ({ query, children }: TaskAsideProps) => {
-    const router = useRouter();
     const {
         data: appliedTaskPages,
         isLoading,
@@ -37,11 +33,6 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
     const isLastTaskOnPage = (taskIndex: number) =>
         taskIndex === totalAppliedTasks - 1;
 
-    const sortedTasks = sortItemsByActive<ITask>({
-        type: "task",
-        tasks: appliedTasks,
-        activeId: router.query.id?.toString() as string,
-    });
     const { ref } = useInViewPort<HTMLDivElement>(() => {
         if (hasNextPage && !isFetchingNextPage) {
             fetchNextPage();
@@ -49,7 +40,7 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
     });
 
     const renderTasks = () =>
-        sortedTasks.map((task, taskIndex) => {
+        appliedTasks.map((task, taskIndex) => {
             return (
                 <div
                     ref={isLastTaskOnPage(taskIndex) ? ref : null}

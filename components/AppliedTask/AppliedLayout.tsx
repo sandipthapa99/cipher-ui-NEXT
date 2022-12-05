@@ -21,6 +21,7 @@ export const useSearchTask = (searchQuery: string) => {
         { initialData: [] }
     );
 };
+
 const AppliedLayout = ({
     children,
     type,
