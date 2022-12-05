@@ -93,12 +93,12 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     }, [token]);
 
     useEffect(() => {
-        if (!token && typeof window !== "undefined") {
+        if (!token && typeof window !== "undefined" && mounted) {
             navigator.serviceWorker.getRegistrations().then((r) => {
                 return Promise.all(r.map((reg) => reg.unregister()));
             });
         }
-    }, [token]);
+    }, []);
 
     useEffect(() => {
         if (

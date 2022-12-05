@@ -56,6 +56,7 @@ const MyEarnings = () => {
         paginationNumber,
         pageSize ? pageSize : "10"
     );
+    console.log(EarningHistory);
 
     const newElements = EarningHistory?.result.map((item) => {
         return {
@@ -375,7 +376,7 @@ const MyEarnings = () => {
                                 <Pagination
                                     total={
                                         EarningHistory
-                                            ? EarningHistory?.result.length
+                                            ? EarningHistory?.total_pages
                                             : 0
                                     }
                                     color="yellow"
