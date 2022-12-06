@@ -15,8 +15,9 @@
         padding: 2rem;
         // margin-bottom: 2rem;
         width: 100%;
-
+        
         @include respond(md) {
+            width: 96%;
         }
 
         .image-block {
