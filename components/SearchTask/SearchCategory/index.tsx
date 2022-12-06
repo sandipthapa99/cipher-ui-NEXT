@@ -22,6 +22,7 @@ import { useCountry } from "hooks/dropdown/useCountry";
 import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useServiceOptions } from "hooks/service/use-service-options";
 import { useCities } from "hooks/use-cities";
+import { debounce } from "lodash";
 import type { ChangeEvent } from "react";
 import { useEffect, useReducer, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -202,8 +203,13 @@ export const SearchCategory = ({
     };
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
         const searchText = event.currentTarget.value;
+        console.log("search", searchText);
+
         if (searchText.length === 0) {
-            dispatch({ type: ActionKind.REMOVE, payload: { key: "search" } });
+            dispatch({
+                type: ActionKind.REMOVE,
+                payload: { key: "search" },
+            });
             if (Object.keys(params).length === 0) {
                 handleClearFilters();
             }
