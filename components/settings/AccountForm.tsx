@@ -28,6 +28,7 @@ import { format, parseISO } from "date-fns";
 import dayjs from "dayjs";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Field, Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
@@ -129,7 +130,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
             setIsNoProfileImage(true);
         }
     }, []);
-
+    const { data: userData } = useUser();
     // const router = useRouter();
     //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
     // const [city, setCity] = useState(profile?.city?.id);
@@ -303,21 +304,23 @@ const AccountForm = ({ showAccountForm }: Display) => {
         () => editProfile.isLoading,
         [editProfile.isLoading]
     );
-    const defaultInterests: unknown = useMemo(() => {
-        return profile?.interests.map((item: any) => ({
-            label: item.name,
-            value: item.id,
-        }));
-    }, [profile]);
+    // const defaultInterests: unknown = useMemo(() => {
+    //     return profile?.interests.map((item: any) => ({
+    //         label: item.name,
+    //         value: item.id,
+    //     }));
+    // }, [profile]);
     // const defaultInterests: unknown = () => {
     //     return profile?.interests.map((item: any) => ({
     //         id: item.id,
-    //         value: item.id,
-    //         label: item.name,
     //     }));
     // };
+
+    const defaultInterests = profile?.interests.map((item: any) => {
+        return { label: item.name, value: item.id.toString() };
+    });
     // console.log(
-    //     "🚀 ~ file: AccountForm.tsx ~ line 320 ~ AccountForm ~ defaultInterests",
+    //     "🚀 ~ file: AccountForm.tsx ~ line 322 ~ defaultInterests ~ defaultInterests",
     //     defaultInterests
     // );
 
@@ -356,7 +359,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                   return { label: item?.name, value: item?.id };
               })
             : [];
-    console.log("defa", profile?.interests, defaultInterests, interestValues);
 
     return (
         <>
@@ -417,32 +419,32 @@ const AccountForm = ({ showAccountForm }: Display) => {
                     validationSchema={accountFormSchema}
                     onSubmit={async (values) => {
                         const formData = new FormData();
-                        // {
-                        //     userData?.id &&
-                        //         (await setDoc(doc(db, "users", userData?.id), {
-                        //             name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
-                        //             email: values.email,
-                        //             profile: values.profile_image,
-                        //             uuid: userData?.id,
-                        //         }));
-                        // }
+                        {
+                            userData?.id &&
+                                (await setDoc(doc(db, "users", userData?.id), {
+                                    name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
+                                    email: values.email,
+                                    profile: values.profile_image,
+                                    uuid: userData?.id,
+                                }));
+                        }
 
-                        // {
-                        //     const res = await getDoc(
-                        //         doc(
-                        //             db,
-                        //             "userChats",
-                        //             userData?.id ? userData?.id : ""
-                        //         )
-                        //     );
+                        {
+                            const res = await getDoc(
+                                doc(
+                                    db,
+                                    "userChats",
+                                    userData?.id ? userData?.id : ""
+                                )
+                            );
 
-                        //     !res.exists() &&
-                        //         userData?.id &&
-                        //         (await setDoc(
-                        //             doc(db, "userChats", userData?.id),
-                        //             {}
-                        //         ));
-                        // }
+                            !res.exists() &&
+                                userData?.id &&
+                                (await setDoc(
+                                    doc(db, "userChats", userData?.id),
+                                    {}
+                                ));
+                        }
 
                         const newValidatedValues = {
                             ...values,
@@ -483,20 +485,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             }
                             formData.delete("interests");
                         });
-                        values?.interests?.forEach(
-                            (val) => {
-                                formData.append("interests", val);
-                                console.log("vA", val);
-                            }
-                            //console.log(val)
-                        );
-                        console.log("valudasdas", newValidatedValues.interests);
+
+                        values?.interests?.forEach((val: string | Blob) => {
+                            formData.append("interests", val);
+                        });
 
                         const editedData = formData;
-                        console.log(
-                            "🚀 ~ file: AccountForm.tsx ~ line 471 ~ onSubmit={ ~ editedData",
-                            editedData
-                        );
 
                         {
                             isEditButtonClicked
@@ -528,33 +522,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                       },
                                   });
                         }
-
-                        // {
-                        //     userData?.id &&
-                        //         (await setDoc(doc(db, "users", userData?.id), {
-                        //             name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
-                        //             email: values.email,
-                        //             profile: values.profile_image,
-                        //             uuid: userData?.id,
-                        //         }));
-                        // }
-
-                        // {
-                        //     const res = await getDoc(
-                        //         doc(
-                        //             db,
-                        //             "userChats",
-                        //             userData?.id ? userData?.id : ""
-                        //         )
-                        //     );
-
-                        //     !res.exists() &&
-                        //         userData?.id &&
-                        //         (await setDoc(
-                        //             doc(db, "userChats", userData?.id),
-                        //             {}
-                        //         ));
-                        // }
                     }}
                 >
                     {({
@@ -920,7 +887,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <TagInputField
                                 data={skills}
                                 name="skill"
-                                defaultValue={defaultInterests as string}
                                 // error={!profile && errors.skill}
                                 // touch={!profile && touched.skill}
 
