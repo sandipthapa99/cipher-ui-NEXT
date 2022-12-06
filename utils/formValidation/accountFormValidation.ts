@@ -8,7 +8,9 @@ const emailValidate = Yup.string()
     .email("Invalid email address")
     .required("Required field");
 const tagValidate = Yup.array(Yup.string()).required("Required field");
-const interestValidate = Yup.array(Yup.number()).required("Required Field");
+const interestValidate = Yup.array(Yup.number())
+    .required("Required Field")
+    .nullable();
 
 export const accountFormSchema = Yup.object().shape({
     // full_name: stringReqOnly,

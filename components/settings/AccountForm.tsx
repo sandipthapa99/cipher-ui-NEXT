@@ -305,11 +305,23 @@ const AccountForm = ({ showAccountForm }: Display) => {
     );
     const defaultInterests: unknown = useMemo(() => {
         return profile?.interests.map((item: any) => ({
-            id: item.id,
-            value: item.id,
-            label: item.name,
+            value: item.id.toString(),
+            name: item.name,
         }));
     }, [profile]);
+    console.log("defa", profile?.interests, defaultInterests);
+    // const defaultInterests: unknown = () => {
+    //     return profile?.interests.map((item: any) => ({
+    //         id: item.id,
+    //         value: item.id,
+    //         label: item.name,
+    //     }));
+    // };
+    // console.log(
+    //     "🚀 ~ file: AccountForm.tsx ~ line 320 ~ AccountForm ~ defaultInterests",
+    //     defaultInterests
+    // );
+
     if (loadingOverlayVisible)
         return (
             <LoadingOverlay
@@ -383,7 +395,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 ? parseISO(profile.date_of_birth)
                                 : "",
                         skill: profile?.skill ? skills : "",
-                        interests: [],
+                        interests: profile?.interests ? defaultInterests : [],
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start:
                             new Date(`2022-09-24 ${startTime}`) ?? "",
@@ -404,43 +416,16 @@ const AccountForm = ({ showAccountForm }: Display) => {
                     }}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values) => {
-                        console.log(values);
+                        console.log("valuessssssss", values);
 
                         const formData = new FormData();
                         console.log(values, formData);
-
-                        // {
-                        //     userData?.id &&
-                        //         (await setDoc(doc(db, "users", userData?.id), {
-                        //             name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
-                        //             email: values.email,
-                        //             profile: values.profile_image,
-                        //             uuid: userData?.id,
-                        //         }));
-                        // }
-
-                        // {
-                        //     const res = await getDoc(
-                        //         doc(
-                        //             db,
-                        //             "userChats",
-                        //             userData?.id ? userData?.id : ""
-                        //         )
-                        //     );
-
-                        //     !res.exists() &&
-                        //         userData?.id &&
-                        //         (await setDoc(
-                        //             doc(db, "userChats", userData?.id),
-                        //             {}
-                        //         ));
-                        // }
 
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
                             skill: JSON.stringify(values.skill),
-                            interests: JSON.stringify(values.interests),
+
                             active_hour_start: new Date(
                                 values.active_hour_start ?? ""
                             )?.toLocaleTimeString(),
@@ -452,6 +437,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 "yyyy-MM-dd"
                             ),
                         };
+                        // newValidatedValues.interests?.forEach((val: number) =>
+                        //     formData.append("interests", val)
+                        // );
 
                         Object.entries(newValidatedValues).forEach((entry) => {
                             const [key, value] = entry;
@@ -470,9 +458,23 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     values.profile_image
                                 );
                             }
+                            formData.delete("interests");
                         });
+                        values?.interests?.forEach(
+                            (val) => {
+                                formData.append("interests", val);
+                                console.log("vA", val);
+                            }
+                            //console.log(val)
+                        );
+                        console.log("valudasdas", newValidatedValues.interests);
 
                         const editedData = formData;
+                        console.log(
+                            "🚀 ~ file: AccountForm.tsx ~ line 471 ~ onSubmit={ ~ editedData",
+                            editedData
+                        );
+
                         {
                             isEditButtonClicked
                                 ? editProfile.mutate(editedData, {
@@ -503,6 +505,33 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                       },
                                   });
                         }
+
+                        // {
+                        //     userData?.id &&
+                        //         (await setDoc(doc(db, "users", userData?.id), {
+                        //             name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
+                        //             email: values.email,
+                        //             profile: values.profile_image,
+                        //             uuid: userData?.id,
+                        //         }));
+                        // }
+
+                        // {
+                        //     const res = await getDoc(
+                        //         doc(
+                        //             db,
+                        //             "userChats",
+                        //             userData?.id ? userData?.id : ""
+                        //         )
+                        //     );
+
+                        //     !res.exists() &&
+                        //         userData?.id &&
+                        //         (await setDoc(
+                        //             doc(db, "userChats", userData?.id),
+                        //             {}
+                        //         ));
+                        // }
                     }}
                 >
                     {({
@@ -515,6 +544,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
+                            <pre>{JSON.stringify(values, null, 4)}</pre>
+
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -875,28 +906,28 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                                 create={true}
                             />
-                            <TagMultiSelectField
+                            {/* <TagMultiSelectField
                                 defaultValue={defaultInterests as string}
                                 name="interests"
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
                                 disabled={isInputDisabled}
                                 data={interestValues}
-                            />
-                            {/* <TagInputField
+                            /> */}
+                            <TagInputField
                                 data={interestValues}
                                 name="interests"
                                 // error={!profile && errors.skill}
                                 // touch={!profile && touched.skill}
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
-                                create={true}
+                                create={false}
                                 disabled={isInputDisabled}
-
+                                // onchange={(e) => console.log("", e.target)}
                                 // onchange={(value) =>
                                 //     setFieldValue("interests", value)
                                 // }
-                            /> */}
+                            />
 
                             {/* <MultiSelect
                                 name="interests"
