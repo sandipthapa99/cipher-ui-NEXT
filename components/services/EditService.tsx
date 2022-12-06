@@ -67,6 +67,10 @@ export const EditService = ({
     handleClose,
     serviceDetail,
 }: EditServiceProps) => {
+    console.log(
+        "🚀 ~ file: EditService.tsx:70 ~ serviceDetail",
+        serviceDetail.images
+    );
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate: editServiceMutation, isLoading: editServiceLoading } =
         useEditService();
@@ -303,7 +307,7 @@ export const EditService = ({
                                 uploadedFiles={serviceDetail?.images ?? []}
                                 fileType="image"
                                 sx={{ maxWidth: "30rem" }}
-                                name="task-image"
+                                name="images"
                                 onRemoveUploadedFiles={setInitialImageIds}
                                 onDrop={(images) =>
                                     setFieldValue("images", images)

@@ -79,9 +79,11 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         id={item.id}
                                         //  bookingId={}
                                         image={
-                                            item
-                                                ? item.created_by.profile_image
-                                                : ""
+                                            item?.created_by?.profile_image
+                                                ? item?.created_by
+                                                      ?.profile_image
+                                                : item?.created_by?.avatar
+                                                      ?.image
                                         }
                                         name={
                                             item
