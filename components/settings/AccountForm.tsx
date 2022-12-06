@@ -404,37 +404,33 @@ const AccountForm = ({ showAccountForm }: Display) => {
                     }}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values) => {
-                        console.log(values);
-
                         const formData = new FormData();
-                        console.log(values, formData);
+                        {
+                            userData?.id &&
+                                (await setDoc(doc(db, "users", userData?.id), {
+                                    name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
+                                    email: values.email,
+                                    profile: values.profile_image,
+                                    uuid: userData?.id,
+                                }));
+                        }
 
-                        // {
-                        //     userData?.id &&
-                        //         (await setDoc(doc(db, "users", userData?.id), {
-                        //             name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
-                        //             email: values.email,
-                        //             profile: values.profile_image,
-                        //             uuid: userData?.id,
-                        //         }));
-                        // }
+                        {
+                            const res = await getDoc(
+                                doc(
+                                    db,
+                                    "userChats",
+                                    userData?.id ? userData?.id : ""
+                                )
+                            );
 
-                        // {
-                        //     const res = await getDoc(
-                        //         doc(
-                        //             db,
-                        //             "userChats",
-                        //             userData?.id ? userData?.id : ""
-                        //         )
-                        //     );
-
-                        //     !res.exists() &&
-                        //         userData?.id &&
-                        //         (await setDoc(
-                        //             doc(db, "userChats", userData?.id),
-                        //             {}
-                        //         ));
-                        // }
+                            !res.exists() &&
+                                userData?.id &&
+                                (await setDoc(
+                                    doc(db, "userChats", userData?.id),
+                                    {}
+                                ));
+                        }
 
                         const newValidatedValues = {
                             ...values,
