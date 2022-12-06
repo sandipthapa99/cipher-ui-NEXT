@@ -7,6 +7,7 @@ export type MyBookings = {
         id: number;
         created_by: {
             id: number;
+            avatar: { image: string };
             charge_currency: {
                 id: number;
                 name: string;

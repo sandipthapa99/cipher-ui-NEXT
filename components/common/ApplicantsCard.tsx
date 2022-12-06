@@ -81,10 +81,6 @@ export const ApplicantsCard = ({
     //     taskDetail
     // );
 
-    const { data: approvedTasks } = useData<TaskApprovedList>(
-        ["approved-task"],
-        `${urls.task.approvedTaskList}`
-    );
     // const approvedTask = approvedTasks?.data.result.find(
     //     (appliedTask: any) => appliedTask.assignee.id === userId
     // );
