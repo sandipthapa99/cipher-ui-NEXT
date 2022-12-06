@@ -51,7 +51,7 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
                 ))}
                 {/* </div> */}
 
-                <div className="tab-icons">
+                {/* <div className="tab-icons">
                     {icons?.map((icon) => (
                         <>
                             <div className="icon-content">
@@ -60,7 +60,7 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
                             <div key={icon.index}>{icon.type}</div>
                         </>
                     ))}
-                </div>
+                </div> */}
                 {/* {icons?.map((icon) => (
                     <div key={icon.index}>{icon.type}</div>
                 ))} */}

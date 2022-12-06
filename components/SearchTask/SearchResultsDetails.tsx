@@ -201,7 +201,11 @@ const SearchResultsDetail = ({
                 <MyBookingsCard
                     bookingId={item?.id}
                     collabButton={false}
-                    image={item?.created_by?.profile_image}
+                    image={
+                        item?.created_by?.profile_image
+                            ? item?.created_by?.profile_image
+                            : item?.created_by?.avatar?.image
+                    }
                     name={`${item?.created_by?.user?.first_name} ${item?.created_by?.user?.last_name}`}
                     // speciality={item?.created_by?.user_type}
                     rating={item?.created_by?.rating?.user_rating_count}

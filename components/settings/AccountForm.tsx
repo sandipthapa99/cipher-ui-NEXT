@@ -305,11 +305,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
     );
     const defaultInterests: unknown = useMemo(() => {
         return profile?.interests.map((item: any) => ({
-            value: item.id.toString(),
-            name: item.name,
+            label: item.name,
+            value: item.id,
         }));
     }, [profile]);
-    console.log("defa", profile?.interests, defaultInterests);
     // const defaultInterests: unknown = () => {
     //     return profile?.interests.map((item: any) => ({
     //         id: item.id,
@@ -357,6 +356,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                   return { label: item?.name, value: item?.id };
               })
             : [];
+    console.log("defa", profile?.interests, defaultInterests, interestValues);
 
     return (
         <>
@@ -416,10 +416,33 @@ const AccountForm = ({ showAccountForm }: Display) => {
                     }}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values) => {
-                        console.log("valuessssssss", values);
-
                         const formData = new FormData();
-                        console.log(values, formData);
+                        // {
+                        //     userData?.id &&
+                        //         (await setDoc(doc(db, "users", userData?.id), {
+                        //             name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
+                        //             email: values.email,
+                        //             profile: values.profile_image,
+                        //             uuid: userData?.id,
+                        //         }));
+                        // }
+
+                        // {
+                        //     const res = await getDoc(
+                        //         doc(
+                        //             db,
+                        //             "userChats",
+                        //             userData?.id ? userData?.id : ""
+                        //         )
+                        //     );
+
+                        //     !res.exists() &&
+                        //         userData?.id &&
+                        //         (await setDoc(
+                        //             doc(db, "userChats", userData?.id),
+                        //             {}
+                        //         ));
+                        // }
 
                         const newValidatedValues = {
                             ...values,
