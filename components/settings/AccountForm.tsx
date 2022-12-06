@@ -317,7 +317,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     // };
 
     const defaultInterests = profile?.interests.map((item: any) => {
-        return { label: item.name, value: item.id.toString() };
+        return item.id.toString();
     });
     // console.log(
     //     "🚀 ~ file: AccountForm.tsx ~ line 322 ~ defaultInterests ~ defaultInterests",
