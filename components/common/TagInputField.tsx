@@ -35,7 +35,7 @@ const TagInputField = ({
                         <MultiSelect
                             disabled={disabled}
                             // disabled={profile ? true : false}
-                            defaultValue={Array.isArray(data) ? data : []}
+                            // defaultValue={Array.isArray(data) ? data : []}
                             data={Array.isArray(data) ? data : []}
                             placeholder={placeHolder}
                             className={checkFormControl(error, touch)}
@@ -45,10 +45,13 @@ const TagInputField = ({
                             getCreateLabel={(query) => `+ Create ${query}`}
                             onChange={(val) => {
                                 setFieldValue(name, val);
-                                console.log(val, name);
+                                // val.forEach((values) => {
+                                //     setFieldValue(name, values);
+                                //     console.log(values);
+                                // });
                             }}
-                            clearButtonLabel="Clear selection"
-                            clearable
+                            // clearButtonLabel="Clear selection"
+                            // clearable
                         />
                     );
                 }}

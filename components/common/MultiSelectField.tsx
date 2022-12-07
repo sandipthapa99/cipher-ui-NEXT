@@ -19,8 +19,6 @@ const TagMultiSelectField = ({
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
     const [selectedservices, setselectedservices] = useState([]);
-    console.log("default value", defaultValue);
-    const [id, setId] = useState<number[]>([]);
 
     useEffect(() => {
         setselectedservices(defaultValue && defaultValue);
@@ -31,7 +29,7 @@ const TagMultiSelectField = ({
 
                 return values;
             });
-        // setId(defaultInterests);
+        //   setId(defaultInterests);
     }, []);
 
     // useEffect(() => {
@@ -41,16 +39,18 @@ const TagMultiSelectField = ({
 
     const handleChange = (selectedOption: any) => {
         setselectedservices(selectedOption);
-        const selectedInterests: number[] =
-            selectedOption &&
-            selectedOption.map((item: any) => {
-                const values = item.value;
-                return values;
-            });
-        console.log("selec", selectedInterests);
-        setId(selectedInterests);
+        // const selectedInterests: number[] =
+        //     selectedOption &&
+        //     selectedOption.map((item: any) => {
+        //         const values = item.value;
+        //         return values;
+        //     });
+
+        // console.log("selec", selectedInterests);
+        // setFinalId(selectedInterests);
     };
-    console.log("id here now", id);
+
+    // console.log("id here now", id);
 
     return (
         <div className={checkFormGroup(error)}>
@@ -73,8 +73,15 @@ const TagMultiSelectField = ({
                             placeholder={placeHolder}
                             onChange={(e) => {
                                 handleChange(e);
-                                console.log("id changes", id);
-                                setFieldValue(name, id);
+                                const values = e.map(
+                                    (value: any) => value.value
+                                );
+
+                                // values.forEach((val) => {
+                                //     setFieldValue(name, val);
+                                //     console.log(val);
+                                // });
+                                setFieldValue(name, values);
                             }}
                             //  onChange={handleChange}
 

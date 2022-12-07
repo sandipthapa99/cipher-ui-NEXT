@@ -20,6 +20,7 @@ import {
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
+import { MultiSelect } from "@mantine/core";
 import { createStyles } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
@@ -28,6 +29,7 @@ import { format, parseISO } from "date-fns";
 import dayjs from "dayjs";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Field, Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
@@ -105,9 +107,27 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
-    const { data: allCategory } = useQuery(["all-category"], () => {
-        return axiosClient.get<IAllCategory[]>("/task/cms/task-category/list/");
-    });
+    const [interestOptions, setInterestOptions] = useState<any>([]);
+    const { data: allCategory } = useQuery(
+        ["all-category"],
+        () => {
+            return axiosClient.get<IAllCategory[]>(
+                "/task/cms/task-category/list/"
+            );
+        },
+        {
+            onSuccess: (data) => {
+                const options = data?.data.map((item) => {
+                    return {
+                        value: item.id,
+                        label: item.name.toString(),
+                    };
+                });
+                setInterestOptions(options);
+            },
+            enabled: profile ? true : false,
+        }
+    );
     const { data: KYCData } = useGetKYC();
     const [blobUrl, setBlobUrl] = useState<RequestInfo | URL | undefined>();
     const [image, setImage] = useState();
@@ -129,7 +149,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
             setIsNoProfileImage(true);
         }
     }, []);
-
+    const { data: userData } = useUser();
     // const router = useRouter();
     //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
     // const [city, setCity] = useState(profile?.city?.id);
@@ -225,6 +245,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
           }))
         : ([] as SelectItem[]);
 
+    // const interestValues: SelectItem[] =
+    //     allCategory?.data.length !== 0
+    //         ? allCategory?.data?.map((item) => {
+    //               return { label: item?.name, value: item?.id };
+    //           })
+    //         : ([] as SelectItem[]);
     //find the country
     // const foundCountry = countryResults.find((item) => item.label === country);
 
@@ -303,13 +329,23 @@ const AccountForm = ({ showAccountForm }: Display) => {
         () => editProfile.isLoading,
         [editProfile.isLoading]
     );
-    const defaultInterests: unknown = useMemo(() => {
-        return profile?.interests.map((item: any) => ({
-            id: item.id,
-            value: item.id,
-            label: item.name,
-        }));
-    }, [profile]);
+    // const defaultInterests: unknown = useMemo(() => {
+    //     return profile?.interests.map((item: any) => ({
+    //         label: item.name,
+    //         value: item.id,
+    //     }));
+    // }, [profile]);
+    // const defaultInterests: unknown = () => {
+    //     return profile?.interests.map((item: any) => ({
+    //         id: item.id,
+    //     }));
+    // };
+
+    // console.log(
+    //     "🚀 ~ file: AccountForm.tsx ~ line 322 ~ defaultInterests ~ defaultInterests",
+    //     defaultInterests
+    // );
+
     if (loadingOverlayVisible)
         return (
             <LoadingOverlay
@@ -339,12 +375,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
         //  setIsEdtButtonClicked(!isEditButtonClicked);
     };
 
-    const interestValues =
-        allCategory?.data.length !== 0
-            ? allCategory?.data?.map((item) => {
-                  return { label: item?.name, value: item?.id };
-              })
-            : [];
+    // const interests =
+    //     typeof interestValues !== "undefined" ? interestValues : [];
+
+    const currentInterests =
+        profile &&
+        profile?.interests.map((item: { id: number; name: string }) => {
+            return item.id.toString();
+        });
 
     return (
         <>
@@ -369,7 +407,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                 }
             >
                 <Formik
-                    enableReinitialize={true}
                     initialValues={{
                         first_name: profile?.user.first_name ?? "",
                         middle_name: profile?.user.middle_name ?? "",
@@ -382,8 +419,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             profile && profile.date_of_birth
                                 ? parseISO(profile.date_of_birth)
                                 : "",
-                        skill: profile?.skill ? skills : "",
-                        interests: [],
+                        skill: skills,
+                        interests: profile ? currentInterests : [],
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start:
                             new Date(`2022-09-24 ${startTime}`) ?? "",
@@ -403,6 +440,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         designation: profile?.designation ?? "",
                     }}
                     validationSchema={accountFormSchema}
+                    enableReinitialize={true}
                     onSubmit={async (values) => {
                         const formData = new FormData();
                         {
@@ -424,80 +462,108 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 )
                             );
 
-                            !res.exists() &&
-                                userData?.id &&
-                                (await setDoc(
-                                    doc(db, "userChats", userData?.id),
-                                    {}
-                                ));
-                        }
-
-                        const newValidatedValues = {
-                            ...values,
-                            user_type: JSON.stringify(values.user_type),
-                            skill: JSON.stringify(values.skill),
-                            interests: JSON.stringify(values.interests),
-                            active_hour_start: new Date(
-                                values.active_hour_start ?? ""
-                            )?.toLocaleTimeString(),
-                            active_hour_end: new Date(
-                                values.active_hour_end ?? ""
-                            )?.toLocaleTimeString(),
-                            date_of_birth: format(
-                                new Date(values.date_of_birth),
-                                "yyyy-MM-dd"
-                            ),
-                        };
-
-                        Object.entries(newValidatedValues).forEach((entry) => {
-                            const [key, value] = entry;
-
-                            if (
-                                entry[0] == "profile_image" &&
-                                isValidURL(entry[1])
-                            ) {
-                                return false;
-                            }
-                            if (key !== "profile_image") {
-                                formData.append(key, value ? value : "");
-                            } else {
-                                formData.append(
-                                    "profile_image",
-                                    values.profile_image
+                            {
+                                const res = await getDoc(
+                                    doc(
+                                        db,
+                                        "userChats",
+                                        userData?.id ? userData?.id : ""
+                                    )
                                 );
-                            }
-                        });
 
-                        const editedData = formData;
-                        {
-                            isEditButtonClicked
-                                ? editProfile.mutate(editedData, {
-                                      onSuccess: () => {
-                                          toast.success(
-                                              "Profile updated successfully."
-                                          );
-                                          setIsEditButtonClicked(
-                                              !isEditButtonClicked
-                                          );
-                                          queryClient.invalidateQueries([
-                                              "profile",
-                                          ]);
-                                      },
-                                      onError: (err: any) => {
-                                          toast.error(err.message);
-                                      },
-                                  })
-                                : mutate(formData, {
-                                      onSuccess: () => {
-                                          setShow(true);
-                                          queryClient.invalidateQueries([
-                                              "profile",
-                                          ]);
-                                      },
-                                      onError: (err) => {
-                                          toast.error(err.message);
-                                      },
-                                  });
+                                !res.exists() &&
+                                    userData?.id &&
+                                    (await setDoc(
+                                        doc(db, "userChats", userData?.id),
+                                        {}
+                                    ));
+                            }
+
+                            const newValidatedValues = {
+                                ...values,
+                                user_type: JSON.stringify(values.user_type),
+                                skill: JSON.stringify(values.skill),
+
+                                active_hour_start: new Date(
+                                    values.active_hour_start ?? ""
+                                )?.toLocaleTimeString(),
+                                active_hour_end: new Date(
+                                    values.active_hour_end ?? ""
+                                )?.toLocaleTimeString(),
+                                date_of_birth: format(
+                                    new Date(values.date_of_birth),
+                                    "yyyy-MM-dd"
+                                ),
+                            };
+
+                            // newValidatedValues.interests?.forEach((val: number) =>
+                            //     formData.append("interests", val)
+                            // );
+
+                            Object.entries(newValidatedValues).forEach(
+                                (entry) => {
+                                    const [key, value] = entry;
+
+                                    if (
+                                        entry[0] == "profile_image" &&
+                                        isValidURL(entry[1])
+                                    ) {
+                                        return false;
+                                    }
+                                    if (
+                                        key !== "profile_image" &&
+                                        key !== "interests"
+                                    ) {
+                                        formData.append(
+                                            key,
+                                            value ? value : ""
+                                        );
+                                    } else {
+                                        formData.append(
+                                            "profile_image",
+                                            values.profile_image
+                                        );
+                                    }
+                                    // formData.delete("interests");
+                                }
+                            );
+
+                            values?.interests?.forEach((val: string | Blob) => {
+                                formData.append("interests", val);
+                            });
+
+                            // const editedData = formData;
+
+                            {
+                                isEditButtonClicked
+                                    ? editProfile.mutate(formData, {
+                                          onSuccess: () => {
+                                              toast.success(
+                                                  "Profile updated successfully."
+                                              );
+                                              setIsEditButtonClicked(
+                                                  !isEditButtonClicked
+                                              );
+                                              queryClient.invalidateQueries([
+                                                  "profile",
+                                              ]);
+                                          },
+                                          onError: (err: any) => {
+                                              toast.error(err.message);
+                                          },
+                                      })
+                                    : mutate(formData, {
+                                          onSuccess: () => {
+                                              setShow(true);
+                                              queryClient.invalidateQueries([
+                                                  "profile",
+                                              ]);
+                                          },
+                                          onError: (err) => {
+                                              toast.error(err.message);
+                                          },
+                                      });
+                            }
                         }
                     }}
                 >
@@ -511,6 +577,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
+                            <pre>{JSON.stringify(values, null, 4)}</pre>
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -862,7 +929,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <TagInputField
                                 data={skills}
                                 name="skill"
-                                defaultValue={defaultInterests as string}
                                 // error={!profile && errors.skill}
                                 // touch={!profile && touched.skill}
 
@@ -871,14 +937,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                                 create={true}
                             />
-                            <TagMultiSelectField
+                            {/* <TagMultiSelectField
                                 defaultValue={defaultInterests as string}
                                 name="interests"
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
                                 disabled={isInputDisabled}
                                 data={interestValues}
-                            />
+                            /> */}
                             {/* <TagInputField
                                 data={interestValues}
                                 name="interests"
@@ -886,25 +952,20 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 // touch={!profile && touched.skill}
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
-                                create={true}
-                                disabled={isInputDisabled}
-
-                                // onchange={(value) =>
-                                //     setFieldValue("interests", value)
-                                // }
+                                create={false}
+                                // disabled={isInputDisabled}
                             /> */}
-
-                            {/* <MultiSelect
+                            <MultiSelect
+                                data={interestOptions}
                                 name="interests"
-                                data={interestValues}
-                                // error={!profile && errors.skill}
-                                // touch={!profile && touched.skill}
-                                labelName="Interests"
-                                placeHolder="Enter your Interests"
-                                onChange={(val) => {
-                                    setFieldValue("interests", val);
+                                onChange={(value) => {
+                                    setFieldValue("interests", value);
                                 }}
-                            /> */}
+                                label="Interests"
+                                disabled={isInputDisabled}
+                                placeholder="Enter your interests"
+                            />
+
                             <RadioField
                                 type="radio"
                                 name="experience_level"

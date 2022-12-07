@@ -84,16 +84,42 @@ const UserActivities = () => {
                                                     />
                                                 </figure>
                                             )}
-                                            {activity.action === "Create" && (
-                                                <figure className="thumbnail-img">
-                                                    <Image
-                                                        src="/userprofile/activities/create.svg"
-                                                        layout="fill"
-                                                        objectFit="cover"
-                                                        alt="service-icon"
-                                                    />
-                                                </figure>
-                                            )}
+                                            {activity.action === "Create" &&
+                                                activity.content_type ===
+                                                    "rating" && (
+                                                    <figure className="thumbnail-img">
+                                                        <Image
+                                                            src="/userprofile/activities/rating.svg"
+                                                            layout="fill"
+                                                            objectFit="cover"
+                                                            alt="service-icon"
+                                                        />
+                                                    </figure>
+                                                )}
+                                            {activity.action === "Create" &&
+                                                activity.content_type ===
+                                                    "booking" && (
+                                                    <figure className="thumbnail-img">
+                                                        <Image
+                                                            src="/userprofile/activities/booking.svg"
+                                                            layout="fill"
+                                                            objectFit="cover"
+                                                            alt="service-icon"
+                                                        />
+                                                    </figure>
+                                                )}
+                                            {activity.action === "Create" &&
+                                                activity.content_type ===
+                                                    "entityservice" && (
+                                                    <figure className="thumbnail-img">
+                                                        <Image
+                                                            src="/userprofile/activities/create.svg"
+                                                            layout="fill"
+                                                            objectFit="cover"
+                                                            alt="service-icon"
+                                                        />
+                                                    </figure>
+                                                )}
                                             {activity.action === "Update" && (
                                                 <figure className="thumbnail-img">
                                                     <Image
@@ -116,15 +142,15 @@ const UserActivities = () => {
                                             )}
                                             <div className="detail">
                                                 <p>{activity.object_repr}</p>
-                                                {activity.action.includes(
-                                                    "service"
+                                                {/* {activity.content_type.includes(
+                                                    "entityservice"
                                                 ) ? (
                                                     <Link href="#!">
                                                         Edit Service
                                                     </Link>
                                                 ) : (
                                                     ""
-                                                )}
+                                                )} */}
                                             </div>
                                         </div>
                                     </div>
