@@ -1,19 +1,24 @@
+import BigButton from "@components/common/Button";
+import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
+import { async } from "@firebase/util";
 import {
     faCalendar,
     faClock,
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Modal, Skeleton } from "@mantine/core";
+import { Button, Input, Modal, Skeleton } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import urls from "constants/urls";
 import { format } from "date-fns";
+import { Form, Formik } from "formik";
 import { useData } from "hooks/use-data";
+import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { Fragment, useState } from "react";
@@ -55,6 +60,8 @@ export default function Checkout() {
     const [opened, setOpened] = useState(false);
     const [paymentType, setPaymentType] = useState("");
 
+    const { mutate } = useForm(`/offer/applyoffercode/`);
+
     const { data: paymentData, refetch } = useQuery<any, AxiosError, any>(
         ["payment-data", query, paymentType],
         async () => {
@@ -82,6 +89,8 @@ export default function Checkout() {
             `/payment/order/${query}/`,
             !!query
         );
+
+    const queryClient = useQueryClient();
 
     // Stripe Appereance settings
     const appearance = {
@@ -338,6 +347,53 @@ export default function Checkout() {
                                                 {item?.amount}
                                             </p>
                                         </div>
+                                        <Formik
+                                            initialValues={{
+                                                code: "",
+                                                offer_type: "",
+                                            }}
+                                            onSubmit={async (
+                                                values,
+                                                actions
+                                            ) => {
+                                                const postTaskPayload = {
+                                                    ...values,
+                                                    offer_type: "promo_code",
+                                                };
+                                                mutate(postTaskPayload, {
+                                                    onSuccess: () => {
+                                                        queryClient.invalidateQueries(
+                                                            [
+                                                                "all-services-checkout",
+                                                            ]
+                                                        );
+                                                        actions.resetForm();
+                                                    },
+                                                    onError: (e) => {
+                                                        toast.error(e.message);
+                                                        actions.resetForm();
+                                                    },
+                                                });
+                                            }}
+                                        >
+                                            {({ isSubmitting }) => (
+                                                <Form className="d-flex justify-content-between gap-4 w-100 mt-4">
+                                                    <InputField
+                                                        name="code"
+                                                        placeholder="Your email"
+                                                        className="h-50"
+                                                    />
+                                                    <Button
+                                                        variant="default"
+                                                        type="submit"
+                                                        disabled={isSubmitting}
+                                                        className={"close-btn"}
+                                                    >
+                                                        Apply
+                                                    </Button>
+                                                </Form>
+                                            )}
+                                        </Formik>
                                         <div className="platform-fee fee d-flex justify-content-between">
                                             <p>Platform Fee</p>
                                             <p>

@@ -595,11 +595,7 @@ const SearchResultsDetail = ({
                         <Row>
                             {offers.map((offer) => (
                                 <Col md={6} key={offer.id}>
-                                    <OfferCard
-                                        title={offer.title}
-                                        image={offer.image}
-                                        description={offer.description}
-                                    />{" "}
+                                    <OfferCard offer={offer} />{" "}
                                 </Col>
                             ))}
                         </Row>

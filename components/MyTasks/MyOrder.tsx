@@ -26,11 +26,6 @@ export const MyOrder = () => {
         setSearchParam(router.query.name);
     }, [router.query.name]);
 
-    console.log(
-        "🚀 ~ file: MyOrder.tsx ~ line 17 ~ MyOrder ~ searchParam",
-        searchParam
-    );
-
     const [bookingPageNo, setBookingPageNo] = useState<number>(1);
 
     const { data: myOrderPage, isLoading } = useOrder(
