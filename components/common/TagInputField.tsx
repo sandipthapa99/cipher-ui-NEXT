@@ -45,7 +45,10 @@ const TagInputField = ({
                             getCreateLabel={(query) => `+ Create ${query}`}
                             onChange={(val) => {
                                 setFieldValue(name, val);
-                                console.log(val, name);
+                                // val.forEach((values) => {
+                                //     setFieldValue(name, values);
+                                //     console.log(values);
+                                // });
                             }}
                             clearButtonLabel="Clear selection"
                             clearable

@@ -28,6 +28,7 @@ import { format, parseISO } from "date-fns";
 import dayjs from "dayjs";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Field, Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
@@ -129,7 +130,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
             setIsNoProfileImage(true);
         }
     }, []);
-
+    const { data: userData } = useUser();
     // const router = useRouter();
     //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
     // const [city, setCity] = useState(profile?.city?.id);
@@ -303,13 +304,26 @@ const AccountForm = ({ showAccountForm }: Display) => {
         () => editProfile.isLoading,
         [editProfile.isLoading]
     );
-    const defaultInterests: unknown = useMemo(() => {
-        return profile?.interests.map((item: any) => ({
-            id: item.id,
-            value: item.id,
-            label: item.name,
-        }));
-    }, [profile]);
+    // const defaultInterests: unknown = useMemo(() => {
+    //     return profile?.interests.map((item: any) => ({
+    //         label: item.name,
+    //         value: item.id,
+    //     }));
+    // }, [profile]);
+    // const defaultInterests: unknown = () => {
+    //     return profile?.interests.map((item: any) => ({
+    //         id: item.id,
+    //     }));
+    // };
+
+    const defaultInterests = profile?.interests.map((item: any) => {
+        return item.id.toString();
+    });
+    // console.log(
+    //     "🚀 ~ file: AccountForm.tsx ~ line 322 ~ defaultInterests ~ defaultInterests",
+    //     defaultInterests
+    // );
+
     if (loadingOverlayVisible)
         return (
             <LoadingOverlay
@@ -383,7 +397,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 ? parseISO(profile.date_of_birth)
                                 : "",
                         skill: profile?.skill ? skills : "",
-                        interests: [],
+                        interests: profile?.interests ? defaultInterests : [],
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start:
                             new Date(`2022-09-24 ${startTime}`) ?? "",
@@ -436,7 +450,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
                             skill: JSON.stringify(values.skill),
-                            interests: JSON.stringify(values.interests),
+
                             active_hour_start: new Date(
                                 values.active_hour_start ?? ""
                             )?.toLocaleTimeString(),
@@ -448,6 +462,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 "yyyy-MM-dd"
                             ),
                         };
+                        // newValidatedValues.interests?.forEach((val: number) =>
+                        //     formData.append("interests", val)
+                        // );
 
                         Object.entries(newValidatedValues).forEach((entry) => {
                             const [key, value] = entry;
@@ -466,9 +483,15 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     values.profile_image
                                 );
                             }
+                            formData.delete("interests");
+                        });
+
+                        values?.interests?.forEach((val: string | Blob) => {
+                            formData.append("interests", val);
                         });
 
                         const editedData = formData;
+
                         {
                             isEditButtonClicked
                                 ? editProfile.mutate(editedData, {
@@ -862,7 +885,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <TagInputField
                                 data={skills}
                                 name="skill"
-                                defaultValue={defaultInterests as string}
                                 // error={!profile && errors.skill}
                                 // touch={!profile && touched.skill}
 
@@ -871,28 +893,28 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                                 create={true}
                             />
-                            <TagMultiSelectField
+                            {/* <TagMultiSelectField
                                 defaultValue={defaultInterests as string}
                                 name="interests"
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
                                 disabled={isInputDisabled}
                                 data={interestValues}
-                            />
-                            {/* <TagInputField
+                            /> */}
+                            <TagInputField
                                 data={interestValues}
                                 name="interests"
                                 // error={!profile && errors.skill}
                                 // touch={!profile && touched.skill}
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
-                                create={true}
+                                create={false}
                                 disabled={isInputDisabled}
-
+                                // onchange={(e) => console.log("", e.target)}
                                 // onchange={(value) =>
                                 //     setFieldValue("interests", value)
                                 // }
-                            /> */}
+                            />
 
                             {/* <MultiSelect
                                 name="interests"
