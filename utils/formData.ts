@@ -8,7 +8,11 @@ import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
 import type { ClientSignUpValueProps } from "types/clientSignUp";
 import type { deactivateValueProps } from "types/deactivateValueProps";
-import type { AddPortfolioProps, AddSkills } from "types/editProfile";
+import type {
+    AddInterests,
+    AddPortfolioProps,
+    AddSkills,
+} from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
@@ -19,6 +23,7 @@ import type { ServicePostProps } from "types/serviceCard";
 import type { SkillsValueProps } from "types/skillsValueProps";
 import type { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
 import type { UploadCVValueProps } from "types/uploadCVValueProps";
+import { string } from "yup";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
@@ -92,6 +97,16 @@ export const AddSkillFormData: AddSkills = {
     name: "",
 };
 
+export const AddInterestFormData: AddInterests = {
+    // interests: [
+    //     {
+    //         id: "",
+    //         name: "",
+    //     },
+    // ],
+    interests: [],
+};
+
 export const CertificationFormData: CertificationValueProps = {
     name: "",
     issuing_organization: "",
@@ -137,7 +152,7 @@ export const EducationFormData: EducationValueProps = {
     id: 0,
 };
 
-export const SkillsFromData: SkillsValueProps = {
+export const SkillsFormData: SkillsValueProps = {
     skill: "",
 };
 

@@ -90,7 +90,7 @@ export type ProfileResponse = {
     points: number;
     subscription: Array<any>;
     security_questions: Array<any>;
-    interests: number[];
+    interests: Array<any>;
 };
 
 export const useGetProfile = () => {

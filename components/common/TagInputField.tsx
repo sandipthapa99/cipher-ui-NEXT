@@ -2,6 +2,7 @@ import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS`
 
 import { MultiSelect } from "@mantine/core";
 import { ErrorMessage, Field } from "formik";
+import { useState } from "react";
 import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 const TagInputField = ({
@@ -35,7 +36,7 @@ const TagInputField = ({
                         <MultiSelect
                             disabled={disabled}
                             // disabled={profile ? true : false}
-                            defaultValue={Array.isArray(data) ? data : []}
+                            //  defaultValue={Array.isArray(data) ? data : []}
                             data={Array.isArray(data) ? data : []}
                             placeholder={placeHolder}
                             className={checkFormControl(error, touch)}
@@ -45,10 +46,6 @@ const TagInputField = ({
                             getCreateLabel={(query) => `+ Create ${query}`}
                             onChange={(val) => {
                                 setFieldValue(name, val);
-                                // val.forEach((values) => {
-                                //     setFieldValue(name, values);
-                                //     console.log(values);
-                                // });
                             }}
                             clearButtonLabel="Clear selection"
                             clearable

@@ -16,6 +16,7 @@ import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { RatingResponse } from "types/ratingProps";
 import type { UserProfileProps } from "types/userProfileProps";
 
+import AddInterests from "./AddInterests";
 import AddPortfolio from "./AddPortfolio";
 import CertificationForm from "./CertificationForm";
 import EditProfileButton from "./EditProfileButton";
@@ -28,6 +29,8 @@ const AboutProfile = () => {
     const [showExpForm, setShowExpForm] = useState(false);
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
     const [showAddSkillsForm, setShowAddSkillsForm] = useState(false);
+    const [showInterestForm, setShowAddInterestsForm] = useState(false);
+
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -89,6 +92,14 @@ const AboutProfile = () => {
     const { data: profileDetails } = useGetProfile();
 
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
+    // const userInterest = profileDetails
+    //     ? JSON.parse(profileDetails?.interests)
+    //     : [];
+    const userInterest = profileDetails?.interests
+        ? profileDetails.interests.map((interest) => {
+              return interest.name;
+          })
+        : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
     const [educationHovered, setEducationHovered] = useState<null | number>(
@@ -464,6 +475,40 @@ const AboutProfile = () => {
                                           </div>
                                       ))
                                     : "No skills to show. Please add them"}
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+
+                {/* User Interests */}
+                <div className="type skills">
+                    <div className="title-wrapper d-flex justify-content-between">
+                        {/* <h2 className="heading-title">Community activity</h2> */}
+                        <h1>Interests</h1>
+                        <EditProfileButton
+                            text="Add New"
+                            showModal={true}
+                            handleOnClick={() =>
+                                setShowAddInterestsForm(!showInterestForm)
+                            }
+                        />
+                        <AddInterests
+                            show={showInterestForm}
+                            setShowAddInterestsForm={setShowAddInterestsForm}
+                            handleClose={() => setShowAddInterestsForm(false)}
+                        />
+                    </div>
+
+                    <Row>
+                        <Col md={9}>
+                            <div className="content">
+                                {userInterest
+                                    ? userInterest.map((info: any, i: any) => (
+                                          <div className="skills__type" key={i}>
+                                              {info}
+                                          </div>
+                                      ))
+                                    : "No interest to show. Please add them."}
                             </div>
                         </Col>
                     </Row>
