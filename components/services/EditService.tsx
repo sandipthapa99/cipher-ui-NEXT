@@ -67,10 +67,6 @@ export const EditService = ({
     handleClose,
     serviceDetail,
 }: EditServiceProps) => {
-    console.log(
-        "🚀 ~ file: EditService.tsx:70 ~ serviceDetail",
-        serviceDetail.images
-    );
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate: editServiceMutation, isLoading: editServiceLoading } =
         useEditService();

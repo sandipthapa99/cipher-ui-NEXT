@@ -47,8 +47,8 @@ const TagInputField = ({
                             onChange={(val) => {
                                 setFieldValue(name, val);
                             }}
-                            clearButtonLabel="Clear selection"
-                            clearable
+                            // clearButtonLabel="Clear selection"
+                            // clearable
                         />
                     );
                 }}

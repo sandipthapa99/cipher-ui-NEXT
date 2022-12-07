@@ -203,7 +203,6 @@ export const SearchCategory = ({
     };
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
         const searchText = event.currentTarget.value;
-        console.log("search", searchText);
 
         if (searchText.length === 0) {
             dispatch({

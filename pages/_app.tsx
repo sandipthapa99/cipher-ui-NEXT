@@ -17,9 +17,8 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import { axiosClient } from "utils/axiosClient";
 
 import { firebaseCloudMessaging } from "../firebase/firebase";
 
@@ -98,7 +97,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 return Promise.all(r.map((reg) => reg.unregister()));
             });
         }
-    }, []);
+    }, [token, mounted]);
 
     useEffect(() => {
         if (
