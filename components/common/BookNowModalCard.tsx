@@ -4,8 +4,9 @@ import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
+import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { LoadingOverlay } from "@mantine/core";
+import { List, LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -52,6 +53,7 @@ const BookNowModalCard = ({
     budget_type,
     description,
     currencySymbol,
+    offer,
     tasker_id,
     show,
     handleClose,
@@ -412,7 +414,7 @@ const BookNowModalCard = ({
                                             />
                                         </Col>
                                     </Row>
-                                    <Row className="mt-4">
+                                    <Row className="my-4">
                                         <Col md={6}>
                                             <CustomDropZone
                                                 accept={IMAGE_MIME_TYPE}
@@ -429,6 +431,31 @@ const BookNowModalCard = ({
                                             />
                                         </Col>
                                     </Row>
+                                    <h4 className="mb-3">Select Offer</h4>
+                                    <List className="mb-5">
+                                        {offer &&
+                                            offer
+                                                .filter(
+                                                    (offer) =>
+                                                        offer.offer_type ===
+                                                        "basic"
+                                                )
+                                                .map((offer, key) => (
+                                                    <List.Item key={key}>
+                                                        <span
+                                                            className={
+                                                                "d-flex align-items-center gap-3 pb-3"
+                                                            }
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={faTag}
+                                                                className="text-warning"
+                                                            />
+                                                            {offer?.title}
+                                                        </span>
+                                                    </List.Item>
+                                                ))}
+                                    </List>
 
                                     <div className="size-warning">
                                         {/* <FontAwesomeIcon

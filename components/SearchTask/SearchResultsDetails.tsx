@@ -20,9 +20,10 @@ import {
     faLocationDot,
     faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Text } from "@mantine/core";
+import { List, Text } from "@mantine/core";
 import { Alert, Spoiler } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
@@ -591,13 +592,38 @@ const SearchResultsDetail = ({
                 )}
                 {offers && offers.length > 0 ? (
                     <section className="service-details__offers">
-                        <h1>Offers</h1>
+                        <h1>Available Offers</h1>
+                        <List className="mb-5">
+                            {offers
+                                .filter((offer) => offer.offer_type === "basic")
+                                .map((offer, key) => (
+                                    <List.Item key={key}>
+                                        <span
+                                            className={
+                                                "d-flex align-items-center gap-3"
+                                            }
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faTag}
+                                                className="text-warning"
+                                            />
+                                            {offer?.title}
+                                        </span>
+                                    </List.Item>
+                                ))}
+                        </List>
+
+                        <h1>Offers(Promo Code)</h1>
                         <Row>
-                            {offers.map((offer) => (
-                                <Col md={6} key={offer.id}>
-                                    <OfferCard offer={offer} />{" "}
-                                </Col>
-                            ))}
+                            {offers
+                                .filter(
+                                    (offer) => offer.offer_type === "promo_code"
+                                )
+                                .map((offer) => (
+                                    <Col md={6} key={offer.id}>
+                                        <OfferCard offer={offer} />{" "}
+                                    </Col>
+                                ))}
                         </Row>
                     </section>
                 ) : null}
@@ -791,6 +817,7 @@ const SearchResultsDetail = ({
                             " " +
                             service?.created_by?.last_name
                     }
+                    offer={service?.offers}
                     title={serviceTitle}
                     budget_to={budget_to}
                     budget_from={budget_from}
