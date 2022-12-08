@@ -76,6 +76,7 @@ export type CheckoutDataProps = {
         };
         created_at: string;
         updated_at: string;
+        offer_value: number;
         object_id: string;
         amount: number;
         tax: number;
@@ -93,4 +94,5 @@ export type CheckoutDataProps = {
         content_type: number;
         order: string;
     }>;
+    grand_total: number;
 };
