@@ -9,7 +9,6 @@ import { useState } from "react";
 import { Container } from "react-bootstrap";
 import type { ITaskApiResponse } from "types/task";
 import { axiosClient } from "utils/axiosClient";
-
 export const useSearchTask = (searchQuery: string) => {
     const url = `${urls.task.my_task}&${searchQuery}`;
 
@@ -27,14 +26,32 @@ const AppliedLayout = ({
     children,
     type,
     title,
+    description,
+    keywords,
+    ogImage,
+    ogUrl,
 }: {
     children: ReactNode;
     type?: string;
     title?: string;
+    description?: string;
+    keywords?: string;
+    ogImage?: string;
+    ogUrl?: string;
 }) => {
     const [searchParam, setSearchParam] = useState("");
     return (
-        <Layout title={`Homaale | ${title ? title : `Find Tasks`}`}>
+        <Layout
+            title={`Homaale | ${title ? title : `Find Tasks`}`}
+            description={
+                description
+                    ? description
+                    : "Browse task in Homaale and book a task to earn and enjoy many more advantages"
+            }
+            keywords={keywords ? keywords : "homaale-task"}
+            ogImage={ogImage}
+            ogUrl={ogUrl}
+        >
             <section className="Tasks-section mb-5" id="Tasks-section">
                 <Container fluid="xl" className="px-4 pb-5">
                     <SearchCategory

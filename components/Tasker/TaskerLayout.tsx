@@ -17,10 +17,16 @@ const TaskerLayout = ({
     children,
     title,
     description,
+    ogUrl,
+    ogImage,
+    keywords,
 }: {
     children: ReactNode;
     title?: string;
     description?: string;
+    keywords?: string;
+    ogImage?: string;
+    ogUrl?: string;
 }) => {
     const [searchParam, setSearchParam] = useState("");
     const clearSearchedTaskers = useClearSearchedTaskers();
@@ -38,6 +44,14 @@ const TaskerLayout = ({
     return (
         <Layout
             title={`${title ? `Taskers | ${title}` : "Find Taskers | Homaale"}`}
+            description={
+                description
+                    ? description
+                    : "Browse tasker in Homaale and find the tasker who might be helpful to you"
+            }
+            keywords={keywords ? keywords : "homaale-tasker"}
+            ogImage={ogImage}
+            ogUrl={ogUrl}
         >
             <section className="Tasker-section" id="Tasker-section">
                 <Container fluid="xl" className="px-4 pb-5">

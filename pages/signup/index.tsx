@@ -37,6 +37,8 @@ const SignUp = () => {
             redirectionLink="/login"
             currentPage="client-signup"
             title="Homaale | Signup"
+            description="Sign up to Homaale for providing and getting amazing services."
+            keywords="Homaale-signup signup"
         >
             <div className="cipher modals signup">
                 <Formik

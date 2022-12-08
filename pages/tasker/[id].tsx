@@ -24,12 +24,17 @@ const TaskerDetail = ({
         !!router.query.id
     );
     const tasker = data?.data;
+    console.log("🚀 ~ file: [id].tsx ~ line 27 ~ tasker", tasker);
     return (
         <>
             <TaskerLayout
                 title={`${tasker?.user?.first_name}${" "}${
                     tasker?.user?.last_name
                 }`}
+                description={tasker?.bio}
+                ogImage={tasker?.profile_image}
+                ogUrl={`/tasker/${tasker?.id}`}
+                keywords={`tasker-homaale, ${tasker?.id}, ${tasker?.user.first_name}, ${tasker?.user?.last_name}`}
             >
                 {!isLoading ? (
                     <UserTaskDetail

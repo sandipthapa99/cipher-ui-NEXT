@@ -10,7 +10,14 @@ const GoogleMap = dynamic(() => import("@components/Task/NearbyTasksMap"), {
 const TaskYouMayLike = () => {
     return (
         <>
-            <AppliedLayout type={"you may like"}>
+            <AppliedLayout
+                type={"you may like"}
+                title={"Homaale | Task you may like"}
+                description={
+                    "We have got a bunch of tasks you may like. Browse them."
+                }
+                keywords={"homaale-task-you-may-like homaale-task"}
+            >
                 <GoogleMap />
             </AppliedLayout>
         </>

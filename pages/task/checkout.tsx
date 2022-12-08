@@ -19,7 +19,11 @@ const Checkout = () => {
 
     return (
         <Fragment>
-            <Layout title="Homaale | checkout">
+            <Layout
+                title="Homaale | checkout"
+                description="Homaale Checkout Page. See membership package."
+                keywords="homaale-checkout, homaale"
+            >
                 <section
                     id="task-checkout-section"
                     className="task-checkout-section"
