@@ -5,6 +5,7 @@ import Layout from "@components/Layout";
 import {
     faFacebookF,
     faGoogle,
+    faInstagram,
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { faLocationDot, faPhone } from "@fortawesome/pro-regular-svg-icons";
@@ -22,7 +23,11 @@ const Contact = () => {
     const { mutate } = useContact();
 
     return (
-        <Layout title="Contact Us | Homaale">
+        <Layout
+            title="Contact Us | Homaale"
+            description="Homaale Checkout page after completing tasks. We have Khalti, Paypal and International payment methods for easy transactions."
+            keywords="homaale, airtasker-nepali, nepali-working-platform programs payment"
+        >
             <section className="contact-page-header">
                 <BreadCrumb currentPage="Contact Us" />
                 <Container fluid="xl">
@@ -55,7 +60,7 @@ const Contact = () => {
                                     className="svg-icon phone"
                                 />
                                 <Link href="tel:1234567890">
-                                    <a>+977-123456789</a>
+                                    <a>+977-9823416855</a>
                                 </Link>
                             </div>
 
@@ -65,7 +70,7 @@ const Contact = () => {
                                         icon={faFacebookF}
                                         className="svg-icon facebook"
                                     />
-                                    <Link href="https://www.facebook.com">
+                                    <Link href="https://www.facebook.com/people/homaale/100086263383456/?mibextid=ZbWKwL">
                                         <a>Facebook</a>
                                     </Link>
                                 </div>
@@ -74,8 +79,17 @@ const Contact = () => {
                                         icon={faTwitter}
                                         className="svg-icon twitter"
                                     />
-                                    <Link href="https://www.twitter.com">
+                                    <Link href="https://twitter.com/homaaleservices">
                                         <a>Twitter</a>
+                                    </Link>
+                                </div>
+                                <div className="social-item">
+                                    <FontAwesomeIcon
+                                        icon={faInstagram}
+                                        className="svg-icon google"
+                                    />
+                                    <Link href="https://instagram.com/homaaleservices">
+                                        <a>Instagram</a>
                                     </Link>
                                 </div>
                                 <div className="social-item">

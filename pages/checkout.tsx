@@ -126,7 +126,11 @@ export default function Checkout() {
     const grandTotal = servicesCheckoutData?.data?.grand_total;
 
     return (
-        <Layout>
+        <Layout
+            title="Checkout | Homaale "
+            description="Homaale Checkout page after completing tasks. We have Khalti, Paypal and International payment methods for easy transactions."
+            keywords="homaale, airtasker-nepali, nepali-working-platform programs payment"
+        >
             <Container>
                 <h2 className="pageName">Checkout</h2>
                 <Row className="checkout-row">
