@@ -17,10 +17,14 @@ const ServiceLayout = ({
     children,
     title,
     description,
+    ogImage,
+    ogUrl,
 }: {
     children: ReactNode;
     title?: string;
     description?: string;
+    ogImage?: string;
+    ogUrl?: string;
 }) => {
     const [searchParam, setSearchParam] = useState("");
 
@@ -38,7 +42,15 @@ const ServiceLayout = ({
     }, 500);
 
     return (
-        <Layout title={`Homaale | ${title ? title : `Find Services`}`}>
+        <Layout
+            title={`Homaale | ${title ? title : `Find Services`}`}
+            description={
+                description ? description : "Explore services in homaale"
+            }
+            keywords="homaale-services"
+            ogImage={ogImage ? ogImage : ""}
+            ogUrl={ogUrl ? ogUrl : ""}
+        >
             <section className="service-section mb-5" id="service-section">
                 <Container fluid="xl" className="px-4 pb-5">
                     <SearchCategory

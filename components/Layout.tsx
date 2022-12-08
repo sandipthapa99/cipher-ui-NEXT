@@ -36,7 +36,7 @@ const Layout: FC<MetaDataProps> = ({
     ogUrl,
     children,
 }) => {
-    const cipherOgImage = "";
+    const cipherOgImage = "../public/homaale.jpg";
     const [sidebar, setSidebarOpened] = useState(false);
     // const router = useRouter();
     // const checkPolicyPage =
@@ -85,7 +85,14 @@ const Layout: FC<MetaDataProps> = ({
                     property="og:image"
                     content={!ogImage ? cipherOgImage : ogImage}
                 />
-                <meta name="twitter:url" content={!ogUrl ? "" : ``} />
+                <meta
+                    name="twitter:url"
+                    content={
+                        !ogUrl
+                            ? "https://www.homaale.com/"
+                            : `https://www.homaale.com${ogUrl}`
+                    }
+                />
                 <meta
                     name="twitter:title"
                     content={!title ? meta.title : title}

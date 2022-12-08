@@ -35,43 +35,52 @@ const AddInterests = ({
     const { mutate } = useEditForm(`/tasker/profile/`);
     const queryClient = useQueryClient();
     const { data: profileDetails } = useGetProfile();
-    const [interestOptions, setInterestOptions] = useState([]);
+    const [interestOptions, setInterestOptions] = useState<any>([]);
 
-    const { data: allCategory } = useQuery(
+    const { data } = useQuery(
         ["all-category"],
         () => {
             return axiosClient.get<IAllCategory[]>(
                 "/task/cms/task-category/list/"
             );
+        },
+        {
+            onSuccess: (data) => {
+                const options = data?.data.map((item) => {
+                    return {
+                        value: item.id,
+                        label: item.name.toString(),
+                    };
+                });
+                setInterestOptions(options);
+            },
+            enabled: profileDetails ? true : false,
         }
-        // {
-        //     onSuccess: (data) => setInterestOptions(data.data),
-        // }
     );
 
-    // const userInterests = profileDetails
-    //     ? JSON.parse(profileDetails?.interests)
-    //     : [];
-
-    const interestValues =
-        allCategory && allCategory?.data.length !== 0
-            ? allCategory?.data?.map((item: any) => {
-                  return { label: item?.name, value: item?.id };
-              })
-            : [];
+    // const interestValues =
+    //     allCategory && allCategory?.data.length !== 0
+    //         ? allCategory?.data?.map((item: any) => {
+    //               return { label: item?.name, value: item?.id };
+    //           })
+    //         : [];
     const currentInterestId = profileDetails?.interests.map((item) => {
-        return item.id;
+        return item.id.toString();
     });
 
-    const defaultInterests = useMemo(
-        () =>
-            profileDetails?.interests.map((item) => ({
-                value: item.id.toString(),
-                label: item.name.toString(),
-            })),
-        [profileDetails]
-    );
-
+    // const defaultInterests = useMemo(
+    //     () =>
+    //         profileDetails?.interests.map((item) => ({
+    //             value: item.id.toString(),
+    //             label: item.name.toString(),
+    //         })),
+    //     [profileDetails]
+    // );
+    const currentInterests =
+        profileDetails &&
+        profileDetails?.interests.map((item: { id: number; name: string }) => {
+            return item.id.toString();
+        });
     return (
         <>
             {/* Modal component */}
@@ -82,10 +91,9 @@ const AddInterests = ({
                     <Formik
                         enableReinitialize
                         initialValues={
-                            // profileDetails &&
-                            // profileDetails.interests.length > 0
-                            //     ? defaultInterests
-                            //     : AddInterestFormData
+                            // profileDetails
+                            //     ? currentInterests
+                            //:
                             AddInterestFormData
                         }
                         validationSchema={addInterestSchema}
@@ -119,7 +127,7 @@ const AddInterests = ({
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
                                 <TagInputField
-                                    data={interestValues}
+                                    data={interestOptions}
                                     name="interests"
                                     labelName="Interests"
                                     create={false}

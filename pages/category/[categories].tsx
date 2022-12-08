@@ -37,12 +37,21 @@ const Gardening = ({
     const category = (
         (serviceData?.length > 0 ? serviceData : taskData) as any[]
     )?.find((item) => item?.category?.slug === categories);
-
+    const categoryImage = (
+        (serviceData?.length > 0 ? serviceData : taskData) as any[]
+    )?.map((item) => item[0]?.category.image);
+    console.log(
+        "🚀 ~ file: [categories].tsx ~ line 47 ~ categoryImage",
+        categoryImage
+    );
     const categoryName = category ? category.category.name : categories;
 
     return (
         <Layout
             title={`${categoryName ? categoryName : "Loading..."} | Homaale`}
+            ogUrl={`/category/${categoryName}`}
+            ogImage={categoryImage ? `/category/${categoryImage}` : ""}
+            description={""}
         >
             <div className="gardening -page">
                 <Container fluid="xl" className="px-4">

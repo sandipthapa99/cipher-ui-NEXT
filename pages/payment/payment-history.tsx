@@ -4,7 +4,11 @@ import { PaymentHistory } from "@components/Payment/PaymentHistory";
 
 const Payment = () => {
     return (
-        <Layout title="Payment History">
+        <Layout
+            title="Payment History"
+            description="Your Payment History of Homaale"
+            keywords="homaale-payment"
+        >
             <BreadCrumb currentPage="Payment History" />
             <PaymentHistory />
         </Layout>

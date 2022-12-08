@@ -74,6 +74,7 @@
         "react-google-recaptcha-v3": "^1.10.0",
         "react-headroom": "^3.2.0",
         "react-map-gl": "^7.0.18",
+        "react-messenger-customer-chat": "^0.8.0",
         "react-otp-input": "^2.4.0",
         "react-phone-number-input": "^3.2.11",
         "react-rating": "^2.0.5",

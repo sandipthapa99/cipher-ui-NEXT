@@ -15,6 +15,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
         <Layout
             title="Homaale | Careers"
             description="Find the Job openings at Homaale"
+            keywords="homaale-career, career, homaale"
         >
             <section id="careers-section" className="careers-section">
                 <Container fluid="xl" className="px-4">
