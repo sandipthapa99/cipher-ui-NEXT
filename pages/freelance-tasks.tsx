@@ -38,7 +38,11 @@ const FreelanceTasks: NextPage = () => {
         "/task/service/"
     );
     return (
-        <Layout title="Freelance Tasks | Homaale">
+        <Layout
+            title="Freelance Tasks | Homaale"
+            description="Browse freelance tasks in homaale."
+            keywords="homaale-earn-money airtasker-nepali, nepali-working-platform, freelance freelance-tasks"
+        >
             <Container fluid="xl" className="px-4">
                 <section className="freelance-tasks">
                     <BreadCrumb currentPage="Freelance Tasks" />

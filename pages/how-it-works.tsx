@@ -8,7 +8,11 @@ import { messageCard } from "staticData/messageCard";
 
 const HowItWorks: NextPage = () => {
     return (
-        <Layout title="How it Works | Homaale">
+        <Layout
+            title="How it Works | Homaale"
+            description="Find out how homaale works."
+            keywords="how-it-works, airtasker-nepali, nepali-working-platform, homaale-feeback, business, online-business, homaale, hire"
+        >
             <Container fluid="xl" className="px-4">
                 <section className="how-it-works">
                     <BreadCrumb currentPage="How it Works" />

@@ -26,7 +26,7 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
     return (
         <Layout
             title="Discover | Homaale"
-            description=""
+            description="Discover amazing oppurtunies in homaale."
             keywords="homaale-discover discover-homaale discover homaale"
         >
             <Container fluid="xl" className="px-4">

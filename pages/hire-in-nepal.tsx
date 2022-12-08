@@ -21,7 +21,11 @@ const HireInNepal: NextPage = () => {
     const { data: topSkillsInNepal } = useTopSkills();
 
     return (
-        <Layout title="Hire in Nepal | Homaale">
+        <Layout
+            title="Hire in Nepal | Homaale"
+            description="We make the process of searching and applying for jobs easier for you. Post a job from anywhere in the world and find the best right person to get it done."
+            keywords="airtasker-nepali, nepali-working-platform, homaale-feeback, business, online-business, homaale, hire, hire-in-nepal"
+        >
             <Container fluid="xl" className="px-4">
                 <section className="hire-in-nepal">
                     <BreadCrumb currentPage="Hire in Nepal" />

@@ -25,18 +25,18 @@ const Contact = () => {
     return (
         <Layout
             title="Contact Us | Homaale"
-            description="Homaale Checkout page after completing tasks. We have Khalti, Paypal and International payment methods for easy transactions."
-            keywords="homaale, airtasker-nepali, nepali-working-platform programs payment"
+            description="Contact us for any query. We value your  query and feedback."
+            keywords="homaale, airtasker-nepali, nepali-working-platform  contact"
         >
             <section className="contact-page-header">
                 <BreadCrumb currentPage="Contact Us" />
                 <Container fluid="xl">
                     <div className="contact-page-header__description">
-                        <h1>Reach us out</h1>
-                        <h2>
+                        <h1>Reach us out!!</h1>
+                        {/* <h2>
                             With everything &amp; anything you&apos;re confused
                             about
-                        </h2>
+                        </h2> */}
                     </div>
                 </Container>
             </section>
@@ -97,7 +97,7 @@ const Contact = () => {
                                         icon={faGoogle}
                                         className="svg-icon google"
                                     />
-                                    <Link href="https://www.google.com">
+                                    <Link href="https://info@homaale.com">
                                         <a>Google</a>
                                     </Link>
                                 </div>
