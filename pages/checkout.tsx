@@ -9,7 +9,7 @@ import {
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Input, Modal, Skeleton } from "@mantine/core";
+import { Button, Input, Loader, Modal, Skeleton } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -59,8 +59,11 @@ export default function Checkout() {
 
     const [opened, setOpened] = useState(false);
     const [paymentType, setPaymentType] = useState("");
+    const [error, setError] = useState<string>("");
 
-    const { mutate } = useForm(`/offer/applyoffercode/`);
+    const { mutate, isLoading: applyPromoLoader } = useForm(
+        `/offer/applyoffercode/`
+    );
 
     const { data: paymentData, refetch } = useQuery<any, AxiosError, any>(
         ["payment-data", query, paymentType],
@@ -120,6 +123,7 @@ export default function Checkout() {
             return response;
         }
     );
+    const grandTotal = servicesCheckoutData?.data?.grand_total;
 
     return (
         <Layout>
@@ -231,6 +235,7 @@ export default function Checkout() {
                             <Skeleton height={50} mt={30} />
                         </Col>
                     )}
+
                     {servicesCheckoutData?.data?.order_item &&
                         servicesCheckoutData?.data?.order_item?.map(
                             (item, key) => {
@@ -361,40 +366,66 @@ export default function Checkout() {
                                                     offer_type: "promo_code",
                                                 };
                                                 mutate(postTaskPayload, {
-                                                    onSuccess: () => {
+                                                    onSuccess: (data) => {
+                                                        actions.resetForm();
+
+                                                        toast.success(
+                                                            "Promo code added"
+                                                        );
                                                         queryClient.invalidateQueries(
                                                             [
                                                                 "all-services-checkout",
                                                             ]
                                                         );
-                                                        actions.resetForm();
                                                     },
                                                     onError: (e) => {
-                                                        toast.error(e.message);
-                                                        actions.resetForm();
+                                                        actions.setFieldError(
+                                                            "code",
+                                                            "Error in promo code"
+                                                        );
                                                     },
                                                 });
                                             }}
                                         >
-                                            {({ isSubmitting }) => (
+                                            {({ isSubmitting, errors }) => (
                                                 <Form className="d-flex justify-content-between gap-4 w-100 mt-4">
                                                     <InputField
                                                         name="code"
                                                         placeholder="Your email"
                                                         className="h-50"
+                                                        error={errors.code}
                                                     />
+
                                                     <Button
                                                         variant="default"
                                                         type="submit"
                                                         disabled={isSubmitting}
                                                         className={"close-btn"}
                                                     >
-                                                        Apply
+                                                        {applyPromoLoader ? (
+                                                            <Loader size="sm" />
+                                                        ) : (
+                                                            "Apply"
+                                                        )}
                                                     </Button>
                                                 </Form>
                                             )}
                                         </Formik>
-                                        <div className="platform-fee fee d-flex justify-content-between">
+                                        {item.offer_value !== 0 && (
+                                            <>
+                                                <div className="platform-fee fee d-flex justify-content-between">
+                                                    <p>Promo Code Discount</p>
+                                                    <p>
+                                                        {
+                                                            item?.item?.currency
+                                                                ?.symbol
+                                                        }
+                                                        {item.offer_value}
+                                                    </p>
+                                                </div>
+                                            </>
+                                        )}
+                                        <div className="platform-fee fee d-flex justify-content-between mt-0">
                                             <p>Platform Fee</p>
                                             <p>
                                                 {item?.item?.currency?.symbol}{" "}
@@ -412,7 +443,7 @@ export default function Checkout() {
                                             <p>Grand Total</p>
                                             <p>
                                                 {item?.item?.currency?.symbol}{" "}
-                                                {item?.amount}
+                                                {grandTotal}
                                             </p>
                                         </div>
                                         <Button
