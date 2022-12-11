@@ -108,6 +108,16 @@
                 font-weight: 400;
                 color: $sub-title-color;
             }
+            &__list {
+                &--item {
+                    &[data-active="true"] {
+                        display: flex;
+                        align-items: center;
+                        border: 0.1rem solid #3eaeff;
+                        border-radius: 4rem;
+                    }
+                }
+            }
         }
         .size-warning {
             display: flex;
