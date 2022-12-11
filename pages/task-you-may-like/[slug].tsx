@@ -17,7 +17,7 @@ const TaskDetail: NextPage<{
                 title={taskDetail?.title}
                 description={extractContent(taskDetail?.description)}
                 ogImage={taskDetail?.images[0].media}
-                ogUrl={`/task/${taskDetail.slug}`}
+                ogUrl={`/task/${taskDetail?.slug}`}
                 keywords={"homaale-task, task-you-may-like, task"}
             >
                 <AppliedTaskDetail
@@ -51,15 +51,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const { data: taskDetail } = await axiosClient.get<ITask>(
             `${urls.task.list}${params?.slug}/`
         );
-        // const { data: taskApplicants } =
-        //     await axiosClient.get<TaskApplicantsProps>(
-        //         `/task/${params?.slug}/applicants/`
-        //     );
+        const { data: taskApplicants } =
+            await axiosClient.get<TaskApplicantsProps>(
+                `/task/${params?.slug}/applicants/`
+            );
 
         return {
             props: {
                 taskDetail,
-                // taskApplicants,
+                taskApplicants,
             },
             revalidate: 10,
         };
