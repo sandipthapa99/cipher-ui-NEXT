@@ -58,7 +58,6 @@
         "js-cookie": "^3.0.1",
         "jwt-decode": "^3.1.2",
         "localforage": "^1.10.0",
-        "localforage-driver-memory": "^1.0.5",
         "moment": "^2.29.4",
         "next": "12.1.6",
         "next-share": "^0.17.1",

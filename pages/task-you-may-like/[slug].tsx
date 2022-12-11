@@ -51,15 +51,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const { data: taskDetail } = await axiosClient.get<ITask>(
             `${urls.task.list}${params?.slug}/`
         );
-        // const { data: taskApplicants } =
-        //     await axiosClient.get<TaskApplicantsProps>(
-        //         `/task/${params?.slug}/applicants/`
-        //     );
+        const { data: taskApplicants } =
+            await axiosClient.get<TaskApplicantsProps>(
+                `/task/${params?.slug}/applicants/`
+            );
 
         return {
             props: {
                 taskDetail,
-                // taskApplicants,
+                taskApplicants,
             },
             revalidate: 10,
         };

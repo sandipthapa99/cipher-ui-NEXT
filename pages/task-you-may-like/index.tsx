@@ -12,7 +12,7 @@ const TaskYouMayLike = () => {
         <>
             <AppliedLayout
                 type={"you may like"}
-                title={"Homaale | Task you may like"}
+                title={"Task you may like"}
                 description={
                     "We have got a bunch of tasks you may like. Browse them."
                 }
