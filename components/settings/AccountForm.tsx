@@ -132,7 +132,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                 });
                 setInterestOptions(options);
             },
-            enabled: profile ? true : false,
         }
     );
     const { data: KYCData } = useGetKYC();
@@ -145,7 +144,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
 
-    const skills = profile?.skill ? JSON.parse(profile?.skill) : [];
+    const skills = profile?.skill ? JSON.parse(profile?.skill) : "";
 
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
@@ -220,7 +219,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
     );
     useEffect(() => {
         setCurrencyChange(profile ? profile.charge_currency.id.toString() : "");
-        setLanguageChange(profile ? profile.language.id.toString() : "");
+        setLanguageChange(
+            profile?.language ? profile?.language.id.toString() : ""
+        );
         setCountryChange(profile ? profile.country.id.toString() : "");
     }, [profile]);
 
@@ -584,6 +585,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
+                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -740,7 +742,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     ""
                                 )}
                             </div>
-
                             <Row className="mt-3">
                                 <Col md={4}>
                                     <InputField
@@ -788,7 +789,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     />
                                 </Col>
                             </Row>
-
                             {/* <InputField
                                 type="email"
                                 name="email"
@@ -806,7 +806,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 as="textarea"
                                 disabled={isInputDisabled}
                             />
-
                             <InputField
                                 name="designation"
                                 labelName="Designation"
@@ -884,7 +883,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     date.getFullYear() <= 1940
                                 }
                             />
-
                             {/* <DatePicker
                                 label="Date of birth"
                                 // value={
@@ -910,6 +908,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 role="group"
                                 aria-labelledby="checkbox-group"
                                 className="mb-3"
+                                id="checkboxUser"
                             >
                                 <label className="me-3">
                                     <Field
@@ -935,13 +934,11 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <TagInputField
                                 data={skills}
                                 name="skill"
-                                // error={!profile && errors.skill}
-                                // touch={!profile && touched.skill}
-
                                 labelName="Specialities"
                                 placeHolder="Enter your skills"
                                 disabled={isInputDisabled}
                                 create={true}
+                                //error={errors.skill}
                             />
                             {/* <TagMultiSelectField
                                 defaultValue={defaultInterests as string}
@@ -970,8 +967,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 label="Interests"
                                 disabled={isInputDisabled}
                                 placeholder="Enter your interests"
+                                error={errors.interests}
                             />
-
                             <RadioField
                                 type="radio"
                                 name="experience_level"
@@ -980,6 +977,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 touch={touched.experience_level}
                                 error={errors.experience_level}
                                 disabled={isInputDisabled}
+                                fieldRequired
                             />
                             <h4>Active Hours</h4>
                             <Row className="g-5">
@@ -1044,6 +1042,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     handleCountryChanged(value, setFieldValue);
                                 }}
                                 data={countryResults ?? []}
+                                error={errors.country}
                                 disabled={isInputDisabled}
                             />
                             <SelectCity
@@ -1052,13 +1051,13 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 label="City"
                                 placeholder="Select your city"
                                 onCityChange={(city) =>
-                                    setFieldValue("city", city)
+                                    setFieldValue("city", city, true)
                                 }
                                 value={cityData.initialId}
                                 data={cityData.initialData}
                                 nothingFound={"nothing found"}
+                                error={errors.city}
                             />
-
                             {/* <SelectCity
                                 key={city}
                                 onCitySelect={(cityId) => {
@@ -1068,7 +1067,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 value={city?.toString() ?? ""}
                                 disabled={isInputDisabled}
                             /> */}
-
                             <PlacesAutocomplete
                                 size="md"
                                 label="Address Line 1"
@@ -1126,6 +1124,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     handleLanguageChanged(value, setFieldValue);
                                 }}
                                 data={languageResults ?? []}
+                                error={errors.language}
                             />
                             {/* <SelectInputField
                                 name="charge_currency"
@@ -1151,6 +1150,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     handleCurrencyChanged(value, setFieldValue);
                                 }}
                                 data={currencyResults ?? []}
+                                error={errors.charge_currency}
                             />
                             <hr />
                             <h3>Profile Configurations</h3>

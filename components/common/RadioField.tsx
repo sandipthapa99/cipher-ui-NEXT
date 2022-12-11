@@ -8,7 +8,7 @@ const RadioField = ({
     textMuted,
     error,
     variables,
-    fieldRequired = false,
+    fieldRequired,
     ...restProps
 }: InputFieldProps & Partial<HTMLInputElement>) => {
     return (

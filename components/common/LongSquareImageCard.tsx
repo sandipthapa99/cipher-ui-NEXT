@@ -60,7 +60,7 @@ const LongSquareImageCard = ({
                                                             <figure className="thumbnail-img">
                                                                 <Image
                                                                     src={
-                                                                        info.icon
+                                                                        info?.icon
                                                                     }
                                                                     layout="fill"
                                                                     objectFit="contain"

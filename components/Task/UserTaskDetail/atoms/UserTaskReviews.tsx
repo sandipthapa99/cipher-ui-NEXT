@@ -41,7 +41,13 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                     <div className="d-flex">
                         <h2 className="d-flex align-items-center mb-0">
                             Reviews
-                            <span>({ratingData && ratingData.length})</span>
+                            <span>
+                                (
+                                {ratingData?.length !== 0
+                                    ? ratingData?.length
+                                    : 0}
+                                )
+                            </span>
                         </h2>
                     </div>
                 </Col>
@@ -53,7 +59,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                         data={[
                             { value: "-rating", label: "Most Relevant" },
                             { value: "-updated_at", label: "Latest" },
-                            { value: "-rating", label: "Top" },
+                            { value: "rating", label: "Top" },
                         ]}
                         onChange={(value: any) => {
                             setSearch(value);
