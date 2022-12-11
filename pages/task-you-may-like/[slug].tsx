@@ -17,7 +17,7 @@ const TaskDetail: NextPage<{
                 title={taskDetail?.title}
                 description={extractContent(taskDetail?.description)}
                 ogImage={taskDetail?.images[0]?.media}
-                ogUrl={`/task/${taskDetail.slug}`}
+                ogUrl={`/task/${taskDetail?.slug}`}
                 keywords={"homaale-task, task-you-may-like, task"}
             >
                 <AppliedTaskDetail

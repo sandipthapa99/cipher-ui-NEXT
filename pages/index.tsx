@@ -319,20 +319,25 @@ const Home: NextPage<{
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-4">
-                    {servicesData && servicesData?.result?.length > 0 && (
-                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                            <h2 className="heading-title">Services near you</h2>
-                            <Link href="/service">
-                                <a className="view-more">
-                                    view more{" "}
-                                    <FontAwesomeIcon
-                                        icon={faAngleRight}
-                                        className="svg-icon"
-                                    />
-                                </a>
-                            </Link>
-                        </div>
-                    )}
+                    {servicesData?.result &&
+                        servicesData?.result?.find(
+                            (item) => item?.share_location === true
+                        ) && (
+                            <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                                <h2 className="heading-title">
+                                    Services near you
+                                </h2>
+                                <Link href="/service">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
+                                        />
+                                    </a>
+                                </Link>
+                            </div>
+                        )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.result
