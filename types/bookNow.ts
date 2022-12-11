@@ -10,6 +10,14 @@ export interface BookNowModalCardProps {
     title: string | undefined;
     tasker_id: string;
     tasker_name?: string;
+    offer?: {
+        id: number;
+        code: string;
+        description: string;
+        image: string;
+        offer_type: string;
+        title: string;
+    }[];
     budget_from?: number;
     budget_to?: number;
     tasker_img?: string;
