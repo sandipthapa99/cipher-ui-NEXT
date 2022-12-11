@@ -3,6 +3,7 @@
     font-size: 1.6rem;
     background: #e7e8f0;
     color: $primary-color;
+    text-decoration: none;
     &:hover {
         transform: scale(1.05);
         transition: transform 500ms ease-in-out;

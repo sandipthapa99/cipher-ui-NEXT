@@ -20,7 +20,7 @@ const AnchorButton = ({
         <Link href={href}>
             <a
                 onClick={onClick}
-                className={`btn anchor-button ${className} ${varient}`}
+                className={`btn anchor-button text-decoration-none ${className} ${varient}`}
             >
                 <span>{children}</span>
             </a>

@@ -12,7 +12,7 @@ import { TypeOf } from "yup";
 
 interface TNotificationPreferences {
     id: number;
-    update_notification: boolean | null | undefined;
+    promotional_notification: boolean | null | undefined;
     reminder_notification: boolean | null | undefined;
     alert_notification: boolean | null | undefined;
     geolocation_notification: boolean | null | undefined;
@@ -35,7 +35,7 @@ const NOTIFICATION_PREFERENCES: NotificationSettings[] = [
     {
         id: 1,
         label: "Allow Permission for Update Notification",
-        name: "update_notification",
+        name: "promotional_notification",
     },
     {
         id: 2,
@@ -83,8 +83,8 @@ const NotificationSettings = () => {
     const { handleSubmit, setFieldValue, values } = useFormik({
         enableReinitialize: true,
         initialValues: {
-            update_notification:
-                notifcationPreferences?.data[0]?.update_notification,
+            promotional_notification:
+                notifcationPreferences?.data[0]?.promotional_notification,
             reminder_notification:
                 notifcationPreferences?.data[0]?.reminder_notification,
             alert_notification:
