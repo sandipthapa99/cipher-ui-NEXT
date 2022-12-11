@@ -24,7 +24,6 @@ const TaskerDetail = ({
         !!router.query.id
     );
     const tasker = data?.data;
-    console.log("🚀 ~ file: [id].tsx ~ line 27 ~ tasker", tasker);
     return (
         <>
             <TaskerLayout

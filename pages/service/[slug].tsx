@@ -21,7 +21,7 @@ const ServicesDetail = ({
             <ServiceLayout
                 title={service?.title}
                 description={extractContent(service?.description)}
-                ogImage={service?.images[0].media}
+                ogImage={service?.images[0]?.media}
                 ogUrl={service?.slug}
             >
                 <SearchResultsDetail
