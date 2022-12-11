@@ -194,7 +194,11 @@ const AddService: NextPage<{
 
     const toggleSuccessModal = useToggleSuccessModal();
     return (
-        <Layout title="Add-service | Homaale">
+        <Layout
+            title="Add-service | Homaale"
+            description="Add Service in a homaale"
+            keywords="homaale, airtasker-nepali, working-platform"
+        >
             <BreadCrumb currentPage="add-service" />
             <section id="service-details-section" className="service-details">
                 <Container>

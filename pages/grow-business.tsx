@@ -23,7 +23,11 @@ const GrowYourBusiness: NextPage = () => {
         "/task/service/"
     );
     return (
-        <Layout title="Grow Your Business | Homaale">
+        <Layout
+            title="Grow Your Business | Homaale"
+            description="Grow your business through homaale."
+            keywords="airtasker-nepali, nepali-working-platform, homaale-feeback, business, online-business, homaale"
+        >
             <Container fluid="xl" className="px-4">
                 <section className="grow-business">
                     <BreadCrumb currentPage="Grow Your Business" />

@@ -4,6 +4,7 @@ import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import type { ITask, TaskApplicantsProps } from "types/task";
 import { axiosClient } from "utils/axiosClient";
+import extractContent from "utils/extractString";
 
 const TaskDetail: NextPage<{
     taskDetail: ITask;
@@ -11,7 +12,14 @@ const TaskDetail: NextPage<{
 }> = ({ taskDetail, taskApplicants }) => {
     return (
         <>
-            <AppliedLayout type={"you may like"} title={taskDetail?.title}>
+            <AppliedLayout
+                type={"you may like"}
+                title={taskDetail?.title}
+                description={extractContent(taskDetail?.description)}
+                ogImage={taskDetail?.images[0].media}
+                ogUrl={`/task/${taskDetail.slug}`}
+                keywords={"homaale-task, task-you-may-like, task"}
+            >
                 <AppliedTaskDetail
                     type={"you may like"}
                     taskDetail={taskDetail}

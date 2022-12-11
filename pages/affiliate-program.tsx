@@ -22,7 +22,11 @@ const AffiliateProgram: NextPage<{
     const accessToken = Cookies.get("access");
 
     return (
-        <Layout title="Affiliate Program | Cipher">
+        <Layout
+            title="Affiliate Program | Cipher"
+            description="Become a Homaale affiliate and earn a 20% monthly commission. Join today to get a signup bonus and boost your earnings with one of the top affiliate software platforms."
+            keywords="homaale, airtasker-nepali, nepali-working-platform programs affiliate-programs"
+        >
             <section className="affiliate-hero-section">
                 <Container className="px-4" fluid="xl">
                     <BreadCrumb currentPage="Affiliate Program" />

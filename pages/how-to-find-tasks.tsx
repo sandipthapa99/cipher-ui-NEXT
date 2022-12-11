@@ -8,7 +8,13 @@ import { growBusinessSteps } from "staticData/growBusiness";
 import { browseTasks, rules } from "staticData/how-to-find";
 const HowToFindTasks = () => {
     return (
-        <Layout title="How to find tasks | Homaale">
+        <Layout
+            title="How to find tasks | Homaale"
+            description="Search on Talent Marketplace™ for the hourly or fixed-price work you're looking for. 
+            Submit a proposal, set your rate, and show how great you'll be.
+             Give a little extra by sharing your unique approach and offering a rapport-building interview"
+            keywords="how-to-find-tasks, task, task-homaale, airtasker-nepali, nepali-working-platform, homaale-feeback, business, online-business, homaale, hire"
+        >
             <Container fluid="xl" className="px-4">
                 <section className="find-tasks">
                     <BreadCrumb currentPage="How to find tasks" />

@@ -80,7 +80,14 @@ const Layout: FC<MetaDataProps> = ({
                     property="og:description"
                     content={!description ? meta.description : description}
                 />
-                <meta property="og:url" content={!ogUrl ? "" : ``} />
+                <meta
+                    property="og:url"
+                    content={
+                        !ogUrl
+                            ? "https://www.homaale.com/"
+                            : `https://www.homaale.com${ogUrl}`
+                    }
+                />
                 <meta
                     property="og:image"
                     content={!ogImage ? cipherOgImage : ogImage}

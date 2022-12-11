@@ -32,7 +32,11 @@ const ExploreServices: NextPage = () => {
     };
 
     return (
-        <Layout title="Explore Services | Homaale">
+        <Layout
+            title="Explore Services | Homaale"
+            description="Provide service, complete task and earn the money in homaale."
+            keywords="homaale-earn-money airtasker-nepali, nepali-working-platform"
+        >
             <Container fluid="xl" className="px-0 px-sm-5">
                 <section className="explore-services">
                     <BreadCrumb currentPage="Explore Services" />

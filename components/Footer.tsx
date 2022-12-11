@@ -285,7 +285,7 @@ const Footer = () => {
                                 <h2>Follow Us</h2>
                                 <div className="social-sites">
                                     <a
-                                        href="https://www.facebook.com"
+                                        href="https://www.facebook.com/people/homaale/100086263383456/?mibextid=ZbWKwL"
                                         target="_blank"
                                         rel="noreferrer"
                                         className="wrapper facebook"
@@ -307,7 +307,7 @@ const Footer = () => {
                                         />
                                     </a>
                                     <a
-                                        href="https://www.twitter.com"
+                                        href="https://twitter.com/homaaleservices"
                                         target="_blank"
                                         rel="noreferrer"
                                         className="wrapper twitter"
@@ -318,7 +318,7 @@ const Footer = () => {
                                         />
                                     </a>
                                     <a
-                                        href="https://www.instagram.com"
+                                        href="https://instagram.com/homaaleservices"
                                         target="_blank"
                                         rel="noreferrer"
                                         className="wrapper instagram"
