@@ -88,7 +88,7 @@ const profile_visibility = [
 interface Display {
     showAccountForm: boolean;
 }
-interface IAllCategory {
+export interface IAllCategory {
     id: number;
     name: string;
     slug: string;
@@ -101,7 +101,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [show, setShow] = useState(false);
 
     //hooks call
-
+    // const defaultInterests = useMemo(
+    //     () =>
+    //         profileDetails?.interests.map((item) => ({
+    //             value: item.id,
+    //             label: item.name,
+    //         })),
+    //     [profileDetails]
+    // );
     const { mutate, isLoading: postProfileLoading } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();

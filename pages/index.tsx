@@ -99,7 +99,14 @@ const Home: NextPage<{
 
     if (!isClient) return null;
     return (
-        <Layout title="Homaale - Catering Your Requirements">
+        <Layout
+            title="Homaale - Catering Your Requirements"
+            description="Homaale is a platform designed to provide service booking solutions to the
+             service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+            It covers a wide range of services from various industries like Accounting, Gardening,
+             Health, Beauty, and many more."
+            keywords="homaale"
+        >
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-4">
                     <Row className="gx-5 hero-content">

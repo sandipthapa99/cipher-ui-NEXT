@@ -11,7 +11,7 @@ import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { SkillsFromData } from "utils/formData";
+import { SkillsFormData } from "utils/formData";
 import { skillsFormSchema } from "utils/formValidation/skillsFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -27,16 +27,9 @@ const AddSkills = ({
     handleClose,
     setShowAddSkillsForm,
 }: SkillsProps) => {
-    const data = [
-        { label: "React", value: "react" },
-        { label: "Angular", value: "anglur" },
-        { label: "PHP", value: "php" },
-    ];
     const { mutate } = useEditForm(`/tasker/profile/`);
     const queryClient = useQueryClient();
-
     const { data: profileDetails } = useGetProfile();
-
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     return (
@@ -47,7 +40,10 @@ const AddSkills = ({
                 <div className="applied-modal edit-form">
                     <h3>Add Skills</h3>
                     <Formik
-                        initialValues={SkillsFromData}
+                        enableReinitialize
+                        initialValues={{
+                            skill: profileDetails?.skill ? userSkills : "",
+                        }}
                         validationSchema={skillsFormSchema}
                         onSubmit={async (values) => {
                             const skill = values.skill;
@@ -81,11 +77,9 @@ const AddSkills = ({
                             <Form>
                                 <TagInputField
                                     name="skill"
-                                    error={errors.skill}
-                                    touch={touched.skill}
                                     labelName="Specialities"
-                                    placeHolder="Enter your prefered skill"
-                                    variables={[]}
+                                    placeHolder="Enter your skills"
+                                    create={true}
                                 />
                                 <h4>Suggested Skills</h4>
                                 <MultiSelect

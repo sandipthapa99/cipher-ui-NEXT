@@ -10,7 +10,6 @@ interface ImageUploadProps {
     // ref: React.RefObject<HTMLInputElement>;
     photo: any;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
-
     setIsEditButtonClicked: Dispatch<SetStateAction<boolean>>;
     showEditForm: boolean;
     handleClose: () => void;

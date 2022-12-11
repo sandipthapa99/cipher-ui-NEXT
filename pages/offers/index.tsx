@@ -10,7 +10,11 @@ const Offers = () => {
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
 
     return (
-        <Layout title="Homaale | Offers">
+        <Layout
+            title="Homaale | Offers"
+            description="Browse and enjoy offers of Homaale"
+            keywords="homaale-offfers"
+        >
             <section className="offers">
                 <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage={"Offers"} />

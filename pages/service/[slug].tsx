@@ -17,7 +17,12 @@ const ServicesDetail = ({
 }) => {
     return (
         <>
-            <ServiceLayout title={service?.title}>
+            <ServiceLayout
+                title={service?.title}
+                description={service?.description}
+                ogImage={service?.images[0].media}
+                ogUrl={service?.slug}
+            >
                 <SearchResultsDetail
                     image={service?.images}
                     budget_from={service?.budget_from}

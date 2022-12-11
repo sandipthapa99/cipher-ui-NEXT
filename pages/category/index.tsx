@@ -14,7 +14,11 @@ const CategoriesPage: NextPage<{
     nestedCategoriesData: CategoriesPageProps["nestedCategoriesData"];
 }> = ({ nestedCategoriesData }) => {
     return (
-        <Layout title="Categories | Homaale">
+        <Layout
+            title="Categories | Homaale"
+            description="Browse all Homaale Categories"
+            keywords="homaale-category, category, homaale"
+        >
             <Container fluid="xl" className="px-4">
                 <BreadCrumb currentPage={"Categories"} />
 

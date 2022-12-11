@@ -20,6 +20,7 @@ import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
+//import MessengerCustomerChat from "react-messenger-customer-chat";
 import { firebaseCloudMessaging } from "../firebase/firebase";
 
 interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
@@ -141,6 +142,12 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                                         reCaptchaKey={getReptcha()}
                                     >
                                         <Component {...pageProps} />
+                                        {/* <MessengerCustomerChat
+                                            pageId="<PAGE_ID>"
+                                            appId="<APP_ID>"
+                                            htmlRef="<REF_STRING>"
+                                        /> */}
+                                        ,
                                     </GoogleReCaptchaProvider>
                                 </ModalsProvider>
                             </NotificationsProvider>

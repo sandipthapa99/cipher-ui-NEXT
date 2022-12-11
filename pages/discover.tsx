@@ -24,7 +24,11 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
     );
 
     return (
-        <Layout title="Discover | Homaale">
+        <Layout
+            title="Discover | Homaale"
+            description=""
+            keywords="homaale-discover discover-homaale discover homaale"
+        >
             <Container fluid="xl" className="px-4">
                 <section className="discover-page">
                     <BreadCrumb currentPage="Discover" />

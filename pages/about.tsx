@@ -8,7 +8,11 @@ import { aboutCardContent } from "staticData/aboutCardContent";
 
 const About: NextPage = () => {
     return (
-        <Layout title="About Us | Homaale">
+        <Layout
+            title="About Us | Homaale"
+            description="Bridging the gap between individuals for growth."
+            keywords="homaale-about"
+        >
             <div className="about-page">
                 <BreadCrumb currentPage="About Us" />
                 <Container fluid="xl" className="px-4">
