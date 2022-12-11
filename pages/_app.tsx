@@ -147,7 +147,6 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                                             appId="<APP_ID>"
                                             htmlRef="<REF_STRING>"
                                         /> */}
-                                        ,
                                     </GoogleReCaptchaProvider>
                                 </ModalsProvider>
                             </NotificationsProvider>
