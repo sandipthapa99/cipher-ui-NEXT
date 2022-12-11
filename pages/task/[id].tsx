@@ -20,7 +20,7 @@ const TaskDetail = () => {
                 title={taskDetail?.title}
                 description={extractContent(taskDetail?.description)}
                 keywords={`homaale-task, homaale-task-${taskDetail?.title}`}
-                ogImage={taskDetail?.images[0].media}
+                ogImage={taskDetail?.images[0]?.media}
                 ogUrl={`/task/${taskDetail?.slug}`}
             >
                 {taskDetail && <AppliedTaskDetail taskDetail={taskDetail} />}

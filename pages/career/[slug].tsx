@@ -25,7 +25,7 @@ const CareerDeatils = ({
         <Layout
             title={`Careers | ${career?.title}`}
             // ogImage={`${career.}`}
-            description={career.description}
+            description={career?.description}
             ogUrl={`/career/${career?.slug}`}
         >
             <section id="careers-details-section" className="careers-section">
