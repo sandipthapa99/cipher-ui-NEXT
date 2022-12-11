@@ -17,7 +17,12 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
     // const category = JSON.parse(blog?.category);
     if (!blog) return null;
     return (
-        <Layout title={`Homaale Blog | ${blog?.title}`}>
+        <Layout
+            title={`Homaale Blog | ${blog?.title}`}
+            ogImage={`${blog.image}`}
+            ogUrl={`/blogs/${blog?.slug}`}
+            description={blog?.content}
+        >
             <section className="single-blog">
                 <Container fluid="xl" className="px-4">
                     <div className="single-blog__heading-section">

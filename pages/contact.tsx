@@ -5,6 +5,7 @@ import Layout from "@components/Layout";
 import {
     faFacebookF,
     faGoogle,
+    faInstagram,
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { faLocationDot, faPhone } from "@fortawesome/pro-regular-svg-icons";
@@ -22,16 +23,20 @@ const Contact = () => {
     const { mutate } = useContact();
 
     return (
-        <Layout title="Contact Us | Homaale">
+        <Layout
+            title="Contact Us | Homaale"
+            description="Contact us for any query. We value your  query and feedback."
+            keywords="homaale, airtasker-nepali, nepali-working-platform  contact"
+        >
             <section className="contact-page-header">
                 <BreadCrumb currentPage="Contact Us" />
                 <Container fluid="xl">
                     <div className="contact-page-header__description">
-                        <h1>Reach us out</h1>
-                        <h2>
+                        <h1>Reach us out!!</h1>
+                        {/* <h2>
                             With everything &amp; anything you&apos;re confused
                             about
-                        </h2>
+                        </h2> */}
                     </div>
                 </Container>
             </section>
@@ -55,7 +60,7 @@ const Contact = () => {
                                     className="svg-icon phone"
                                 />
                                 <Link href="tel:1234567890">
-                                    <a>+977-123456789</a>
+                                    <a>+977-9823416855</a>
                                 </Link>
                             </div>
 
@@ -65,7 +70,7 @@ const Contact = () => {
                                         icon={faFacebookF}
                                         className="svg-icon facebook"
                                     />
-                                    <Link href="https://www.facebook.com">
+                                    <Link href="https://www.facebook.com/people/homaale/100086263383456/?mibextid=ZbWKwL">
                                         <a>Facebook</a>
                                     </Link>
                                 </div>
@@ -74,8 +79,17 @@ const Contact = () => {
                                         icon={faTwitter}
                                         className="svg-icon twitter"
                                     />
-                                    <Link href="https://www.twitter.com">
+                                    <Link href="https://twitter.com/homaaleservices">
                                         <a>Twitter</a>
+                                    </Link>
+                                </div>
+                                <div className="social-item">
+                                    <FontAwesomeIcon
+                                        icon={faInstagram}
+                                        className="svg-icon google"
+                                    />
+                                    <Link href="https://instagram.com/homaaleservices">
+                                        <a>Instagram</a>
                                     </Link>
                                 </div>
                                 <div className="social-item">
@@ -83,7 +97,7 @@ const Contact = () => {
                                         icon={faGoogle}
                                         className="svg-icon google"
                                     />
-                                    <Link href="https://www.google.com">
+                                    <Link href="https://info@homaale.com">
                                         <a>Google</a>
                                     </Link>
                                 </div>

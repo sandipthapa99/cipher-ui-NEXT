@@ -7,6 +7,7 @@ import type {
     ServicesValueProps,
 } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
+import extractContent from "utils/extractString";
 
 const ServicesDetail = ({
     service,
@@ -17,7 +18,12 @@ const ServicesDetail = ({
 }) => {
     return (
         <>
-            <ServiceLayout title={service?.title}>
+            <ServiceLayout
+                title={service?.title}
+                description={extractContent(service?.description)}
+                ogImage={service?.images[0]?.media}
+                ogUrl={service?.slug}
+            >
                 <SearchResultsDetail
                     image={service?.images}
                     budget_from={service?.budget_from}

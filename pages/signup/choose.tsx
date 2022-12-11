@@ -19,6 +19,9 @@ const Choose = () => {
             mainImg="/illustrations/choose.svg"
             redirectionLink="/login"
             currentPage="choose"
+            title="Hoomale | Choose"
+            description="Choose a method to signuo i.e. as a client or tasker for your hommale journey"
+            keywords="homaale-signup-method,homaale-client, homaale-tasker"
         >
             <div className="choose">
                 <Formik

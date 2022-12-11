@@ -46,7 +46,11 @@ const FAQ = ({ faqTopicData }: FAQData) => {
     const toggleSuccessModal = useToggleSuccessModal();
     return (
         <Fragment>
-            <Layout title="FAQs | Homaale">
+            <Layout
+                title="FAQs | Homaale"
+                description="Homaale FAQ. Checkout our frequently asked questions and answers. There might be some answer to your queries."
+                keywords="homaale-earn-money airtasker-nepali, nepali-working-platform, homaale-faqs, faq"
+            >
                 <section className="faq-page-header">
                     <BreadCrumb currentPage="FAQs" />
                     <Container fluid="xl">

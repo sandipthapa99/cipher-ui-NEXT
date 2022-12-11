@@ -22,8 +22,17 @@ export interface AddPortfolioProps {
 export interface AddSkills {
     showModal?: boolean;
     handleClose?: () => void;
-
     name?: string;
+}
+
+export interface AddInterests {
+    showModal?: boolean;
+    handleClose?: () => void;
+    // interests?: {
+    //     id: string;
+    //     name: string;
+    // }[];
+    interests: [];
 }
 
 export interface EditPortfolioDetailProps {

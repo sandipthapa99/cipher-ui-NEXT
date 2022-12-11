@@ -8,7 +8,11 @@ import { DUMMY_CONTACTS } from "staticData/messages";
 
 export const ClientMessagePage = () => {
     return (
-        <Layout>
+        <Layout
+            title="Homaale | Message"
+            description="Start a conversation in Homaale with your tasker or client"
+            keywords="homaale-message, homaale-client-message, message"
+        >
             <Container>
                 <BreadCrumb currentPage="Messages" />
                 <h4 className="title">Messages</h4>

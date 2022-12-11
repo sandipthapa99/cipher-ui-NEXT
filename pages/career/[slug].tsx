@@ -20,7 +20,12 @@ const CareerDeatils = ({
     career: CareerValueProps["result"][0];
 }) => {
     return (
-        <Layout title={`Careers | ${career?.title}`}>
+        <Layout
+            title={`Careers | ${career?.title}`}
+            // ogImage={`${career.}`}
+            description={career.description}
+            ogUrl={`/career/${career?.slug}`}
+        >
             <section id="careers-details-section" className="careers-section">
                 <BreadCrumb currentPage={career?.title} />
                 <Container fluid="xl">

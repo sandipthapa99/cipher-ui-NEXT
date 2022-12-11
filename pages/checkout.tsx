@@ -126,7 +126,11 @@ export default function Checkout() {
     const grandTotal = servicesCheckoutData?.data?.grand_total;
 
     return (
-        <Layout>
+        <Layout
+            title="Checkout | Homaale "
+            description="Homaale Checkout page after completing tasks. We have Khalti, Paypal and International payment methods for easy transactions."
+            keywords="homaale, airtasker-nepali, nepali-working-platform programs payment"
+        >
             <Container>
                 <h2 className="pageName">Checkout</h2>
                 <Row className="checkout-row">
@@ -356,6 +360,7 @@ export default function Checkout() {
                                             initialValues={{
                                                 code: "",
                                                 offer_type: "",
+                                                order: "",
                                             }}
                                             onSubmit={async (
                                                 values,
@@ -364,6 +369,7 @@ export default function Checkout() {
                                                 const postTaskPayload = {
                                                     ...values,
                                                     offer_type: "promo_code",
+                                                    order: query,
                                                 };
                                                 mutate(postTaskPayload, {
                                                     onSuccess: (data) => {
@@ -391,7 +397,7 @@ export default function Checkout() {
                                                 <Form className="d-flex justify-content-between gap-4 w-100 mt-4">
                                                     <InputField
                                                         name="code"
-                                                        placeholder="Your email"
+                                                        placeHolder="Apply a Promo Code"
                                                         className="h-50"
                                                         error={errors.code}
                                                     />

@@ -24,7 +24,11 @@ const Apply = () => {
     const { mutate } = useForm(`/career/candidate/apply/${id}/`);
     const [token, setToken] = useState("");
     return (
-        <Layout title="Homaale | Apply">
+        <Layout
+            title="Homaale | Apply"
+            description="Upload your CV"
+            keywords="upload-cv-homaale upload-cv cv"
+        >
             <BreadCrumb currentPage="Apply" />
             <section id="career-apply-section" className="career-apply-section">
                 <Container fluid="xl">

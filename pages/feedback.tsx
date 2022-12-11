@@ -49,7 +49,11 @@ const Feedback = () => {
     };
     return (
         <>
-            <Layout title="Feedback | Homaale">
+            <Layout
+                title="Feedback | Homaale"
+                description="Feel free to send us your feedbacks. We appreciate them."
+                keywords="homaale-earn-money airtasker-nepali, nepali-working-platform, homaale-feeback, homaale,"
+            >
                 <Container fluid="xl" className="px-4">
                     <section className="site-feedback">
                         <Row className="gx-5">

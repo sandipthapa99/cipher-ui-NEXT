@@ -26,7 +26,11 @@ const Help: NextPage = () => {
     );
     const router = useRouter();
     return (
-        <Layout title="Help &amp; Support | Homaale">
+        <Layout
+            title="Help &amp; Support | Homaale"
+            description="Search your query and get your answers."
+            keywords="airtasker-nepali, nepali-working-platform, homaale-feeback, homaale-help, homaale, business, online-business, homaale"
+        >
             <section className="help-page-header">
                 <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Help &amp; Support" />

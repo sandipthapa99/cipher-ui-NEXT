@@ -31,7 +31,11 @@ const SettingsLayout = ({
         router.asPath === pathname ? "active" : "";
 
     return (
-        <Layout title={title} description="User profile settings">
+        <Layout
+            title={title}
+            description="User profile settings"
+            keywords="homaale-settings, homaale"
+        >
             <section className="account-settings" id="account-settings">
                 <Container fluid="xl">
                     <Row>

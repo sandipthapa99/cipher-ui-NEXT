@@ -30,6 +30,10 @@ const TaskerDetail = ({
                 title={`${tasker?.user?.first_name}${" "}${
                     tasker?.user?.last_name
                 }`}
+                description={tasker?.bio}
+                ogImage={tasker?.profile_image}
+                ogUrl={`/tasker/${tasker?.id}`}
+                keywords={`tasker-homaale, ${tasker?.id}, ${tasker?.user.first_name}, ${tasker?.user?.last_name}`}
             >
                 {!isLoading ? (
                     <UserTaskDetail
