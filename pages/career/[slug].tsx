@@ -19,6 +19,8 @@ const CareerDeatils = ({
 }: {
     career: CareerValueProps["result"][0];
 }) => {
+    console.log(career, "carrer");
+
     return (
         <Layout
             title={`Careers | ${career?.title}`}

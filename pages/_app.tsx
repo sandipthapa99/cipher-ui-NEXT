@@ -16,8 +16,6 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Cookies from "js-cookie";
-import * as localforage from "localforage";
-import * as memoryDriver from "localforage-driver-memory";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
@@ -40,8 +38,6 @@ const getReptcha = () => {
 };
 
 function MyApp({ Component, pageProps }: CustomAppProps) {
-    localforage.defineDriver(memoryDriver);
-    localforage.setDriver(memoryDriver._driver);
     // const queryClient = useMemo(
     //     () =>
     //         new QueryClient({
