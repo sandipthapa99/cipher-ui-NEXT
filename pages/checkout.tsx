@@ -1,8 +1,6 @@
-import BigButton from "@components/common/Button";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
-import { async } from "@firebase/util";
 import {
     faCalendar,
     faClock,
@@ -11,10 +9,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import {
-    Avatar,
     Button,
     Group,
-    Input,
     Loader,
     Modal,
     Select,
@@ -23,7 +19,7 @@ import {
 } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -71,7 +67,6 @@ export default function Checkout() {
 
     const [opened, setOpened] = useState(false);
     const [paymentType, setPaymentType] = useState("");
-    const [error, setError] = useState<string>("");
 
     const [offer, setOffer] = useState<boolean>();
 
@@ -445,7 +440,7 @@ export default function Checkout() {
                                                         order: query,
                                                     };
                                                     mutate(postTaskPayload, {
-                                                        onSuccess: (data) => {
+                                                        onSuccess: () => {
                                                             actions.resetForm();
 
                                                             toast.success(
@@ -457,7 +452,7 @@ export default function Checkout() {
                                                                 ]
                                                             );
                                                         },
-                                                        onError: (e) => {
+                                                        onError: () => {
                                                             actions.setFieldError(
                                                                 "code",
                                                                 "Error in promo code"
@@ -529,7 +524,7 @@ export default function Checkout() {
                                                                 ]
                                                             );
                                                         },
-                                                        onError: (e) => {
+                                                        onError: () => {
                                                             actions.setFieldError(
                                                                 "code",
                                                                 "Error in promo code"
