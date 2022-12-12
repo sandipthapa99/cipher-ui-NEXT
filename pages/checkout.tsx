@@ -81,7 +81,6 @@ export default function Checkout() {
         `offer/offerredeem/list/${query}`,
         !!query
     );
-    console.log("🚀 ~ file: checkout.tsx:83 ~ Checkout ~ data", data);
 
     const SelectItem = forwardRef<HTMLDivElement, CheckoutOffersProps[0]>(
         ({ id, label, image, ...rest }: any, ref) => (
