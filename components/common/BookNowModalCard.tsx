@@ -452,6 +452,7 @@ const BookNowModalCard = ({
                                                                 offer?.id
                                                             )
                                                         }
+                                                        role={"button"}
                                                         data-active={
                                                             offerSelector ===
                                                             offer?.id

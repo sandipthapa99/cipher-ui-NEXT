@@ -14,12 +14,13 @@ const InputField = ({
     haveIcon,
     labelName,
     textMuted,
+    className,
     as,
     fieldRequired,
     ...restProps
 }: InputFieldProps & InputHTMLAttributes<HTMLInputElement>) => {
     return (
-        <div className={checkFormGroup(error)}>
+        <div className={`${checkFormGroup(error)} ${className}`}>
             {labelName && (
                 <label htmlFor={name} className="form-label">
                     {labelName}{" "}
