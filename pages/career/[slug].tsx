@@ -1,5 +1,3 @@
-import HiringStage from "@components/Career/HiringStage";
-import LeaveYourCV from "@components/Career/LeaveYourCV";
 import AnchorButton from "@components/common/AnchorButton";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
