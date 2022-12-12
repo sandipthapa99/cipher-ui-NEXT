@@ -17,7 +17,7 @@ export default function GetNotifications() {
     // const router = useRouter();
 
     const { data: allNotifications, refetch } = useGetNotification();
-    const allNotify = allNotifications ? allNotifications.result : [];
+    // const allNotify = allNotifications ? allNotifications.result : [];
     const queryClient = new QueryClient();
     const router = useRouter();
 

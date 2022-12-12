@@ -5,7 +5,6 @@ import {
     faEllipsisVertical,
     faGear,
     faLocationDot,
-    faPencil,
     faPhone,
     faSparkles,
     faStar as emptyStar,

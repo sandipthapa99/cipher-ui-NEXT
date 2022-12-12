@@ -2,7 +2,6 @@ import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS`
 
 import { MultiSelect } from "@mantine/core";
 import { ErrorMessage, Field } from "formik";
-import { useState } from "react";
 import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 const TagInputField = ({
