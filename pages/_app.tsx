@@ -16,12 +16,17 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Cookies from "js-cookie";
+import localforage from "localforage";
+import * as memoryDriver from "localforage-driver-memory";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 //import MessengerCustomerChat from "react-messenger-customer-chat";
 import { firebaseCloudMessaging } from "../firebase/firebase";
+
+localforage.defineDriver(memoryDriver);
+localforage.setDriver(memoryDriver._driver);
 
 interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     pageProps: {
@@ -98,7 +103,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 return Promise.all(r.map((reg) => reg.unregister()));
             });
         }
-    }, [token, mounted]);
+    }, [token]);
 
     useEffect(() => {
         if (
