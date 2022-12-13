@@ -96,11 +96,7 @@ const SearchResultsDetail = ({
         urls.task.service
     );
     const parsedDescription = parse(serviceDescription ?? "");
-    console.log(
-        "🚀 ~ file: SearchResultsDetails.tsx ~ line 98 ~ parsedDescription",
-        parsedDescription,
-        serviceDescription
-    );
+
     const { data: myServicePackage } = useData<{
         result: Array<{
             id: number;

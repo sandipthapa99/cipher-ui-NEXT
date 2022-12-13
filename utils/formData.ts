@@ -1,3 +1,4 @@
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyFormValueProps } from "types/applyFormValueProps";
@@ -23,7 +24,6 @@ import type { ServicePostProps } from "types/serviceCard";
 import type { SkillsValueProps } from "types/skillsValueProps";
 import type { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
 import type { UploadCVValueProps } from "types/uploadCVValueProps";
-import { string } from "yup";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
@@ -156,27 +156,32 @@ export const SkillsFormData: SkillsValueProps = {
     skill: "",
 };
 
-export const AccountFromData: AccountValueProps = {
-    full_name: "",
-    phone: 1234567890,
+export const AccountFormData: AccountValueProps = {
+    last_name: "",
+    first_name: "",
+    middle_name: "",
     email: "",
     bio: "",
     gender: "",
-    date_of_birth: null,
+    city: "",
+    date_of_birth: "",
     skill: "",
+    interests: [],
     experience_level: "",
     active_hour_start: "",
     active_hour_end: null,
-    hourly_rate: 15,
+    hourly_rate: "",
     user_type: "",
     country: "",
-    education: "abc",
     address_line1: "",
     address_line2: "",
     language: "",
     charge_currency: "",
     profile_visibility: "",
     task_preferences: "",
+    profile_image: "",
+    designation: "",
+
     // profile_image: "abcffdd",
 };
 
