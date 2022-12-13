@@ -685,10 +685,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                             "profile_image",
                                                             file
                                                         );
-                                                        console.log(
-                                                            "files",
-                                                            file
-                                                        );
                                                     }}
                                                     onAvatarEdit={(avatar) => {
                                                         setPreviewImage(
