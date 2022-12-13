@@ -1,6 +1,7 @@
 import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import MantineDateField from "@components/common/MantineDateField";
 import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
@@ -10,6 +11,8 @@ import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
+import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoadingOverlay, Radio } from "@mantine/core";
 import {
     Anchor,
@@ -23,13 +26,14 @@ import {
 } from "@mantine/core";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
 import { useFormik } from "formik";
 import { useEditTask } from "hooks/task/use-edit-task";
 import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useEditTaskDetail } from "store/use-edit-task";
 import {
     usePostTaskModalType,
@@ -133,10 +137,10 @@ export const PostTaskModal = () => {
             is_recursion: false,
             is_requested: true,
             is_everyday: false,
-            start_date: "2022-12-01",
-            end_date: "2023-01-04",
-            start_time: "01:00",
-            end_time: "03:00",
+            start_date: "",
+            end_date: "",
+            start_time: "",
+            end_time: "",
             currency: taskDetail ? String(taskDetail?.currency?.id) : "113",
             images: "",
             videos: "",
@@ -289,6 +293,58 @@ export const PostTaskModal = () => {
                                 labelName="Requirements"
                                 description="This helps the tasker understand about your task better"
                             />
+                            <Row>
+                                <Col md={6}>
+                                    <MantineDateField
+                                        name="start_date"
+                                        labelName="Start Date"
+                                        placeHolder="Select Start Date"
+                                        error={errors.start_date}
+                                        touch={touched.start_date}
+                                        icon={
+                                            <FontAwesomeIcon
+                                                icon={faCalendarDays}
+                                                className="svg-icons"
+                                            />
+                                        }
+                                        minDate={new Date()}
+                                        handleChange={(value) => {
+                                            setFieldValue(
+                                                "start_date",
+                                                format(
+                                                    new Date(value),
+                                                    "yyyy-MM-dd"
+                                                )
+                                            );
+                                        }}
+                                    />
+                                </Col>
+                                <Col md={6}>
+                                    <MantineDateField
+                                        name="end_date"
+                                        labelName="End Date"
+                                        placeHolder="Select End Date"
+                                        error={errors.end_date}
+                                        touch={touched.end_date}
+                                        icon={
+                                            <FontAwesomeIcon
+                                                icon={faCalendarDays}
+                                            />
+                                        }
+                                        minDate={new Date()}
+                                        handleChange={(value) =>
+                                            setFieldValue(
+                                                "end_date",
+                                                format(
+                                                    new Date(value),
+                                                    "yyyy-MM-dd"
+                                                )
+                                            )
+                                        }
+                                        fieldRequired={true}
+                                    />
+                                </Col>
+                            </Row>
 
                             <SelectCity
                                 onCitySelect={(cityId) =>
