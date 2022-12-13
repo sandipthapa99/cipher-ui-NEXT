@@ -1,6 +1,8 @@
 import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
 import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
@@ -10,6 +12,8 @@ import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
+import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoadingOverlay, Radio } from "@mantine/core";
 import {
     Anchor,
@@ -21,15 +25,17 @@ import {
     TextInput,
     Title,
 } from "@mantine/core";
+import { DatePicker, TimeInput } from "@mantine/dates";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
 import { useFormik } from "formik";
 import { useEditTask } from "hooks/task/use-edit-task";
 import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useEditTaskDetail } from "store/use-edit-task";
 import {
     usePostTaskModalType,
@@ -133,10 +139,10 @@ export const PostTaskModal = () => {
             is_recursion: false,
             is_requested: true,
             is_everyday: false,
-            start_date: "2022-12-01",
-            end_date: "2023-01-04",
-            start_time: "01:00",
-            end_time: "03:00",
+            start_date: "",
+            end_date: "",
+            start_time: "",
+            end_time: "",
             currency: taskDetail ? String(taskDetail?.currency?.id) : "113",
             images: "",
             videos: "",
@@ -238,6 +244,7 @@ export const PostTaskModal = () => {
                 visible={isCreateTaskLoading}
                 sx={{ position: "fixed", inset: 0 }}
             />
+
             <Modal
                 opened={!isCreateTaskLoading && showPostTaskModal}
                 onClose={handleCloseModal}
@@ -246,6 +253,7 @@ export const PostTaskModal = () => {
                 title="Post a Task or Service"
                 size="xl"
             >
+                {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
                 {showPostTaskModalType === "CREATE" && (
                     <div className="choose-email-or-phone mb-5">
                         <Radio.Group
@@ -289,6 +297,85 @@ export const PostTaskModal = () => {
                                 labelName="Requirements"
                                 description="This helps the tasker understand about your task better"
                             />
+                            <Row>
+                                <Col md={6}>
+                                    <DatePicker
+                                        placeholder="Start date"
+                                        label="Start date"
+                                        name="start_date"
+                                        withAsterisk
+                                        minDate={new Date()}
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "end_date",
+                                                    format(
+                                                        new Date(event),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </Col>
+                                <Col md={6}>
+                                    <DatePicker
+                                        placeholder="End date"
+                                        label="End date"
+                                        name="end_date"
+                                        withAsterisk
+                                        minDate={new Date()}
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "start_date",
+                                                    format(
+                                                        new Date(event),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={3}>
+                                    <TimeInput
+                                        label="Start time"
+                                        format="12"
+                                        defaultValue={new Date()}
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "start_time",
+                                                    format(
+                                                        new Date(event),
+                                                        "hh:mm aa"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </Col>
+                                <Col md={3}>
+                                    <TimeInput
+                                        label="End time"
+                                        format="12"
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "end_time",
+                                                    format(
+                                                        new Date(event),
+                                                        "hh:mm aa"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
 
                             <SelectCity
                                 onCitySelect={(cityId) =>

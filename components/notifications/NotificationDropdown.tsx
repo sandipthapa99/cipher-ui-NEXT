@@ -65,9 +65,9 @@ export const NotificationDropdown = () => {
                     <div
                         key={index}
                         onClick={async () => {
-                            router.push(
-                                `/task/${notification?.content_object?.slug}`
-                            );
+                            // router.push(
+                            //     `/task/${notification?.content_object?.slug}`
+                            // );
                             await axiosClient.get(
                                 `/notification/read/?id=${notification.id}`
                             );
@@ -332,9 +332,6 @@ export const NotificationDropdown = () => {
                     <div
                         key={index}
                         onClick={async () => {
-                            router.push(
-                                `/task/${notification?.content_object?.entity_service?.slug}`
-                            );
                             await axiosClient.get(
                                 `/notification/read/?id=${notification.id}`
                             );
@@ -356,18 +353,14 @@ export const NotificationDropdown = () => {
                                     ?.title
                             }
                             createdDate={notification.created_date}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
+                            slug={notification?.content_object?.slug}
                             type={"created"}
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.content_object?.entity_service
                                         ?.slug,
                                     notification?.id,
-                                    notification?.content_object?.entity_service
-                                        ?.is_requested
+                                    notification?.content_object?.is_requested
                                         ? "task"
                                         : "service"
                                 )

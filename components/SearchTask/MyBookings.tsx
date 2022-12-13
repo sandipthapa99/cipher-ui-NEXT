@@ -213,7 +213,7 @@ export const MyBookingsCard = ({
                                                 queryClient.invalidateQueries([
                                                     "get-my-bookings",
                                                 ]);
-                                                router.push("/home");
+                                                // router.push("/home");
                                             },
                                             onError: (error: any) => {
                                                 toast.error(
