@@ -1,6 +1,7 @@
 import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
@@ -24,6 +25,7 @@ import {
     TextInput,
     Title,
 } from "@mantine/core";
+import { DatePicker, TimeInput } from "@mantine/dates";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -242,6 +244,7 @@ export const PostTaskModal = () => {
                 visible={isCreateTaskLoading}
                 sx={{ position: "fixed", inset: 0 }}
             />
+
             <Modal
                 opened={!isCreateTaskLoading && showPostTaskModal}
                 onClose={handleCloseModal}
@@ -250,6 +253,7 @@ export const PostTaskModal = () => {
                 title="Post a Task or Service"
                 size="xl"
             >
+                {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
                 {showPostTaskModalType === "CREATE" && (
                     <div className="choose-email-or-phone mb-5">
                         <Radio.Group
@@ -295,53 +299,80 @@ export const PostTaskModal = () => {
                             />
                             <Row>
                                 <Col md={6}>
-                                    <MantineDateField
+                                    <DatePicker
+                                        placeholder="Start date"
+                                        label="Start date"
                                         name="start_date"
-                                        labelName="Start Date"
-                                        placeHolder="Select Start Date"
-                                        error={errors.start_date}
-                                        touch={touched.start_date}
-                                        icon={
-                                            <FontAwesomeIcon
-                                                icon={faCalendarDays}
-                                                className="svg-icons"
-                                            />
-                                        }
+                                        withAsterisk
                                         minDate={new Date()}
-                                        handleChange={(value) => {
-                                            setFieldValue(
-                                                "start_date",
-                                                format(
-                                                    new Date(value),
-                                                    "yyyy-MM-dd"
-                                                )
-                                            );
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "end_date",
+                                                    format(
+                                                        new Date(event),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }
                                         }}
                                     />
                                 </Col>
                                 <Col md={6}>
-                                    <MantineDateField
+                                    <DatePicker
+                                        placeholder="End date"
+                                        label="End date"
                                         name="end_date"
-                                        labelName="End Date"
-                                        placeHolder="Select End Date"
-                                        error={errors.end_date}
-                                        touch={touched.end_date}
-                                        icon={
-                                            <FontAwesomeIcon
-                                                icon={faCalendarDays}
-                                            />
-                                        }
+                                        withAsterisk
                                         minDate={new Date()}
-                                        handleChange={(value) =>
-                                            setFieldValue(
-                                                "end_date",
-                                                format(
-                                                    new Date(value),
-                                                    "yyyy-MM-dd"
-                                                )
-                                            )
-                                        }
-                                        fieldRequired={true}
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "start_date",
+                                                    format(
+                                                        new Date(event),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={3}>
+                                    <TimeInput
+                                        label="Start time"
+                                        format="12"
+                                        defaultValue={new Date()}
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "start_time",
+                                                    format(
+                                                        new Date(event),
+                                                        "hh:mm aa"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </Col>
+                                <Col md={3}>
+                                    <TimeInput
+                                        label="End time"
+                                        format="12"
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "end_time",
+                                                    format(
+                                                        new Date(event),
+                                                        "hh:mm aa"
+                                                    )
+                                                );
+                                            }
+                                        }}
                                     />
                                 </Col>
                             </Row>
