@@ -26,6 +26,7 @@ import { Alert } from "@mantine/core";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import localforage from "localforage";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -531,7 +532,7 @@ const Home: NextPage<{
                             <h2 className="heading-title">Top Taskers</h2>
                             {topTaskerData?.result &&
                                 topTaskerData?.result?.length > 0 && (
-                                    <Link href="/service">
+                                    <Link href="/tasker">
                                         <a className="view-more">
                                             view more{" "}
                                             <FontAwesomeIcon
