@@ -518,13 +518,18 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     ) {
                                         return false;
                                     }
-                                    if (
-                                        key !== "profile_image" &&
-                                        key !== "interests"
-                                    ) {
+                                    // if (
+                                    //     key !== "profile_image" &&
+                                    //     key !== "interests"
+                                    // ) {
+                                    //     formData.append(
+                                    //         key,
+                                    //         value ? value : ""
+                                    //     );
+                                    if (key !== "profile_image") {
                                         formData.append(
                                             key,
-                                            value ? value : ""
+                                            value ? value?.toString() : ""
                                         );
                                     } else {
                                         formData.append(
@@ -532,7 +537,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                             values.profile_image
                                         );
                                     }
-                                    // formData.delete("interests");
+
+                                    //DO not change
+                                    formData.delete("interests");
                                 }
                             );
 
@@ -540,7 +547,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 formData.append("interests", val);
                             });
 
-                            // const editedData = formData;
+                            const editedData = formData;
 
                             {
                                 isEditButtonClicked
@@ -676,6 +683,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                         setBlobUrl(data);
                                                         setFieldValue(
                                                             "profile_image",
+                                                            file
+                                                        );
+                                                        console.log(
+                                                            "files",
                                                             file
                                                         );
                                                     }}
