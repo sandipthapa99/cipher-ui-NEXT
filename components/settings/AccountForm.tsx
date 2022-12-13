@@ -993,14 +993,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 create={true}
                                 //error={errors.skill}
                             />
-                            <TagMultiSelectField
+                            {/* <TagMultiSelectField
                                 defaultValue={currentInterests}
                                 name="interests"
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
                                 disabled={isInputDisabled}
                                 data={interestOptions}
-                            />
+                            /> */}
                             {/* <TagInputField
                                 data={interestValues}
                                 name="interests"
