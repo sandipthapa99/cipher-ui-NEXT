@@ -8,6 +8,7 @@ const myBookings = "/task/entity/service-mybooking/";
 const tasks = "/task/entity/service/";
 const support = "/support/";
 const payment = "/payment/";
+const offer = "/offer/";
 
 const urls = {
     user: {
@@ -83,6 +84,11 @@ const urls = {
         method: `${payment}cms/payment-method/`,
         intent: `${payment}intent/`,
         order: `${payment}order/`,
+    },
+    offer: {
+        offerCode: `${offer}applyoffercode/`,
+        reedem: `${offer}redeem/`,
+        list: `${offer}offerredeem/list/`,
     },
 };
 

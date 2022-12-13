@@ -76,14 +76,14 @@ export default function Checkout() {
     const [offer, setOffer] = useState<boolean>();
 
     const { mutate, isLoading: applyPromoLoader } = useForm(
-        `/offer/applyoffercode/`
+        urls.offer.offerCode
     );
 
-    const { mutate: discountMutate } = useForm(`/offer/redeem/`);
+    const { mutate: discountMutate } = useForm(urls.offer.reedem);
 
     const { data } = useData<CheckoutOffersProps[]>(
         ["sdsd", query],
-        `offer/offerredeem/list/${query}`,
+        `${urls.offer.list}${query}`,
         !!query
     );
 
