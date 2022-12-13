@@ -1,4 +1,4 @@
-export type CheckoutOffersProps = Array<{
+export interface CheckoutOffersProps {
     id: number;
     offer: {
         id: number;
@@ -19,4 +19,5 @@ export type CheckoutOffersProps = Array<{
     is_redeemed: boolean;
     is_active: boolean;
     redeem_by: string;
-}>;
+}
+[];

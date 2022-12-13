@@ -41,6 +41,11 @@ import CheckoutForm from "../components/CheckoutForm";
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 
+export interface OfferSelectProps extends CheckoutOffersProps {
+    label: string;
+    image: string;
+}
+
 const getStripeApiKey = () => {
     const url = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
     if (url === undefined)
@@ -76,14 +81,14 @@ export default function Checkout() {
 
     const { mutate: discountMutate } = useForm(`/offer/redeem/`);
 
-    const { data } = useData<CheckoutOffersProps>(
+    const { data } = useData<CheckoutOffersProps[]>(
         ["sdsd", query],
         `offer/offerredeem/list/${query}`,
         !!query
     );
 
-    const SelectItem = forwardRef<HTMLDivElement, CheckoutOffersProps[0]>(
-        ({ id, label, image, ...rest }: any, ref) => (
+    const SelectItem = forwardRef<HTMLDivElement, OfferSelectProps>(
+        ({ label, image, id, ...rest }: OfferSelectProps, ref) => (
             <div
                 ref={ref}
                 {...rest}
