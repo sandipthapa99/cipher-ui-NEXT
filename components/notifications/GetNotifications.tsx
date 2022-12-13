@@ -61,9 +61,6 @@ export default function GetNotifications() {
                     <div
                         key={index}
                         onClick={async () => {
-                            router.push(
-                                `/task/${notification?.content_object?.entity_service?.slug}`
-                            );
                             await axiosClient.get(
                                 `/notification/read/?id=${notification.id}`
                             );
@@ -76,8 +73,7 @@ export default function GetNotifications() {
                         <PostNotifyTask
                             read={notification?.read_date}
                             is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
+                                notification?.content_object?.is_requested
                             }
                             taskTitle={`${notification?.content_object.title}`}
                             taskObject={
@@ -85,10 +81,7 @@ export default function GetNotifications() {
                                     ?.title
                             }
                             createdDate={notification.created_date}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
+                            slug={notification?.content_object?.slug}
                             type={"created"}
                             handleClick={() =>
                                 readSingleNotification(
