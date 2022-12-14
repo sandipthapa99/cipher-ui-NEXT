@@ -19,3 +19,8 @@ export interface InputFieldProps {
     inputIcon?: any;
     create?: boolean;
 }
+
+// interface defaultValue {
+//     value: number | string;
+//     label: string;
+// }
