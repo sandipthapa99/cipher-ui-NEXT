@@ -52,8 +52,8 @@ const Apply = () => {
 
                                 mutate(formData, {
                                     onSuccess: async () => {
-                                        await router.push("/career");
                                         toggleSuccessModal();
+                                        await router.push("/career");
                                     },
                                     onError: (error) => {
                                         toast.error(error.message);
@@ -74,6 +74,7 @@ const Apply = () => {
                                     autoComplete="off"
                                     encType="multipart/form-data"
                                 >
+                                    <pre>{JSON.stringify(errors, null, 4)}</pre>
                                     <InputField
                                         type="text"
                                         name="full_name"

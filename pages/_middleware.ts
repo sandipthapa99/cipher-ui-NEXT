@@ -36,6 +36,7 @@ const fetchUser = async (access?: string) => {
 
 export default async function middleware(request: NextRequest) {
     const currentPath = request.nextUrl.pathname;
+
     const isPathProtected = () => {
         return PROTECTED_ROUTES.some((path) => {
             if (path.endsWith("*")) {

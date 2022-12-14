@@ -32,11 +32,13 @@ import { UserStats } from "./UserStats";
 interface UserTaskDetailHeaderProps {
     taskerDetail: ITasker;
     maxHeaderWidth?: string;
+    taskerHimself?: boolean;
 }
 
 export const UserTaskDetailHeader = ({
     taskerDetail,
     maxHeaderWidth,
+    taskerHimself,
 }: UserTaskDetailHeaderProps) => {
     const router = useRouter();
     const { data: user } = useUser();
@@ -219,38 +221,36 @@ export const UserTaskDetailHeader = ({
                 </Col>
                 <Col md={4} className="d-flex flex-column align-items-end">
                     <div className="td-task-detail-header-icons">
-                        {!isSelf ? (
-                            taskerDetail?.is_followed ? (
-                                <FontAwesomeIcon
-                                    icon={faUserCheck}
-                                    color="#297796"
-                                    height={24}
-                                    width={24}
-                                    className="svg-follow-icon"
-                                    onClick={() =>
-                                        handleFollowClick(
-                                            taskerDetail?.user?.id,
-                                            "unfollow"
-                                        )
-                                    }
-                                />
-                            ) : (
-                                <FontAwesomeIcon
-                                    icon={faUserPlus}
-                                    color="#297796"
-                                    height={24}
-                                    width={24}
-                                    className="svg-follow-icon"
-                                    onClick={() =>
-                                        handleFollowClick(
-                                            taskerDetail?.user?.id,
-                                            "follow"
-                                        )
-                                    }
-                                />
-                            )
+                        {taskerDetail?.is_followed ? (
+                            <FontAwesomeIcon
+                                icon={faUserCheck}
+                                color="#297796"
+                                height={24}
+                                width={24}
+                                visibility={taskerHimself ? "hidden" : "none"}
+                                className="svg-follow-icon"
+                                onClick={() =>
+                                    handleFollowClick(
+                                        taskerDetail?.user?.id,
+                                        "unfollow"
+                                    )
+                                }
+                            />
                         ) : (
-                            ""
+                            <FontAwesomeIcon
+                                icon={faUserPlus}
+                                color="#297796"
+                                height={24}
+                                visibility={taskerHimself ? "hidden" : "none"}
+                                width={24}
+                                className="svg-follow-icon"
+                                onClick={() =>
+                                    handleFollowClick(
+                                        taskerDetail?.user?.id,
+                                        "follow"
+                                    )
+                                }
+                            />
                         )}
                         <SaveIcon
                             showText
