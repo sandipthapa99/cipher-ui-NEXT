@@ -150,7 +150,6 @@ export default function Checkout() {
             `/payment/order/${query}/`,
             !!query
         );
-
     const queryClient = useQueryClient();
 
     // Stripe Appereance settings
@@ -515,26 +514,51 @@ export default function Checkout() {
                                                     values,
                                                     actions
                                                 ) => {
-                                                    discountMutate(values, {
-                                                        onSuccess: () => {
-                                                            actions.resetForm();
+                                                    let offerPayload;
 
-                                                            toast.success(
-                                                                "Promo code added"
-                                                            );
-                                                            queryClient.invalidateQueries(
-                                                                [
-                                                                    "all-services-checkout",
-                                                                ]
-                                                            );
-                                                        },
-                                                        onError: () => {
-                                                            actions.setFieldError(
-                                                                "code",
-                                                                "Error in promo code"
-                                                            );
-                                                        },
-                                                    });
+                                                    if (
+                                                        data?.data.find(
+                                                            (item) =>
+                                                                item.offer
+                                                                    .free !==
+                                                                null
+                                                        )
+                                                    ) {
+                                                        offerPayload = {
+                                                            ...values,
+                                                            bookings: [
+                                                                item?.item
+                                                                    ?.booking,
+                                                            ],
+                                                        };
+                                                    } else {
+                                                        offerPayload = {
+                                                            ...values,
+                                                        };
+                                                    }
+                                                    discountMutate(
+                                                        offerPayload,
+                                                        {
+                                                            onSuccess: () => {
+                                                                actions.resetForm();
+
+                                                                toast.success(
+                                                                    "Promo code added"
+                                                                );
+                                                                queryClient.invalidateQueries(
+                                                                    [
+                                                                        "all-services-checkout",
+                                                                    ]
+                                                                );
+                                                            },
+                                                            onError: () => {
+                                                                actions.setFieldError(
+                                                                    "code",
+                                                                    "Error in promo code"
+                                                                );
+                                                            },
+                                                        }
+                                                    );
                                                 }}
                                             >
                                                 {({

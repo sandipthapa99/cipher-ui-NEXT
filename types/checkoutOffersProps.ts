@@ -7,6 +7,8 @@ export interface CheckoutOffersProps {
         image: string;
         offer_type: string;
         code: any;
+        offer_rule: number;
+        free: string;
     };
     booking: {
         id: number;
