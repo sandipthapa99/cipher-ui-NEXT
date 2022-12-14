@@ -226,7 +226,11 @@ const MyEarnings = () => {
     });
 
     return (
-        <Layout title="My Earnings | Homaale">
+        <Layout
+            title="My Earnings | Homaale"
+            description="Your earnings in homaale."
+            keywords="homaale, airtasker-nepali, nepali-working-platform, homaale-feeback, business, online-business, earnings, homaale-earnings"
+        >
             <section className="my-order-section" id="my-order-section">
                 <BreadCrumb currentPage="My-Earnings" />
 

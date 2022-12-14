@@ -31,7 +31,11 @@ const MyOrder = () => {
     );
 
     return (
-        <Layout title="My Orders | Homaale">
+        <Layout
+            title="My Orders | Homaale"
+            description="Your orders in homaale."
+            keywords="homaale, airtasker-nepali, order, homaale-order, my-homaale order, nepali-working-platform, homaale-feeback, business, online-business, earnings, homaale-earnings"
+        >
             <section className="my-order-section" id="my-order-section">
                 <BreadCrumb currentPage="My-Orders" />
                 <Container fluid="xl">

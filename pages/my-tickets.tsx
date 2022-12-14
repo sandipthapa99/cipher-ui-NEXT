@@ -111,7 +111,11 @@ const MyTickets = () => {
     });
 
     return (
-        <Layout title="My Tickets | Homaale">
+        <Layout
+            title="My Tickets | Homaale"
+            description="Homaale support tickets lists."
+            keywords="homaale,  airtasker-nepali, tickets, homaale-tickets,nepali-working-platform, homaale-feeback, business, online-business"
+        >
             <section className="my-order-section px-4" id="my-order-section">
                 <BreadCrumb currentPage="My-Tickets" />
                 <Container fluid="xl" className="px-0">
