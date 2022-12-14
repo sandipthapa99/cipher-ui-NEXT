@@ -413,7 +413,7 @@ export default function Checkout() {
                                                 {item?.amount}
                                             </p>
                                         </div>
-                                        {offer && (
+                                        {!item?.offer && offer && (
                                             <p
                                                 className="text-primary m-2"
                                                 role={"button"}
@@ -425,7 +425,7 @@ export default function Checkout() {
                                             </p>
                                         )}
 
-                                        {!offer && (
+                                        {!item?.offer && !offer && (
                                             <Formik
                                                 initialValues={{
                                                     code: "",
@@ -493,7 +493,7 @@ export default function Checkout() {
                                                 )}
                                             </Formik>
                                         )}
-                                        {!offer && (
+                                        {!item?.offer && !offer && (
                                             <p
                                                 className="text-primary m-2"
                                                 role={"button"}
