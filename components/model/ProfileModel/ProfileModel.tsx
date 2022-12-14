@@ -86,9 +86,13 @@ export const ProfileModel = () => {
                     </Text>
                 </div>
                 <Image
-                    src="/userprofile/badge.png"
-                    width={60}
-                    height={60}
+                    src={
+                        profileDetails?.badge?.image
+                            ? profileDetails?.badge?.image
+                            : "/userprofile/badge.png"
+                    }
+                    width={45}
+                    height={45}
                     alt="Badge"
                 />
             </div>
