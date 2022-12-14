@@ -75,6 +75,7 @@ export const EditService = ({
         () => (serviceDetail?.images ?? []).map((image) => image.id),
         [serviceDetail?.images]
     );
+
     const getInitialVideoIds = useCallback(
         () => (serviceDetail?.videos ?? []).map((video) => video.id),
         [serviceDetail?.videos]

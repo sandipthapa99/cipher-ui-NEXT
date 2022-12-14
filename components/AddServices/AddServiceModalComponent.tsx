@@ -230,7 +230,7 @@ export const AddServiceModalComponent = () => {
                         error={getFieldError("service")}
                         value={
                             taskDetail
-                                ? taskDetail?.category?.id?.toString()
+                                ? taskDetail?.service.category?.id?.toString()
                                 : ""
                         }
                     />

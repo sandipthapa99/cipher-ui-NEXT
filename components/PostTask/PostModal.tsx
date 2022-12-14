@@ -1,22 +1,33 @@
+import { CustomDropZone } from "@components/common/CustomDropZone";
 import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
+import { postTaskModalSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import {
     faCalendarDays,
     faSquareCheck,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { parseISO } from "date-fns";
 import { Form, Formik } from "formik";
+import { useEditTask } from "hooks/task/use-edit-task";
+import { useUploadFile } from "hooks/use-upload-file";
 import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
+import { useCallback } from "react";
 import { Fragment } from "react";
 import { useState } from "react";
-import { Button, Col, FormCheck, Row } from "react-bootstrap";
+import { Button, Col, FormCheck, FormGroup, Row } from "react-bootstrap";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import type { PostTaskProps } from "types/postTaskData";
+import { ReactQueryKeys } from "types/queryKeys";
+import type { ITask } from "types/task";
+import extractContent from "utils/extractString";
 import { PostTaskFormData } from "utils/formData";
-import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 import AddRequirements from "./AddRequirements";
@@ -33,13 +44,57 @@ const PostModal = ({
     });
     const router = useRouter();
 
-    const taskSlug = router.query?.slug;
-    console.log("🚀 ~ file: PostModal.tsx ~ line 37 ~ taskSlug", taskSlug);
+    const taskId = router.query?.id;
+    const queryClient = useQueryClient();
+    const taskDetail = queryClient.getQueryData<ITask>(["task-detail", taskId]);
+    console.log(
+        "🚀 ~ file: PostModal.tsx ~ line 46 ~ taskDetail",
+        taskDetail?.highlights
+    );
+    const [isRemote, setIsRemote] = useState(
+        taskDetail?.location === "remote" ? true : false
+    );
+    // const [isOnPremise, setIsOnPremise] = useState(isRemote ? false : true);
+    const { mutate } = useEditTask();
+    const editValues: PostTaskProps = {
+        title: taskDetail?.title,
+        description: extractContent(taskDetail?.description),
+        highlights: taskDetail?.highlights,
+        address: taskDetail?.city.name,
+        category: taskDetail?.service?.category.name,
+        location: isRemote ? "onPremise" : "remote",
+        budget: taskDetail?.budget_to ? taskDetail?.budget_to : "",
+        minBudget: taskDetail?.budget_to,
+        maxBudget: taskDetail?.budget_from,
+        images: "",
+        video: "",
+        date: taskDetail?.start_date ? parseISO(taskDetail?.start_date) : "",
 
-    // const taskDetail =
-    //     showPostTaskModalType === "EDIT"
-    //         ? queryClient.getQueryData<ITask>(["task-detail", taskSlug])
-    //         : undefined;
+        date_from: taskDetail?.start_date
+            ? parseISO(taskDetail?.start_date)
+            : "",
+        date_to: taskDetail?.end_date ? parseISO(taskDetail?.end_date) : "",
+    };
+
+    const getInitialImageIds = useCallback(
+        () => (taskDetail?.images ?? []).map((image) => image.id),
+        [taskDetail?.images]
+    );
+
+    const getInitialVideoIds = useCallback(
+        () => (taskDetail?.videos ?? []).map((video) => video.id),
+        [taskDetail?.videos]
+    );
+
+    const [initialImageIds, setInitialImageIds] = useState<number[]>(() =>
+        getInitialImageIds()
+    );
+    const [initialVideoIds, setInitialVideoIds] = useState<number[]>(() =>
+        getInitialVideoIds()
+    );
+    const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
+        useUploadFile();
+
     return (
         <>
             {/* Modal component */}
@@ -48,21 +103,73 @@ const PostModal = ({
                 <div className="post-task-form">
                     <Formik
                         enableReinitialize
-                        initialValues={PostTaskFormData}
-                        validationSchema={profileEditFormSchema}
-                        onSubmit={async () => {
+                        initialValues={
+                            taskDetail ? { ...editValues } : PostTaskFormData
+                        }
+                        validationSchema={postTaskModalSchema}
+                        onSubmit={async (values) => {
+                            console.log("values", values);
                             setshowPostModel(false);
-                            toggleSuccessModal();
-                            // To be used for API
-                            // try {
-                            //     axiosClient.post("/routes", values);
-                            // } catch (error: any) {
-                            //     error.response.data.message;
-                            // }
+                            const uploadedImageIds = await uploadFileMutation({
+                                files: values.images,
+                                media_type: "image",
+                            });
+                            const uploadedVideoIds = await uploadFileMutation({
+                                files: values.video,
+                                media_type: "video",
+                            });
+                            const imageIds = [
+                                ...uploadedImageIds,
+                                ...initialImageIds,
+                            ];
+                            const videoIds = [
+                                ...uploadedVideoIds,
+                                ...initialVideoIds,
+                            ];
+
+                            const postTaskPayload = {
+                                ...values,
+                                highlights: values.highlights,
+                                images: imageIds,
+                                videos: videoIds,
+                                extra_data: [],
+                            };
+                            mutate(
+                                { id: String(taskId), data: postTaskPayload },
+                                {
+                                    onSuccess: async () => {
+                                        toggleSuccessModal(
+                                            "Task Updated Successfully"
+                                        );
+
+                                        await queryClient.invalidateQueries([
+                                            ReactQueryKeys.TASK_DETAIL,
+                                        ]);
+                                        queryClient.setQueryData(
+                                            ["task-detail"],
+                                            taskId
+                                        );
+
+                                        queryClient.invalidateQueries([
+                                            "all-tasks",
+                                        ]);
+                                    },
+                                }
+                            );
                         }}
                     >
-                        {({ isSubmitting, errors, touched, setFieldValue }) => (
+                        {({
+                            isSubmitting,
+                            errors,
+                            values,
+                            touched,
+                            getFieldProps,
+                            setFieldValue,
+                        }) => (
                             <Form>
+                                <pre>{JSON.stringify(values, null, 4)}</pre>
+                                <pre>{JSON.stringify(errors, null, 4)}</pre>
+
                                 <InputField
                                     type="text"
                                     name="title"
@@ -73,10 +180,10 @@ const PostModal = ({
                                     placeHolder="Enter your Title"
                                 />
                                 <InputField
-                                    name="taskDescription"
+                                    name="description"
                                     labelName="Task Description"
-                                    touch={touched.taskDescription}
-                                    error={errors.taskDescription}
+                                    touch={touched.description}
+                                    error={errors.description}
                                     placeHolder="Task Description"
                                     fieldRequired
                                     as="textarea"
@@ -86,10 +193,12 @@ const PostModal = ({
                                     This helps tasker to find about your
                                     requirements better.
                                 </p>
+
                                 <AddRequirements
                                     onSubmit={(value) =>
-                                        setFieldValue("req", value)
+                                        setFieldValue("highlights", value)
                                     }
+                                    placeHolder="Requirements..."
                                 />
                                 <InputField
                                     type="text"
@@ -102,20 +211,34 @@ const PostModal = ({
                                 />
                                 <h4>Select Task Type</h4>
                                 <span className="d-flex mb-4">
-                                    <FormCheck
-                                        type="radio"
-                                        name="task_type"
-                                        label="Remote"
-                                        className="me-3"
-                                        value="remote"
-                                    />
-                                    <FormCheck
-                                        type="radio"
-                                        name="task_type"
-                                        label="On premise"
-                                        className="mb-8"
-                                        value="onPremise"
-                                    />
+                                    <FormGroup>
+                                        <FormCheck
+                                            type="radio"
+                                            label="Remote"
+                                            className="me-3"
+                                            defaultChecked={isRemote}
+                                            {...getFieldProps("location")}
+                                            onChange={(event) => {
+                                                setFieldValue(
+                                                    "location",
+                                                    event.target.value
+                                                );
+                                            }}
+                                        />
+                                        <FormCheck
+                                            type="radio"
+                                            label="On premise"
+                                            className="mb-8"
+                                            {...getFieldProps("location")}
+                                            defaultChecked={!isRemote}
+                                            onChange={(e) => {
+                                                setFieldValue(
+                                                    "location",
+                                                    e.target.value
+                                                );
+                                            }}
+                                        />
+                                    </FormGroup>
                                 </span>
                                 <InputField
                                     type="text"
@@ -141,7 +264,6 @@ const PostModal = ({
                                                 };
                                             })
                                         }
-                                        defaultChecked
                                     />
                                     <FormCheck
                                         type="radio"
@@ -176,7 +298,7 @@ const PostModal = ({
                                             <Col md={4}>
                                                 <InputField
                                                     type="text"
-                                                    name="addressLine1"
+                                                    name="maxBudget"
                                                     error={errors.maxBudget}
                                                     touch={touched.maxBudget}
                                                     fieldRequired
@@ -205,11 +327,18 @@ const PostModal = ({
                                     requirements better.
                                 </p>
                                 <Col md={5}>
-                                    <DragDrop
-                                        image="/service-details/file-upload.svg"
-                                        fileType="Image/Video"
-                                        maxImageSize={20}
-                                        name={"image_upload"}
+                                    <CustomDropZone
+                                        accept={IMAGE_MIME_TYPE}
+                                        uploadedFiles={taskDetail?.images ?? []}
+                                        fileType="image"
+                                        sx={{ maxWidth: "30rem" }}
+                                        name="images"
+                                        onRemoveUploadedFiles={
+                                            setInitialImageIds
+                                        }
+                                        onDrop={(images) =>
+                                            setFieldValue("images", images)
+                                        }
                                     />
                                 </Col>
                                 <h4>When do you need this done?</h4>
@@ -218,11 +347,17 @@ const PostModal = ({
                                     requirements better.
                                 </p>
                                 <Col md={5}>
-                                    <DragDrop
-                                        image="/service-details/file-upload.svg"
-                                        fileType="Image/Video"
-                                        maxImageSize={20}
-                                        name={"video_upload"}
+                                    <CustomDropZone
+                                        accept={[MIME_TYPES.mp4]}
+                                        uploadedFiles={taskDetail?.videos ?? []}
+                                        fileType="video"
+                                        name="task-video"
+                                        onRemoveUploadedFiles={
+                                            setInitialVideoIds
+                                        }
+                                        onDrop={(videos) =>
+                                            setFieldValue("videos", videos)
+                                        }
                                     />
                                 </Col>
                                 <h4>When do you need this done?</h4>

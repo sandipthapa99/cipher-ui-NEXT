@@ -64,22 +64,24 @@ const AddRequirements = ({
         });
     };
 
-    const renderTasks = requirementState.map((requirement, index) => {
-        return (
-            <div className="list-item-requirements" key={index}>
-                <li>
-                    {index + 1}. {requirement.name}
-                </li>
+    const renderTasks = requirementState.map(
+        (requirement: Requirement, index) => {
+            return (
+                <div className="list-item-requirements" key={index}>
+                    <li>
+                        {index + 1}. {requirement.name}
+                    </li>
 
-                <FontAwesomeIcon
-                    icon={faXmark}
-                    className="svg-icon"
-                    style={{ marginRight: "2rem" }}
-                    onClick={() => deleteRequirements(requirement.id)}
-                />
-            </div>
-        );
-    });
+                    <FontAwesomeIcon
+                        icon={faXmark}
+                        className="svg-icon"
+                        style={{ marginRight: "2rem" }}
+                        onClick={() => deleteRequirements(requirement?.id)}
+                    />
+                </div>
+            );
+        }
+    );
     return (
         <div className="add-requirements">
             <p className="requirements-title">{title}</p>
