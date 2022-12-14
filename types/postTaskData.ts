@@ -3,7 +3,7 @@ import type { Requirement } from "./requirement";
 export interface PostTaskProps {
     title: string | undefined;
     description: string | undefined;
-    highlights: string | undefined;
+    highlights: string | undefined | Requirement[];
     address: string | undefined;
     category: string | undefined;
     location: "remote" | "onPremise";
