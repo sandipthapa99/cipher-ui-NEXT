@@ -219,34 +219,38 @@ export const UserTaskDetailHeader = ({
                 </Col>
                 <Col md={4} className="d-flex flex-column align-items-end">
                     <div className="td-task-detail-header-icons">
-                        {taskerDetail?.is_followed ? (
-                            <FontAwesomeIcon
-                                icon={faUserCheck}
-                                color="#297796"
-                                height={24}
-                                width={24}
-                                className="svg-follow-icon"
-                                onClick={() =>
-                                    handleFollowClick(
-                                        taskerDetail?.user?.id,
-                                        "unfollow"
-                                    )
-                                }
-                            />
+                        {!isSelf ? (
+                            taskerDetail?.is_followed ? (
+                                <FontAwesomeIcon
+                                    icon={faUserCheck}
+                                    color="#297796"
+                                    height={24}
+                                    width={24}
+                                    className="svg-follow-icon"
+                                    onClick={() =>
+                                        handleFollowClick(
+                                            taskerDetail?.user?.id,
+                                            "unfollow"
+                                        )
+                                    }
+                                />
+                            ) : (
+                                <FontAwesomeIcon
+                                    icon={faUserPlus}
+                                    color="#297796"
+                                    height={24}
+                                    width={24}
+                                    className="svg-follow-icon"
+                                    onClick={() =>
+                                        handleFollowClick(
+                                            taskerDetail?.user?.id,
+                                            "follow"
+                                        )
+                                    }
+                                />
+                            )
                         ) : (
-                            <FontAwesomeIcon
-                                icon={faUserPlus}
-                                color="#297796"
-                                height={24}
-                                width={24}
-                                className="svg-follow-icon"
-                                onClick={() =>
-                                    handleFollowClick(
-                                        taskerDetail?.user?.id,
-                                        "follow"
-                                    )
-                                }
-                            />
+                            ""
                         )}
                         <SaveIcon
                             showText
