@@ -505,7 +505,7 @@ export default function Checkout() {
                                             </p>
                                         )}
 
-                                        {offer && (
+                                        {!item?.offer && offer && (
                                             <Formik
                                                 initialValues={{
                                                     redeem_offer: "",
