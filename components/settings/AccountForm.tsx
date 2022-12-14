@@ -47,6 +47,7 @@ import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
+import { number } from "yup";
 
 import { db } from "../../firebase/firebase";
 import { FillKyc } from "./FillKyc";
@@ -337,22 +338,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
         () => editProfile.isLoading,
         [editProfile.isLoading]
     );
-    // const defaultInterests: unknown = useMemo(() => {
-    //     return profile?.interests.map((item: any) => ({
-    //         label: item.name,
-    //         value: item.id,
-    //     }));
-    // }, [profile]);
-    // const defaultInterests: unknown = () => {
-    //     return profile?.interests.map((item: any) => ({
-    //         id: item.id,
-    //     }));
-    // };
-
-    // console.log(
-    //     "🚀 ~ file: AccountForm.tsx ~ line 322 ~ defaultInterests ~ defaultInterests",
-    //     defaultInterests
-    // );
 
     if (loadingOverlayVisible)
         return (
@@ -386,11 +371,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
     // const interests =
     //     typeof interestValues !== "undefined" ? interestValues : [];
 
-    const currentInterests =
-        profile &&
-        profile?.interests.map((item: { id: number; name: string }) => {
-            return item.id.toString();
-        });
+    const defaultInterests = profile?.interests?.map((item) => {
+        return item.id.toString();
+    });
 
     return (
         <>
@@ -428,7 +411,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 ? parseISO(profile.date_of_birth)
                                 : "",
                         skill: skills,
-                        interests: profile ? currentInterests : [],
+                        interests: defaultInterests,
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start:
                             new Date(`2022-09-24 ${startTime}`) ?? "",
@@ -592,7 +575,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                            {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -966,6 +949,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 // disabled={isInputDisabled}
                             /> */}
                             <MultiSelect
+                                {...getFieldProps("interests")}
                                 data={interestOptions}
                                 name="interests"
                                 onChange={(value) => {
@@ -975,6 +959,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                                 placeholder="Enter your interests"
                                 error={errors.interests}
+                                defaultValue={defaultInterests}
                             />
                             <RadioField
                                 type="radio"

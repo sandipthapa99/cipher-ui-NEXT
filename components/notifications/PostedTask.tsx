@@ -57,8 +57,7 @@ export const PostNotifyTask = ({
                         <span className="span-name" onClick={handleClick}>
                             You{" "}
                         </span>
-                        {type} a {is_requested ? "task" : "service"} {taskTitle}
-                        .
+                        {type} a {is_requested ? "task" : "service"}
                         <span
                             className="span-name"
                             // onClick={() => {
