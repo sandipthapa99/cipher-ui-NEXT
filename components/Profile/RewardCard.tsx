@@ -1,26 +1,26 @@
 import CardBtn from "@components/common/CardBtn";
+import urls from "constants/urls";
+import { useData } from "hooks/use-data";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
-import { rewardCardContent } from "staticData/rewardCard";
+import type { OfferListingProps } from "types/offerListingProps";
 
 const RewardCard = () => {
-    const [copySuccess, setCopySuccess] = useState("");
     // your function to copy here
+    const { data: redeemList } = useData<OfferListingProps>(
+        ["reedem-offers"],
+        urls.offer.list,
+        true
+    );
 
-    const copyToClipBoard = async (copyMe: any) => {
-        try {
-            await navigator.clipboard.writeText(copyMe);
-            setCopySuccess("Copied!");
-        } catch (err) {
-            setCopySuccess("Failed to copy!");
-        }
-    };
+    const router = useRouter();
+
     return (
         <div className="rewards">
             <Row className="d-flex align-items-stretch">
-                {rewardCardContent &&
-                    rewardCardContent.map((info) => (
+                {redeemList?.data &&
+                    redeemList?.data?.map((info) => (
                         <Col
                             key={info.id}
                             className="d-flex gx-4 align-items-stretch"
@@ -31,13 +31,16 @@ const RewardCard = () => {
                             <div className="find-hire-card-block reward-card">
                                 <figure className="thumbnail-img">
                                     <Image
-                                        src={info.rewardImage}
+                                        src={
+                                            info?.offer?.image ??
+                                            "/placeholder/profilePlaceholder.png"
+                                        }
                                         layout="fill"
                                         objectFit="cover"
                                         alt="reward-image"
                                     />
                                 </figure>
-                                {info.isAvailable ? (
+                                {info?.is_active ? (
                                     ""
                                 ) : (
                                     <figure className="expired-img">
@@ -50,45 +53,16 @@ const RewardCard = () => {
                                     </figure>
                                 )}
                                 <div className="card-content">
-                                    <h2>
-                                        {info.haveDiscount
-                                            ? `${info.discount}% Off ${info.title}`
-                                            : `${info.title}`}
-                                    </h2>
-                                    <p>{info.description}</p>
-                                    {info.haveCouponCode ? (
-                                        <div className="coupon">
-                                            {info.isCouponCodeAvailable ? (
-                                                <div className="code">
-                                                    <p>{info.couponCode}</p>
-                                                </div>
-                                            ) : (
-                                                <div className="disabled disabled-color">
-                                                    <p>{info.couponCode}</p>
-                                                </div>
-                                            )}
+                                    <h2>{info?.offer?.title}</h2>
+                                    <p>{info?.offer?.description}</p>
 
-                                            <div
-                                                className={`${
-                                                    info.isCouponCodeAvailable
-                                                        ? "abled"
-                                                        : "disabled-copy-btn"
-                                                } copy-btn`}
-                                                onClick={() =>
-                                                    copyToClipBoard(
-                                                        info.couponCode
-                                                    )
-                                                }
-                                            >
-                                                Copy
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <CardBtn
-                                            btnTitle={`${info.btnText}`}
-                                            backgroundColor="primary-color"
-                                        />
-                                    )}
+                                    <CardBtn
+                                        btnTitle={`Redeem`}
+                                        backgroundColor="primary-color"
+                                        handleClick={() =>
+                                            router.push("/service")
+                                        }
+                                    />
                                 </div>
                             </div>
                         </Col>

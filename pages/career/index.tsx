@@ -11,7 +11,6 @@ import { axiosClient } from "utils/axiosClient";
 
 const Career = ({ careerData }: { careerData: CareerValueProps }) => {
     const { result } = careerData ?? [];
-    console.log(careerData, "career");
 
     return (
         <Layout

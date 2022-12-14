@@ -3,7 +3,7 @@ import InputField from "@components/common/InputField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
-import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
+import { faCalendarDays, faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
@@ -24,6 +24,7 @@ import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import parse from "html-react-parser";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -63,6 +64,7 @@ const BookNowModalCard = ({
     const { mutateAsync, isLoading: uploadPhotoLoading } = useUploadFile();
     const { mutate, isLoading: bookNowLoading } = useBookNowTask();
     const isBookLoading = uploadPhotoLoading || bookNowLoading;
+    const [offerSelector, setOfferSelector] = useState<number>();
     const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = new QueryClient();
     const parsedDescription = parse(description ?? "");
@@ -178,6 +180,7 @@ const BookNowModalCard = ({
                             entity_service: "",
                             budget_to: budget_to,
                             videos: "",
+                            offer: "",
                             requirements: "",
                             location: "",
                         }}
@@ -199,6 +202,7 @@ const BookNowModalCard = ({
                                 images: imageIds,
                                 videos: videoIds,
                                 entity_service: entity_service_id,
+                                offer: offerSelector ? [offerSelector] : [],
                             };
 
                             mutate(newvalues, {
@@ -432,7 +436,7 @@ const BookNowModalCard = ({
                                         </Col>
                                     </Row>
                                     <h4 className="mb-3">Select Offer</h4>
-                                    <List className="mb-5">
+                                    <List className="mb-5 book-now-gallery__list">
                                         {offer &&
                                             offer
                                                 .filter(
@@ -441,10 +445,25 @@ const BookNowModalCard = ({
                                                         "basic"
                                                 )
                                                 .map((offer, key) => (
-                                                    <List.Item key={key}>
+                                                    <List.Item
+                                                        key={key}
+                                                        onClick={() =>
+                                                            setOfferSelector(
+                                                                offer?.id
+                                                            )
+                                                        }
+                                                        role={"button"}
+                                                        data-active={
+                                                            offerSelector ===
+                                                            offer?.id
+                                                        }
+                                                        className={
+                                                            "book-now-gallery__list--item active mb-3 py-2 ps-3"
+                                                        }
+                                                    >
                                                         <span
                                                             className={
-                                                                "d-flex align-items-center gap-3 pb-3"
+                                                                "d-flex align-items-center gap-3"
                                                             }
                                                         >
                                                             <FontAwesomeIcon
@@ -452,6 +471,15 @@ const BookNowModalCard = ({
                                                                 className="text-warning"
                                                             />
                                                             {offer?.title}
+                                                            {offerSelector ===
+                                                                offer?.id && (
+                                                                <FontAwesomeIcon
+                                                                    icon={
+                                                                        faCheck
+                                                                    }
+                                                                    className="text-primary"
+                                                                />
+                                                            )}
                                                         </span>
                                                     </List.Item>
                                                 ))}
