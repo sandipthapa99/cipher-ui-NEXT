@@ -44,6 +44,7 @@ import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
+import { AccountFormData } from "utils/formData";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -101,20 +102,27 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [show, setShow] = useState(false);
 
     //hooks call
-    // const defaultInterests = useMemo(
-    //     () =>
-    //         profileDetails?.interests.map((item) => ({
-    //             value: item.id,
-    //             label: item.name,
-    //         })),
-    //     [profileDetails]
-    // );
     const { mutate, isLoading: postProfileLoading } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
+    console.log("🚀 ~ file: AccountForm.tsx:110 ~ profile", profile);
     const [interestOptions, setInterestOptions] = useState<any>([]);
+    const [profileData, setProfileData] = useState();
+    const { data: user } = useUser();
+
+    const { data } = useQuery(["profile", user?.id], async () => {
+        if (!user) return undefined;
+        try {
+            const { data } = await axiosClient.get("/tasker/profile/");
+        } catch (error) {
+            return undefined;
+        }
+    });
+    // useEffect(() => {
+    //     setProfileData(data);
+    // }, []);
     const { data: allCategory } = useQuery(
         ["all-category"],
         () => {
@@ -389,7 +397,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const currentInterests =
         profile &&
         profile?.interests.map((item: { id: number; name: string }) => {
-            return item.id.toString();
+            return { value: item.id.toString(), label: item.name };
         });
 
     return (
@@ -415,78 +423,83 @@ const AccountForm = ({ showAccountForm }: Display) => {
                 }
             >
                 <Formik
-                    initialValues={{
-                        first_name: profile?.user.first_name ?? "",
-                        middle_name: profile?.user.middle_name ?? "",
-                        last_name: profile?.user.last_name ?? "",
-                        city: profile?.city?.id ?? "",
-                        email: "",
-                        bio: profile?.bio ?? "",
-                        gender: profile?.gender ?? "",
-                        date_of_birth:
-                            profile && profile.date_of_birth
-                                ? parseISO(profile.date_of_birth)
-                                : "",
-                        skill: skills,
-                        interests: profile ? currentInterests : [],
-                        experience_level: profile?.experience_level ?? "",
-                        active_hour_start:
-                            new Date(`2022-09-24 ${startTime}`) ?? "",
-                        active_hour_end:
-                            new Date(`2022-09-24 ${endTime}`) ?? "",
-                        hourly_rate: profile?.hourly_rate ?? "",
-                        user_type: userType ?? "",
-                        country: profile ? countryChange : "",
-                        education: "abc",
-                        address_line1: profile?.address_line1 ?? "",
-                        address_line2: profile?.address_line2 ?? "",
-                        language: profile ? languageChange : "",
-                        charge_currency: profile ? currencyChange : "",
-                        profile_visibility: profile?.profile_visibility ?? "",
-                        task_preferences: profile?.task_preferences ?? "",
-                        profile_image: profile?.profile_image ?? "",
-                        designation: profile?.designation ?? "",
-                    }}
+                    initialValues={
+                        //     {
+                        //     first_name: profile?.user.first_name ?? "",
+                        //     middle_name: profile?.user.middle_name ?? "",
+                        //     last_name: profile?.user.last_name ?? "",
+                        //     city: profile?.city?.id ?? "",
+                        //     email: "",
+                        //     bio: profile?.bio ?? "",
+                        //     gender: profile?.gender ?? "",
+                        //     date_of_birth:
+                        //         profile && profile.date_of_birth
+                        //             ? parseISO(profile.date_of_birth)
+                        //             : "",
+                        //     skill: skills,
+                        //     interests: profile ? currentInterests : [],
+                        //     experience_level: profile?.experience_level ?? "",
+                        //     active_hour_start:
+                        //         new Date(`2022-09-24 ${startTime}`) ?? "",
+                        //     active_hour_end:
+                        //         new Date(`2022-09-24 ${endTime}`) ?? "",
+                        //     hourly_rate: profile?.hourly_rate ?? "",
+                        //     user_type: userType ?? "",
+                        //     country: profile ? countryChange : "",
+                        //     address_line1: profile?.address_line1 ?? "",
+                        //     address_line2: profile?.address_line2 ?? "",
+                        //     language: profile ? languageChange : "",
+                        //     charge_currency: profile ? currencyChange : "",
+                        //     profile_visibility: profile?.profile_visibility ?? "",
+                        //     task_preferences: profile?.task_preferences ?? "",
+                        //     profile_image: profile?.profile_image ?? "",
+                        //     designation: profile?.designation ?? "",
+                        // }
+                        profile
+                            ? {
+                                  first_name: profile?.user.first_name ?? "",
+                                  middle_name: profile?.user.middle_name ?? "",
+                                  last_name: profile?.user.last_name ?? "",
+                                  city: profile?.city?.id ?? "",
+                                  email: "",
+                                  bio: profile?.bio ?? "",
+                                  gender: profile?.gender ?? "",
+                                  date_of_birth:
+                                      profile && profile.date_of_birth
+                                          ? parseISO(profile.date_of_birth)
+                                          : "",
+                                  skill: skills,
+                                  interests: profile ? currentInterests : [],
+                                  experience_level:
+                                      profile?.experience_level ?? "",
+                                  active_hour_start:
+                                      new Date(`2022-09-24 ${startTime}`) ?? "",
+                                  active_hour_end:
+                                      new Date(`2022-09-24 ${endTime}`) ?? "",
+                                  hourly_rate: profile?.hourly_rate ?? "",
+                                  user_type: userType ?? "",
+                                  country: profile ? countryChange : "",
+                                  address_line1: profile?.address_line1 ?? "",
+                                  address_line2: profile?.address_line2 ?? "",
+                                  language: profile ? languageChange : "",
+                                  charge_currency: profile
+                                      ? currencyChange
+                                      : "",
+                                  profile_visibility:
+                                      profile?.profile_visibility ?? "",
+                                  task_preferences:
+                                      profile?.task_preferences ?? "",
+                                  profile_image: profile?.profile_image ?? "",
+                                  designation: profile?.designation ?? "",
+                              }
+                            : AccountFormData
+                    }
                     validationSchema={accountFormSchema}
                     enableReinitialize={true}
                     onSubmit={async (values) => {
                         const formData = new FormData();
-                        {
-                            userData?.id &&
-                                (await setDoc(doc(db, "users", userData?.id), {
-                                    name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
-                                    email: values.email,
-                                    profile: values.profile_image,
-                                    uuid: userData?.id,
-                                }));
-                        }
 
                         {
-                            const res = await getDoc(
-                                doc(
-                                    db,
-                                    "userChats",
-                                    userData?.id ? userData?.id : ""
-                                )
-                            );
-
-                            {
-                                const res = await getDoc(
-                                    doc(
-                                        db,
-                                        "userChats",
-                                        userData?.id ? userData?.id : ""
-                                    )
-                                );
-
-                                !res.exists() &&
-                                    userData?.id &&
-                                    (await setDoc(
-                                        doc(db, "userChats", userData?.id),
-                                        {}
-                                    ));
-                            }
-
                             const newValidatedValues = {
                                 ...values,
                                 user_type: JSON.stringify(values.user_type),
@@ -534,7 +547,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     } else {
                                         formData.append(
                                             "profile_image",
-                                            values.profile_image
+                                            values?.profile_image
                                         );
                                     }
 
@@ -543,8 +556,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 }
                             );
 
-                            values?.interests?.forEach((val: string | Blob) => {
-                                formData.append("interests", val);
+                            values?.interests?.forEach((value: any) => {
+                                formData.append("interests", value);
                             });
 
                             const editedData = formData;
@@ -552,7 +565,75 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             {
                                 isEditButtonClicked
                                     ? editProfile.mutate(formData, {
-                                          onSuccess: () => {
+                                          onSuccess: async () => {
+                                              {
+                                                  userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "users",
+                                                              userData?.id
+                                                          ),
+                                                          {
+                                                              name: `${
+                                                                  values.first_name
+                                                                      ? values.first_name
+                                                                      : profile
+                                                                            ?.user
+                                                                            .first_name
+                                                              } ${
+                                                                  values.middle_name
+                                                                      ? values.middle_name
+                                                                      : profile
+                                                                            ?.user
+                                                                            .middle_name
+                                                              } ${
+                                                                  values.last_name
+                                                                      ? values.last_name
+                                                                      : profile
+                                                                            ?.user
+                                                                            .last_name
+                                                              }`,
+                                                              email: values.email
+                                                                  ? values.email
+                                                                  : profile
+                                                                        ?.user
+                                                                        .email,
+                                                              profile: profile
+                                                                  ?.user
+                                                                  .profile_image
+                                                                  ? profile
+                                                                        ?.user
+                                                                        .profile_image
+                                                                  : profile
+                                                                        ?.avatar
+                                                                        ?.image,
+                                                              uuid: userData?.id,
+                                                          }
+                                                      ));
+                                              }
+                                              {
+                                                  const res = await getDoc(
+                                                      doc(
+                                                          db,
+                                                          "userChats",
+                                                          userData?.id
+                                                              ? userData?.id
+                                                              : ""
+                                                      )
+                                                  );
+
+                                                  !res.exists() &&
+                                                      userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "userChats",
+                                                              userData?.id
+                                                          ),
+                                                          {}
+                                                      ));
+                                              }
                                               toast.success(
                                                   "Profile updated successfully."
                                               );
@@ -568,7 +649,53 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                           },
                                       })
                                     : mutate(formData, {
-                                          onSuccess: () => {
+                                          onSuccess: async () => {
+                                              {
+                                                  userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "users",
+                                                              userData?.id
+                                                          ),
+                                                          {
+                                                              name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
+                                                              email: values.email,
+                                                              profile: profile
+                                                                  ?.user
+                                                                  .profile_image
+                                                                  ? profile
+                                                                        ?.user
+                                                                        .profile_image
+                                                                  : profile
+                                                                        ?.avatar
+                                                                        ?.image,
+                                                              uuid: userData?.id,
+                                                          }
+                                                      ));
+                                              }
+                                              {
+                                                  const res = await getDoc(
+                                                      doc(
+                                                          db,
+                                                          "userChats",
+                                                          userData?.id
+                                                              ? userData?.id
+                                                              : ""
+                                                      )
+                                                  );
+
+                                                  !res.exists() &&
+                                                      userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "userChats",
+                                                              userData?.id
+                                                          ),
+                                                          {}
+                                                      ));
+                                              }
                                               setShow(true);
                                               queryClient.invalidateQueries([
                                                   "profile",
@@ -592,7 +719,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                            <pre>{JSON.stringify(errors, null, 4)}</pre>
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -948,12 +1075,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 //error={errors.skill}
                             />
                             {/* <TagMultiSelectField
-                                defaultValue={defaultInterests as string}
+                                defaultValue={currentInterests}
                                 name="interests"
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
                                 disabled={isInputDisabled}
-                                data={interestValues}
+                                data={interestOptions}
                             /> */}
                             {/* <TagInputField
                                 data={interestValues}
@@ -974,7 +1101,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 label="Interests"
                                 disabled={isInputDisabled}
                                 placeholder="Enter your interests"
-                                error={errors.interests}
                             />
                             <RadioField
                                 type="radio"

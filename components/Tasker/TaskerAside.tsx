@@ -88,7 +88,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
             <Row>
                 <Col md={4}>
                     <ScrollArea.Autosize
-                        maxHeight={800}
+                        maxHeight={850}
                         offsetScrollbars
                         scrollbarSize={5}
                     >

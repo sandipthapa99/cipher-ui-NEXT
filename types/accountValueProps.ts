@@ -1,18 +1,21 @@
-import { AddSkillFormData } from "utils/formData";
-import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
-
 export interface AccountValueProps {
-    full_name: string;
-    phone: number | string;
+    first_name: string;
+    middle_name: string;
+    last_name: string;
+    city: string;
     email: string;
     bio: string;
     gender: string;
-    date_of_birth: string | null;
-    skill: string;
+    date_of_birth: string | number | Date;
+    skill: any;
+    interests: {
+        label: string;
+        value: string;
+    }[];
     experience_level: string;
     active_hour_start: string;
     active_hour_end: string | null;
-    hourly_rate: number | null;
+    hourly_rate: number | null | string;
     user_type: string;
     country: string | number;
     address_line1: string;
@@ -21,6 +24,6 @@ export interface AccountValueProps {
     charge_currency: string | number | undefined;
     profile_visibility: string;
     task_preferences: string;
-    profile_image?: string;
-    education: string;
+    profile_image: string | Blob;
+    designation: string;
 }
