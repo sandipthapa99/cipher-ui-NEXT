@@ -24,7 +24,7 @@ import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { List, Text } from "@mantine/core";
-import { Alert, Spoiler } from "@mantine/core";
+import { Alert } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -96,7 +96,6 @@ const SearchResultsDetail = ({
         urls.task.service
     );
     const parsedDescription = parse(serviceDescription ?? "");
-
     const { data: myServicePackage } = useData<{
         result: Array<{
             id: number;
@@ -593,7 +592,10 @@ const SearchResultsDetail = ({
                 )}
                 {offers && offers.length > 0 ? (
                     <section className="service-details__offers">
-                        <h1>Available Offers</h1>
+                        {offers.find(
+                            (offer) => offer.offer_type === "basic"
+                        ) && <h1>Available Offers</h1>}
+
                         <List className="mb-5">
                             {offers
                                 .filter((offer) => offer.offer_type === "basic")
@@ -613,18 +615,21 @@ const SearchResultsDetail = ({
                                     </List.Item>
                                 ))}
                         </List>
-
-                        <h1>Offers(Promo Code)</h1>
+                        {offers.find(
+                            (offer) => offer.offer_type === "promo_code"
+                        ) && <h1>Offers(Promo Code)</h1>}
                         <Row>
                             {offers
                                 .filter(
                                     (offer) => offer.offer_type === "promo_code"
                                 )
-                                .map((offer) => (
-                                    <Col md={6} key={offer.id}>
-                                        <OfferCard offer={offer} />{" "}
-                                    </Col>
-                                ))}
+                                .map((offer) => {
+                                    return (
+                                        <Col md={6} key={offer.id}>
+                                            <OfferCard offer={offer} />{" "}
+                                        </Col>
+                                    );
+                                })}
                         </Row>
                     </section>
                 ) : null}

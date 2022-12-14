@@ -1,10 +1,13 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { useTaskDetail } from "hooks/task/use-task-detail";
+import { useData } from "hooks/use-data";
 import type { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { ReactQueryKeys } from "types/queryKeys";
+import type { ITask } from "types/task";
 import extractContent from "utils/extractString";
 
 const TaskDetail = () => {
@@ -12,6 +15,10 @@ const TaskDetail = () => {
     const { id } = router.query;
     const { data: taskDetail } = useTaskDetail((id as string) ?? "");
 
+    const { data: taskDetails } = useData<ITask>(
+        ["task-detail", id],
+        `${urls.task.list}/${id}`
+    );
     return (
         <>
             <AppliedLayout
@@ -29,7 +36,12 @@ const TaskDetail = () => {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const { id } = params as { id: string };
     const queryClient = new QueryClient();
-    await queryClient.prefetchQuery([ReactQueryKeys.TASK_DETAIL, id]);
+    await Promise.all([
+        queryClient.prefetchQuery([ReactQueryKeys.TASK_DETAIL, id]),
+        queryClient.prefetchQuery(["task-detail"]),
+        queryClient.prefetchQuery(["tasks"]),
+        queryClient.prefetchQuery(["all-tasks"]),
+    ]);
     return {
         props: {
             dehydratedState: dehydrate(queryClient),

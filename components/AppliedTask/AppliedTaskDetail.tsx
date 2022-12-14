@@ -59,8 +59,6 @@ const AppliedTaskDetail = ({
     //     `${urls.task.requested_task}`
     // );
 
-    // const taskId = taskDetail ? requestedTask?.entity_service.id : "";
-
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", taskDetail?.id],
         `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`
@@ -83,9 +81,6 @@ const AppliedTaskDetail = ({
             />
         );
     };
-    const router = useRouter();
-
-    // const slug = router?.query?.slug as string;
 
     const isTaskBookmarked = useIsBookmarked("entityservice", taskDetail?.id);
 
@@ -451,8 +446,11 @@ export const getStaticProps: GetStaticProps = async () => {
         );
 
         const queryClient = new QueryClient();
-        queryClient.prefetchQuery(["get-my-applicants"]);
-        queryClient.prefetchQuery(["get-task-applicants"]);
+        await Promise.all([
+            queryClient.prefetchQuery(["get-my-applicants"]),
+            queryClient.prefetchQuery(["get-task-applicants"]),
+            queryClient.prefetchQuery(["task-detail"]),
+        ]);
 
         return {
             props: {
