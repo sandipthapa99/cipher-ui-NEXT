@@ -107,6 +107,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
+    console.log("🚀 ~ file: AccountForm.tsx:110 ~ profile", profile);
     const [interestOptions, setInterestOptions] = useState<any>([]);
     const [profileData, setProfileData] = useState();
     const { data: user } = useUser();
@@ -497,42 +498,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                     enableReinitialize={true}
                     onSubmit={async (values) => {
                         const formData = new FormData();
-                        {
-                            userData?.id &&
-                                (await setDoc(doc(db, "users", userData?.id), {
-                                    name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
-                                    email: values.email,
-                                    profile: values.profile_image,
-                                    uuid: userData?.id,
-                                }));
-                        }
 
                         {
-                            const res = await getDoc(
-                                doc(
-                                    db,
-                                    "userChats",
-                                    userData?.id ? userData?.id : ""
-                                )
-                            );
-
-                            {
-                                const res = await getDoc(
-                                    doc(
-                                        db,
-                                        "userChats",
-                                        userData?.id ? userData?.id : ""
-                                    )
-                                );
-
-                                !res.exists() &&
-                                    userData?.id &&
-                                    (await setDoc(
-                                        doc(db, "userChats", userData?.id),
-                                        {}
-                                    ));
-                            }
-
                             const newValidatedValues = {
                                 ...values,
                                 user_type: JSON.stringify(values.user_type),
@@ -598,7 +565,75 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             {
                                 isEditButtonClicked
                                     ? editProfile.mutate(formData, {
-                                          onSuccess: () => {
+                                          onSuccess: async () => {
+                                              {
+                                                  userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "users",
+                                                              userData?.id
+                                                          ),
+                                                          {
+                                                              name: `${
+                                                                  values.first_name
+                                                                      ? values.first_name
+                                                                      : profile
+                                                                            ?.user
+                                                                            .first_name
+                                                              } ${
+                                                                  values.middle_name
+                                                                      ? values.middle_name
+                                                                      : profile
+                                                                            ?.user
+                                                                            .middle_name
+                                                              } ${
+                                                                  values.last_name
+                                                                      ? values.last_name
+                                                                      : profile
+                                                                            ?.user
+                                                                            .last_name
+                                                              }`,
+                                                              email: values.email
+                                                                  ? values.email
+                                                                  : profile
+                                                                        ?.user
+                                                                        .email,
+                                                              profile: profile
+                                                                  ?.user
+                                                                  .profile_image
+                                                                  ? profile
+                                                                        ?.user
+                                                                        .profile_image
+                                                                  : profile
+                                                                        ?.avatar
+                                                                        ?.image,
+                                                              uuid: userData?.id,
+                                                          }
+                                                      ));
+                                              }
+                                              {
+                                                  const res = await getDoc(
+                                                      doc(
+                                                          db,
+                                                          "userChats",
+                                                          userData?.id
+                                                              ? userData?.id
+                                                              : ""
+                                                      )
+                                                  );
+
+                                                  !res.exists() &&
+                                                      userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "userChats",
+                                                              userData?.id
+                                                          ),
+                                                          {}
+                                                      ));
+                                              }
                                               toast.success(
                                                   "Profile updated successfully."
                                               );
@@ -614,7 +649,53 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                           },
                                       })
                                     : mutate(formData, {
-                                          onSuccess: () => {
+                                          onSuccess: async () => {
+                                              {
+                                                  userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "users",
+                                                              userData?.id
+                                                          ),
+                                                          {
+                                                              name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
+                                                              email: values.email,
+                                                              profile: profile
+                                                                  ?.user
+                                                                  .profile_image
+                                                                  ? profile
+                                                                        ?.user
+                                                                        .profile_image
+                                                                  : profile
+                                                                        ?.avatar
+                                                                        ?.image,
+                                                              uuid: userData?.id,
+                                                          }
+                                                      ));
+                                              }
+                                              {
+                                                  const res = await getDoc(
+                                                      doc(
+                                                          db,
+                                                          "userChats",
+                                                          userData?.id
+                                                              ? userData?.id
+                                                              : ""
+                                                      )
+                                                  );
+
+                                                  !res.exists() &&
+                                                      userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "userChats",
+                                                              userData?.id
+                                                          ),
+                                                          {}
+                                                      ));
+                                              }
                                               setShow(true);
                                               queryClient.invalidateQueries([
                                                   "profile",
@@ -638,7 +719,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                            <pre>{JSON.stringify(errors, null, 4)}</pre>
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
