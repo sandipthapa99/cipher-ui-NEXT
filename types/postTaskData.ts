@@ -1,18 +1,18 @@
 import type { Requirement } from "./requirement";
 
 export interface PostTaskProps {
-    title: string;
-    taskDescription: string;
-    requirements: Requirement[];
-    address: string;
-    category: string;
-    task_type: "remote" | "onPremise";
-    budget?: string;
-    minBudget?: number;
-    maxBudget?: number;
-    image: File | null | undefined;
-    video: File | null | undefined;
-    date: string | null;
-    date_from: string | null;
-    date_to: string | null;
+    title: string | undefined;
+    description: string | undefined;
+    highlights: string | undefined;
+    address: string | undefined;
+    category: string | undefined;
+    location: "remote" | "onPremise";
+    budget: string | undefined | number;
+    minBudget: number | undefined;
+    maxBudget: number | undefined;
+    images: string;
+    video: string;
+    date: string | null | Date;
+    date_from: string | null | Date;
+    date_to: string | null | Date;
 }

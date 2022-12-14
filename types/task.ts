@@ -37,15 +37,19 @@ export interface IActivity {
     user: string;
 }
 export interface ITask {
-    service: { id: string; title: string };
+    service: {
+        id: string;
+        title: string;
+        category: {
+            id: number;
+            name: string;
+            slug: string;
+            icon: string | null;
+        };
+    };
     id: string;
     title: string;
-    category: {
-        id: number;
-        name: string;
-        slug: string;
-        icon: string | null;
-    };
+
     city: {
         id: number;
         name: string;
