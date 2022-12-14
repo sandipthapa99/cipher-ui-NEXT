@@ -25,10 +25,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             ["tasker-rating", search],
             `${urls.profile.rating}/list/${taskerId}?ordering=${search}`
         );
-    console.log(
-        "🚀 ~ file: UserTaskReviews.tsx:23 ~ UserTaskReviews ~ taskerRatingData",
-        taskerRatingData
-    );
+
     const [show, setShow] = useState<boolean>(false);
 
     const ratingData = taskerRatingData?.data?.result;

@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
 import { Fragment } from "react";
 import { useState } from "react";
@@ -30,7 +31,15 @@ const PostModal = ({
         showBudget: false,
         showTime: false,
     });
+    const router = useRouter();
 
+    const taskSlug = router.query?.slug;
+    console.log("🚀 ~ file: PostModal.tsx ~ line 37 ~ taskSlug", taskSlug);
+
+    // const taskDetail =
+    //     showPostTaskModalType === "EDIT"
+    //         ? queryClient.getQueryData<ITask>(["task-detail", taskSlug])
+    //         : undefined;
     return (
         <>
             {/* Modal component */}
@@ -38,6 +47,7 @@ const PostModal = ({
                 <h2>Post a Task</h2>
                 <div className="post-task-form">
                     <Formik
+                        enableReinitialize
                         initialValues={PostTaskFormData}
                         validationSchema={profileEditFormSchema}
                         onSubmit={async () => {

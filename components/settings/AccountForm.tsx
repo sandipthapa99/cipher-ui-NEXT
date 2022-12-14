@@ -44,6 +44,7 @@ import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
+import { AccountFormData } from "utils/formData";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -102,20 +103,26 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [show, setShow] = useState(false);
 
     //hooks call
-    // const defaultInterests = useMemo(
-    //     () =>
-    //         profileDetails?.interests.map((item) => ({
-    //             value: item.id,
-    //             label: item.name,
-    //         })),
-    //     [profileDetails]
-    // );
     const { mutate, isLoading: postProfileLoading } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
     const [interestOptions, setInterestOptions] = useState<any>([]);
+    const [profileData, setProfileData] = useState();
+    const { data: user } = useUser();
+
+    const { data } = useQuery(["profile", user?.id], async () => {
+        if (!user) return undefined;
+        try {
+            const { data } = await axiosClient.get("/tasker/profile/");
+        } catch (error) {
+            return undefined;
+        }
+    });
+    // useEffect(() => {
+    //     setProfileData(data);
+    // }, []);
     const { data: allCategory } = useQuery(
         ["all-category"],
         () => {
@@ -127,7 +134,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
             onSuccess: (data) => {
                 const options = data?.data.map((item) => {
                     return {
-                        value: item.id,
+                        value: item.id.toString(),
                         label: item.name.toString(),
                     };
                 });
@@ -145,7 +152,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
 
-    const skills = profile?.skill ? JSON.parse(profile?.skill) : "";
+    const skills = profile?.skill ? JSON.parse(profile?.skill) : [];
+    const skillsOptions = skills?.map((item: string) => {
+        return {
+            label: item,
+            value: item,
+        };
+    });
+    const [dataSkills, setDataSkills] = useState(skillsOptions);
 
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
@@ -370,10 +384,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     // const interests =
     //     typeof interestValues !== "undefined" ? interestValues : [];
-
-    const defaultInterests = profile?.interests?.map((item) => {
-        return item.id.toString();
-    });
+    const defaultInterests = profile?.interests?.map((item) =>
+        item.id.toString()
+    );
+    console.log("skill", skills);
 
     return (
         <>
@@ -398,38 +412,78 @@ const AccountForm = ({ showAccountForm }: Display) => {
                 }
             >
                 <Formik
-                    initialValues={{
-                        first_name: profile?.user.first_name ?? "",
-                        middle_name: profile?.user.middle_name ?? "",
-                        last_name: profile?.user.last_name ?? "",
-                        city: profile?.city?.id ?? "",
-                        email: "",
-                        bio: profile?.bio ?? "",
-                        gender: profile?.gender ?? "",
-                        date_of_birth:
-                            profile && profile.date_of_birth
-                                ? parseISO(profile.date_of_birth)
-                                : "",
-                        skill: skills,
-                        interests: defaultInterests,
-                        experience_level: profile?.experience_level ?? "",
-                        active_hour_start:
-                            new Date(`2022-09-24 ${startTime}`) ?? "",
-                        active_hour_end:
-                            new Date(`2022-09-24 ${endTime}`) ?? "",
-                        hourly_rate: profile?.hourly_rate ?? "",
-                        user_type: userType ?? "",
-                        country: profile ? countryChange : "",
-                        education: "abc",
-                        address_line1: profile?.address_line1 ?? "",
-                        address_line2: profile?.address_line2 ?? "",
-                        language: profile ? languageChange : "",
-                        charge_currency: profile ? currencyChange : "",
-                        profile_visibility: profile?.profile_visibility ?? "",
-                        task_preferences: profile?.task_preferences ?? "",
-                        profile_image: profile?.profile_image ?? "",
-                        designation: profile?.designation ?? "",
-                    }}
+                    initialValues={
+                        {
+                            first_name: profile?.user.first_name ?? "",
+                            middle_name: profile?.user.middle_name ?? "",
+                            last_name: profile?.user.last_name ?? "",
+                            city: profile?.city?.id ?? "",
+                            email: "",
+                            bio: profile?.bio ?? "",
+                            gender: profile?.gender ?? "",
+                            date_of_birth:
+                                profile && profile.date_of_birth
+                                    ? parseISO(profile.date_of_birth)
+                                    : "",
+                            skill: skills,
+                            interests: profile ? defaultInterests : [""],
+                            experience_level: profile?.experience_level ?? "",
+                            active_hour_start:
+                                new Date(`2022-09-24 ${startTime}`) ?? "",
+                            active_hour_end:
+                                new Date(`2022-09-24 ${endTime}`) ?? "",
+                            hourly_rate: profile?.hourly_rate ?? "",
+                            user_type: userType ?? "",
+                            country: profile ? countryChange : "",
+                            address_line1: profile?.address_line1 ?? "",
+                            address_line2: profile?.address_line2 ?? "",
+                            language: profile ? languageChange : "",
+                            charge_currency: profile ? currencyChange : "",
+                            profile_visibility:
+                                profile?.profile_visibility ?? "",
+                            task_preferences: profile?.task_preferences ?? "",
+                            profile_image: profile?.profile_image ?? "",
+                            designation: profile?.designation ?? "",
+                        }
+                        // profile
+                        //     ? {
+                        //           first_name: profile?.user.first_name ?? "",
+                        //           middle_name: profile?.user.middle_name ?? "",
+                        //           last_name: profile?.user.last_name ?? "",
+                        //           city: profile?.city?.id ?? "",
+                        //           email: "",
+                        //           bio: profile?.bio ?? "",
+                        //           gender: profile?.gender ?? "",
+                        //           date_of_birth:
+                        //               profile && profile.date_of_birth
+                        //                   ? parseISO(profile.date_of_birth)
+                        //                   : "",
+                        //           skill: skills,
+                        //           interests: defaultInterests,
+                        //           experience_level:
+                        //               profile?.experience_level ?? "",
+                        //           active_hour_start:
+                        //               new Date(`2022-09-24 ${startTime}`) ?? "",
+                        //           active_hour_end:
+                        //               new Date(`2022-09-24 ${endTime}`) ?? "",
+                        //           hourly_rate: profile?.hourly_rate ?? "",
+                        //           user_type: userType ?? "",
+                        //           country: profile ? countryChange : "",
+                        //           address_line1: profile?.address_line1 ?? "",
+                        //           address_line2: profile?.address_line2 ?? "",
+                        //           language: profile ? languageChange : "",
+                        //           charge_currency: profile
+                        //               ? currencyChange
+                        //               : "",
+                        //           profile_visibility:
+                        //               profile?.profile_visibility ?? "",
+                        //           task_preferences:
+                        //               profile?.task_preferences ?? "",
+                        //           profile_image: profile?.profile_image ?? "",
+                        //           designation: profile?.designation ?? "",
+                        //       }
+                        //     : AccountFormData
+                    }
                     validationSchema={accountFormSchema}
                     enableReinitialize={true}
                     onSubmit={async (values) => {
@@ -517,7 +571,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     } else {
                                         formData.append(
                                             "profile_image",
-                                            values.profile_image
+                                            values?.profile_image
                                         );
                                     }
 
@@ -526,8 +580,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 }
                             );
 
-                            values?.interests?.forEach((val: string | Blob) => {
-                                formData.append("interests", val);
+                            values?.interests?.forEach((value: any) => {
+                                formData.append("interests", value);
                             });
 
                             const editedData = formData;
@@ -575,7 +629,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -921,22 +974,54 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     Tasker
                                 </label>
                             </div>
-                            <TagInputField
-                                data={skills}
+
+                            {/* <TagInputField
+                                data={skillsOptions}
                                 name="skill"
                                 labelName="Specialities"
                                 placeHolder="Enter your skills"
                                 disabled={isInputDisabled}
-                                create={true}
+                                value={values?.skill}
+
                                 //error={errors.skill}
+                            /> */}
+                            <MultiSelect
+                                label="Skills"
+                                data={dataSkills}
+                                placeholder="Select Skills"
+                                searchable
+                                name="skill"
+                                creatable
+                                getCreateLabel={(query) => `+ Create ${query}`}
+                                onChange={(value) => {
+                                    setFieldValue("skill", value);
+                                }}
+                                value={values?.skill}
+                                onCreate={(query) => {
+                                    const item = { label: query, value: query };
+                                    setDataSkills((current: any) => [
+                                        ...current,
+                                        item,
+                                    ]);
+
+                                    const newValue = dataSkills?.map(
+                                        (item: any) => item.value
+                                    );
+
+                                    setFieldValue("skill", newValue);
+
+                                    return item;
+                                }}
+                                disabled={isInputDisabled}
                             />
+
                             {/* <TagMultiSelectField
-                                defaultValue={defaultInterests as string}
+                                defaultValue={currentInterests}
                                 name="interests"
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
                                 disabled={isInputDisabled}
-                                data={interestValues}
+                                data={interestOptions}
                             /> */}
                             {/* <TagInputField
                                 data={interestValues}
@@ -949,17 +1034,15 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 // disabled={isInputDisabled}
                             /> */}
                             <MultiSelect
-                                {...getFieldProps("interests")}
                                 data={interestOptions}
                                 name="interests"
                                 onChange={(value) => {
                                     setFieldValue("interests", value);
                                 }}
+                                value={values?.interests}
                                 label="Interests"
                                 disabled={isInputDisabled}
                                 placeholder="Enter your interests"
-                                error={errors.interests}
-                                defaultValue={defaultInterests}
                             />
                             <RadioField
                                 type="radio"

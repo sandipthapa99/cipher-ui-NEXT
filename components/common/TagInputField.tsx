@@ -14,6 +14,7 @@ const TagInputField = ({
     textMuted,
     disabled,
     create,
+    value,
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
     return (
@@ -37,11 +38,12 @@ const TagInputField = ({
                             // disabled={profile ? true : false}
                             //  defaultValue={Array.isArray(data) ? data : []}
                             data={Array.isArray(data) ? data : []}
+                            value={value}
                             placeholder={placeHolder}
                             className={checkFormControl(error, touch)}
                             variant="unstyled"
                             searchable
-                            creatable={create}
+                            creatable
                             getCreateLabel={(query) => `+ Create ${query}`}
                             onChange={(val) => {
                                 setFieldValue(name, val);

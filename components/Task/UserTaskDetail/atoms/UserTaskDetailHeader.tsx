@@ -32,11 +32,13 @@ import { UserStats } from "./UserStats";
 interface UserTaskDetailHeaderProps {
     taskerDetail: ITasker;
     maxHeaderWidth?: string;
+    taskerHimself?: boolean;
 }
 
 export const UserTaskDetailHeader = ({
     taskerDetail,
     maxHeaderWidth,
+    taskerHimself,
 }: UserTaskDetailHeaderProps) => {
     const router = useRouter();
     const { data: user } = useUser();
@@ -225,6 +227,7 @@ export const UserTaskDetailHeader = ({
                                 color="#297796"
                                 height={24}
                                 width={24}
+                                visibility={taskerHimself ? "hidden" : "none"}
                                 className="svg-follow-icon"
                                 onClick={() =>
                                     handleFollowClick(
@@ -238,6 +241,7 @@ export const UserTaskDetailHeader = ({
                                 icon={faUserPlus}
                                 color="#297796"
                                 height={24}
+                                visibility={taskerHimself ? "hidden" : "none"}
                                 width={24}
                                 className="svg-follow-icon"
                                 onClick={() =>

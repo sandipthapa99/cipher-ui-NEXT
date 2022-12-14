@@ -15,12 +15,14 @@ interface UserTaskDetailProps extends HTMLAttributes<HTMLDivElement> {
     maxHeaderWidth?: string;
     taskerDetail: ITasker;
     taskerService: ServicesValueProps;
+    taskerHimself?: boolean;
 }
 
 const UserTaskDetail = ({
     maxHeaderWidth,
     taskerDetail,
     taskerService,
+    taskerHimself,
 }: UserTaskDetailProps) => {
     return (
         <div className="aside-detail-wrapper">
@@ -39,6 +41,7 @@ const UserTaskDetail = ({
                 <UserTaskDetailHeader
                     taskerDetail={taskerDetail}
                     maxHeaderWidth={maxHeaderWidth}
+                    taskerHimself={taskerHimself}
                 />
                 <UserShortIntro user={taskerDetail} />
                 <UserTaskDetailTabs

@@ -12,19 +12,25 @@ import { HelpandSupport } from "utils/formValidation/helpandsupport";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
+interface IDropdownReasons {
+    result: {
+        id: number;
+        topic: string;
+        is_active: boolean;
+    }[];
+}
+
 const HelpSettings = () => {
     const { mutate } = usePostHelp();
-    const { data } = useData<
-        Array<{
-            id: number;
-            topic: string;
-        }>
-    >(["topic-help"], urls.support.helpTopics);
-    const dropdownReportOptions = data?.data.map((item) => {
+    const { data } = useData<IDropdownReasons>(
+        ["topic-help"],
+        urls.support.helpTopics
+    );
+    const dropdownReportOptions = data?.data?.result?.map((item) => {
         return {
-            id: item.id,
-            label: item.topic,
-            value: item.topic.split(" ").join("")?.toLowerCase(),
+            id: item?.id,
+            label: item?.topic,
+            value: item?.topic.split(" ").join("")?.toLowerCase(),
         };
     });
 
@@ -42,7 +48,7 @@ const HelpSettings = () => {
                     const newValues = {
                         details: val.details,
                         reason: val.topic !== "other" ? val.topic : "other",
-                        topic: data?.data.find(
+                        topic: data?.data?.result.find(
                             (item) =>
                                 item.topic
                                     .split(" ")
