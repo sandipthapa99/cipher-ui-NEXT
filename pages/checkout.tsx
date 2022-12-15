@@ -722,6 +722,8 @@ export default function Checkout() {
             </Container>
             <Modal
                 opened={opened}
+                overlayOpacity={0.55}
+                overlayBlur={3}
                 withCloseButton={false}
                 onClose={() => {
                     setOpened(false);

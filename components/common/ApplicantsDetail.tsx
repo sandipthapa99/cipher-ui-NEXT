@@ -36,6 +36,8 @@ const ApplicantsDetail = ({
             opened={show}
             onClose={() => setShow(false)}
             title=" Booking Details"
+            overlayOpacity={0.55}
+            overlayBlur={3}
             size="xl"
             centered
         >
