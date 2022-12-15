@@ -78,7 +78,7 @@ export interface ITask {
     deleted_at: any;
     description: string;
     charge?: number;
-    highlights: string;
+    highlights: [];
     status: string;
     no_of_revisions: any;
     start_date: string;

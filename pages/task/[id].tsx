@@ -14,10 +14,6 @@ const TaskDetail = () => {
     const router = useRouter();
     const { id } = router.query;
     const { data: taskDetail } = useTaskDetail((id as string) ?? "");
-    console.log(
-        "🚀 ~ file: [id].tsx ~ line 17 ~ TaskDetail ~ taskDetail",
-        taskDetail?.highlights
-    );
 
     return (
         <>
