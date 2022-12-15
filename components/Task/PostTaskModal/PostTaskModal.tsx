@@ -85,6 +85,10 @@ export const PostTaskModal = () => {
 
     const taskDetail =
         showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
+    console.log(
+        "🚀 ~ file: PostTaskModal.tsx:87 ~ PostTaskModal ~ taskDetail",
+        taskDetail
+    );
 
     const [termsAccepted, setTermsAccepted] = useState(true);
 
@@ -139,7 +143,7 @@ export const PostTaskModal = () => {
             end_date: "",
             start_time: "",
             end_time: "",
-            currency: taskDetail ? String(taskDetail?.currency?.id) : "113",
+            currency: taskDetail ? String(taskDetail?.currency?.code) : "NPR",
             images: "",
             videos: "",
             is_active: true,
@@ -415,17 +419,16 @@ export const PostTaskModal = () => {
                             <TaskCurrency
                                 value={
                                     taskDetail
-                                        ? taskDetail?.currency?.id?.toString()
+                                        ? taskDetail?.currency?.code?.toString()
                                         : ""
                                 }
                                 data={
                                     taskDetail?.currency
                                         ? [
                                               {
-                                                  id: taskDetail?.currency?.id,
                                                   label: taskDetail?.currency
                                                       ?.name,
-                                                  value: taskDetail?.currency?.id.toString(),
+                                                  value: taskDetail?.currency?.code.toString(),
                                               },
                                           ]
                                         : []
