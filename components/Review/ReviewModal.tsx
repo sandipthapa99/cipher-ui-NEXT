@@ -68,6 +68,8 @@ export const ReviewModal = ({
         <Modal
             centered={true}
             onClose={() => handleClose?.()}
+            overlayOpacity={0.55}
+            overlayBlur={3}
             opened={open}
             size="lg"
         >

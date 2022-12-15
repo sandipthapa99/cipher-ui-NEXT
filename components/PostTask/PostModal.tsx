@@ -48,10 +48,6 @@ const PostModal = ({
     const taskId = router.query?.id;
     const queryClient = useQueryClient();
     const taskDetail = queryClient.getQueryData<ITask>(["task-detail", taskId]);
-    console.log(
-        "🚀 ~ file: PostModal.tsx ~ line 46 ~ taskDetail",
-        taskDetail?.highlights
-    );
     const [isRemote, setIsRemote] = useState(
         taskDetail?.location === "remote" ? true : false
     );
@@ -167,9 +163,6 @@ const PostModal = ({
                             setFieldValue,
                         }) => (
                             <Form>
-                                <pre>{JSON.stringify(values, null, 4)}</pre>
-                                <pre>{JSON.stringify(errors, null, 4)}</pre>
-
                                 <InputField
                                     type="text"
                                     name="title"

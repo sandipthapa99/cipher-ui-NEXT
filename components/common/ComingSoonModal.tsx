@@ -1,44 +1,46 @@
-import { faCircleInfo } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import { Modal } from "@mantine/core";
+import Image from "next/image";
+
+import CardBtn from "./CardBtn";
+
+// import Modal from "react-bootstrap/Modal";
 interface CommingSoonModalProps {
-    show?: boolean;
-    handleClose?: () => void;
+    show: boolean;
+    handleClose: () => void;
 }
 
 const CommingSoonModal = ({ handleClose, show }: CommingSoonModalProps) => {
     return (
         <>
-            {/* Modal component */}
             <Modal
-                show={show}
+                opened={show}
+                onClose={handleClose}
                 centered
-                onHide={handleClose}
+                withCloseButton={false}
+                closeOnClickOutside={false}
+                // overlayColor="909296"
+                overlayOpacity={0.55}
+                overlayBlur={3}
+                size="md"
                 className="comming-soon-modal"
-                backdrop="static"
             >
-                <Modal.Header closeButton>
-                    {/* <Modal.Title>
-                        <h3>Comming Soon!</h3>
-                    </Modal.Title> */}
-                </Modal.Header>
-
                 <div className="information">
-                    <FontAwesomeIcon
-                        className="comming-soon-icon"
-                        icon={faCircleInfo}
-                    />{" "}
-                    <h4>
-                        Mobile Application is coming soon. Please be with us!
-                    </h4>
+                    <figure>
+                        <Image
+                            alt="image"
+                            src="/web-maintenance.svg"
+                            height={128}
+                            width={256}
+                        />
+                    </figure>
+                    <h1>Coming Soon!</h1>
+                    <p>Please be with us!</p>
+                    <CardBtn
+                        backgroundColor="#29BB89"
+                        btnTitle="I will Wait."
+                        handleClick={handleClose}
+                    />
                 </div>
-
-                <Modal.Footer>
-                    <Button className="btn close-btn" onClick={handleClose}>
-                        Ok
-                    </Button>
-                </Modal.Footer>
             </Modal>
         </>
     );

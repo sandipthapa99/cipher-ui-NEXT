@@ -192,6 +192,8 @@ export const EditService = ({
             <Modal
                 opened={showEditModal}
                 onClose={handleClose}
+                overlayOpacity={0.55}
+                overlayBlur={3}
                 title="Edit Service"
                 size="xl"
             >

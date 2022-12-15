@@ -23,6 +23,8 @@ export const PostCard = ({ buttonName, iconName, type }: Props) => {
         <Modal
             opened={showSuccessModal}
             size="lg"
+            overlayOpacity={0.55}
+            overlayBlur={3}
             onClose={() => toggleSuccessModal()}
             className="success-modal"
         >
