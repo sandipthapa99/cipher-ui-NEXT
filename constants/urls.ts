@@ -89,6 +89,7 @@ const urls = {
         offerCode: `${offer}applyoffercode/`,
         reedem: `${offer}redeem/`,
         list: `${offer}offerredeem/list/`,
+        all: `${offer}serviceoffer/all/`,
     },
 };
 

@@ -2,11 +2,15 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
 import { AllOffers } from "@components/Offers/AllOffers";
+import urls from "constants/urls";
+import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import type { AllOffersProps } from "types/allOffersProps";
+import { axiosClient } from "utils/axiosClient";
 
-const Offers = () => {
+const Offers: NextPage<{ allOffers: AllOffersProps }> = ({ allOffers }) => {
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
 
     return (
@@ -99,28 +103,32 @@ const Offers = () => {
                             items={[
                                 {
                                     title: "All",
-                                    content: <AllOffers />,
+                                    content: (
+                                        <AllOffers
+                                            allOffers={allOffers?.result}
+                                        />
+                                    ),
                                 },
-                                {
-                                    title: "Coupon Code",
-                                    content: <AllOffers />,
-                                },
-                                {
-                                    title: "Scratch Cards",
-                                    content: <AllOffers />,
-                                },
-                                {
-                                    title: "Gift Cards",
-                                    content: <AllOffers />,
-                                },
-                                {
-                                    title: "Offers",
-                                    content: <AllOffers />,
-                                },
-                                {
-                                    title: "Daily Rewards",
-                                    content: <AllOffers />,
-                                },
+                                // {
+                                //     title: "Coupon Code",
+                                //     content: <AllOffers />,
+                                // },
+                                // {
+                                //     title: "Scratch Cards",
+                                //     content: <AllOffers />,
+                                // },
+                                // {
+                                //     title: "Gift Cards",
+                                //     content: <AllOffers />,
+                                // },
+                                // {
+                                //     title: "Offers",
+                                //     content: <AllOffers />,
+                                // },
+                                // {
+                                //     title: "Daily Rewards",
+                                //     content: <AllOffers />,
+                                // },
                             ]}
                             activeIndex={activeTabIdx}
                             onTabClick={setActiveTabIdx}
@@ -133,3 +141,19 @@ const Offers = () => {
 };
 
 export default Offers;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: allOffers } = await axiosClient.get(urls.offer.all);
+
+        return {
+            props: { allOffers },
+            revalidate: 10,
+        };
+    } catch (error) {
+        return {
+            props: [],
+            revalidate: 10,
+        };
+    }
+};

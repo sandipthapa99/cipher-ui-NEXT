@@ -9,6 +9,7 @@ const CardBtn = ({
     handleClick,
     id,
     border,
+    type,
     loading,
 }: {
     btnTitle: string;
@@ -18,12 +19,14 @@ const CardBtn = ({
     id?: string;
     border?: string;
     loading?: boolean;
+    type?: "button" | "submit" | "reset" | undefined;
 }) => {
     return (
         <>
             <Button
                 onClick={handleClick}
                 className="card-btn"
+                type={type ?? undefined}
                 // disabled={userGet()?.is_suspended}
                 style={{
                     backgroundColor: `${backgroundColor}`,

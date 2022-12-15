@@ -1,7 +1,16 @@
 .offer-model {
-    h2 {
-        font-weight: 500;
-        color: $primary-color;
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        h2 {
+            font-weight: 500;
+            color: $primary-color;
+        }
+        &--discount {
+            font-weight: 500;
+            font-size: 2.4rem;
+            color: $secondary-color-s4;
+        }
     }
     p {
         font-weight: 400;
