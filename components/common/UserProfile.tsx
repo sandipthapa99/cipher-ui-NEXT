@@ -50,14 +50,10 @@ const UserProfileCard = ({
     active_hour_start,
     active_hour_end,
     bio,
-    phone,
-    userBadge,
     badge,
-    address_line2,
     full_name,
     points,
     country,
-    pointGoal,
     tooltipMessage,
     is_profile_verified,
     followers_count,
@@ -477,16 +473,18 @@ const UserProfileCard = ({
                                 </figure>
                                 <div className="left">
                                     <div className="user-type d-flex">
+                                        <h1>{badge?.title}</h1>
                                         <TooltipMessage
                                             message={tooltipMessage}
                                             place="top"
                                         >
-                                            <h1>{badge?.title}</h1>
+                                            <span>
+                                                <FontAwesomeIcon
+                                                    icon={faCircleQuestion}
+                                                    className="svg-icon"
+                                                />
+                                            </span>
                                         </TooltipMessage>
-                                        <FontAwesomeIcon
-                                            icon={faCircleQuestion}
-                                            className="svg-icon"
-                                        />
                                     </div>
 
                                     <p className="user-point">
