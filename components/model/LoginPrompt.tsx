@@ -37,7 +37,8 @@ export const LoginPrompt = () => {
     }, [hideLoginPrompt, router.events]);
     return (
         <Modal
-            overlayColor="rgba(0, 0, 0, 0.35)"
+            overlayOpacity={0.55}
+            overlayBlur={3}
             centered
             opened={showLoginPrompt}
             onClose={hideLoginPrompt}
