@@ -29,6 +29,7 @@ import type { ITask } from "types/task";
 import extractContent from "utils/extractString";
 import { PostTaskFormData } from "utils/formData";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import AddRequirements from "./AddRequirements";
 import { PostCard } from "./PostCard";
@@ -108,8 +109,6 @@ const PostModal = ({
                         }
                         validationSchema={postTaskModalSchema}
                         onSubmit={async (values) => {
-                            console.log("values", values);
-                            setshowPostModel(false);
                             const uploadedImageIds = await uploadFileMutation({
                                 files: values.images,
                                 media_type: "image",
@@ -142,17 +141,18 @@ const PostModal = ({
                                             "Task Updated Successfully"
                                         );
 
-                                        await queryClient.invalidateQueries([
+                                        queryClient.invalidateQueries([
                                             ReactQueryKeys.TASK_DETAIL,
                                         ]);
                                         queryClient.setQueryData(
                                             ["task-detail"],
                                             taskId
                                         );
+                                        setshowPostModel(false);
 
-                                        queryClient.invalidateQueries([
-                                            "all-tasks",
-                                        ]);
+                                        // queryClient.invalidateQueries([
+                                        //     "all-tasks",
+                                        // ]);
                                     },
                                 }
                             );

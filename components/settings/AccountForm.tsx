@@ -159,7 +159,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
             value: item,
         };
     });
-    const [dataSkills, setDataSkills] = useState(skillsOptions);
+    const [dataSkills, setDataSkills] = useState(() => {
+        return skills?.map((item: string) => {
+            return {
+                label: item,
+                value: item,
+            };
+        });
+    });
 
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
@@ -387,7 +394,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const defaultInterests = profile?.interests?.map((item) =>
         item.id.toString()
     );
-    console.log("skill", skills);
 
     return (
         <>
@@ -709,6 +715,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
+                            {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -1076,7 +1083,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 onChange={(value) => {
                                     setFieldValue("skill", value);
                                 }}
-                                value={values?.skill}
+                                value={profile && values?.skill}
                                 onCreate={(query) => {
                                     const item = { label: query, value: query };
                                     setDataSkills((current: any) => [
