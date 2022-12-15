@@ -3,13 +3,21 @@ import { Modal } from "@mantine/core";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
+import type { OfferListingProps } from "types/offerListingProps";
 
 export interface OfferDetailsProps {
     show: boolean;
     setShow: Dispatch<SetStateAction<boolean>>;
+    offerDetail: OfferListingProps[0];
 }
 
-export const OfferModel = ({ show, setShow }: OfferDetailsProps) => {
+export const OfferModel = ({
+    show,
+    setShow,
+    offerDetail,
+}: OfferDetailsProps) => {
+    const { offer } = offerDetail;
+    const { description, image, offer_type, title } = offer;
     return (
         <Modal
             opened={show}
@@ -22,26 +30,24 @@ export const OfferModel = ({ show, setShow }: OfferDetailsProps) => {
         >
             <figure className="text-center mb-3">
                 <Image
-                    src={"/placeholder/profilePlaceholder.png"}
-                    objectFit="cover"
+                    src={image ?? "/placeholder/profilePlaceholder.png"}
+                    objectFit="contain"
                     height={400}
-                    width={400}
+                    width={800}
+                    placeholder="blur"
+                    blurDataURL="/placeholder/profilePlaceholder.png"
                     alt="reward-image"
                 />
             </figure>
-            <h2>Makeup Durbar Pvt. Ltd.</h2>
-            <p>
-                LARQ uses crisp product images and animations to make us
-                genuinely excited about something as simple as drinking water
-                The reusable water bottle retailer persuades us to join their
-                Bottle Movement and explore more of their stylish products.
-            </p>
+            <h2>{title}</h2>
+            <p>{description}</p>
             <p className="offer-model__expire">Expires On Jun 03 2023</p>
-            <div>
+            <div className="d-flex justify-content-between align-items-center">
                 <CardBtn
                     btnTitle={"Book Service"}
                     backgroundColor={"#211D4F"}
                 />
+                <span>sdsd</span>
             </div>
         </Modal>
     );
