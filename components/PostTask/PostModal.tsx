@@ -139,7 +139,6 @@ const PostModal = ({
                                         );
 
                                         queryClient.invalidateQueries([
-                                        queryClient.invalidateQueries([
                                             ReactQueryKeys.TASK_DETAIL,
                                             taskId,
                                         ]);
