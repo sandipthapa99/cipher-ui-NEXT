@@ -1,7 +1,10 @@
 import SearchResultsDetail from "@components/SearchTask/SearchResultsDetails";
 import ServiceLayout from "@components/services/ServiceLayout";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
+import { useTaskDetail } from "hooks/task/use-task-detail";
 import type { GetStaticPaths, GetStaticProps } from "next";
+import { ReactQueryKeys } from "types/queryKeys";
 import type {
     ServicesPackageProps,
     ServicesValueProps,
@@ -82,14 +85,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const { data } = await axiosClient.get<ServicesValueProps["result"][0]>(
             `${urls.task.list}${params?.slug}/`
         );
+        const queryClient = new QueryClient();
+
         // const { data: servicePackage } = await axiosClient.get<
         //     ServicesPackageProps["result"][0]
         // >(`/task/service-package/`);
-
+        await Promise.all([
+            queryClient.prefetchQuery([ReactQueryKeys.SERVICE_DETAIL, data.id]),
+            queryClient.prefetchQuery([ReactQueryKeys.SERVICES, data.id]),
+        ]);
         return {
             props: {
                 service: data,
                 // servicePackage: servicePackage,
+                dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
         };

@@ -53,6 +53,7 @@ const PostModal = ({
     );
     // const [isOnPremise, setIsOnPremise] = useState(isRemote ? false : true);
     const { mutate } = useEditTask();
+
     const editValues: PostTaskProps = {
         title: taskDetail?.title,
         description: extractContent(taskDetail?.description),
@@ -132,13 +133,19 @@ const PostModal = ({
                             mutate(
                                 { id: String(taskId), data: postTaskPayload },
                                 {
-                                    onSuccess: async () => {
+                                    onSuccess: () => {
                                         toggleSuccessModal(
                                             "Task Updated Successfully"
                                         );
 
                                         queryClient.invalidateQueries([
+                                        queryClient.invalidateQueries([
                                             ReactQueryKeys.TASK_DETAIL,
+                                            taskId,
+                                        ]);
+
+                                        queryClient.invalidateQueries([
+                                            ReactQueryKeys.TASKS,
                                         ]);
                                         queryClient.setQueryData(
                                             ["task-detail"],

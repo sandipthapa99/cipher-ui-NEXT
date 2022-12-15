@@ -22,6 +22,7 @@ import {
     Title,
 } from "@mantine/core";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { useEditService } from "hooks/service/use-edit-service";
 import { useUploadFile } from "hooks/use-upload-file";
@@ -30,6 +31,7 @@ import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import { ReactQueryKeys } from "types/queryKeys";
 import type { ServicesValueProps } from "types/serviceCard";
 import { safeParse } from "utils/safeParse";
 import { toast } from "utils/toast";
@@ -106,6 +108,7 @@ export const EditService = ({
         rawString: serviceDetail?.highlights ?? "",
         initialData: [],
     });
+    const queryClient = useQueryClient();
 
     const formik = useFormik<EditServicePayload>({
         initialValues: {
@@ -159,9 +162,17 @@ export const EditService = ({
                 { id: serviceDetail?.id, data: editServicePayload },
                 {
                     onSuccess: async () => {
-                        handleClose();
-                        action.resetForm();
                         toggleSuccessModal("Successfully edited service");
+                        await queryClient.invalidateQueries([
+                            ReactQueryKeys.SERVICE_DETAIL,
+                            serviceDetail?.id,
+                        ]);
+                        await queryClient.invalidateQueries([
+                            "services",
+                            serviceDetail?.id,
+                        ]);
+                        await queryClient.invalidateQueries(["all-services"]);
+                        handleClose();
                     },
                     onError: (error: any) => {
                         toast.error(error.message);
