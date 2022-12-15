@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
-export const useGetCountryBYId = (id: number | undefined | string) => {
-    return useQuery(["country", id], async () => {
+export const useGetCountryBYId = (code: undefined | string) => {
+    return useQuery(["country", code], async () => {
         try {
-            const { data } = await axiosClient.get(`/locale/cms/country/${id}`);
+            const { data } = await axiosClient.get(
+                `/locale/cms/country/${code}`
+            );
             return data;
         } catch (error) {
             if (error instanceof AxiosError) {

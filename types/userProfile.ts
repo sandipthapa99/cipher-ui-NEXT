@@ -70,10 +70,7 @@ export interface UserProfileInfoProps {
         task_in_progress: number;
         task_cancelled: number;
     };
-    country: {
-        name: string;
-        id: number;
-    };
+    country: string;
     key: number;
     points: number;
     profile_image: string;
