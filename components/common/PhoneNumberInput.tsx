@@ -1,6 +1,7 @@
 import "react-phone-number-input/style.css";
 
 import { ErrorMessage, Field } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import type { InputHTMLAttributes } from "react";
 import PhoneInput from "react-phone-number-input";
 import type { InputFieldProps } from "types/inputField";
@@ -16,6 +17,7 @@ const PhoneNumberInput = ({
     fieldRequired,
     ...restProps
 }: InputFieldProps & InputHTMLAttributes<HTMLInputElement>) => {
+    const { data: userDetails } = useUser();
     return (
         <div className={checkFormGroup(error)}>
             {labelName && (
@@ -42,7 +44,7 @@ const PhoneNumberInput = ({
                             countrySelectProps={{ unicodeFlags: true }}
                             defaultCountry="NP"
                             id={name}
-                            value={value}
+                            value={userDetails ? userDetails?.phone : ""}
                             placeholder={placeHolder}
                             onChange={(val) => setFieldValue(name, val)}
                         />

@@ -58,7 +58,10 @@ const ForgotPassword = () => {
                     </p>
                 )}
                 <Formik
-                    initialValues={{ email: "", phone: "" }}
+                    initialValues={{
+                        email: "",
+                        phone: "",
+                    }}
                     validationSchema={
                         choosedValue === "email"
                             ? emailValidationSchema
