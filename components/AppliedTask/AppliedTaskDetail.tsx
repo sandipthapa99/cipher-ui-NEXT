@@ -37,6 +37,7 @@ import { useRef } from "react";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
+import { taskDetails } from "staticData/taskDetail";
 import type { ITask, TaskApplicantsProps, TaskerCount } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
@@ -366,7 +367,7 @@ const AppliedTaskDetail = ({
                         ? parse(taskDetail.description)
                         : ""}
                 </div>
-                {highlights.length > 0 && (
+                {taskDetail?.highlights.length > 0 ? (
                     <>
                         <h3>Requirements</h3>
                         <div className="mt-5">
@@ -375,7 +376,7 @@ const AppliedTaskDetail = ({
                             )}
                         </div>
                     </>
-                )}
+                ) : null}
 
                 {/* <TeamMembersSection /> */}
                 <div ref={ref}>
@@ -450,6 +451,7 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["get-my-applicants"]),
             queryClient.prefetchQuery(["get-task-applicants"]),
             queryClient.prefetchQuery(["task-detail"]),
+            queryClient.prefetchQuery(["tasks"]),
         ]);
 
         return {

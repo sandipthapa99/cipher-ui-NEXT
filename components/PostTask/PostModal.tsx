@@ -52,6 +52,7 @@ const PostModal = ({
     );
     // const [isOnPremise, setIsOnPremise] = useState(isRemote ? false : true);
     const { mutate } = useEditTask();
+
     const editValues: PostTaskProps = {
         title: taskDetail?.title,
         description: extractContent(taskDetail?.description),
@@ -104,7 +105,6 @@ const PostModal = ({
                         }
                         validationSchema={postTaskModalSchema}
                         onSubmit={async (values) => {
-                            setshowPostModel(false);
                             const uploadedImageIds = await uploadFileMutation({
                                 files: values.images,
                                 media_type: "image",
@@ -132,22 +132,24 @@ const PostModal = ({
                             mutate(
                                 { id: String(taskId), data: postTaskPayload },
                                 {
-                                    onSuccess: async () => {
+                                    onSuccess: () => {
                                         toggleSuccessModal(
                                             "Task Updated Successfully"
                                         );
 
-                                        await queryClient.invalidateQueries([
+                                        queryClient.invalidateQueries([
                                             ReactQueryKeys.TASK_DETAIL,
+                                            taskId,
+                                        ]);
+
+                                        queryClient.invalidateQueries([
+                                            ReactQueryKeys.TASKS,
                                         ]);
                                         queryClient.setQueryData(
                                             ["task-detail"],
                                             taskId
                                         );
-
-                                        queryClient.invalidateQueries([
-                                            "all-tasks",
-                                        ]);
+                                        setshowPostModel(false);
                                     },
                                 }
                             );

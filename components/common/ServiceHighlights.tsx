@@ -8,13 +8,13 @@ interface ServiceHighlightsProps {
 const ServiceHighlights = ({ highlights = [] }: ServiceHighlightsProps) => {
     return (
         <>
-            {highlights?.map((value, key) => (
+            {highlights?.map((value: { id: string; name: string }, key) => (
                 <p className="mb-4" key={key}>
                     <FontAwesomeIcon
                         icon={faCheck}
                         className="me-3 svg-icon svg-icon-check"
                     />
-                    {value}
+                    {value.name}
                 </p>
             ))}
         </>
