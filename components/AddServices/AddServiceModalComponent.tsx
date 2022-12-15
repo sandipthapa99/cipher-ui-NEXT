@@ -141,12 +141,11 @@ export const AddServiceModalComponent = () => {
 
             createTaskMutation(postTaskPayload, {
                 onSuccess: async (task) => {
-                    handleCloseModal();
                     action.resetForm();
                     toggleSuccessModal("Service successfully posted");
-                    // toast.success(message);
-                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
+
                     await queryClient.invalidateQueries(["notification"]);
+                    handleCloseModal();
                     router.push(`/service/${task.id}`);
                 },
                 onError: (error) => {

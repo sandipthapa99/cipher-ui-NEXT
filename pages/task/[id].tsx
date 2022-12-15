@@ -14,11 +14,11 @@ const TaskDetail = () => {
     const router = useRouter();
     const { id } = router.query;
     const { data: taskDetail } = useTaskDetail((id as string) ?? "");
-
-    const { data: taskDetails } = useData<ITask>(
-        ["task-detail", id],
-        `${urls.task.list}/${id}`
+    console.log(
+        "🚀 ~ file: [id].tsx ~ line 17 ~ TaskDetail ~ taskDetail",
+        taskDetail?.highlights
     );
+
     return (
         <>
             <AppliedLayout
@@ -33,12 +33,11 @@ const TaskDetail = () => {
         </>
     );
 };
+
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const { id } = params as { id: string };
     const queryClient = new QueryClient();
     await Promise.all([
-        queryClient.prefetchQuery([ReactQueryKeys.TASK_DETAIL, id]),
-        queryClient.prefetchQuery(["task-detail"]),
         queryClient.prefetchQuery(["tasks"]),
         queryClient.prefetchQuery(["all-tasks"]),
     ]);
