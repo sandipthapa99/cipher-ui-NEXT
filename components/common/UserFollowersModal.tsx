@@ -74,6 +74,8 @@ export const UserFollowersModal = ({
             opened={opened}
             onClose={() => setShowFollowers(false)}
             title={title}
+            overlayOpacity={0.55}
+            overlayBlur={3}
             size="lg"
         >
             {followersData?.map((item: FollowersData, index: number) => {

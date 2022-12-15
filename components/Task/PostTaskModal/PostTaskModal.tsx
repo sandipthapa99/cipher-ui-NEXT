@@ -1,8 +1,6 @@
 import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
-import InputField from "@components/common/InputField";
-import MantineDateField from "@components/common/MantineDateField";
 import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
@@ -12,8 +10,6 @@ import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
-import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoadingOverlay, Radio } from "@mantine/core";
 import {
     Anchor,
@@ -250,7 +246,8 @@ export const PostTaskModal = () => {
                 opened={!isCreateTaskLoading && showPostTaskModal}
                 onClose={handleCloseModal}
                 closeOnClickOutside={false}
-                overlayColor="rgba(0, 0, 0, 0.25)"
+                overlayOpacity={0.55}
+                overlayBlur={3}
                 title="Post a Task or Service"
                 size="xl"
             >
