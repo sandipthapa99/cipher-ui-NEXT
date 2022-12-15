@@ -28,7 +28,12 @@ const VerifyOtp = () => {
             title="OTP Verification"
         >
             <Formik
-                initialValues={{ otp: "", password: "", confirm_password: "" }}
+                initialValues={{
+                    otp: "",
+                    password: "",
+                    confirm_password: "",
+                    scope: "verify",
+                }}
                 validationSchema={resetFormSchema}
                 onSubmit={async (values, actions) => {
                     mutate(

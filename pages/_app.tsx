@@ -70,7 +70,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     const [opened, setOpened] = useState(false);
     const [token, setToken] = useState("");
     const cookies = Cookies.get("access");
-    const cookiesProvided = cookies ? true : false;
+    // const cookiesProvided = cookies ? true : false;
 
     if (mounted) {
         firebaseCloudMessaging.onMessage();
@@ -105,18 +105,17 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
         }
     }, [token]);
 
-    useEffect(() => {
-        if (
-            (Notification.permission === "default" ||
-                Notification.permission === "denied") &&
-            cookiesProvided
-        ) {
-            const timer = setTimeout(() => {
-                setOpened(true);
-            }, 500000);
-            return () => clearTimeout(timer);
-        }
-    });
+    // useEffect(() => {
+    //     if (
+    //         Notification.permission === "default" ||
+    //         Notification.permission === "denied"
+    //     ) {
+    //         const timer = setTimeout(() => {
+    //             setOpened(true);
+    //         }, 500000);
+    //         return () => clearTimeout(timer);
+    //     }
+    // }, []);
 
     return (
         <>
@@ -183,6 +182,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                     onClick={() => {
                         Notification.requestPermission();
                         setOpened(false);
+                        console.log("asdssad");
                     }}
                 >
                     Ok.
@@ -193,7 +193,11 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                     className="m-0"
                     style={{ marginBottom: 10, cursor: "pointer" }}
                     weight={500}
-                    onClick={() => setOpened(false)}
+                    onClick={() => {
+                        console.log("clodsed");
+
+                        setOpened(false);
+                    }}
                 >
                     No Thanks
                 </Text>
