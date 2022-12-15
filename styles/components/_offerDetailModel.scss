@@ -1,0 +1,17 @@
+.offer-model {
+    h2 {
+        font-weight: 500;
+        color: $primary-color;
+    }
+    p {
+        font-weight: 400;
+        font-size: 1.6rem;
+        margin-bottom: 1.6rem;
+    }
+    .offer-model__expire {
+        font-weight: 400;
+        font-size: 1.2rem;
+        color: $link-color;
+        margin-bottom: 3.2rem;
+    }
+}

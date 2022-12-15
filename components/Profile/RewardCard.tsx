@@ -1,20 +1,19 @@
-import CardBtn from "@components/common/CardBtn";
+import { OfferModel } from "@components/Offers/OfferModel";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { OfferListingProps } from "types/offerListingProps";
 
 const RewardCard = () => {
-    // your function to copy here
     const { data: redeemList } = useData<OfferListingProps>(
         ["reedem-offers"],
         urls.offer.list,
         true
     );
 
-    const router = useRouter();
+    const [show, setShow] = useState(false);
 
     return (
         <div className="rewards">
@@ -28,7 +27,11 @@ const RewardCard = () => {
                             md={4}
                             sm={6}
                         >
-                            <div className="find-hire-card-block reward-card">
+                            <div
+                                className="find-hire-card-block reward-card"
+                                onClick={() => setShow(true)}
+                                role="button"
+                            >
                                 <figure className="thumbnail-img">
                                     <Image
                                         src={
@@ -55,19 +58,13 @@ const RewardCard = () => {
                                 <div className="card-content">
                                     <h2>{info?.offer?.title}</h2>
                                     <p>{info?.offer?.description}</p>
-
-                                    <CardBtn
-                                        btnTitle={`Redeem`}
-                                        backgroundColor="primary-color"
-                                        handleClick={() =>
-                                            router.push("/service")
-                                        }
-                                    />
                                 </div>
+                                <span>{info?.offer?.code}</span>
                             </div>
                         </Col>
                     ))}
             </Row>
+            <OfferModel setShow={setShow} show={show} />
         </div>
     );
 };
