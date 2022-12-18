@@ -245,14 +245,14 @@ const Header = () => {
                             </div>
                         ) : null}
 
-                        <Link href="#!">
+                        <Link href="">
                             <a
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ margin: "0 1.6rem 0 1.6rem" }}
                                 onClick={() =>
-                                    setRasifal(
-                                        (currentRasifal) => !currentRasifal
-                                    )
+                                    router.pathname === "/rasifal"
+                                        ? setRasifal(false)
+                                        : setRasifal(true)
                                 }
                             >
                                 राशिफल

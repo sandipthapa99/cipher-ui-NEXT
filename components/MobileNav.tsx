@@ -53,7 +53,7 @@ const MobileNav = ({ getSide }: MobileProps) => {
                         {/* <span className="nav__text">Dashboard</span> */}
                     </a>
                 </Link>
-                <Link href="/search">
+                {/* <Link href="/search">
                     <a
                         className={`nav-link ${handleMenuActive(
                             "/search",
@@ -62,7 +62,7 @@ const MobileNav = ({ getSide }: MobileProps) => {
                     >
                         <FontAwesomeIcon icon={faSearch} className="nav-icon" />
                     </a>
-                </Link>
+                </Link> */}
                 <Link href="/profile">
                     <a
                         className={`nav-link ${handleMenuActive(

@@ -5,13 +5,12 @@ import { useState } from "react";
 import { axiosClient } from "utils/axiosClient";
 
 export interface Currency {
-    id: number;
     name: string;
     code: string;
     symbol: any;
 }
 export interface TaskCurrencyProps extends Omit<SelectProps, "data"> {
-    onCurrencyChange: (currencyId: number) => void;
+    onCurrencyChange: (currencyCode: string) => void;
     data?: SelectItem[];
 }
 export const useCurrencies = () => {
@@ -33,13 +32,12 @@ export const TaskCurrency = ({
     const [currency, setCurrency] = useState(() => value);
 
     const currencyData = currencies.map((currency) => ({
-        id: currency,
         label: currency.code + ` (${currency.symbol})`,
-        value: currency.id.toString(),
+        value: currency?.code?.toString(),
     }));
-    const handleCurrencyChange = (currencyId: number) => {
-        setCurrency(currencyId.toString());
-        onCurrencyChange(currencyId);
+    const handleCurrencyChange = (currencyCode: string) => {
+        setCurrency(currencyCode.toString());
+        onCurrencyChange(currencyCode);
     };
     return (
         <Select
@@ -48,7 +46,7 @@ export const TaskCurrency = ({
                 currency
                     ? currency
                     : defaultCurrency
-                    ? String(defaultCurrency.id)
+                    ? String(defaultCurrency.code)
                     : ""
             }
             required
@@ -56,7 +54,7 @@ export const TaskCurrency = ({
             label="Currency"
             placeholder="Select your currency"
             data={currencyData}
-            onChange={(value) => handleCurrencyChange(Number(value))}
+            onChange={(value) => handleCurrencyChange(String(value))}
         />
     );
 };

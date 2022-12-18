@@ -11,7 +11,7 @@ export type Language = {
     previous: any;
     page_size: number;
     result: Array<{
-        id: number;
+        code: string;
         name: string;
         is_active: boolean;
         is_default: boolean;
