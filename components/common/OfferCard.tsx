@@ -5,11 +5,6 @@ import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 
 interface OfferCardProps {
-    // maxRewardPoint: number;
-    // rewardPoint: number;
-    // priceToSpend: number;
-    // currency: string;
-
     id: number;
     code: string;
     description: string;

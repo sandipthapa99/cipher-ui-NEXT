@@ -2,21 +2,36 @@ export type OfferListingProps = Array<{
     id: number;
     offer: {
         id: number;
+        created_at: string;
+        updated_at: string;
+        is_active: boolean;
         title: string;
         description: string;
-        image: string;
         offer_type: string;
         code: any;
+        image: string;
+        start_date: string;
+        end_date: any;
+        is_consumable: boolean;
+        discount: any;
+        discount_type: any;
+        discount_limit: any;
+        quantity: any;
+        created_by: string;
+        merchant: any;
+        offer_rule: number;
+        country: any;
+        free: string;
+        organizations: Array<any>;
+        services: Array<string>;
+        entity_services: Array<any>;
+        categories: Array<number>;
+        redeems: Array<string>;
     };
-    booking: {
-        id: number;
-        entity_service: {
-            id: string;
-            title: string;
-        };
-    };
-    redeem_date?: string;
+    booking: any;
+    redeem_date: any;
     is_redeemed: boolean;
     is_active: boolean;
+    is_redeemable: boolean;
     redeem_by: string;
 }>;
