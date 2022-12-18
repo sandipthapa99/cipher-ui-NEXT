@@ -23,6 +23,7 @@ import {
 } from "@mantine/core";
 import { DatePicker, TimeInput } from "@mantine/dates";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import RichTextEditor from "@mantine/rte";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useFormik } from "formik";
