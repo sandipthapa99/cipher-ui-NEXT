@@ -45,6 +45,7 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
                 <div
                     ref={isLastTaskOnPage(taskIndex) ? ref : null}
                     key={task.id}
+                    className="tasks-list-card"
                 >
                     <TaskAppliedCard task={task} />
                 </div>
@@ -75,7 +76,6 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
                             <p>{`No search results found for ${query}`}</p>
                         ) : null}
                         {isLoading ? renderLoadingSkeletons() : renderTasks()}
-                        <Space h="md" />
                         {isFetchingNextPage ? <SkeletonTaskCard /> : null}
                     </ScrollArea.Autosize>
                 </Col>
