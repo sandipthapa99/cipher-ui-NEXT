@@ -68,7 +68,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                 (ratingData.length <= 0 && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="No data Available!"
+                        title="No data Available"
                         color="orange"
                         radius="md"
                         className="mt-5"

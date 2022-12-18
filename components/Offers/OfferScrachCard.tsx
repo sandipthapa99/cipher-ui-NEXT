@@ -10,7 +10,11 @@ interface OfferCardProps {
     description: string;
     price: number;
 }
-export default function OfferCard({ url, description, price }: OfferCardProps) {
+export default function OfferScrachCard({
+    url,
+    description,
+    price,
+}: OfferCardProps) {
     return (
         <Card
             className="offer-card"

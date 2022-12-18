@@ -83,7 +83,7 @@ const Gardening = ({
                         {serviceData && serviceData?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -139,7 +139,7 @@ const Gardening = ({
                         {taskData && taskData?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -176,7 +176,7 @@ const Gardening = ({
                         {taskerData && taskerData?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
