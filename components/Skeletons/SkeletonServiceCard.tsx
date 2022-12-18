@@ -3,7 +3,7 @@ import React from "react";
 
 const SkeletonServiceCard = () => {
     return (
-        <div className="mantine-Skeleton mb-5 p-4">
+        <div className="mantine-Skeleton mt-5 p-4">
             <Grid className="d-flex justify-content-between">
                 <Grid.Col span={6}>
                     <Skeleton height={90} width={"100%"} />
