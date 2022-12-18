@@ -56,6 +56,8 @@ export const OfferModel = ({
         value: service.slug,
     }));
 
+    const [isSelected, setIsSelected] = useState(true);
+
     return (
         <Modal
             opened={show}
@@ -107,15 +109,17 @@ export const OfferModel = ({
                                     data={serviceSelect}
                                     placeholder="Select an available service"
                                     nothingFound="Nothing found"
-                                    onChange={(data) =>
-                                        setFieldValue("slug", data)
-                                    }
+                                    onChange={(data) => {
+                                        setFieldValue("slug", data);
+                                        setIsSelected(false);
+                                    }}
                                     searchable
                                     creatable
                                 />
                                 <CardBtn
                                     btnTitle={"Book Service"}
                                     backgroundColor={"#211D4F"}
+                                    disabled={isSelected}
                                 />
                             </Form>
                         );

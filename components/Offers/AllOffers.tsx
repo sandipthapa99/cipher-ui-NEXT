@@ -3,6 +3,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import type { AllOffersProps } from "types/allOffersProps";
 
+import { EmptyOffers } from "./EmptyOffers";
 import { OfferBasicCard } from "./OfferBasicCard";
 import OfferScrachCard from "./OfferScrachCard";
 
@@ -11,7 +12,6 @@ export const AllOffers = ({
 }: {
     allOffers: AllOffersProps["result"];
 }) => {
-    console.log("🚀 ~ file: AllOffers.tsx:14 ~ allOffers", allOffers);
     const data = [
         {
             url: "/offers/dress.png",
@@ -57,15 +57,18 @@ export const AllOffers = ({
     ];
     return (
         <div className="alloffers">
-            <Row className="alloffers__container">
-                {allOffers?.map((item, index) => (
-                    <>
+            {allOffers && allOffers?.length > 0 ? (
+                <Row className="alloffers__container">
+                    {allOffers?.map((item, index) => (
                         <Col key={index} md={3} sm={12} xs={12} lg={3}>
                             <OfferBasicCard offerBasic={item} />
                         </Col>
-                    </>
-                ))}
-            </Row>
+                    ))}
+                </Row>
+            ) : (
+                <EmptyOffers />
+            )}
+
             <div className="recommend">
                 <Row className="recommend__container mt-5">
                     {scratch.map((item, index) => (

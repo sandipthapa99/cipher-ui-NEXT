@@ -2,6 +2,8 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
 import { AllOffers } from "@components/Offers/AllOffers";
+import { CouponsList } from "@components/Offers/CouponsList";
+import { OffersList } from "@components/Offers/OffersList";
 import urls from "constants/urls";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
@@ -109,14 +111,22 @@ const Offers: NextPage<{ allOffers: AllOffersProps }> = ({ allOffers }) => {
                                         />
                                     ),
                                 },
-                                // {
-                                //     title: "Coupon Code",
-                                //     content: <AllOffers />,
-                                // },
-                                // {
-                                //     title: "Scratch Cards",
-                                //     content: <AllOffers />,
-                                // },
+                                {
+                                    title: "Coupon Code",
+                                    content: (
+                                        <CouponsList
+                                            allOffers={allOffers?.result}
+                                        />
+                                    ),
+                                },
+                                {
+                                    title: "Scratch Cards",
+                                    content: (
+                                        <OffersList
+                                            allOffers={allOffers?.result}
+                                        />
+                                    ),
+                                },
                                 // {
                                 //     title: "Gift Cards",
                                 //     content: <AllOffers />,
