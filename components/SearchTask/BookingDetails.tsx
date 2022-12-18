@@ -221,7 +221,7 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                 {!BookingDetail?.requirements && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="No data Available!"
+                        title="No data Available"
                         color="orange"
                         radius="md"
                         sx={{ minWidth: 100 }}

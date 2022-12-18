@@ -94,7 +94,7 @@ const SearchPage: NextPage = () => {
                         {!fetchingService && !serviceData?.data?.result && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -130,7 +130,7 @@ const SearchPage: NextPage = () => {
                         {taskData && taskData?.data?.result?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -168,7 +168,7 @@ const SearchPage: NextPage = () => {
                             taskerData?.data?.result?.length <= 0 && (
                                 <Alert
                                     icon={<FontAwesomeIcon icon={faWarning} />}
-                                    title="No data Available!"
+                                    title="No data Available"
                                     color="orange"
                                     radius="md"
                                     sx={{ minWidth: 100 }}

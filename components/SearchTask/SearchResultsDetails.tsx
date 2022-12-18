@@ -589,7 +589,7 @@ const SearchResultsDetail = ({
                 {!highlights && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="No data Available!"
+                        title="No data Available"
                         color="orange"
                         radius="md"
                         sx={{ minWidth: 100 }}
