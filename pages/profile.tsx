@@ -7,7 +7,6 @@ import UserActivities from "@components/Profile/Activities";
 import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
-import TasksProfileCard from "@components/Profile/UserServices";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
@@ -19,14 +18,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails } = useGetProfile();
 
-    // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
-    //     ["profile"],
-    //     "/tasker/profile/"
-    // );
-    // const profileDetails = userData?.data;
-
-    // if (isLoading || !data) return <FullPageLoader />;
-    //
     const remaining = {
         userRating: 4,
         userBadge: "Gold",
@@ -39,11 +30,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
-    // useEffect(() => {
-    //     if (!profileDetails && !isLoading) {
-    //         router.push("/settings/account/individual");
-    //     }
-    // }, [isLoading, profileDetails, router]);
 
     if (!profileDetails) {
         return (
