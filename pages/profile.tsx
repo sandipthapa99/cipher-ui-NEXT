@@ -18,18 +18,18 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails } = useGetProfile();
 
-    const remaining = {
-        userRating: 4,
-        userBadge: "Gold",
-        userPoints: 58,
-        pointGoal: 42,
-        happyClients: 24,
-        successRate: 30,
-        userReviews: 14,
-        tooltipMessage: "Profile Level",
-        taskCompleted: 30,
-        userActiveStatus: true,
-    };
+    // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
+    //     ["profile"],
+    //     "/tasker/profile/"
+    // );
+    // const profileDetails = userData?.data;
+
+    // if (isLoading || !data) return <FullPageLoader />;
+    // useEffect(() => {
+    //     if (!profileDetails && !isLoading) {
+    //         router.push("/settings/account/individual");
+    //     }
+    // }, [isLoading, profileDetails, router]);
 
     if (!profileDetails) {
         return (
@@ -77,7 +77,9 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <UserProfileCard
                             user={profileDetails?.user}
                             stats={profileDetails?.stats}
-                            country={profileDetails?.country}
+                            country={
+                                profileDetails && profileDetails?.country?.name
+                            }
                             key={profileDetails?.id}
                             points={profileDetails?.points}
                             profile_image={
@@ -101,14 +103,12 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             address_line2={profileDetails?.address_line2}
                             active_hour_end={profileDetails?.active_hour_end}
                             bio={profileDetails?.bio}
-                            userBadge={remaining?.userBadge}
+                            userBadge={profileDetails?.badge?.image}
                             userPoints={profileDetails?.points}
-                            pointGoal={remaining?.pointGoal}
                             charge_currency={
                                 profileDetails?.charge_currency?.symbol
                             }
-                            userActiveStatus={remaining?.userActiveStatus}
-                            tooltipMessage={remaining?.tooltipMessage}
+                            tooltipMessage="Your Profile Level"
                             is_profile_verified={
                                 profileDetails?.is_profile_verified
                             }

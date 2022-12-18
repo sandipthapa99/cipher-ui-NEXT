@@ -150,7 +150,7 @@ export const KYCStatus = () => {
                             icon={faLocationDot}
                             className="font-icon-kyc text-black"
                         />
-                        <p className="m-0 body-kyc">{KycData?.country.name}</p>
+                        <p className="m-0 body-kyc">{KycData?.country?.name}</p>
                     </div>
                     <p className="m-0 body-kyc">
                         <span className="body-kyc-span">Submitted On: </span>{" "}

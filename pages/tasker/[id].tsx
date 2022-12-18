@@ -2,7 +2,6 @@ import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
 import { Skeleton } from "@mantine/core";
 import urls from "constants/urls";
-import { connectFirestoreEmulator } from "firebase/firestore";
 import { useUser } from "hooks/auth/useUser";
 import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps } from "next";

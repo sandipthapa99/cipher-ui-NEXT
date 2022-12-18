@@ -237,7 +237,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     // );
 
     const [currencyChange, setCurrencyChange] = useState<string | null>(
-        profile ? profile.charge_currency.code : ""
+        profile ? profile?.charge_currency?.code : ""
     );
     useEffect(() => {
         setCurrencyChange(profile ? profile.charge_currency.id.toString() : "");
@@ -253,8 +253,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
         ? currency.result.map((result) => {
               return {
                   label: result?.code,
-                  value: result.id.toString(),
-                  id: result?.id,
+                  value: result.code.toString(),
               };
           })
         : ([] as SelectItem[]);
@@ -262,16 +261,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const languageResults: SelectItem[] = language
         ? language.result.map((result) => ({
               label: result?.name,
-              value: result?.id.toString(),
-              id: result?.id,
+              value: result?.code.toString(),
           }))
         : ([] as SelectItem[]);
 
     const countryResults: SelectItem[] = countryName
         ? countryName.result.map((result) => ({
               label: result?.name,
-              value: result?.id.toString(),
-              id: result?.id,
+              value: result?.code.toString(),
           }))
         : ([] as SelectItem[]);
 
