@@ -1,3 +1,4 @@
+import { EmptyOffers } from "@components/Offers/EmptyOffers";
 import { OfferBasicCard } from "@components/Offers/OfferBasicCard";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
@@ -14,7 +15,7 @@ const RewardCard = () => {
     return (
         <div className="rewards">
             <Row className="d-flex align-items-stretch">
-                {redeemList?.data &&
+                {redeemList?.data && redeemList?.data?.length > 0 ? (
                     redeemList?.data?.map((info, key) => {
                         return (
                             <>
@@ -29,7 +30,10 @@ const RewardCard = () => {
                                 </Col>
                             </>
                         );
-                    })}
+                    })
+                ) : (
+                    <EmptyOffers />
+                )}
             </Row>
         </div>
     );
