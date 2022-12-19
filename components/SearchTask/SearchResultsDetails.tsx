@@ -10,6 +10,7 @@ import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
 import { EditService } from "@components/services/EditService";
+import Spoiler from "@components/Spoiler/Spoiler";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {

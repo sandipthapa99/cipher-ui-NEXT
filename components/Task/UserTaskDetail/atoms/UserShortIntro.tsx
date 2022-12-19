@@ -1,3 +1,4 @@
+import Spoiler from "@components/Spoiler/Spoiler";
 import {
     faLocationDot,
     faSparkles,
@@ -100,8 +101,8 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
             </Col>
             <Col md={6}>
                 <div className="td-user-short-intro-text font-bold">
-                    Bio
-                    <span>{user?.bio}</span>
+                    Bio:
+                    <Spoiler text={user?.bio} />
                 </div>
             </Col>
         </Row>
