@@ -88,6 +88,7 @@ export const AddServiceModalComponent = () => {
     //     rawString: taskDetail?.highlights ?? "",
     //     initialData: [],
     // });
+
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
@@ -196,8 +197,8 @@ export const AddServiceModalComponent = () => {
                         }
                         placeholder="Enter your description"
                     />
-                    {/* <TaskRequirements
-                        initialRequirements={initialHighlights}
+                    <TaskRequirements
+                        // initialRequirements={initialHighlights}
                         onRequirementsChange={(requirements) =>
                             setFieldValue("highlights", requirements)
                         }
@@ -205,7 +206,7 @@ export const AddServiceModalComponent = () => {
                         {...getFieldProps("highlights")}
                         labelName="Highlights"
                         description="This helps clients to find about your service highlights"
-                    /> */}
+                    />
                     <TaskCurrency
                         value={
                             taskDetail
@@ -245,10 +246,10 @@ export const AddServiceModalComponent = () => {
                     />
                     <Stack sx={{ maxWidth: "40rem" }}>
                         <Title order={6}>Images</Title>
-                        <Text color="dimmed" size="sm">
+                        {/* <Text color="dimmed" size="sm">
                             Including images helps you find best merchant for
                             your task.
-                        </Text>
+                        </Text> */}
                         <CustomDropZone
                             accept={IMAGE_MIME_TYPE}
                             fileType="image"
