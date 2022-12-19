@@ -86,10 +86,6 @@ export const PostTaskModal = () => {
 
     const taskDetail =
         showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
-    console.log(
-        "🚀 ~ file: PostTaskModal.tsx:87 ~ PostTaskModal ~ taskDetail",
-        taskDetail
-    );
 
     const [termsAccepted, setTermsAccepted] = useState(true);
 

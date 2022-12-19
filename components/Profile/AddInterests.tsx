@@ -1,5 +1,4 @@
 import FormButton from "@components/common/FormButton";
-import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import type { IAllCategory } from "@components/settings/AccountForm";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
@@ -55,13 +54,12 @@ const AddInterests = ({
         }
     );
 
-    const currentInterestId = profileDetails?.interests.map((item: any) =>
-        item.id.toString()
-    );
+    // const currentInterestId = profileDetails?.interests.map((item: any) =>
+    //     item.id.toString()
+    // );
 
-    const defaultInterests =
-        profileDetails &&
-        profileDetails?.interests.map((item) => item.id.toString());
+    const defaultInterests: any =
+        profileDetails && profileDetails?.interests.map((item) => item.id);
 
     return (
         <>
@@ -72,29 +70,16 @@ const AddInterests = ({
                     <h3>Add Interests</h3>
                     <Formik
                         enableReinitialize
-                        initialValues={
-                            // profileDetails
-                            //     ? defaultInterests
-                            //     : AddInterestFormData
-                            {
-                                interests: profileDetails
-                                    ? defaultInterests
-                                    : [""],
-                            }
-                        }
+                        initialValues={{
+                            interests: profileDetails ? defaultInterests : [""],
+                        }}
                         validationSchema={addInterestSchema}
                         onSubmit={async (values) => {
                             const formData = new FormData();
-                            const interest = values.interests;
+                            const interests = values.interests;
 
-                            const newInterests =
-                                currentInterestId &&
-                                currentInterestId.concat(
-                                    interest ? interest : ""
-                                );
-
-                            newInterests &&
-                                newInterests.forEach((val: any) => {
+                            interests &&
+                                interests.forEach((val: any) => {
                                     formData.append("interests", val);
                                 });
 
@@ -125,10 +110,10 @@ const AddInterests = ({
                                 <MultiSelect
                                     data={interestOptions}
                                     name="interests"
+                                    value={profileDetails && values.interests}
                                     onChange={(value) => {
                                         setFieldValue("interests", value);
                                     }}
-                                    value={values?.interests}
                                     label="Interests"
                                     placeholder="Enter your interests"
                                 />

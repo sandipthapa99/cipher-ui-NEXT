@@ -1,5 +1,4 @@
 import FormButton from "@components/common/FormButton";
-import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { MultiSelect } from "@mantine/core";
@@ -12,7 +11,6 @@ import { useState } from "react";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { SkillsFormData } from "utils/formData";
 import { skillsFormSchema } from "utils/formValidation/skillsFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -57,9 +55,9 @@ const AddSkills = ({
                         onSubmit={async (values) => {
                             const skill = values.skill;
 
-                            const newValue = userSkills?.concat(skill);
+                            // const newValue = userSkills?.concat(skill);
 
-                            const newSkills = JSON.stringify(newValue);
+                            const newSkills = JSON.stringify(skill);
 
                             const finalSKills = {
                                 ...values,
