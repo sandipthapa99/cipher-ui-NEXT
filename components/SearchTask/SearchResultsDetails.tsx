@@ -547,7 +547,8 @@ const SearchResultsDetail = ({
                             className="svg-icon svg-icon-calender"
                         />
                         {serviceCreated
-                            ? format(new Date(serviceCreated), "dd-MM-yyyy")
+                            ? //format(new Date(serviceCreated), "dd-MM-yyyy")
+                              format(new Date(serviceCreated), "PP")
                             : "N/A"}
                     </p>
                     <p>
