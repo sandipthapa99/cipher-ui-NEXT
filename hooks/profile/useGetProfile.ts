@@ -8,7 +8,6 @@ export type ProfileResponse = {
     charge_currency: {
         symbol: any;
         code: string;
-        id: number;
         name: string;
     };
     city: {
@@ -48,11 +47,11 @@ export type ProfileResponse = {
         avg_rating: any;
     };
     country: {
-        id: number;
+        code: string;
         name: string;
     };
     language: {
-        id: number;
+        code: string;
         name: string;
     };
     status: string;

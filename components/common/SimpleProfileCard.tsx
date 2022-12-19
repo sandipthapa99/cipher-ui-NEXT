@@ -1,10 +1,8 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
-import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { MyBookings } from "hooks/task/use-get-service-booking";
 import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useData } from "hooks/use-data";
@@ -15,7 +13,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ApprovedTaskDetailProps } from "types/approvedTaskProps";
-import type { ITask, TaskApprovedList } from "types/task";
+import type { ITask } from "types/task";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
@@ -28,6 +26,15 @@ interface SimpleProfileCardProps {
     handleScroll?: () => void;
     onApply?: () => void;
 }
+
+export enum TASK_STATUS {
+    Open = "Open",
+    On_Progress = "On Progress",
+    Completed = "Completed",
+    Closed = "Closed",
+    Cancelled = "Cancelled",
+}
+
 const SimpleProfileCard = ({
     task,
     onApply,
@@ -39,13 +46,6 @@ const SimpleProfileCard = ({
         ({} as ApprovedTaskDetailProps["assigner"]);
     const { charge, currency } =
         approvedTaskDetail || ({} as ApprovedTaskDetailProps);
-    const { data: profile } = useGetProfile();
-
-    // const created_by = task?.created_by.id === profile?.user.id;
-    //
-    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 34 ~ SimpleProfileCard ~ created_by",
-    //     created_by
-    // );
 
     const withLogin = useWithLogin();
     const { data: user } = useUser();
@@ -62,16 +62,6 @@ const SimpleProfileCard = ({
 
     const appliedTask = appliedTasks?.result.find(
         (appliedTask: any) => appliedTask?.id !== task?.id
-    );
-    const { data: approvedTasks } = useData<TaskApprovedList>(
-        ["approved-task"],
-        `${urls.task.approvedTaskList}`
-    );
-
-    const approvedTask = approvedTasks?.data.result.find(
-        (appliedTask: any) =>
-            appliedTask.assignee.id === profile?.user.id &&
-            appliedTask?.entity_service === task?.id
     );
 
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}/`;
@@ -91,23 +81,70 @@ const SimpleProfileCard = ({
                 onApply?.();
             },
             onError: async () => {
-                toast.error("Already cancellerd");
+                toast.error("Already cancelled");
             },
         });
     };
 
+    const handleButtonRender = () => {
+        if (!task) {
+            return (
+                <BookNowButton
+                    btnTitle="In Progress"
+                    disabled={true}
+                    backgroundColor="#3776db"
+                    handleOnClick={handleLeaveTask}
+                />
+            );
+        } else {
+            switch (approvedTaskDetail?.status) {
+                case TASK_STATUS.Open:
+                    return (
+                        <BookNowButton
+                            btnTitle="Leave Task"
+                            backgroundColor="#FE5050"
+                            handleOnClick={handleLeaveTask}
+                        />
+                    );
+                case TASK_STATUS.Closed:
+                    return (
+                        <BookNowButton
+                            btnTitle={"Closed"}
+                            backgroundColor={"#3776db"}
+                            showModal={true}
+                        />
+                    );
+                case TASK_STATUS.Completed:
+                    return (
+                        <BookNowButton
+                            btnTitle={"Completed"}
+                            backgroundColor={"#3776db"}
+                            showModal={true}
+                        />
+                    );
+                case TASK_STATUS.On_Progress:
+                    return (
+                        <BookNowButton
+                            btnTitle={"On Progress"}
+                            backgroundColor={"#38C675"}
+                            showModal={true}
+                        />
+                    );
+
+                default:
+                    return (
+                        <BookNowButton
+                            btnTitle="Apply Now"
+                            backgroundColor="#38C675"
+                            handleOnClick={withLogin(() => setShowModal(true))}
+                        />
+                    );
+            }
+        }
+    };
+
     const isUserTask = task?.created_by?.id === user?.id;
 
-    const handleShowApplyModal = () => {
-        if (!profile) {
-            toast.showComponent(
-                "Profile Incomplete",
-                <ProfileNotCompleteToast text="Please complete your profile before applying a task." />
-            );
-            return;
-        }
-        withLogin(() => setShowModal(true));
-    };
     return (
         <div className="simple-card my-5 my-lg-0 ">
             <div className="d-flex align-items-cente simple-card__profile">
@@ -226,72 +263,9 @@ const SimpleProfileCard = ({
                     </>
                 )}
             </div>
-            {!isUserTask ? (
-                !approvedTaskDetail && requestedTask?.status === "Cancelled" ? (
-                    <BookNowButton
-                        btnTitle="Apply Now"
-                        // disabled={userGet()?.is_suspended}
-                        backgroundColor="#38C675"
-                        handleOnClick={withLogin(() => setShowModal(true))}
-                    />
-                ) : !approvedTaskDetail &&
-                  requestedTask?.status === "On Progress" ? (
-                    <BookNowButton
-                        btnTitle={"On Progress"}
-                        // disabled={userGet()?.is_suspended}
-                        backgroundColor={"#38C675"}
-                        showModal={true}
-                        //handleOnClick={withLogin(() => setShowModal(true))}
-                    />
-                ) : !approvedTaskDetail &&
-                  requestedTask?.status === "Completed" ? (
-                    <BookNowButton
-                        btnTitle={"Completed"}
-                        // disabled={userGet()?.is_suspended}
-                        backgroundColor={"#3776db"}
-                        showModal={true}
-                        //handleOnClick={withLogin(() => setShowModal(true))}
-                    />
-                ) : !approvedTaskDetail && !requestedTask ? (
-                    <BookNowButton
-                        btnTitle="Apply Now"
-                        // backgroundColor="#5e5d6b"
-                        // disabled={userGet()?.is_suspended}
-                        backgroundColor="#38C675"
-                        handleOnClick={withLogin(() => setShowModal(true))}
-                    />
-                ) : !approvedTaskDetail && requestedTask?.is_accepted ? (
-                    <BookNowButton
-                        btnTitle="Approved"
-                        backgroundColor={"#30b32c"}
-                        disabled={true}
-                        //handleOnClick={handleLeaveTask}
-                    />
-                ) : !approvedTaskDetail &&
-                  !requestedTask?.is_accepted &&
-                  !requestedTask?.is_active ? (
-                    <BookNowButton
-                        btnTitle="Declined"
-                        backgroundColor="#FE5050"
-                        // disabled={userGet()?.is_suspended}
 
-                        //handleOnClick={handleLeaveTask}
-                    />
-                ) : appliedTask?.status === "Open" ? (
-                    <BookNowButton
-                        btnTitle="Leave Task"
-                        // disabled={userGet()?.is_suspended}
-                        backgroundColor="#FE5050"
-                        handleOnClick={handleLeaveTask}
-                    />
-                ) : (
-                    <BookNowButton
-                        btnTitle="Leave Task"
-                        // disabled={userGet()?.is_suspended}
-                        backgroundColor="#FE5050"
-                        handleOnClick={handleLeaveTask}
-                    />
-                )
+            {!isUserTask ? (
+                handleButtonRender()
             ) : (
                 <BookNowButton
                     btnTitle="View Applicants"
@@ -299,7 +273,6 @@ const SimpleProfileCard = ({
                     handleOnClick={handleScroll}
                 />
             )}
-
             <AppliedForm
                 service_id={task?.id}
                 title={task?.title}

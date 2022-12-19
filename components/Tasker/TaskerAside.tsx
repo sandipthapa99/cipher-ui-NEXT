@@ -7,19 +7,15 @@ import { Alert, ScrollArea } from "@mantine/core";
 import { useSearchedTaskers } from "components/common/Search/searchStore";
 import { useTaskers } from "hooks/tasker/use-taskers";
 import { useInViewPort } from "hooks/use-in-viewport";
-import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { ITasker } from "types/tasker";
-import { sortItemsByActive } from "utils/sortItemsByActive";
 
 interface TaskerAsideProps {
     children: ReactNode;
     searchParam: string;
 }
 const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
-    const router = useRouter();
     const searchedTaskers = useSearchedTaskers();
     const {
         data: taskersPage,
@@ -34,13 +30,6 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
     );
     const totalTaskers = taskers.length;
     const allTaskers = searchedTaskers.length > 0 ? searchedTaskers : taskers;
-    const activeTaskerId = router.query.id as string;
-
-    const sortedTaskers = sortItemsByActive<ITasker>({
-        type: "tasker",
-        taskers: allTaskers,
-        activeId: activeTaskerId,
-    });
 
     const isLastTaskerOnPage = (index: number) => index === totalTaskers - 1;
 
@@ -50,7 +39,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
         }
     });
 
-    const renderTaskCards = sortedTaskers.map((tasker, index) => {
+    const renderTaskCards = allTaskers.map((tasker, index) => {
         return (
             <div
                 ref={isLastTaskerOnPage(index) ? ref : null}

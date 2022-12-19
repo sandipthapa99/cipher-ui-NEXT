@@ -3,10 +3,8 @@ import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
-import TagMultiSelectField from "@components/common/MultiSelectField";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
-import TagInputField from "@components/common/TagInputField";
 import { ImageUpload } from "@components/ImageUpload";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
@@ -44,11 +42,9 @@ import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
-import { AccountFormData } from "utils/formData";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
-import { number } from "yup";
 
 import { db } from "../../firebase/firebase";
 import { FillKyc } from "./FillKyc";
@@ -241,12 +237,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
     );
     useEffect(() => {
         setCurrencyChange(
-            profile ? profile.charge_currency?.id?.toString() : ""
+            profile ? profile.charge_currency?.code?.toString() : "NPR"
         );
         setLanguageChange(
-            profile?.language ? profile?.language?.id?.toString() : ""
+            profile?.language ? profile?.language?.code?.toString() : "ne"
         );
-        setCountryChange(profile ? profile.country?.id?.toString() : "");
+        setCountryChange(profile ? profile.country?.code?.toString() : "");
     }, [profile]);
 
     const [showEditForm, setShowEditForm] = useState(false);
@@ -289,29 +285,29 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     //handle country change
     const handleCountryChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setCountryChange(id);
-        if (id) setFieldValue("country", parseInt(id));
+        setCountryChange(code);
+        if (code) setFieldValue("country", code);
     };
 
     //handle language change
     const handleLanguageChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setLanguageChange(id);
-        if (id) setFieldValue("language", parseInt(id));
+        setLanguageChange(code);
+        if (code) setFieldValue("language", code);
     };
 
     //handle currency change
     const handleCurrencyChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setCurrencyChange(id);
-        if (id) setFieldValue("charge_currency", parseInt(id));
+        setCurrencyChange(code);
+        if (code) setFieldValue("charge_currency", code);
     };
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
@@ -422,7 +418,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             first_name: profile?.user.first_name ?? "",
                             middle_name: profile?.user.middle_name ?? "",
                             last_name: profile?.user.last_name ?? "",
-                            city: profile?.city?.id ?? "",
+                            city: profile?.city?.id ?? parseInt(""),
                             email: "",
                             bio: profile?.bio ?? "",
                             gender: profile?.gender ?? "",
@@ -442,8 +438,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             country: profile ? countryChange : "",
                             address_line1: profile?.address_line1 ?? "",
                             address_line2: profile?.address_line2 ?? "",
-                            language: profile ? languageChange : "",
-                            charge_currency: profile ? currencyChange : "",
+                            language: profile ? languageChange : "ne",
+                            charge_currency: profile ? currencyChange : "NPR",
                             profile_visibility:
                                 profile?.profile_visibility ?? "",
                             task_preferences: profile?.task_preferences ?? "",
@@ -510,6 +506,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     new Date(values.date_of_birth),
                                     "yyyy-MM-dd"
                                 ),
+                                city: values.city,
                             };
 
                             // newValidatedValues.interests?.forEach((val: number) =>
@@ -656,15 +653,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                           {
                                                               name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
                                                               email: values.email,
-                                                              profile: profile
-                                                                  ?.user
-                                                                  .profile_image
-                                                                  ? profile
-                                                                        ?.user
-                                                                        .profile_image
-                                                                  : profile
-                                                                        ?.avatar
-                                                                        ?.image,
+                                                              profile: "",
                                                               uuid: userData?.id,
                                                           }
                                                       ));
@@ -1181,15 +1170,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 </Col>
                             </Row>
                             <h3>Address</h3>
-                            {/* <SelectInputField
-                                name="country"
-                                labelName="Country"
-                                touch={touched.country}
-                                error={errors.country}
-                                placeHolder="Select your country"
-                                options={countryResults}
-                               
-                            /> */}
+
                             <Select
                                 label="Country"
                                 placeholder="Select your country"
@@ -1287,15 +1268,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 data={languageResults ?? []}
                                 error={errors.language}
                             />
-                            {/* <SelectInputField
-                                name="charge_currency"
-                                labelName="Currency"
-                                touch={touched.charge_currency}
-                                error={errors.charge_currency}
-                                placeHolder="Select your currency"
-                                options={currencyResults}
-                               
-                            /> */}
                             <Select
                                 label="Currency"
                                 placeholder="Select your currency"
@@ -1304,10 +1276,11 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 nothingFound="No result found."
                                 disabled={isInputDisabled}
                                 value={currencyChange}
+                                defaultValue="NPR"
                                 key={currencyChange}
                                 //value={currencyChange}
                                 onChange={(value) => {
-                                    setCurrencyChange(value ? value : "");
+                                    setCurrencyChange(value ? value : "NPR");
                                     handleCurrencyChanged(value, setFieldValue);
                                 }}
                                 data={currencyResults ?? []}

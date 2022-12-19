@@ -7,13 +7,10 @@ import { Alert, ScrollArea } from "@mantine/core";
 import { useServices } from "hooks/service/use-services";
 import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { IService } from "types/service";
-import { sortItemsByActive } from "utils/sortItemsByActive";
 
 interface ServiceAside {
     children: ReactNode;
