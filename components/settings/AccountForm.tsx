@@ -3,10 +3,8 @@ import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
-import TagMultiSelectField from "@components/common/MultiSelectField";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
-import TagInputField from "@components/common/TagInputField";
 import { ImageUpload } from "@components/ImageUpload";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
@@ -44,11 +42,9 @@ import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
-import { AccountFormData } from "utils/formData";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
-import { number } from "yup";
 
 import { db } from "../../firebase/firebase";
 import { FillKyc } from "./FillKyc";
@@ -241,10 +237,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
     );
     useEffect(() => {
         setCurrencyChange(
-            profile ? profile.charge_currency?.code?.toString() : ""
+            profile ? profile.charge_currency?.code?.toString() : "NPR"
         );
         setLanguageChange(
-            profile?.language ? profile?.language?.code?.toString() : ""
+            profile?.language ? profile?.language?.code?.toString() : "ne"
         );
         setCountryChange(profile ? profile.country?.code?.toString() : "");
     }, [profile]);
@@ -1182,15 +1178,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 </Col>
                             </Row>
                             <h3>Address</h3>
-                            {/* <SelectInputField
-                                name="country"
-                                labelName="Country"
-                                touch={touched.country}
-                                error={errors.country}
-                                placeHolder="Select your country"
-                                options={countryResults}
-                               
-                            /> */}
+
                             <Select
                                 label="Country"
                                 placeholder="Select your country"
@@ -1288,15 +1276,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 data={languageResults ?? []}
                                 error={errors.language}
                             />
-                            {/* <SelectInputField
-                                name="charge_currency"
-                                labelName="Currency"
-                                touch={touched.charge_currency}
-                                error={errors.charge_currency}
-                                placeHolder="Select your currency"
-                                options={currencyResults}
-                               
-                            /> */}
                             <Select
                                 label="Currency"
                                 placeholder="Select your currency"
@@ -1305,6 +1284,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 nothingFound="No result found."
                                 disabled={isInputDisabled}
                                 value={currencyChange}
+                                defaultValue="NPR"
                                 key={currencyChange}
                                 //value={currencyChange}
                                 onChange={(value) => {
