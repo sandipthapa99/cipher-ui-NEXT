@@ -6,10 +6,6 @@ interface ServiceHighlightsProps {
     highlights: string[];
 }
 const ServiceHighlights = ({ highlights = [] }: ServiceHighlightsProps) => {
-    console.log(
-        "🚀 ~ file: ServiceHighlights.tsx ~ line 9 ~ ServiceHighlights ~ highlights",
-        highlights
-    );
     return (
         <>
             {highlights?.map((value, key) => (
