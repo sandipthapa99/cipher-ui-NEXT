@@ -321,8 +321,8 @@ const AppliedTaskDetail = ({
                         />
                         <span>
                             {" "}
-                            {taskDetail?.city.name
-                                ? taskDetail?.city.name
+                            {taskDetail?.city?.name
+                                ? taskDetail?.city?.name
                                 : "Not Provided"}
                         </span>
                     </p>
