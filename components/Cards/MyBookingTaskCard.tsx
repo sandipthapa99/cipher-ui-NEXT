@@ -141,10 +141,11 @@ export const MyBookingTaskCard = ({
 
                             <span>
                                 {item?.entity_service?.created_by?.first_name}{" "}
-                                {item?.entity_service?.created_by?.middle_name}{" "}
+                                {item?.entity_service?.created_by
+                                    ?.middle_name ?? ""}{" "}
                                 {item?.entity_service?.created_by?.last_name}
                                 {Approvedtask?.assigner?.first_name}{" "}
-                                {Approvedtask?.assigner?.middle_name}{" "}
+                                {Approvedtask?.assigner?.middle_name ?? ""}{" "}
                                 {Approvedtask?.assigner?.last_name}
                             </span>
                             <FontAwesomeIcon

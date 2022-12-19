@@ -228,7 +228,8 @@ export const OtherBookedTaskCard = ({
 
                                     <span>
                                         {item?.created_by?.user?.first_name}{" "}
-                                        {item?.created_by?.user?.middle_name}
+                                        {item?.created_by?.user?.middle_name ??
+                                            ""}
                                         {item?.created_by?.user?.last_name}
                                     </span>
                                 </div>
@@ -262,7 +263,8 @@ export const OtherBookedTaskCard = ({
 
                                     <span>
                                         {Approvedtask?.assignee?.first_name}{" "}
-                                        {Approvedtask?.assignee?.middle_name}
+                                        {Approvedtask?.assignee?.middle_name ??
+                                            ""}
                                         {Approvedtask?.assignee?.last_name}
                                     </span>
                                 </div>

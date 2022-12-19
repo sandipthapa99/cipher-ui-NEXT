@@ -831,12 +831,11 @@ const SearchResultsDetail = ({
                         service?.created_by?.profile_image
                     }
                     tasker_name={
-                        service?.created_by &&
-                        service?.created_by?.first_name +
-                            " " +
-                            service?.created_by?.middle_name +
-                            " " +
-                            service?.created_by?.last_name
+                        (service?.created_by &&
+                            service?.created_by?.first_name +
+                                " " +
+                                service?.created_by?.middle_name) ??
+                        "" + " " + service?.created_by?.last_name
                     }
                     offer={service?.offers}
                     title={serviceTitle}

@@ -183,7 +183,7 @@ const SimpleProfileCard = ({
                 <div className="intro">
                     <p className="name">
                         {task?.created_by?.first_name}{" "}
-                        {task?.created_by?.middle_name}{" "}
+                        {task?.created_by?.middle_name ?? ""}{" "}
                         {task?.created_by?.last_name}
                         {first_name} {middle_name} {last_name}
                     </p>
@@ -287,10 +287,9 @@ const SimpleProfileCard = ({
                 tasker_id={task?.created_by?.id ? task?.created_by?.id : ""}
                 tasker_name={
                     task?.created_by?.first_name +
-                    " " +
-                    task?.created_by?.middle_name +
-                    " " +
-                    task?.created_by?.last_name
+                        " " +
+                        task?.created_by?.middle_name ??
+                    "" + " " + task?.created_by?.last_name
                 }
                 tasker_img={task?.created_by?.profile_image}
             />
