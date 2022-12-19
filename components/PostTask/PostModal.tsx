@@ -29,6 +29,7 @@ import type { ITask } from "types/task";
 import extractContent from "utils/extractString";
 import { PostTaskFormData } from "utils/formData";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import AddRequirements from "./AddRequirements";
 import { PostCard } from "./PostCard";
@@ -150,6 +151,10 @@ const PostModal = ({
                                             taskId
                                         );
                                         setshowPostModel(false);
+
+                                        // queryClient.invalidateQueries([
+                                        //     "all-tasks",
+                                        // ]);
                                     },
                                 }
                             );

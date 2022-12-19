@@ -1,4 +1,5 @@
 .alloffers {
+    margin: 1rem 0rem;
     &__container {
         @include respond(xs) {
             gap: 2rem;

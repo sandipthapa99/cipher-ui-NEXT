@@ -2,11 +2,13 @@
     background: #ffffff66;
     padding: 2.4rem 4rem;
     border-radius: 0.4rem;
-    margin-bottom: 2.4rem;
+    // margin-bottom: 2.4rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
+
     @media screen and (width: 280px) {
         padding: 2.4rem 3rem;
     }
+
     //specific to NestHub
     @media screen and (width: 1024px), (width: 360px) {
         padding: 2.4rem 1rem;
@@ -15,6 +17,7 @@
     @media screen and (width: 768px), (width: 820px) {
         padding: 2.4rem 2rem;
     }
+
     &[data-active="true"] {
         background: #fff;
     }
@@ -25,6 +28,7 @@
             font-weight: 500;
             color: $primary-color;
             padding: 0 1rem 0 0;
+
             @include respond(lg) {
                 font-size: 1.6rem;
             }
@@ -32,10 +36,12 @@
             @media screen and (min-width: 1024px) {
                 font-size: 1.6rem;
             }
+
             //specific to NestHubMax
             @media screen and (width: 1280px) {
                 font-size: 1.2rem !important;
             }
+
             //specific to NestHub
             @media screen and (width: 1024px) {
                 font-size: 1.1rem !important;
@@ -47,13 +53,16 @@
             font-size: 1.3rem;
             text-align: right;
             color: #343a40;
+
             @include respond(xs) {
                 font-weight: 600;
                 text-align: left;
             }
+
             @include respond(lg) {
                 font-size: 2rem;
             }
+
             @media screen and (min-width: 1024px) {
                 font-size: 2rem;
             }
@@ -63,11 +72,13 @@
                 font-size: 1.1rem !important;
                 margin-top: 5px;
             }
+
             //specific to NestHub max
             @media screen and (width: 1280px) {
                 font-size: 1.2rem !important;
                 margin-top: 5px;
             }
+
             //specific to surface pro,ipad air and
             @media screen and (width: 768px), (width: 820px), (width: 912px) {
                 margin-top: 5px;
@@ -79,6 +90,7 @@
         @include respond(xs) {
             margin-top: 6px;
         }
+
         .task-description {
             font-size: 1.2rem;
             font-weight: 400;
@@ -89,11 +101,13 @@
 
         .location {
             font-size: 1.2rem;
+
             .svg-icon {
                 width: 1rem;
                 color: #fe5050;
             }
         }
+
         .task-location-time {
             font-size: 1.2rem;
             font-weight: 400;
@@ -108,15 +122,18 @@
                 flex-direction: column;
                 gap: 1.2rem;
             }
+
             span {
                 margin: 0;
             }
+
             .date {
                 .svg-icon {
                     width: 1.2rem;
                     color: #f06700;
                 }
             }
+
             .time {
                 .svg-icon {
                     width: 1.2rem;
@@ -124,19 +141,23 @@
                 }
             }
         }
+
         hr {
             border: 1px solid #e9ecef;
         }
     }
+
     &__footer {
         font-size: 1.2rem;
         border-top: 0.1rem solid #e9ecef;
         font-weight: 400;
         padding-top: 1.2rem;
         color: #343a40;
+
         .share-label {
             margin: 0 2rem 0 0;
         }
+
         .applicants {
             .svg-icon {
                 width: 1.6rem;

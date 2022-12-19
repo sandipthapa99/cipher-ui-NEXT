@@ -95,7 +95,11 @@ const SearchResultsDetail = ({
         ["all-services"],
         urls.task.service
     );
+    const [seeMore, setSeeMore] = useState(false);
     const parsedDescription = parse(serviceDescription ?? "");
+    const shortParseDescription = parse(
+        serviceDescription?.substring(0, 400) ?? ""
+    );
     const { data: myServicePackage } = useData<{
         result: Array<{
             id: number;
@@ -568,14 +572,24 @@ const SearchResultsDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    {parsedDescription}
+                    {seeMore ? shortParseDescription : parsedDescription}{" "}
+                    <span
+                        onClick={() => setSeeMore((prev) => !prev)}
+                        style={{
+                            cursor: "pointer",
+                            color: "#00b4d8",
+                            fontSize: "12px",
+                        }}
+                    >
+                        {seeMore ? "... show More " : "... show less"}
+                    </span>
                 </div>
 
                 <h3>Highlights</h3>
                 {!highlights && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="No data Available!"
+                        title="No data Available"
                         color="orange"
                         radius="md"
                         sx={{ minWidth: 100 }}
@@ -768,8 +782,8 @@ const SearchResultsDetail = ({
                         </Col>
                     ))
                 ) : (
-                    <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                        Sorry, You have no task data to show
+                    <Alert title="NO DATA AVAILABLE" color="orange">
+                        There are no reviews to show.
                     </Alert>
                 )}
                 <span className="td-divider"></span>

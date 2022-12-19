@@ -141,7 +141,7 @@ export const Search = () => {
                             data={searchData}
                             // rightSection={<AngleDown />}
                             onChange={(value) => setFieldValue("scope", value)}
-                            styles={{ dropdown: { marginLeft: `${-1}rem` } }}
+                            // styles={{ dropdown: { marginLeft: `${-1}rem` } }}
                         />
                         <div className="search_field">
                             <input
@@ -181,6 +181,7 @@ export const useStyles = createStyles(() => ({
     selectField: {
         maxWidth: useMediaQuery("(max-width:572px)") ? "10rem" : "12rem",
         marginLeft: "1rem",
+        textAlign: "center",
     },
     loadingOverlay: {
         position: "fixed",

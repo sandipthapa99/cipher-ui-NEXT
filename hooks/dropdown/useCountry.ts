@@ -11,13 +11,20 @@ export type Country = {
     previous: any;
     page_size: number;
     result: Array<{
-        id: number;
+        code: string;
+        currency: {
+            code: string;
+            name: string;
+            symbol: string;
+        };
+        language: {
+            code: string;
+            name: string;
+        };
+        is_active: boolean;
         name: string;
         local_name: string;
-        iso_code: string;
         phone_code: string;
-        currency: number;
-        language: number;
     }>;
 };
 
