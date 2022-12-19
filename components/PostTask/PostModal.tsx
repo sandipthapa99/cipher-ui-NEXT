@@ -4,6 +4,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import { postTaskModalSchema } from "@components/Task/PostTaskModal/postTaskSchema";
+import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import {
     faCalendarDays,
     faSquareCheck,
@@ -93,11 +94,15 @@ const PostModal = ({
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
 
+    const initialHighlights = taskDetail?.highlights
+        ? taskDetail?.highlights
+        : [];
+
     return (
         <>
             {/* Modal component */}
             <div className="post-task-modal">
-                <h2>Post a Task</h2>
+                <h2>Edit a Task</h2>
                 <div className="post-task-form">
                     <Formik
                         enableReinitialize
@@ -193,21 +198,26 @@ const PostModal = ({
                                     requirements better.
                                 </p>
 
-                                <AddRequirements
+                                {/* <AddRequirements
                                     onSubmit={(value) =>
                                         setFieldValue("highlights", value)
                                     }
                                     placeHolder="Requirements..."
+                                /> */}
+                                <TaskRequirements
+                                    initialRequirements={initialHighlights}
+                                    onRequirementsChange={(requirements) =>
+                                        setFieldValue(
+                                            "highlights",
+                                            requirements
+                                        )
+                                    }
+                                    //   error={getFieldError("highlights")}
+                                    {...getFieldProps("highlights")}
+                                    labelName="Highlights"
+                                    description="This helps clients to find about your service highlights"
                                 />
-                                <InputField
-                                    type="text"
-                                    name="address"
-                                    labelName="address"
-                                    error={errors.address}
-                                    touch={touched.address}
-                                    fieldRequired
-                                    placeHolder="Default Address (Home)"
-                                />
+                                <br />
                                 <h4>Select Task Type</h4>
                                 <span className="d-flex mb-4">
                                     <FormGroup>
@@ -239,6 +249,15 @@ const PostModal = ({
                                         />
                                     </FormGroup>
                                 </span>
+                                <InputField
+                                    type="text"
+                                    name="address"
+                                    labelName="Address"
+                                    error={errors.address}
+                                    touch={touched.address}
+                                    fieldRequired
+                                    placeHolder="Default Address (Home)"
+                                />
                                 <InputField
                                     type="text"
                                     name="category"

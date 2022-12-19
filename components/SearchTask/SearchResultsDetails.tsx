@@ -96,11 +96,15 @@ const SearchResultsDetail = ({
         ["all-services"],
         urls.task.service
     );
-    const [seeMore, setSeeMore] = useState(false);
+
     const parsedDescription = parse(serviceDescription ?? "");
+
+    const haveDesc = serviceDescription ? serviceDescription?.length : 0;
+
     const shortParseDescription = parse(
         serviceDescription?.substring(0, 400) ?? ""
     );
+    const [seeMore, setSeeMore] = useState(false);
     const { data: myServicePackage } = useData<{
         result: Array<{
             id: number;
@@ -172,6 +176,7 @@ const SearchResultsDetail = ({
         ["tasker-count", serviceId],
         `/task/entity/service/tasker-count/${serviceId}/`
     );
+
     //
 
     const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
@@ -543,7 +548,8 @@ const SearchResultsDetail = ({
                             className="svg-icon svg-icon-calender"
                         />
                         {serviceCreated
-                            ? format(new Date(serviceCreated), "dd-MM-yyyy")
+                            ? //format(new Date(serviceCreated), "dd-MM-yyyy")
+                              format(new Date(serviceCreated), "PP")
                             : "N/A"}
                     </p>
                     <p>
@@ -574,16 +580,22 @@ const SearchResultsDetail = ({
                 <div className="task-detail__desc">
                     <h3>Description</h3>
                     {seeMore ? shortParseDescription : parsedDescription}{" "}
-                    <span
-                        onClick={() => setSeeMore((prev) => !prev)}
-                        style={{
-                            cursor: "pointer",
-                            color: "#00b4d8",
-                            fontSize: "12px",
-                        }}
-                    >
-                        {seeMore ? "... show More " : "... show less"}
-                    </span>
+                    {haveDesc > 0 ? (
+                        <span
+                            onClick={() => setSeeMore((prev) => !prev)}
+                            style={{
+                                cursor: "pointer",
+                                color: "#00b4d8",
+                                fontSize: "12px",
+                            }}
+                        >
+                            {haveDesc > 200
+                                ? serviceDescription && seeMore
+                                    ? "... show More "
+                                    : "... show less"
+                                : null}
+                        </span>
+                    ) : null}
                 </div>
 
                 <h3>Highlights</h3>
@@ -724,7 +736,7 @@ const SearchResultsDetail = ({
                                         title: `Applicants (${taskerCount?.data?.count[0].applicants_count})`,
 
                                         content: (
-                                            <Row>
+                                            <Row className="py-3">
                                                 <>
                                                     {renderBookedClients}
                                                     {myBookings ===

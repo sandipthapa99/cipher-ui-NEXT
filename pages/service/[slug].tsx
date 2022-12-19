@@ -2,8 +2,8 @@ import SearchResultsDetail from "@components/SearchTask/SearchResultsDetails";
 import ServiceLayout from "@components/services/ServiceLayout";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
-import { useTaskDetail } from "hooks/task/use-task-detail";
-import type { GetStaticPaths, GetStaticProps } from "next";
+import { useServiceDetail } from "hooks/task/use-service-detail";
+import type { GetServerSideProps } from "next";
 import { ReactQueryKeys } from "types/queryKeys";
 import type {
     ServicesPackageProps,
@@ -19,43 +19,50 @@ const ServicesDetail = ({
     service: ServicesValueProps["result"][0];
     servicePackage: ServicesPackageProps;
 }) => {
+    const { data: serviceDetail } = useServiceDetail(
+        (service.id as string) ?? ""
+    );
+
     return (
         <>
             <ServiceLayout
-                title={service?.title}
-                description={extractContent(service?.description)}
-                ogImage={service?.images[0]?.media}
-                ogUrl={service?.slug}
+                title={serviceDetail?.title}
+                description={extractContent(serviceDetail?.description)}
+                ogImage={serviceDetail?.images[0]?.media}
+                ogUrl={serviceDetail?.slug}
+                serviceId={service.id}
             >
                 <SearchResultsDetail
-                    image={service?.images}
-                    budget_from={service?.budget_from}
-                    budget_to={service?.budget_to}
-                    budget_type={service?.budget_type}
+                    image={serviceDetail?.images}
+                    budget_from={serviceDetail?.budget_from}
+                    budget_to={serviceDetail?.budget_to}
+                    budget_type={serviceDetail?.budget_type}
                     serviceProvider={
-                        `${service?.created_by?.first_name} ${service?.created_by?.last_name}` ??
+                        `${serviceDetail?.created_by?.first_name} ${serviceDetail?.created_by?.last_name}` ??
                         ""
                     }
-                    serviceProviderId={service?.created_by?.id ?? ""}
-                    serviceProviderLocation={service?.location ?? ""}
-                    serviceDescription={service?.description ?? ""}
-                    serviceRating={"service?.success_rate ?? 0"}
-                    serviceTitle={service?.title ?? ""}
+                    serviceProviderId={serviceDetail?.created_by?.id ?? ""}
+                    serviceProviderLocation={serviceDetail?.location ?? ""}
+                    serviceDescription={serviceDetail?.description ?? ""}
+                    serviceRating={"serviceDetail?.success_rate ?? 0"}
+                    serviceTitle={serviceDetail?.title ?? ""}
                     haveDiscount={true}
                     discountOn={""}
                     discount={
-                        service?.discount_value ? service?.discount_value : 0
+                        serviceDetail?.discount_value
+                            ? serviceDetail?.discount_value
+                            : 0
                     }
-                    highlights={service?.highlights}
+                    highlights={serviceDetail?.highlights}
                     servicePackage={servicePackage?.result}
-                    serviceCreated={service?.created_at}
-                    serviceViews={service?.views_count}
-                    serviceId={service?.id}
-                    currency={service?.currency?.symbol}
-                    ProfileImage={service?.created_by?.profile_image}
+                    serviceCreated={serviceDetail?.created_at}
+                    serviceViews={serviceDetail?.views_count}
+                    serviceId={serviceDetail?.id}
+                    currency={serviceDetail?.currency?.symbol}
+                    ProfileImage={serviceDetail?.created_by?.profile_image}
                     service={service}
-                    ratedTo={service?.created_by?.id}
-                    offers={service?.offers}
+                    ratedTo={serviceDetail?.created_by?.id}
+                    offers={serviceDetail?.offers}
                 />
             </ServiceLayout>
         </>
@@ -63,24 +70,25 @@ const ServicesDetail = ({
 };
 export default ServicesDetail;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    try {
-        const { data: serviceData } = await axiosClient.get(urls.task.service);
-        const paths = serviceData?.result?.map(
-            ({ slug }: ServicesValueProps["result"][0]) => ({
-                params: { slug: slug },
-            })
-        );
-        return { paths, fallback: true };
-    } catch (error: any) {
-        return {
-            paths: [],
-            fallback: true,
-        };
-    }
-};
+// export const getStaticPaths: GetStaticPaths = async () => {
+//     try {
+//         const { data: serviceData } = await axiosClient.get(urls.task.service);
+//         const paths = serviceData?.result?.map(
+//             ({ slug }: ServicesValueProps["result"][0]) => ({
+//                 params: { slug: slug },
+//             })
+//         );
+//         return { paths, fallback: true };
+//     } catch (error: any) {
+//         return {
+//             paths: [],
+//             fallback: true,
+//         };
+//     }
+// };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+    //    const { id } = params as { id: string };
     try {
         const { data } = await axiosClient.get<ServicesValueProps["result"][0]>(
             `${urls.task.list}${params?.slug}/`
@@ -100,15 +108,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
                 // servicePackage: servicePackage,
                 dehydratedState: dehydrate(queryClient),
             },
-            revalidate: 10,
         };
     } catch (error: any) {
         return {
             props: {
                 service: {},
-                servicePackage: {},
+                // servicePackage: {},
             },
-            revalidate: 10,
         };
     }
 };

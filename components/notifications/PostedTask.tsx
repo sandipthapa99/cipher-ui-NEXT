@@ -29,7 +29,6 @@ export const PostNotifyTask = ({
 }: PostedNotifyProps) => {
     const { data: profile } = useGetProfile();
     const router = useRouter();
-
     return (
         <div
             className="d-flex align-items-center justify-content-between accepted-notification"

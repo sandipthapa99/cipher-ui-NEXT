@@ -457,7 +457,7 @@ export const PostTaskModal = () => {
                                     merchant for your task.
                                 </Text>
                                 <CustomDropZone
-                                    accept={IMAGE_MIME_TYPE}
+                                    // accept={IMAGE_MIME_TYPE}
                                     uploadedFiles={taskDetail?.images ?? []}
                                     fileType="image"
                                     sx={{ maxWidth: "30rem" }}

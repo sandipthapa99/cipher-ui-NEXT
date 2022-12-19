@@ -344,14 +344,10 @@ export const NotificationDropdown = () => {
                         <PostNotifyTask
                             read={notification?.read_date}
                             is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
+                                notification?.content_object?.is_requested
                             }
                             taskTitle={`${notification?.content_object?.title} `}
-                            taskObject={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
+                            taskObject={notification?.content_object?.title}
                             createdDate={notification.created_date}
                             slug={notification?.content_object?.slug}
                             type={"created"}
