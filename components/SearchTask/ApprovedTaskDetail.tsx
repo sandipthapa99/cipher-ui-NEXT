@@ -1,7 +1,4 @@
-import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
 import { TimelineTab } from "@components/AppliedTask/TimelineTab";
-import { ElipsisReport } from "@components/common/ElipsisReport";
-import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
@@ -15,14 +12,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Modal } from "@mantine/core";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useUser } from "hooks/auth/useUser";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Fragment } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
@@ -56,23 +51,6 @@ export const ApprovedTaskDetail = ({
         `/history/task/timeline/${approvedId}`,
         show && !!approvedId
     );
-
-    const queryClient = useQueryClient();
-    const { data: user } = useUser();
-    const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
-    const [showModal, setShowModal] = useState(false);
-    const [showInput, setShowInput] = useState(false);
-
-    const RenderInputBox = () => {
-        return (
-            <input
-                type="text"
-                className="input"
-                //value={search_category}
-                placeholder="search"
-            />
-        );
-    };
     // const router = useRouter();
 
     // const slug = router?.query?.slug as string;
