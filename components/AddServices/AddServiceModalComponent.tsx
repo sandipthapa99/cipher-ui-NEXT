@@ -84,15 +84,15 @@ export const AddServiceModalComponent = () => {
 
     const createServiceLoading = createTaskLoading || uploadFileLoading;
 
-    // const initialHighlights = safeParse({
-    //     rawString: taskDetail?.highlights ?? "",
-    //     initialData: [],
-    // });
+    const initialHighlights = safeParse({
+        rawString: taskDetail?.highlights ?? "",
+        initialData: [],
+    });
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
-            highlights: [],
+            highlights: initialHighlights,
             city: "",
             location: "remote",
             budget_type: "Project",
@@ -196,7 +196,7 @@ export const AddServiceModalComponent = () => {
                         }
                         placeholder="Enter your description"
                     />
-                    {/* <TaskRequirements
+                    <TaskRequirements
                         initialRequirements={initialHighlights}
                         onRequirementsChange={(requirements) =>
                             setFieldValue("highlights", requirements)
@@ -205,7 +205,7 @@ export const AddServiceModalComponent = () => {
                         {...getFieldProps("highlights")}
                         labelName="Highlights"
                         description="This helps clients to find about your service highlights"
-                    /> */}
+                    />
                     <TaskCurrency
                         value={
                             taskDetail
