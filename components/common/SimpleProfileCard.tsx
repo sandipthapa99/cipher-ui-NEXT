@@ -87,7 +87,7 @@ const SimpleProfileCard = ({
     };
 
     const handleButtonRender = () => {
-        if (!requestedTask)
+        if (!task) {
             return (
                 <BookNowButton
                     btnTitle="In Progress"
@@ -96,49 +96,50 @@ const SimpleProfileCard = ({
                     handleOnClick={handleLeaveTask}
                 />
             );
+        } else {
+            switch (approvedTaskDetail?.status) {
+                case TASK_STATUS.Open:
+                    return (
+                        <BookNowButton
+                            btnTitle="Leave Task"
+                            backgroundColor="#FE5050"
+                            handleOnClick={handleLeaveTask}
+                        />
+                    );
+                case TASK_STATUS.Closed:
+                    return (
+                        <BookNowButton
+                            btnTitle={"Closed"}
+                            backgroundColor={"#3776db"}
+                            showModal={true}
+                        />
+                    );
+                case TASK_STATUS.Completed:
+                    return (
+                        <BookNowButton
+                            btnTitle={"Completed"}
+                            backgroundColor={"#3776db"}
+                            showModal={true}
+                        />
+                    );
+                case TASK_STATUS.On_Progress:
+                    return (
+                        <BookNowButton
+                            btnTitle={"On Progress"}
+                            backgroundColor={"#38C675"}
+                            showModal={true}
+                        />
+                    );
 
-        switch (approvedTaskDetail?.status) {
-            case TASK_STATUS.Open:
-                return (
-                    <BookNowButton
-                        btnTitle="Leave Task"
-                        backgroundColor="#FE5050"
-                        handleOnClick={handleLeaveTask}
-                    />
-                );
-            case TASK_STATUS.Closed:
-                return (
-                    <BookNowButton
-                        btnTitle={"Closed"}
-                        backgroundColor={"#3776db"}
-                        showModal={true}
-                    />
-                );
-            case TASK_STATUS.Completed:
-                return (
-                    <BookNowButton
-                        btnTitle={"Completed"}
-                        backgroundColor={"#3776db"}
-                        showModal={true}
-                    />
-                );
-            case TASK_STATUS.On_Progress:
-                return (
-                    <BookNowButton
-                        btnTitle={"On Progress"}
-                        backgroundColor={"#38C675"}
-                        showModal={true}
-                    />
-                );
-
-            default:
-                return (
-                    <BookNowButton
-                        btnTitle="Apply Now"
-                        backgroundColor="#38C675"
-                        handleOnClick={withLogin(() => setShowModal(true))}
-                    />
-                );
+                default:
+                    return (
+                        <BookNowButton
+                            btnTitle="Apply Now"
+                            backgroundColor="#38C675"
+                            handleOnClick={withLogin(() => setShowModal(true))}
+                        />
+                    );
+            }
         }
     };
 
