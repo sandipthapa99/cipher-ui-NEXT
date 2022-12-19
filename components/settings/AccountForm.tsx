@@ -657,19 +657,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                           {
                                                               name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
                                                               email: values.email,
-                                                              profile: profile
-                                                                  ?.user
-                                                                  .profile_image
-                                                                  ? profile
-                                                                        ?.user
-                                                                        .profile_image
-                                                                  : profile
-                                                                        ?.avatar
-                                                                        ?.image
-                                                                  ? profile
-                                                                        ?.avatar
-                                                                        ?.image
-                                                                  : "",
+                                                              profile: "",
                                                               uuid: userData?.id,
                                                           }
                                                       ));
