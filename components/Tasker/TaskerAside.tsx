@@ -1,4 +1,5 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
+import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -109,7 +110,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                                     )}" found.`} */}
                                 </p>
                             ) : null}
-                            {isFetchingNextPage && <TaskerSkeleton />}
+                            {isFetchingNextPage && <SkeletonServiceCard />}
                         </>
                     </ScrollArea.Autosize>
                 </Col>

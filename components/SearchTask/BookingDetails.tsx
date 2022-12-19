@@ -24,7 +24,7 @@ interface BookingDetailsProps {
 const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
     const { data } = useData<BookingDetailProps>(
         ["booking-detail", bookingId],
-        `/task/entity/service-booking/${bookingId}`,
+        `/task/entity/service-booking/${bookingId}/`,
         show
     );
 
@@ -221,7 +221,7 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                 {!BookingDetail?.requirements && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="No data Available!"
+                        title="No data Available"
                         color="orange"
                         radius="md"
                         sx={{ minWidth: 100 }}

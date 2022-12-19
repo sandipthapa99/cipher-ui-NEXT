@@ -64,7 +64,7 @@ const SimpleProfileCard = ({
         (appliedTask: any) => appliedTask?.id !== task?.id
     );
 
-    const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
+    const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}/`;
     const { mutate } = useForm(cancelTaskUrl);
 
     const [showModal, setShowModal] = useState(false);

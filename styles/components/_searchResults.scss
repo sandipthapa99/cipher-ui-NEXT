@@ -26,6 +26,12 @@
             }
         }
     }
+    .pe-1 {
+        margin-top: 3rem;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
 }
 .search-input {
     @include respond(xs) {

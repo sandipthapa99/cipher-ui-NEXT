@@ -120,15 +120,16 @@ export const PostTaskModal = () => {
         setInitialVideoIds(getInitialVideoIds());
     }, [getInitialVideoIds]);
 
-    const initialHighlights = safeParse<string[]>({
-        rawString: taskDetail?.highlights ?? "[]",
-        initialData: [],
-    });
+    // const initialHighlights = safeParse<string[]>({
+    //     rawString: taskDetail?.highlights ?? "[]",
+    //     initialData: [],
+    // });
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
-            highlights: taskDetail ? initialHighlights : [],
+            //   highlights: taskDetail ? initialHighlights : [],
+            highlights: [],
             city: taskDetail ? String(taskDetail?.city?.id) : "",
             location: taskDetail ? (taskDetail.location as TaskType) : "remote",
             budget_type: "Project",

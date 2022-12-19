@@ -1,6 +1,6 @@
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
-import { Skeleton } from "@mantine/core";
+import { Loader, Skeleton } from "@mantine/core";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useData } from "hooks/use-data";
@@ -45,11 +45,11 @@ const TaskerDetail = ({
                         taskerHimself={taskerHimself}
                     />
                 ) : (
-                    <>
+                    <div className="bg-white p-5">
                         <Skeleton height={100} circle mb="xl" />
                         <Skeleton height={20} radius="xl" />
                         <Skeleton height={20} mt={6} radius="xl" />
-                    </>
+                    </div>
                 )}
             </TaskerLayout>
         </>

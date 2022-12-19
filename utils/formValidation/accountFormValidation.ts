@@ -34,7 +34,7 @@ export const accountFormSchema = Yup.object().shape({
     hourly_rate: Yup.number().nullable().required("Required field"),
     //checkboxUser: Yup.mixed().required("Required field"),
     country: Yup.string().required("Required Field"),
-    city: Yup.string().required("Required Field"),
+    city: Yup.number().required("Required Field"),
     address_line1: stringReqOnly,
     //address_line2: stringUnReq,
     //language: stringUnReq,

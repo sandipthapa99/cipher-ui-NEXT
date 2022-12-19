@@ -241,12 +241,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
     );
     useEffect(() => {
         setCurrencyChange(
-            profile ? profile.charge_currency.id?.toString() : ""
+            profile ? profile.charge_currency?.code?.toString() : ""
         );
         setLanguageChange(
-            profile?.language ? profile?.language.id?.toString() : ""
+            profile?.language ? profile?.language?.code?.toString() : ""
         );
-        setCountryChange(profile ? profile.country.id?.toString() : "");
+        setCountryChange(profile ? profile.country?.code?.toString() : "");
     }, [profile]);
 
     const [showEditForm, setShowEditForm] = useState(false);
@@ -289,29 +289,29 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     //handle country change
     const handleCountryChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setCountryChange(id);
-        if (id) setFieldValue("country", parseInt(id));
+        setCountryChange(code);
+        if (code) setFieldValue("country", code);
     };
 
     //handle language change
     const handleLanguageChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setLanguageChange(id);
-        if (id) setFieldValue("language", parseInt(id));
+        setLanguageChange(code);
+        if (code) setFieldValue("language", code);
     };
 
     //handle currency change
     const handleCurrencyChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setCurrencyChange(id);
-        if (id) setFieldValue("charge_currency", parseInt(id));
+        setCurrencyChange(code);
+        if (code) setFieldValue("charge_currency", code);
     };
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
@@ -422,7 +422,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             first_name: profile?.user.first_name ?? "",
                             middle_name: profile?.user.middle_name ?? "",
                             last_name: profile?.user.last_name ?? "",
-                            city: profile?.city?.id ?? "",
+                            city: profile?.city?.id ?? parseInt(""),
                             email: "",
                             bio: profile?.bio ?? "",
                             gender: profile?.gender ?? "",
@@ -442,8 +442,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             country: profile ? countryChange : "",
                             address_line1: profile?.address_line1 ?? "",
                             address_line2: profile?.address_line2 ?? "",
-                            language: profile ? languageChange : "",
-                            charge_currency: profile ? currencyChange : "",
+                            language: profile ? languageChange : "ne",
+                            charge_currency: profile ? currencyChange : "NPR",
                             profile_visibility:
                                 profile?.profile_visibility ?? "",
                             task_preferences: profile?.task_preferences ?? "",
@@ -510,6 +510,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     new Date(values.date_of_birth),
                                     "yyyy-MM-dd"
                                 ),
+                                city: values.city,
                             };
 
                             // newValidatedValues.interests?.forEach((val: number) =>
@@ -555,7 +556,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 formData.append("interests", value);
                             });
 
-                            const editedData = formData;
+                            //         const editedData = formData;
 
                             {
                                 isEditButtonClicked
@@ -1311,7 +1312,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 key={currencyChange}
                                 //value={currencyChange}
                                 onChange={(value) => {
-                                    setCurrencyChange(value ? value : "");
+                                    setCurrencyChange(value ? value : "NPR");
                                     handleCurrencyChanged(value, setFieldValue);
                                 }}
                                 data={currencyResults ?? []}
