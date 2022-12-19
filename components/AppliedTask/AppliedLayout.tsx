@@ -52,7 +52,7 @@ const AppliedLayout = ({
             ogImage={ogImage}
             ogUrl={ogUrl}
         >
-            <section className="Tasks-section mb-5" id="Tasks-section">
+            <section className="tasks-section mb-5" id="tasks-section">
                 <Container fluid="xl" className="px-4 pb-5">
                     <SearchCategory
                         searchModal="task"

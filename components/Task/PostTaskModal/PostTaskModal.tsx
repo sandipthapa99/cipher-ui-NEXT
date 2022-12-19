@@ -116,15 +116,16 @@ export const PostTaskModal = () => {
         setInitialVideoIds(getInitialVideoIds());
     }, [getInitialVideoIds]);
 
-    const initialHighlights = safeParse<string[]>({
-        rawString: taskDetail?.highlights ?? "[]",
-        initialData: [],
-    });
+    // const initialHighlights = safeParse<string[]>({
+    //     rawString: taskDetail?.highlights ?? "[]",
+    //     initialData: [],
+    // });
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
-            highlights: taskDetail ? initialHighlights : [],
+            //   highlights: taskDetail ? initialHighlights : [],
+            highlights: [],
             city: taskDetail ? String(taskDetail?.city?.id) : "",
             location: taskDetail ? (taskDetail.location as TaskType) : "remote",
             budget_type: "Project",
@@ -140,7 +141,7 @@ export const PostTaskModal = () => {
             end_date: "",
             start_time: "",
             end_time: "",
-            currency: taskDetail ? String(taskDetail?.currency?.id) : "113",
+            currency: taskDetail ? String(taskDetail?.currency?.code) : "NPR",
             images: "",
             videos: "",
             is_active: true,
@@ -416,17 +417,16 @@ export const PostTaskModal = () => {
                             <TaskCurrency
                                 value={
                                     taskDetail
-                                        ? taskDetail?.currency?.id?.toString()
+                                        ? taskDetail?.currency?.code?.toString()
                                         : ""
                                 }
                                 data={
                                     taskDetail?.currency
                                         ? [
                                               {
-                                                  id: taskDetail?.currency?.id,
                                                   label: taskDetail?.currency
                                                       ?.name,
-                                                  value: taskDetail?.currency?.id.toString(),
+                                                  value: taskDetail?.currency?.code.toString(),
                                               },
                                           ]
                                         : []

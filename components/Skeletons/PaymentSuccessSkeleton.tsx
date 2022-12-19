@@ -15,11 +15,12 @@ export const PaymentSuccessSkeleton = () => {
             <Box
                 sx={{
                     display: "flex",
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                 }}
             >
                 <Stack>
-                    <Skeleton sx={{ width: "45rem", height: "3rem" }} />
+                    <Skeleton sx={{ width: "100%", height: "40rem" }} />
+                    <Skeleton sx={{ width: "100%", height: "3rem" }} />
                     <Skeleton
                         sx={{
                             width: "45rem",
@@ -41,7 +42,6 @@ export const PaymentSuccessSkeleton = () => {
                         }}
                     />
                 </Stack>
-                <Skeleton sx={{ width: "40rem", height: "40rem" }} />
             </Box>
         </Box>
     );

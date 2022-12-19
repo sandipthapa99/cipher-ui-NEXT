@@ -19,6 +19,7 @@ import {
     faFilterList,
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Text } from "@mantine/core";
@@ -92,10 +93,10 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
-    const highlights = safeParse<string[]>({
-        rawString: taskDetail?.highlights,
-        initialData: [],
-    });
+    // const highlights = safeParse<string[]>({
+    //     rawString: taskDetail?.highlights,
+    //     initialData: [],
+    // });
 
     //for scroll
     const handleEdit = () => {
@@ -371,8 +372,19 @@ const AppliedTaskDetail = ({
                     <>
                         <h3>Requirements</h3>
                         <div className="mt-5">
-                            {taskDetail?.highlights && (
+                            {/* {taskDetail?.highlights && (
                                 <ServiceHighlights highlights={highlights} />
+                            )} */}
+                            {taskDetail?.highlights.map(
+                                (h: { name: string; id: number }) => (
+                                    <p className="mb-4" key={h.id}>
+                                        <FontAwesomeIcon
+                                            icon={faCheck}
+                                            className="me-3 svg-icon svg-icon-check"
+                                        />
+                                        {h.name}
+                                    </p>
+                                )
                             )}
                         </div>
                     </>

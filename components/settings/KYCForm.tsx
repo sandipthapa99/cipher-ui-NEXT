@@ -41,8 +41,7 @@ const KYCForm = () => {
     const countryResults: SelectItem[] = countryName
         ? countryName.result.map((result) => ({
               label: result?.name,
-              value: result?.id.toString(),
-              id: result?.id,
+              value: result?.code.toString(),
           }))
         : ([] as SelectItem[]);
     //handle country change
@@ -88,7 +87,7 @@ const KYCForm = () => {
                                 country: KYCData
                                     ? KYCData?.country
                                     : profileDetails?.country
-                                    ? profileDetails?.country?.id.toString()
+                                    ? profileDetails?.country?.id?.toString()
                                     : "",
                                 company: KYCData ? KYCData?.company : "",
                                 // passport_size_photo: "",

@@ -215,7 +215,7 @@ const Home: NextPage<{
                         ) : (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -443,7 +443,7 @@ const Home: NextPage<{
                         (heroCategoryData?.result.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -547,7 +547,7 @@ const Home: NextPage<{
                             topTaskerData?.result?.length <= 0 && (
                                 <Alert
                                     icon={<FontAwesomeIcon icon={faWarning} />}
-                                    title="No data Available!"
+                                    title="No data Available"
                                     color="orange"
                                     radius="md"
                                     sx={{ minWidth: 100 }}
@@ -715,7 +715,7 @@ const Home: NextPage<{
                     {topCategoryData?.length <= 0 && (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
+                            title="No data Available"
                             color="orange"
                             radius="md"
                             sx={{ minWidth: 100 }}
@@ -891,7 +891,7 @@ const Home: NextPage<{
                         {topCategoryData?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}

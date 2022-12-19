@@ -72,14 +72,12 @@ export const SearchCategory = ({
     }));
     const languagesData: SelectItem[] = languages
         ? languages.result.map((language) => ({
-              id: language.id,
               label: language.name,
               value: language.name,
           }))
         : [];
     const countriesData: SelectItem[] = countries
         ? countries.result.map((country) => ({
-              id: country.id,
               label: country.name,
               value: country.name,
           }))

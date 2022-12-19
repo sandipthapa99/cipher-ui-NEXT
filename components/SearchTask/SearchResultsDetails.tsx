@@ -170,7 +170,7 @@ const SearchResultsDetail = ({
         }>;
     }>(
         ["tasker-count", serviceId],
-        `/task/entity/service/tasker-count/${serviceId}`
+        `/task/entity/service/tasker-count/${serviceId}/`
     );
     //
 
@@ -590,7 +590,7 @@ const SearchResultsDetail = ({
                 {!highlights && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="No data Available!"
+                        title="No data Available"
                         color="orange"
                         radius="md"
                         sx={{ minWidth: 100 }}
@@ -783,8 +783,8 @@ const SearchResultsDetail = ({
                         </Col>
                     ))
                 ) : (
-                    <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                        Sorry, You have no task data to show
+                    <Alert title="NO DATA AVAILABLE" color="orange">
+                        There are no reviews to show.
                     </Alert>
                 )}
                 <span className="td-divider"></span>
