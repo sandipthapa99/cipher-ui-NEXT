@@ -10,15 +10,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import React, { useState } from "react";
-import { TaskList } from "staticData/taskListData";
 import { useBookNowDetails } from "store/use-book-now";
+import type { TaskListProps } from "types/taskListProps";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 import { CheckoutModal } from "../Checkout/checkoutModal";
 
-const TaskList = ({ task }: { task: TaskList }) => {
+const TaskList = ({ task }: { task: TaskListProps }) => {
     const bookNowDetails = useBookNowDetails();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
