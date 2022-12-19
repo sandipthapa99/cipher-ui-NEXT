@@ -240,11 +240,13 @@ const AccountForm = ({ showAccountForm }: Display) => {
         profile ? profile?.charge_currency?.code : ""
     );
     useEffect(() => {
-        setCurrencyChange(profile ? profile.charge_currency.id.toString() : "");
-        setLanguageChange(
-            profile?.language ? profile?.language.id.toString() : ""
+        setCurrencyChange(
+            profile ? profile.charge_currency.id?.toString() : ""
         );
-        setCountryChange(profile ? profile.country.id.toString() : "");
+        setLanguageChange(
+            profile?.language ? profile?.language.id?.toString() : ""
+        );
+        setCountryChange(profile ? profile.country.id?.toString() : "");
     }, [profile]);
 
     const [showEditForm, setShowEditForm] = useState(false);
@@ -662,7 +664,11 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                                         .profile_image
                                                                   : profile
                                                                         ?.avatar
-                                                                        ?.image,
+                                                                        ?.image
+                                                                  ? profile
+                                                                        ?.avatar
+                                                                        ?.image
+                                                                  : "",
                                                               uuid: userData?.id,
                                                           }
                                                       ));
