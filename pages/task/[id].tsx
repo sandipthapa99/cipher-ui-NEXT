@@ -31,7 +31,6 @@ const TaskDetail = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    const { id } = params as { id: string };
     const queryClient = new QueryClient();
     await Promise.all([
         queryClient.prefetchQuery(["tasks"]),

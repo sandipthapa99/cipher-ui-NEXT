@@ -44,7 +44,7 @@ const AppliedForm = ({
     handleClose,
 }: BookNowModalCardProps) => {
     const router = useRouter();
-    const { mutate } = useBookNowTask();
+    const { mutate, isLoading } = useBookNowTask();
 
     // const loadingOverlayVisible = useMemo(
     //     () => applyTaskLoading,
@@ -259,13 +259,11 @@ const AppliedForm = ({
                                         variant="primary"
                                         name="Apply"
                                         className="submit-btn"
+                                        isLoading={isLoading}
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
                                         )}
-                                        // onClick={() => {
-                                        //     router.push("/task/checkout");
-                                        // }}
                                     />
                                 </Modal.Footer>
                             </Form>

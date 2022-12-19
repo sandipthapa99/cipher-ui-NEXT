@@ -69,7 +69,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     const [mounted, setMounted] = useState(false);
     const [opened, setOpened] = useState(false);
     const [token, setToken] = useState("");
-    const cookies = Cookies.get("access");
+    // const cookies = Cookies.get("access");
     // const cookiesProvided = cookies ? true : false;
 
     if (mounted) {
@@ -103,7 +103,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 return Promise.all(r.map((reg) => reg.unregister()));
             });
         }
-    }, [token]);
+    }, [token, mounted]);
 
     // useEffect(() => {
     //     if (

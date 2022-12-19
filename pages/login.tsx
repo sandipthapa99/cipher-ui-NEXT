@@ -220,14 +220,13 @@ const Login = () => {
                                     className="google"
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
                                 /> */}
-
-                            <div className="button-wrapper-social d-flex justify-content-evenly">
-                                <Google login={true} />
-                                <FacebookLogin login={true} />
-                            </div>
                         </Form>
                     )}
                 </Formik>
+                <div className="button-wrapper-social d-flex justify-content-evenly">
+                    <Google login={true} />
+                    <FacebookLogin login={true} />
+                </div>
             </div>
         </OnBoardingLayout>
     );
