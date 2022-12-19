@@ -169,7 +169,7 @@ const SearchResultsDetail = ({
         }>;
     }>(
         ["tasker-count", serviceId],
-        `/task/entity/service/tasker-count/${serviceId}`
+        `/task/entity/service/tasker-count/${serviceId}/`
     );
     //
 

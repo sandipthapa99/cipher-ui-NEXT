@@ -87,7 +87,7 @@ const KYCForm = () => {
                                 country: KYCData
                                     ? KYCData?.country
                                     : profileDetails?.country
-                                    ? profileDetails?.country?.id.toString()
+                                    ? profileDetails?.country?.id?.toString()
                                     : "",
                                 company: KYCData ? KYCData?.company : "",
                                 // passport_size_photo: "",

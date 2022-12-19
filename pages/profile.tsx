@@ -18,7 +18,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails } = useGetProfile();
 
-<<<<<<< pages/profile.tsx
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
     //     "/tasker/profile/"
@@ -31,7 +30,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     //         router.push("/settings/account/individual");
     //     }
     // }, [isLoading, profileDetails, router]);
-=======
     const remaining = {
         userRating: 4,
         userBadge: "Gold",
@@ -44,7 +42,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
->>>>>>> pages/profile.tsx
 
     if (!profileDetails) {
         return (
