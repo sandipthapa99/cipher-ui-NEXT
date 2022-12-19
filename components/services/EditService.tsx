@@ -45,7 +45,7 @@ interface EditServiceProps {
 export interface EditServicePayload {
     title: string;
     description: string;
-    highlights: string[];
+    highlights: any;
     service: string;
     city: string;
     location: TaskType;
@@ -104,10 +104,14 @@ export const EditService = ({
 
     const loading = editServiceLoading || uploadFileLoading;
 
-    const initialHighlights = safeParse<string[]>({
-        rawString: serviceDetail?.highlights ?? "",
-        initialData: [],
-    });
+    // const initialHighlights = safeParse<string[]>({
+    //     rawString: serviceDetail?.highlights ?? [],
+    //     initialData: [],
+    // });
+    const initialHighlights = serviceDetail?.highlights
+        ? serviceDetail?.highlights
+        : [];
+
     const queryClient = useQueryClient();
 
     const formik = useFormik<EditServicePayload>({
@@ -167,11 +171,7 @@ export const EditService = ({
                             ReactQueryKeys.SERVICE_DETAIL,
                             serviceDetail?.id,
                         ]);
-                        await queryClient.invalidateQueries([
-                            "services",
-                            serviceDetail?.id,
-                        ]);
-                        await queryClient.invalidateQueries(["all-services"]);
+                        await queryClient.invalidateQueries(["services", ""]);
                         handleClose();
                     },
                     onError: (error: any) => {

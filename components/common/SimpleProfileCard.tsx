@@ -151,7 +151,7 @@ const SimpleProfileCard = ({
                         {first_name} {middle_name} {last_name}
                     </p>
                     <Spoiler hideLabel="" showLabel="" maxHeight={50}>
-                        {task?.created_by?.bio ?? ""}
+                        {`${task?.created_by?.bio.slice(0, 20)}...` ?? ""}
                         {bio}
                     </Spoiler>
                     <p className="job">

@@ -175,6 +175,7 @@ const SearchResultsDetail = ({
         ["tasker-count", serviceId],
         `/task/entity/service/tasker-count/${serviceId}/`
     );
+
     //
 
     const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
@@ -733,7 +734,7 @@ const SearchResultsDetail = ({
                                         title: `Applicants (${taskerCount?.data?.count[0].applicants_count})`,
 
                                         content: (
-                                            <Row>
+                                            <Row className="py-3">
                                                 <>
                                                     {renderBookedClients}
                                                     {myBookings ===
