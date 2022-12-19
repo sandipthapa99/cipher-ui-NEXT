@@ -87,6 +87,16 @@ const SimpleProfileCard = ({
     };
 
     const handleButtonRender = () => {
+        if (!requestedTask)
+            return (
+                <BookNowButton
+                    btnTitle="In Progress"
+                    disabled={true}
+                    backgroundColor="#3776db"
+                    handleOnClick={handleLeaveTask}
+                />
+            );
+
         switch (approvedTaskDetail?.status) {
             case TASK_STATUS.Open:
                 return (
