@@ -235,6 +235,7 @@ export const PostTaskModal = () => {
     };
     const isCreateTaskLoading =
         createTaskLoading || uploadFileLoading || editTaskLoading;
+
     return (
         <>
             <LoadingOverlay
@@ -251,7 +252,7 @@ export const PostTaskModal = () => {
                 title="Post a Task or Service"
                 size="xl"
             >
-                {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
+                <pre>{JSON.stringify(values, null, 4)}</pre>
                 {showPostTaskModalType === "CREATE" && (
                     <div className="choose-email-or-phone mb-5">
                         <Radio.Group
