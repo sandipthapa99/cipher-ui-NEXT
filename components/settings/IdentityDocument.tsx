@@ -216,7 +216,10 @@ export const IdentityDocument = () => {
                     </Row>
                     <Col md={5}>
                         <CustomDropZone
-                            accept={IMAGE_MIME_TYPE}
+                            //  accept={IMAGE_MIME_TYPE}
+                            accept={{
+                                "image/*": [], // All images
+                            }}
                             fileType="image"
                             sx={{ maxWidth: "30rem" }}
                             maxSize={5 * 1024 ** 2}
