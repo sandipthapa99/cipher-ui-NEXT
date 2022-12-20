@@ -50,7 +50,7 @@
                 .nav-link {
                     color: $default-text-color;
                     font-weight: 500;
-                    // padding: 0.8rem 1.5rem;
+                    padding: 0.8rem;
                     font-size: 1.2rem;
 
                     @include respond(lg) {
