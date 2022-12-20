@@ -17,7 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import type { TaskApplicantsProps, TaskApprovedList } from "types/task";
+import type { TaskApplicantsProps } from "types/task";
 import type { Tasker } from "types/tasks";
 import { toast } from "utils/toast";
 
@@ -58,13 +58,10 @@ export const ApplicantsCard = ({
     awardPercentage,
     location,
     tasker,
-    distance,
     bio,
-    charge,
     id,
     isTasker,
     taskId,
-    currency,
 }: Props) => {
     const { data: user } = useUser();
     const userId = tasker;
@@ -306,7 +303,7 @@ export const ApplicantsCard = ({
                                                         ["approved-task"]
                                                     );
                                                 },
-                                                onError: (error: any) => {
+                                                onError: () => {
                                                     toast.error(
                                                         "This booking is already approved."
                                                     );

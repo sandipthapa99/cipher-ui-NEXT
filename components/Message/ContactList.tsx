@@ -1,9 +1,7 @@
 import { format } from "date-fns";
 import Image from "next/image";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React from "react";
-import type { Contact } from "staticData/messages";
-import { string } from "yup";
 
 export interface ContactListProps {
     contactId: string;

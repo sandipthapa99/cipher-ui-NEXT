@@ -7,7 +7,6 @@ const CardBtn = ({
     backgroundColor,
     color,
     handleClick,
-    id,
     border,
     disabled,
     type,

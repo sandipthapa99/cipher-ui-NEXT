@@ -7,7 +7,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import type { AvatarProps } from "types/avatarProps";
 import type { ServiceCategoryOptions } from "types/serviceCategoryOptions";
 import { axiosClient } from "utils/axiosClient";

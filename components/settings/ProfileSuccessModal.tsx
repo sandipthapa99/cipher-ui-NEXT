@@ -13,8 +13,6 @@ interface ProfileSuccessModalCardProps {
 const ProfileSuccessModalCard = ({
     show,
     setShowForm,
-    handleClose,
-
     onClick,
 }: ProfileSuccessModalCardProps) => {
     const router = useRouter();

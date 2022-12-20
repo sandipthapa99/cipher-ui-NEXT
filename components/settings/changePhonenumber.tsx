@@ -8,7 +8,6 @@ import { useUser } from "hooks/auth/useUser";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { parsePhoneNumber } from "react-phone-number-input";
 import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";

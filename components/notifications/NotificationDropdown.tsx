@@ -591,12 +591,6 @@ export const NotificationDropdown = () => {
         }
     );
 
-    const readSinggleNotificationMutation = allNotifications?.result?.map(
-        (item) => {
-            return item?.id !== item?.id;
-        }
-    );
-
     return (
         <div className="notification-dropdown">
             <div className="d-flex notification-title align-items-center">

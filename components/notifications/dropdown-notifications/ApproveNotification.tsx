@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
@@ -153,18 +152,15 @@ interface ApproveNotificationProps {
 export const ApproveNotification = ({
     user,
     accept,
-    pay,
     title,
     body,
     date,
     type,
     slug,
     bookingId,
-    is_requested,
     read,
     userPhoto,
 }: ApproveNotificationProps) => {
-    const { data: profile } = useGetProfile();
     const { data: bookingData } = useQuery<BookingDetails>(
         ["booking", bookingId],
         async () => {

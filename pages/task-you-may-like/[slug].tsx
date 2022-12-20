@@ -2,7 +2,6 @@ import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
 import { QueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
-import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import type { ITask, TaskApplicantsProps } from "types/task";
 import { axiosClient } from "utils/axiosClient";

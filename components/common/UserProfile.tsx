@@ -16,7 +16,7 @@ import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
 import { Rating } from "@mantine/core";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
@@ -24,10 +24,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
-import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
@@ -58,16 +57,12 @@ const UserProfileCard = ({
     is_profile_verified,
     followers_count,
     following_count,
-    field,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
-    const [showEditForm, setShowEditForm] = useState(false);
     const [showFollowers, setShowFollowers] = useState(false);
     const [followerClick, setFollowerClick] = useState("followers");
     const { data: countryData } = useGetCountryBYId(country);
-    const [image, setImage] = useState();
     const services = skill ? JSON.parse(skill) : [];
-    const queryClient = useQueryClient();
 
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
@@ -84,41 +79,15 @@ const UserProfileCard = ({
 
     const newProfileUrl = new URL(window.location.href);
 
-    const editProfile = useMutation((data: ProfileEditValueProps) =>
-        axiosClient.patch("/tasker/profile/", data)
-    );
+    const { data: followersData } = useQuery(["followers"], async () => {
+        const data = await axiosClient.get(urls.followers.list);
+        return data.data.result;
+    });
 
-    const { data: followersData, refetch: refetchFollowers } = useQuery(
-        ["followers"],
-        async () => {
-            const data = await axiosClient.get(urls.followers.list);
-            return data.data.result;
-        }
-    );
-
-    const { data: followingsData, refetch: refetchFollowings } = useQuery(
-        ["followings"],
-        async () => {
-            const data = await axiosClient.get(urls.followings.list);
-            return data.data.result;
-        }
-    );
-
-    const onEditProfile = (data: any) => {
-        const formData: FormData = new FormData();
-        formData.append("profile_image", data);
-        data = formData;
-        editProfile.mutate(data, {
-            onSuccess: (data) => {
-                queryClient.invalidateQueries(["profile"]);
-                setShowEditForm(false);
-                toast.success(data?.data?.message);
-            },
-            onError: (error: any) => {
-                toast.error(error?.data?.message);
-            },
-        });
-    };
+    const { data: followingsData } = useQuery(["followings"], async () => {
+        const data = await axiosClient.get(urls.followings.list);
+        return data.data.result;
+    });
 
     const userType: string[] = user_type ? JSON.parse(user_type) : [];
 
@@ -137,8 +106,6 @@ const UserProfileCard = ({
             setShowFollowers(false);
         }
     }, [following_count]);
-
-    const inputRef = useRef<HTMLInputElement>(null);
 
     const finalfrom =
         active_hour_start?.charAt(0) === "0"

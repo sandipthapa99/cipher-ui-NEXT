@@ -46,7 +46,7 @@ const ConnectedAccount = () => {
             <h2>Connected Accounts</h2>
             <div className="account-wrapper">
                 {linkedAccounts && linkedAccounts?.data.length > 1 ? (
-                    linkedAccounts?.data.map((values, key) => (
+                    linkedAccounts?.data.map((values) => (
                         <ConnectAccount
                             connected={true}
                             name={values?.provider.substring(
@@ -60,7 +60,7 @@ const ConnectedAccount = () => {
                         />
                     ))
                 ) : linkedAccounts?.data.length === 1 ? (
-                    linkedAccounts?.data.map((values, key) =>
+                    linkedAccounts?.data.map((values) =>
                         values.provider !== "google-oauth2" ? (
                             <>
                                 <ConnectAccount

@@ -1,11 +1,7 @@
-import { GoBack } from "@components/common/GoBack";
-import {} from "@fortawesome/pro-regular-svg-icons";
 import {
     faEllipsisVertical,
-    faHeart as faHeartOutlined,
     faPhone,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faHeart as faHeartFilled } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 

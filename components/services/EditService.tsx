@@ -36,7 +36,6 @@ import { Button } from "react-bootstrap";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { ReactQueryKeys } from "types/queryKeys";
 import type { ServicesValueProps } from "types/serviceCard";
-import { safeParse } from "utils/safeParse";
 import { toast } from "utils/toast";
 
 interface EditServiceProps {
@@ -142,8 +141,8 @@ export const EditService = ({
         },
 
         enableReinitialize: true,
-        validationSchema: postServiceSchema,
-        onSubmit: async (values, action) => {
+        validationSchema: postTaskSchema,
+        onSubmit: async (values) => {
             if (!termsAccepted) {
                 toast.error(
                     "You must accept the terms and conditions before posting a task"

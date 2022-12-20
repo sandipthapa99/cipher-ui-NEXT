@@ -11,23 +11,22 @@ export const MyOrderItem = ({
     return (
         <>
             {orderItem?.map((item, key) => {
+                console.log(item);
                 return (
                     <div className="my-task-order text-black-50" key={key}>
                         <div className="order-detail-section border-bottom-0 bg-white">
                             <Row>
                                 <Col lg={2} md={6} sm={6} xs={12}>
-                                    <Link
-                                        href={`/task/${item?.item?.entity_service?.id}`}
-                                    >
+                                    <Link href={`/task/${item?.task?.id}`}>
                                         <a>
                                             <figure className="d-flex align-items-center justify-content-start h-100 w-100 order-detail-section__image">
-                                                {item?.item?.entity_service
-                                                    ?.images.length > 0 ? (
+                                                {item?.task
+                                                    ?.entity_service_images
+                                                    .length > 0 ? (
                                                     <Image
                                                         src={
-                                                            item?.item
-                                                                ?.entity_service
-                                                                ?.images[0]
+                                                            item?.task
+                                                                ?.entity_service_images[0]
                                                                 .media
                                                         }
                                                         alt="order-detail-image"
@@ -50,22 +49,20 @@ export const MyOrderItem = ({
                                     </Link>
                                 </Col>
                                 <Col md={6} sm={12}>
-                                    <Link
-                                        href={`/task/${item?.item?.entity_service?.id}`}
-                                    >
+                                    <Link href={`/task/${item?.task?.id}`}>
                                         <a>
                                             <div className="title-and-description text-black-50">
-                                                <h4>{item?.item?.title}</h4>
+                                                <h4>{item?.task?.title}</h4>
                                                 <h4>
                                                     By{" "}
                                                     {
-                                                        item?.item?.assignee
+                                                        item?.task?.assignee
                                                             .first_name
                                                     }{" "}
-                                                    {item?.item?.assignee
+                                                    {item?.task?.assignee
                                                         .middle_name ?? ""}{" "}
                                                     {
-                                                        item?.item?.assignee
+                                                        item?.task?.assignee
                                                             .last_name
                                                     }
                                                 </h4>
@@ -74,21 +71,17 @@ export const MyOrderItem = ({
                                                         Price :{" "}
                                                     </span>
                                                     <span className="value">
-                                                        {item?.item?.currency
-                                                            ?.symbol + " "}{" "}
+                                                        {item?.task?.currency}{" "}
                                                         {item?.amount}
-                                                        {item?.item
-                                                            ?.entity_service
+                                                        {item?.task
                                                             ?.budget_type ===
                                                         "Hourly"
                                                             ? "/hr"
-                                                            : item?.item
-                                                                  ?.entity_service
+                                                            : item?.task
                                                                   ?.budget_type ===
                                                               "Monthly"
                                                             ? "/mn"
-                                                            : item?.item
-                                                                  ?.entity_service
+                                                            : item?.task
                                                                   ?.budget_type ===
                                                               "Daily"
                                                             ? "/daily"

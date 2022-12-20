@@ -30,7 +30,6 @@ import extractContent from "utils/extractString";
 import { PostTaskFormData } from "utils/formData";
 import { isSubmittingClass } from "utils/helpers";
 
-import AddRequirements from "./AddRequirements";
 import { PostCard } from "./PostCard";
 const PostModal = ({
     setshowPostModel,
@@ -89,8 +88,7 @@ const PostModal = ({
     const [initialVideoIds, setInitialVideoIds] = useState<number[]>(() =>
         getInitialVideoIds()
     );
-    const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
-        useUploadFile();
+    const { mutateAsync: uploadFileMutation } = useUploadFile();
 
     const initialHighlights = taskDetail?.highlights
         ? taskDetail?.highlights
@@ -166,7 +164,6 @@ const PostModal = ({
                         {({
                             isSubmitting,
                             errors,
-                            values,
                             touched,
                             getFieldProps,
                             setFieldValue,

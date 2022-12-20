@@ -66,9 +66,6 @@ const AppliedForm = ({
     }
     const queryClient = useQueryClient();
 
-    const taskDescription = description
-        ? description.replace(/<[^>]+>/g, "")
-        : "";
     const { data: user } = useUser();
 
     const { data: profile } = useGetProfile();

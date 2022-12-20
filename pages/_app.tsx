@@ -15,7 +15,6 @@ import {
     QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Cookies from "js-cookie";
 import localforage from "localforage";
 import * as memoryDriver from "localforage-driver-memory";
 import type { AppProps } from "next/app";
@@ -95,7 +94,6 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 // not working
             }
         };
-        const result = setToken();
     }, [token]);
 
     useEffect(() => {

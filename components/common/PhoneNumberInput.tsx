@@ -29,7 +29,6 @@ const PhoneNumberInput = ({
             <Field name={name} className={checkFormControl(error, touch)}>
                 {({ form, field }: any) => {
                     const { setFieldValue } = form;
-                    const { value } = field;
 
                     return (
                         <PhoneInput

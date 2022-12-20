@@ -1,20 +1,16 @@
 import { ScrollArea } from "@mantine/core";
 import { Skeleton } from "@mantine/core";
-import { index } from "cheerio/lib/api/traversing";
 import { format } from "date-fns";
 import { useInViewPort } from "hooks/use-in-viewport";
 import { useUserActivities } from "hooks/userActivities/use-userActivities";
 import Image from "next/image";
-import Link from "next/link";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 
 const UserActivities = () => {
     const {
         data: activityPages,
-        isLoading,
         hasNextPage,
-        isFetching,
         isFetchingNextPage,
         fetchNextPage,
     } = useUserActivities();

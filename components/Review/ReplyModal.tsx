@@ -15,8 +15,6 @@ const ReplyValidationSchema = Yup.object().shape({
 export const ReplyModal = ({
     reviewId,
     handleClose,
-    reply,
-    updateReply,
     repliedText,
 }: {
     handleClose: () => void;
