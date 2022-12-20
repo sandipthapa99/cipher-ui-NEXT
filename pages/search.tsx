@@ -200,12 +200,13 @@ const SearchPage: NextPage = () => {
                                                     merchantName={
                                                         merchant?.user
                                                             ?.first_name +
-                                                        " " +
-                                                        merchant?.user
-                                                            ?.middle_name +
-                                                        " " +
-                                                        merchant?.user
-                                                            ?.last_name
+                                                            " " +
+                                                            merchant?.user
+                                                                ?.middle_name ??
+                                                        "" +
+                                                            " " +
+                                                            merchant?.user
+                                                                ?.last_name
                                                     }
                                                     merchantCategory={
                                                         merchant?.designation

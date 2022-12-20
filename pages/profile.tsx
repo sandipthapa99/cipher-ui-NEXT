@@ -90,7 +90,9 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                                     : "/userprofile/unknownPerson.jpg"
                             }
                             badge={profileDetails?.badge}
-                            full_name={`${profileDetails?.user?.first_name} ${profileDetails?.user?.middle_name} ${profileDetails?.user?.last_name}`}
+                            full_name={`${profileDetails?.user?.first_name} ${
+                                profileDetails?.user?.middle_name ?? ""
+                            } ${profileDetails?.user?.last_name}`}
                             user_type={profileDetails?.user_type}
                             rating={profileDetails?.rating?.avg_rating}
                             hourly_rate={profileDetails?.hourly_rate}

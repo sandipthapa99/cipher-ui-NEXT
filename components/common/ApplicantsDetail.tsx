@@ -73,7 +73,7 @@ const ApplicantsDetail = ({
                     <div className="intro">
                         <p className="name">
                             {BookingDetail?.created_by?.user?.first_name}{" "}
-                            {BookingDetail?.created_by?.user?.middle_name}{" "}
+                            {BookingDetail?.created_by?.user?.middle_name ?? ""}{" "}
                             {BookingDetail?.created_by?.user?.last_name}
                         </p>
                         <p className="job">

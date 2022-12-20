@@ -111,9 +111,8 @@ export const UserFollowersModal = ({
                                             <h4 className="pr-5">
                                                 {item?.first_name +
                                                     " " +
-                                                    item?.middle_name +
-                                                    " " +
-                                                    item?.last_name}
+                                                    item?.middle_name ??
+                                                    "" + " " + item?.last_name}
                                             </h4>{" "}
                                         </a>
                                     </Link>

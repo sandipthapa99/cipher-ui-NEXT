@@ -43,10 +43,9 @@ const BankForm = ({
     const { data: profileDetails } = useGetProfile();
     const userName =
         profileDetails?.user.first_name +
-        " " +
-        profileDetails?.user.middle_name +
-        " " +
-        profileDetails?.user.last_name;
+            " " +
+            profileDetails?.user.middle_name ??
+        "" + " " + profileDetails?.user.last_name;
 
     useEffect(() => {
         if (id) {

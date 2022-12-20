@@ -62,10 +62,8 @@ export const MyOrderItem = ({
                                                         item?.item?.assignee
                                                             .first_name
                                                     }{" "}
-                                                    {
-                                                        item?.item?.assignee
-                                                            .middle_name
-                                                    }{" "}
+                                                    {item?.item?.assignee
+                                                        .middle_name ?? ""}{" "}
                                                     {
                                                         item?.item?.assignee
                                                             .last_name
