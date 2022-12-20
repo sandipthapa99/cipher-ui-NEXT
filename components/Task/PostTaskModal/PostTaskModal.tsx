@@ -204,19 +204,19 @@ export const PostTaskModal = () => {
                 );
                 return;
             }
-            // createTaskMutation(updatedPayload, {
-            //     onSuccess: async () => {
-            //         handleCloseModal();
-            //         action.resetForm();
-            //         toggleSuccessModal("Task Posted Successfully");
-            //         await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
-            //         await queryClient.invalidateQueries(["notification"]);
-            //         await queryClient.invalidateQueries(["my-task"]);
-            //     },
-            //     onError: (error) => {
-            //         toast.error(error.message);
-            //     },
-            // });
+            createTaskMutation(updatedPayload, {
+                onSuccess: async () => {
+                    handleCloseModal();
+                    action.resetForm();
+                    toggleSuccessModal("Task Posted Successfully");
+                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
+                    await queryClient.invalidateQueries(["notification"]);
+                    await queryClient.invalidateQueries(["my-task"]);
+                },
+                onError: (error) => {
+                    toast.error(error.message);
+                },
+            });
         },
     });
 

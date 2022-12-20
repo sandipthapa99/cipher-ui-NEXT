@@ -238,6 +238,7 @@ export const EditService = ({
                             labelName="Highlights"
                             description="This helps clients to find about your service highlights"
                         />
+
                         <TaskCurrency
                             value={
                                 serviceDetail
@@ -261,6 +262,36 @@ export const EditService = ({
                             }
                             error={getFieldError("currency")}
                         />
+
+                        {/* <Select
+                            label="Currency"
+                            placeholder="Select your currency"
+                            name="charge_currency"
+                            searchable
+                            nothingFound="No result found."
+                            disabled={isInputDisabled}
+                            value={currencyChange}
+                            defaultValue="NPR"
+                            key={currencyChange}
+                            //value={currencyChange}
+                            onChange={(value) => {
+                                setCurrencyChange(value ? value : "NPR");
+                                handleCurrencyChanged(value, setFieldValue);
+                            }}
+                            data={
+                                serviceDetail?.currency
+                                    ? [
+                                          {
+                                              id: serviceDetail?.currency?.id,
+                                              label: serviceDetail?.currency
+                                                  ?.name,
+                                              value: serviceDetail?.currency?.id?.toString(),
+                                          },
+                                      ]
+                                    : []
+                            }
+                            error={errors.charge_currency}
+                        /> */}
                         <SelectCity
                             onCitySelect={(cityId) =>
                                 setFieldValue("city", cityId)
