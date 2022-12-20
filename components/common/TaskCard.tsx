@@ -23,7 +23,7 @@ interface TaskCardProps {
     isSaved?: boolean;
 }
 const TaskCard = ({ task }: TaskCardProps) => {
-    const { title, description, location, status, currency, slug, id } = task;
+    const { title, location, description, status, currency, slug, id } = task;
 
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", id],
@@ -48,9 +48,9 @@ const TaskCard = ({ task }: TaskCardProps) => {
                         </h2>
                     </div>
                     <div className="task-card-block__body">
-                        <p className="task-description">
+                        {/* <p className="task-description">
                             {parser(description)}
-                        </p>
+                        </p> */}
                         <div className="task-location-time d-flex flex-column flex-sm-row">
                             <p className="d-flex align-items-center pe-4 location">
                                 <FontAwesomeIcon
