@@ -135,9 +135,6 @@ const Contact = () => {
                             >
                                 {({ isSubmitting, errors, touched }) => (
                                     <Form>
-                                        {/* <pre>
-                                            {JSON.stringify(errors, null, 4)}
-                                        </pre> */}
                                         <InputField
                                             type="text"
                                             name="full_name"

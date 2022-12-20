@@ -123,7 +123,6 @@ const ProfileEditForm = ({
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
-                                {/* <pre>{JSON.stringify(values, null, 4)}</pre>; */}
                                 <Row>
                                     <Col md={4}>
                                         <InputField

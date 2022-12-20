@@ -55,17 +55,6 @@ export const ChangePhoneNumber = () => {
             >
                 {({ isSubmitting, errors, touched, resetForm, values }) => (
                     <Form autoComplete="off">
-                        {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
-                        {/* <InputField
-                            type="text"
-                            name="current_phone"
-                            labelName="Current Phone Number"
-                            error={errors.current_phone}
-                            touch={touched.current_phone}
-                            placeHolder="Current Phone number"
-                            fieldRequired
-                            required={true}
-                        /> */}
                         <PhoneNumberInput
                             name={"phone"}
                             fieldRequired={true}
