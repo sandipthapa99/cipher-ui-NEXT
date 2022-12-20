@@ -10,6 +10,7 @@ import {
     Text,
 } from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
+import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
@@ -60,6 +61,7 @@ export const CustomDropZone = ({
     previewImageHeight,
     fileType,
     onDrop,
+    accept,
     uploadedFiles,
     onRemoveUploadedFiles,
     ...rest
@@ -212,6 +214,7 @@ export const CustomDropZone = ({
                 }}
                 onChange={() => setFileError(null)}
                 className={classes.dropzone}
+                accept={accept}
                 {...rest}
             >
                 <Highlight

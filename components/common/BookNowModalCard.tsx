@@ -7,7 +7,7 @@ import { faCalendarDays, faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
-import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import {
@@ -404,7 +404,10 @@ const BookNowModalCard = ({
                                     <Row className="gx-5">
                                         <Col md={6}>
                                             <CustomDropZone
-                                                accept={IMAGE_MIME_TYPE}
+                                                //  accept={IMAGE_MIME_TYPE}
+                                                accept={{
+                                                    "image/*": [], // All images
+                                                }}
                                                 fileType="image"
                                                 sx={{ maxWidth: "30rem" }}
                                                 maxSize={5 * 1024 ** 2}
@@ -421,7 +424,7 @@ const BookNowModalCard = ({
                                     <Row className="my-4">
                                         <Col md={6}>
                                             <CustomDropZone
-                                                accept={IMAGE_MIME_TYPE}
+                                                accept={[MIME_TYPES.mp4]}
                                                 fileType="video"
                                                 maxSize={100 * 1024 ** 2}
                                                 sx={{ maxWidth: "30rem" }}

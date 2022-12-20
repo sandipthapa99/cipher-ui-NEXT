@@ -414,6 +414,9 @@ const AddPortfolio = ({
                                                         editDetails?.images ??
                                                         []
                                                     }
+                                                    accept={{
+                                                        "image/*": [], // All images
+                                                    }}
                                                     fileType="image"
                                                     sx={{ maxWidth: "30rem" }}
                                                     name="images"
