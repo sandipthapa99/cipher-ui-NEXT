@@ -150,13 +150,15 @@ export const MyBookingsCard = ({
                                 />
                                 <span> {awardPercentage}</span>
                             </span>
-                            <span className="location">
-                                <FontAwesomeIcon
-                                    className="location"
-                                    icon={faLocationArrow}
-                                />
-                                <span> {distance}</span>
-                            </span>
+                            {distance && (
+                                <span className="location">
+                                    <FontAwesomeIcon
+                                        className="location"
+                                        icon={faLocationArrow}
+                                    />
+                                    <span> {distance}</span>
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>
