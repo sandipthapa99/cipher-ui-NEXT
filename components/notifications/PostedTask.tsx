@@ -17,11 +17,9 @@ interface PostedNotifyProps {
 }
 
 export const PostNotifyTask = ({
-    taskTitle,
     taskObject,
     createdDate,
     handleClick,
-    name,
     slug,
     is_requested,
     type,

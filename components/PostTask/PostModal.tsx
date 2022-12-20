@@ -1,5 +1,4 @@
 import { CustomDropZone } from "@components/common/CustomDropZone";
-import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
@@ -30,9 +29,7 @@ import type { ITask } from "types/task";
 import extractContent from "utils/extractString";
 import { PostTaskFormData } from "utils/formData";
 import { isSubmittingClass } from "utils/helpers";
-import { toast } from "utils/toast";
 
-import AddRequirements from "./AddRequirements";
 import { PostCard } from "./PostCard";
 const PostModal = ({
     setshowPostModel,
@@ -91,8 +88,7 @@ const PostModal = ({
     const [initialVideoIds, setInitialVideoIds] = useState<number[]>(() =>
         getInitialVideoIds()
     );
-    const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
-        useUploadFile();
+    const { mutateAsync: uploadFileMutation } = useUploadFile();
 
     const initialHighlights = taskDetail?.highlights
         ? taskDetail?.highlights
@@ -168,7 +164,6 @@ const PostModal = ({
                         {({
                             isSubmitting,
                             errors,
-                            values,
                             touched,
                             getFieldProps,
                             setFieldValue,

@@ -5,14 +5,12 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import type { SelectItem } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { QueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { getFullName } from "utils/getFullName";
@@ -36,7 +34,6 @@ const KYCForm = () => {
     // const [showButtons, setShowButtons] = useState(false);
 
     const { data: profileDetails } = useGetProfile();
-    const [countryChange, setCountryChange] = useState<string | null>(null);
 
     const countryResults: SelectItem[] = countryName
         ? countryName.result.map((result) => ({
@@ -49,7 +46,6 @@ const KYCForm = () => {
         code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setCountryChange(code);
         if (code) setFieldValue("country", code);
     };
     const country = profileDetails?.country
@@ -121,7 +117,6 @@ const KYCForm = () => {
                         >
                             {({
                                 isSubmitting,
-                                values,
                                 errors,
                                 touched,
                                 resetForm,

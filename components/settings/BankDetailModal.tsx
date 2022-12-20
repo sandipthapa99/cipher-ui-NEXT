@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -11,13 +10,7 @@ interface BankDetailModalProps {
     setShowForm: Dispatch<SetStateAction<boolean>>;
 }
 
-const BankDetailModal = ({
-    handleClose,
-    show,
-    setShowForm,
-}: BankDetailModalProps) => {
-    const router = useRouter();
-
+const BankDetailModal = ({ handleClose, show }: BankDetailModalProps) => {
     return (
         <>
             {/* Modal component */}

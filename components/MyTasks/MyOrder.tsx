@@ -1,12 +1,10 @@
-import { OtherBookedTaskCard } from "@components/Cards/OtherBookedTaskCard";
-import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import { MyOrderItem } from "@components/common/MyOrderItem";
 import {
     useClearSearchedTaskers,
     useClearSearchQuery,
 } from "@components/common/Search/searchStore";
 import { SearchCategory } from "@components/SearchTask/SearchCategory";
-import { Button, Col, Grid, Pagination, Skeleton } from "@mantine/core";
+import { Button, Col, Grid, Skeleton } from "@mantine/core";
 import { useOrder } from "hooks/use-order";
 import Image from "next/image";
 import Link from "next/link";

@@ -17,9 +17,8 @@ const SingleTickets = ({
     status,
     supportId,
     isResolved,
-    ...rest
 }: SupportProps) => {
-    const badgeColor = (status: string, resolved: boolean): string => {
+    const badgeColor = (status: string) => {
         if (status === "open") {
             return "blue";
         } else if (status === "assigned") {
@@ -53,7 +52,7 @@ const SingleTickets = ({
                     <p className="desc-para">{description}</p>
                 </div>
                 <div className="badge-cont">
-                    <Badge size="lg" color={badgeColor(status, isResolved)}>
+                    <Badge size="lg" color={badgeColor(status)}>
                         {status}
                     </Badge>
 

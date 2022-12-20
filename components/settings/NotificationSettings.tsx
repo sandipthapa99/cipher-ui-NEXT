@@ -1,7 +1,5 @@
 import { Button, Grid, Skeleton, Switch } from "@mantine/core";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import { val } from "cheerio/lib/api/attributes";
-import { isValid } from "date-fns";
 import { useFormik } from "formik";
 import type { ChangeEvent } from "react";
 import React from "react";
@@ -184,7 +182,6 @@ const ChangeNotificationSettings = ({
     checked,
     name,
     fieldValue,
-    values,
 }: {
     label: string;
     checked?: boolean;

@@ -26,11 +26,6 @@ const ApplicantsDetail = ({
 
     const BookingDetail = data?.data;
 
-    const taskVideosAndImages = [
-        ...(BookingDetail?.images ?? []),
-        ...(BookingDetail?.videos ?? []),
-    ];
-
     return (
         <Modal
             opened={show}

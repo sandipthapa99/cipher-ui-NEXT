@@ -1,7 +1,6 @@
 import { format, formatDistanceToNow } from "date-fns";
 import type { DocumentData } from "firebase/firestore";
 import { doc, onSnapshot } from "firebase/firestore";
-import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import { useRouter } from "next/router";

@@ -27,7 +27,6 @@ export const ImageUpload = forwardRef<HTMLInputElement, ImageUploadProps>(
         // const inputRef = useRef<HTMLInputElement>(null);
         // display ? inputRef?.current?.click() : null;
         const {
-            name,
             onChange,
             setIsEditButtonClicked,
             photo,

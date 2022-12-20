@@ -12,7 +12,7 @@ export interface TabProps {
     icons?: { index: number; type: ReactNode; iconContent?: ReactNode }[];
 }
 
-export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
+export const Tab = ({ items, activeIndex, onTabClick }: TabProps) => {
     const router = useRouter();
 
     const handleTabClick = (index: number) => {

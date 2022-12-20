@@ -4,10 +4,8 @@ import {
     faFileInvoiceDollar,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
 import { useMyWallet } from "hooks/use-wallet";
 import { useRouter } from "next/router";
-import { axiosClient } from "utils/axiosClient";
 
 export const MyEarnings = () => {
     const { data: myWallet } = useMyWallet();

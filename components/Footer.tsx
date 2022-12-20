@@ -1,10 +1,8 @@
 import {
     faFacebookF,
     faInstagram,
-    faLinkedinIn,
     faTiktok,
     faTwitter,
-    faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +14,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { NewsletterDataTypes } from "types/newsletter";
-import type { User } from "types/user";
 import { axiosClient } from "utils/axiosClient";
 import { emailValidationSchema } from "utils/formValidation/emailValidation";
 import { toast } from "utils/toast";

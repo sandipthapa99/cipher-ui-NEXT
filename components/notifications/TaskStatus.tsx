@@ -1,5 +1,4 @@
 import { formatDistanceToNow } from "date-fns";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
@@ -20,20 +19,16 @@ interface TaskStatusProps {
 }
 
 export const TaskStatus = ({
-    taskTitle,
     taskObject,
     createdDate,
     handleClick,
-    name,
     slug,
     is_requested,
-    type,
     read,
     created_for,
     notificationTaskStatus,
     userPhoto,
 }: TaskStatusProps) => {
-    const { data: profile } = useGetProfile();
     const router = useRouter();
 
     return (

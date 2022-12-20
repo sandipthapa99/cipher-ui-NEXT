@@ -1,4 +1,4 @@
-import { Divider, Grid, Skeleton } from "@mantine/core";
+import { Grid, Skeleton } from "@mantine/core";
 import React from "react";
 
 const SkeletonBookingCard = () => {

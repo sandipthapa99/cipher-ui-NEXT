@@ -4,7 +4,6 @@ import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
-import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
@@ -30,13 +29,10 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import {
     usePostTaskModalType,
-    useShowPostTaskModal,
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
 import { useToggleSuccessModal } from "store/use-success-modal";
-import { ReactQueryKeys } from "types/queryKeys";
 import type { ITask } from "types/task";
-import { safeParse } from "utils/safeParse";
 import { toast } from "utils/toast";
 
 export interface PostTaskPayload {
@@ -68,7 +64,6 @@ export const AddServiceModalComponent = () => {
     const { mutate: createTaskMutation, isLoading: createTaskLoading } =
         usePostTask();
     const showPostTaskModalType = usePostTaskModalType();
-    const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const router = useRouter();
 
@@ -81,8 +76,6 @@ export const AddServiceModalComponent = () => {
     const [termsAccepted, setTermsAccepted] = useState(true);
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
-
-    const createServiceLoading = createTaskLoading || uploadFileLoading;
 
     // const initialHighlights = safeParse({
     //     rawString: taskDetail?.highlights ?? "",

@@ -27,8 +27,7 @@ import {
     Title,
 } from "@mantine/core";
 import { DatePicker, TimeInput } from "@mantine/dates";
-import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
-import RichTextEditor from "@mantine/rte";
+import { MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useFormik } from "formik";
@@ -46,7 +45,6 @@ import {
 } from "store/use-show-post-task";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { ReactQueryKeys } from "types/queryKeys";
-import { safeParse } from "utils/safeParse";
 import { toast } from "utils/toast";
 
 export interface PostTaskPayload {

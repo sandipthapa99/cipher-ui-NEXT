@@ -104,40 +104,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
-    const [interestOptions, setInterestOptions] = useState<any>([]);
-    const [profileData, setProfileData] = useState();
-    const { data: user } = useUser();
 
-    const { data } = useQuery(["profile", user?.id], async () => {
-        if (!user) return undefined;
-        try {
-            const { data } = await axiosClient.get("/tasker/profile/");
-        } catch (error) {
-            return undefined;
-        }
-    });
     // useEffect(() => {
     //     setProfileData(data);
     // }, []);
-    const { data: allCategory } = useQuery(
-        ["all-category"],
-        () => {
-            return axiosClient.get<IAllCategory[]>(
-                "/task/cms/task-category/list/"
-            );
-        },
-        {
-            onSuccess: (data) => {
-                const options = data?.data.map((item) => {
-                    return {
-                        value: item.id.toString(),
-                        label: item.name.toString(),
-                    };
-                });
-                setInterestOptions(options);
-            },
-        }
-    );
     const { data: KYCData } = useGetKYC();
     const [blobUrl, setBlobUrl] = useState<RequestInfo | URL | undefined>();
     const [image, setImage] = useState();
@@ -149,12 +119,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
 
     const skills = profile?.skill ? JSON.parse(profile?.skill) : [];
-    const skillsOptions = skills?.map((item: string) => {
-        return {
-            label: item,
-            value: item,
-        };
-    });
     const [dataSkills, setDataSkills] = useState(() => {
         return skills?.map((item: string) => {
             return {
@@ -1116,7 +1080,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 // disabled={isInputDisabled}
                             /> */}
                             <MultiSelect
-                                data={interestOptions}
+                                data={[]}
                                 name="interests"
                                 onChange={(value) => {
                                     setFieldValue("interests", value);

@@ -7,8 +7,7 @@ import ReCaptchaV3 from "@components/common/ReCaptchaV3";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { useSupport } from "hooks/support/useSupport";
@@ -28,7 +27,7 @@ const Support = () => {
         return axiosClient.get("support/support-ticket-type/options/");
     });
 
-    const { mutateAsync, isLoading: uploadPhotoLoading } = useUploadFile();
+    const { mutateAsync } = useUploadFile();
     const renderIssueTypes = data?.data?.map((item: any) => {
         return {
             label: item?.name,

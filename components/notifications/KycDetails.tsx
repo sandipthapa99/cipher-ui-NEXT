@@ -1,5 +1,4 @@
 import { formatDistanceToNow } from "date-fns";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import React from "react";
 
@@ -17,19 +16,13 @@ interface KycDetailsProps {
 }
 
 export const KycDetails = ({
-    taskTitle,
-    taskObject,
     createdDate,
     handleClick,
-    name,
-    slug,
     is_requested,
-    type,
+
     read,
     userPhoto,
 }: KycDetailsProps) => {
-    const { data: profile } = useGetProfile();
-
     return (
         <div
             className="d-flex align-items-center justify-content-between accepted-notification"

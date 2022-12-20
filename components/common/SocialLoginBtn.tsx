@@ -8,7 +8,6 @@ import type { FormButtonProps } from "types/formButton";
 const SocialLoginBtn = ({
     name,
     className,
-    icon,
     redirectionLink,
     ...restProps
 }: FormButtonProps &
