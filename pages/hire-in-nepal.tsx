@@ -86,7 +86,7 @@ const HireInNepal: NextPage = () => {
                                         name={
                                             item?.user?.first_name +
                                             " " +
-                                            item?.user?.middle_name +
+                                            (item?.user?.middle_name ?? "") +
                                             " " +
                                             item?.user?.last_name
                                         }

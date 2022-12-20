@@ -62,10 +62,12 @@ const SavedBookings = () => {
                                 merchantName={
                                     userBookmark.data?.user
                                         ? userBookmark.data?.user?.first_name +
-                                          " " +
-                                          userBookmark.data?.user?.middle_name +
-                                          " " +
-                                          userBookmark.data?.user?.last_name
+                                              " " +
+                                              userBookmark.data?.user
+                                                  ?.middle_name ??
+                                          "" +
+                                              " " +
+                                              userBookmark.data?.user?.last_name
                                         : ""
                                 }
                                 merchantCategory={

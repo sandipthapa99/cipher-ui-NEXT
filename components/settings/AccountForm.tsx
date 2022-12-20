@@ -651,7 +651,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                               userData?.id
                                                           ),
                                                           {
-                                                              name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
+                                                              name: `${
+                                                                  values.first_name
+                                                              } ${
+                                                                  values.middle_name ??
+                                                                  ""
+                                                              } ${
+                                                                  values.last_name
+                                                              }`,
                                                               email: values.email,
                                                               profile: "",
                                                               uuid: userData?.id,
