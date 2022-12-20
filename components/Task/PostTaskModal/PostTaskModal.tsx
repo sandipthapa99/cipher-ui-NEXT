@@ -10,10 +10,7 @@ import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
-import {
-    faCalendarDays,
-    faSquareCheck,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoadingOverlay, Radio } from "@mantine/core";
 import {
