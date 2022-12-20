@@ -24,7 +24,7 @@ export interface TaskRequiremnt {
     title: string;
 }
 export interface TaskRequirementsProps extends TextInputProps {
-    initialRequirements: string[];
+    initialRequirements?: any;
     onRequirementsChange: (requirements: string[]) => void;
     labelName: string;
     description: string;
@@ -37,9 +37,10 @@ export const TaskRequirements = ({
     ...rest
 }: TaskRequirementsProps) => {
     const { classes } = useStyles();
-    const [requirements, setRequirements] = useState<string[]>(
-        () => initialRequirements
+    const [requirements, setRequirements] = useState<string[]>(() =>
+        initialRequirements ? initialRequirements : []
     );
+
     const [newRequirement, setNewRequirement] = useState("");
 
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {

@@ -1,7 +1,6 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import urls from "constants/urls";
 import { useTaskDetail } from "hooks/task/use-task-detail";
 import { useData } from "hooks/use-data";
 import type { GetServerSideProps } from "next";

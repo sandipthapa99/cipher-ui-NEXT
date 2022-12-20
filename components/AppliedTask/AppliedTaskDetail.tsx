@@ -99,6 +99,7 @@ const AppliedTaskDetail = ({
     // });
 
     //for scroll
+
     const handleEdit = () => {
         setEditModal(true);
     };
@@ -320,8 +321,8 @@ const AppliedTaskDetail = ({
                         />
                         <span>
                             {" "}
-                            {taskDetail?.location
-                                ? taskDetail?.location
+                            {taskDetail?.city?.name
+                                ? taskDetail?.city?.name
                                 : "Not Provided"}
                         </span>
                     </p>
@@ -375,17 +376,15 @@ const AppliedTaskDetail = ({
                             {/* {taskDetail?.highlights && (
                                 <ServiceHighlights highlights={highlights} />
                             )} */}
-                            {taskDetail?.highlights.map(
-                                (h: { name: string; id: number }) => (
-                                    <p className="mb-4" key={h.id}>
-                                        <FontAwesomeIcon
-                                            icon={faCheck}
-                                            className="me-3 svg-icon svg-icon-check"
-                                        />
-                                        {h.name}
-                                    </p>
-                                )
-                            )}
+                            {taskDetail?.highlights.map((highlight, index) => (
+                                <p className="mb-4" key={index}>
+                                    <FontAwesomeIcon
+                                        icon={faCheck}
+                                        className="me-3 svg-icon svg-icon-check"
+                                    />
+                                    {highlight}
+                                </p>
+                            ))}
                         </div>
                     </>
                 ) : null}

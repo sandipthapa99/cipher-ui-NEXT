@@ -19,12 +19,14 @@ const ServiceLayout = ({
     description,
     ogImage,
     ogUrl,
+    serviceId,
 }: {
     children: ReactNode;
     title?: string;
     description?: string;
     ogImage?: string;
     ogUrl?: string;
+    serviceId?: string;
 }) => {
     const [searchParam, setSearchParam] = useState("");
 
