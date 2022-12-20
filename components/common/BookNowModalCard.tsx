@@ -7,7 +7,7 @@ import { faCalendarDays, faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
-import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { MIME_TYPES } from "@mantine/dropzone";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import {

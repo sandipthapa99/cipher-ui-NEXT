@@ -47,6 +47,10 @@ export const UserFollowersModal = ({
     followersData,
     followerClick,
 }: UserFollowersProps) => {
+    console.log(
+        "🚀 ~ file: UserFollowersModal.tsx ~ line 50 ~ followersData",
+        followersData
+    );
     const followMutation = useMutation((data: FollowMutationData) => {
         return axiosClient.post(urls.follow, data);
     });
@@ -109,11 +113,14 @@ export const UserFollowersModal = ({
                                     <Link href={`/tasker/${item?.id}`}>
                                         <a>
                                             <h4 className="pr-5">
-                                                {item?.first_name +
+                                                {/* {item?.first_name +
                                                     " " +
                                                     item?.middle_name ??
-                                                    "" + " " + item?.last_name}
-                                            </h4>{" "}
+                                                    "" + " " + item?.last_name} */}
+                                                {item?.first_name}{" "}
+                                                {item?.middle_name ?? ""}{" "}
+                                                {item?.last_name}{" "}
+                                            </h4>
                                         </a>
                                     </Link>
                                     {item?.is_profile_verified && (

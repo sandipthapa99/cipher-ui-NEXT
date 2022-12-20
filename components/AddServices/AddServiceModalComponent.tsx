@@ -18,7 +18,7 @@ import {
     TextInput,
     Title,
 } from "@mantine/core";
-import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/task/use-post-task";

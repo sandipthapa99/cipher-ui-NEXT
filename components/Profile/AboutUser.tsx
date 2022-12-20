@@ -394,26 +394,7 @@ const AboutProfile = () => {
                                                                 )
                                                               : ""}
                                                       </p>
-                                                      {/* <p className="date">
-                                                          {format(
-                                                              new Date(
-                                                                  value?.start_date
-                                                              ),
-                                                              "MMMM yyyy"
-                                                          )}
-                                                          {`${
-                                                              value?.end_date
-                                                                  ? `-`
-                                                                  : "- Present"
-                                                          }`}
-                                                          {value?.end_date &&
-                                                              format(
-                                                                  new Date(
-                                                                      value.end_date
-                                                                  ),
-                                                                  "MMMM yyyy"
-                                                              )}
-                                                      </p> */}
+
                                                       <p className="date">
                                                           {format(
                                                               new Date(
@@ -915,42 +896,3 @@ const AboutProfile = () => {
 };
 
 export default AboutProfile;
-
-{
-    /* <Col md={{ span: 7, offset: 1 }}>
-                                <Row className="select-field justify-content-end">
-                                    <Col md={6}>
-                                        <Formik
-                                            initialValues={reviewSearchData}
-                                            validationSchema={
-                                                ReviewSearchSchema
-                                            }
-                                            onSubmit={async (values) => {
-                                                console.log(values);
-                                            }}
-                                        >
-                                            <Form
-                                                onChange={(e: any) => {
-                                                    setSearch(e.target.value);
-                                                }}
-                                            >
-                                                <Form.Select
-                                                    aria-label="Default select example"
-                                                    className="dropdown-wrapper"
-                                                >
-                                                    <option value="-rating">
-                                                        Most Relevant
-                                                    </option>
-                                                    <option value="-updated_at">
-                                                        Latest
-                                                    </option>
-                                                    <option value="-rating">
-                                                        Top
-                                                    </option>
-                                                </Form.Select>
-                                            </Form>
-                                        </Formik>
-                                    </Col>
-                                </Row>
-                            </Col> */
-}

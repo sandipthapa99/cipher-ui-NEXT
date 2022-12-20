@@ -9,7 +9,7 @@ import {
     faSquareCheck,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { parseISO } from "date-fns";

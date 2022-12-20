@@ -54,11 +54,7 @@ const BankForm = ({
     }, [bankDetail?.bank_name.id, id, setBankId]);
 
     const queryClient = useQueryClient();
-    // const [isBankChanged, setIsBankChanged] = useState(false);
     const [bankNameChange, setBankNameChange] = useState<string | null>(null);
-    // const [branchNameChange, setBranchNameChange] = useState<string | null>(
-    //     null
-    // );
 
     const { data: bankNames } = useData<BankNamesResult>(
         ["all-banks"],
