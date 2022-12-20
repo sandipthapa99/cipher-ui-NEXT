@@ -97,7 +97,7 @@ const Contact = () => {
                                         icon={faGoogle}
                                         className="svg-icon google"
                                     />
-                                    <Link href="https://info@homaale.com">
+                                    <Link href="mailto:https://info@homaale.com">
                                         <a>Google</a>
                                     </Link>
                                 </div>

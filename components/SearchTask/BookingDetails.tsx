@@ -28,7 +28,7 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
         show
     );
 
-    const BookingDetail = data?.data;
+    const BookingDetail = data && data.data;
 
     const taskVideosAndImages = [
         ...(BookingDetail?.images ?? []),
@@ -218,7 +218,13 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                     {BookingDetail?.description}
                 </Spoiler>
                 <h3>Requirements</h3>
-                {!BookingDetail?.requirements && (
+                {BookingDetail && BookingDetail?.requirements?.length > 0 ? (
+                    <div className="mt-5">
+                        <ServiceHighlights
+                            highlights={BookingDetail?.requirements}
+                        />
+                    </div>
+                ) : (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
                         title="No data Available"
@@ -230,13 +236,6 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                         There are No Requirements for this service
                         {/* </Highlight> */}
                     </Alert>
-                )}
-                {BookingDetail?.requirements && (
-                    <div className="mt-5">
-                        <ServiceHighlights
-                            highlights={BookingDetail?.requirements}
-                        />
-                    </div>
                 )}
             </div>
         </Modal>

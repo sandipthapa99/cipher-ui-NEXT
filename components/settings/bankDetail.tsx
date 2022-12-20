@@ -21,11 +21,9 @@ const AddBank = ({ showBankForm, showPrimaryBank }: Display) => {
         "/tasker/bank-details/"
     );
     const LinkedBank = BankDetails?.data.result;
+
     const primaryBank = LinkedBank?.find((bank) => bank.is_primary === true);
-    //
-    //     "🚀 ~ file: bankDetail.tsx ~ line 21 ~ AddBank ~ primaryBank",
-    //     primaryBank
-    // );
+
     const [primaryBankId, setPrimaryBankId] = useState<number>();
     const [bankDetail, setBankDetail] = useState<any>();
     const [edit, setEdit] = useState(false);

@@ -412,7 +412,6 @@ const AddPortfolio = ({
                                                     Add relevant image or video
                                                 </p>
                                                 <CustomDropZone
-                                                    // accept={IMAGE_MIME_TYPE}
                                                     uploadedFiles={
                                                         editDetails?.images ??
                                                         []
