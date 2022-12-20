@@ -789,7 +789,7 @@ const SearchResultsDetail = ({
                                 ratedByImage={review?.rated_by?.profile_image}
                                 ratedToImage={review.rated_to.profile_image}
                                 ratedToId={review.rated_to.id}
-                                repliedDate={review.updated_at}
+                                repliedDate={review.replied_date}
                             />
                         </Col>
                     ))

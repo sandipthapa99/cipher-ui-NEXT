@@ -183,6 +183,7 @@ export const OtherBookedTaskCard = ({
                                     icon={faHourglassClock}
                                     className="svg-icon ms-1 me-4"
                                 />
+
                                 {item?.start_date &&
                                     format(new Date(item?.start_date), "PPP")}
                                 {myTask?.is_requested

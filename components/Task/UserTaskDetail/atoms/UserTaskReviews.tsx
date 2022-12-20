@@ -55,7 +55,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                         className={"ms-auto w-50 text-secondary"}
                         data={[
                             { value: "-rating", label: "Most Relevant" },
-                            { value: "-updated_at", label: "Latest" },
+                            { value: "-created_at", label: "Latest" },
                             { value: "rating", label: "Top" },
                         ]}
                         onChange={(value: any) => {
@@ -104,18 +104,18 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             ) : (
                 ratingData
                     ?.slice(0, show ? ratingData?.length : 2)
-                    .map((review: any, index: any) => (
+                    .map((review) => (
                         <Reviews
                             repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
                             repliedText={review.reply}
                             replied={review.reply === null ? false : true}
                             id={review?.id}
                             name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
-                            key={index}
+                            key={review?.id}
                             raterEmail={review?.rated_by.email}
                             ratings={review?.rating}
                             description={review?.review}
-                            time={review?.updated_at}
+                            time={review?.created_at}
                             raterId={review?.rated_by.id}
                             ratedByImage={
                                 review?.rated_by?.profile_image

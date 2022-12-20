@@ -1,7 +1,7 @@
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import { RichText } from "@components/RichText";
-import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
+import { postServiceSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
@@ -109,7 +109,7 @@ export const AddServiceModalComponent = () => {
             share_location: true,
         },
         enableReinitialize: true,
-        validationSchema: postTaskSchema,
+        validationSchema: postServiceSchema,
         onSubmit: async (values, action) => {
             if (!termsAccepted) {
                 toast.error(
@@ -174,6 +174,8 @@ export const AddServiceModalComponent = () => {
             />
 
             <form encType="multipart/formData" onSubmit={handleSubmit}>
+                <pre>{JSON.stringify(values, null, 4)}</pre>
+                <pre>{JSON.stringify(errors, null, 4)}</pre>
                 <Stack spacing="md">
                     <TextInput
                         placeholder="Enter your title"

@@ -781,7 +781,7 @@ const AboutProfile = () => {
                                             label: "Most Relevant",
                                         },
                                         {
-                                            value: "-updated_at",
+                                            value: "-created_at",
                                             label: "Latest",
                                         },
                                         { value: "-rating", label: "Top" },
@@ -854,20 +854,20 @@ const AboutProfile = () => {
                                     0,
                                     show ? taskerRating?.data.result?.length : 2
                                 )
-                                .map((review: any, index: any) => (
+                                .map((review) => (
                                     <Reviews
                                         repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
                                         repliedText={review.reply}
                                         replied={
                                             review.reply === null ? false : true
                                         }
+                                        key={review?.id}
                                         id={review?.id}
                                         name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
-                                        key={index}
                                         raterEmail={review?.rated_by.email}
                                         ratings={review?.rating}
                                         description={review?.review}
-                                        time={review?.updated_at}
+                                        time={review?.created_at}
                                         raterId={review?.rated_by.id}
                                         ratedByImage={
                                             review?.rated_by?.profile_image
@@ -884,7 +884,7 @@ const AboutProfile = () => {
                                                       ?.image
                                         }
                                         ratedToId={review.rated_to.id}
-                                        repliedDate={review.updated_at}
+                                        repliedDate={review.replied_date}
                                     />
                                 ))
                         )}

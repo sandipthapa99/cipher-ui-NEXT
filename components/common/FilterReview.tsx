@@ -41,7 +41,7 @@ export const FilterReview = ({ totalReviews }: FilterReviewProps) => {
                                     <option value="-rating">
                                         Most Relevant
                                     </option>
-                                    <option value="-updated_at">Latest</option>
+                                    <option value="-created_at">Latest</option>
                                     <option value="-rating">Top</option>
                                 </Form.Select>
                             </Form>
