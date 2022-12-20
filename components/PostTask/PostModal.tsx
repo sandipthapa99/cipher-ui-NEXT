@@ -1,9 +1,8 @@
 import { CustomDropZone } from "@components/common/CustomDropZone";
-import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
-import { postTaskModalSchema } from "@components/Task/PostTaskModal/postTaskSchema";
+import { postServiceSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import {
     faCalendarDays,
@@ -30,7 +29,6 @@ import type { ITask } from "types/task";
 import extractContent from "utils/extractString";
 import { PostTaskFormData } from "utils/formData";
 import { isSubmittingClass } from "utils/helpers";
-import { toast } from "utils/toast";
 
 import AddRequirements from "./AddRequirements";
 import { PostCard } from "./PostCard";
@@ -109,7 +107,7 @@ const PostModal = ({
                         initialValues={
                             taskDetail ? { ...editValues } : PostTaskFormData
                         }
-                        validationSchema={postTaskModalSchema}
+                        validationSchema={postServiceSchema}
                         onSubmit={async (values) => {
                             const uploadedImageIds = await uploadFileMutation({
                                 files: values.images,

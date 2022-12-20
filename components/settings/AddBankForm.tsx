@@ -54,19 +54,19 @@ const BankForm = ({
     }, [bankDetail?.bank_name.id, id, setBankId]);
 
     const queryClient = useQueryClient();
-    const [isBankChanged, setIsBankChanged] = useState(false);
+    // const [isBankChanged, setIsBankChanged] = useState(false);
     const [bankNameChange, setBankNameChange] = useState<string | null>(null);
-    const [branchNameChange, setBranchNameChange] = useState<string | null>(
-        null
-    );
+    // const [branchNameChange, setBranchNameChange] = useState<string | null>(
+    //     null
+    // );
 
     const { data: bankNames } = useData<BankNamesResult>(
         ["all-banks"],
-        "/tasker/cms/bank-name/options"
+        "/payment/cms/bank-name/"
     );
 
     const bankNamesResults: SelectItem[] = bankNames
-        ? bankNames.data.map((result) => ({
+        ? bankNames.data.result.map((result) => ({
               label: result?.name,
               value: result?.id.toString(),
               id: result?.id,
@@ -84,12 +84,12 @@ const BankForm = ({
 
     const { data: bankBranch, isLoading } = useData<BankBranchResult>(
         ["all-branches", bankId],
-        `/tasker/bank-branch/${parseInt(bankId)}`
+        `/payment/bank-branch/${parseInt(bankId)}`
     );
 
     const bankBranchResults: SelectItem[] = bankBranch?.data
-        ? bankBranch.data.map((branch) => ({
-              label: branch?.branch_name,
+        ? Array.from(bankBranch.data).map((branch) => ({
+              label: branch?.name,
               value: branch?.id.toString(),
               id: branch?.id,
           }))
@@ -100,7 +100,7 @@ const BankForm = ({
         id: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setBranchNameChange(id);
+        // setBranchNameChange(id);
         if (id) setFieldValue("branch_name", parseInt(id));
     };
 
@@ -267,7 +267,7 @@ const BankForm = ({
                             onChange={(value) => {
                                 setChangeBranch(value ? value : "");
                                 handleBranchNameChanged(value, setFieldValue);
-                                setIsBankChanged(true);
+                                // setIsBankChanged(true);
                                 setDisableButton(false);
                             }}
                             data={

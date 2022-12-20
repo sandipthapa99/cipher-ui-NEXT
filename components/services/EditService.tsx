@@ -1,7 +1,10 @@
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import { RichText } from "@components/RichText";
-import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
+import {
+    postServiceSchema,
+    postTaskSchema,
+} from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
@@ -139,7 +142,7 @@ export const EditService = ({
         },
 
         enableReinitialize: true,
-        validationSchema: postTaskSchema,
+        validationSchema: postServiceSchema,
         onSubmit: async (values, action) => {
             if (!termsAccepted) {
                 toast.error(
@@ -209,6 +212,7 @@ export const EditService = ({
                 size="xl"
             >
                 <form encType="multipart/formData" onSubmit={handleSubmit}>
+                    <pre>{JSON.stringify(errors, null, 4)}</pre>
                     <Stack spacing="lg">
                         <TextInput
                             placeholder="Enter your title"

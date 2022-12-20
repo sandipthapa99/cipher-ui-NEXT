@@ -70,18 +70,46 @@ export interface BankDetailProps {
     branch_name: number;
 }
 
-export type BankNamesResult = BankNames[];
+export interface BankNamesResult {
+    total_pages: number;
+    count: number;
+    current: number;
+    next: any;
+    previous: any;
+    page_size: number;
+    result: Result[];
+}
 
-export interface BankNames {
+export interface Result {
     id: number;
+    country: Country;
     name: string;
+    swift_code: string;
+    logo: any;
+    is_active: boolean;
+    extra_data: ExtraData;
+}
+
+export interface Country {
+    name: string;
+    code: string;
+}
+
+export interface ExtraData {
+    additionalProp1: string;
+    additionalProp2: string;
+    additionalProp3: string;
 }
 
 export type BankBranchResult = BankBranch[];
 
 export interface BankBranch {
     id: number;
-    branch_name: string;
+    is_head: boolean;
+    name: string;
+    address: any;
+    swift_code: any;
     is_active: boolean;
+    phone: string;
     bank: number;
 }
