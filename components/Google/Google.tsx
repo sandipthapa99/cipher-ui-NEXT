@@ -1,13 +1,10 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGoogle } from "hooks/auth/use-Google";
-import Cookies from "js-cookie";
 import localforage from "localforage";
 import type { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { UserService } from "services/userService";
-import useUserStore from "store/use-user-store";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
@@ -30,20 +27,6 @@ const Google = ({ login }: { login: boolean }) => {
             setFCM_TOKEN(token);
         }
     });
-    const userSet = useUserStore((state) => state.setUser);
-
-    const HandleUserFetchFlow = async () => {
-        const access = Cookies.get("access");
-        if (access === undefined) return null;
-        const user = await UserService.fetchUser(access);
-        try {
-            const res = await axiosClient.get(`/user/${user?.id}`);
-            localStorage.setItem("user", JSON.stringify(res));
-            userSet(res);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     return (
         <GoogleLogin

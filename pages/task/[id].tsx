@@ -2,11 +2,8 @@ import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useTaskDetail } from "hooks/task/use-task-detail";
-import { useData } from "hooks/use-data";
 import type { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { ReactQueryKeys } from "types/queryKeys";
-import type { ITask } from "types/task";
 import extractContent from "utils/extractString";
 
 const TaskDetail = () => {
@@ -29,7 +26,7 @@ const TaskDetail = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const queryClient = new QueryClient();
     await Promise.all([
         queryClient.prefetchQuery(["tasks"]),

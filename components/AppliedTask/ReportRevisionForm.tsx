@@ -1,7 +1,7 @@
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import FormButton from "@components/common/FormButton";
-import { Modal, Select, Textarea, useMantineTheme } from "@mantine/core";
+import { Modal, Select, Textarea } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
@@ -114,8 +114,6 @@ export const ReportRevisionForm = ({
         },
     ];
 
-    const theme = useMantineTheme();
-
     const reportMutation = useMutation<any, Error, ReportValues>((data) => {
         return axiosClient.post("/tasker/report/", data);
     });
@@ -212,7 +210,7 @@ export const ReportRevisionForm = ({
                             });
                         }}
                     >
-                        {({ errors, touched, setFieldValue }) => {
+                        {({ errors, setFieldValue }) => {
                             return (
                                 <Form>
                                     <Select

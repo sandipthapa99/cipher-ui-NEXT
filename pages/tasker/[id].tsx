@@ -1,6 +1,6 @@
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
-import { Loader, Skeleton } from "@mantine/core";
+import { Skeleton } from "@mantine/core";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useData } from "hooks/use-data";

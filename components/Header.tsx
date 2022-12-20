@@ -3,7 +3,6 @@ import {
     faBell,
     faListCheck,
     faLocationDot,
-    faMessage,
     faMessageCaptions,
     faObjectsColumn,
     faTelescope,

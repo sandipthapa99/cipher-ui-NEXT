@@ -31,7 +31,6 @@ export const EachTimeline = ({
     activeId,
     setActiveId,
     isGivingRevision,
-    handleRevisionOpen,
     setIsGivingRevision,
 }: EachTimelineProps) => {
     const [show, setShow] = useState(false);
