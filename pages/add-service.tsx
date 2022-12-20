@@ -509,6 +509,9 @@ const AddService: NextPage<{
                                             imagePreview="imagePreviewUrl"
                                             maxFiles={5}
                                             multiple
+                                            accept={{
+                                                "image/*": [],
+                                            }}
                                             showFileDetail
                                         />
 

@@ -23,7 +23,7 @@ const MultiFileDropzone = ({
     name,
     labelName,
     textMuted,
-    accept = [".jpeg, .png, .jpg"],
+    accept,
     multiple = false,
     maxSize = 1,
     imagePreview,
