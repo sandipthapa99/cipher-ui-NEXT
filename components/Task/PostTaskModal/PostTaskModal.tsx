@@ -204,19 +204,19 @@ export const PostTaskModal = () => {
                 );
                 return;
             }
-            // createTaskMutation(updatedPayload, {
-            //     onSuccess: async () => {
-            //         handleCloseModal();
-            //         action.resetForm();
-            //         toggleSuccessModal("Task Posted Successfully");
-            //         await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
-            //         await queryClient.invalidateQueries(["notification"]);
-            //         await queryClient.invalidateQueries(["my-task"]);
-            //     },
-            //     onError: (error) => {
-            //         toast.error(error.message);
-            //     },
-            // });
+            createTaskMutation(updatedPayload, {
+                onSuccess: async () => {
+                    handleCloseModal();
+                    action.resetForm();
+                    toggleSuccessModal("Task Posted Successfully");
+                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
+                    await queryClient.invalidateQueries(["notification"]);
+                    await queryClient.invalidateQueries(["my-task"]);
+                },
+                onError: (error) => {
+                    toast.error(error.message);
+                },
+            });
         },
     });
 
@@ -238,6 +238,7 @@ export const PostTaskModal = () => {
     };
     const isCreateTaskLoading =
         createTaskLoading || uploadFileLoading || editTaskLoading;
+
     return (
         <>
             <LoadingOverlay
@@ -254,7 +255,7 @@ export const PostTaskModal = () => {
                 title="Post a Task or Service"
                 size="xl"
             >
-                {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
+                <pre>{JSON.stringify(values, null, 4)}</pre>
                 {showPostTaskModalType === "CREATE" && (
                     <div className="choose-email-or-phone mb-5">
                         <Radio.Group
