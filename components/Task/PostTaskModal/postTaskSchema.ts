@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+const dateValidation = Yup.date().nullable().required("Required field");
 
 export const postTaskSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
@@ -30,6 +31,18 @@ export const postTaskSchema = Yup.object().shape({
                 }
                 return Yup.number().required("Required field").nullable(true);
             }),
+        })
+        .nullable(true),
+    start_date: dateValidation,
+    end_date: Yup.date()
+        .when("start_date", (start_date, schema) => {
+            if (start_date) {
+                const dayAfter = new Date(start_date.getTime());
+                return schema
+                    .min(dayAfter, "End date has to be after than start date")
+                    .nullable(true);
+            }
+            return Yup.date().nullable(true);
         })
         .nullable(true),
 });

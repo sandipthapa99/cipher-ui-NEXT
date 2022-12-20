@@ -10,6 +10,11 @@ import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoadingOverlay, Radio } from "@mantine/core";
 import {
     Anchor,
@@ -206,19 +211,19 @@ export const PostTaskModal = () => {
                 );
                 return;
             }
-            createTaskMutation(updatedPayload, {
-                onSuccess: async () => {
-                    handleCloseModal();
-                    action.resetForm();
-                    toggleSuccessModal("Task Posted Successfully");
-                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
-                    await queryClient.invalidateQueries(["notification"]);
-                    await queryClient.invalidateQueries(["my-task"]);
-                },
-                onError: (error) => {
-                    toast.error(error.message);
-                },
-            });
+            // createTaskMutation(updatedPayload, {
+            //     onSuccess: async () => {
+            //         handleCloseModal();
+            //         action.resetForm();
+            //         toggleSuccessModal("Task Posted Successfully");
+            //         await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
+            //         await queryClient.invalidateQueries(["notification"]);
+            //         await queryClient.invalidateQueries(["my-task"]);
+            //     },
+            //     onError: (error) => {
+            //         toast.error(error.message);
+            //     },
+            // });
         },
     });
 
@@ -305,8 +310,38 @@ export const PostTaskModal = () => {
                                     <DatePicker
                                         placeholder="Start date"
                                         label="Start date"
-                                        name="start_date"
                                         withAsterisk
+                                        minDate={new Date()}
+                                        {...getFieldProps("start_date")}
+                                        error={getFieldError("start_date")}
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "start_date",
+                                                    format(
+                                                        new Date(event),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                        icon={
+                                            <FontAwesomeIcon
+                                                icon={faCalendarDays}
+                                                className="svg-icons"
+                                            />
+                                        }
+                                    />
+                                </Col>
+
+                                <Col md={6}>
+                                    <DatePicker
+                                        placeholder="End date"
+                                        label="End date"
+                                        // name="end_date"
+                                        withAsterisk
+                                        {...getFieldProps("end_date")}
+                                        error={getFieldError("end_date")}
                                         minDate={new Date()}
                                         onChange={(event) => {
                                             if (event !== null) {
@@ -319,26 +354,12 @@ export const PostTaskModal = () => {
                                                 );
                                             }
                                         }}
-                                    />
-                                </Col>
-                                <Col md={6}>
-                                    <DatePicker
-                                        placeholder="End date"
-                                        label="End date"
-                                        name="end_date"
-                                        withAsterisk
-                                        minDate={new Date()}
-                                        onChange={(event) => {
-                                            if (event !== null) {
-                                                setFieldValue(
-                                                    "start_date",
-                                                    format(
-                                                        new Date(event),
-                                                        "yyyy-MM-dd"
-                                                    )
-                                                );
-                                            }
-                                        }}
+                                        icon={
+                                            <FontAwesomeIcon
+                                                icon={faCalendarDays}
+                                                className="svg-icons"
+                                            />
+                                        }
                                     />
                                 </Col>
                             </Row>
