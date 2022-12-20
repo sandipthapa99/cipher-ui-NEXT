@@ -141,7 +141,7 @@ export const EditService = ({
         },
 
         enableReinitialize: true,
-        validationSchema: postTaskSchema,
+        validationSchema: postServiceSchema,
         onSubmit: async (values) => {
             if (!termsAccepted) {
                 toast.error(
