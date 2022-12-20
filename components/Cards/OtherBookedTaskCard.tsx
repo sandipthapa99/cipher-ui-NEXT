@@ -125,7 +125,7 @@ export const OtherBookedTaskCard = ({
                                     ? Approvedtask?.title.substring(0, 40) +
                                       "..."
                                     : Approvedtask?.title}
-                                {order?.item?.title}
+                                {order?.task?.title}
                             </h3>
                         </div>
                         <div className="price d-flex flex-column align-items-end">
