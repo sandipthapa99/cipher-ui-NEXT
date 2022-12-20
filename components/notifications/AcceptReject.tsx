@@ -1,9 +1,7 @@
 import BigButton from "@components/common/Button";
 
 export const AcceptReject = ({
-    slug,
     accepted,
-    type,
 }: {
     slug?: string;
     accepted?: boolean | undefined;

@@ -4,15 +4,11 @@ import { faAward, faFaceGrinBeam } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
-import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
-import { useData } from "hooks/use-data";
-import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import type { TaskApplicantsProps, TaskApprovedList } from "types/task";
 import type { Tasker } from "types/tasks";
 
 import BigButton from "./Button";
@@ -51,12 +47,8 @@ export const TeamMembersCard = ({
     awardPercentage,
     location,
     tasker,
-    distance,
     bio,
     charge,
-    id,
-    isTasker,
-    taskId,
     currency,
 }: Props) => {
     const { data: user } = useUser();
@@ -74,22 +66,9 @@ export const TeamMembersCard = ({
     //     taskDetail
     // );
 
-    const { data: approvedTasks } = useData<TaskApprovedList>(
-        ["approved-task"],
-        `${urls.task.approvedTaskList}`
-    );
     // const approvedTask = approvedTasks?.data.result.find(
     //     (appliedTask: any) => appliedTask.assignee.id === userId
     // );
-
-    const { data: taskApplicants } = useData<TaskApplicantsProps>(
-        ["get-my-applicants"],
-        `${urls.task.my_applicants}?entity_service=${taskId}&is_requested=true`
-    );
-
-    const approvedTasker = taskApplicants?.data.result.find(
-        (applicants: any) => applicants.id === id
-    );
 
     //
     //     "🚀 ~ file: TeamMembersCard.tsx ~ line 74 ~ userId",
@@ -106,8 +85,6 @@ export const TeamMembersCard = ({
     //     (data: { booking: number | undefined }) =>
     //         axiosClient.post("/task/entity/service-booking/reject/", data)
     // );
-    const { mutate: bookingApproval } = useForm(`${urls.task.approval}`);
-    const { mutate: bookingDecline } = useForm(`${urls.task.decline}`);
 
     return (
         <div

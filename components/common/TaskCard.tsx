@@ -22,7 +22,7 @@ interface TaskCardProps {
     task: ITask;
     isSaved?: boolean;
 }
-const TaskCard = ({ task, isSaved }: TaskCardProps) => {
+const TaskCard = ({ task }: TaskCardProps) => {
     const { title, description, location, status, currency, slug, id } = task;
 
     const { data: taskApplicants } = useData<TaskerCount>(

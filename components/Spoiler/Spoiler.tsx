@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 
 const Spoiler = ({ text }: { text: string }) => {
     const [showMore, setShowMore] = useState(false);

@@ -13,7 +13,6 @@ const TagInputField = ({
     labelName,
     textMuted,
     disabled,
-    create,
     value,
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
