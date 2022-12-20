@@ -244,7 +244,10 @@ export const AddServiceModalComponent = () => {
                             your task.
                         </Text> */}
                         <CustomDropZone
-                            accept={IMAGE_MIME_TYPE}
+                            // accept={IMAGE_MIME_TYPE}
+                            accept={{
+                                "image/*": [], // All images
+                            }}
                             fileType="image"
                             maxSize={5 * 1024 ** 2}
                             sx={{ maxWidth: "30rem" }}

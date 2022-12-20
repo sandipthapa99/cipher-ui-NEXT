@@ -16,13 +16,13 @@ import { toast } from "utils/toast";
 //     measurementId: "G-XBZJZJR692",
 // };
 const firebaseConfig = {
-    apiKey: "AIzaSyBYnEmAHcAjLEnwYRHsD-U6jOitzaOLyA0",
-    authDomain: "homaale-c945b.firebaseapp.com",
-    projectId: "homaale-c945b",
-    storageBucket: "homaale-c945b.appspot.com",
-    messagingSenderId: "17609084275",
-    appId: "1:17609084275:web:3e820a0e0c64bbe7bc8906",
-    measurementId: "G-6MNMFK079G",
+    apiKey: process.env.NEXT_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PROJECT_ID,
+    storageBucket: process.env.NEXT_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_MESSAGE_SENDER_ID,
+    appId: process.env.NEXT_APP_ID,
+    measurementId: process.env.NEXT_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
@@ -60,8 +60,7 @@ const firebaseCloudMessaging = {
             const messaging = getMessaging(app);
             await Notification.requestPermission();
             getToken(messaging, {
-                vapidKey:
-                    "BOP205JIvgHBRt71rjOD_jnopyOUbGElHjXMXYXyt45roXqjrZO9UFF9dkGBkjQjUczl57MMWYWRgGsx9fUg27o",
+                vapidKey: process.env.NEXT_VAPID_KEY,
             })
                 .then((currentToken) => {
                     //

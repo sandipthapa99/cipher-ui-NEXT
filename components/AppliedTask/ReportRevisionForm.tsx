@@ -241,14 +241,17 @@ export const ReportRevisionForm = ({
                                     />
 
                                     <Row className="mb-5">
-                                        <Col md={4}>
+                                        <Col md={5}>
                                             <p className="m-1 report-image-label">
                                                 Images
                                             </p>
                                             <CustomDropZone
                                                 name={"attachment"}
                                                 fileType="image"
-                                                accept={IMAGE_MIME_TYPE}
+                                                //  accept={IMAGE_MIME_TYPE}
+                                                accept={{
+                                                    "image/*": [], // All images
+                                                }}
                                                 onDrop={(images) =>
                                                     setFieldValue(
                                                         "attachment",

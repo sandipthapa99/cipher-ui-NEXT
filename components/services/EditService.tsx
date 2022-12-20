@@ -312,7 +312,10 @@ export const EditService = ({
                                 for your task.
                             </Text>
                             <CustomDropZone
-                                accept={IMAGE_MIME_TYPE}
+                                //     accept={IMAGE_MIME_TYPE}
+                                accept={{
+                                    "image/*": [], // All images
+                                }}
                                 uploadedFiles={serviceDetail?.images ?? []}
                                 fileType="image"
                                 sx={{ maxWidth: "30rem" }}
