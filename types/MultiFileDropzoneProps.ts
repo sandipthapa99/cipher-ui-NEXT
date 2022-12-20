@@ -4,7 +4,7 @@ export interface MultiFileDropzoneProps {
     name: string;
     labelName?: ReactNode;
     textMuted?: ReactNode;
-    accept?: string[];
+    // accept: string[];
     multiple?: boolean;
     maxSize?: number;
     maxFiles?: number;
