@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
 // import { Rating } from "@smastrom/react-rating";
 import { useFormik } from "formik";
-import { useUser } from "hooks/auth/useUser";
 import { useForm } from "hooks/use-form";
 import { Col, Form, Row } from "react-bootstrap";
 import { useWithLogin } from "store/use-login-prompt-store";
@@ -14,7 +13,6 @@ interface ReviewData {
 }
 export const AddReviewForm = () => {
     const { mutate } = useForm(`/task/rating/`);
-    const { data: userDetails } = useUser();
     const withLogin = useWithLogin();
 
     const { handleSubmit, getFieldProps, values, setFieldValue } =
