@@ -9,7 +9,6 @@ import { useChangePassword } from "hooks/profile/changePassword/useChangePasswor
 import Cookies from "js-cookie";
 import React from "react";
 import Button from "react-bootstrap/Button";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
@@ -18,7 +17,6 @@ import { ChangePhoneNumber } from "./changePhonenumber";
 import { SecurityQuestions } from "./SecurityQuestions";
 
 const ChangePasswordForm = () => {
-    const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useChangePassword();
     const { data: userDetails } = useUser();
 

@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Box, Navbar, ScrollArea } from "@mantine/core";
-import { useUser } from "hooks/auth/useUser";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
@@ -15,7 +14,6 @@ import type { FC } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import useUserStore from "store/use-user-store";
 import type { MetaDataProps } from "types/metaData";
 import type { User } from "types/user";
 

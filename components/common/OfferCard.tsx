@@ -13,7 +13,7 @@ interface OfferCardProps {
     title: string;
 }
 const OfferCard = ({ offer }: { offer: OfferCardProps }) => {
-    const { image, code, description, id, offer_type, title } = offer;
+    const { image, code, description, title } = offer;
     return (
         <div className="offer-card">
             <Row className="d-flex offer-card__content justify-content-center">

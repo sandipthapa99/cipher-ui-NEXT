@@ -1,22 +1,14 @@
 import WelcomeUser from "@components/common/WelcomeUser";
 import Layout from "@components/Layout";
-import urls from "constants/urls";
-import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { Container } from "react-bootstrap";
-import type { ServicesValueProps } from "types/serviceCard";
 // this gets rid of the hydration error
 // since the data required for this component comes from localstorage, there's no need for ssr
 const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
     ssr: false,
 });
 const Home: NextPage = () => {
-    const { data: servicesData } = useData<ServicesValueProps>(
-        ["all-services"],
-        urls.task.service
-    );
-
     return (
         <Layout title="Home | Homaale">
             <section className="post-task">

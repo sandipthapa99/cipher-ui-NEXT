@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { TaskDetailTimelineData } from "staticData/taskDetailTimeline";
 import type { TaskTimeLineProps } from "types/taskTimeLine";
 
 import { EachTimeline } from "./EachTimeline";

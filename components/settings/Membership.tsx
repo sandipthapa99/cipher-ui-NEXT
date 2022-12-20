@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { Row } from "react-bootstrap";
 
 import { MembershipPackage } from "./MembershipPackage";

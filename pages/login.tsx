@@ -4,24 +4,19 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { async } from "@firebase/util";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
-import { useUser } from "hooks/auth/useUser";
 import Cookies from "js-cookie";
-import jwtDecode from "jwt-decode";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { UserService } from "services/userService";
 // import useUserStore from "store/use-user-store";
 import { axiosClient } from "utils/axiosClient";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
-import { useStore } from "zustand";
 
 interface ResendEmailVerification {
     email: string;

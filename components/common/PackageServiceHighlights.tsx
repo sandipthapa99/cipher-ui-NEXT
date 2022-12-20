@@ -1,6 +1,5 @@
 const PackageServiceHighlights = ({
     title,
-    isChecked,
 }: {
     title: string;
     isChecked?: boolean;

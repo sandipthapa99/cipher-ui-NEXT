@@ -2,7 +2,6 @@ import {
     faBars,
     faBell,
     faHome,
-    faSearch,
     faUser,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -92,6 +92,7 @@ export default function Checkout() {
             <div
                 ref={ref}
                 {...rest}
+                id={`checkout-select-${id}`}
                 className={"d-flex gap-3 px-3 pb-2"}
                 role={"button"}
             >

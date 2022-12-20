@@ -1,16 +1,12 @@
 import { getCroppedImg } from "@components/AppliedTask/Crop";
 import { Tab } from "@components/common/Tab";
-import { MyBookings } from "@components/MyTasks/MyBookings";
 import AvatarForm from "@components/settings/AvatarForm";
-import { faCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
-import { Select, Slider } from "@mantine/core";
+import { Slider } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
-import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
 import React, { useMemo, useState } from "react";
@@ -39,7 +35,6 @@ interface editProfileProps {
 
 const PhotoEdit = ({
     show,
-    handleClose,
     setIsEditButtonClicked,
     setShowEditForm,
     userId,
@@ -150,7 +145,7 @@ const PhotoEdit = ({
         formData.append("profile_image", file);
         isEditButtonClicked
             ? editProfile.mutate(formData, {
-                  onSuccess: (data: any) => {
+                  onSuccess: () => {
                       queryClient.invalidateQueries(["profile"]);
                       setShowEditForm(false);
                       setCroppedImage(null);
@@ -181,37 +176,6 @@ const PhotoEdit = ({
 
     const [activeTabIdx, setActiveTabIdx] = useState(0);
 
-    const [value, setValue] = useState<string>("1");
-    const [ids, setIds] = useState<number | null>();
-    const [urls, setUrls] = useState<string | null>();
-    const { data: nestedData } = useData<ServiceCategoryOptions>(
-        ["category-list"],
-        "/task/cms/task-category/list/"
-    );
-
-    const serviceItems: SelectItem[] = nestedData
-        ? nestedData?.data.map((service) => ({
-              id: service?.id,
-              label: service?.name,
-              value: service?.id,
-          }))
-        : [];
-
-    const { data: Avatar } = useData<AvatarProps>(
-        ["Avatar-list", value],
-        `/task/avatar/list?category=${value}`,
-        !!value
-    );
-
-    const HandleSubmit = async () => {
-        try {
-            await axiosClient.patch("/tasker/profile/", {
-                avatar: ids,
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
     // useEffect(() => {
     //     console.log({ croppedImage });
     // }, [croppedImage]);

@@ -57,9 +57,7 @@ const ServiceCategoryPage = () => {
     const categorySlug = router.query.name as string;
     const categoryName = router.query.category as string;
 
-    const { data: tasksByCategory, error: taskByCategoryError } =
-        useTasksByCategory(categorySlug);
-    const { data: servicesByCategory = [], error: servicesByCategoryError } =
+    const { data: servicesByCategory = [] } =
         useServicesByCategory(categorySlug);
 
     return (

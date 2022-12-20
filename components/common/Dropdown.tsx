@@ -1,7 +1,6 @@
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import urls from "constants/urls";
-import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -88,7 +87,6 @@ export const Dropdown = ({ children }: DropdownProps) => {
     }, []);
 
     const renderNestedSubMenus = nestedMenu.map((sub: any, index) => {
-        const menu = sub.name.replaceAll(" ", "")?.toLowerCase();
         if (sub?.child.length > 0) {
             return (
                 <li
@@ -153,8 +151,6 @@ export const Dropdown = ({ children }: DropdownProps) => {
     });
 
     const renderSubMenus = subMenu.map((sub: any, index: any) => {
-        const menu = sub.name.replaceAll(" ", "")?.toLowerCase();
-
         if (sub?.child.length > 0) {
             const onHandleDropdown = () => {
                 const subMenuItems = sub?.child;
@@ -342,6 +338,3 @@ export const Dropdown = ({ children }: DropdownProps) => {
         </div>
     );
 };
-function item(item: any) {
-    throw new Error("Function not implemented.");
-}

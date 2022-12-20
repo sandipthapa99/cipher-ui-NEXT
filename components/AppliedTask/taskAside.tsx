@@ -1,5 +1,5 @@
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
-import { ScrollArea, Space } from "@mantine/core";
+import { ScrollArea } from "@mantine/core";
 import { useTasks } from "hooks/task/use-tasks";
 import { useInViewPort } from "hooks/use-in-viewport";
 import type { ReactNode } from "react";

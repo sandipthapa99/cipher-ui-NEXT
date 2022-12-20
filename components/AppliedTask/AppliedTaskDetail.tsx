@@ -3,7 +3,6 @@ import { ElipsisReport } from "@components/common/ElipsisReport";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { GoBack } from "@components/common/GoBack";
 import SaveIcon from "@components/common/SaveIcon";
-import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
@@ -22,8 +21,6 @@ import {
 import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Text } from "@mantine/core";
-import { openConfirmModal } from "@mantine/modals";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -33,19 +30,15 @@ import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useRef } from "react";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import { taskDetails } from "staticData/taskDetail";
 import type { ITask, TaskApplicantsProps, TaskerCount } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
-import { safeParse } from "utils/safeParse";
-import { toast } from "utils/toast";
 
 import { TaskersTab } from "./TaskersTab";
 
@@ -71,7 +64,6 @@ const AppliedTaskDetail = ({
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
     const [showModal, setShowModal] = useState(false);
     const [showInput, setShowInput] = useState(false);
-    const [editModal, setEditModal] = useState(false);
 
     const RenderInputBox = () => {
         return (
@@ -100,9 +92,6 @@ const AppliedTaskDetail = ({
 
     //for scroll
 
-    const handleEdit = () => {
-        setEditModal(true);
-    };
     // const confirmDelete = () => {
     //     mutate(serviceId, {
     //         onSuccess: async () => {

@@ -19,7 +19,6 @@ const OnBoardingLayout = ({
     title,
     description,
     keywords,
-    ogImage,
     ogUrl,
 }: OnBoardingLayoutProps) => {
     return (

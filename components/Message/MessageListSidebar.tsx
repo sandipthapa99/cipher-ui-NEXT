@@ -2,17 +2,8 @@ import { MessageHeader } from "@components/Message/MessageHeader";
 import { MessageList } from "@components/Message/MessageList";
 import { ScrollArea } from "@mantine/core";
 import type { DocumentData } from "firebase/firestore";
-import {
-    collection,
-    doc,
-    onSnapshot,
-    orderBy,
-    query,
-    QuerySnapshot,
-} from "firebase/firestore";
-import { useRouter } from "next/router";
+import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import type { Contact } from "staticData/messages";
 
 import { db } from "../../firebase/firebase";
 import { SendMessageInput } from "./SendMessageInput";
