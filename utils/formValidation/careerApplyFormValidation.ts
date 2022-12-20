@@ -39,5 +39,5 @@ export const carrerApplyFormValidation = Yup.object().shape({
     portfolio_link: urlValidation,
     cv: fileUploadValidate,
     cover_letter: stringReqOnly,
-    g_recaptcha_response: stringReqOnly,
+    //g_recaptcha_response: stringReqOnly,
 });

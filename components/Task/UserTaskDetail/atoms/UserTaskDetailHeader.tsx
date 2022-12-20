@@ -32,11 +32,13 @@ import { UserStats } from "./UserStats";
 interface UserTaskDetailHeaderProps {
     taskerDetail: ITasker;
     maxHeaderWidth?: string;
+    taskerHimself?: boolean;
 }
 
 export const UserTaskDetailHeader = ({
     taskerDetail,
     maxHeaderWidth,
+    taskerHimself,
 }: UserTaskDetailHeaderProps) => {
     const router = useRouter();
     const { data: user } = useUser();
@@ -184,7 +186,9 @@ export const UserTaskDetailHeader = ({
                             className="td-user-name mt-1"
                             data-is-online={JSON.stringify(true)}
                         >
-                            {`${taskerDetail?.user?.first_name} ${taskerDetail?.user?.middle_name} ${taskerDetail?.user?.last_name}`}
+                            {`${taskerDetail?.user?.first_name} ${
+                                taskerDetail?.user?.middle_name ?? ""
+                            } ${taskerDetail?.user?.last_name}`}
                         </h4>
                         <p className="td-text mb-4">{userType}</p>
 
@@ -225,6 +229,7 @@ export const UserTaskDetailHeader = ({
                                 color="#297796"
                                 height={24}
                                 width={24}
+                                visibility={taskerHimself ? "hidden" : "none"}
                                 className="svg-follow-icon"
                                 onClick={() =>
                                     handleFollowClick(
@@ -238,6 +243,7 @@ export const UserTaskDetailHeader = ({
                                 icon={faUserPlus}
                                 color="#297796"
                                 height={24}
+                                visibility={taskerHimself ? "hidden" : "none"}
                                 width={24}
                                 className="svg-follow-icon"
                                 onClick={() =>
@@ -271,10 +277,9 @@ export const UserTaskDetailHeader = ({
                             taskerId={taskerDetail?.user?.id}
                             taskerName={
                                 taskerDetail?.user?.first_name +
-                                " " +
-                                taskerDetail?.user?.middle_name +
-                                " " +
-                                taskerDetail?.user?.last_name
+                                    " " +
+                                    taskerDetail?.user?.middle_name ??
+                                "" + " " + taskerDetail?.user?.last_name
                             }
                             taskerDescription={taskerDetail?.bio}
                         />

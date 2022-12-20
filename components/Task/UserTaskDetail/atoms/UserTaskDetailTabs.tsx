@@ -1,7 +1,11 @@
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { AboutTasker } from "@components/Tasker/AboutTasker";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faArrowLeft,
+    faArrowRight,
+    faWarning,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert } from "@mantine/core";
@@ -55,6 +59,16 @@ const ServiceList = ({
                     { maxWidth: "xs", slideSize: "80%", slideGap: 0 },
                 ]}
                 align="start"
+                nextControlIcon={<FontAwesomeIcon icon={faArrowRight} />}
+                previousControlIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+                styles={{
+                    control: {
+                        "&[data-inactive]": {
+                            opacity: 0,
+                            cursor: "default",
+                        },
+                    },
+                }}
             >
                 {taskerService?.result &&
                     taskerService?.result?.map((service, key) => (
@@ -70,7 +84,7 @@ const ServiceList = ({
                 (taskerService?.result?.length <= 0 && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="No data Available!"
+                        title="No data Available"
                         color="orange"
                         radius="md"
                         sx={{ minWidth: 100 }}

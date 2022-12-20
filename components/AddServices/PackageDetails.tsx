@@ -104,7 +104,7 @@ export const PackageDetails = ({
         no_of_revision: 0, //TODO:Remove This from api
         discount_type: "",
         // !revision_price: "",
-        revision_day: "1", //FixMe:Change this to number
+        revision_day: "1", //fixme:Change this to number
         service: "",
         discount_value: 0,
         is_recommended: false,

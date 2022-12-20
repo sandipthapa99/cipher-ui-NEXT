@@ -1,8 +1,8 @@
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
-import { Skeleton } from "@mantine/core";
+import { Loader, Skeleton } from "@mantine/core";
 import urls from "constants/urls";
-import { connectFirestoreEmulator } from "firebase/firestore";
+import { useUser } from "hooks/auth/useUser";
 import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
@@ -24,6 +24,9 @@ const TaskerDetail = ({
         !!router.query.id
     );
     const tasker = data?.data;
+    const { data: userData } = useUser();
+    const taskerHimself = userData?.id === data?.data?.user?.id;
+
     return (
         <>
             <TaskerLayout
@@ -39,13 +42,14 @@ const TaskerDetail = ({
                     <UserTaskDetail
                         taskerService={taskerService}
                         taskerDetail={tasker ?? ({} as ITasker)}
+                        taskerHimself={taskerHimself}
                     />
                 ) : (
-                    <>
+                    <div className="bg-white p-5">
                         <Skeleton height={100} circle mb="xl" />
                         <Skeleton height={20} radius="xl" />
                         <Skeleton height={20} mt={6} radius="xl" />
-                    </>
+                    </div>
                 )}
             </TaskerLayout>
         </>

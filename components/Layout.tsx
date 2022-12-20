@@ -1,5 +1,6 @@
 import {
     faBell,
+    faCrab,
     faObjectsColumn,
     faUser,
 } from "@fortawesome/pro-regular-svg-icons";
@@ -220,6 +221,15 @@ const Layout: FC<MetaDataProps> = ({
                                     />
                                     <Link href="/category">
                                         <p>Categories</p>
+                                    </Link>
+                                </div>
+                                <div className="d-flex align-items-center gap-4 text-icon">
+                                    <FontAwesomeIcon
+                                        icon={faCrab}
+                                        className="side-bar-icon"
+                                    />
+                                    <Link href="/rasifal">
+                                        <p>Rashifal</p>
                                     </Link>
                                 </div>
                             </div>

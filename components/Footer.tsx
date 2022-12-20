@@ -2,6 +2,7 @@ import {
     faFacebookF,
     faInstagram,
     faLinkedinIn,
+    faTiktok,
     faTwitter,
     faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
@@ -285,7 +286,7 @@ const Footer = () => {
                                 <h2>Follow Us</h2>
                                 <div className="social-sites">
                                     <a
-                                        href="https://www.facebook.com/people/homaale/100086263383456/?mibextid=ZbWKwL"
+                                        href="https://www.facebook.com/profile.php?id=100086263383456"
                                         target="_blank"
                                         rel="noreferrer"
                                         className="wrapper facebook"
@@ -296,13 +297,13 @@ const Footer = () => {
                                         />
                                     </a>
                                     <a
-                                        href="https://www.linkedin.com"
+                                        href="https://www.tiktok.com/@homaaleservices"
                                         target="_blank"
                                         rel="noreferrer"
                                         className="wrapper linkedIn"
                                     >
                                         <FontAwesomeIcon
-                                            icon={faLinkedinIn}
+                                            icon={faTiktok}
                                             className="svg-icon "
                                         />
                                     </a>
@@ -318,7 +319,7 @@ const Footer = () => {
                                         />
                                     </a>
                                     <a
-                                        href="https://instagram.com/homaaleservices"
+                                        href="https://www.instagram.com/homaaleservices/"
                                         target="_blank"
                                         rel="noreferrer"
                                         className="wrapper instagram"
@@ -328,7 +329,7 @@ const Footer = () => {
                                             className="svg-icon "
                                         />
                                     </a>
-                                    <a
+                                    {/* <a
                                         href="https://www.youtube.com"
                                         target="_blank"
                                         rel="noreferrer"
@@ -338,7 +339,7 @@ const Footer = () => {
                                             icon={faYoutube}
                                             className="svg-icon "
                                         />
-                                    </a>
+                                    </a> */}
                                 </div>
                             </Col>
                             <Col

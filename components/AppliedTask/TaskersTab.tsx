@@ -17,11 +17,18 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
     const [entityServiceId, setEntityServiceId] = useState<string | undefined>(
         ""
     );
+
     useEffect(() => {
         if (taskId) {
             setEntityServiceId(taskId);
         }
     }, [taskId, setEntityServiceId, entityServiceId]);
+    const istaskId = () => {
+        if (taskId === undefined) {
+            return false;
+        }
+        return true;
+    };
 
     const {
         data: taskApplicants,
@@ -29,7 +36,8 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
         isLoading: TaskApplicantLoading,
     } = useData<TaskApplicantsProps>(
         ["get-my-applicants", entityServiceId],
-        `${urls.task.my_applicants}?entity_service=${taskId}&is_requested=true`
+        `${urls.task.my_applicants}?entity_service=${taskId}&is_requested=true`,
+        istaskId()
     );
 
     const { data: profileDetails } = useGetProfile();

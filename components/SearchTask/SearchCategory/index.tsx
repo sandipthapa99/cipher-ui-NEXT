@@ -22,7 +22,6 @@ import { useCountry } from "hooks/dropdown/useCountry";
 import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useServiceOptions } from "hooks/service/use-service-options";
 import { useCities } from "hooks/use-cities";
-import { debounce } from "lodash";
 import type { ChangeEvent } from "react";
 import { useEffect, useReducer, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -72,14 +71,12 @@ export const SearchCategory = ({
     }));
     const languagesData: SelectItem[] = languages
         ? languages.result.map((language) => ({
-              id: language.id,
               label: language.name,
               value: language.name,
           }))
         : [];
     const countriesData: SelectItem[] = countries
         ? countries.result.map((country) => ({
-              id: country.id,
               label: country.name,
               value: country.name,
           }))

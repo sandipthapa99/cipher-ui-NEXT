@@ -41,19 +41,20 @@ const KYCForm = () => {
     const countryResults: SelectItem[] = countryName
         ? countryName.result.map((result) => ({
               label: result?.name,
-              value: result?.id.toString(),
-              id: result?.id,
+              value: result?.code,
           }))
         : ([] as SelectItem[]);
     //handle country change
     const handleCountryChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setCountryChange(id);
-        if (id) setFieldValue("country", parseInt(id));
+        setCountryChange(code);
+        if (code) setFieldValue("country", code);
     };
-    const country = profileDetails?.country ? profileDetails?.country : "";
+    const country = profileDetails?.country
+        ? profileDetails?.country?.name
+        : "asdasd";
 
     // const foundCountry = countryResults.find((item) => item.label === country);
     // const [showKYCRead, setShowKYCRead] = useState(false);
@@ -88,7 +89,7 @@ const KYCForm = () => {
                                 country: KYCData
                                     ? KYCData?.country
                                     : profileDetails?.country
-                                    ? profileDetails?.country?.id.toString()
+                                    ? profileDetails?.country?.code
                                     : "",
                                 company: KYCData ? KYCData?.company : "",
                                 // passport_size_photo: "",
@@ -173,11 +174,12 @@ const KYCForm = () => {
                                         label="Country"
                                         placeholder="Pick one"
                                         name="country"
-                                        defaultValue={
-                                            typeof values.country === "string"
-                                                ? values.country
-                                                : ""
-                                        }
+                                        value={country}
+                                        // defaultValue={
+                                        //     typeof values.country === "string"
+                                        //         ? values?.country
+                                        //         : ""
+                                        // }
                                         searchable
                                         nothingFound="No result found."
                                         onChange={(value) =>

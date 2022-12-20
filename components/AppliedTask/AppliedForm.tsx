@@ -44,7 +44,7 @@ const AppliedForm = ({
     handleClose,
 }: BookNowModalCardProps) => {
     const router = useRouter();
-    const { mutate } = useBookNowTask();
+    const { mutate, isLoading } = useBookNowTask();
 
     // const loadingOverlayVisible = useMemo(
     //     () => applyTaskLoading,
@@ -74,12 +74,9 @@ const AppliedForm = ({
     const { data: profile } = useGetProfile();
 
     const userFullName =
-        profile?.user &&
-        profile?.user?.first_name +
-            " " +
-            profile?.user?.middle_name +
-            " " +
-            profile?.user?.last_name;
+        (profile?.user &&
+            profile?.user?.first_name + " " + profile?.user?.middle_name) ??
+        "" + " " + profile?.user?.last_name;
 
     const handleRoomcreate = async () => {
         if (user?.id) {
@@ -259,13 +256,11 @@ const AppliedForm = ({
                                         variant="primary"
                                         name="Apply"
                                         className="submit-btn"
+                                        isLoading={isLoading}
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
                                         )}
-                                        // onClick={() => {
-                                        //     router.push("/task/checkout");
-                                        // }}
                                     />
                                 </Modal.Footer>
                             </Form>

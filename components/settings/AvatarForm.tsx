@@ -62,7 +62,7 @@ const AvatarForm = ({
     return (
         <div className="avatar-section mt-5">
             <div className="d-flex align-items-center gap-4">
-                Select Category{" "}
+                Select Category
                 <Select
                     placeholder="Pick one"
                     value={value}

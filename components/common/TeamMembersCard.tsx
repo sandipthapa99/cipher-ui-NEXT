@@ -112,7 +112,7 @@ export const TeamMembersCard = ({
     return (
         <div
             data-active={JSON.stringify(path === tasker)}
-            className="team-members-card mb-5 active"
+            className="team-members-card active"
         >
             <Link href={`/tasker/${tasker}/`}>
                 <a>

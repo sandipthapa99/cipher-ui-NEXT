@@ -29,17 +29,15 @@ export const PostNotifyTask = ({
 }: PostedNotifyProps) => {
     const { data: profile } = useGetProfile();
     const router = useRouter();
-
     return (
         <div
             className="d-flex align-items-center justify-content-between accepted-notification"
             style={{ backgroundColor: read === null ? "#ecf7ff" : "#f8f9fa" }}
-            // onClick={() => {
-            //     is_requested
-            //         ? router.push(`/task/${slug}`)
-            //         : router.push(`/task/${slug}`);
-
-            // }}
+            onClick={() => {
+                is_requested
+                    ? router.push(`/task/${slug}`)
+                    : router.push(`/task/${slug}`);
+            }}
         >
             <div className="d-flex notification-wrapper">
                 <figure className="d-flex flex-column justify-content-center notification-image">
@@ -58,17 +56,16 @@ export const PostNotifyTask = ({
                         <span className="span-name" onClick={handleClick}>
                             You{" "}
                         </span>
-                        {type} a {is_requested ? "task" : "service"} {taskTitle}
-                        .
+                        {type} a {is_requested ? "task" : "service"}
                         <span
                             className="span-name"
-                            onClick={() => {
-                                {
-                                    is_requested
-                                        ? router.push(`/task/${slug}`)
-                                        : router.push(`/service/${slug}`);
-                                }
-                            }}
+                            // onClick={() => {
+                            //     {
+                            //         is_requested
+                            //             ? router.push(`/task/${slug}`)
+                            //             : router.push(`/service/${slug}`);
+                            //     }
+                            // }}
                         >
                             {" "}
                             {taskObject}.

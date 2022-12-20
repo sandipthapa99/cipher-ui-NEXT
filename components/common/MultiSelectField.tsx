@@ -1,7 +1,7 @@
 import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS`
 
 import { ErrorMessage, Field } from "formik";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
@@ -18,39 +18,22 @@ const TagMultiSelectField = ({
     disabled,
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
-    const [selectedservices, setselectedservices] = useState([]);
+    const [selectedservices, setSelectedservices] = useState([]);
 
     useEffect(() => {
-        setselectedservices(defaultValue && defaultValue);
-        const defaultInterests: number[] =
-            defaultValue &&
-            defaultValue.map((item: any) => {
-                const values = item.id;
+        setSelectedservices(defaultValue);
+        // const defaultInterests: number[] =
+        //     defaultValue &&
+        //     defaultValue.map((item: any) => {
+        //         const values = item.id;
 
-                return values;
-            });
-        //   setId(defaultInterests);
-    }, []);
-
-    // useEffect(() => {
-    //     setselectedservices(defaultValue);
-    //     setId(selectedService);
-    // }, []);
-
-    const handleChange = (selectedOption: any) => {
-        setselectedservices(selectedOption);
-        // const selectedInterests: number[] =
-        //     selectedOption &&
-        //     selectedOption.map((item: any) => {
-        //         const values = item.value;
         //         return values;
         //     });
+    }, []);
 
-        // console.log("selec", selectedInterests);
-        // setFinalId(selectedInterests);
+    const handleChange = (selectedOption: any) => {
+        setSelectedservices(selectedOption);
     };
-
-    // console.log("id here now", id);
 
     return (
         <div className={checkFormGroup(error)}>
@@ -84,7 +67,7 @@ const TagMultiSelectField = ({
                                 setFieldValue(name, values);
                             }}
                             //  onChange={handleChange}
-
+                            // defaultValue={defaultValue}
                             value={selectedservices}
                             options={Array.isArray(data) ? data : []}
                             className="basic-multi-select"

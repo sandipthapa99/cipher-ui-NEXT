@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+const dateValidation = Yup.date().nullable().required("Required field");
 
 export const postTaskSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
@@ -32,4 +33,48 @@ export const postTaskSchema = Yup.object().shape({
             }),
         })
         .nullable(true),
+    start_date: dateValidation,
+    end_date: Yup.date()
+        .when("start_date", (start_date, schema) => {
+            if (start_date) {
+                const dayAfter = new Date(start_date.getTime());
+                return schema
+                    .min(dayAfter, "End date has to be after than start date")
+                    .nullable(true);
+            }
+            return Yup.date().nullable(true);
+        })
+        .nullable(true),
+});
+
+export const postTaskModalSchema = Yup.object().shape({
+    title: Yup.string().required("Title is required"),
+    description: Yup.string().required("Description is required"),
+    requirements: Yup.array(),
+    category: Yup.string().required("Category is required"),
+    task_type: Yup.string().when("taskTypeRadio", {
+        is: "onPremise",
+        then: Yup.string().required("Location is required"),
+    }),
+    budget: Yup.string().required("Budget type is required"),
+    minBudget: Yup.number()
+        .required("Budget to is required")
+        .min(0, "Budget to must be greater than 0"),
+    maxBudget: Yup.number()
+        .when("budgetTypeRadio", {
+            is: "Variable",
+            then: Yup.number().when("budget_to", (budget_to, schema) => {
+                if (budget_to) {
+                    return schema
+                        .max(
+                            budget_to,
+                            "Budget from must be smaller than Budget to"
+                        )
+                        .nullable(true);
+                }
+                return Yup.number().required("Required field").nullable(true);
+            }),
+        })
+        .nullable(true),
+    date: Yup.date().nullable().required("Required field"),
 });

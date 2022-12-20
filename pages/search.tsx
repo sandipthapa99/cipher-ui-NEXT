@@ -38,7 +38,14 @@ const SearchPage: NextPage = () => {
         );
     return (
         <>
-            <Layout title="Search | Homaale">
+            <Layout
+                title="Search | Homaale"
+                description="Homaale is a platform designed to provide service booking solutions to the
+            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+             It covers a wide range of services from various industries like Accounting, Gardening,
+            Health, Beauty, and many more."
+                keywords="homaale, search, search-homaale, airtasker-nepali,nepali-working-platform, business, online-business"
+            >
                 <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage={"Search"} />
                     <section className="services-near-you">
@@ -87,7 +94,7 @@ const SearchPage: NextPage = () => {
                         {!fetchingService && !serviceData?.data?.result && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -123,7 +130,7 @@ const SearchPage: NextPage = () => {
                         {taskData && taskData?.data?.result?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -161,7 +168,7 @@ const SearchPage: NextPage = () => {
                             taskerData?.data?.result?.length <= 0 && (
                                 <Alert
                                     icon={<FontAwesomeIcon icon={faWarning} />}
-                                    title="No data Available!"
+                                    title="No data Available"
                                     color="orange"
                                     radius="md"
                                     sx={{ minWidth: 100 }}
@@ -193,12 +200,13 @@ const SearchPage: NextPage = () => {
                                                     merchantName={
                                                         merchant?.user
                                                             ?.first_name +
-                                                        " " +
-                                                        merchant?.user
-                                                            ?.middle_name +
-                                                        " " +
-                                                        merchant?.user
-                                                            ?.last_name
+                                                            " " +
+                                                            merchant?.user
+                                                                ?.middle_name ??
+                                                        "" +
+                                                            " " +
+                                                            merchant?.user
+                                                                ?.last_name
                                                     }
                                                     merchantCategory={
                                                         merchant?.designation

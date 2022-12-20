@@ -1,10 +1,17 @@
 import Image from "next/image";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import type { AllOffersProps } from "types/allOffersProps";
 
-import OfferCard from "./OfferCard";
+import { EmptyOffers } from "./EmptyOffers";
+import { OfferBasicCard } from "./OfferBasicCard";
+import OfferScrachCard from "./OfferScrachCard";
 
-export const AllOffers = () => {
+export const AllOffers = ({
+    allOffers,
+}: {
+    allOffers: AllOffersProps["result"];
+}) => {
     const data = [
         {
             url: "/offers/dress.png",
@@ -50,17 +57,18 @@ export const AllOffers = () => {
     ];
     return (
         <div className="alloffers">
-            <Row className="alloffers__container">
-                {data.map((item, index) => (
-                    <Col key={index} md={3} sm={12} xs={12} lg={3}>
-                        <OfferCard
-                            description={item.description}
-                            price={item.price}
-                            url={item.url}
-                        />
-                    </Col>
-                ))}
-            </Row>
+            {allOffers && allOffers?.length > 0 ? (
+                <Row className="alloffers__container">
+                    {allOffers?.map((item, index) => (
+                        <Col key={index} md={3} sm={12} xs={12} lg={3}>
+                            <OfferBasicCard offerBasic={item} />
+                        </Col>
+                    ))}
+                </Row>
+            ) : (
+                <EmptyOffers />
+            )}
+
             <div className="recommend">
                 <Row className="recommend__container mt-5">
                     {scratch.map((item, index) => (
@@ -80,7 +88,7 @@ export const AllOffers = () => {
             <Row className="alloffers__container mt-5">
                 {data.map((item, index) => (
                     <Col key={index} md={3} sm={12} xs={12} lg={3}>
-                        <OfferCard
+                        <OfferScrachCard
                             description={item.description}
                             price={item.price}
                             url={item.url}

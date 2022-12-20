@@ -32,7 +32,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                         (taskerDetail?.portfolio?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -119,7 +119,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                         (taskerDetail?.experience?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 className="mb-4"
@@ -190,7 +190,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                         (userSkills?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 className="mb-4"
@@ -222,7 +222,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                         (taskerDetail?.education?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 className="mb-4"
@@ -286,7 +286,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                         (taskerDetail?.certificates?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 className="mb-4"

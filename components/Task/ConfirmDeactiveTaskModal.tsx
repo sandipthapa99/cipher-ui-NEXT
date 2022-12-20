@@ -31,7 +31,13 @@ export const ConfirmDeactiveTaskModal = ({
         );
     };
     return (
-        <Modal title="Deactive task" onClose={onClose} {...rest}>
+        <Modal
+            title="Deactive task"
+            onClose={onClose}
+            {...rest}
+            overlayOpacity={0.55}
+            overlayBlur={3}
+        >
             <Highlight
                 highlightColor="red"
                 highlightStyles={() => ({

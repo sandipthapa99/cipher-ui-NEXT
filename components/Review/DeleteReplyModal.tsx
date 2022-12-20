@@ -31,11 +31,6 @@ const DeleteReplyModal = ({
         },
 
         onSubmit: (values: any) => {
-            console.log(
-                "🚀 ~ file: DeleteReplyModal.tsx ~ line 35 ~ newValues",
-                values
-            );
-
             replyMutation.mutate(values, {
                 onSuccess: () => {
                     toast.success("Replied successfully");

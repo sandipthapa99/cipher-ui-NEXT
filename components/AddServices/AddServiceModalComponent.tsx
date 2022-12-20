@@ -84,15 +84,16 @@ export const AddServiceModalComponent = () => {
 
     const createServiceLoading = createTaskLoading || uploadFileLoading;
 
-    const initialHighlights = safeParse({
-        rawString: taskDetail?.highlights ?? "",
-        initialData: [],
-    });
+    // const initialHighlights = safeParse({
+    //     rawString: taskDetail?.highlights ?? "",
+    //     initialData: [],
+    // });
+
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
-            highlights: initialHighlights,
+            highlights: [],
             city: "",
             location: "remote",
             budget_type: "Project",
@@ -108,7 +109,7 @@ export const AddServiceModalComponent = () => {
             // end_date: "",
             // start_time: "",
             // end_time: "",
-            currency: "114",
+            currency: "113",
             images: "",
             videos: "",
             is_active: true,
@@ -141,12 +142,11 @@ export const AddServiceModalComponent = () => {
 
             createTaskMutation(postTaskPayload, {
                 onSuccess: async (task) => {
-                    handleCloseModal();
                     action.resetForm();
                     toggleSuccessModal("Service successfully posted");
-                    // toast.success(message);
-                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
+
                     await queryClient.invalidateQueries(["notification"]);
+                    handleCloseModal();
                     router.push(`/service/${task.id}`);
                 },
                 onError: (error) => {
@@ -198,7 +198,7 @@ export const AddServiceModalComponent = () => {
                         placeholder="Enter your description"
                     />
                     <TaskRequirements
-                        initialRequirements={initialHighlights}
+                        // initialRequirements={initialHighlights}
                         onRequirementsChange={(requirements) =>
                             setFieldValue("highlights", requirements)
                         }
@@ -230,7 +230,7 @@ export const AddServiceModalComponent = () => {
                         error={getFieldError("service")}
                         value={
                             taskDetail
-                                ? taskDetail?.category?.id?.toString()
+                                ? taskDetail?.service.category?.id?.toString()
                                 : ""
                         }
                     />
@@ -246,12 +246,15 @@ export const AddServiceModalComponent = () => {
                     />
                     <Stack sx={{ maxWidth: "40rem" }}>
                         <Title order={6}>Images</Title>
-                        <Text color="dimmed" size="sm">
+                        {/* <Text color="dimmed" size="sm">
                             Including images helps you find best merchant for
                             your task.
-                        </Text>
+                        </Text> */}
                         <CustomDropZone
-                            accept={IMAGE_MIME_TYPE}
+                            // accept={IMAGE_MIME_TYPE}
+                            accept={{
+                                "image/*": [], // All images
+                            }}
                             fileType="image"
                             maxSize={5 * 1024 ** 2}
                             sx={{ maxWidth: "30rem" }}

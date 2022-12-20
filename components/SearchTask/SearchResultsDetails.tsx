@@ -10,6 +10,7 @@ import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
 import { EditService } from "@components/services/EditService";
+import Spoiler from "@components/Spoiler/Spoiler";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
@@ -24,7 +25,7 @@ import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { List, Text } from "@mantine/core";
-import { Alert, Spoiler } from "@mantine/core";
+import { Alert } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -95,12 +96,15 @@ const SearchResultsDetail = ({
         ["all-services"],
         urls.task.service
     );
+
     const parsedDescription = parse(serviceDescription ?? "");
-    console.log(
-        "🚀 ~ file: SearchResultsDetails.tsx ~ line 98 ~ parsedDescription",
-        parsedDescription,
-        serviceDescription
+
+    const haveDesc = serviceDescription ? serviceDescription?.length : 0;
+
+    const shortParseDescription = parse(
+        serviceDescription?.substring(0, 400) ?? ""
     );
+    const [seeMore, setSeeMore] = useState(false);
     const { data: myServicePackage } = useData<{
         result: Array<{
             id: number;
@@ -170,8 +174,9 @@ const SearchResultsDetail = ({
         }>;
     }>(
         ["tasker-count", serviceId],
-        `/task/entity/service/tasker-count/${serviceId}`
+        `/task/entity/service/tasker-count/${serviceId}/`
     );
+
     //
 
     const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
@@ -543,7 +548,8 @@ const SearchResultsDetail = ({
                             className="svg-icon svg-icon-calender"
                         />
                         {serviceCreated
-                            ? format(new Date(serviceCreated), "dd-MM-yyyy")
+                            ? //format(new Date(serviceCreated), "dd-MM-yyyy")
+                              format(new Date(serviceCreated), "PP")
                             : "N/A"}
                     </p>
                     <p>
@@ -573,14 +579,30 @@ const SearchResultsDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    {parsedDescription}
+                    {seeMore ? shortParseDescription : parsedDescription}{" "}
+                    {haveDesc > 0 ? (
+                        <span
+                            onClick={() => setSeeMore((prev) => !prev)}
+                            style={{
+                                cursor: "pointer",
+                                color: "#00b4d8",
+                                fontSize: "12px",
+                            }}
+                        >
+                            {haveDesc > 200
+                                ? serviceDescription && seeMore
+                                    ? "... show More "
+                                    : "... show less"
+                                : null}
+                        </span>
+                    ) : null}
                 </div>
 
                 <h3>Highlights</h3>
                 {!highlights && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="No data Available!"
+                        title="No data Available"
                         color="orange"
                         radius="md"
                         sx={{ minWidth: 100 }}
@@ -597,7 +619,10 @@ const SearchResultsDetail = ({
                 )}
                 {offers && offers.length > 0 ? (
                     <section className="service-details__offers">
-                        <h1>Available Offers</h1>
+                        {offers.find(
+                            (offer) => offer.offer_type === "basic"
+                        ) && <h1>Available Offers</h1>}
+
                         <List className="mb-5">
                             {offers
                                 .filter((offer) => offer.offer_type === "basic")
@@ -617,18 +642,21 @@ const SearchResultsDetail = ({
                                     </List.Item>
                                 ))}
                         </List>
-
-                        <h1>Offers(Promo Code)</h1>
+                        {offers.find(
+                            (offer) => offer.offer_type === "promo_code"
+                        ) && <h1>Offers(Promo Code)</h1>}
                         <Row>
                             {offers
                                 .filter(
                                     (offer) => offer.offer_type === "promo_code"
                                 )
-                                .map((offer) => (
-                                    <Col md={6} key={offer.id}>
-                                        <OfferCard offer={offer} />{" "}
-                                    </Col>
-                                ))}
+                                .map((offer) => {
+                                    return (
+                                        <Col md={6} key={offer.id}>
+                                            <OfferCard offer={offer} />{" "}
+                                        </Col>
+                                    );
+                                })}
                         </Row>
                     </section>
                 ) : null}
@@ -708,7 +736,7 @@ const SearchResultsDetail = ({
                                         title: `Applicants (${taskerCount?.data?.count[0].applicants_count})`,
 
                                         content: (
-                                            <Row>
+                                            <Row className="py-3">
                                                 <>
                                                     {renderBookedClients}
                                                     {myBookings ===
@@ -767,8 +795,8 @@ const SearchResultsDetail = ({
                         </Col>
                     ))
                 ) : (
-                    <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                        Sorry, You have no task data to show
+                    <Alert title="NO DATA AVAILABLE" color="orange">
+                        There are no reviews to show.
                     </Alert>
                 )}
                 <span className="td-divider"></span>
@@ -815,12 +843,11 @@ const SearchResultsDetail = ({
                         service?.created_by?.profile_image
                     }
                     tasker_name={
-                        service?.created_by &&
-                        service?.created_by?.first_name +
-                            " " +
-                            service?.created_by?.middle_name +
-                            " " +
-                            service?.created_by?.last_name
+                        (service?.created_by &&
+                            service?.created_by?.first_name +
+                                " " +
+                                service?.created_by?.middle_name) ??
+                        "" + " " + service?.created_by?.last_name
                     }
                     offer={service?.offers}
                     title={serviceTitle}

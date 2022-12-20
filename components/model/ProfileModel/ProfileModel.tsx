@@ -78,7 +78,9 @@ export const ProfileModel = () => {
                 <div>
                     <Text className={classes.username}>
                         {profileDetails
-                            ? `${profileDetails.user?.first_name} ${profileDetails.user?.middle_name} ${profileDetails.user?.last_name}`
+                            ? `${profileDetails.user?.first_name} ${
+                                  profileDetails.user?.middle_name ?? ""
+                              } ${profileDetails.user?.last_name}`
                             : "Hello User"}
                     </Text>
                     <Text className={classes.profileType}>
@@ -86,9 +88,13 @@ export const ProfileModel = () => {
                     </Text>
                 </div>
                 <Image
-                    src="/userprofile/badge.png"
-                    width={60}
-                    height={60}
+                    src={
+                        profileDetails?.badge?.image
+                            ? profileDetails?.badge?.image
+                            : "/userprofile/badge.png"
+                    }
+                    width={45}
+                    height={45}
                     alt="Badge"
                 />
             </div>

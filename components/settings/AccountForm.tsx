@@ -3,10 +3,8 @@ import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
-import TagMultiSelectField from "@components/common/MultiSelectField";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
-import TagInputField from "@components/common/TagInputField";
 import { ImageUpload } from "@components/ImageUpload";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
@@ -101,20 +99,26 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [show, setShow] = useState(false);
 
     //hooks call
-    // const defaultInterests = useMemo(
-    //     () =>
-    //         profileDetails?.interests.map((item) => ({
-    //             value: item.id,
-    //             label: item.name,
-    //         })),
-    //     [profileDetails]
-    // );
     const { mutate, isLoading: postProfileLoading } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
     const [interestOptions, setInterestOptions] = useState<any>([]);
+    const [profileData, setProfileData] = useState();
+    const { data: user } = useUser();
+
+    const { data } = useQuery(["profile", user?.id], async () => {
+        if (!user) return undefined;
+        try {
+            const { data } = await axiosClient.get("/tasker/profile/");
+        } catch (error) {
+            return undefined;
+        }
+    });
+    // useEffect(() => {
+    //     setProfileData(data);
+    // }, []);
     const { data: allCategory } = useQuery(
         ["all-category"],
         () => {
@@ -126,7 +130,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
             onSuccess: (data) => {
                 const options = data?.data.map((item) => {
                     return {
-                        value: item.id,
+                        value: item.id.toString(),
                         label: item.name.toString(),
                     };
                 });
@@ -144,7 +148,21 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
 
-    const skills = profile?.skill ? JSON.parse(profile?.skill) : "";
+    const skills = profile?.skill ? JSON.parse(profile?.skill) : [];
+    const skillsOptions = skills?.map((item: string) => {
+        return {
+            label: item,
+            value: item,
+        };
+    });
+    const [dataSkills, setDataSkills] = useState(() => {
+        return skills?.map((item: string) => {
+            return {
+                label: item,
+                value: item,
+            };
+        });
+    });
 
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
@@ -215,14 +233,16 @@ const AccountForm = ({ showAccountForm }: Display) => {
     // );
 
     const [currencyChange, setCurrencyChange] = useState<string | null>(
-        profile ? profile.charge_currency.code : ""
+        profile ? profile?.charge_currency?.code : ""
     );
     useEffect(() => {
-        setCurrencyChange(profile ? profile.charge_currency.id.toString() : "");
-        setLanguageChange(
-            profile?.language ? profile?.language.id.toString() : ""
+        setCurrencyChange(
+            profile ? profile.charge_currency?.code?.toString() : "NPR"
         );
-        setCountryChange(profile ? profile.country.id.toString() : "");
+        setLanguageChange(
+            profile?.language ? profile?.language?.code?.toString() : "ne"
+        );
+        setCountryChange(profile ? profile.country?.code?.toString() : "");
     }, [profile]);
 
     const [showEditForm, setShowEditForm] = useState(false);
@@ -231,8 +251,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
         ? currency.result.map((result) => {
               return {
                   label: result?.code,
-                  value: result.id.toString(),
-                  id: result?.id,
+                  value: result.code.toString(),
               };
           })
         : ([] as SelectItem[]);
@@ -240,16 +259,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const languageResults: SelectItem[] = language
         ? language.result.map((result) => ({
               label: result?.name,
-              value: result?.id.toString(),
-              id: result?.id,
+              value: result?.code.toString(),
           }))
         : ([] as SelectItem[]);
 
     const countryResults: SelectItem[] = countryName
         ? countryName.result.map((result) => ({
               label: result?.name,
-              value: result?.id.toString(),
-              id: result?.id,
+              value: result?.code.toString(),
           }))
         : ([] as SelectItem[]);
 
@@ -268,29 +285,29 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     //handle country change
     const handleCountryChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setCountryChange(id);
-        if (id) setFieldValue("country", parseInt(id));
+        setCountryChange(code);
+        if (code) setFieldValue("country", code);
     };
 
     //handle language change
     const handleLanguageChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setLanguageChange(id);
-        if (id) setFieldValue("language", parseInt(id));
+        setLanguageChange(code);
+        if (code) setFieldValue("language", code);
     };
 
     //handle currency change
     const handleCurrencyChanged = (
-        id: string | null,
+        code: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        setCurrencyChange(id);
-        if (id) setFieldValue("charge_currency", parseInt(id));
+        setCurrencyChange(code);
+        if (code) setFieldValue("charge_currency", code);
     };
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
@@ -337,22 +354,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
         () => editProfile.isLoading,
         [editProfile.isLoading]
     );
-    // const defaultInterests: unknown = useMemo(() => {
-    //     return profile?.interests.map((item: any) => ({
-    //         label: item.name,
-    //         value: item.id,
-    //     }));
-    // }, [profile]);
-    // const defaultInterests: unknown = () => {
-    //     return profile?.interests.map((item: any) => ({
-    //         id: item.id,
-    //     }));
-    // };
-
-    // console.log(
-    //     "🚀 ~ file: AccountForm.tsx ~ line 322 ~ defaultInterests ~ defaultInterests",
-    //     defaultInterests
-    // );
 
     if (loadingOverlayVisible)
         return (
@@ -385,12 +386,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     // const interests =
     //     typeof interestValues !== "undefined" ? interestValues : [];
-
-    const currentInterests =
-        profile &&
-        profile?.interests.map((item: { id: number; name: string }) => {
-            return item.id.toString();
-        });
+    const defaultInterests = profile?.interests?.map((item) =>
+        item.id.toString()
+    );
 
     return (
         <>
@@ -415,78 +413,84 @@ const AccountForm = ({ showAccountForm }: Display) => {
                 }
             >
                 <Formik
-                    initialValues={{
-                        first_name: profile?.user.first_name ?? "",
-                        middle_name: profile?.user.middle_name ?? "",
-                        last_name: profile?.user.last_name ?? "",
-                        city: profile?.city?.id ?? "",
-                        email: "",
-                        bio: profile?.bio ?? "",
-                        gender: profile?.gender ?? "",
-                        date_of_birth:
-                            profile && profile.date_of_birth
-                                ? parseISO(profile.date_of_birth)
-                                : "",
-                        skill: skills,
-                        interests: profile ? currentInterests : [],
-                        experience_level: profile?.experience_level ?? "",
-                        active_hour_start:
-                            new Date(`2022-09-24 ${startTime}`) ?? "",
-                        active_hour_end:
-                            new Date(`2022-09-24 ${endTime}`) ?? "",
-                        hourly_rate: profile?.hourly_rate ?? "",
-                        user_type: userType ?? "",
-                        country: profile ? countryChange : "",
-                        education: "abc",
-                        address_line1: profile?.address_line1 ?? "",
-                        address_line2: profile?.address_line2 ?? "",
-                        language: profile ? languageChange : "",
-                        charge_currency: profile ? currencyChange : "",
-                        profile_visibility: profile?.profile_visibility ?? "",
-                        task_preferences: profile?.task_preferences ?? "",
-                        profile_image: profile?.profile_image ?? "",
-                        designation: profile?.designation ?? "",
-                    }}
+                    initialValues={
+                        {
+                            first_name: profile?.user.first_name ?? "",
+                            middle_name: profile?.user.middle_name ?? "",
+                            last_name: profile?.user.last_name ?? "",
+                            city: profile?.city?.id ?? parseInt(""),
+                            email: "",
+                            bio: profile?.bio ?? "",
+                            gender: profile?.gender ?? "",
+                            date_of_birth:
+                                profile && profile.date_of_birth
+                                    ? parseISO(profile.date_of_birth)
+                                    : "",
+                            skill: skills,
+                            interests: profile ? defaultInterests : [""],
+                            experience_level: profile?.experience_level ?? "",
+                            active_hour_start:
+                                new Date(`2022-09-24 ${startTime}`) ?? "",
+                            active_hour_end:
+                                new Date(`2022-09-24 ${endTime}`) ?? "",
+                            hourly_rate: profile?.hourly_rate ?? "",
+                            user_type: userType ?? "",
+                            country: profile ? countryChange : "",
+                            address_line1: profile?.address_line1 ?? "",
+                            address_line2: profile?.address_line2 ?? "",
+                            language: profile ? languageChange : "ne",
+                            charge_currency: profile ? currencyChange : "NPR",
+                            profile_visibility:
+                                profile?.profile_visibility ?? "",
+                            task_preferences: profile?.task_preferences ?? "",
+                            profile_image: profile?.profile_image ?? "",
+                            designation: profile?.designation ?? "",
+                        }
+                        // profile
+                        //     ? {
+                        //           first_name: profile?.user.first_name ?? "",
+                        //           middle_name: profile?.user.middle_name ?? "",
+                        //           last_name: profile?.user.last_name ?? "",
+                        //           city: profile?.city?.id ?? "",
+                        //           email: "",
+                        //           bio: profile?.bio ?? "",
+                        //           gender: profile?.gender ?? "",
+                        //           date_of_birth:
+                        //               profile && profile.date_of_birth
+                        //                   ? parseISO(profile.date_of_birth)
+                        //                   : "",
+                        //           skill: skills,
+                        //           interests: defaultInterests,
+                        //           experience_level:
+                        //               profile?.experience_level ?? "",
+                        //           active_hour_start:
+                        //               new Date(`2022-09-24 ${startTime}`) ?? "",
+                        //           active_hour_end:
+                        //               new Date(`2022-09-24 ${endTime}`) ?? "",
+                        //           hourly_rate: profile?.hourly_rate ?? "",
+                        //           user_type: userType ?? "",
+                        //           country: profile ? countryChange : "",
+                        //           address_line1: profile?.address_line1 ?? "",
+                        //           address_line2: profile?.address_line2 ?? "",
+                        //           language: profile ? languageChange : "",
+                        //           charge_currency: profile
+                        //               ? currencyChange
+                        //               : "",
+                        //           profile_visibility:
+                        //               profile?.profile_visibility ?? "",
+                        //           task_preferences:
+                        //               profile?.task_preferences ?? "",
+                        //           profile_image: profile?.profile_image ?? "",
+                        //           designation: profile?.designation ?? "",
+                        //       }
+                        //     : AccountFormData
+                    }
                     validationSchema={accountFormSchema}
                     enableReinitialize={true}
                     onSubmit={async (values) => {
                         const formData = new FormData();
-                        {
-                            userData?.id &&
-                                (await setDoc(doc(db, "users", userData?.id), {
-                                    name: `${values.first_name} ${values.middle_name} ${values.last_name}`,
-                                    email: values.email,
-                                    profile: values.profile_image,
-                                    uuid: userData?.id,
-                                }));
-                        }
 
                         {
-                            const res = await getDoc(
-                                doc(
-                                    db,
-                                    "userChats",
-                                    userData?.id ? userData?.id : ""
-                                )
-                            );
-
-                            {
-                                const res = await getDoc(
-                                    doc(
-                                        db,
-                                        "userChats",
-                                        userData?.id ? userData?.id : ""
-                                    )
-                                );
-
-                                !res.exists() &&
-                                    userData?.id &&
-                                    (await setDoc(
-                                        doc(db, "userChats", userData?.id),
-                                        {}
-                                    ));
-                            }
-
                             const newValidatedValues = {
                                 ...values,
                                 user_type: JSON.stringify(values.user_type),
@@ -502,6 +506,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     new Date(values.date_of_birth),
                                     "yyyy-MM-dd"
                                 ),
+                                city: values.city,
                             };
 
                             // newValidatedValues.interests?.forEach((val: number) =>
@@ -518,34 +523,109 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     ) {
                                         return false;
                                     }
-                                    if (
-                                        key !== "profile_image" &&
-                                        key !== "interests"
-                                    ) {
+                                    // if (
+                                    //     key !== "profile_image" &&
+                                    //     key !== "interests"
+                                    // ) {
+                                    //     formData.append(
+                                    //         key,
+                                    //         value ? value : ""
+                                    //     );
+                                    if (key !== "profile_image") {
                                         formData.append(
                                             key,
-                                            value ? value : ""
+                                            value ? value?.toString() : ""
                                         );
                                     } else {
                                         formData.append(
                                             "profile_image",
-                                            values.profile_image
+                                            values?.profile_image
                                         );
                                     }
-                                    // formData.delete("interests");
+
+                                    //DO not change
+                                    formData.delete("interests");
                                 }
                             );
 
-                            values?.interests?.forEach((val: string | Blob) => {
-                                formData.append("interests", val);
+                            values?.interests?.forEach((value: any) => {
+                                formData.append("interests", value);
                             });
 
-                            // const editedData = formData;
+                            //         const editedData = formData;
 
                             {
                                 isEditButtonClicked
                                     ? editProfile.mutate(formData, {
-                                          onSuccess: () => {
+                                          onSuccess: async () => {
+                                              {
+                                                  userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "users",
+                                                              userData?.id
+                                                          ),
+                                                          {
+                                                              name: `${
+                                                                  values.first_name
+                                                                      ? values.first_name
+                                                                      : profile
+                                                                            ?.user
+                                                                            .first_name
+                                                              } ${
+                                                                  values.middle_name
+                                                                      ? values.middle_name
+                                                                      : profile
+                                                                            ?.user
+                                                                            .middle_name
+                                                              } ${
+                                                                  values.last_name
+                                                                      ? values.last_name
+                                                                      : profile
+                                                                            ?.user
+                                                                            .last_name
+                                                              }`,
+                                                              email: values.email
+                                                                  ? values.email
+                                                                  : profile
+                                                                        ?.user
+                                                                        .email,
+                                                              profile: profile
+                                                                  ?.user
+                                                                  .profile_image
+                                                                  ? profile
+                                                                        ?.user
+                                                                        .profile_image
+                                                                  : profile
+                                                                        ?.avatar
+                                                                        ?.image,
+                                                              uuid: userData?.id,
+                                                          }
+                                                      ));
+                                              }
+                                              {
+                                                  const res = await getDoc(
+                                                      doc(
+                                                          db,
+                                                          "userChats",
+                                                          userData?.id
+                                                              ? userData?.id
+                                                              : ""
+                                                      )
+                                                  );
+
+                                                  !res.exists() &&
+                                                      userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "userChats",
+                                                              userData?.id
+                                                          ),
+                                                          {}
+                                                      ));
+                                              }
                                               toast.success(
                                                   "Profile updated successfully."
                                               );
@@ -561,7 +641,52 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                           },
                                       })
                                     : mutate(formData, {
-                                          onSuccess: () => {
+                                          onSuccess: async () => {
+                                              {
+                                                  userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "users",
+                                                              userData?.id
+                                                          ),
+                                                          {
+                                                              name: `${
+                                                                  values.first_name
+                                                              } ${
+                                                                  values.middle_name ??
+                                                                  ""
+                                                              } ${
+                                                                  values.last_name
+                                                              }`,
+                                                              email: values.email,
+                                                              profile: "",
+                                                              uuid: userData?.id,
+                                                          }
+                                                      ));
+                                              }
+                                              {
+                                                  const res = await getDoc(
+                                                      doc(
+                                                          db,
+                                                          "userChats",
+                                                          userData?.id
+                                                              ? userData?.id
+                                                              : ""
+                                                      )
+                                                  );
+
+                                                  !res.exists() &&
+                                                      userData?.id &&
+                                                      (await setDoc(
+                                                          doc(
+                                                              db,
+                                                              "userChats",
+                                                              userData?.id
+                                                          ),
+                                                          {}
+                                                      ));
+                                              }
                                               setShow(true);
                                               queryClient.invalidateQueries([
                                                   "profile",
@@ -585,7 +710,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                            {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -931,22 +1056,54 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     Tasker
                                 </label>
                             </div>
-                            <TagInputField
-                                data={skills}
+
+                            {/* <TagInputField
+                                data={skillsOptions}
                                 name="skill"
                                 labelName="Specialities"
                                 placeHolder="Enter your skills"
                                 disabled={isInputDisabled}
-                                create={true}
+                                value={values?.skill}
+
                                 //error={errors.skill}
+                            /> */}
+                            <MultiSelect
+                                label="Skills"
+                                data={dataSkills}
+                                placeholder="Select Skills"
+                                searchable
+                                name="skill"
+                                creatable
+                                getCreateLabel={(query) => `+ Create ${query}`}
+                                onChange={(value) => {
+                                    setFieldValue("skill", value);
+                                }}
+                                value={profile && values?.skill}
+                                onCreate={(query) => {
+                                    const item = { label: query, value: query };
+                                    setDataSkills((current: any) => [
+                                        ...current,
+                                        item,
+                                    ]);
+
+                                    const newValue = dataSkills?.map(
+                                        (item: any) => item.value
+                                    );
+
+                                    setFieldValue("skill", newValue);
+
+                                    return item;
+                                }}
+                                disabled={isInputDisabled}
                             />
+
                             {/* <TagMultiSelectField
-                                defaultValue={defaultInterests as string}
+                                defaultValue={currentInterests}
                                 name="interests"
                                 labelName="Interests"
                                 placeHolder="Enter your Interests"
                                 disabled={isInputDisabled}
-                                data={interestValues}
+                                data={interestOptions}
                             /> */}
                             {/* <TagInputField
                                 data={interestValues}
@@ -964,10 +1121,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 onChange={(value) => {
                                     setFieldValue("interests", value);
                                 }}
+                                value={values?.interests}
                                 label="Interests"
                                 disabled={isInputDisabled}
                                 placeholder="Enter your interests"
-                                error={errors.interests}
                             />
                             <RadioField
                                 type="radio"
@@ -1020,15 +1177,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 </Col>
                             </Row>
                             <h3>Address</h3>
-                            {/* <SelectInputField
-                                name="country"
-                                labelName="Country"
-                                touch={touched.country}
-                                error={errors.country}
-                                placeHolder="Select your country"
-                                options={countryResults}
-                               
-                            /> */}
+
                             <Select
                                 label="Country"
                                 placeholder="Select your country"
@@ -1126,15 +1275,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 data={languageResults ?? []}
                                 error={errors.language}
                             />
-                            {/* <SelectInputField
-                                name="charge_currency"
-                                labelName="Currency"
-                                touch={touched.charge_currency}
-                                error={errors.charge_currency}
-                                placeHolder="Select your currency"
-                                options={currencyResults}
-                               
-                            /> */}
                             <Select
                                 label="Currency"
                                 placeholder="Select your currency"
@@ -1143,10 +1283,11 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 nothingFound="No result found."
                                 disabled={isInputDisabled}
                                 value={currencyChange}
+                                defaultValue="NPR"
                                 key={currencyChange}
                                 //value={currencyChange}
                                 onChange={(value) => {
-                                    setCurrencyChange(value ? value : "");
+                                    setCurrencyChange(value ? value : "NPR");
                                     handleCurrencyChanged(value, setFieldValue);
                                 }}
                                 data={currencyResults ?? []}

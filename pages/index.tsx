@@ -26,6 +26,7 @@ import { Alert } from "@mantine/core";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import localforage from "localforage";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -214,7 +215,7 @@ const Home: NextPage<{
                         ) : (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -442,7 +443,7 @@ const Home: NextPage<{
                         (heroCategoryData?.result.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
@@ -531,7 +532,7 @@ const Home: NextPage<{
                             <h2 className="heading-title">Top Taskers</h2>
                             {topTaskerData?.result &&
                                 topTaskerData?.result?.length > 0 && (
-                                    <Link href="/service">
+                                    <Link href="/tasker">
                                         <a className="view-more">
                                             view more{" "}
                                             <FontAwesomeIcon
@@ -546,7 +547,7 @@ const Home: NextPage<{
                             topTaskerData?.result?.length <= 0 && (
                                 <Alert
                                     icon={<FontAwesomeIcon icon={faWarning} />}
-                                    title="No data Available!"
+                                    title="No data Available"
                                     color="orange"
                                     radius="md"
                                     sx={{ minWidth: 100 }}
@@ -714,7 +715,7 @@ const Home: NextPage<{
                     {topCategoryData?.length <= 0 && (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
+                            title="No data Available"
                             color="orange"
                             radius="md"
                             sx={{ minWidth: 100 }}
@@ -890,7 +891,7 @@ const Home: NextPage<{
                         {topCategoryData?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
+                                title="No data Available"
                                 color="orange"
                                 radius="md"
                                 sx={{ minWidth: 100 }}

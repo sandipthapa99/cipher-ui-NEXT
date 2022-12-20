@@ -10,6 +10,11 @@ import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoadingOverlay, Radio } from "@mantine/core";
 import {
     Anchor,
@@ -21,15 +26,18 @@ import {
     TextInput,
     Title,
 } from "@mantine/core";
+import { DatePicker, TimeInput } from "@mantine/dates";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import RichTextEditor from "@mantine/rte";
 import { useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
 import { useFormik } from "formik";
 import { useEditTask } from "hooks/task/use-edit-task";
 import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useEditTaskDetail } from "store/use-edit-task";
 import {
     usePostTaskModalType,
@@ -83,6 +91,10 @@ export const PostTaskModal = () => {
 
     const taskDetail =
         showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
+    console.log(
+        "🚀 ~ file: PostTaskModal.tsx:87 ~ PostTaskModal ~ taskDetail",
+        taskDetail
+    );
 
     const [termsAccepted, setTermsAccepted] = useState(true);
 
@@ -113,15 +125,16 @@ export const PostTaskModal = () => {
         setInitialVideoIds(getInitialVideoIds());
     }, [getInitialVideoIds]);
 
-    const initialHighlights = safeParse<string[]>({
-        rawString: taskDetail?.highlights ?? "[]",
-        initialData: [],
-    });
+    // const initialHighlights = safeParse<string[]>({
+    //     rawString: taskDetail?.highlights ?? "[]",
+    //     initialData: [],
+    // });
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
-            highlights: taskDetail ? initialHighlights : [],
+            //   highlights: taskDetail ? initialHighlights : [],
+            highlights: [],
             city: taskDetail ? String(taskDetail?.city?.id) : "",
             location: taskDetail ? (taskDetail.location as TaskType) : "remote",
             budget_type: "Project",
@@ -133,11 +146,11 @@ export const PostTaskModal = () => {
             is_recursion: false,
             is_requested: true,
             is_everyday: false,
-            start_date: "2022-12-01",
-            end_date: "2023-01-04",
-            start_time: "01:00",
-            end_time: "03:00",
-            currency: taskDetail ? String(taskDetail?.currency?.id) : "113",
+            start_date: "",
+            end_date: "",
+            start_time: "",
+            end_time: "",
+            currency: taskDetail ? String(taskDetail?.currency?.code) : "NPR",
             images: "",
             videos: "",
             is_active: true,
@@ -198,19 +211,19 @@ export const PostTaskModal = () => {
                 );
                 return;
             }
-            createTaskMutation(updatedPayload, {
-                onSuccess: async () => {
-                    handleCloseModal();
-                    action.resetForm();
-                    toggleSuccessModal("Task Posted Successfully");
-                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
-                    await queryClient.invalidateQueries(["notification"]);
-                    await queryClient.invalidateQueries(["my-task"]);
-                },
-                onError: (error) => {
-                    toast.error(error.message);
-                },
-            });
+            // createTaskMutation(updatedPayload, {
+            //     onSuccess: async () => {
+            //         handleCloseModal();
+            //         action.resetForm();
+            //         toggleSuccessModal("Task Posted Successfully");
+            //         await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
+            //         await queryClient.invalidateQueries(["notification"]);
+            //         await queryClient.invalidateQueries(["my-task"]);
+            //     },
+            //     onError: (error) => {
+            //         toast.error(error.message);
+            //     },
+            // });
         },
     });
 
@@ -238,14 +251,17 @@ export const PostTaskModal = () => {
                 visible={isCreateTaskLoading}
                 sx={{ position: "fixed", inset: 0 }}
             />
+
             <Modal
                 opened={!isCreateTaskLoading && showPostTaskModal}
                 onClose={handleCloseModal}
                 closeOnClickOutside={false}
-                overlayColor="rgba(0, 0, 0, 0.25)"
+                overlayOpacity={0.55}
+                overlayBlur={3}
                 title="Post a Task or Service"
                 size="xl"
             >
+                {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
                 {showPostTaskModalType === "CREATE" && (
                     <div className="choose-email-or-phone mb-5">
                         <Radio.Group
@@ -289,6 +305,101 @@ export const PostTaskModal = () => {
                                 labelName="Requirements"
                                 description="This helps the tasker understand about your task better"
                             />
+                            <Row>
+                                <Col md={6}>
+                                    <DatePicker
+                                        placeholder="Start date"
+                                        label="Start date"
+                                        withAsterisk
+                                        minDate={new Date()}
+                                        {...getFieldProps("start_date")}
+                                        error={getFieldError("start_date")}
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "start_date",
+                                                    format(
+                                                        new Date(event),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                        icon={
+                                            <FontAwesomeIcon
+                                                icon={faCalendarDays}
+                                                className="svg-icons"
+                                            />
+                                        }
+                                    />
+                                </Col>
+
+                                <Col md={6}>
+                                    <DatePicker
+                                        placeholder="End date"
+                                        label="End date"
+                                        // name="end_date"
+                                        withAsterisk
+                                        {...getFieldProps("end_date")}
+                                        error={getFieldError("end_date")}
+                                        minDate={new Date()}
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "end_date",
+                                                    format(
+                                                        new Date(event),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                        icon={
+                                            <FontAwesomeIcon
+                                                icon={faCalendarDays}
+                                                className="svg-icons"
+                                            />
+                                        }
+                                    />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={3}>
+                                    <TimeInput
+                                        label="Start time"
+                                        format="12"
+                                        defaultValue={new Date()}
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "start_time",
+                                                    format(
+                                                        new Date(event),
+                                                        "hh:mm aa"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </Col>
+                                <Col md={3}>
+                                    <TimeInput
+                                        label="End time"
+                                        format="12"
+                                        onChange={(event) => {
+                                            if (event !== null) {
+                                                setFieldValue(
+                                                    "end_time",
+                                                    format(
+                                                        new Date(event),
+                                                        "hh:mm aa"
+                                                    )
+                                                );
+                                            }
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
 
                             <SelectCity
                                 onCitySelect={(cityId) =>
@@ -331,17 +442,16 @@ export const PostTaskModal = () => {
                             <TaskCurrency
                                 value={
                                     taskDetail
-                                        ? taskDetail?.currency?.id?.toString()
+                                        ? taskDetail?.currency?.code?.toString()
                                         : ""
                                 }
                                 data={
                                     taskDetail?.currency
                                         ? [
                                               {
-                                                  id: taskDetail?.currency?.id,
                                                   label: taskDetail?.currency
                                                       ?.name,
-                                                  value: taskDetail?.currency?.id.toString(),
+                                                  value: taskDetail?.currency?.code.toString(),
                                               },
                                           ]
                                         : []
@@ -368,7 +478,10 @@ export const PostTaskModal = () => {
                                     merchant for your task.
                                 </Text>
                                 <CustomDropZone
-                                    accept={IMAGE_MIME_TYPE}
+                                    //  accept={IMAGE_MIME_TYPE}
+                                    accept={{
+                                        "image/*": [], // All images
+                                    }}
                                     uploadedFiles={taskDetail?.images ?? []}
                                     fileType="image"
                                     sx={{ maxWidth: "30rem" }}

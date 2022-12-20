@@ -22,6 +22,7 @@ import {
     Title,
 } from "@mantine/core";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { useEditService } from "hooks/service/use-edit-service";
 import { useUploadFile } from "hooks/use-upload-file";
@@ -30,6 +31,7 @@ import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import { ReactQueryKeys } from "types/queryKeys";
 import type { ServicesValueProps } from "types/serviceCard";
 import { safeParse } from "utils/safeParse";
 import { toast } from "utils/toast";
@@ -43,7 +45,7 @@ interface EditServiceProps {
 export interface EditServicePayload {
     title: string;
     description: string;
-    highlights: string[];
+    highlights: any;
     service: string;
     city: string;
     location: TaskType;
@@ -75,6 +77,7 @@ export const EditService = ({
         () => (serviceDetail?.images ?? []).map((image) => image.id),
         [serviceDetail?.images]
     );
+
     const getInitialVideoIds = useCallback(
         () => (serviceDetail?.videos ?? []).map((video) => video.id),
         [serviceDetail?.videos]
@@ -101,10 +104,15 @@ export const EditService = ({
 
     const loading = editServiceLoading || uploadFileLoading;
 
-    const initialHighlights = safeParse<string[]>({
-        rawString: serviceDetail?.highlights ?? "",
-        initialData: [],
-    });
+    // const initialHighlights = safeParse<string[]>({
+    //     rawString: serviceDetail?.highlights ?? [],
+    //     initialData: [],
+    // });
+    const initialHighlights = serviceDetail?.highlights
+        ? serviceDetail?.highlights
+        : [];
+
+    const queryClient = useQueryClient();
 
     const formik = useFormik<EditServicePayload>({
         initialValues: {
@@ -158,9 +166,13 @@ export const EditService = ({
                 { id: serviceDetail?.id, data: editServicePayload },
                 {
                     onSuccess: async () => {
-                        handleClose();
-                        action.resetForm();
                         toggleSuccessModal("Successfully edited service");
+                        await queryClient.invalidateQueries([
+                            ReactQueryKeys.SERVICE_DETAIL,
+                            serviceDetail?.id,
+                        ]);
+                        await queryClient.invalidateQueries(["services", ""]);
+                        handleClose();
                     },
                     onError: (error: any) => {
                         toast.error(error.message);
@@ -191,6 +203,8 @@ export const EditService = ({
             <Modal
                 opened={showEditModal}
                 onClose={handleClose}
+                overlayOpacity={0.55}
+                overlayBlur={3}
                 title="Edit Service"
                 size="xl"
             >
@@ -299,7 +313,10 @@ export const EditService = ({
                                 for your task.
                             </Text>
                             <CustomDropZone
-                                accept={IMAGE_MIME_TYPE}
+                                //     accept={IMAGE_MIME_TYPE}
+                                accept={{
+                                    "image/*": [], // All images
+                                }}
                                 uploadedFiles={serviceDetail?.images ?? []}
                                 fileType="image"
                                 sx={{ maxWidth: "30rem" }}

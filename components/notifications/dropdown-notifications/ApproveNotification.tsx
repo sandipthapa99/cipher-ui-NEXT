@@ -169,7 +169,7 @@ export const ApproveNotification = ({
         ["booking", bookingId],
         async () => {
             const response = await axiosClient.get(
-                `/task/entity/service-booking/${bookingId}`
+                `/task/entity/service-booking/${bookingId}/`
             );
             return response.data;
         }

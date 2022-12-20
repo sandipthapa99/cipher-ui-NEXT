@@ -128,11 +128,6 @@ export const ReportRevisionForm = ({
                 opened={show}
                 onClose={handleClose}
                 size="xl"
-                overlayColor={
-                    theme.colorScheme === "dark"
-                        ? theme.colors.dark[9]
-                        : theme.colors.gray[2]
-                }
                 overlayOpacity={0.55}
                 overlayBlur={3}
             >
@@ -248,14 +243,17 @@ export const ReportRevisionForm = ({
                                     />
 
                                     <Row className="mb-5">
-                                        <Col md={4}>
+                                        <Col md={5}>
                                             <p className="m-1 report-image-label">
                                                 Images
                                             </p>
                                             <CustomDropZone
                                                 name={"attachment"}
                                                 fileType="image"
-                                                accept={IMAGE_MIME_TYPE}
+                                                //  accept={IMAGE_MIME_TYPE}
+                                                accept={{
+                                                    "image/*": [], // All images
+                                                }}
                                                 onDrop={(images) =>
                                                     setFieldValue(
                                                         "attachment",

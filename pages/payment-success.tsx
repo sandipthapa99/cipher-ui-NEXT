@@ -32,7 +32,6 @@ export type CompleteOrderPayload = PaymentPayload;
 
 const PaymentSuccess = () => {
     const router = useRouter();
-    const { classes } = useStyles();
 
     const [showSuccess, setShowSuccess] = useState(false);
     const [orderAlreadyProcessed, setOrderAlreadyProcessed] = useState(false);
@@ -99,144 +98,88 @@ const PaymentSuccess = () => {
 
     return (
         <>
-            <Layout title="Payment Verification | Homaale">
+            <Layout
+                title="Payment Verification | Homaale"
+                description="Homaale is a platform designed to provide service booking solutions to the
+            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+             It covers a wide range of services from various industries like Accounting, Gardening,
+            Health, Beauty, and many more."
+                keywords="homaale, airtasker-nepali,nepali-working-platform, homaale-payment, ecommerce, homaale-feeback, business, online-business"
+            >
                 <Container fluid="xl" className="px-4">
                     {isLoading || !showSuccess ? (
                         <PaymentSuccessSkeleton />
                     ) : (
-                        <div className={classes.wrapper}>
-                            {orderAlreadyProcessed ? (
-                                <Box
-                                    sx={{
-                                        width: "100%",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Alert
-                                        icon={
-                                            <FontAwesomeIcon
-                                                icon={faWarning}
-                                                className="svg-icon me-0"
-                                            />
-                                        }
-                                        color="yellow"
-                                        title="Payment already processed"
+                        <>
+                            <div>
+                                {orderAlreadyProcessed ? (
+                                    <Box
+                                        sx={{
+                                            width: "100%",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                        }}
                                     >
-                                        Your payment has already been processed.
-                                    </Alert>
-                                </Box>
-                            ) : (
-                                <>
-                                    <div className={classes.body}>
-                                        <Title
-                                            sx={{ color: "green" }}
-                                            className={classes.title}
+                                        <Alert
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faWarning}
+                                                    className="svg-icon me-0"
+                                                />
+                                            }
+                                            color="yellow"
+                                            title="Payment already processed"
                                         >
-                                            Payment Successful !
-                                        </Title>
-                                        <Text
-                                            sx={{
-                                                maxWidth: "45rem",
-                                                lineHeight: "2.5rem",
-                                            }}
-                                            size="md"
-                                            color="dimmed"
+                                            Your payment has already been
+                                            processed.
+                                        </Alert>
+                                    </Box>
+                                ) : (
+                                    <div
+                                        className="d-flex align-items-center justify-content-center flex-column"
+                                        style={{
+                                            backgroundColor: "#Fff",
+                                            borderRadius: "0.4rem",
+                                            margin: "3.2rem",
+                                            padding: "3.2rem",
+                                        }}
+                                    >
+                                        <Image
+                                            src="/payment_success.svg"
+                                            width={400}
+                                            height={400}
+                                            alt="payment success screen"
+                                        />
+                                        <h1>Payment Successful</h1>
+                                        <p className="mb-0">
+                                            Thank you for your payment.
+                                        </p>
+                                        <p>
+                                            You can checkout invoice in next
+                                            step.
+                                        </p>
+                                        <Button
+                                            color="yellow"
+                                            onClick={navigateToDashboard}
+                                            leftIcon={
+                                                <FontAwesomeIcon
+                                                    className="svg-icon me-0"
+                                                    icon={faDashboard}
+                                                />
+                                            }
                                         >
-                                            Thank you for your payment. Your
-                                            payment has been successfully
-                                            processed and a receipt for your
-                                            purchase has been emailed to you.You
-                                            can visit your dashboard to view
-                                            your orders.
-                                        </Text>
-                                        <div className={classes.controls}>
-                                            <Button
-                                                color="yellow"
-                                                onClick={navigateToDashboard}
-                                                leftIcon={
-                                                    <FontAwesomeIcon
-                                                        className="svg-icon me-0"
-                                                        icon={faDashboard}
-                                                    />
-                                                }
-                                            >
-                                                Go to Dashboard
-                                            </Button>
-                                        </div>
+                                            Go to Dashboard
+                                        </Button>
                                     </div>
-                                    <Image
-                                        src="/payment_success.svg"
-                                        width={400}
-                                        height={400}
-                                        alt="payment success screen"
-                                        className={classes.image}
-                                    />
-                                </>
-                            )}
-                        </div>
+                                )}
+                            </div>
+                        </>
                     )}
                 </Container>
             </Layout>
         </>
     );
 };
-const useStyles = createStyles((theme) => ({
-    wrapper: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBlock: theme.spacing.xl,
-        padding: theme.spacing.xl * 2,
-        borderRadius: theme.radius.md,
-        backgroundColor:
-            theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
-        border: `1px solid ${
-            theme.colorScheme === "dark"
-                ? theme.colors.dark[8]
-                : theme.colors.gray[3]
-        }`,
-
-        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-            flexDirection: "column-reverse",
-            padding: theme.spacing.xl,
-        },
-    },
-    image: {
-        maxWidth: "40%",
-
-        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-            maxWidth: "100%",
-        },
-    },
-    body: {
-        paddingRight: theme.spacing.xl * 4,
-
-        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-            paddingRight: 0,
-            marginTop: theme.spacing.xl,
-        },
-    },
-    title: {
-        color: theme.colorScheme === "dark" ? theme.colors.green : theme.black,
-        fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-        lineHeight: 1,
-        marginBottom: theme.spacing.md,
-    },
-    controls: {
-        display: "flex",
-        marginTop: theme.spacing.xl,
-    },
-    inputWrapper: {
-        width: "100%",
-        flex: "1",
-    },
-    input: {
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0,
-        borderRight: 0,
-    },
-}));
 
 export default PaymentSuccess;

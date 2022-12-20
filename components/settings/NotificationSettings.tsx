@@ -8,7 +8,6 @@ import React from "react";
 import { Col, Form } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
-import { TypeOf } from "yup";
 
 interface TNotificationPreferences {
     id: number;

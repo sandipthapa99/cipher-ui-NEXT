@@ -57,6 +57,7 @@ export const ElipsisReport = ({
     };
 
     const ref = useClickOutside(() => setMoreOpen(false));
+
     return (
         <div className="ellipsis">
             <Dropdown>

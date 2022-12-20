@@ -357,7 +357,8 @@ const AddPortfolio = ({
                                             }
                                             placeholder="Portfolio Description"
                                         />
-                                        <h4>Issued Date</h4>
+
+                                        {/* <h4 className="">Issued Date</h4> */}
                                         {/* <DatePickerField
                                             name="issued_date"
                                             min="1"
@@ -366,9 +367,11 @@ const AddPortfolio = ({
                                             dateFormat="yyyy-MM-dd"
                                             placeHolder="2022-03-06"
                                         /> */}
+                                        <br />
                                         <MantineDateField
                                             name="issued_date"
                                             min="1"
+                                            labelName="Issued Date"
                                             error={String(
                                                 errors.issued_date
                                                     ? errors.issued_date
@@ -414,6 +417,10 @@ const AddPortfolio = ({
                                                         editDetails?.images ??
                                                         []
                                                     }
+                                                    accept={{
+                                                        "image/*": [],
+                                                        "video/*": [".mp4"],
+                                                    }}
                                                     fileType="image"
                                                     sx={{ maxWidth: "30rem" }}
                                                     name="images"
@@ -424,6 +431,7 @@ const AddPortfolio = ({
                                                         )
                                                     }
                                                 />
+                                                <br />
                                                 {/* 
                                                 <MultiImageDropzone
                                                     name="images"

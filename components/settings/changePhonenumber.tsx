@@ -5,8 +5,10 @@ import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import { parsePhoneNumber } from "react-phone-number-input";
 import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -27,16 +29,15 @@ export const ChangePhoneNumber = () => {
             {/* <p className="m-0">Configurations</p> */}
             <Formik
                 initialValues={{
-                    phone: "",
+                    phone: userDetails ? userDetails?.phone : "",
                     password: "",
                 }}
                 //validationSchema={changePasswordFormSchema}
                 onSubmit={async (values) => {
-                    console.log(values);
-
                     changePhoneNumber.mutate(values, {
                         onSuccess: () => {
                             setMyOtp(true);
+                            Cookies.set("phone", values?.phone);
                             // userDetails?.phone === ""
                             //     ? toast.success(
                             //           "Phone Number added successfully"
@@ -46,7 +47,7 @@ export const ChangePhoneNumber = () => {
                             //       );
                         },
                         onError: (err: any) => {
-                            toast.error(err.message);
+                            toast.error(err.response.data.password);
                         },
                     });
 
@@ -72,6 +73,7 @@ export const ChangePhoneNumber = () => {
                             labelName="Phone Number"
                             touch={touched.phone}
                             error={errors.phone}
+                            value={values.phone}
                         />
 
                         <PasswordField

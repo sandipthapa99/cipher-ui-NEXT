@@ -32,7 +32,13 @@ export const ConfirmDeleteTaskModal = ({
         );
     };
     return (
-        <Modal title="Delete task" onClose={onClose} {...rest}>
+        <Modal
+            title="Delete task"
+            onClose={onClose}
+            {...rest}
+            overlayOpacity={0.55}
+            overlayBlur={3}
+        >
             <Highlight
                 highlightColor="red"
                 highlightStyles={{

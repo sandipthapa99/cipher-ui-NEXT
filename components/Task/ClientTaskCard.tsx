@@ -21,7 +21,7 @@ export const ClientTaskCard = ({ task }: Props) => {
                     {`$${task.maxBudget ?? task.budget}/hr`}
                 </span>
             </h4>
-            <p className="client-task__description">{task.taskDescription}</p>
+            <p className="client-task__description">{task.description}</p>
             <div className="client-task__info">
                 <div className="icon-text">
                     <FontAwesomeIcon

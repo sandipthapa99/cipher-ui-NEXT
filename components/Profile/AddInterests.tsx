@@ -1,22 +1,18 @@
 import FormButton from "@components/common/FormButton";
-import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import type { IAllCategory } from "@components/settings/AccountForm";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { MultiSelect } from "@mantine/core";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { profile } from "console";
 import { Form, Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useEditForm } from "hooks/use-edit-form";
 import type { Dispatch, SetStateAction } from "react";
-import { useMemo } from "react";
 import { useState } from "react";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { axiosClient } from "utils/axiosClient";
-import { AddInterestFormData } from "utils/formData";
 import { addInterestSchema } from "utils/formValidation/addInterestFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -58,29 +54,13 @@ const AddInterests = ({
         }
     );
 
-    // const interestValues =
-    //     allCategory && allCategory?.data.length !== 0
-    //         ? allCategory?.data?.map((item: any) => {
-    //               return { label: item?.name, value: item?.id };
-    //           })
-    //         : [];
-    const currentInterestId = profileDetails?.interests.map((item) => {
-        return item.id.toString();
-    });
-
-    // const defaultInterests = useMemo(
-    //     () =>
-    //         profileDetails?.interests.map((item) => ({
-    //             value: item.id.toString(),
-    //             label: item.name.toString(),
-    //         })),
-    //     [profileDetails]
+    // const currentInterestId = profileDetails?.interests.map((item: any) =>
+    //     item.id.toString()
     // );
-    const currentInterests =
-        profileDetails &&
-        profileDetails?.interests.map((item: { id: number; name: string }) => {
-            return item.id.toString();
-        });
+
+    const defaultInterests: any =
+        profileDetails && profileDetails?.interests.map((item) => item.id);
+
     return (
         <>
             {/* Modal component */}
@@ -90,22 +70,16 @@ const AddInterests = ({
                     <h3>Add Interests</h3>
                     <Formik
                         enableReinitialize
-                        initialValues={
-                            // profileDetails
-                            //     ? currentInterests
-                            //:
-                            AddInterestFormData
-                        }
+                        initialValues={{
+                            interests: profileDetails ? defaultInterests : [""],
+                        }}
                         validationSchema={addInterestSchema}
                         onSubmit={async (values) => {
                             const formData = new FormData();
-                            const interest = values.interests;
-                            const newInterests =
-                                currentInterestId &&
-                                currentInterestId.concat(interest);
+                            const interests = values.interests;
 
-                            newInterests &&
-                                newInterests.forEach((val: any) => {
+                            interests &&
+                                interests.forEach((val: any) => {
                                     formData.append("interests", val);
                                 });
 
@@ -124,16 +98,25 @@ const AddInterests = ({
                             });
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, values, setFieldValue }) => (
                             <Form>
-                                <TagInputField
+                                {/* <TagInputField
                                     data={interestOptions}
                                     name="interests"
                                     labelName="Interests"
                                     create={false}
                                     placeHolder={"Add Interests"}
+                                /> */}
+                                <MultiSelect
+                                    data={interestOptions}
+                                    name="interests"
+                                    value={profileDetails && values.interests}
+                                    onChange={(value) => {
+                                        setFieldValue("interests", value);
+                                    }}
+                                    label="Interests"
+                                    placeholder="Enter your interests"
                                 />
-
                                 <Modal.Footer>
                                     <Button
                                         className="btn close-btn"

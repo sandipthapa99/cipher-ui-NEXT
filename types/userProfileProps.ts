@@ -89,7 +89,10 @@ export interface UserProfileProps {
             address_line1: string;
             address_line2: string;
             is_profile_verified: boolean;
-            country: number;
+            country: {
+                code: string;
+                name: string;
+            };
             language: number;
             subscription: Array<any>;
             message?: string;

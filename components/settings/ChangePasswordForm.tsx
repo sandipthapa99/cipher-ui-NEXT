@@ -31,6 +31,11 @@ const ChangePasswordForm = () => {
                 defaultValue="change-password"
                 aria-expanded={true}
                 radius="md"
+                styles={{
+                    item: {
+                        backgroundColor: "#fff",
+                    },
+                }}
             >
                 <Accordion.Item value="change-password">
                     <Accordion.Control className="m-0">

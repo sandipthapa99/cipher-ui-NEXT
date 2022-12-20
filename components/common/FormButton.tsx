@@ -24,9 +24,9 @@ const FormButton = ({
             {...restProps}
             className={`${isSubmittingClass} ${variant} ${className}`}
             onClick={handleClick}
-            disabled={disabled}
+            disabled={disabled || isSubmitting || isLoading}
         >
-            {!isLoading ? (
+            {!isLoading || !isSubmitting ? (
                 <span>{name}</span>
             ) : (
                 <span>

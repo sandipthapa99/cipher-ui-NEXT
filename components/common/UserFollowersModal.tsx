@@ -74,6 +74,8 @@ export const UserFollowersModal = ({
             opened={opened}
             onClose={() => setShowFollowers(false)}
             title={title}
+            overlayOpacity={0.55}
+            overlayBlur={3}
             size="lg"
         >
             {followersData?.map((item: FollowersData, index: number) => {
@@ -109,9 +111,8 @@ export const UserFollowersModal = ({
                                             <h4 className="pr-5">
                                                 {item?.first_name +
                                                     " " +
-                                                    item?.middle_name +
-                                                    " " +
-                                                    item?.last_name}
+                                                    item?.middle_name ??
+                                                    "" + " " + item?.last_name}
                                             </h4>{" "}
                                         </a>
                                     </Link>

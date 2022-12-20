@@ -19,8 +19,11 @@ import {
     faFilterList,
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { Text } from "@mantine/core";
+import { openConfirmModal } from "@mantine/modals";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -30,16 +33,19 @@ import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useRef } from "react";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
+import { taskDetails } from "staticData/taskDetail";
 import type { ITask, TaskApplicantsProps, TaskerCount } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
 import { safeParse } from "utils/safeParse";
+import { toast } from "utils/toast";
 
 import { TaskersTab } from "./TaskersTab";
 
@@ -55,8 +61,6 @@ const AppliedTaskDetail = ({
     //     `${urls.task.requested_task}`
     // );
 
-    // const taskId = taskDetail ? requestedTask?.entity_service.id : "";
-
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", taskDetail?.id],
         `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`
@@ -67,6 +71,7 @@ const AppliedTaskDetail = ({
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
     const [showModal, setShowModal] = useState(false);
     const [showInput, setShowInput] = useState(false);
+    const [editModal, setEditModal] = useState(false);
 
     const RenderInputBox = () => {
         return (
@@ -78,9 +83,6 @@ const AppliedTaskDetail = ({
             />
         );
     };
-    // const router = useRouter();
-
-    // const slug = router?.query?.slug as string;
 
     const isTaskBookmarked = useIsBookmarked("entityservice", taskDetail?.id);
 
@@ -91,12 +93,41 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
-    const highlights = safeParse<string[]>({
-        rawString: taskDetail?.highlights,
-        initialData: [],
-    });
+    // const highlights = safeParse<string[]>({
+    //     rawString: taskDetail?.highlights,
+    //     initialData: [],
+    // });
 
     //for scroll
+
+    const handleEdit = () => {
+        setEditModal(true);
+    };
+    // const confirmDelete = () => {
+    //     mutate(serviceId, {
+    //         onSuccess: async () => {
+    //             toast.success("service deleted successfully");
+    //             router.push({ pathname: "/service" });
+    //         },
+    //         onError: (error) => {
+    //             toast.error(error?.message);
+    //         },
+    //     });
+    // };
+
+    // const handleDelete = () =>
+    //     openConfirmModal({
+    //         title: "Delete this service",
+    //         centered: true,
+    //         children: (
+    //             <Text size="sm">
+    //                 Are you sure you want to delete this service?
+    //             </Text>
+    //         ),
+    //         labels: { confirm: "Delete", cancel: "Cancel" },
+    //         confirmProps: { color: "red" },
+    //         onConfirm: () => confirmDelete(),
+    //     });
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -160,6 +191,7 @@ const AppliedTaskDetail = ({
                                 taskTitle={taskDetail?.title}
                                 taskDescription={taskDetail?.description}
                                 owner={isUserTask}
+                                handleEdit={() => setShowModal(true)}
                             />
                             <Modal
                                 show={showModal}
@@ -289,8 +321,8 @@ const AppliedTaskDetail = ({
                         />
                         <span>
                             {" "}
-                            {taskDetail?.location
-                                ? taskDetail?.location
+                            {taskDetail?.city?.name
+                                ? taskDetail?.city?.name
                                 : "Not Provided"}
                         </span>
                     </p>
@@ -337,16 +369,25 @@ const AppliedTaskDetail = ({
                         ? parse(taskDetail.description)
                         : ""}
                 </div>
-                {highlights.length > 0 && (
+                {taskDetail?.highlights.length > 0 ? (
                     <>
                         <h3>Requirements</h3>
                         <div className="mt-5">
-                            {taskDetail?.highlights && (
+                            {/* {taskDetail?.highlights && (
                                 <ServiceHighlights highlights={highlights} />
-                            )}
+                            )} */}
+                            {taskDetail?.highlights.map((highlight, index) => (
+                                <p className="mb-4" key={index}>
+                                    <FontAwesomeIcon
+                                        icon={faCheck}
+                                        className="me-3 svg-icon svg-icon-check"
+                                    />
+                                    {highlight}
+                                </p>
+                            ))}
                         </div>
                     </>
-                )}
+                ) : null}
 
                 {/* <TeamMembersSection /> */}
                 <div ref={ref}>
@@ -417,8 +458,12 @@ export const getStaticProps: GetStaticProps = async () => {
         );
 
         const queryClient = new QueryClient();
-        queryClient.prefetchQuery(["get-my-applicants"]);
-        queryClient.prefetchQuery(["get-task-applicants"]);
+        await Promise.all([
+            queryClient.prefetchQuery(["get-my-applicants"]),
+            queryClient.prefetchQuery(["get-task-applicants"]),
+            queryClient.prefetchQuery(["task-detail"]),
+            queryClient.prefetchQuery(["tasks"]),
+        ]);
 
         return {
             props: {
