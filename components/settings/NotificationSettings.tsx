@@ -1,14 +1,11 @@
 import { Button, Grid, Skeleton, Switch } from "@mantine/core";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import { val } from "cheerio/lib/api/attributes";
-import { isValid } from "date-fns";
 import { useFormik } from "formik";
 import type { ChangeEvent } from "react";
 import React from "react";
 import { Col, Form } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
-import { TypeOf } from "yup";
 
 interface TNotificationPreferences {
     id: number;
@@ -185,7 +182,6 @@ const ChangeNotificationSettings = ({
     checked,
     name,
     fieldValue,
-    values,
 }: {
     label: string;
     checked?: boolean;
