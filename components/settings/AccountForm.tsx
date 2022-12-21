@@ -674,7 +674,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(values, null, 4)}</pre> */}
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -1060,25 +1059,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 }}
                                 disabled={isInputDisabled}
                             />
-
-                            {/* <TagMultiSelectField
-                                defaultValue={currentInterests}
-                                name="interests"
-                                labelName="Interests"
-                                placeHolder="Enter your Interests"
-                                disabled={isInputDisabled}
-                                data={interestOptions}
-                            /> */}
-                            {/* <TagInputField
-                                data={interestValues}
-                                name="interests"
-                                // error={!profile && errors.skill}
-                                // touch={!profile && touched.skill}
-                                labelName="Interests"
-                                placeHolder="Enter your Interests"
-                                create={false}
-                                // disabled={isInputDisabled}
-                            /> */}
                             <MultiSelect
                                 data={[]}
                                 name="interests"

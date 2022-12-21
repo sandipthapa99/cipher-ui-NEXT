@@ -7,6 +7,7 @@ import { faCalendarDays, faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
+import { TimeInput } from "@mantine/dates";
 import { MIME_TYPES } from "@mantine/dropzone";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -172,7 +173,7 @@ const BookNowModalCard = ({
                             description: "",
                             start_date: "",
                             end_date: "",
-                            start_time: 1,
+                            start_time: format(new Date(), "hh:mm aa"),
                             images: "",
                             entity_service: "",
                             budget_to: budget_to,
@@ -336,15 +337,22 @@ const BookNowModalCard = ({
                                 </div>
                                 <Row>
                                     <Col md={6} className="estimated-time">
-                                        <InputField
-                                            labelName="Start Time"
-                                            type="time"
-                                            name="start_time"
-                                            min="1"
-                                            error={errors.start_time}
-                                            touch={touched.start_time}
-                                            placeHolder="00:00"
-                                            fieldRequired
+                                        <TimeInput
+                                            label="Start time"
+                                            format="12"
+                                            size="md"
+                                            defaultValue={new Date()}
+                                            onChange={(event) => {
+                                                if (event !== null) {
+                                                    setFieldValue(
+                                                        "start_time",
+                                                        format(
+                                                            new Date(event),
+                                                            "hh:mm aa"
+                                                        )
+                                                    );
+                                                }
+                                            }}
                                         />
                                     </Col>
                                 </Row>
@@ -435,7 +443,16 @@ const BookNowModalCard = ({
                                             />
                                         </Col>
                                     </Row>
-                                    <h4 className="mb-3">Select Offer</h4>
+                                    {offer &&
+                                        offer.filter(
+                                            (item) =>
+                                                item.offer_type === "basic"
+                                        ).length > 0 && (
+                                            <h4 className="mb-3">
+                                                Select Offer
+                                            </h4>
+                                        )}
+
                                     <List className="mb-5 book-now-gallery__list">
                                         {offer &&
                                             offer
@@ -484,17 +501,6 @@ const BookNowModalCard = ({
                                                     </List.Item>
                                                 ))}
                                     </List>
-
-                                    <div className="size-warning">
-                                        {/* <FontAwesomeIcon
-                                            icon={faCircleInfo}
-                                            className="svg-icon"
-                                        /> */}
-                                        {/* <p>
-                                            Images and videos should not be more
-                                            than 200MB
-                                        </p> */}
-                                    </div>
                                 </div>
                                 <Modal.Footer>
                                     <Button
