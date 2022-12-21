@@ -43,10 +43,6 @@ const EducationForm = ({
     id,
     isEditEducation,
 }: EducationProps) => {
-    console.log(
-        "🚀 ~ file: EducationForm.tsx ~ line 46 ~ isEditEducation",
-        isEditEducation
-    );
     const queryClient = useQueryClient();
     const { mutate } = useForm(`${urls.profile.education}`);
     const { mutate: editMutation } = useEditForm(
