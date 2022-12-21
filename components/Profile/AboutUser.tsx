@@ -39,6 +39,7 @@ const AboutProfile = () => {
     const [id, setId] = useState<number | undefined>();
     const [search, setSearch] = useState("-rating");
     const [isEditProfile, setIsEditProfile] = useState(false);
+    const [isEditEducation, setIsEditEducation] = useState(false);
     const [isEditExperience, setIsEditExperience] = useState(false);
     // const [isEditExperience, setIsEditExperience] = useState(false);
 
@@ -493,7 +494,7 @@ const AboutProfile = () => {
                             showModal={true}
                             handleOnClick={() => {
                                 setShowEducationForm(!showEducationForm);
-                                setIsEditProfile(false);
+                                setIsEditEducation(false);
                             }}
                         />
                         <EducationForm
@@ -501,7 +502,7 @@ const AboutProfile = () => {
                             setShowEducationForm={setShowEducationForm}
                             handleClose={() => setShowEducationForm(false)}
                             id={id}
-                            isEditProfile={isEditProfile}
+                            isEditEducation={isEditEducation}
                         />
                     </div>
                     <Row>
@@ -542,7 +543,7 @@ const AboutProfile = () => {
                                                                       setId(
                                                                           value?.id
                                                                       );
-                                                                      setIsEditProfile(
+                                                                      setIsEditEducation(
                                                                           true
                                                                       );
                                                                   }}
