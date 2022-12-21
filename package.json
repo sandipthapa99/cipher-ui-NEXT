@@ -73,8 +73,8 @@
         "react-otp-input": "^2.4.0",
         "react-phone-number-input": "^3.2.11",
         "react-scroll": "^1.8.7",
-        "sharp": "^0.30.7",
         "sass": "^1.52.3",
+        "sharp": "^0.30.7",
         "yup": "^0.32.11",
         "zustand": "^4.0.0"
     },
