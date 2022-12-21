@@ -10,9 +10,16 @@ import {
     faTrashCan,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Text } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
+import { useModals } from "@mantine/modals";
+import { useQueryClient } from "@tanstack/react-query";
+import { useDeleteTask } from "hooks/task/use-delete-task";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
+import { ReactQueryKeys } from "types/queryKeys";
+import { toast } from "utils/toast";
 
 interface ElipsisReportProps {
     task?: boolean;
@@ -28,7 +35,8 @@ interface ElipsisReportProps {
     taskerName?: string;
     taskerDescription?: string;
     owner?: boolean;
-    handleDelete?: () => void;
+    isService?: boolean;
+    // handleDelete?: () => void;
     handleEdit?: () => void;
 }
 
@@ -46,7 +54,8 @@ export const ElipsisReport = ({
     taskerName,
     taskerDescription,
     owner,
-    handleDelete,
+    isService,
+    // handleDelete,
     handleEdit,
 }: ElipsisReportProps) => {
     const [moreOpen, setMoreOpen] = useState(false);
@@ -55,8 +64,44 @@ export const ElipsisReport = ({
     const handleClose = () => {
         setReportForm(false);
     };
+    const modals = useModals();
+    const { mutate: deleteTaskMutation } = useDeleteTask();
+    const queryClient = useQueryClient();
+    const router = useRouter();
 
+    const handleDeleteTask = () => {
+        if (!isService && !taskId) return;
+        if (isService && !serviceId) return;
+
+        deleteTaskMutation(
+            { id: isService ? serviceId : taskId },
+            {
+                onSuccess: (message) => {
+                    toast.success(message);
+                    router.push(!isService ? "/task" : "/service");
+                    !isService
+                        ? queryClient.invalidateQueries([ReactQueryKeys.TASKS])
+                        : queryClient.invalidateQueries([
+                              ReactQueryKeys.SERVICES,
+                          ]);
+                },
+            }
+        );
+    };
     const ref = useClickOutside(() => setMoreOpen(false));
+    const openConfirmDeleteTaskModal = () =>
+        modals.openConfirmModal({
+            title: `Delete`,
+            centered: true,
+            labels: { confirm: `Delete`, cancel: "Cancel" },
+            confirmProps: { color: "red" },
+            children: (
+                <Text>{`Are you sure you want to delete this ${
+                    isService ? "service" : "task"
+                }  ?`}</Text>
+            ),
+            onConfirm: handleDeleteTask,
+        });
 
     return (
         <div className="ellipsis">
@@ -127,7 +172,9 @@ export const ElipsisReport = ({
                                     />
                                     Edit
                                 </Dropdown.Item>
-                                <Dropdown.Item onClick={handleDelete}>
+                                <Dropdown.Item
+                                    onClick={openConfirmDeleteTaskModal}
+                                >
                                     <FontAwesomeIcon
                                         icon={faTrashCan}
                                         className="svg-icon"
