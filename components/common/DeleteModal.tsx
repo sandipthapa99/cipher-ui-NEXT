@@ -1,13 +1,18 @@
+import { faXmarkCircle } from "@fortawesome/pro-thin-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDeleteData } from "hooks/use-delete";
+import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import { toast } from "utils/toast";
 
+import CardBtn from "./CardBtn";
+
 interface DeleteModalProps {
-    show?: boolean;
-    handleClose?: () => void;
+    show: boolean;
+    handleClose: () => void;
     setShowDeleteModal: Dispatch<SetStateAction<boolean>>;
     id?: number;
     modalName?: string;
@@ -25,23 +30,41 @@ const DeleteModal = ({
     const { mutate } = useDeleteData(`/tasker/${modalName}/${id}/`);
 
     return (
-        <div className="share-modal delete-modal">
-            {/* Modal component */}
-            <Modal centered show={show} onHide={handleClose} backdrop="static">
-                <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal share-modal__modal-body-content">
-                    <h3>Are you sure you want to delete your {modalName}?</h3>
-
-                    <Modal.Footer>
-                        <Button
-                            className="btn close-btn"
-                            variant="secondary"
-                            onClick={handleClose}
-                        >
-                            No
-                        </Button>
-                        <Button
-                            onClick={() => {
+        <>
+            <Modal
+                opened={show}
+                onClose={handleClose}
+                centered
+                withCloseButton={false}
+                closeOnClickOutside={false}
+                // overlayColor="909296"
+                overlayOpacity={0.55}
+                overlayBlur={3}
+                size="md"
+                className="delete-modal"
+            >
+                <div className="content d-flex align-items-center justify-content-center flex-column">
+                    <div className="icon-block">
+                        <FontAwesomeIcon
+                            icon={faXmarkCircle}
+                            className="xmark-icon"
+                        />
+                    </div>
+                    <h1>Are you sure?</h1>
+                    <p>
+                        Do you really want to delete this record? This process
+                        cannot be undone.
+                    </p>
+                    <div className="btn-group">
+                        <CardBtn
+                            backgroundColor="#C1C1C1"
+                            btnTitle="Cancel"
+                            handleClick={handleClose}
+                        />
+                        <CardBtn
+                            backgroundColor="#F15E5E"
+                            btnTitle="Delete"
+                            handleClick={() => {
                                 mutate(id, {
                                     onSuccess: async () => {
                                         setShowDeleteModal(false);
@@ -57,14 +80,11 @@ const DeleteModal = ({
                                     },
                                 });
                             }}
-                            variant="primary"
-                        >
-                            Yes
-                        </Button>
-                    </Modal.Footer>
+                        />
+                    </div>
                 </div>
             </Modal>
-        </div>
+        </>
     );
 };
 export default DeleteModal;
