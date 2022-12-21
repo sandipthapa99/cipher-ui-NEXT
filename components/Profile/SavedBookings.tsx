@@ -1,7 +1,7 @@
+import { EmptyBookmarks } from "@components/common/EmptyBookmarks";
 import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
-import { EmptyOffers } from "@components/Offers/EmptyOffers";
 import { useBookmarks } from "hooks/use-bookmarks";
 import { Col, Row } from "react-bootstrap";
 
@@ -18,9 +18,10 @@ const SavedBookings = () => {
         (bookmark) => bookmark.data.is_requested
     );
     const isBookmarkAvailable =
-        userBookmarks.length > 0 &&
-        serviceBookmarks.length > 0 &&
+        userBookmarks.length > 0 ||
+        serviceBookmarks.length > 0 ||
         taskBookmarks.length > 0;
+    console.log(isBookmarkAvailable);
     return (
         // <div className="saved-bookings px-5">
         //     {serviceBookmarks.length > 0 ? (
@@ -240,7 +241,7 @@ const SavedBookings = () => {
                     ) : null}
                 </div>
             ) : (
-                <EmptyOffers />
+                <EmptyBookmarks />
             )}
         </>
     );
