@@ -2,7 +2,19 @@
     padding-top: 2.5rem;
     padding-bottom: 1.5rem;
     justify-content: center;
-
+    .star {
+        width: 2.3rem;
+        color: #fab005;
+        height: 2.3rem;
+        margin-left: 0.5rem;
+    }
+    .mantine-1jqub9a,
+    .mantine-oumttf {
+        width: 2.3rem;
+        color: #fab005;
+        height: 2.3rem;
+        margin-left: 0.5rem;
+    }
     @include respond(xs) {
         flex-direction: column;
         align-items: center;

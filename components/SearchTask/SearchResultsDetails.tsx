@@ -23,7 +23,7 @@ import {
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { List, Text } from "@mantine/core";
+import { Grid, List, Skeleton, Text } from "@mantine/core";
 import { Alert } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
@@ -83,11 +83,12 @@ const SearchResultsDetail = ({
     ];
 
     const isService = !!serviceId && !!ratedTo;
-    const { data: serviceRating } = useData<RatingResponse>(
-        ["tasker-rating", serviceId],
-        `${urls.profile.rating}?rated_to=${ratedTo}&service=${serviceId}`,
-        isService
-    );
+    const { data: serviceRating, isLoading: ratingLoading } =
+        useData<RatingResponse>(
+            ["tasker-rating", serviceId],
+            `${urls.profile.rating}?rated_to=${ratedTo}&service=${serviceId}`,
+            isService
+        );
 
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
@@ -598,7 +599,7 @@ const SearchResultsDetail = ({
                 </div>
 
                 <h3>Highlights</h3>
-                {!highlights && (
+                {highlights && highlights.length < 1 ? (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
                         title="No data Available"
@@ -606,16 +607,14 @@ const SearchResultsDetail = ({
                         radius="md"
                         sx={{ minWidth: 100 }}
                     >
-                        {/* <Highlight highlight={"No Requirements"}> */}
-                        There are no highlights for this service
-                        {/* </Highlight> */}
+                        There are no highlights for this service.
                     </Alert>
-                )}
-                {highlights && (
+                ) : (
                     <div className="mt-5">
                         <ServiceHighlights highlights={highlights} />
                     </div>
                 )}
+
                 {offers && offers.length > 0 ? (
                     <section className="service-details__offers">
                         {offers.find(
@@ -772,32 +771,62 @@ const SearchResultsDetail = ({
                     }
                 />
                 <hr />
-                {serviceRating && serviceRating?.data?.result?.length > 0 ? (
-                    serviceRating?.data?.result?.map((review) => (
-                        <Col md={8} key={review.id}>
-                            <Reviews
-                                repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
-                                repliedText={review.reply}
-                                replied={review.reply === null ? false : true}
-                                id={review?.id}
-                                name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
-                                raterEmail={review?.rated_by.email}
-                                ratings={review?.rating}
-                                description={review?.review}
-                                time={review?.created_at}
-                                raterId={review?.rated_by.id}
-                                ratedByImage={review?.rated_by?.profile_image}
-                                ratedToImage={review.rated_to.profile_image}
-                                ratedToId={review.rated_to.id}
-                                repliedDate={review.replied_date}
+                {ratingLoading ? (
+                    <Grid className="mt-3">
+                        <Grid.Col span={2}>
+                            <Skeleton height={80} circle mb="xl" />
+                        </Grid.Col>
+                        <Grid.Col span={8}>
+                            <Skeleton height={20} width={"100%"} radius="sm" />
+                            <Skeleton height={15} mt={6} radius="sm" />
+                            <Skeleton
+                                className="mt-3"
+                                height={8}
+                                mt={6}
+                                width="40%"
+                                radius="xl"
                             />
-                        </Col>
+                            <Skeleton
+                                className="mt-4"
+                                height={8}
+                                mt={6}
+                                width="20%"
+                                radius="xl"
+                            />
+                        </Grid.Col>
+                    </Grid>
+                ) : serviceRating && serviceRating?.data?.result?.length > 0 ? (
+                    serviceRating?.data?.result?.map((review) => (
+                        <Reviews
+                            key={review.id}
+                            repliedBy={`${review?.rated_to?.first_name} ${review?.rated_to?.last_name}`}
+                            repliedText={review.reply}
+                            replied={review.reply === null ? false : true}
+                            id={review?.id}
+                            name={`${review?.rated_by?.first_name} ${review?.rated_by?.last_name}`}
+                            raterEmail={review?.rated_by.email}
+                            ratings={review?.rating}
+                            description={review?.review}
+                            time={review?.created_at}
+                            raterId={review?.rated_by.id}
+                            ratedByImage={review?.rated_by?.profile_image}
+                            ratedToImage={review.rated_to.profile_image}
+                            ratedToId={review.rated_to.id}
+                            repliedDate={review.replied_date}
+                        />
                     ))
                 ) : (
-                    <Alert title="NO DATA AVAILABLE" color="orange">
+                    <Alert
+                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        title="No data Available"
+                        color="orange"
+                        radius="md"
+                        sx={{ minWidth: 100 }}
+                    >
                         There are no reviews to show.
                     </Alert>
                 )}
+
                 <span className="td-divider"></span>
                 {/* <Row className="gx-5">
                 <h4>Similar Services</h4>

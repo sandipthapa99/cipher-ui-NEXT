@@ -45,8 +45,9 @@ export const RepliedModal = ({
                     onMouseEnter={() =>
                         setReplyHovered(reviewId ? reviewId : 0)
                     }
+                    gx={2}
                 >
-                    <Col md={1}>
+                    <Col sm={2}>
                         <Link href={`/tasker/${ratedToId}/`}>
                             <a target="_blank">
                                 <figure className="thumbnail-img">
@@ -68,7 +69,7 @@ export const RepliedModal = ({
                         </Link>
                     </Col>
                     <Col
-                        md={11}
+                        sm={10}
                         className="d-flex-col align-items-center reply-container"
                     >
                         <div className="review-block__content">

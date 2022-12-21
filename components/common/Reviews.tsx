@@ -41,13 +41,13 @@ const Reviews = ({
     };
     //   const { data: profileDetails } = useGetProfileById(raterId);
     const { data: profile } = useGetProfile();
-    console.log("time", time);
+
     return (
         <>
             <div>
                 <Row className="review-block">
                     <Col
-                        md={1}
+                        sm={1}
                         className="image d-md-flex justify-content-center"
                     >
                         <Link href={`/tasker/${raterId}/`}>
@@ -67,7 +67,7 @@ const Reviews = ({
                             </a>
                         </Link>
                     </Col>
-                    <Col md={11}>
+                    <Col sm={11}>
                         <div className="review-block__content">
                             <div className="reviewer">
                                 <h3 className="name">
