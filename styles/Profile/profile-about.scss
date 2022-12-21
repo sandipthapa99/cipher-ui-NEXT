@@ -27,10 +27,10 @@
     }
 
     h3 {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         font-weight: 500;
         margin: 0;
-        color: $gray8;
+        color: #1C7ED6;
     }
 
     .svg-icon {
@@ -67,7 +67,7 @@
     }
 
     .type {
-        padding-top: 2rem;
+        padding: 2rem 0;
         border-bottom: 0.1rem solid $border-color;
         padding-left: 3.6rem;
         padding-right: 3.6rem;
@@ -197,16 +197,12 @@
         }
 
         &__type {
-            margin: 0;
-
-            &:last-child {
-                padding-bottom: 2rem;
-            }
+            margin: 0 0 2.4rem 0;
 
             .name {
                 h3 {
                     font-size: 1.8rem;
-                    color: $gray7;
+                    color: #1C7ED6;
 
                     .svg-icon {
                         cursor: pointer;
@@ -237,7 +233,7 @@
             }
 
             .description {
-                margin: 1.2rem 0;
+                margin: 1.2rem 0 0 0;
                 font-size: 1.4rem;
                 font-weight: 400;
             }
@@ -254,7 +250,6 @@
         .content {
             display: flex;
             flex-wrap: wrap;
-            padding-bottom: 2rem;
         }
 
         &__type {
@@ -268,35 +263,59 @@
         }
     }
 
-    .institution {
-        font-weight: 500;
-    }
-
-    .program {
-        font-weight: 400;
-    }
-
-    .education,
-    .certification {
-
-        .program,
+    .education {
         .institution {
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
+            margin: 0;
+            font-size: 1.8rem;
 
             @include respond(xxs) {
                 font-size: 1.27rem;
             }
+        }
+
+        .program {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin: 0.8rem 0 0 0;
+            color: $gray8;
+        }
+
+        .date {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin: 0.4rem 0 0 0;
+            color: $gray6;
+        }
+
+        .address {
+            color: $gray6;
+            margin-top: 0.4rem;
+            font-size: 1.3rem;
+            font-weight: 400;
         }
     }
 
     .certification {
         border-bottom: none;
 
-        .name {
-            a {
-                color: $sub-title-color;
-            }
+        .issuing_organization {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin: 0.8rem 0 0 0;
+            color: $gray8;
+        }
+
+        .date {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin: 0.4rem 0 0 0;
+            color: $gray6;
+        }
+
+        .description {
+            margin: 1.2rem 0 0 0;
+            font-size: 1.4rem;
+            font-weight: 400;
         }
     }
 
