@@ -376,25 +376,13 @@ const AboutProfile = () => {
                                                               ""
                                                           )}
                                                       </div>
-                                                      <div className="company d-flex">
-                                                          <p className="name">
-                                                              {
-                                                                  value?.company_name
-                                                              }
-                                                              &nbsp;. &nbsp;
-                                                              {
-                                                                  value?.employment_type
-                                                              }
-                                                          </p>
-                                                      </div>
-                                                      <p className="description">
-                                                          {value?.description
-                                                              ? parse(
-                                                                    value.description
-                                                                )
-                                                              : ""}
+                                                      <p className="company-name">
+                                                          {value?.company_name}
+                                                          &nbsp;. &nbsp;
+                                                          {
+                                                              value?.employment_type
+                                                          }
                                                       </p>
-
                                                       <p className="date">
                                                           {format(
                                                               new Date(
@@ -417,7 +405,10 @@ const AboutProfile = () => {
                                                           }`}
                                                       </p>
                                                       <p className="address">
-                                                          {value.location}
+                                                          {value?.location}
+                                                      </p>
+                                                      <p className="description">
+                                                          {value?.description}
                                                       </p>
                                                   </div>
                                               );
