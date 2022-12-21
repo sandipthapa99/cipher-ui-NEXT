@@ -175,7 +175,7 @@ const PaymentMethod = () => {
                                 <Row className="gx-5">
                                     {LinkedBank?.map((bank) => (
                                         <Col
-                                            lg={4}
+                                            lg={5}
                                             md={6}
                                             sm={12}
                                             key={bank.id}
@@ -185,10 +185,15 @@ const PaymentMethod = () => {
                                                 <div className="account-info">
                                                     <figure className="thumbnail-img">
                                                         <Image
-                                                            src="/settings/bank.svg"
+                                                            src={
+                                                                bank.bank_name
+                                                                    .logo
+                                                                    ? bank
+                                                                          .bank_name
+                                                                          .logo
+                                                                    : "/settings/bank.svg"
+                                                            }
                                                             layout="fill"
-                                                            // height={45}
-                                                            // width={45}
                                                             objectFit="contain"
                                                             alt="bank-icon"
                                                         />

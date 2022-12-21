@@ -8,7 +8,7 @@ export const useForm = <TData = unknown, TPayload = unknown>(url: string) => {
             const { data } = await axiosClient.post<TData>(url, payload);
             return data;
         } catch (error: any) {
-            throw new Error(error.response.data);
+            throw new Error(error.response.data.non_field_errors);
         }
     });
 };

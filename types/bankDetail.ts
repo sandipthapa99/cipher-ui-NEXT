@@ -25,6 +25,7 @@ export interface BankName {
     name: string;
     swift_code: string;
     is_active: boolean;
+    logo: string;
 }
 
 export interface Country {
@@ -35,7 +36,7 @@ export interface Country {
 export interface BranchName {
     id: number;
     bank: Bank;
-    branch_name: string;
+    name: string;
     is_active: boolean;
 }
 
