@@ -101,8 +101,12 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
             </Col>
             <Col md={6}>
                 <div className="td-user-short-intro-text font-bold">
-                    Bio:
-                    <Spoiler text={user?.bio} />
+                    Bio:{" "}
+                    {user?.bio.length < 300 ? (
+                        user.bio
+                    ) : (
+                        <Spoiler text={user?.bio} />
+                    )}
                 </div>
             </Col>
         </Row>
