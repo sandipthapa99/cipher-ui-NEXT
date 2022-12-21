@@ -57,7 +57,7 @@ const PortfolioDetails = ({
                             </Col>
                             <Col
                                 md={{ span: 4, offset: 4 }}
-                                className="d-flex share"
+                                className="d-flex share justify-content-end"
                                 sm={6}
                             >
                                 <ShareIcon
@@ -85,7 +85,7 @@ const PortfolioDetails = ({
                                     {image.media_type == "mp4" ? (
                                         <video
                                             style={{
-                                                width: "90%",
+                                                width: "100%",
                                             }}
                                             controls
                                             //    autoPlay
@@ -119,7 +119,7 @@ const PortfolioDetails = ({
                                 alt="portfolio-img"
                                 height={500}
                                 objectFit="contain"
-                                width={800}
+                                width={900}
                             />
                         </figure>
                     )}
