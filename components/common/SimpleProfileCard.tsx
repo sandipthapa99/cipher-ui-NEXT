@@ -41,10 +41,6 @@ const SimpleProfileCard = ({
     approvedTaskDetail,
     handleScroll,
 }: SimpleProfileCardProps) => {
-    console.log(
-        "🚀 ~ file: SimpleProfileCard.tsx ~ line 44 ~ approvedTaskDetail",
-        approvedTaskDetail
-    );
     const { first_name, middle_name, last_name, bio, profile_image } =
         approvedTaskDetail?.assignee ||
         ({} as ApprovedTaskDetailProps["assigner"]);
