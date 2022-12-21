@@ -35,6 +35,7 @@ interface ElipsisReportProps {
     taskerName?: string;
     taskerDescription?: string;
     owner?: boolean;
+    isService?: boolean;
     // handleDelete?: () => void;
     handleEdit?: () => void;
 }
@@ -53,6 +54,7 @@ export const ElipsisReport = ({
     taskerName,
     taskerDescription,
     owner,
+    isService,
     // handleDelete,
     handleEdit,
 }: ElipsisReportProps) => {
@@ -68,14 +70,20 @@ export const ElipsisReport = ({
     const router = useRouter();
 
     const handleDeleteTask = () => {
-        if (!taskId) return;
+        if (!isService && !taskId) return;
+        if (isService && !serviceId) return;
+
         deleteTaskMutation(
-            { id: taskId },
+            { id: isService ? serviceId : taskId },
             {
                 onSuccess: (message) => {
                     toast.success(message);
-                    router.push("/task");
-                    queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
+                    router.push(!isService ? "/task" : "/service");
+                    !isService
+                        ? queryClient.invalidateQueries([ReactQueryKeys.TASKS])
+                        : queryClient.invalidateQueries([
+                              ReactQueryKeys.SERVICES,
+                          ]);
                 },
             }
         );
@@ -87,7 +95,11 @@ export const ElipsisReport = ({
             centered: true,
             labels: { confirm: `Delete`, cancel: "Cancel" },
             confirmProps: { color: "red" },
-            children: <Text>Are you sure you want to delete this task ?</Text>,
+            children: (
+                <Text>{`Are you sure you want to delete this ${
+                    isService ? "service" : "task"
+                }  ?`}</Text>
+            ),
             onConfirm: handleDeleteTask,
         });
 

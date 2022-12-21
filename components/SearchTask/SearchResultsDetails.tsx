@@ -373,8 +373,9 @@ const SearchResultsDetail = ({
                                 serviceDescription={serviceDescription}
                                 serviceId={serviceId}
                                 owner={isUserService}
+                                isService={true}
                                 handleEdit={handleEdit}
-                                handleDelete={handleDelete}
+                                //   handleDelete={handleDelete}
                             />
                         </div>
                     </div>
