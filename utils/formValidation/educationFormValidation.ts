@@ -20,5 +20,5 @@ export const educationFormSchema = Yup.object().shape({
             }
             return Yup.date().required("Required field").nullable(true);
         })
-        .nullable(true),
+        .required(),
 });

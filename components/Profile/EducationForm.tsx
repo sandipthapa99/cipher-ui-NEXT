@@ -30,7 +30,7 @@ interface EducationProps {
     handleClose?: () => void;
     setShowEducationForm: Dispatch<SetStateAction<boolean>>;
     id?: number;
-    isEditProfile: boolean;
+    isEditEducation: boolean;
 }
 interface EditDetailProps {
     data: { result: EducationValueProps[] };
@@ -41,8 +41,12 @@ const EducationForm = ({
     handleClose,
     setShowEducationForm,
     id,
-    isEditProfile,
+    isEditEducation,
 }: EducationProps) => {
+    console.log(
+        "🚀 ~ file: EducationForm.tsx ~ line 46 ~ isEditEducation",
+        isEditEducation
+    );
     const queryClient = useQueryClient();
     const { mutate } = useForm(`${urls.profile.education}`);
     const { mutate: editMutation } = useEditForm(
@@ -64,7 +68,7 @@ const EducationForm = ({
                     <h3>Add Education</h3>
                     <Formik
                         initialValues={
-                            editDetails && isEditProfile === true
+                            editDetails && isEditEducation === true
                                 ? {
                                       ...editDetails,
                                       start_date: parseISO(
@@ -101,7 +105,7 @@ const EducationForm = ({
                                 ),
                             };
                             {
-                                editDetails
+                                editDetails && isEditEducation === true
                                     ? editMutation(newvalidatedValue, {
                                           onSuccess: async () => {
                                               setShowEducationForm(false);

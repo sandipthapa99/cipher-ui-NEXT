@@ -181,6 +181,7 @@ const AppliedTaskDetail = ({
                                 taskDescription={taskDetail?.description}
                                 owner={isUserTask}
                                 handleEdit={() => setShowModal(true)}
+                                isService={false}
                             />
                             <Modal
                                 show={showModal}

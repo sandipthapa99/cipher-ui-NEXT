@@ -98,10 +98,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         // const { data: servicePackage } = await axiosClient.get<
         //     ServicesPackageProps["result"][0]
         // >(`/task/service-package/`);
-        await Promise.all([
-            queryClient.prefetchQuery([ReactQueryKeys.SERVICE_DETAIL, data.id]),
-            queryClient.prefetchQuery([ReactQueryKeys.SERVICES, data.id]),
-        ]);
+
         return {
             props: {
                 service: data,
