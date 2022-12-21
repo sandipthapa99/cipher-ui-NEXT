@@ -51,7 +51,7 @@ export interface EditServicePayload {
     service: string;
     city: string;
     location: TaskType;
-    currency: number;
+    currency: string;
     budget_type: BudgetType;
     budget_from: number;
     budget_to: number;
@@ -133,7 +133,7 @@ export const EditService = ({
             is_recursion: false,
             is_requested: false,
             is_everyday: false,
-            currency: serviceDetail?.currency?.id ?? "",
+            currency: serviceDetail?.currency?.code ?? "",
             images: "",
             videos: "",
             is_active: serviceDetail?.is_active ?? true,
@@ -211,7 +211,6 @@ export const EditService = ({
                 size="xl"
             >
                 <form encType="multipart/formData" onSubmit={handleSubmit}>
-                    <pre>{JSON.stringify(errors, null, 4)}</pre>
                     <Stack spacing="lg">
                         <TextInput
                             placeholder="Enter your title"

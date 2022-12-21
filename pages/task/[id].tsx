@@ -9,6 +9,7 @@ import extractContent from "utils/extractString";
 const TaskDetail = () => {
     const router = useRouter();
     const { id } = router.query;
+
     const { data: taskDetail } = useTaskDetail((id as string) ?? "");
 
     return (
