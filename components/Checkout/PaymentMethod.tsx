@@ -175,7 +175,7 @@ const PaymentMethod = () => {
                                 <Row className="gx-5">
                                     {LinkedBank?.map((bank) => (
                                         <Col
-                                            lg={4}
+                                            lg={5}
                                             md={6}
                                             sm={12}
                                             key={bank.id}
