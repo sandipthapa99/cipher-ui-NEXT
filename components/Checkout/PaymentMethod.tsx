@@ -185,10 +185,15 @@ const PaymentMethod = () => {
                                                 <div className="account-info">
                                                     <figure className="thumbnail-img">
                                                         <Image
-                                                            src="/settings/bank.svg"
+                                                            src={
+                                                                bank.bank_name
+                                                                    .logo
+                                                                    ? bank
+                                                                          .bank_name
+                                                                          .logo
+                                                                    : "/settings/bank.svg"
+                                                            }
                                                             layout="fill"
-                                                            // height={45}
-                                                            // width={45}
                                                             objectFit="contain"
                                                             alt="bank-icon"
                                                         />

@@ -36,11 +36,10 @@ const BankForm = ({
     showBankForm,
 }: editProps & Display) => {
     const { mutate } = useForm(`/tasker/bank-details/`);
-    const [disableButton, setDisableButton] = useState(true);
+    const [disableButton, setDisableButton] = useState(!isEdit ? false : true);
     const [bankId, setBankId] = useState<string>(
         isEdit ? bankDetail.bank_name.id?.toString() || "" : ""
     );
-    console.log("🚀 ~ file: AddBankForm.tsx ~ line 43 ~ bankId", bankId);
     const { data: profileDetails } = useGetProfile();
     const userName =
         profileDetails?.user.first_name +
@@ -75,7 +74,6 @@ const BankForm = ({
         id: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        console.log("🚀 ~ file: AddBankForm.tsx ~ line 78 ~ id", id);
         setBankNameChange(id);
         if (id) setFieldValue("bank_name", parseInt(id));
     };
@@ -98,7 +96,6 @@ const BankForm = ({
         id: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
-        console.log("🚀 ~ file: AddBankForm.tsx ~ line 100 ~ id", id);
         // setBranchNameChange(id);
         if (id) setFieldValue("branch_name", parseInt(id));
     };
@@ -118,7 +115,7 @@ const BankForm = ({
     );
 
     const editBranchId = bankBranchResults.find(
-        (item) => item.label === editDetails?.branch_name.branch_name
+        (item) => item.label === editDetails?.branch_name.name
     );
 
     const { mutate: editBankDetail } = useEditForm(
@@ -188,6 +185,7 @@ const BankForm = ({
                                       "Bank detail updated successfully!"
                                   );
                                   actions.resetForm();
+                                  setDisableButton(true);
                               },
 
                               onError: async (error: any) => {
@@ -196,7 +194,7 @@ const BankForm = ({
                                           "Please fill a KYC Form first to add bank details."
                                       );
                                   }
-                                  // console.log("eroor", error);
+
                                   toast.error(error);
                               },
                           })
@@ -218,6 +216,7 @@ const BankForm = ({
                                       );
                                   } else {
                                       toast.error(error.message);
+                                      actions.resetForm();
                                   }
                               },
                           });
