@@ -10,7 +10,7 @@ import {
     faSquareCheck,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Checkbox } from "@mantine/core";
+import { Checkbox, Textarea } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -176,24 +176,22 @@ const ExperienceForm = ({
                                     touch={touched.title}
                                     placeHolder="Experience Title"
                                 />
-                                {/* <InputField
+                                <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
-                                /> */}
-                                <h4>Description</h4>
-                                <RichText
+                                />
+                                {/* <RichText
                                     {...getFieldProps("description")}
                                     value={values?.description ?? ""}
                                     onChange={(value) =>
                                         setFieldValue("description", value)
                                     }
                                     placeholder="Your Experience"
-                                />
-                                <br />
+                                /> */}
                                 <SelectInputField
                                     name="employment_type"
                                     labelName="Employment"

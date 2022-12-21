@@ -188,15 +188,22 @@ const CertificationForm = ({
                                     placeHolder="Experience Description"
                                     as="textarea"
                                 /> */}
-                                <h4>Description</h4>
-                                <RichText
+                                <InputField
+                                    name="description"
+                                    labelName="Description"
+                                    touch={touched.description}
+                                    error={errors.description}
+                                    placeHolder="Experience Description"
+                                    as="textarea"
+                                />
+                                {/* <RichText
                                     {...getFieldProps("description")}
                                     value={values?.description ?? ""}
                                     onChange={(value) =>
                                         setFieldValue("description", value)
                                     }
                                     placeholder="Description"
-                                />
+                                /> */}
 
                                 <InputField
                                     name="credential_id"
