@@ -40,6 +40,7 @@ const BankForm = ({
     const [bankId, setBankId] = useState<string>(
         isEdit ? bankDetail.bank_name.id?.toString() || "" : ""
     );
+    console.log("🚀 ~ file: AddBankForm.tsx ~ line 43 ~ bankId", bankId);
     const { data: profileDetails } = useGetProfile();
     const userName =
         profileDetails?.user.first_name +
@@ -74,6 +75,7 @@ const BankForm = ({
         id: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
+        console.log("🚀 ~ file: AddBankForm.tsx ~ line 78 ~ id", id);
         setBankNameChange(id);
         if (id) setFieldValue("bank_name", parseInt(id));
     };
@@ -96,6 +98,7 @@ const BankForm = ({
         id: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
+        console.log("🚀 ~ file: AddBankForm.tsx ~ line 100 ~ id", id);
         // setBranchNameChange(id);
         if (id) setFieldValue("branch_name", parseInt(id));
     };
@@ -168,7 +171,11 @@ const BankForm = ({
                 }
                 validationSchema={bankFormSchema}
                 onSubmit={async (values: any, actions: any) => {
-                    const withKYC = { ...values, kyc: KYCData?.id };
+                    const withKYC = {
+                        ...values,
+                        bank_name: bankId,
+                        kyc: KYCData?.id,
+                    };
 
                     editDetails
                         ? editBankDetail(withKYC, {
