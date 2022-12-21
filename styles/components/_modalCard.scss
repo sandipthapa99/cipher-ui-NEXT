@@ -1,5 +1,38 @@
 .delete-modal {
-    width: 67rem;
+    .mantine-Modal-modal{
+        padding: 2.4rem;
+
+    }
+    .content{
+        .icon-block{
+            margin-bottom: 2.4rem;
+            .xmark-icon{
+                color: #F15E5E;
+                height: 6.4rem;
+            }
+        }
+        h1{
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: $gray8;
+        }
+        p{
+            font-size: 1.4rem;
+            color: $gray6;
+            font-weight: 400;
+            line-height: 2.2rem;
+            text-align: center;
+        }
+        .btn-group{
+            .card-btn{
+                border-radius: 0.4rem;
+                margin: 0 0.8rem;
+                font-size: 1.6rem;
+                padding: 0.8rem 2.4rem;
+                font-weight: 500;
+            }
+        }
+    }
 }
 
 .cipher-modals,
