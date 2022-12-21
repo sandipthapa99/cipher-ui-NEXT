@@ -376,25 +376,13 @@ const AboutProfile = () => {
                                                               ""
                                                           )}
                                                       </div>
-                                                      <div className="company d-flex">
-                                                          <p className="name">
-                                                              {
-                                                                  value?.company_name
-                                                              }
-                                                              &nbsp;. &nbsp;
-                                                              {
-                                                                  value?.employment_type
-                                                              }
-                                                          </p>
-                                                      </div>
-                                                      <p className="description">
-                                                          {value?.description
-                                                              ? parse(
-                                                                    value.description
-                                                                )
-                                                              : ""}
+                                                      <p className="company-name">
+                                                          {value?.company_name}
+                                                          &nbsp;. &nbsp;
+                                                          {
+                                                              value?.employment_type
+                                                          }
                                                       </p>
-
                                                       <p className="date">
                                                           {format(
                                                               new Date(
@@ -417,7 +405,10 @@ const AboutProfile = () => {
                                                           }`}
                                                       </p>
                                                       <p className="address">
-                                                          {value.location}
+                                                          {value?.location}
+                                                      </p>
+                                                      <p className="description">
+                                                          {value?.description}
                                                       </p>
                                                   </div>
                                               );
@@ -496,7 +487,6 @@ const AboutProfile = () => {
                 </div>
                 <div className="type education">
                     <div className="title-wrapper d-flex justify-content-between">
-                        {/* <h2 className="heading-title">Community activity</h2> */}
                         <h1>Education</h1>
                         <EditProfileButton
                             text="Add New"
@@ -699,14 +689,13 @@ const AboutProfile = () => {
                                                           ""
                                                       )}
                                                   </div>
-                                                  <h3 className="program">
-                                                      {value?.description
-                                                          ? parse(
-                                                                value.description
-                                                            )
-                                                          : ""}
-                                                  </h3>
+                                                  <p className="issuing_organization">
+                                                      {
+                                                          value?.issuing_organization
+                                                      }
+                                                  </p>
                                                   <p className="date">
+                                                      Issued{" "}
                                                       {format(
                                                           new Date(
                                                               value?.issued_date
@@ -725,8 +714,11 @@ const AboutProfile = () => {
                                                                         "MMMM yyyy"
                                                                     )
                                                                 }`
-                                                              : "- Present"
+                                                              : " - No Expiration Date"
                                                       }`}
+                                                  </p>
+                                                  <p className="description">
+                                                      {value?.description}
                                                   </p>
                                               </div>
                                           )
@@ -780,7 +772,7 @@ const AboutProfile = () => {
                             (taskerRating?.data.result.length <= 0 &&
                                 (user?.is_kyc_verified ? (
                                     <div>
-                                        <p>
+                                        <p className="mt-3 mb-2">
                                             You have no reviews yet, Get started
                                             with task.
                                         </p>

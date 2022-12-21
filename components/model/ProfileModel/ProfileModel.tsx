@@ -31,7 +31,7 @@ export const ProfileModel = () => {
             if (router.pathname === "/") return;
             router.push({
                 pathname: "/login",
-                query: { next: router.pathname },
+                query: { next: router.asPath },
             });
             // remove();
         },
