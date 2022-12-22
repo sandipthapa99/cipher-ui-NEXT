@@ -20,6 +20,7 @@ const AddBank = ({ showBankForm, showPrimaryBank }: Display) => {
         ["tasker-bank-account"],
         "/tasker/bank-details/"
     );
+
     const LinkedBank = BankDetails?.data.result;
 
     const primaryBank = LinkedBank?.find((bank) => bank.is_primary === true);
@@ -61,7 +62,14 @@ const AddBank = ({ showBankForm, showPrimaryBank }: Display) => {
                                         <div className="account-info">
                                             <figure className="thumbnail-img">
                                                 <Image
-                                                    src="/settings/bank.svg"
+                                                    src={
+                                                        primaryBank?.bank_name
+                                                            .logo
+                                                            ? primaryBank
+                                                                  .bank_name
+                                                                  .logo
+                                                            : "/settings/bank.svg"
+                                                    }
                                                     layout="fill"
                                                     height={45}
                                                     width={45}

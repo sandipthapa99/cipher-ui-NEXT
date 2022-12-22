@@ -44,6 +44,7 @@ const SimpleProfileCard = ({
     const { first_name, middle_name, last_name, bio, profile_image } =
         approvedTaskDetail?.assignee ||
         ({} as ApprovedTaskDetailProps["assigner"]);
+
     const { charge, currency } =
         approvedTaskDetail || ({} as ApprovedTaskDetailProps);
 
@@ -55,7 +56,6 @@ const SimpleProfileCard = ({
         ["my-requested-task"],
         `${urls.task.requested_task}`
     );
-
     const requestedTask = myRequestedTask?.data.result.find(
         (requestedTask: any) => requestedTask?.entity_service.id === task?.id
     );
@@ -188,8 +188,11 @@ const SimpleProfileCard = ({
                         {first_name} {middle_name} {last_name}
                     </p>
                     <Spoiler hideLabel="" showLabel="" maxHeight={50}>
-                        {`${task?.created_by?.bio.slice(0, 20)}...` ?? ""}
-                        {bio}
+                        {`${
+                            bio
+                                ? `${bio.slice(0, 20)}...`
+                                : task?.created_by?.bio.slice(0, 20)
+                        }...` ?? ""}
                     </Spoiler>
                     <p className="job">
                         {task?.status} {}

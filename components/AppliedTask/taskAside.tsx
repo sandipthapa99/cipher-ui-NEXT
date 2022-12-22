@@ -1,5 +1,7 @@
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
-import { ScrollArea } from "@mantine/core";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, ScrollArea } from "@mantine/core";
 import { useTasks } from "hooks/task/use-tasks";
 import { useInViewPort } from "hooks/use-in-viewport";
 import type { ReactNode } from "react";
@@ -77,6 +79,16 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
                         ) : null}
                         {isLoading ? renderLoadingSkeletons() : renderTasks()}
                         {isFetchingNextPage ? <SkeletonTaskCard /> : null}
+                        {!isLoading && !query && totalAppliedTasks === 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="Services Unavailable"
+                                variant="filled"
+                                color="yellow"
+                            >
+                                No Services available at the moment
+                            </Alert>
+                        )}
                     </ScrollArea.Autosize>
                 </Col>
 

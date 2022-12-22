@@ -113,7 +113,7 @@ const Resources: NextPage = () => {
                                         })}
                             </Row>
                         </div>
-                        <div className="latest-article">
+                        {/* <div className="latest-article">
                             <h1>What Our Merchants Like</h1>
                             <Row>
                                 {blogData &&
@@ -133,8 +133,8 @@ const Resources: NextPage = () => {
                                             );
                                         })}
                             </Row>
-                        </div>
-                        <div className="bottom-container">
+                        </div> */}
+                        {/* <div className="bottom-container">
                             <h1>What Our Clients Like</h1>
                             <Row>
                                 {blogData &&
@@ -154,7 +154,7 @@ const Resources: NextPage = () => {
                                             );
                                         })}
                             </Row>
-                        </div>
+                        </div> */}
                     </Container>
                 </div>
             </section>

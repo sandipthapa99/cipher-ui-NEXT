@@ -8,10 +8,11 @@ import {
     faEye,
     faLocationDot,
     faUserGroup,
+    faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Modal } from "@mantine/core";
+import { Alert, Modal } from "@mantine/core";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
@@ -258,26 +259,32 @@ export const ApprovedTaskDetail = ({
                         />
                     </p>
                 </div>
-
                 <div className="task-detail__desc">
                     <h3>Description</h3>
                     {approvedTask?.data?.description
                         ? parse(approvedTask?.data?.description)
                         : ""}
-                </div>
-                {approvedTask?.data?.requirements &&
-                    approvedTask?.data?.requirements?.length > 0 && (
-                        <>
-                            <h3>Requirements</h3>
-                            <div className="mt-5">
-                                {approvedTask?.data?.requirements && (
-                                    <ServiceHighlights
-                                        highlights={requirements}
-                                    />
-                                )}
-                            </div>
-                        </>
-                    )}
+                </div>{" "}
+                <h3>Requirements</h3>
+                {requirements && requirements.length >= 1 ? (
+                    <>
+                        <div className="mt-5">
+                            {requirements && (
+                                <ServiceHighlights highlights={requirements} />
+                            )}
+                        </div>
+                    </>
+                ) : (
+                    <Alert
+                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        title="No data Available"
+                        color="orange"
+                        radius="md"
+                        sx={{ minWidth: 100 }}
+                    >
+                        This task has no requirements.
+                    </Alert>
+                )}
             </div>
             {timeline && <TimelineTab TimeLine={timeline?.data} />}
         </Modal>

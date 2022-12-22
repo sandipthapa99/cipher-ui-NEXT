@@ -74,7 +74,6 @@ const Apply = () => {
                                     autoComplete="off"
                                     encType="multipart/form-data"
                                 >
-                                    <pre>{JSON.stringify(errors, null, 4)}</pre>
                                     <InputField
                                         type="text"
                                         name="full_name"

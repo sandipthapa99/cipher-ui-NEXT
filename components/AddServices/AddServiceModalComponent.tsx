@@ -102,7 +102,7 @@ export const AddServiceModalComponent = () => {
             // end_date: "",
             // start_time: "",
             // end_time: "",
-            currency: "113",
+            currency: "NPR",
             images: "",
             videos: "",
             is_active: true,
@@ -174,8 +174,6 @@ export const AddServiceModalComponent = () => {
             />
 
             <form encType="multipart/formData" onSubmit={handleSubmit}>
-                <pre>{JSON.stringify(values, null, 4)}</pre>
-                <pre>{JSON.stringify(errors, null, 4)}</pre>
                 <Stack spacing="md">
                     <TextInput
                         placeholder="Enter your title"

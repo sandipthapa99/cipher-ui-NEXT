@@ -47,10 +47,6 @@ export const UserFollowersModal = ({
     followersData,
     followerClick,
 }: UserFollowersProps) => {
-    console.log(
-        "🚀 ~ file: UserFollowersModal.tsx ~ line 50 ~ followersData",
-        followersData
-    );
     const followMutation = useMutation((data: FollowMutationData) => {
         return axiosClient.post(urls.follow, data);
     });

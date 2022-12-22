@@ -32,6 +32,7 @@ import { useEditTask } from "hooks/task/use-edit-task";
 import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useEditTaskDetail } from "store/use-edit-task";
@@ -119,6 +120,7 @@ export const PostTaskModal = () => {
     //     rawString: taskDetail?.highlights ?? "[]",
     //     initialData: [],
     // });
+    const router = useRouter();
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
@@ -194,6 +196,7 @@ export const PostTaskModal = () => {
                                 ReactQueryKeys.TASK_DETAIL,
                                 taskDetail.id,
                             ]);
+
                             queryClient.invalidateQueries(["all-tasks"]);
 
                             toggleSuccessModal("Task Edited Successfully");
@@ -203,13 +206,15 @@ export const PostTaskModal = () => {
                 return;
             }
             createTaskMutation(updatedPayload, {
-                onSuccess: async () => {
+                onSuccess: async (response) => {
                     handleCloseModal();
                     action.resetForm();
+
                     toggleSuccessModal("Task Posted Successfully");
                     await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                     await queryClient.invalidateQueries(["notification"]);
                     await queryClient.invalidateQueries(["my-task"]);
+                    router.push(`task/${response.id}`);
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -253,7 +258,6 @@ export const PostTaskModal = () => {
                 title="Post a Task or Service"
                 size="xl"
             >
-                <pre>{JSON.stringify(values, null, 4)}</pre>
                 {showPostTaskModalType === "CREATE" && (
                     <div className="choose-email-or-phone mb-5">
                         <Radio.Group

@@ -78,15 +78,6 @@ const ChangePasswordForm = () => {
                                     resetForm,
                                 }) => (
                                     <Form autoComplete="off">
-                                        {/* {
-                                            <pre>
-                                                {JSON.stringify(
-                                                    errors,
-                                                    null,
-                                                    4
-                                                )}
-                                            </pre>
-                                        } */}
                                         {!userDetails?.social_only && (
                                             <PasswordField
                                                 typeOf="password"

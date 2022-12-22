@@ -3,7 +3,7 @@ import type { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
 export interface DeleteTaskPayload {
-    id: string;
+    id?: string;
 }
 export interface DeleteTaskResponse {
     message: string;
