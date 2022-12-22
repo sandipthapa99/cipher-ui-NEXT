@@ -64,6 +64,9 @@
     //     margin-left: 0.5rem;
     // }
     .type {
+        p {
+            margin-bottom: 0rem;
+        }
         padding: 2rem 0;
         border-bottom: 0.1rem solid $border-color;
         padding-left: 3.6rem;
@@ -260,58 +263,65 @@
     }
 
     .education {
-        .institution {
-            margin: 0;
-            font-size: 1.8rem;
+        &__type {
+            margin: 0 0 2.4rem 0;
 
-            @include respond(xxs) {
-                font-size: 1.27rem;
+            .institution {
+                margin: 0;
+                font-size: 1.8rem;
+
+                @include respond(xxs) {
+                    font-size: 1.27rem;
+                }
             }
-        }
 
-        .program {
-            font-size: 1.4rem;
-            font-weight: 400;
-            margin: 0.8rem 0 0 0;
-            color: $gray8;
-        }
+            .program {
+                font-size: 1.4rem;
+                font-weight: 400;
+                margin: 0.8rem 0 0 0;
+                color: $gray8;
+            }
 
-        .date {
-            font-size: 1.3rem;
-            font-weight: 400;
-            margin: 0.4rem 0 0 0;
-            color: $gray6;
-        }
+            .date {
+                font-size: 1.3rem;
+                font-weight: 400;
+                margin: 0.4rem 0 0 0;
+                color: $gray6;
+            }
 
-        .address {
-            color: $gray6;
-            margin-top: 0.4rem;
-            font-size: 1.3rem;
-            font-weight: 400;
+            .address {
+                color: $gray6;
+                margin-top: 0.4rem;
+                font-size: 1.3rem;
+                font-weight: 400;
+            }
         }
     }
 
     .certification {
         border-bottom: none;
+        &__type {
+            margin: 0 0 2.4rem 0;
 
-        .issuing_organization {
-            font-size: 1.4rem;
-            font-weight: 400;
-            margin: 0.8rem 0 0 0;
-            color: $gray8;
-        }
+            .issuing_organization {
+                font-size: 1.4rem;
+                font-weight: 400;
+                margin: 0.8rem 0 0 0;
+                color: $gray8;
+            }
 
-        .date {
-            font-size: 1.3rem;
-            font-weight: 400;
-            margin: 0.4rem 0 0 0;
-            color: $gray6;
-        }
+            .date {
+                font-size: 1.3rem;
+                font-weight: 400;
+                margin: 0.4rem 0 0 0;
+                color: $gray6;
+            }
 
-        .description {
-            margin: 1.2rem 0 0 0;
-            font-size: 1.4rem;
-            font-weight: 400;
+            .description {
+                margin: 1.2rem 0 0 0;
+                font-size: 1.4rem;
+                font-weight: 400;
+            }
         }
     }
 

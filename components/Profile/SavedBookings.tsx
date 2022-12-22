@@ -21,7 +21,7 @@ const SavedBookings = () => {
         userBookmarks.length > 0 ||
         serviceBookmarks.length > 0 ||
         taskBookmarks.length > 0;
-    console.log(isBookmarkAvailable);
+
     return (
         // <div className="saved-bookings px-5">
         //     {serviceBookmarks.length > 0 ? (
