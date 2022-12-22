@@ -14,3 +14,8 @@ export const formatTime = (time: string) => {
     const formattedTime = format(newDate, "p");
     return formattedTime;
 };
+
+export const convertTimeStringToDateString = (value: string) =>
+    new Date(
+        `${new Date().toISOString().split("T")[0]}T${value}`
+    ) as unknown as string;

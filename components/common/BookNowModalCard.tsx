@@ -37,6 +37,7 @@ import { toast } from "utils/toast";
 import { db } from "../../firebase/firebase";
 import { CustomDropZone } from "./CustomDropZone";
 import MantineDateField from "./MantineDateField";
+import MantineTimeField from "./MantineTimeField";
 
 // const useBookNowService = () =>
 //     useMutation<string, AxiosError, any>((payload) =>
@@ -170,9 +171,8 @@ const BookNowModalCard = ({
                     <Formik
                         initialValues={{
                             description: "",
-                            start_date: "",
                             end_date: "",
-                            start_time: 1,
+                            start_time: "",
                             images: "",
                             entity_service: "",
                             budget_to: budget_to,
@@ -200,6 +200,10 @@ const BookNowModalCard = ({
                                 videos: videoIds,
                                 entity_service: entity_service_id,
                                 offer: offerSelector ? [offerSelector] : [],
+                                start_time: format(
+                                    new Date(values.start_time),
+                                    "HH:mm"
+                                ),
                             };
 
                             mutate(newvalues, {
@@ -242,14 +246,6 @@ const BookNowModalCard = ({
                                         fieldRequired
                                     />
                                 </div>
-                                {/* <AddRequirements
-                                    onSubmit={(value) =>
-                                        setFieldValue("requirements", value)
-                                    }
-                                    title="Highligits"
-                                    placeHolder="e.g.Bring something"
-                                    description="Add requirements"
-                                /> */}
                                 <TaskRequirements
                                     initialRequirements={[]}
                                     onRequirementsChange={(requirements) =>
@@ -268,8 +264,6 @@ const BookNowModalCard = ({
                                                 name="start_date"
                                                 labelName="Start Date"
                                                 placeHolder="Select Start Date"
-                                                error={errors.start_date}
-                                                touch={touched.start_date}
                                                 icon={
                                                     <FontAwesomeIcon
                                                         icon={faCalendarDays}
@@ -336,15 +330,20 @@ const BookNowModalCard = ({
                                 </div>
                                 <Row>
                                     <Col md={6} className="estimated-time">
-                                        <InputField
+                                        <MantineTimeField
+                                            name={"start_time"}
                                             labelName="Start Time"
-                                            type="time"
-                                            name="start_time"
-                                            min="1"
+                                            placeHolder="Select Start Time"
                                             error={errors.start_time}
                                             touch={touched.start_time}
-                                            placeHolder="00:00"
+                                            defaultValue={new Date()}
                                             fieldRequired
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "start_time",
+                                                    value
+                                                );
+                                            }}
                                         />
                                     </Col>
                                 </Row>
@@ -435,7 +434,16 @@ const BookNowModalCard = ({
                                             />
                                         </Col>
                                     </Row>
-                                    <h4 className="mb-3">Select Offer</h4>
+                                    {offer &&
+                                        offer.filter(
+                                            (item) =>
+                                                item.offer_type === "basic"
+                                        ).length > 0 && (
+                                            <h4 className="mb-3">
+                                                Select Offer
+                                            </h4>
+                                        )}
+
                                     <List className="mb-5 book-now-gallery__list">
                                         {offer &&
                                             offer
@@ -484,17 +492,6 @@ const BookNowModalCard = ({
                                                     </List.Item>
                                                 ))}
                                     </List>
-
-                                    <div className="size-warning">
-                                        {/* <FontAwesomeIcon
-                                            icon={faCircleInfo}
-                                            className="svg-icon"
-                                        /> */}
-                                        {/* <p>
-                                            Images and videos should not be more
-                                            than 200MB
-                                        </p> */}
-                                    </div>
                                 </div>
                                 <Modal.Footer>
                                     <Button
