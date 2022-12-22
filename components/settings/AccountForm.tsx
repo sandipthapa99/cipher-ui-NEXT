@@ -117,6 +117,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     // const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
+    const [interestOptions, setInterestOptions] = useState<any>([]);
 
     const skills = profile?.skill ? JSON.parse(profile?.skill) : [];
     const [dataSkills, setDataSkills] = useState(() => {
@@ -234,6 +235,26 @@ const AccountForm = ({ showAccountForm }: Display) => {
           }))
         : ([] as SelectItem[]);
 
+    const { data: allCategory } = useQuery(
+        ["all-category"],
+        () => {
+            return axiosClient.get<IAllCategory[]>(
+                "/task/cms/task-category/list/"
+            );
+        },
+        {
+            onSuccess: (data) => {
+                const options = data?.data.map((item) => {
+                    return {
+                        value: item.id,
+                        label: item.name.toString(),
+                    };
+                });
+                setInterestOptions(options);
+            },
+            //enabled: profileDetails ? true : false,
+        }
+    );
     // const interestValues: SelectItem[] =
     //     allCategory?.data.length !== 0
     //         ? allCategory?.data?.map((item) => {
@@ -350,9 +371,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     // const interests =
     //     typeof interestValues !== "undefined" ? interestValues : [];
-    const defaultInterests = profile?.interests?.map((item) =>
-        item.id.toString()
-    );
+    const defaultInterests: any = profile?.interests?.map((item) => item.id);
 
     return (
         <>
@@ -377,78 +396,37 @@ const AccountForm = ({ showAccountForm }: Display) => {
                 }
             >
                 <Formik
-                    initialValues={
-                        {
-                            first_name: profile?.user.first_name ?? "",
-                            middle_name: profile?.user.middle_name ?? "",
-                            last_name: profile?.user.last_name ?? "",
-                            city: profile?.city?.id ?? parseInt(""),
-                            email: "",
-                            bio: profile?.bio ?? "",
-                            gender: profile?.gender ?? "",
-                            date_of_birth:
-                                profile && profile.date_of_birth
-                                    ? parseISO(profile.date_of_birth)
-                                    : "",
-                            skill: skills,
-                            interests: profile ? defaultInterests : [""],
-                            experience_level: profile?.experience_level ?? "",
-                            active_hour_start:
-                                new Date(`2022-09-24 ${startTime}`) ?? "",
-                            active_hour_end:
-                                new Date(`2022-09-24 ${endTime}`) ?? "",
-                            hourly_rate: profile?.hourly_rate ?? "",
-                            user_type: userType ?? "",
-                            country: profile ? countryChange : "",
-                            address_line1: profile?.address_line1 ?? "",
-                            address_line2: profile?.address_line2 ?? "",
-                            language: profile ? languageChange : "ne",
-                            charge_currency: profile ? currencyChange : "NPR",
-                            profile_visibility:
-                                profile?.profile_visibility ?? "",
-                            task_preferences: profile?.task_preferences ?? "",
-                            profile_image: profile?.profile_image ?? "",
-                            designation: profile?.designation ?? "",
-                        }
-                        // profile
-                        //     ? {
-                        //           first_name: profile?.user.first_name ?? "",
-                        //           middle_name: profile?.user.middle_name ?? "",
-                        //           last_name: profile?.user.last_name ?? "",
-                        //           city: profile?.city?.id ?? "",
-                        //           email: "",
-                        //           bio: profile?.bio ?? "",
-                        //           gender: profile?.gender ?? "",
-                        //           date_of_birth:
-                        //               profile && profile.date_of_birth
-                        //                   ? parseISO(profile.date_of_birth)
-                        //                   : "",
-                        //           skill: skills,
-                        //           interests: defaultInterests,
-                        //           experience_level:
-                        //               profile?.experience_level ?? "",
-                        //           active_hour_start:
-                        //               new Date(`2022-09-24 ${startTime}`) ?? "",
-                        //           active_hour_end:
-                        //               new Date(`2022-09-24 ${endTime}`) ?? "",
-                        //           hourly_rate: profile?.hourly_rate ?? "",
-                        //           user_type: userType ?? "",
-                        //           country: profile ? countryChange : "",
-                        //           address_line1: profile?.address_line1 ?? "",
-                        //           address_line2: profile?.address_line2 ?? "",
-                        //           language: profile ? languageChange : "",
-                        //           charge_currency: profile
-                        //               ? currencyChange
-                        //               : "",
-                        //           profile_visibility:
-                        //               profile?.profile_visibility ?? "",
-                        //           task_preferences:
-                        //               profile?.task_preferences ?? "",
-                        //           profile_image: profile?.profile_image ?? "",
-                        //           designation: profile?.designation ?? "",
-                        //       }
-                        //     : AccountFormData
-                    }
+                    initialValues={{
+                        first_name: profile?.user.first_name ?? "",
+                        middle_name: profile?.user.middle_name ?? "",
+                        last_name: profile?.user.last_name ?? "",
+                        city: profile?.city?.id ?? parseInt(""),
+                        email: "",
+                        bio: profile?.bio ?? "",
+                        gender: profile?.gender ?? "",
+                        date_of_birth:
+                            profile && profile.date_of_birth
+                                ? parseISO(profile.date_of_birth)
+                                : "",
+                        skill: skills,
+                        interests: profile ? defaultInterests : [""],
+                        experience_level: profile?.experience_level ?? "",
+                        active_hour_start:
+                            new Date(`2022-09-24 ${startTime}`) ?? "",
+                        active_hour_end:
+                            new Date(`2022-09-24 ${endTime}`) ?? "",
+                        hourly_rate: profile?.hourly_rate ?? "",
+                        user_type: userType ?? "",
+                        country: profile ? countryChange : "",
+                        address_line1: profile?.address_line1 ?? "",
+                        address_line2: profile?.address_line2 ?? "",
+                        language: profile ? languageChange : "ne",
+                        charge_currency: profile ? currencyChange : "NPR",
+                        profile_visibility: profile?.profile_visibility ?? "",
+                        task_preferences: profile?.task_preferences ?? "",
+                        profile_image: profile?.profile_image ?? "",
+                        designation: profile?.designation ?? "",
+                    }}
                     validationSchema={accountFormSchema}
                     enableReinitialize={true}
                     onSubmit={async (values) => {
@@ -1079,7 +1057,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 // disabled={isInputDisabled}
                             /> */}
                             <MultiSelect
-                                data={[]}
+                                data={interestOptions}
                                 name="interests"
                                 onChange={(value) => {
                                     setFieldValue("interests", value);
@@ -1089,6 +1067,17 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                                 placeholder="Enter your interests"
                             />
+                            {/* <MultiSelect
+                                data={interestOptions}
+                                name="interests"
+                                onChange={(value) => {
+                                    setFieldValue("interests", value);
+                                }}
+                                value={values?.interests}
+                                label="Interests"
+                                disabled={isInputDisabled}
+                                placeholder="Enter your interests"
+                            /> */}
                             <RadioField
                                 type="radio"
                                 name="experience_level"

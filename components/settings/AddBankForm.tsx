@@ -177,14 +177,15 @@ const BankForm = ({
                     editDetails
                         ? editBankDetail(withKYC, {
                               onSuccess: async () => {
+                                  actions.resetForm();
+                                  toast.success(
+                                      "Bank detail updated successfully!"
+                                  );
                                   queryClient.invalidateQueries(["profile"]);
                                   queryClient.invalidateQueries([
                                       "tasker-bank-account",
                                   ]);
-                                  toast.success(
-                                      "Bank detail updated successfully!"
-                                  );
-                                  actions.resetForm();
+
                                   setDisableButton(true);
                               },
 
