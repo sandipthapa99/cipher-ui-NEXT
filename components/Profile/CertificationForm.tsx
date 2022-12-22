@@ -56,11 +56,12 @@ const CertificationForm = ({
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
-    const doesExpire =
-        isEditProfile === true ? editDetails?.does_expire : false;
-    const [toggle, setToggled] = useState(doesExpire);
-    console.log("does expire", doesExpire, isEditProfile, toggle);
 
+    // const [toggle, setToggled] = useState(
+    //     isEditProfile ? editDetails?.does_expire : false
+    // );
+
+    const checked = isEditProfile ? editDetails?.does_expire : false;
     return (
         <Fragment>
             {/* Modal component */}
@@ -231,29 +232,16 @@ const CertificationForm = ({
                                     /> */}
                                     <Checkbox
                                         label="This certifate does not expire"
-                                        checked={toggle}
+                                        defaultChecked={checked}
                                         {...getFieldProps("does_expire")}
-                                        onChange={(event) => {
-                                            setToggled(!toggle);
-                                            setFieldValue(
-                                                "does_expire",
-                                                event.target.checked
-                                            );
-                                        }}
+                                        // onChange={(event) => {
+                                        //     setToggled(!toggle);
+                                        //     setFieldValue(
+                                        //         "does_expire",
+                                        //         event.target.checked
+                                        //     );
+                                        // }}
                                     />
-                                    {/* <Field
-                                        type="checkbox"
-                                        {...getFieldProps("does_expire")}
-                                        onChange={(event) => {
-                                            setToggled(!toggle);
-                                            setFieldValue(
-                                                "does_expire",
-                                                event.target.checked
-                                            );
-                                        }}
-                                        className="me-2"
-                                    /> */}
-                                    &nbsp; This certifate does not expire
                                 </p>
                                 <Row className="g-5">
                                     <Col md={6}>
@@ -319,11 +307,11 @@ const CertificationForm = ({
                                             )}
                                             //fieldRequired={true}
                                             placeHolder={
-                                                toggle
+                                                checked
                                                     ? "No Expiration Date"
                                                     : "2022-03-06"
                                             }
-                                            disabled={toggle ? true : false}
+                                            disabled={checked ? true : false}
                                             icon={
                                                 <FontAwesomeIcon
                                                     icon={faCalendarDays}
