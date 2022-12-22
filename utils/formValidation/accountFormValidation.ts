@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import * as Yup from "yup";
 const stringReqOnly = Yup.string().required("Required field");
 const stringUnReq = Yup.string().required("Required Field ");
-const dateValidation = Yup.date().nullable().required("Required field");
+const dateValidation = Yup.string().required("Required field");
 const emailValidate = Yup.string()
     .email("Invalid email address")
     .required("Required field");

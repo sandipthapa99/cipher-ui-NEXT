@@ -140,7 +140,7 @@ export const PostTaskModal = () => {
             is_everyday: false,
             start_date: "",
             end_date: "",
-            start_time: "",
+            start_time: format(new Date(), "hh:mm aa"),
             end_time: "",
             currency: taskDetail ? String(taskDetail?.currency?.code) : "NPR",
             images: "",
@@ -150,6 +150,7 @@ export const PostTaskModal = () => {
         },
         enableReinitialize: true,
         validationSchema: postTaskSchema,
+
         onSubmit: async (values, action) => {
             if (!termsAccepted) {
                 toast.error(

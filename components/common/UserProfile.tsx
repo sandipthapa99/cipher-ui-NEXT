@@ -32,7 +32,6 @@ import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
-import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 import { UserFollowersModal } from "./UserFollowersModal";
@@ -58,7 +57,6 @@ const UserProfileCard = ({
     followers_count,
     following_count,
 }: UserProfileInfoProps) => {
-    const [showEdit, setShowEdit] = useState(false);
     const [showFollowers, setShowFollowers] = useState(false);
     const [followerClick, setFollowerClick] = useState("followers");
     const { data: countryData } = useGetCountryBYId(country);
@@ -296,12 +294,6 @@ const UserProfileCard = ({
                     >
                         Edit Profile
                     </button>
-                    <ProfileEditForm
-                        show={showEdit}
-                        setShowEdit={setShowEdit}
-                        handleClose={() => setShowEdit(false)}
-                        userName={user.username}
-                    />
                 </Col>
 
                 <Col md={9} className="profile-card-block__general-info">
