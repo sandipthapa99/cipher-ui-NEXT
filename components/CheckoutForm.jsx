@@ -91,7 +91,7 @@ export default function CheckoutForm() {
                 id="submit"
                 className="btn-primary mt-5"
             >
-                <span id="button-text">
+                <span id="button-text" style={{ color: "#FFF" }}>
                     {isLoading ? <Loader color="gray" size="sm" /> : "Pay now"}
                 </span>
             </button>

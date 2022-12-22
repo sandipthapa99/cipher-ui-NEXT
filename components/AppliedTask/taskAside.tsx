@@ -82,11 +82,11 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
                         {!isLoading && !query && totalAppliedTasks === 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="Services Unavailable"
+                                title="Tasks Unavailable"
                                 variant="filled"
                                 color="yellow"
                             >
-                                No Services available at the moment
+                                No Tasks available at the moment
                             </Alert>
                         )}
                     </ScrollArea.Autosize>
