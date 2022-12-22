@@ -47,7 +47,7 @@ export const RepliedModal = ({
                     }
                     gx={2}
                 >
-                    <Col sm={1}>
+                    <Col sm={2}>
                         <Link href={`/tasker/${ratedToId}/`}>
                             <a target="_blank">
                                 <figure className="thumbnail-img">
@@ -69,7 +69,7 @@ export const RepliedModal = ({
                         </Link>
                     </Col>
                     <Col
-                        sm={11}
+                        sm={10}
                         className="d-flex-col align-items-center reply-container"
                     >
                         <div className="review-block__content">
