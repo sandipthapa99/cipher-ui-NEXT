@@ -160,6 +160,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
         }
     }, []);
     const { data: userData } = useUser();
+
+    console.log(
+        convertTimeStringToDateString(String(profile?.active_hour_end))
+    );
     // const router = useRouter();
     //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
     // const [city, setCity] = useState(profile?.city?.id);
@@ -168,18 +172,18 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     const user_language = profile?.language ? profile?.language.name : "";
 
-    const handleScroll = () => {
-        const position = window.pageYOffset;
-        setScrollPosition(position);
-    };
+    // const handleScroll = () => {
+    //     const position = window.pageYOffset;
+    //     setScrollPosition(position);
+    // };
 
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
+    // useEffect(() => {
+    //     window.addEventListener("scroll", handleScroll);
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+    //     return () => {
+    //         window.removeEventListener("scroll", handleScroll);
+    //     };
+    // }, []);
 
     const scrollToKyc = () => {
         scroll.scrollTo(2660);
