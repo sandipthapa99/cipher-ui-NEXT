@@ -80,7 +80,7 @@ const BankForm = ({
 
     const { data: bankBranch, isLoading } = useData<BankBranchResult>(
         ["all-branches", bankId],
-        `/payment/bank-branch/${parseInt(bankId)}`
+        `/payment/bank-branch/${parseInt(bankId)}/`
     );
 
     const bankBranchResults: SelectItem[] = bankBranch?.data
