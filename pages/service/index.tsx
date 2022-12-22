@@ -14,14 +14,14 @@ const ServicePage: NextPage = () => {
             <ServiceLayout>
                 <NearbyServicesMap />
 
-                <AdvertisementCard
+                {/* <AdvertisementCard
                     title="Gardening Services"
                     type="The Merch"
                     currency="Rs"
                     price="1250.00"
                     buttonTitle="Book Now"
                     cardImage="/service-details/garden-cleaning.png"
-                />
+                /> */}
             </ServiceLayout>
         </>
     );
