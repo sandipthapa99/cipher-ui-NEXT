@@ -7,7 +7,6 @@ import { faCalendarDays, faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
-import { TimeInput } from "@mantine/dates";
 import { MIME_TYPES } from "@mantine/dropzone";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -38,6 +37,7 @@ import { toast } from "utils/toast";
 import { db } from "../../firebase/firebase";
 import { CustomDropZone } from "./CustomDropZone";
 import MantineDateField from "./MantineDateField";
+import MantineTimeField from "./MantineTimeField";
 
 // const useBookNowService = () =>
 //     useMutation<string, AxiosError, any>((payload) =>
@@ -171,9 +171,8 @@ const BookNowModalCard = ({
                     <Formik
                         initialValues={{
                             description: "",
-                            start_date: "",
                             end_date: "",
-                            start_time: format(new Date(), "hh:mm aa"),
+                            start_time: "",
                             images: "",
                             entity_service: "",
                             budget_to: budget_to,
@@ -201,6 +200,10 @@ const BookNowModalCard = ({
                                 videos: videoIds,
                                 entity_service: entity_service_id,
                                 offer: offerSelector ? [offerSelector] : [],
+                                start_time: format(
+                                    new Date(values.start_time),
+                                    "HH:mm"
+                                ),
                             };
 
                             mutate(newvalues, {
@@ -243,14 +246,6 @@ const BookNowModalCard = ({
                                         fieldRequired
                                     />
                                 </div>
-                                {/* <AddRequirements
-                                    onSubmit={(value) =>
-                                        setFieldValue("requirements", value)
-                                    }
-                                    title="Highligits"
-                                    placeHolder="e.g.Bring something"
-                                    description="Add requirements"
-                                /> */}
                                 <TaskRequirements
                                     initialRequirements={[]}
                                     onRequirementsChange={(requirements) =>
@@ -269,8 +264,6 @@ const BookNowModalCard = ({
                                                 name="start_date"
                                                 labelName="Start Date"
                                                 placeHolder="Select Start Date"
-                                                error={errors.start_date}
-                                                touch={touched.start_date}
                                                 icon={
                                                     <FontAwesomeIcon
                                                         icon={faCalendarDays}
@@ -337,21 +330,19 @@ const BookNowModalCard = ({
                                 </div>
                                 <Row>
                                     <Col md={6} className="estimated-time">
-                                        <TimeInput
-                                            label="Start time"
-                                            format="12"
-                                            size="md"
+                                        <MantineTimeField
+                                            name={"start_time"}
+                                            labelName="Start Time"
+                                            placeHolder="Select Start Time"
+                                            error={errors.start_time}
+                                            touch={touched.start_time}
                                             defaultValue={new Date()}
-                                            onChange={(event) => {
-                                                if (event !== null) {
-                                                    setFieldValue(
-                                                        "start_time",
-                                                        format(
-                                                            new Date(event),
-                                                            "hh:mm aa"
-                                                        )
-                                                    );
-                                                }
+                                            fieldRequired
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "start_time",
+                                                    value
+                                                );
                                             }}
                                         />
                                     </Col>

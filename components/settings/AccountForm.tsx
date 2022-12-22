@@ -1,8 +1,8 @@
 import BigButton from "@components/common/Button";
-import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
+import MantineTimeField from "@components/common/MantineTimeField";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import { ImageUpload } from "@components/ImageUpload";
@@ -42,6 +42,7 @@ import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
+import { convertTimeStringToDateString } from "utils/formatTime";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -103,6 +104,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
+    const [interestOptions, setInterestOptions] = useState<any>([]);
     const { data: profile } = useGetProfile();
 
     // useEffect(() => {
@@ -131,6 +133,26 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
     const { classes } = useStyles();
+
+    useQuery(
+        ["all-category"],
+        () => {
+            return axiosClient.get<IAllCategory[]>(
+                "/task/cms/task-category/list/"
+            );
+        },
+        {
+            onSuccess: (data) => {
+                const options = data?.data.map((item) => {
+                    return {
+                        value: item.id.toString(),
+                        label: item.name.toString(),
+                    };
+                });
+                setInterestOptions(options);
+            },
+        }
+    );
 
     useEffect(() => {
         if (!profile?.profile_image) {
@@ -163,24 +185,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
         scroll.scrollTo(2660);
     };
 
-    //converting string time value to datetime time value
-    const start: string = profile?.active_hour_start
-        ? profile?.active_hour_start.replace(":00", "")
-        : "";
-    const end: string = profile?.active_hour_end
-        ? profile?.active_hour_end.replace(":00", "")
-        : "";
-
-    const endparsed = profile?.active_hour_end
-        ? (parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)).toString()
-        : "";
-
-    const finalend = profile?.active_hour_end
-        ? `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`
-        : "";
-
-    const endTime = finalend.toString();
-    const startTime = start.toString();
     const [countryChange, setCountryChange] = useState<string | null>(country);
     const [languageChange, setLanguageChange] = useState<string | null>(
         user_language
@@ -393,10 +397,16 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             skill: skills,
                             interests: profile ? defaultInterests : [""],
                             experience_level: profile?.experience_level ?? "",
-                            active_hour_start:
-                                new Date(`2022-09-24 ${startTime}`) ?? "",
-                            active_hour_end:
-                                new Date(`2022-09-24 ${endTime}`) ?? "",
+                            active_hour_start: profile?.active_hour_start
+                                ? convertTimeStringToDateString(
+                                      String(profile?.active_hour_start)
+                                  )
+                                : new Date(),
+                            active_hour_end: profile?.active_hour_end
+                                ? convertTimeStringToDateString(
+                                      String(profile?.active_hour_end)
+                                  )
+                                : new Date(),
                             hourly_rate: profile?.hourly_rate ?? "",
                             user_type: userType ?? "",
                             country: profile ? countryChange : "",
@@ -460,12 +470,14 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 user_type: JSON.stringify(values.user_type),
                                 skill: JSON.stringify(values.skill),
 
-                                active_hour_start: new Date(
-                                    values.active_hour_start ?? ""
-                                )?.toLocaleTimeString(),
-                                active_hour_end: new Date(
-                                    values.active_hour_end ?? ""
-                                )?.toLocaleTimeString(),
+                                active_hour_start: format(
+                                    new Date(values.active_hour_start),
+                                    "HH:mm"
+                                ),
+                                active_hour_end: format(
+                                    new Date(values.active_hour_end),
+                                    "HH:mm"
+                                ),
                                 date_of_birth: format(
                                     new Date(values.date_of_birth),
                                     "yyyy-MM-dd"
@@ -697,9 +709,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 <FontAwesomeIcon
                                                     icon={faCamera}
                                                     className="camera-icon"
-                                                    // onClick={() => {
-                                                    //     setDisplay(!display);
-                                                    // }}
                                                     onClick={onButtonClick}
                                                 />
 
@@ -710,7 +719,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                         setIsEditButtonClicked
                                                     }
                                                     userId={profile?.id.toString()}
-                                                    // setDisplay={setDisplay}
                                                     ref={inputRef}
                                                     onChange={(e: any) => {
                                                         const files =
@@ -720,17 +728,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                             files[0]
                                                         );
                                                         setDisplay(false);
-                                                        // setFile(
-                                                        //     URL.createObjectURL(
-                                                        //         files[0]
-                                                        //     )
-                                                        // );
-
                                                         setImage(files[0]);
-                                                        // image
-                                                        //     ? (previewImage =
-                                                        //           blobUrl)
-                                                        //     : "";
                                                         setShowEditForm(
                                                             !showEditForm
                                                         );
@@ -744,15 +742,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                         setShowEditForm(false);
                                                         setDisplay(false);
                                                     }}
-                                                    // handleSubmit={() => {
-                                                    //     isEditButtonClicked
-                                                    //         ? onEditProfile(
-                                                    //               image
-                                                    //           )
-                                                    //         : setShowEditForm(
-                                                    //               false
-                                                    //           );
-                                                    // }}
                                                     isEditButtonClicked={
                                                         isEditButtonClicked
                                                     }
@@ -784,7 +773,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     </div>
 
                                     <Image
-                                        //src={"/userprofile/unknownPerson.jpg"}
                                         src={
                                             profile && profile.profile_image
                                                 ? profile.profile_image
@@ -816,9 +804,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 className="sticky-wrapper"
                                                 btnTitle={"Edit Profile"}
                                                 backgroundColor={"#FFCA6A"}
-                                                // disabled={
-                                                //     userGet()?.is_suspended
-                                                // }
                                                 textColor={"#212529"}
                                                 handleClick={() =>
                                                     setIsEditButtonClicked(true)
@@ -877,14 +862,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     />
                                 </Col>
                             </Row>
-                            {/* <InputField
-                                type="email"
-                                name="email"
-                                labelName="Email"
-                                error={errors.email}
-                                touch={touched.email}
-                                placeHolder="Enter your Email"
-                            /> */}
                             <InputField
                                 name="bio"
                                 labelName="Bio"
@@ -906,26 +883,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                         : true
                                 }
                             />
-                            {/* <Row className="g-5">
-                                <Col md={6}>
-                                    {isEditButtonClicked || !profile ? (
-                                        <PhoneNumberInput
-                                            name={"phone"}
-                                            labelName="Phone Number"
-                                            touch={touched.phone}
-                                            error={errors.phone}
-                                        />
-                                    ) : (
-                                        <InputField
-                                            name="phone"
-                                            labelName="Phone Number"
-                                            touch={touched.phone}
-                                            error={errors.phone}
-                                            disabled={true}
-                                        />
-                                    )}
-                                </Col>
-                            </Row> */}
                             <RadioField
                                 type="radio"
                                 name="gender"
@@ -935,15 +892,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 error={errors.gender}
                                 disabled={isInputDisabled}
                             />
-                            {/* <DatePickerField
-                                name="date_of_birth"
-                                labelName="Date of birth"
-                                dateFormat="yyyy-MM-dd"
-                                placeHolder="dd/mm/yy"
-                                touch={touched.date_of_birth}
-                                error={errors.date_of_birth}
-                                disabled={isInputDisabled}
-                            /> */}
                             <MantineDateField
                                 name="date_of_birth"
                                 labelName="Date of birth"
@@ -966,29 +914,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                         format(new Date(value), "yyyy-MM-dd")
                                     );
                                 }}
-                                //    value={getYearsRange({ from: 2020, to: 2025 })}
                                 excludeDate={(date) =>
                                     date.getFullYear() <= 1940
                                 }
                             />
-                            {/* <DatePicker
-                                label="Date of birth"
-                                // value={
-                                //     (profile && profile?.date_of_birth) ??
-                                //     parseISO(profile.date_of_birth)
-                                // }
-                                // defaultValue={
-                                //     (profile && profile?.date_of_birth) ??
-                                //     parseISO(profile.date_of_birth)
-                                // }
-                                inputFormat="yyyy-MM-dd"
-                                value={value}
-                                //onChange={onChange}
-                                placeholder="dd/mm/yy"
-                                firstDayOfWeek="sunday"
-                                name="date_of_birth"
-                                disabled={isInputDisabled}
-                            /> */}
                             <hr />
                             <h3>Professional Information</h3>
                             <h4>Select User Type</h4>
@@ -1019,17 +948,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     Tasker
                                 </label>
                             </div>
-
-                            {/* <TagInputField
-                                data={skillsOptions}
-                                name="skill"
-                                labelName="Specialities"
-                                placeHolder="Enter your skills"
-                                disabled={isInputDisabled}
-                                value={values?.skill}
-
-                                //error={errors.skill}
-                            /> */}
                             <MultiSelect
                                 label="Skills"
                                 data={dataSkills}
@@ -1060,7 +978,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                             />
                             <MultiSelect
-                                data={[]}
+                                data={interestOptions}
                                 name="interests"
                                 onChange={(value) => {
                                     setFieldValue("interests", value);
@@ -1070,6 +988,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                                 placeholder="Enter your interests"
                             />
+
                             <RadioField
                                 type="radio"
                                 name="experience_level"
@@ -1083,26 +1002,34 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <h4>Active Hours</h4>
                             <Row className="g-5">
                                 <Col md={3}>
-                                    <DatePickerField
+                                    <MantineTimeField
                                         name="active_hour_start"
-                                        labelName="From"
+                                        labelName="To"
                                         placeHolder="hh/mm"
-                                        dateFormat="HH:mm aa"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
+                                        handleChange={(value) => {
+                                            setFieldValue(
+                                                "active_hour_start",
+                                                value
+                                            );
+                                        }}
                                         disabled={isInputDisabled}
-                                        timeOnly
                                     />
                                 </Col>
                                 <Col md={3}>
-                                    <DatePickerField
+                                    <MantineTimeField
                                         name="active_hour_end"
                                         labelName="To"
-                                        dateFormat="HH:mm aa"
                                         placeHolder="hh/mm"
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}
-                                        timeOnly
+                                        handleChange={(value) => {
+                                            setFieldValue(
+                                                "active_hour_end",
+                                                value
+                                            );
+                                        }}
                                         disabled={isInputDisabled}
                                     />
                                 </Col>
@@ -1151,15 +1078,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 nothingFound={"nothing found"}
                                 error={errors.city}
                             />
-                            {/* <SelectCity
-                                key={city}
-                                onCitySelect={(cityId) => {
-                                    setCity(cityId);
-                                    setFieldValue("city", cityId);
-                                }}
-                                value={city?.toString() ?? ""}
-                                disabled={isInputDisabled}
-                            /> */}
                             <PlacesAutocomplete
                                 size="md"
                                 label="Address Line 1"
@@ -1279,44 +1197,22 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             )}
                             {profile ? (
                                 <div>
-                                    {
-                                        isEditButtonClicked || !profile ? (
-                                            <FormButton
-                                                type="submit"
-                                                variant="primary"
-                                                name="Save"
-                                                className="submit-btn"
-                                                isSubmitting={isSubmitting}
-                                                isSubmittingClass={isSubmittingClass(
-                                                    isSubmitting
-                                                )}
-                                            />
-                                        ) : null
-                                        // (
-                                        //     <BigButton
-                                        //         btnTitle={"Edit Profile"}
-                                        //         backgroundColor={"#FFCA6A"}
-                                        //         textColor={"#212529"}
-                                        //         handleClick={() =>
-                                        //             setIsEditButtonClicked(true)
-                                        //         }
-                                        //     />
-                                        // )
-                                    }
+                                    {isEditButtonClicked || !profile ? (
+                                        <FormButton
+                                            type="submit"
+                                            variant="primary"
+                                            name="Save"
+                                            className="submit-btn"
+                                            isSubmitting={isSubmitting}
+                                            isSubmittingClass={isSubmittingClass(
+                                                isSubmitting
+                                            )}
+                                        />
+                                    ) : null}
                                 </div>
                             ) : (
                                 ""
                             )}
-                            {/* {isEditButtonClicked ? (
-                                <div className="d-flex justify-content-end">
-                                    <Button
-                                        className="me-3 mb-0 submit-btn"
-                                        onClick={() => resetForm}
-                                    >
-                                        Cancel Editing
-                                    </Button>
-                                </div>
-                            ) : null} */}
                         </Form>
                     )}
                 </Formik>
