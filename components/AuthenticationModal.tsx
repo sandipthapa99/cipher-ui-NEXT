@@ -95,7 +95,7 @@ const AuthenticationModalCard = ({
                             <OtpInput
                                 value={otpNum}
                                 onChange={handleChange}
-                                numInputs={8}
+                                numInputs={6}
                                 separator={
                                     <span style={{ width: "8px" }}></span>
                                 }
