@@ -116,7 +116,7 @@ const AppliedForm = ({
                     });
                 }
             } catch (error) {
-                console.log("this isit", error);
+                toast.error("Chat Room creation failed");
             }
         }
     };
