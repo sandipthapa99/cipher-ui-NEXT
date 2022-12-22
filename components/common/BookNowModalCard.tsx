@@ -104,10 +104,7 @@ const BookNowModalCard = ({
                             [combinedId + ".date"]: serverTimestamp(),
                         });
                     } catch (error) {
-                        console.log(
-                            "🚀 ~ file: MyBookings.tsx ~ line 109 ~ handleRoomcreate ~ error",
-                            error
-                        );
+                        toast.error("Chat Room creation failed");
                     }
 
                     await updateDoc(doc(db, "userChats", tasker_id), {
@@ -120,7 +117,7 @@ const BookNowModalCard = ({
                     });
                 }
             } catch (error) {
-                console.log("this isit", error);
+                toast.error("Chat Room creation failed");
             }
         }
     };
