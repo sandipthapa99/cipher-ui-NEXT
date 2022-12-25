@@ -95,7 +95,6 @@ export interface IAllCategory {
 }
 
 const AccountForm = ({ showAccountForm }: Display) => {
-    const [scrollPosition, setScrollPosition] = useState(0);
     //profile success modal
     const [show, setShow] = useState(false);
 
@@ -385,84 +384,43 @@ const AccountForm = ({ showAccountForm }: Display) => {
                 }
             >
                 <Formik
-                    initialValues={
-                        {
-                            first_name: profile?.user.first_name ?? "",
-                            middle_name: profile?.user.middle_name ?? "",
-                            last_name: profile?.user.last_name ?? "",
-                            city: profile?.city?.id ?? parseInt(""),
-                            email: "",
-                            bio: profile?.bio ?? "",
-                            gender: profile?.gender ?? "",
-                            date_of_birth:
-                                profile && profile.date_of_birth
-                                    ? parseISO(profile.date_of_birth)
-                                    : "",
-                            skill: skills,
-                            interests: profile ? defaultInterests : [""],
-                            experience_level: profile?.experience_level ?? "",
-                            active_hour_start: profile?.active_hour_start
-                                ? convertTimeStringToDateString(
-                                      String(profile?.active_hour_start)
-                                  )
-                                : new Date(),
-                            active_hour_end: profile?.active_hour_end
-                                ? convertTimeStringToDateString(
-                                      String(profile?.active_hour_end)
-                                  )
-                                : new Date(),
-                            hourly_rate: profile?.hourly_rate ?? "",
-                            user_type: userType ?? "",
-                            country: profile ? countryChange : "",
-                            address_line1: profile?.address_line1 ?? "",
-                            address_line2: profile?.address_line2 ?? "",
-                            language: profile ? languageChange : "ne",
-                            charge_currency: profile ? currencyChange : "NPR",
-                            profile_visibility:
-                                profile?.profile_visibility ?? "",
-                            task_preferences: profile?.task_preferences ?? "",
-                            profile_image: profile?.profile_image ?? "",
-                            designation: profile?.designation ?? "",
-                        }
-                        // profile
-                        //     ? {
-                        //           first_name: profile?.user.first_name ?? "",
-                        //           middle_name: profile?.user.middle_name ?? "",
-                        //           last_name: profile?.user.last_name ?? "",
-                        //           city: profile?.city?.id ?? "",
-                        //           email: "",
-                        //           bio: profile?.bio ?? "",
-                        //           gender: profile?.gender ?? "",
-                        //           date_of_birth:
-                        //               profile && profile.date_of_birth
-                        //                   ? parseISO(profile.date_of_birth)
-                        //                   : "",
-                        //           skill: skills,
-                        //           interests: defaultInterests,
-                        //           experience_level:
-                        //               profile?.experience_level ?? "",
-                        //           active_hour_start:
-                        //               new Date(`2022-09-24 ${startTime}`) ?? "",
-                        //           active_hour_end:
-                        //               new Date(`2022-09-24 ${endTime}`) ?? "",
-                        //           hourly_rate: profile?.hourly_rate ?? "",
-                        //           user_type: userType ?? "",
-                        //           country: profile ? countryChange : "",
-                        //           address_line1: profile?.address_line1 ?? "",
-                        //           address_line2: profile?.address_line2 ?? "",
-                        //           language: profile ? languageChange : "",
-                        //           charge_currency: profile
-                        //               ? currencyChange
-                        //               : "",
-                        //           profile_visibility:
-                        //               profile?.profile_visibility ?? "",
-                        //           task_preferences:
-                        //               profile?.task_preferences ?? "",
-                        //           profile_image: profile?.profile_image ?? "",
-                        //           designation: profile?.designation ?? "",
-                        //       }
-                        //     : AccountFormData
-                    }
+                    initialValues={{
+                        first_name: profile?.user.first_name ?? "",
+                        middle_name: profile?.user.middle_name ?? "",
+                        last_name: profile?.user.last_name ?? "",
+                        city: profile?.city?.id ?? parseInt(""),
+                        email: "",
+                        bio: profile?.bio ?? "",
+                        gender: profile?.gender ?? "",
+                        date_of_birth:
+                            profile && profile.date_of_birth
+                                ? parseISO(profile.date_of_birth)
+                                : "",
+                        skill: skills,
+                        interests: profile ? defaultInterests : [""],
+                        experience_level: profile?.experience_level ?? "",
+                        active_hour_start: profile?.active_hour_start
+                            ? convertTimeStringToDateString(
+                                  String(profile?.active_hour_start)
+                              )
+                            : "",
+                        active_hour_end: profile?.active_hour_end
+                            ? convertTimeStringToDateString(
+                                  String(profile?.active_hour_end)
+                              )
+                            : "",
+                        hourly_rate: profile?.hourly_rate ?? "",
+                        user_type: userType ?? "",
+                        country: profile ? countryChange : "",
+                        address_line1: profile?.address_line1 ?? "",
+                        address_line2: profile?.address_line2 ?? "",
+                        language: profile ? languageChange : "ne",
+                        charge_currency: profile ? currencyChange : "NPR",
+                        profile_visibility: profile?.profile_visibility ?? "",
+                        task_preferences: profile?.task_preferences ?? "",
+                        profile_image: profile?.profile_image ?? "",
+                        designation: profile?.designation ?? "",
+                    }}
                     validationSchema={accountFormSchema}
                     enableReinitialize={true}
                     onSubmit={async (values) => {
@@ -488,10 +446,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 ),
                                 city: values.city,
                             };
-
-                            // newValidatedValues.interests?.forEach((val: number) =>
-                            //     formData.append("interests", val)
-                            // );
 
                             Object.entries(newValidatedValues).forEach(
                                 (entry) => {
@@ -531,8 +485,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             values?.interests?.forEach((value: any) => {
                                 formData.append("interests", value);
                             });
-
-                            //         const editedData = formData;
 
                             {
                                 isEditButtonClicked
@@ -695,7 +647,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     {profile?.is_profile_verified ? (
                                         <FontAwesomeIcon
                                             icon={faBadgeCheck}
-                                            //onClick={onButtonClick}
                                             className="badge-icon"
                                         />
                                     ) : (
@@ -1060,7 +1011,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 searchable
                                 nothingFound="No result found."
                                 value={countryChange}
-                                // key={countryChange}
                                 onChange={(value) => {
                                     setCountryChange(value ? value : "");
                                     handleCountryChanged(value, setFieldValue);
@@ -1099,23 +1049,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     setFieldValue("address_line1", value)
                                 }
                             />
-                            {/* <PlacesAutocomplete
-                                size="md"
-                                label="Address Line 2"
-                                placeholder="Enter your temporary address"
-                                disabled={isInputDisabled}
-                                error={
-                                    touched.address_line2 &&
-                                    errors.address_line2
-                                        ? errors.address_line2
-                                        : undefined
-                                }
-                                {...getFieldProps("address_line2")}
-                                value={values.address_line2}
-                                onPlaceChange={(value) =>
-                                    setFieldValue("address_line2", value)
-                                }
-                            /> */}
                             <InputField
                                 type="text"
                                 name="address_line2"
