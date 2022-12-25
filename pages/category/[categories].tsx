@@ -40,10 +40,7 @@ const Gardening = ({
     const categoryImage = (
         (serviceData?.length > 0 ? serviceData : taskData) as any[]
     )?.map((item) => item[0]?.category.image);
-    console.log(
-        "🚀 ~ file: [categories].tsx ~ line 47 ~ categoryImage",
-        categoryImage
-    );
+
     const categoryName = category ? category.category.name : categories;
 
     return (

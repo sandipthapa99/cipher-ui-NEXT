@@ -49,8 +49,8 @@ const KYCForm = () => {
         if (code) setFieldValue("country", code);
     };
     const country = profileDetails?.country
-        ? profileDetails?.country?.name
-        : "asdasd";
+        ? profileDetails?.country?.code
+        : "";
 
     // const foundCountry = countryResults.find((item) => item.label === country);
     // const [showKYCRead, setShowKYCRead] = useState(false);
@@ -119,6 +119,7 @@ const KYCForm = () => {
                                 isSubmitting,
                                 errors,
                                 touched,
+                                values,
                                 resetForm,
                                 setFieldValue,
                                 getFieldProps,
@@ -169,11 +170,6 @@ const KYCForm = () => {
                                         placeholder="Pick one"
                                         name="country"
                                         value={country}
-                                        // defaultValue={
-                                        //     typeof values.country === "string"
-                                        //         ? values?.country
-                                        //         : ""
-                                        // }
                                         searchable
                                         nothingFound="No result found."
                                         onChange={(value) =>
