@@ -48,15 +48,15 @@ const KYCForm = () => {
     ) => {
         if (code) setFieldValue("country", code);
     };
-    const country = profileDetails?.country
+    const country2 = profileDetails?.country
         ? profileDetails?.country?.name
-        : "asdasd";
-
+        : "";
     // const foundCountry = countryResults.find((item) => item.label === country);
     // const [showKYCRead, setShowKYCRead] = useState(false);
 
-    if (!profileDetails) return null;
+    console.log(profileDetails);
 
+    if (!profileDetails) return null;
     return (
         <>
             {/* Modal component */}
@@ -119,6 +119,7 @@ const KYCForm = () => {
                                 isSubmitting,
                                 errors,
                                 touched,
+                                values,
                                 resetForm,
                                 setFieldValue,
                                 getFieldProps,
@@ -164,7 +165,26 @@ const KYCForm = () => {
                                         options={countryResults}
                                         disabled={KYCData?.country ? true : false}
                                     /> */}
+
                                     <Select
+                                        label="Country"
+                                        placeholder="Pick One"
+                                        name="country"
+                                        defaultValue={country2}
+                                        data={countryResults ?? []}
+                                        searchable
+                                        onChange={(value) =>
+                                            handleCountryChanged(
+                                                value,
+                                                setFieldValue
+                                            )
+                                        }
+                                        disabled={
+                                            KYCData?.country ? true : false
+                                        }
+                                        error={errors.country}
+                                    />
+                                    {/* <Select
                                         label="Country"
                                         placeholder="Pick one"
                                         name="country"
@@ -186,7 +206,8 @@ const KYCForm = () => {
                                         disabled={
                                             KYCData?.country ? true : false
                                         }
-                                    />
+                                        error={errors.country}
+                                    /> */}
 
                                     {/* <h5>Bank Details (Optional)</h5>
                             <InputField
