@@ -36,7 +36,7 @@ const KYCForm = () => {
     const { data: profileDetails } = useGetProfile();
 
     const countryResults: SelectItem[] = countryName
-        ? countryName.result.map((result) => ({
+        ? countryName?.map((result) => ({
               label: result?.name,
               value: result?.code,
           }))
@@ -245,7 +245,7 @@ const KYCForm = () => {
                                                         "passport_size_photo"
                                                     )
                                                 )
-                                            // 
+                                            //
                                         }
                                     />
                                 </Col>
@@ -265,7 +265,7 @@ const KYCForm = () => {
                                                         "personal_address"
                                                     )
                                                 )
-                                            // 
+                                            //
                                         }
                                     />
                                 </Col>
