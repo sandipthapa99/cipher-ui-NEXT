@@ -1,4 +1,3 @@
-import AdvertisementCard from "@components/common/AdvertisementCard";
 import ServiceLayout from "@components/services/ServiceLayout";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";

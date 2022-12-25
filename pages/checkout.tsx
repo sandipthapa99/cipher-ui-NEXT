@@ -82,7 +82,7 @@ export default function Checkout() {
     const { mutate: discountMutate } = useForm(urls.offer.reedem);
 
     const { data } = useData<CheckoutOffersProps[]>(
-        ["sdsd", query],
+        ["checkout-offers", query],
         `${urls.offer.list}${query}`,
         !!query
     );
@@ -156,8 +156,6 @@ export default function Checkout() {
     // Stripe Appereance settings
     const appearance = {
         theme: "stripe" as const,
-        // labels: "floating",
-
         variables: {
             colorPrimary: "#0570de",
             colorBackground: "#ffffff",
@@ -181,7 +179,7 @@ export default function Checkout() {
             return response;
         }
     );
-    const grandTotal = servicesCheckoutData?.data?.grand_total;
+    const { grand_total, currency } = servicesCheckoutData?.data ?? {};
 
     return (
         <Layout
@@ -298,18 +296,14 @@ export default function Checkout() {
                         </Col>
                     )}
 
-                    {servicesCheckoutData?.data?.order_item &&
-                        servicesCheckoutData?.data?.order_item?.map(
-                            (item, key) => {
-                                return (
-                                    <Col
-                                        md={4}
-                                        className="right mb-5"
-                                        key={key}
-                                    >
-                                        <h1>Task List</h1>
-                                        <Row className="item-detail">
-                                            <Fragment key={key}>
+                    <Col md={4} className="right mb-5">
+                        <h1>Task List</h1>
+                        {servicesCheckoutData?.data?.order_item &&
+                            servicesCheckoutData?.data?.order_item?.map(
+                                (item, key) => {
+                                    return (
+                                        <Fragment key={key}>
+                                            <Row className="item-detail">
                                                 <Col
                                                     md={4}
                                                     className="inner-left"
@@ -400,318 +394,319 @@ export default function Checkout() {
                                                         {item?.amount}
                                                     </h3>
                                                 </Col>
-                                            </Fragment>
-                                        </Row>
-
-                                        <div className="sub-total fee d-flex justify-content-between">
-                                            <p>Sub Total</p>
-                                            <p>
-                                                {item?.task?.currency}{" "}
-                                                {item?.amount}
-                                            </p>
-                                        </div>
-                                        {!item?.offer && offer && (
-                                            <p
-                                                className="text-primary m-2"
-                                                role={"button"}
-                                                onClick={() => {
-                                                    setOffer(false);
-                                                }}
-                                            >
-                                                Add promotion code
-                                            </p>
-                                        )}
-
-                                        {!item?.offer && !offer && (
-                                            <Formik
-                                                initialValues={{
-                                                    code: "",
-                                                    offer_type: "",
-                                                    order: "",
-                                                }}
-                                                onSubmit={async (
-                                                    values,
-                                                    actions
-                                                ) => {
-                                                    const postTaskPayload = {
-                                                        ...values,
-                                                        offer_type:
-                                                            "promo_code",
-                                                        order: query,
-                                                    };
-                                                    mutate(postTaskPayload, {
-                                                        onSuccess: () => {
-                                                            actions.resetForm();
-
-                                                            toast.success(
-                                                                "Promo code added"
-                                                            );
-                                                            queryClient.invalidateQueries(
-                                                                [
-                                                                    "all-services-checkout",
-                                                                ]
-                                                            );
-                                                        },
-                                                        onError: () => {
-                                                            actions.setFieldError(
-                                                                "code",
-                                                                "Error in promo code"
-                                                            );
-                                                        },
-                                                    });
-                                                }}
-                                            >
-                                                {({ isSubmitting, errors }) => (
-                                                    <Form className="d-flex justify-content-between align-items-center gap-4 w-100 mt-4">
-                                                        <InputField
-                                                            name="code"
-                                                            placeHolder="Apply a Promo Code"
-                                                            className="mb-0"
-                                                            error={errors.code}
-                                                        />
-
-                                                        <Button
-                                                            variant="default"
-                                                            type="submit"
-                                                            disabled={
-                                                                isSubmitting
-                                                            }
-                                                            className={
-                                                                "close-btn"
-                                                            }
-                                                        >
-                                                            {applyPromoLoader ? (
-                                                                <Loader size="sm" />
-                                                            ) : (
-                                                                "Apply"
-                                                            )}
-                                                        </Button>
-                                                    </Form>
-                                                )}
-                                            </Formik>
-                                        )}
-                                        {!item?.offer && !offer && (
-                                            <p
-                                                className="text-primary m-2"
-                                                role={"button"}
-                                                onClick={() => {
-                                                    setOffer(true);
-                                                }}
-                                            >
-                                                Add Offer
-                                            </p>
-                                        )}
-
-                                        {!item?.offer && offer && (
-                                            <Formik
-                                                initialValues={{
-                                                    redeem_offer: "",
-                                                }}
-                                                onSubmit={async (
-                                                    values,
-                                                    actions
-                                                ) => {
-                                                    let offerPayload;
-
-                                                    if (
-                                                        data?.data.find(
-                                                            (item) =>
-                                                                item.offer
-                                                                    .free !==
-                                                                null
-                                                        )
-                                                    ) {
-                                                        offerPayload = {
-                                                            ...values,
-                                                            bookings: [
-                                                                item?.task
-                                                                    ?.booking,
-                                                            ],
-                                                        };
-                                                    } else {
-                                                        offerPayload = {
-                                                            ...values,
-                                                        };
-                                                    }
-                                                    discountMutate(
-                                                        offerPayload,
-                                                        {
-                                                            onSuccess: () => {
-                                                                actions.resetForm();
-
-                                                                toast.success(
-                                                                    "Promo code added"
-                                                                );
-                                                                queryClient.invalidateQueries(
-                                                                    [
-                                                                        "all-services-checkout",
-                                                                    ]
-                                                                );
-                                                            },
-                                                            onError: () => {
-                                                                actions.setFieldError(
-                                                                    "code",
-                                                                    "Error in promo code"
-                                                                );
-                                                            },
-                                                        }
-                                                    );
-                                                }}
-                                            >
-                                                {({
-                                                    isSubmitting,
-                                                    setFieldValue,
-                                                }) => (
-                                                    <Form className="d-flex justify-content-between gap-4 w-100 mt-4 mb-4">
-                                                        <Select
-                                                            placeholder="pick an offer"
-                                                            name="redeem_offer"
-                                                            size="md"
-                                                            itemComponent={
-                                                                SelectItem
-                                                            }
-                                                            data={OfferSelect}
-                                                            searchable
-                                                            maxDropdownHeight={
-                                                                400
-                                                            }
-                                                            onChange={(data) =>
-                                                                setFieldValue(
-                                                                    "redeem_offer",
-                                                                    data
-                                                                )
-                                                            }
-                                                            nothingFound="No offers availabe"
-                                                            filter={(
-                                                                value,
-                                                                item
-                                                            ) =>
-                                                                item.label
-                                                                    ? item.label
-                                                                          .toLowerCase()
-                                                                          .includes(
-                                                                              value
-                                                                                  .toLowerCase()
-                                                                                  .trim()
-                                                                          )
-                                                                    : "" ||
-                                                                      item.description
-                                                                          .toLowerCase()
-                                                                          .includes(
-                                                                              value
-                                                                                  .toLowerCase()
-                                                                                  .trim()
-                                                                          )
-                                                            }
-                                                        />
-
-                                                        <Button
-                                                            variant="default"
-                                                            type="submit"
-                                                            disabled={
-                                                                isSubmitting
-                                                            }
-                                                            className={
-                                                                "close-btn"
-                                                            }
-                                                        >
-                                                            {applyPromoLoader ? (
-                                                                <Loader size="sm" />
-                                                            ) : (
-                                                                "Reedem"
-                                                            )}
-                                                        </Button>
-                                                    </Form>
-                                                )}
-                                            </Formik>
-                                        )}
-
-                                        {item.offer_value !== 0 && (
+                                            </Row>
+                                            <div className="sub-total fee d-flex justify-content-between">
+                                                <p>Sub Total</p>
+                                                <p>
+                                                    {item?.task?.currency}{" "}
+                                                    {item?.amount}
+                                                </p>
+                                            </div>
                                             <>
-                                                <div className="platform-fee fee d-flex justify-content-between">
-                                                    <p>Promo Code Discount</p>
-                                                    <p>
-                                                        {item?.task?.currency}
-                                                        {item.offer_value}
+                                                {!item?.offer && offer && (
+                                                    <p
+                                                        className="text-primary m-2"
+                                                        role={"button"}
+                                                        onClick={() => {
+                                                            setOffer(false);
+                                                        }}
+                                                    >
+                                                        Add promotion code
                                                     </p>
-                                                </div>
+                                                )}
+
+                                                {!item?.offer && !offer && (
+                                                    <Formik
+                                                        initialValues={{
+                                                            code: "",
+                                                            offer_type: "",
+                                                            order: "",
+                                                        }}
+                                                        onSubmit={async (
+                                                            values,
+                                                            actions
+                                                        ) => {
+                                                            const postTaskPayload =
+                                                                {
+                                                                    ...values,
+                                                                    offer_type:
+                                                                        "promo_code",
+                                                                    order: query,
+                                                                };
+                                                            mutate(
+                                                                postTaskPayload,
+                                                                {
+                                                                    onSuccess:
+                                                                        () => {
+                                                                            actions.resetForm();
+
+                                                                            toast.success(
+                                                                                "Promo code added"
+                                                                            );
+                                                                            queryClient.invalidateQueries(
+                                                                                [
+                                                                                    "all-services-checkout",
+                                                                                ]
+                                                                            );
+                                                                        },
+                                                                    onError:
+                                                                        () => {
+                                                                            actions.setFieldError(
+                                                                                "code",
+                                                                                "Error in promo code"
+                                                                            );
+                                                                        },
+                                                                }
+                                                            );
+                                                        }}
+                                                    >
+                                                        {({
+                                                            isSubmitting,
+                                                            errors,
+                                                        }) => (
+                                                            <Form className="d-flex justify-content-between align-items-center gap-4 w-100 mt-4">
+                                                                <InputField
+                                                                    name="code"
+                                                                    placeHolder="Apply a Promo Code"
+                                                                    className="mb-0"
+                                                                    error={
+                                                                        errors.code
+                                                                    }
+                                                                />
+
+                                                                <Button
+                                                                    variant="default"
+                                                                    type="submit"
+                                                                    disabled={
+                                                                        isSubmitting
+                                                                    }
+                                                                    className={
+                                                                        "close-btn"
+                                                                    }
+                                                                >
+                                                                    {applyPromoLoader ? (
+                                                                        <Loader size="sm" />
+                                                                    ) : (
+                                                                        "Apply"
+                                                                    )}
+                                                                </Button>
+                                                            </Form>
+                                                        )}
+                                                    </Formik>
+                                                )}
+                                                {!item?.offer && !offer && (
+                                                    <p
+                                                        className="text-primary m-2"
+                                                        role={"button"}
+                                                        onClick={() => {
+                                                            setOffer(true);
+                                                        }}
+                                                    >
+                                                        Add Offer
+                                                    </p>
+                                                )}
+
+                                                {!item?.offer && offer && (
+                                                    <Formik
+                                                        initialValues={{
+                                                            redeem_offer: "",
+                                                        }}
+                                                        onSubmit={async (
+                                                            values,
+                                                            actions
+                                                        ) => {
+                                                            let offerPayload;
+
+                                                            if (
+                                                                data?.data.find(
+                                                                    (item) =>
+                                                                        item
+                                                                            .offer
+                                                                            .free !==
+                                                                        null
+                                                                )
+                                                            ) {
+                                                                offerPayload = {
+                                                                    ...values,
+                                                                    bookings: [
+                                                                        item
+                                                                            ?.task
+                                                                            ?.booking,
+                                                                    ],
+                                                                };
+                                                            } else {
+                                                                offerPayload = {
+                                                                    ...values,
+                                                                };
+                                                            }
+                                                            discountMutate(
+                                                                offerPayload,
+                                                                {
+                                                                    onSuccess:
+                                                                        () => {
+                                                                            actions.resetForm();
+
+                                                                            toast.success(
+                                                                                "Promo code added"
+                                                                            );
+                                                                            queryClient.invalidateQueries(
+                                                                                [
+                                                                                    "all-services-checkout",
+                                                                                ]
+                                                                            );
+                                                                        },
+                                                                    onError:
+                                                                        () => {
+                                                                            actions.setFieldError(
+                                                                                "code",
+                                                                                "Error in promo code"
+                                                                            );
+                                                                        },
+                                                                }
+                                                            );
+                                                        }}
+                                                    >
+                                                        {({
+                                                            isSubmitting,
+                                                            setFieldValue,
+                                                        }) => (
+                                                            <Form className="d-flex justify-content-between gap-4 w-100 mt-4 mb-4">
+                                                                <Select
+                                                                    placeholder="pick an offer"
+                                                                    name="redeem_offer"
+                                                                    size="md"
+                                                                    itemComponent={
+                                                                        SelectItem
+                                                                    }
+                                                                    data={
+                                                                        OfferSelect
+                                                                    }
+                                                                    searchable
+                                                                    maxDropdownHeight={
+                                                                        400
+                                                                    }
+                                                                    onChange={(
+                                                                        data
+                                                                    ) =>
+                                                                        setFieldValue(
+                                                                            "redeem_offer",
+                                                                            data
+                                                                        )
+                                                                    }
+                                                                    nothingFound="No offers availabe"
+                                                                    filter={(
+                                                                        value,
+                                                                        item
+                                                                    ) =>
+                                                                        item.label
+                                                                            ? item.label
+                                                                                  .toLowerCase()
+                                                                                  .includes(
+                                                                                      value
+                                                                                          .toLowerCase()
+                                                                                          .trim()
+                                                                                  )
+                                                                            : "" ||
+                                                                              item.description
+                                                                                  .toLowerCase()
+                                                                                  .includes(
+                                                                                      value
+                                                                                          .toLowerCase()
+                                                                                          .trim()
+                                                                                  )
+                                                                    }
+                                                                />
+
+                                                                <Button
+                                                                    variant="default"
+                                                                    type="submit"
+                                                                    disabled={
+                                                                        isSubmitting
+                                                                    }
+                                                                    className={
+                                                                        "close-btn"
+                                                                    }
+                                                                >
+                                                                    {applyPromoLoader ? (
+                                                                        <Loader size="sm" />
+                                                                    ) : (
+                                                                        "Reedem"
+                                                                    )}
+                                                                </Button>
+                                                            </Form>
+                                                        )}
+                                                    </Formik>
+                                                )}
                                             </>
-                                        )}
-                                        <div className="platform-fee fee d-flex justify-content-between mt-0">
-                                            <p>Platform Fee</p>
-                                            <p>
-                                                {item?.task?.currency}{" "}
-                                                {item?.platform_charge}
-                                            </p>
-                                        </div>
-                                        <div className="tax fee d-flex justify-content-between">
-                                            <p>Tax (13% inclusive)</p>
-                                            <p>
-                                                {item?.task?.currency}{" "}
-                                                {item?.revision_charges}
-                                            </p>
-                                        </div>
-                                        <div className="grand-total d-flex justify-content-between">
-                                            <p>Grand Total</p>
-                                            <p>
-                                                {item?.task?.currency}{" "}
-                                                {grandTotal}
-                                            </p>
-                                        </div>
-                                        <Button
-                                            className="checkout-btn"
-                                            disabled={paymentType === ""}
-                                            onClick={async () => {
-                                                await refetch();
+                                            <>
+                                                {item.offer_value !== 0 && (
+                                                    <div className="platform-fee fee d-flex justify-content-between">
+                                                        <p>
+                                                            Promo Code Discount
+                                                        </p>
+                                                        <p>
+                                                            {
+                                                                item?.task
+                                                                    ?.currency
+                                                            }
+                                                            {item.offer_value}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </>
+                                            <div className="platform-fee fee d-flex justify-content-between mt-0">
+                                                <p>Platform Fee</p>
+                                                <p>
+                                                    {item?.task?.currency}{" "}
+                                                    {item?.platform_charge}
+                                                </p>
+                                            </div>
+                                            <div className="tax fee d-flex justify-content-between">
+                                                <p>Tax (13% inclusive)</p>
+                                                <p>
+                                                    {item?.task?.currency}{" "}
+                                                    {item?.revision_charges}
+                                                </p>
+                                            </div>
+                                        </Fragment>
+                                    );
+                                }
+                            )}
+                        <div className="grand-total d-flex justify-content-between">
+                            <p>Grand Total</p>
+                            <p>
+                                {currency} {grand_total}
+                            </p>
+                        </div>
+                        <Button
+                            className="checkout-btn"
+                            disabled={paymentType === ""}
+                            onClick={async () => {
+                                await refetch();
 
-                                                switch (paymentType) {
-                                                    case "Khalti":
-                                                        router.push(
-                                                            paymentData
-                                                                ? paymentData
-                                                                      ?.data
-                                                                      ?.data
-                                                                      ?.payment_url
-                                                                : ""
-                                                        );
-                                                        break;
-                                                    case "Paypal":
-                                                        router.push(
-                                                            paymentData?.data
-                                                                ?.data?.links[1]
-                                                                ?.href
-                                                        );
-                                                        break;
-                                                    default:
-                                                        setOpened(true);
-                                                }
-
-                                                // if (paymentType === "Khalti") {
-                                                //     router.push(
-                                                //         paymentData?.data?.data
-                                                //             ?.payment_url
-                                                //     );
-                                                // } else if (
-                                                //     paymentType === "Paypal"
-                                                // ) {
-                                                //     router.push(
-                                                //         paymentData?.data?.data
-                                                //             ?.links[1]?.href
-                                                //     );
-                                                //     console.log(
-                                                //         paymentData?.data?.data
-                                                //     );
-                                                // } else {
-                                                //     setOpened(true);
-                                                // }
-                                            }}
-                                        >
-                                            Proceed to Confirm
-                                        </Button>
-                                    </Col>
-                                );
-                            }
-                        )}
+                                switch (paymentType) {
+                                    case "Khalti":
+                                        router.push(
+                                            paymentData
+                                                ? paymentData?.data?.data
+                                                      ?.payment_url
+                                                : ""
+                                        );
+                                        break;
+                                    case "Paypal":
+                                        router.push(
+                                            paymentData?.data?.data?.links[1]
+                                                ?.href
+                                        );
+                                        break;
+                                    default:
+                                        setOpened(true);
+                                }
+                            }}
+                        >
+                            Proceed to Confirm
+                        </Button>
+                    </Col>
                 </Row>
             </Container>
             <Modal
@@ -721,14 +716,8 @@ export default function Checkout() {
                 withCloseButton={false}
                 onClose={() => {
                     setOpened(false);
-                    // setPaymentType("esewa");
                 }}
             >
-                {/* {paymentType == "Esewa" ? (
-                    <Text>{paymentType} is comming soon!</Text>
-                ) : (
-                    ""
-                )} */}
                 {paymentType === "Stripe" && (
                     <div className="App mt-5 mb-5">
                         {options.clientSecret && (

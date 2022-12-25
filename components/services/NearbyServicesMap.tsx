@@ -14,6 +14,7 @@ const NearbyServicesMap = () => {
 
     const handleAvatarClick = (serviceSlug: string) =>
         router.push(`/service/${serviceSlug}`);
+
     return (
         <GoogleMap>
             {nearbyServices.map(({ id, slug, city, created_by }) => (
