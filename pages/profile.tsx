@@ -47,7 +47,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <Row className="row-create-profile">
                             <Col className="create-profile">
                                 <h1>Your profile is incomplete!</h1>
-                                <p>Redirecting to your Account Settings...</p>
+                                {/* <p>Redirecting to your Account Settings...</p> */}
 
                                 <button className="btn-create-profile">
                                     <Link

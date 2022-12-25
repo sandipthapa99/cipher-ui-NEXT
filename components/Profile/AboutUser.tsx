@@ -153,7 +153,8 @@ const AboutProfile = () => {
                         }}
                     />
                     <div className="content ">
-                        {portfolioData?.data?.result
+                        {portfolioData?.data.result &&
+                        portfolioData?.data?.result.length > 0
                             ? portfolioData?.data?.result?.map((info: any) => (
                                   <div
                                       className="data"
@@ -320,7 +321,8 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {experienceData?.data?.result
+                                {experienceData?.data?.result &&
+                                experienceData?.data?.result.length > 0
                                     ? experienceData?.data?.result?.map(
                                           (value: any) => {
                                               return (
@@ -508,7 +510,8 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {educationData?.data?.result
+                                {educationData?.data?.result &&
+                                educationData?.data?.result.length > 0
                                     ? educationData?.data.result.map(
                                           (value: any) => (
                                               <div
@@ -603,10 +606,10 @@ const AboutProfile = () => {
                             text="Add New"
                             showModal={true}
                             handleOnClick={() => {
+                                setIsEditProfile(false);
                                 setShowCertificationModal(
                                     !showCertificationModal
                                 );
-                                setIsEditProfile(false);
                             }}
                         />
                         <CertificationForm
@@ -622,7 +625,8 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {certificationData?.data?.result
+                                {certificationData?.data?.result &&
+                                certificationData?.data?.result.length > 0
                                     ? certificationData?.data.result?.map(
                                           (value) => (
                                               <div

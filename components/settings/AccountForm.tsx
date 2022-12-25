@@ -118,6 +118,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
     // const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
+    const [interestOptions, setInterestOptions] = useState<any>([]);
 
     const skills = profile?.skill ? JSON.parse(profile?.skill) : [];
     const [dataSkills, setDataSkills] = useState(() => {
@@ -241,6 +242,26 @@ const AccountForm = ({ showAccountForm }: Display) => {
           }))
         : ([] as SelectItem[]);
 
+    const { data: allCategory } = useQuery(
+        ["all-category"],
+        () => {
+            return axiosClient.get<IAllCategory[]>(
+                "/task/cms/task-category/list/"
+            );
+        },
+        {
+            onSuccess: (data) => {
+                const options = data?.data.map((item) => {
+                    return {
+                        value: item.id,
+                        label: item.name.toString(),
+                    };
+                });
+                setInterestOptions(options);
+            },
+            //enabled: profileDetails ? true : false,
+        }
+    );
     // const interestValues: SelectItem[] =
     //     allCategory?.data.length !== 0
     //         ? allCategory?.data?.map((item) => {
@@ -357,9 +378,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     // const interests =
     //     typeof interestValues !== "undefined" ? interestValues : [];
-    const defaultInterests = profile?.interests?.map((item) =>
-        item.id.toString()
-    );
+    const defaultInterests: any = profile?.interests?.map((item) => item.id);
 
     return (
         <>

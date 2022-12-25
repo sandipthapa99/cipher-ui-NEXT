@@ -644,7 +644,7 @@ const Home: NextPage<{
                     <Link href="/offers">
                         <a>
                             <Image
-                                src={"/offer-banner.svg"}
+                                src={"/Offers1.svg"}
                                 alt={"gradient-image"}
                                 height={550}
                                 width={1300}

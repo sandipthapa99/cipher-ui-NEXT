@@ -6,7 +6,7 @@ export type CheckoutDataProps = {
     is_active: boolean;
     order_item: Array<{
         id: string;
-        item: {
+        task: {
             id: string;
             assigner: {
                 id: string;
@@ -32,26 +32,8 @@ export type CheckoutDataProps = {
                 bio: string;
                 created_at: string;
             };
-            entity_service: {
-                id: string;
-                budget_type: string;
-                budget_from: number;
-                budget_to: number;
-                images: Array<{
-                    id: number;
-                    name: string;
-                    size: string;
-                    media_type: string;
-                    media: string;
-                }>;
-                videos: Array<any>;
-            };
-            currency: {
-                id: number;
-                name: string;
-                code: string;
-                symbol: string;
-            };
+            entity_service: string;
+            currency: string;
             created_at: string;
             updated_at: string;
             is_active: boolean;
@@ -71,7 +53,7 @@ export type CheckoutDataProps = {
             extra_data: Array<any>;
             booking: number;
             city: number;
-            images: Array<any>;
+            entity_service_images: Array<any>;
             videos: Array<any>;
         };
         created_at: string;

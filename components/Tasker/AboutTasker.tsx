@@ -302,15 +302,10 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                                     ? taskerDetail?.certificates?.map(
                                           (value: any, key: any) => (
                                               <div
-                                                  className="certification__type"
+                                                  className="certification__type py-2"
                                                   key={key}
                                               >
                                                   <div className="name d-flex">
-                                                      {/* <Link
-                                                          href={
-                                                              value?.certificate_url
-                                                          }
-                                                      > */}
                                                       <a
                                                           href={
                                                               value?.certificate_url
@@ -324,11 +319,12 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                                                       </a>
                                                       {/* </Link> */}
                                                   </div>
-                                                  <h3 className="program">
-                                                      {parse(
-                                                          value?.description
-                                                      )}
-                                                  </h3>
+                                                  <p className="issuing_organization">
+                                                      {
+                                                          value?.issuing_organization
+                                                      }
+                                                  </p>
+
                                                   <p className="date">
                                                       {format(
                                                           new Date(
@@ -348,6 +344,11 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                                                               ),
                                                               "MMMM yyyy"
                                                           )}
+                                                  </p>
+                                                  <p className="description">
+                                                      {parse(
+                                                          value?.description
+                                                      )}
                                                   </p>
                                               </div>
                                           )

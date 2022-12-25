@@ -314,9 +314,9 @@ export default function Checkout() {
                                                     md={4}
                                                     className="inner-left"
                                                 >
-                                                    {item?.item?.entity_service
-                                                        ?.images.length <=
-                                                        0 && (
+                                                    {item?.task
+                                                        ?.entity_service_images
+                                                        .length <= 0 && (
                                                         <>
                                                             <figure className="position-relative">
                                                                 <Image
@@ -328,17 +328,16 @@ export default function Checkout() {
                                                             </figure>
                                                         </>
                                                     )}
-                                                    {item?.item?.entity_service
-                                                        ?.images?.length >
-                                                        0 && (
+                                                    {item?.task
+                                                        ?.entity_service_images
+                                                        ?.length > 0 && (
                                                         <>
                                                             <figure className="thumbnail-img">
                                                                 <Image
                                                                     src={
                                                                         item
-                                                                            ?.item
-                                                                            ?.entity_service
-                                                                            ?.images[0]
+                                                                            ?.task
+                                                                            ?.entity_service_images[0]
                                                                             ?.media
                                                                     }
                                                                     height={116}
@@ -353,7 +352,7 @@ export default function Checkout() {
                                                     md={8}
                                                     className="inner-right"
                                                 >
-                                                    <h2>{item?.item?.title}</h2>
+                                                    <h2>{item?.task?.title}</h2>
                                                     <p>
                                                         <span className="icon location-icon">
                                                             <FontAwesomeIcon
@@ -362,7 +361,7 @@ export default function Checkout() {
                                                                 }
                                                             />
                                                         </span>{" "}
-                                                        {item?.item?.location}
+                                                        {item?.task?.location}
                                                     </p>
                                                     <div className="d-flex">
                                                         <p>
@@ -397,10 +396,7 @@ export default function Checkout() {
                                                         </p>
                                                     </div>
                                                     <h3>
-                                                        {
-                                                            item?.item?.currency
-                                                                ?.symbol
-                                                        }
+                                                        {item?.task?.currency}{" "}
                                                         {item?.amount}
                                                     </h3>
                                                 </Col>
@@ -410,7 +406,7 @@ export default function Checkout() {
                                         <div className="sub-total fee d-flex justify-content-between">
                                             <p>Sub Total</p>
                                             <p>
-                                                {item?.item?.currency?.symbol}{" "}
+                                                {item?.task?.currency}{" "}
                                                 {item?.amount}
                                             </p>
                                         </div>
@@ -528,7 +524,7 @@ export default function Checkout() {
                                                         offerPayload = {
                                                             ...values,
                                                             bookings: [
-                                                                item?.item
+                                                                item?.task
                                                                     ?.booking,
                                                             ],
                                                         };
@@ -635,10 +631,7 @@ export default function Checkout() {
                                                 <div className="platform-fee fee d-flex justify-content-between">
                                                     <p>Promo Code Discount</p>
                                                     <p>
-                                                        {
-                                                            item?.item?.currency
-                                                                ?.symbol
-                                                        }
+                                                        {item?.task?.currency}
                                                         {item.offer_value}
                                                     </p>
                                                 </div>
@@ -647,21 +640,21 @@ export default function Checkout() {
                                         <div className="platform-fee fee d-flex justify-content-between mt-0">
                                             <p>Platform Fee</p>
                                             <p>
-                                                {item?.item?.currency?.symbol}{" "}
+                                                {item?.task?.currency}{" "}
                                                 {item?.platform_charge}
                                             </p>
                                         </div>
                                         <div className="tax fee d-flex justify-content-between">
                                             <p>Tax (13% inclusive)</p>
                                             <p>
-                                                {item?.item?.currency?.symbol}{" "}
+                                                {item?.task?.currency}{" "}
                                                 {item?.revision_charges}
                                             </p>
                                         </div>
                                         <div className="grand-total d-flex justify-content-between">
                                             <p>Grand Total</p>
                                             <p>
-                                                {item?.item?.currency?.symbol}{" "}
+                                                {item?.task?.currency}{" "}
                                                 {grandTotal}
                                             </p>
                                         </div>

@@ -23,7 +23,7 @@ import {
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Grid, List, Skeleton, Text } from "@mantine/core";
+import { Grid, List, Select, Skeleton, Text } from "@mantine/core";
 import { Alert } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
@@ -71,6 +71,8 @@ const SearchResultsDetail = ({
     ratedTo,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
+    const [search, setSearch] = useState("-rating");
+
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     // const setBookNowDetails = useSetBookNowDetails();
@@ -83,10 +85,11 @@ const SearchResultsDetail = ({
     ];
 
     const isService = !!serviceId && !!ratedTo;
+
     const { data: serviceRating, isLoading: ratingLoading } =
         useData<RatingResponse>(
-            ["tasker-rating", serviceId],
-            `${urls.profile.rating}?rated_to=${ratedTo}&service=${serviceId}`,
+            ["tasker-rating", serviceId, search],
+            `${urls.profile.rating}?ordering=${search}&?rated_to=${ratedTo}&service=${serviceId}`,
             isService
         );
 
@@ -766,11 +769,42 @@ const SearchResultsDetail = ({
                     )}
                 </section>
                 <hr />
-                <FilterReview
+                {/* <FilterReview
                     totalReviews={
                         serviceRating ? serviceRating?.data?.result?.length : 0
                     }
-                />
+                /> */}
+                <Row className="align-items-center td-filter-review-container">
+                    <Col md={4}>
+                        <div className="d-flex">
+                            <h2 className="d-flex align-items-center mb-0">
+                                Reviews
+                                <span>
+                                    (
+                                    {serviceRating
+                                        ? serviceRating?.data?.result?.length
+                                        : 0}
+                                    )
+                                </span>
+                            </h2>
+                        </div>
+                    </Col>
+                    <Col md={{ span: 7, offset: 1 }}>
+                        <Select
+                            defaultValue={"-rating"}
+                            size={"sm"}
+                            className={"ms-auto w-50 text-secondary"}
+                            data={[
+                                { value: "-rating", label: "Most Relevant" },
+                                { value: "-created_at", label: "Latest" },
+                                { value: "rating", label: "Top" },
+                            ]}
+                            onChange={(value: any) => {
+                                setSearch(value);
+                            }}
+                        />
+                    </Col>
+                </Row>
                 <hr />
                 {ratingLoading ? (
                     <Grid className="mt-3">

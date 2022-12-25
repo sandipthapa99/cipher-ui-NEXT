@@ -80,7 +80,7 @@ const BankForm = ({
 
     const { data: bankBranch, isLoading } = useData<BankBranchResult>(
         ["all-branches", bankId],
-        `/payment/bank-branch/${parseInt(bankId)}`
+        `/payment/bank-branch/${parseInt(bankId)}/`
     );
 
     const bankBranchResults: SelectItem[] = bankBranch?.data
@@ -177,14 +177,15 @@ const BankForm = ({
                     editDetails
                         ? editBankDetail(withKYC, {
                               onSuccess: async () => {
+                                  actions.resetForm();
+                                  toast.success(
+                                      "Bank detail updated successfully!"
+                                  );
                                   queryClient.invalidateQueries(["profile"]);
                                   queryClient.invalidateQueries([
                                       "tasker-bank-account",
                                   ]);
-                                  toast.success(
-                                      "Bank detail updated successfully!"
-                                  );
-                                  actions.resetForm();
+
                                   setDisableButton(true);
                               },
 

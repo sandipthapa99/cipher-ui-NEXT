@@ -20,7 +20,7 @@ export const useCitiesByCountry = (id?: string) => {
         ["cities-by-country-id", isLoading, cityId],
         () =>
             axiosClient
-                .get<CitiesByCountry[]>(`/locale/city-list/${cityId}`)
+                .get<CitiesByCountry[]>(`/locale/city-list/${cityId}/`)
                 .then((response) => response.data),
         { enabled: !!(cityId && !isLoading), initialData: [] }
     );
