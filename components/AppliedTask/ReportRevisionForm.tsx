@@ -139,7 +139,7 @@ export const ReportRevisionForm = ({
                         </p>
                     </div>
 
-                    <figure className="revision_report_image m-5">
+                    <figure className="revision_report_image m-5 d-none d-md-block">
                         <Image
                             src={"/heroImages/revision_report_image.png"}
                             alt="revision_report_image"
