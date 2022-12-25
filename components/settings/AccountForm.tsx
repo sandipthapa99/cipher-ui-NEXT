@@ -9,7 +9,6 @@ import { ImageUpload } from "@components/ImageUpload";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import { SelectCity } from "@components/SelectCity";
-// import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import {
     faCalendarDays,
@@ -19,7 +18,6 @@ import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { MultiSelect } from "@mantine/core";
-import { createStyles } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -36,7 +34,6 @@ import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
@@ -118,7 +115,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
     // const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
-    const [interestOptions, setInterestOptions] = useState<any>([]);
 
     const skills = profile?.skill ? JSON.parse(profile?.skill) : [];
     const [dataSkills, setDataSkills] = useState(() => {
@@ -131,8 +127,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
     });
 
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
-
-    const { classes } = useStyles();
 
     useQuery(
         ["all-category"],
@@ -242,26 +236,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
           }))
         : ([] as SelectItem[]);
 
-    const { data: allCategory } = useQuery(
-        ["all-category"],
-        () => {
-            return axiosClient.get<IAllCategory[]>(
-                "/task/cms/task-category/list/"
-            );
-        },
-        {
-            onSuccess: (data) => {
-                const options = data?.data.map((item) => {
-                    return {
-                        value: item.id,
-                        label: item.name.toString(),
-                    };
-                });
-                setInterestOptions(options);
-            },
-            //enabled: profileDetails ? true : false,
-        }
-    );
     // const interestValues: SelectItem[] =
     //     allCategory?.data.length !== 0
     //         ? allCategory?.data?.map((item) => {
@@ -342,19 +316,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
     const editProfile = useMutation((data: FormData) =>
         axiosClient.patch("/tasker/profile/", data)
     );
-    const loadingOverlayVisible = useMemo(
-        () => editProfile.isLoading,
-        [editProfile.isLoading]
-    );
-
-    if (loadingOverlayVisible)
-        return (
-            <LoadingOverlay
-                visible={loadingOverlayVisible}
-                className={classes.overlay}
-                overlayBlur={2}
-            />
-        );
 
     //edit profile
     function isValidURL(str: any) {
@@ -378,7 +339,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     // const interests =
     //     typeof interestValues !== "undefined" ? interestValues : [];
-    const defaultInterests: any = profile?.interests?.map((item) => item.id);
+    const defaultInterests = profile?.interests?.map((item) =>
+        item.id.toString()
+    );
 
     return (
         <>
@@ -422,12 +385,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             ? convertTimeStringToDateString(
                                   String(profile?.active_hour_start)
                               )
-                            : "",
+                            : null,
                         active_hour_end: profile?.active_hour_end
                             ? convertTimeStringToDateString(
                                   String(profile?.active_hour_end)
                               )
-                            : "",
+                            : null,
                         hourly_rate: profile?.hourly_rate ?? "",
                         user_type: userType ?? "",
                         country: profile ? countryChange : "",
@@ -452,11 +415,19 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 skill: JSON.stringify(values.skill),
 
                                 active_hour_start: format(
-                                    new Date(values.active_hour_start),
+                                    new Date(
+                                        values.active_hour_start
+                                            ? values.active_hour_start
+                                            : ""
+                                    ),
                                     "HH:mm"
                                 ),
                                 active_hour_end: format(
-                                    new Date(values.active_hour_end),
+                                    new Date(
+                                        values.active_hour_end
+                                            ? values.active_hour_end
+                                            : ""
+                                    ),
                                     "HH:mm"
                                 ),
                                 date_of_birth: format(
@@ -869,6 +840,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <MantineDateField
                                 name="date_of_birth"
                                 labelName="Date of birth"
+                                inputFormat="DD/MM/YYYY"
                                 placeHolder="dd/mm/yy"
                                 error={errors.date_of_birth}
                                 touch={touched.date_of_birth}
@@ -879,9 +851,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     />
                                 }
                                 disabled={isInputDisabled}
-                                maxDate={dayjs(new Date(Date.now()))
-                                    .subtract(16, "years")
-                                    .toDate()}
                                 handleChange={(value) => {
                                     setFieldValue(
                                         "date_of_birth",
@@ -978,7 +947,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 <Col md={3}>
                                     <MantineTimeField
                                         name="active_hour_start"
-                                        labelName="To"
+                                        labelName="From"
                                         placeHolder="hh/mm"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
@@ -1182,11 +1151,4 @@ const AccountForm = ({ showAccountForm }: Display) => {
         </>
     );
 };
-const useStyles = createStyles(() => ({
-    overlay: {
-        postion: "fixed",
-        inset: 0,
-        zIndex: 9999,
-    },
-}));
 export default AccountForm;
