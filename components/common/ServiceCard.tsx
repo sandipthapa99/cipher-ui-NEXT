@@ -139,7 +139,7 @@ const ServiceCard = ({
                             <a>
                                 <span>
                                     {serviceCard?.created_by?.first_name === ""
-                                        ? "Cipher"
+                                        ? "Homaale"
                                         : ` ${serviceCard?.created_by?.first_name} ${serviceCard?.created_by?.last_name}`}
                                 </span>{" "}
                             </a>
@@ -267,6 +267,7 @@ const ServiceCard = ({
                         serviceCard?.created_by?.middle_name ??
                     "" + " " + serviceCard?.created_by?.last_name
                 }
+                currencySymbol={serviceCard?.currency?.symbol}
             />
             <EditService
                 showEditModal={showEditModal}

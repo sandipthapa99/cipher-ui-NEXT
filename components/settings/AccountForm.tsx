@@ -154,10 +154,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
         }
     }, []);
     const { data: userData } = useUser();
-
-    console.log(
-        convertTimeStringToDateString(String(profile?.active_hour_end))
-    );
     // const router = useRouter();
     //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
     // const [city, setCity] = useState(profile?.city?.id);
@@ -230,9 +226,9 @@ const AccountForm = ({ showAccountForm }: Display) => {
         : ([] as SelectItem[]);
 
     const countryResults: SelectItem[] = countryName
-        ? countryName.result.map((result) => ({
-              label: result?.name,
-              value: result?.code.toString(),
+        ? countryName?.map((res) => ({
+              label: res?.name,
+              value: res?.code.toString(),
           }))
         : ([] as SelectItem[]);
 

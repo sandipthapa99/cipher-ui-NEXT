@@ -76,7 +76,7 @@ export const SearchCategory = ({
           }))
         : [];
     const countriesData: SelectItem[] = countries
-        ? countries.result.map((country) => ({
+        ? countries?.map((country) => ({
               label: country.name,
               value: country.name,
           }))
