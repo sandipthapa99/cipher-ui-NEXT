@@ -118,7 +118,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
     // const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
-    const [interestOptions, setInterestOptions] = useState<any>([]);
 
     const skills = profile?.skill ? JSON.parse(profile?.skill) : [];
     const [dataSkills, setDataSkills] = useState(() => {
