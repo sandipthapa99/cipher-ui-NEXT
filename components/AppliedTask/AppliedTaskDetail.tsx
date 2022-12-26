@@ -160,8 +160,8 @@ const AppliedTaskDetail = ({
                             <ShareIcon
                                 showText
                                 url={getPageUrl()}
-                                quote={"This is the task from Homaale"}
-                                hashtag={"cipher-task"}
+                                quote="This is the task from Homaale"
+                                hashtag="cipher-task"
                             />
 
                             {/* <EllipsisDropdown

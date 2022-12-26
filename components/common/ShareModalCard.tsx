@@ -5,7 +5,7 @@ import {
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ActionIcon, CopyButton, Tooltip } from "@mantine/core";
+import { ActionIcon, CopyButton, Modal, Tooltip } from "@mantine/core";
 import { IconCheck, IconCopy } from "@tabler/icons";
 import {
     FacebookShareButton,
@@ -13,7 +13,6 @@ import {
     LinkedinShareButton,
     TwitterShareButton,
 } from "next-share";
-import Modal from "react-bootstrap/Modal";
 import type { ShareButtonProps } from "types/shareButton";
 
 const ShareModal = ({
@@ -27,6 +26,86 @@ const ShareModal = ({
         <>
             {/* Modal component */}
             <Modal
+                opened={show}
+                onClose={handleClose}
+                centered
+                withCloseButton={true}
+                closeOnClickOutside={false}
+                // overlayColor="909296"
+                overlayOpacity={0.55}
+                overlayBlur={3}
+                size="lg"
+                className="share-modal"
+            >
+                <div className="share-modal__modal-body-content">
+                    <h1>Share On:</h1>
+                    <div className="media-wrapper">
+                        <div className="social-media facebook">
+                            <FacebookShareButton
+                                url={url}
+                                quote={quote}
+                                hashtag={hashtag}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faFacebookF}
+                                    className="svg-icon facebook-icon"
+                                />
+                            </FacebookShareButton>
+                        </div>
+                        <div className="social-media twitter">
+                            <TwitterShareButton url={url} hashtags={[hashtag]}>
+                                <FontAwesomeIcon
+                                    icon={faTwitter}
+                                    className="svg-icon twitter-icon"
+                                />
+                            </TwitterShareButton>
+                        </div>
+                        <div className="social-media instagram">
+                            <InstapaperShareButton
+                                url={url}
+                                description={quote}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faInstagram}
+                                    className="svg-icon instagram-icon"
+                                />
+                            </InstapaperShareButton>
+                        </div>
+                        <div className="social-media linkedin">
+                            <LinkedinShareButton url={url}>
+                                <FontAwesomeIcon
+                                    icon={faLinkedin}
+                                    className="svg-icon linkedin-icon"
+                                />
+                            </LinkedinShareButton>
+                        </div>
+                        <div className="social-media copy">
+                            <CopyButton value={url} timeout={2000}>
+                                {({ copied, copy }) => (
+                                    <Tooltip
+                                        label={copied ? "Copied" : "Copy"}
+                                        withArrow
+                                        position="right"
+                                    >
+                                        <ActionIcon
+                                            color={copied ? "teal" : "gray"}
+                                            onClick={copy}
+                                            className="svg-icon copy-icon"
+                                        >
+                                            {copied ? (
+                                                <IconCheck size={30} />
+                                            ) : (
+                                                <IconCopy size={30} />
+                                            )}
+                                        </ActionIcon>
+                                    </Tooltip>
+                                )}
+                            </CopyButton>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+            {/* <Modal
                 centered
                 show={show}
                 className="share-modal"
@@ -101,7 +180,7 @@ const ShareModal = ({
                         </div>
                     </div>
                 </div>
-            </Modal>
+            </Modal> */}
         </>
     );
 };

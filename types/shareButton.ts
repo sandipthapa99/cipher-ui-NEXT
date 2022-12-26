@@ -1,9 +1,9 @@
 export interface ShareButtonProps {
-    show?: boolean;
+    show: boolean;
     showText?: boolean;
     url: string;
     quote: string;
     hashtag: string;
     className?: string;
-    handleClose?: () => void;
+    handleClose: () => void;
 }

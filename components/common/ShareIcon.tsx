@@ -12,7 +12,14 @@ const ShareIcon = ({
     hashtag,
     showText,
     className,
-}: ShareButtonProps) => {
+    ...rest
+}: {
+    url: string;
+    quote: string;
+    hashtag: string;
+    showText?: boolean;
+    className?: string;
+}) => {
     const [showModal, setShowModal] = useState(false);
     const handleOnClick = () => setShowModal(!showModal);
 
@@ -20,6 +27,7 @@ const ShareIcon = ({
         <>
             {showText ? (
                 <Button
+                    {...rest}
                     variant="subtle"
                     leftIcon={
                         <FontAwesomeIcon
