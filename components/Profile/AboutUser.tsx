@@ -8,7 +8,6 @@ import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
-import parse from "html-react-parser";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -178,12 +177,6 @@ const AboutProfile = () => {
                                                       }
                                                   >
                                                       <Image
-                                                          //   src={
-                                                          //       info?.images[0]
-                                                          //           ?.media ??
-                                                          //       info?.images[1]
-                                                          //           ?.media
-                                                          //   }
                                                           src={
                                                               //info?.images ??
                                                               info?.images[0]?.name
@@ -206,7 +199,7 @@ const AboutProfile = () => {
                                                           objectFit="cover"
                                                           alt="portfolio-image"
                                                           placeholder="blur"
-                                                          blurDataURL="UYH+xQ}9r?xFs;jZf6j@RkkBoejajIoej[ja"
+                                                          blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                                       />
                                                   </figure>
                                               ) : (

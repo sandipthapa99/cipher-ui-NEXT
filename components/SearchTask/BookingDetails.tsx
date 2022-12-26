@@ -118,7 +118,7 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                                                 height={350}
                                                 objectFit="contain"
                                                 placeholder="blur"
-                                                blurDataURL="/service-details/Garden.svg"
+                                                blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                             />
                                         </figure>
                                     ) : isVideo(file.media_type) ? (
@@ -163,7 +163,7 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                                                     height={350}
                                                     objectFit="contain"
                                                     placeholder="blur"
-                                                    blurDataURL="/service-details/Garden.svg"
+                                                    blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                                 />
                                             </figure>
                                         ) : isVideo(file.media_type) ? (
@@ -193,7 +193,7 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                                     height={350}
                                     objectFit="cover"
                                     placeholder="blur"
-                                    blurDataURL="/service-details/Garden.svg"
+                                    blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                     alt="servicecard-image"
                                 />
                             </figure>
