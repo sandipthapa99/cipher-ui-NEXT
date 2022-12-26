@@ -4,6 +4,7 @@ import { RichText } from "@components/RichText";
 import { postServiceSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
+import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
@@ -199,6 +200,13 @@ export const AddServiceModalComponent = () => {
                         {...getFieldProps("highlights")}
                         labelName="Highlights"
                         description="This helps clients to find about your service highlights"
+                    />
+                    <SelectTaskType
+                        setFieldValue={setFieldValue}
+                        onTypeChange={(type) => setFieldValue("location", type)}
+                        {...getFieldProps("location")}
+                        location={values.location}
+                        error={getFieldError("location")}
                     />
                     <TaskCurrency
                         value={
