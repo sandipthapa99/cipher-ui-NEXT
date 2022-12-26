@@ -6,6 +6,7 @@ import { CompleteProfile } from "@components/settings/ProfileForm";
 import SettingsLayout from "@components/SettingsLayout";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
+import type { KYCResponse } from "hooks/profile/kyc/useGetKYC";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
@@ -29,7 +30,14 @@ const Individual = () => {
     const [showAccountForm, setShowAccountForm] = useState(
         !profile ? false : true
     );
-    const { data: KycData } = useGetKYC();
+
+    const { data: KYCDetails } = useData<KYCResponse>(
+        ["GET_KYC", profile?.user?.id],
+        "/tasker/my-kyc/",
+        !!profile?.user?.id
+    );
+
+    const KycData = KYCDetails?.data;
 
     return (
         <>

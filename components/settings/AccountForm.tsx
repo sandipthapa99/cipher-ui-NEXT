@@ -153,9 +153,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
         }
     }, []);
     const { data: userData } = useUser();
-    // const router = useRouter();
-    //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
-    // const [city, setCity] = useState(profile?.city?.id);
 
     const country = profile?.country ? profile?.country.name : "";
 

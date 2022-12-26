@@ -7,9 +7,10 @@ import type { SelectItem } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
-import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
+import type { KYCResponse } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useData } from "hooks/use-data";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
@@ -20,12 +21,18 @@ import { toast } from "utils/toast";
 import { IdentityDocument } from "./IdentityDocument";
 
 const KYCForm = () => {
-    const { data: KYCData, refetch: refetchKycData } = useGetKYC();
-
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
 
     const { data: profileDetails } = useGetProfile();
+
+    const { data: KYCDetails, refetch: refetchKycData } = useData<KYCResponse>(
+        ["GET_KYC", profileDetails?.user?.id],
+        "/tasker/my-kyc/",
+        !!profileDetails?.user?.id
+    );
+
+    const KYCData = KYCDetails?.data;
 
     const countryResults: SelectItem[] = countryName
         ? countryName?.map((result) => ({
@@ -76,6 +83,12 @@ const KYCForm = () => {
                                     ? profileDetails?.country?.code
                                     : "",
                                 company: KYCData ? KYCData?.company : "",
+                                // passport_size_photo: "",
+                                // personal_address_verification_document: "",
+                                // bank_name: KYCData?.bank_name ?? "",
+                                // bank_account_name: KYCData?.bank_account_name ?? "",
+                                // bank_account_number: KYCData?.bank_account_number ?? "",
+                                // bank_address: KYCData?.bank_address ?? "",
                             }}
                             validationSchema={KYCFormSchema}
                             onSubmit={async (values, action) => {
