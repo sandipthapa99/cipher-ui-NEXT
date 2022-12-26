@@ -269,7 +269,6 @@ const AppliedForm = ({
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </>
     );

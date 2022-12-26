@@ -223,7 +223,6 @@ export function UpperHeader() {
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
 
             {/* Site Upper Header End */}

@@ -218,7 +218,6 @@ const PortfolioDetails = ({
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
             <AddPortfolio
                 show={showAddPortfolioModal}

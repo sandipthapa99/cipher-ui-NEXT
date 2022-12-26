@@ -1142,7 +1142,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </>
     );

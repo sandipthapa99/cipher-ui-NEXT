@@ -1,4 +1,6 @@
+import CardBtn from "@components/common/CardBtn";
 import type { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
+import { faCircleCheck } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
 import { Button } from "react-bootstrap";
@@ -12,9 +14,8 @@ interface Props {
     text: string;
     buttonName: string;
     type: string;
-    iconName: IconDefinition;
 }
-export const PostCard = ({ buttonName, iconName, type }: Props) => {
+export const PostCard = ({ buttonName, type }: Props) => {
     const showSuccessModal = useShowSuccessModal();
     const toggleSuccessModal = useToggleSuccessModal();
     const toggleSuccessModalMessage = useShowSuccessModalMessage();
@@ -22,28 +23,28 @@ export const PostCard = ({ buttonName, iconName, type }: Props) => {
     return (
         <Modal
             opened={showSuccessModal}
-            size="lg"
+            onClose={() => toggleSuccessModal()}
+            centered
+            withCloseButton={false}
+            closeOnClickOutside={false}
             overlayOpacity={0.55}
             overlayBlur={3}
-            onClose={() => toggleSuccessModal()}
+            size="md"
             className="success-modal"
         >
-            <div className="success-content">
-                <FontAwesomeIcon icon={iconName} className="svg-icon" />
+            <div className="success-content ">
+                <FontAwesomeIcon icon={faCircleCheck} className="svg-icon" />
                 <div className="success-text">
-                    <h4>{type}</h4>
+                    <h3 className="mt-5">{type}</h3>
                     <p>{toggleSuccessModalMessage}</p>
                 </div>
 
-                <div className="btn-continue">
-                    <Button
-                        variant="light"
-                        className="cont-btn"
-                        onClick={() => toggleSuccessModal()}
-                    >
-                        {buttonName}
-                    </Button>
-                </div>
+                {/* <div className="btn-continue"> */}
+                <CardBtn
+                    backgroundColor="#211d4f"
+                    btnTitle={buttonName}
+                    handleClick={() => toggleSuccessModal()}
+                />
             </div>
         </Modal>
     );
