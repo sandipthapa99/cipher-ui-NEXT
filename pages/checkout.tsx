@@ -72,6 +72,7 @@ export default function Checkout() {
 
     const [opened, setOpened] = useState(false);
     const [paymentType, setPaymentType] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
 
     const [offer, setOffer] = useState<boolean>();
 
@@ -137,8 +138,8 @@ export default function Checkout() {
                 return response;
             } catch (error) {
                 if (error instanceof AxiosError) {
-                    toast.error(error?.response?.data?.message);
-                    throw new Error(error?.response?.data?.message);
+                    setErrorMsg(error?.response?.data?.message);
+                    // throw new Error(error?.response?.data?.message);
                 }
             }
         },
@@ -211,6 +212,7 @@ export default function Checkout() {
                                                 onClick={() => {
                                                     // setOpened(true);
                                                     setPaymentType(item.name);
+                                                    setErrorMsg("");
                                                 }}
                                             >
                                                 {item.name === paymentType && (
@@ -256,6 +258,7 @@ export default function Checkout() {
                                         onClick={() => {
                                             // setOpened(true);
                                             setPaymentType(item.name);
+                                            setErrorMsg("");
                                         }}
                                     >
                                         {item.name === paymentType && (
@@ -283,6 +286,8 @@ export default function Checkout() {
                                     </Col>
                                 ))}
                         </Row>
+
+                        <span className="error-msg">{errorMsg}</span>
                     </Col>
                     {checkoutLoading && (
                         <Col md={4} className="right mb-5">
@@ -680,7 +685,7 @@ export default function Checkout() {
                         </div>
                         <Button
                             className="checkout-btn"
-                            disabled={paymentType === ""}
+                            disabled={paymentType === "" || errorMsg !== ""}
                             onClick={async () => {
                                 await refetch();
 
