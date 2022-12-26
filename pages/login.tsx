@@ -111,16 +111,6 @@ const Login = () => {
                         loginMutation(newValues, {
                             onError: (error) => {
                                 toast.error(error.message);
-
-                                // actions.setFieldError(
-                                //     "username",
-                                //     error.message
-                                // );
-
-                                // actions.setFieldError(
-                                //     "password",
-                                //     error.message
-                                // );
                             },
                             onSuccess: async (hasProfile) => {
                                 const { next } = router.query;
