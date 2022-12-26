@@ -1,4 +1,4 @@
-.delete-modal {
+.delete-modal, .profile-success-modal {
     .mantine-Modal-modal {
         padding: 2.4rem;
     }
@@ -7,6 +7,10 @@
             margin-bottom: 2.4rem;
             .xmark-icon {
                 color: #f15e5e;
+                height: 6.4rem;
+            }
+            .check-icon {
+                color: #51CF66;
                 height: 6.4rem;
             }
         }
