@@ -14,12 +14,13 @@ const PhoneNumberInput = ({
     placeHolder,
     labelName,
     textMuted,
+    className,
     fieldRequired,
     ...restProps
 }: InputFieldProps & InputHTMLAttributes<HTMLInputElement>) => {
     const { data: userDetails } = useUser();
     return (
-        <div className={checkFormGroup(error)}>
+        <div className={`${checkFormGroup(error)} ${className}`}>
             {labelName && (
                 <label htmlFor={name} className="form-label">
                     {labelName}{" "}
