@@ -2,8 +2,17 @@ import { FacebookLogin } from "@components/auth/FacebookLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import {
+    faArrowRight,
+    faEnvelope,
+    faMobile,
+    faPhone,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ActionIcon, Tooltip } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
@@ -52,7 +61,7 @@ const Login = () => {
         }
     });
 
-    // useStoreUser(userData ? userData : {});
+    const [is_email, setIs_email] = useState(true);
 
     const handleChange = (
         event: ChangeEvent<HTMLInputElement>,
@@ -68,21 +77,6 @@ const Login = () => {
         }
         setIsPhoneNumber(false);
     };
-    // const userSet = useUserStore((state) => state.setUser);
-
-    // const HandleUserFetchFlow = async () => {
-    //     const access = Cookies.get("access");
-    //     if (access === undefined) return null;
-
-    //     const user = await UserService.fetchUser(access);
-    //     try {
-    //         const res = await axiosClient.get(`/user/${user?.id}`);
-    //         localStorage.setItem("user", JSON.stringify(res));
-    //         userSet(res);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
 
     return (
         <OnBoardingLayout
@@ -127,18 +121,53 @@ const Login = () => {
                         });
                     }}
                 >
-                    {({ errors, touched, setFieldValue }) => (
+                    {({ errors, touched }) => (
                         <Form className="login-form">
-                            <InputField
-                                name="username"
-                                labelName="Username"
-                                touch={touched.username}
-                                error={errors.username}
-                                placeHolder="Enter your username"
-                                onChange={(event) =>
-                                    handleChange(event, setFieldValue)
-                                }
-                            />
+                            <div className="d-flex align-items-center gap-3">
+                                {is_email ? (
+                                    <InputField
+                                        name="username"
+                                        labelName="Username"
+                                        className="w-100"
+                                        touch={touched.username}
+                                        error={errors.username}
+                                        placeHolder="Enter your username"
+                                    />
+                                ) : (
+                                    <PhoneNumberInput
+                                        name={"username"}
+                                        labelName="Phone Number"
+                                        touch={touched.username}
+                                        className="w-100"
+                                        error={errors.username}
+                                        placeHolder={"Enter your Phone Number"}
+                                    />
+                                )}
+
+                                <Tooltip
+                                    label={
+                                        is_email
+                                            ? `Login with phone`
+                                            : `Login with e-mail`
+                                    }
+                                >
+                                    <ActionIcon
+                                        variant="filled"
+                                        onClick={() => setIs_email(!is_email)}
+                                        className="ms-auto border border-grey"
+                                        color={"gray.1"}
+                                        size={43}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={
+                                                is_email ? faMobile : faEnvelope
+                                            }
+                                            className="text-black"
+                                        />
+                                    </ActionIcon>
+                                </Tooltip>
+                            </div>
+
                             <PasswordField
                                 type="password"
                                 name="password"
