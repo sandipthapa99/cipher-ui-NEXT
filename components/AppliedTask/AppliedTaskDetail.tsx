@@ -217,7 +217,7 @@ const AppliedTaskDetail = ({
                                                 objectFit="cover"
                                                 layout="fill"
                                                 placeholder="blur"
-                                                blurDataURL="/service-details/Garden.svg"
+                                                blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                             />
                                         </figure>
                                     ) : isVideo(file.media_type) ? (
@@ -261,7 +261,7 @@ const AppliedTaskDetail = ({
                                                     layout="fill"
                                                     objectFit="cover"
                                                     placeholder="blur"
-                                                    blurDataURL="/service-details/Garden.svg"
+                                                    blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                                 />
                                             </figure>
                                         ) : isVideo(file.media_type) ? (

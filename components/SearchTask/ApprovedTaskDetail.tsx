@@ -122,7 +122,7 @@ export const ApprovedTaskDetail = ({
                                                 objectFit="contain"
                                                 layout="fill"
                                                 placeholder="blur"
-                                                blurDataURL="/service-details/Garden.svg"
+                                                blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                             />
                                         </figure>
                                     ) : isVideo(file.media_type) ? (
@@ -166,7 +166,7 @@ export const ApprovedTaskDetail = ({
                                                     layout="fill"
                                                     objectFit="cover"
                                                     placeholder="blur"
-                                                    blurDataURL="/service-details/Garden.svg"
+                                                    blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                                 />
                                             </figure>
                                         ) : isVideo(file.media_type) ? (

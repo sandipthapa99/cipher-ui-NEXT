@@ -395,7 +395,7 @@ const SearchResultsDetail = ({
                                                 alt={file.name}
                                                 layout="fill"
                                                 placeholder="blur"
-                                                blurDataURL="/service-details/Garden.svg"
+                                                blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                             />
                                         </figure>
                                     ) : isVideo(file.media_type) ? (
