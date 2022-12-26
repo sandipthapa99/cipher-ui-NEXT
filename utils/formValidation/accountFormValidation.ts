@@ -3,14 +3,8 @@ import dayjs from "dayjs";
 import * as Yup from "yup";
 const stringReqOnly = Yup.string().required("Required field");
 const stringUnReq = Yup.string().required("Required Field ");
-const dateValidation = Yup.string().required("Required field");
-const emailValidate = Yup.string()
-    .email("Invalid email address")
-    .required("Required field");
+const dateValidation = Yup.string().required("Required field").nullable();
 const tagValidate = Yup.array(Yup.string()).required("Required field");
-const interestValidate = Yup.array(Yup.number())
-    .required("Required Field")
-    .nullable();
 
 export const accountFormSchema = Yup.object().shape({
     // full_name: stringReqOnly,

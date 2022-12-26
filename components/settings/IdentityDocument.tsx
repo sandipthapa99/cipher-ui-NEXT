@@ -30,13 +30,6 @@ export const IdentityDocument = () => {
     const { mutate, isLoading } = useDocumentKYC();
     const { refetch } = useGetKYCDocument();
 
-    // if (isLoading) return <FullPageLoader />;
-
-    // if (!KYCData || isLoading) {
-    //     refetch();
-    //     return <FullPageLoader />;
-    // }
-
     const dropdownDocument = [
         {
             id: 0,
@@ -148,13 +141,6 @@ export const IdentityDocument = () => {
                     </Row>
                     <Row>
                         <Col md={6}>
-                            {/* <DatePickerField
-                                name="issued_date"
-                                labelName="Issued Date"
-                                placeHolder="dd/mm/yy"
-                                touch={touched.issued_date}
-                                error={errors.issued_date}
-                            /> */}
                             <MantineDateField
                                 name="issued_date"
                                 labelName="Issued Date"
@@ -169,10 +155,7 @@ export const IdentityDocument = () => {
                                 }
                                 maxDate={new Date()}
                                 handleChange={(value) => {
-                                    setFieldValue(
-                                        "issued_date",
-                                        format(new Date(value), "yyyy-MM-dd")
-                                    );
+                                    setFieldValue("issued_date", value);
                                 }}
                             />
                         </Col>
@@ -229,9 +212,9 @@ export const IdentityDocument = () => {
                     <div className="d-flex justify-content-end">
                         <Button
                             className="me-3 mb-0 cancel-btn"
-                            onClick={() => resetForm}
+                            onClick={() => resetForm()}
                         >
-                            Cancel
+                            Reset
                         </Button>
 
                         <FormButton

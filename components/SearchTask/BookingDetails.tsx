@@ -202,8 +202,16 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                 </Row>
                 <h3>Date & Time</h3>
                 <ul>
-                    <li>Start Date: {BookingDetail?.start_date}</li>
-                    <li>Task Days: {BookingDetail?.start_time}</li>
+                    <li>
+                        Start Date:{" "}
+                        {BookingDetail?.start_date &&
+                            format(new Date(BookingDetail?.start_date), "PP")}
+                    </li>
+                    <li>
+                        Start Time:{" "}
+                        {BookingDetail?.start_time &&
+                            format(new Date(BookingDetail?.start_date), "p")}
+                    </li>
                 </ul>
                 <h3>Budget</h3>
                 {BookingDetail?.entity_service?.currency?.symbol}{" "}
