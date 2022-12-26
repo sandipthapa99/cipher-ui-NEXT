@@ -116,10 +116,6 @@ export const PostTaskModal = () => {
         setInitialVideoIds(getInitialVideoIds());
     }, [getInitialVideoIds]);
 
-    // const initialHighlights = safeParse<string[]>({
-    //     rawString: taskDetail?.highlights ?? "[]",
-    //     initialData: [],
-    // });
     const router = useRouter();
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
@@ -140,7 +136,7 @@ export const PostTaskModal = () => {
             is_everyday: false,
             start_date: "",
             end_date: "",
-            start_time: format(new Date(), "hh:mm aa"),
+            start_time: "",
             end_time: "",
             currency: taskDetail ? String(taskDetail?.currency?.code) : "NPR",
             images: "",
@@ -214,7 +210,7 @@ export const PostTaskModal = () => {
                     await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                     await queryClient.invalidateQueries(["notification"]);
                     await queryClient.invalidateQueries(["my-task"]);
-                    router.push(`task/${response.id}`);
+                    router.push(`/task/${response.id}`);
                 },
                 onError: (error) => {
                     toast.error(error.message);

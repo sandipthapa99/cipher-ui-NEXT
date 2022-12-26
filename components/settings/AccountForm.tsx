@@ -517,7 +517,11 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                                         .profile_image
                                                                   : profile
                                                                         ?.avatar
-                                                                        ?.image,
+                                                                        ?.image
+                                                                  ? profile
+                                                                        ?.avatar
+                                                                        ?.image
+                                                                  : "",
                                                               uuid: userData?.id,
                                                           }
                                                       ));
