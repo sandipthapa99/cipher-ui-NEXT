@@ -147,13 +147,13 @@ export const ElipsisReport = ({
                                 </li>
                                 {moreOpen && (
                                     <div className="items">
-                                        <Dropdown.Item>
+                                        {/* <Dropdown.Item>
                                             <FontAwesomeIcon
                                                 icon={faRepeat}
                                                 className="svg-icon"
                                             />
                                             Revision
-                                        </Dropdown.Item>
+                                        </Dropdown.Item> */}
 
                                         <Dropdown.Item
                                             onClick={() => setReportForm(true)}
