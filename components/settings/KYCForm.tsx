@@ -19,19 +19,11 @@ import { toast } from "utils/toast";
 
 import { IdentityDocument } from "./IdentityDocument";
 
-// const dropdownCountryOptions = [
-//     { id: 1, label: "Citizenship ", value: "citizenship" },
-//     { id: 2, label: "Passport", value: "passport" },
-//     { id: 3, label: "Pan Card", value: "pancard" },
-// ];
-
 const KYCForm = () => {
     const { data: KYCData, refetch: refetchKycData } = useGetKYC();
 
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
-    // const [showDocument, setShowDocument] = useState(false);
-    // const [showButtons, setShowButtons] = useState(false);
 
     const { data: profileDetails } = useGetProfile();
 
@@ -51,11 +43,6 @@ const KYCForm = () => {
     const country = profileDetails?.country
         ? profileDetails?.country?.code
         : "";
-
-    // const foundCountry = countryResults.find((item) => item.label === country);
-    // const [showKYCRead, setShowKYCRead] = useState(false);
-
-    console.log(profileDetails);
 
     if (!profileDetails) return null;
     return (
@@ -89,25 +76,15 @@ const KYCForm = () => {
                                     ? profileDetails?.country?.code
                                     : "",
                                 company: KYCData ? KYCData?.company : "",
-                                // passport_size_photo: "",
-                                // personal_address_verification_document: "",
-                                // bank_name: KYCData?.bank_name ?? "",
-                                // bank_account_name: KYCData?.bank_account_name ?? "",
-                                // bank_account_number: KYCData?.bank_account_number ?? "",
-                                // bank_address: KYCData?.bank_address ?? "",
                             }}
                             validationSchema={KYCFormSchema}
                             onSubmit={async (values, action) => {
                                 mutate(values, {
                                     onSuccess: () => {
-                                        // toggleSuccessModal();
                                         refetchKycData();
                                         toast.success(
                                             "KYC Details Added Successfully and Add a verification document"
                                         );
-
-                                        //queryClient.invalidateQueries(["GET_KYC"]);
-                                        // setShowButtons(false);
                                     },
                                     onError: (error) => {
                                         toast.error(error.message);
@@ -135,9 +112,6 @@ const KYCForm = () => {
                                         disabled={
                                             KYCData?.full_name ? true : false
                                         }
-                                        // disabled={
-                                        //     profileDetails?.full_name ? true : false
-                                        // }
                                     />
                                     <PlacesAutocomplete
                                         {...getFieldProps("address")}
@@ -156,20 +130,12 @@ const KYCForm = () => {
                                             KYCData?.address ? true : false
                                         }
                                     />
-                                    {/* <SelectInputField
-                                        name="country"
-                                        labelName="Country"
-                                        touch={touched.country}
-                                        error={errors.country}
-                                        placeHolder="Select Identity Type"
-                                        options={countryResults}
-                                        disabled={KYCData?.country ? true : false}
-                                    /> */}
 
                                     <Select
                                         label="Country"
                                         placeholder="Pick One"
                                         name="country"
+                                        value={country}
                                         defaultValue={country}
                                         data={countryResults ?? []}
                                         searchable
@@ -184,109 +150,6 @@ const KYCForm = () => {
                                         }
                                         error={errors.country}
                                     />
-                                    {/* <Select
-                                        label="Country"
-                                        placeholder="Pick one"
-                                        name="country"
-                                        value={country}
-                                        searchable
-                                        nothingFound="No result found."
-                                        onChange={(value) =>
-                                            handleCountryChanged(
-                                                value,
-                                                setFieldValue
-                                            )
-                                        }
-                                        data={countryResults ?? []}
-                                        disabled={
-                                            KYCData?.country ? true : false
-                                        }
-                                        error={errors.country}
-                                    /> */}
-
-                                    {/* <h5>Bank Details (Optional)</h5>
-                            <InputField
-                                name="bank_name"
-                                labelName="Bank Name"
-                                error={errors.bank_name}
-                                touch={touched.bank_name}
-                                placeHolder="Enter your Account Name"
-                            />
-                            <InputField
-                                name="bank_address"
-                                labelName="Bank Address"
-                                error={errors.bank_address}
-                                touch={touched.bank_address}
-                                placeHolder="Enter your bank address"
-                            />
-                            <Col md={5}></Col>
-                            <Row className="gap-5">
-                                <Col lg={5} md={6}>
-                                    <InputField
-                                        name="bank_account_name"
-                                        labelName="Bank Account Name"
-                                        error={errors.bank_account_name}
-                                        touch={touched.bank_account_name}
-                                        placeHolder="Enter bank Account Name"
-                                    />
-                                </Col>
-                                <Col lg={5} md={8}>
-                                    <InputField
-                                        type="text"
-                                        name="bank_account_number"
-                                        labelName="Bank Account Number"
-                                        error={errors.bank_account_number}
-                                        touch={touched.bank_account_number}
-                                        placeHolder="Enter your Account Number"
-                                    />
-                                </Col>
-                            </Row> */}
-
-                                    {/* <Row>
-                                <Col lg={5} md={6}>
-                                    <h5>Passport Size Photo</h5>
-                                    <p>
-                                        Upload your recent passport sized
-                                        picture
-                                    </p>
-                                    <CustomDropZone
-                                        name="passport_size_photo"
-                                        maxSize={200}
-                                        minSize={20}
-                                        onDrop={
-                                            (formData) =>
-                                                setFieldValue(
-                                                    "passport_size_photo",
-                                                    formData.get(
-                                                        "passport_size_photo"
-                                                    )
-                                                )
-                                            //
-                                        }
-                                    />
-                                </Col>
-                                <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <h5>Address Verification Document</h5>
-                                    <p>
-                                        Document can be Electricity Bill, Water
-                                        Bill, Rental Aggrement.
-                                    </p>
-                                    <CustomDropZone
-                                        name="personal_address"
-                                        onDrop={
-                                            (formData) =>
-                                                setFieldValue(
-                                                    "personal_address",
-                                                    formData.get(
-                                                        "personal_address"
-                                                    )
-                                                )
-                                            //
-                                        }
-                                    />
-                                </Col>
-                            </Row> */}
-                                    {/* {showButtons ? ( */}
                                     {!KYCData && (
                                         <div className="d-flex mt-5 justify-content-end">
                                             <Button
@@ -316,10 +179,7 @@ const KYCForm = () => {
                         </div>
                     </>
                 )}
-
-                {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
-            {/* {KYCData && <KYCStatus />} */}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"

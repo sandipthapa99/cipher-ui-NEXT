@@ -18,6 +18,7 @@ import { useDeleteTask } from "hooks/task/use-delete-task";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import { ReactQueryKeys } from "types/queryKeys";
 import { toast } from "utils/toast";
 
@@ -103,6 +104,8 @@ export const ElipsisReport = ({
             onConfirm: handleDeleteTask,
         });
 
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
+
     return (
         <div className="ellipsis">
             <Dropdown>
@@ -115,7 +118,10 @@ export const ElipsisReport = ({
 
                 {!tasker && (
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">
+                        <Dropdown.Item
+                            href="#/action-1"
+                            onClick={() => toggleShowPostTaskModal()}
+                        >
                             <FontAwesomeIcon
                                 icon={faCopy}
                                 className="svg-icon"
