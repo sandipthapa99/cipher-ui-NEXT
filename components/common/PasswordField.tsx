@@ -50,7 +50,7 @@ const PasswordField = ({
                     as={as}
                 />
                 <span
-                    className="position-absolute top-50 end-0 translate-middle-y me-5"
+                    className="position-absolute top-50 end-0 translate-middle-y me-4"
                     onClick={() => setVisibility((prevState) => !prevState)}
                     role="button"
                 >

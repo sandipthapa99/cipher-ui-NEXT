@@ -5,12 +5,7 @@ import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import {
-    faArrowRight,
-    faEnvelope,
-    faMobile,
-    faPhone,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faEnvelope, faMobile } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -128,7 +123,7 @@ const Login = () => {
                                     <InputField
                                         name="username"
                                         labelName="Username"
-                                        className="w-100"
+                                        className="w-100 mb-5"
                                         touch={touched.username}
                                         error={errors.username}
                                         placeHolder="Enter your username"
@@ -156,7 +151,7 @@ const Login = () => {
                                         onClick={() => setIs_email(!is_email)}
                                         className="ms-auto border border-grey"
                                         color={"gray.1"}
-                                        size={43}
+                                        size={48}
                                     >
                                         <FontAwesomeIcon
                                             icon={
@@ -227,7 +222,7 @@ const Login = () => {
                                     className="facebook"
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/facebook/`}
                                 />
-                                
+
                                 {/* <SocialLoginBtn
                                     name={"Continue with Google"}
                                     icon="/illustrations/google.svg"

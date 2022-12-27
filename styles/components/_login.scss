@@ -95,8 +95,8 @@
 
         .backarrow {
             position: absolute;
-            left: 5rem;
-            top: 5rem;
+            left: 2rem;
+            top: 2.6rem;
             cursor: pointer;
             color: black;
 
@@ -114,20 +114,18 @@
 
         .redirection-text {
             position: absolute;
-            right: 20px;
-            top: 20px;
-            // bottom: 0;
+            right: 2rem;
+            top: 2rem;
 
-            // @include respond(lg) {
-            //     top: 4rem;
-            //     right: 4rem;
-            // }
 
             p {
                 font-family: $poppins-font;
                 font-size: 1.4rem;
                 font-weight: 400;
                 color: #343a40;
+                @include respond(xxs){
+                    font-size: 1rem;
+                }
 
                 a {
                     color: #0693e3;
