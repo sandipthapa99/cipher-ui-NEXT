@@ -26,6 +26,7 @@ import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
+import * as _ from "lodash";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { forwardRef, Fragment, useState } from "react";
@@ -125,7 +126,12 @@ export default function Checkout() {
 
     SelectItem.displayName = "SelectItem";
 
-    const { data: paymentData, refetch } = useQuery<any, AxiosError, any>(
+    const {
+        data: paymentData,
+        refetch,
+        isLoading: isIntentLoading,
+        isFetching,
+    } = useQuery<any, AxiosError, any>(
         ["payment-data", query, paymentType],
         async () => {
             try {
@@ -138,7 +144,13 @@ export default function Checkout() {
                 return response;
             } catch (error) {
                 if (error instanceof AxiosError) {
-                    setErrorMsg(error?.response?.data?.message);
+                    const errorMessage = error?.response?.data;
+                    setErrorMsg(() => {
+                        if (_.has(errorMessage, "merchant.details"))
+                            return errorMessage?.merchant?.details[0]
+                                ?.description;
+                        else return errorMessage?.message;
+                    });
                     // throw new Error(error?.response?.data?.message);
                 }
             }
@@ -685,7 +697,12 @@ export default function Checkout() {
                         </div>
                         <Button
                             className="checkout-btn"
-                            disabled={paymentType === "" || errorMsg !== ""}
+                            disabled={
+                                paymentType === "" ||
+                                errorMsg !== "" ||
+                                isIntentLoading ||
+                                isFetching
+                            }
                             onClick={async () => {
                                 await refetch();
 
