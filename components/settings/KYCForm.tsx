@@ -2,7 +2,6 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import type { SelectItem } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { Form, Formik } from "formik";
@@ -167,7 +166,7 @@ const KYCForm = () => {
                                         <div className="d-flex mt-5 justify-content-end">
                                             <Button
                                                 className="me-3 mb-0 cancel-btn"
-                                                onClick={() => resetForm}
+                                                onClick={() => resetForm()}
                                             >
                                                 Cancel
                                             </Button>

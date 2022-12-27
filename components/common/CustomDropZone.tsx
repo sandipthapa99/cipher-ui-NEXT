@@ -13,7 +13,7 @@ import type { DropzoneProps } from "@mantine/dropzone";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Media } from "types/task";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
@@ -30,6 +30,8 @@ export interface CustomDropZoneProps
     name: string;
     maxSize?: number;
     minSize?: number;
+    error?: string;
+    touch?: boolean;
     previewImageWidth?: number;
     previewImageHeight?: number;
     fileType?: FileType;
@@ -59,6 +61,8 @@ export const CustomDropZone = ({
     minSize,
     previewImageWidth,
     previewImageHeight,
+    error,
+    touch,
     fileType,
     onDrop,
     accept,
@@ -98,13 +102,11 @@ export const CustomDropZone = ({
             url: file.media,
         }));
 
-    // const previewUploadedFiles = (previewFiles ?? [])
-    //     .filter((file) => !isImage(file.media_type))
-    //     .map((file) => ({
-    //         name: file.name,
-    //         size: convertToMB(file.size),
-    //         url: file.media,
-    //     }));
+    const errTouch = error && touch ? error : null;
+
+    useEffect(() => {
+        setFileError(errTouch);
+    }, [errTouch]);
 
     const previewUploadedVideos = (previewFiles ?? [])
         .filter((file) => isVideo(file.media_type))
@@ -173,20 +175,21 @@ export const CustomDropZone = ({
                 <PreviewFiles
                     isVideo
                     files={combinedPreviewVideos}
-                    onFileRemove={(isUploaded, filename) =>
+                    onFileRemove={(isUploaded, filename) => {
                         isUploaded
                             ? handleRemoveUploadedFile(filename)
-                            : handleRemoveFile(filename)
-                    }
+                            : handleRemoveFile(filename);
+                    }}
                 />
             ) : combinedPreviewImages.length > 0 ? (
                 <PreviewFiles
                     files={combinedPreviewImages}
-                    onFileRemove={(isUploaded, filename) =>
+                    onFileRemove={(isUploaded, filename) => {
+                        console.log("asdasdasd", filename);
                         isUploaded
                             ? handleRemoveUploadedFile(filename)
-                            : handleRemoveFile(filename)
-                    }
+                            : handleRemoveFile(filename);
+                    }}
                 />
             ) : (
                 <Image
@@ -290,9 +293,9 @@ const PreviewFiles = ({
                                 {file.size}
                             </Text>
                             <ActionIcon
-                                onClick={() =>
-                                    onFileRemove(!!file.isUploaded, file.name)
-                                }
+                                onClick={() => {
+                                    onFileRemove(!!file.isUploaded, file.name);
+                                }}
                             >
                                 <FontAwesomeIcon icon={faRemove} />
                             </ActionIcon>
