@@ -269,6 +269,7 @@ export const PostTaskModal = () => {
                 )}
                 {choosedValue === "task" ? (
                     <form encType="multipart/formData" onSubmit={handleSubmit}>
+                        <pre>{JSON.stringify(values, null, 4)}</pre>
                         <Stack spacing="md">
                             <TextInput
                                 placeholder="Enter your title"
@@ -478,7 +479,7 @@ export const PostTaskModal = () => {
                                     fileType="image"
                                     sx={{ maxWidth: "30rem" }}
                                     maxSize={5 * 1024 ** 2}
-                                    name="task-image"
+                                    name="images"
                                     onRemoveUploadedFiles={setInitialImageIds}
                                     onDrop={(images) =>
                                         setFieldValue("images", images)

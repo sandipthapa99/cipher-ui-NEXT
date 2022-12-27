@@ -72,13 +72,13 @@ export interface BankDetailProps {
 }
 
 export interface BankNamesResult {
-    total_pages: number;
-    count: number;
-    current: number;
-    next: any;
-    previous: any;
-    page_size: number;
-    result: Result[];
+    id: number;
+    country: Country;
+    name: string;
+    swift_code: string;
+    logo: any;
+    is_active: boolean;
+    extra_data: ExtraData;
 }
 
 export interface Result {
