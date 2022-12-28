@@ -117,13 +117,12 @@
             right: 2rem;
             top: 2rem;
 
-
             p {
                 font-family: $poppins-font;
                 font-size: 1.4rem;
                 font-weight: 400;
                 color: #343a40;
-                @include respond(xxs){
+                @include respond(xxs) {
                     font-size: 1rem;
                 }
 
