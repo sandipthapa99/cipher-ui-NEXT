@@ -178,12 +178,17 @@ const SignUp = () => {
                                     }`}
                                 >
                                     I agree to the{" "}
-                                    <Link href="/terms-and-conditions">
-                                        <Anchor>terms & conditions </Anchor>
+                                    <Link
+                                        href="/terms-conditions"
+                                        target="_blank"
+                                    >
+                                        <a target="_blank">
+                                            terms & conditions{" "}
+                                        </a>
                                     </Link>
                                     and
                                     <Link href="/privacy-policy">
-                                        <Anchor> privacy policy</Anchor>
+                                        <a target="_blank"> privacy policy</a>
                                     </Link>
                                     .
                                 </label>
