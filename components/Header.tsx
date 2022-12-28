@@ -53,7 +53,7 @@ const Header = () => {
                 id="site-header"
                 className="site-header sticky-wrapper-header"
             >
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-4">
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
