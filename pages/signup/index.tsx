@@ -4,10 +4,11 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { Radio } from "@mantine/core";
-import { Form, Formik } from "formik";
+import { Anchor, Checkbox, Radio, Text } from "@mantine/core";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
 import Cookies from "js-cookie";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { ClientSignUpFormData } from "utils/formData";
@@ -23,7 +24,8 @@ const SignUp = () => {
     const { mutate, isLoading } = useSignup();
     const [choosedValue, setChoosedValue] = useState("email");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
-
+    const [termsAccepted, setTermsAccepted] = useState(false);
+    const [termsError, setTermsError] = useState(false);
     //for 2 factor modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -102,7 +104,7 @@ const SignUp = () => {
                         );
                     }}
                 >
-                    {({ isSubmitting, errors, touched }) => (
+                    {({ isSubmitting, errors, values, touched }) => (
                         <Form className="login-form">
                             <div className="choose-email-or-phone mb-5">
                                 <Radio.Group
@@ -159,6 +161,39 @@ const SignUp = () => {
                                 error={errors.confirmPassword}
                                 placeHolder="Confirm Password"
                             />
+                            {/* terms and conditions */}
+                            <div className="terms-conditions">
+                                <Field
+                                    type="checkbox"
+                                    name="acceptTerms"
+                                    className={"form-check-input"}
+                                />
+                                <label
+                                    htmlFor="acceptTerms"
+                                    className={`terms-condition-agree-text ${
+                                        errors.acceptTerms &&
+                                        touched.acceptTerms
+                                            ? "error-text"
+                                            : ""
+                                    }`}
+                                >
+                                    I agree to the{" "}
+                                    <Link href="/terms-and-conditions">
+                                        <Anchor>terms & conditions </Anchor>
+                                    </Link>
+                                    and
+                                    <Link href="/privacy-policy">
+                                        <Anchor> privacy policy</Anchor>
+                                    </Link>
+                                    .
+                                </label>
+                            </div>
+
+                            {/* <ErrorMessage
+                                name="acceptTerms"
+                                component="div"
+                                className="invalid-feedback"
+                            /> */}
 
                             <FormButton
                                 type="submit"
