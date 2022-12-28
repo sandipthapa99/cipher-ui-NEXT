@@ -67,7 +67,7 @@ export function UpperHeader() {
         <>
             {/* Site Upper Header Start */}
             <header id="site-upper-header" className="site-upper-header">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-4">
                     <Navbar
                         expand="lg"
                         className="upper-navigation ms-lg-auto d-flex align-items-center justify-content-between"

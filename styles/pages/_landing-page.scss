@@ -18,22 +18,30 @@
 
             .content {
                 h1 {
-                    font-size: 2.4rem;
+                    font-size: 4.4rem;
+                    line-height: 6.4rem;
                     font-weight: 700;
                     color: $primary-color;
-                    line-height: 4.4rem;
                     margin-bottom: 4rem;
                     text-align: center;
                     word-wrap: break-word;
+                    @include respond(xxs) {
+                        font-size: 3.4rem;
+                        line-height: 5.4rem;
+                    }
                     @include respond(sm) {
-                        font-size: 3.2rem;
+                        font-size: 4.2rem;
+                        line-height: 6rem;
                     }
 
                     @include respond(md) {
                         text-align: left;
                         font-size: 6.4rem;
-                        line-height: 9.6rem;
+                        line-height: 7.6rem;
                         margin-bottom: 8rem;
+                    }
+                    @include respond(lg) {
+                        line-height: 9.6rem;
                     }
                 }
             }

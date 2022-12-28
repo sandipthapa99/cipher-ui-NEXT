@@ -123,7 +123,7 @@ const Login = () => {
                                     <InputField
                                         name="username"
                                         labelName="Username"
-                                        className="w-100 mb-5"
+                                        className="w-100"
                                         touch={touched.username}
                                         error={errors.username}
                                         placeHolder="Enter your username"
