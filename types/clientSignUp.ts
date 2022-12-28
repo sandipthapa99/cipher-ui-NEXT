@@ -3,4 +3,5 @@ export interface ClientSignUpValueProps {
     password: string;
     confirmPassword: string;
     phone?: string;
+    acceptTerms?: boolean;
 }

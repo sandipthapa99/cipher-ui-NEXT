@@ -29,6 +29,10 @@ export const clientEmailSignUpSchema = Yup.object().shape({
         .required()
         .oneOf([Yup.ref("password")], "Passwords do not match"),
     email: emailValidate,
+    acceptTerms: Yup.bool().oneOf(
+        [true],
+        "Accept Terms & Conditions is required"
+    ),
 });
 
 export const clientPhoneSignUpSchema = Yup.object().shape({
@@ -37,4 +41,8 @@ export const clientPhoneSignUpSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .required()
         .oneOf([Yup.ref("password")], "Passwords do not match"),
+    acceptTerms: Yup.bool().oneOf(
+        [true],
+        "Accept Terms & Conditions is required"
+    ),
 });
