@@ -60,7 +60,7 @@ const Contact = () => {
                                     className="svg-icon phone"
                                 />
                                 <Link href="tel:1234567890">
-                                    <a>+977 9805674418</a>
+                                    <a>+977 9805674414</a>
                                 </Link>
                             </div>
 
