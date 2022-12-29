@@ -104,7 +104,7 @@ export interface ITask {
     task_draft: any;
     date: string;
     time: string;
-    applicants_count: number;
+    count: number;
     images: Media[];
     videos: Media[];
 }

@@ -183,9 +183,7 @@ const AppliedForm = ({
                                     queryClient.invalidateQueries([
                                         "my-requested-task",
                                     ]);
-                                    queryClient.invalidateQueries([
-                                        "get-task-applicants",
-                                    ]);
+
                                     queryClient.invalidateQueries([
                                         "approved-task",
                                     ]);

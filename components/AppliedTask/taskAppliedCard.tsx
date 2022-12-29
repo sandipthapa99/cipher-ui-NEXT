@@ -32,14 +32,13 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         budget_to,
         currency,
         created_by,
+        count,
     } = task;
 
-    const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants", taskId],
-        `${urls.task.taskApplicantsNumber}/${taskId}`
-    );
-
-    const applicants_count = taskApplicants?.data.count[0].tasker_count;
+    // const { data: taskApplicants } = useData<TaskerCount>(
+    //     ["get-task-applicants", taskId],
+    //     `${urls.task.taskApplicantsNumber}/${taskId}`
+    // );
 
     return (
         <div
@@ -167,7 +166,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                                     icon={faUserGroup}
                                     className="svg-icon"
                                 />
-                                {applicants_count} Applied
+                                {count} Applied
                             </span>
                         </a>
                     </Link>

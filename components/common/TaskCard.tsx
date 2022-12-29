@@ -6,14 +6,10 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
-import urls from "constants/urls";
 import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
-import { useData } from "hooks/use-data";
-import parser from "html-react-parser";
-import Image from "next/image";
 import Link from "next/link";
-import type { ITask, TaskerCount } from "types/task";
+import type { ITask } from "types/task";
 
 import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
@@ -27,21 +23,18 @@ const TaskCard = ({ task }: TaskCardProps) => {
     const {
         title,
         location,
-        description,
+
         status,
         currency,
         slug,
+        count,
         id,
-        created_by,
     } = task;
 
-    const haveTaskId: boolean = task?.id ? true : false;
-
-    const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants", id],
-        `${urls.task.taskApplicantsNumber}/${id}`
-    );
-    const applicants_count = taskApplicants?.data.count[0].tasker_count;
+    // const { data: taskApplicants } = useData<TaskerCount>(
+    //     ["get-task-applicants", id],
+    //     `${urls.task.taskApplicantsNumber}/${id}`
+    // );
 
     const isTaskBookmarked = useIsBookmarked("entityservice", id);
     const queryClient = useQueryClient();
@@ -142,7 +135,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                                     icon={faUserGroup}
                                     className="svg-icon"
                                 />
-                                {applicants_count} Applied
+                                {count} Applied
                             </p>
                         </a>
                     </Link>
