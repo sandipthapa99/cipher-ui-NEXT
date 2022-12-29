@@ -143,32 +143,47 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                     </div>
                 </a>
             </Link>
-            <div className="d-flex mt-4 align-items-center task-applied-card-block__footer">
-                <ShareIcon
-                    url={`https://homaale.com/task/${taskId}`}
-                    quote="Please Share this task for all"
-                    hashtag="Homaale-task"
-                    showText
-                    className="px-1 me-3"
-                />
+            <div className="d-flex mt-4 align-items-center task-applied-card-block__footer justify-content-between">
+                <div className="d-flex align-items-center">
+                    <ShareIcon
+                        url={`https://homaale.com/task/${taskId}`}
+                        quote="Please Share this task for all"
+                        hashtag="Homaale-task"
+                        showText
+                        className="px-1 me-3"
+                    />
 
-                <Link
-                    href={
-                        type === "you may like"
-                            ? `/task-you-may-like/${task?.id}`
-                            : `/task/${task?.id}`
-                    }
-                >
-                    <a>
-                        <span className="applicants d-flex align-items-center text-black">
-                            <FontAwesomeIcon
-                                icon={faUserGroup}
-                                className="svg-icon"
+                    <Link
+                        href={
+                            type === "you may like"
+                                ? `/task-you-may-like/${task?.id}`
+                                : `/task/${task?.id}`
+                        }
+                    >
+                        <a>
+                            <span className="applicants d-flex align-items-center text-black">
+                                <FontAwesomeIcon
+                                    icon={faUserGroup}
+                                    className="svg-icon"
+                                />
+                                {count} Applied
+                            </span>
+                        </a>
+                    </Link>
+                </div>
+                <div>
+                    {task?.is_endorsed && (
+                        <figure className="endorsed-icon">
+                            <Image
+                                src={"/endorsed-green.svg"}
+                                height={24}
+                                width={24}
+                                objectFit="contain"
+                                alt="servicecard-image"
                             />
-                            {count} Applied
-                        </span>
-                    </a>
-                </Link>
+                        </figure>
+                    )}
+                </div>
             </div>
         </div>
     );

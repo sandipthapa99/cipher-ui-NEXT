@@ -35,11 +35,11 @@ const ServiceNearYouCard = ({
     discountOn,
     discount,
     currency,
+    is_endorsed,
     onServiceClick,
 }: ServiceCardType) => {
     const router = useRouter();
     const path = router.query.slug;
-
     return (
         <div
             data-active={JSON.stringify(path === serviceSlug)}
@@ -128,7 +128,7 @@ const ServiceNearYouCard = ({
                                     ? "/daily"
                                     : "/project"}
                             </h1>
-                            {/* 
+                            {/*
                             {currency + " "}
                                 {budget_to}
                                 {(budget_from !== 0 && budget_from) ??
@@ -141,6 +141,17 @@ const ServiceNearYouCard = ({
                                     ? "/mn"
                                     : ""} */}
                         </div>
+                        {is_endorsed && (
+                            <figure className="endorsed-icon">
+                                <Image
+                                    src={"/endorsed-green.svg"}
+                                    height={24}
+                                    width={24}
+                                    objectFit="contain"
+                                    alt="servicecard-image"
+                                />
+                            </figure>
+                        )}
                     </div>
                 </Col>
             </Row>
