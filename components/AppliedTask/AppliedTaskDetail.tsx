@@ -49,20 +49,11 @@ const AppliedTaskDetail = ({
     type?: string;
     taskDetail: ITask;
 }) => {
-    console.log(
-        "🚀 ~ file: AppliedTaskDetail.tsx ~ line 52 ~ taskDetail",
-        taskDetail
-    );
     // const { data: myRequestedTask } = useData<MyBookings>(
     //     ["my-requested-task"],
     //     `${urls.task.requested_task}`
     // );
-    const istaskId = () => {
-        if (taskDetail.id === undefined) {
-            return false;
-        }
-        return true;
-    };
+-
 
     // const { data: taskApplicants } = useData<TaskerCount>(
     //     ["get-task-applicants", taskDetail?.id],
