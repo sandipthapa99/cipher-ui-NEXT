@@ -10,7 +10,7 @@ const GoogleMap = dynamic(() => import("@components/Task/NearbyTasksMap"), {
 const TaskYouMayLike = () => {
     return (
         <>
-            <AppliedLayout
+            {/* <AppliedLayout
                 type={"you may like"}
                 title={"Task you may like"}
                 description={
@@ -19,22 +19,22 @@ const TaskYouMayLike = () => {
                 keywords={"homaale-task-you-may-like homaale-task"}
             >
                 <GoogleMap />
-            </AppliedLayout>
+            </AppliedLayout> */}
         </>
     );
 };
-export const getStaticProps: GetStaticProps = async () => {
-    const queryClient = new QueryClient();
-    try {
-        await queryClient.prefetchQuery(["all-tasks"]);
-        return {
-            props: {
-                dehydratedState: dehydrate(queryClient),
-            },
-        };
-    } catch (error) {
-        return { props: {} };
-    }
-};
+// export const getStaticProps: GetStaticProps = async () => {
+//     const queryClient = new QueryClient();
+//     try {
+//         await queryClient.prefetchQuery(["all-tasks"]);
+//         return {
+//             props: {
+//                 dehydratedState: dehydrate(queryClient),
+//             },
+//         };
+//     } catch (error) {
+//         return { props: {} };
+//     }
+// };
 
 export default TaskYouMayLike;
