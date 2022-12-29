@@ -34,7 +34,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
         id,
         created_by,
     } = task;
-    console.log("🚀 ~ file: TaskCard.tsx ~ line 28 ~ TaskCard ~ task", task);
+
     const haveTaskId: boolean = task?.id ? true : false;
 
     const { data: taskApplicants } = useData<TaskerCount>(

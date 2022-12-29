@@ -53,10 +53,17 @@ const AppliedTaskDetail = ({
     //     ["my-requested-task"],
     //     `${urls.task.requested_task}`
     // );
+    const istaskId = () => {
+        if (taskDetail.id === undefined) {
+            return false;
+        }
+        return true;
+    };
 
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", taskDetail?.id],
-        `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`
+        `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`,
+        istaskId()
     );
 
     const queryClient = useQueryClient();
@@ -450,7 +457,7 @@ export const getStaticProps: GetStaticProps = async () => {
         const queryClient = new QueryClient();
         await Promise.all([
             queryClient.prefetchQuery(["get-my-applicants"]),
-            queryClient.prefetchQuery(["get-task-applicants"]),
+            //  queryClient.prefetchQuery(["get-task-applicants"]),
             queryClient.prefetchQuery(["task-detail"]),
             queryClient.prefetchQuery(["tasks"]),
         ]);
