@@ -209,16 +209,23 @@
         color: #535353;
     }
     .terms-conditions {
-        margin: 0rem 0rem 0.8rem 0rem;
+        margin: -1.6rem 0rem 1.6rem 0rem;
     }
     .terms-condition-agree-text {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         font-weight: 500;
         margin: 0rem 0rem 0rem 1rem;
-        color: #343a40;
+        color: $gray6;
     }
     .error-text {
-        color: #dc3545;
+        color: $link-color;
+        a{
+            color: $link-color;
+
+        }
+    }
+    .form-check-error{
+        border-color: $link-color !important;
     }
     .mantine-33vjzt {
         margin-top: 0.3rem;
