@@ -1,18 +1,25 @@
+import type { PostTaskPayload } from "@components/Task/PostTaskModal";
+import type { FormikConfig, FormikProps } from "formik";
 import type { CSSProperties, ReactNode } from "react";
 
 export interface MultiFileDropzoneProps {
     name: string;
     labelName?: ReactNode;
     textMuted?: ReactNode;
-    // accept: string[];
+    accept?: string[];
     multiple?: boolean;
     maxSize?: number;
     maxFiles?: number;
     imagePreview?: string;
-    pdfPreview?: string;
     error?: string;
     touch?: boolean;
     style?: CSSProperties;
-    imageDisplay?: "grid" | "list";
+    displayView?: "grid" | "list";
     showFileDetail?: boolean;
+    withCloseButton?: boolean;
+}
+
+export interface MultiFileDropzoneDuplicateProps
+    extends MultiFileDropzoneProps {
+    formik: FormikProps<PostTaskPayload>;
 }

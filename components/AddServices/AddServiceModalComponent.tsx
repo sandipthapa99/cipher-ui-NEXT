@@ -1,6 +1,8 @@
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import MultiFileDropzoneDuplicate from "@components/common/MultiFileDropzoneDuplicate";
 import { RichText } from "@components/RichText";
+import type { PostTaskPayload } from "@components/Task/PostTaskModal";
 import { postServiceSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
@@ -35,28 +37,6 @@ import {
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ITask } from "types/task";
 import { toast } from "utils/toast";
-
-export interface PostTaskPayload {
-    title: string;
-    description: string;
-    highlights: string[];
-    service: string;
-    city: string;
-    location: TaskType;
-    currency: string;
-    budget_type: string;
-    budget_from: number | string | null;
-    budget_to: number | string;
-    is_negotiable: boolean;
-    images: string;
-    videos: string;
-    estimated_time: number;
-    is_recursion: boolean;
-    is_requested: boolean;
-    is_everyday: boolean;
-    is_active: boolean;
-    share_location: boolean;
-}
 
 export const AddServiceModalComponent = () => {
     const [choosedValue, setChoosedValue] = useState("task");
@@ -99,13 +79,15 @@ export const AddServiceModalComponent = () => {
             is_recursion: false,
             is_requested: false,
             is_everyday: false,
-            // start_date: "",
-            // end_date: "",
-            // start_time: "",
-            // end_time: "",
+            // start_date: null,
+            // end_date: null,
+            // start_time: null,
+            // end_time: null,
             currency: "NPR",
-            images: "",
-            videos: "",
+            images: [],
+            imagePreviewUrl: [],
+            videos: [],
+            videoPreviewUrl: [],
             is_active: true,
             share_location: true,
         },
@@ -251,16 +233,18 @@ export const AddServiceModalComponent = () => {
                             Including images helps you find best merchant for
                             your task.
                         </Text> */}
-                        <CustomDropZone
-                            // accept={IMAGE_MIME_TYPE}
-                            accept={{
-                                "image/*": [], // All images
-                            }}
-                            fileType="image"
-                            maxSize={5 * 1024 ** 2}
-                            sx={{ maxWidth: "30rem" }}
-                            name="task-image"
-                            onDrop={(images) => setFieldValue("images", images)}
+                        <MultiFileDropzoneDuplicate
+                            name="images"
+                            labelName="Upload your images"
+                            textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 4MB."
+                            error={formik.errors.images as string}
+                            touch={formik.touched.images as boolean}
+                            imagePreview="imagePreviewUrl"
+                            formik={formik}
+                            maxFiles={5}
+                            maxSize={4}
+                            multiple
+                            showFileDetail
                         />
                     </Stack>
                     <Stack sx={{ maxWidth: "40rem" }}>

@@ -1,6 +1,8 @@
 import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import MultiFileDropzone from "@components/common/MultiFileDropzone";
+import MultiFileDropzoneDuplicate from "@components/common/MultiFileDropzoneDuplicate";
 import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
@@ -54,19 +56,21 @@ export interface PostTaskPayload {
     location: TaskType;
     currency: string;
     budget_type: string;
-    budget_from: number | string;
+    budget_from?: number | string | null;
     budget_to: number | string;
     is_negotiable: boolean;
-    images: string;
-    videos: string;
+    images: any[];
+    imagePreviewUrl: any[];
+    videos: any[];
+    videoPreviewUrl: any[];
     estimated_time: number;
     is_recursion: boolean;
     is_requested: boolean;
     is_everyday: boolean;
-    start_date: string;
-    end_date: string;
-    start_time: string;
-    end_time: string;
+    start_date?: string;
+    end_date?: string;
+    start_time?: string;
+    end_time?: string;
     is_active: boolean;
     share_location: boolean;
 }
@@ -139,8 +143,10 @@ export const PostTaskModal = () => {
             start_time: "",
             end_time: "",
             currency: taskDetail ? String(taskDetail?.currency?.code) : "NPR",
-            images: "",
-            videos: "",
+            images: [],
+            imagePreviewUrl: [],
+            videos: [],
+            videoPreviewUrl: [],
             is_active: true,
             share_location: true,
         },
@@ -148,27 +154,37 @@ export const PostTaskModal = () => {
         validationSchema: postTaskSchema,
 
         onSubmit: async (values, action) => {
+            let newUploadImageID: number[] = [];
+            if (values.images.some((val) => val?.path)) {
+                const uploadedImageIds = await uploadFileMutation({
+                    files: values?.images.filter(
+                        (val) => val?.path
+                    ) as unknown as string,
+                    media_type: "image",
+                });
+                newUploadImageID = uploadedImageIds;
+            }
+            const imageIds = values?.images
+                .filter((val) => !val?.path)
+                .map((val) => val.id);
+
             if (!termsAccepted) {
                 toast.error(
                     "You must accept the terms and conditions before posting a task"
                 );
                 return;
             }
-            const uploadedImageIds = await uploadFileMutation({
-                files: values.images,
-                media_type: "image",
-            });
             const uploadedVideoIds = await uploadFileMutation({
                 files: values.videos,
                 media_type: "video",
             });
-            const imageIds = [...uploadedImageIds, ...initialImageIds];
+            const combinedImages = [...imageIds, ...newUploadImageID];
             const videoIds = [...uploadedVideoIds, ...initialVideoIds];
 
             const postTaskPayload = {
                 ...values,
                 highlights: values.highlights,
-                images: imageIds,
+                images: combinedImages,
                 videos: videoIds,
                 extra_data: [],
             };
@@ -269,7 +285,6 @@ export const PostTaskModal = () => {
                 )}
                 {choosedValue === "task" ? (
                     <form encType="multipart/formData" onSubmit={handleSubmit}>
-                        <pre>{JSON.stringify(values, null, 4)}</pre>
                         <Stack spacing="md">
                             <TextInput
                                 placeholder="Enter your title"
@@ -470,38 +485,36 @@ export const PostTaskModal = () => {
                                     Including images helps you find best
                                     merchant for your task.
                                 </Text>
-                                <CustomDropZone
-                                    //  accept={IMAGE_MIME_TYPE}
-                                    accept={{
-                                        "image/*": [], // All images
-                                    }}
-                                    uploadedFiles={taskDetail?.images ?? []}
-                                    fileType="image"
-                                    sx={{ maxWidth: "30rem" }}
-                                    maxSize={5 * 1024 ** 2}
+
+                                <MultiFileDropzoneDuplicate
                                     name="images"
-                                    onRemoveUploadedFiles={setInitialImageIds}
-                                    onDrop={(images) =>
-                                        setFieldValue("images", images)
-                                    }
+                                    labelName="Upload your images"
+                                    textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 4MB."
+                                    error={formik.errors.images as string}
+                                    touch={formik.touched.images as boolean}
+                                    imagePreview="imagePreviewUrl"
+                                    formik={formik}
+                                    maxFiles={5}
+                                    maxSize={4}
+                                    multiple
+                                    showFileDetail
                                 />
                             </Stack>
                             <Stack sx={{ maxWidth: "40rem" }}>
                                 <Title order={6}>Videos</Title>
-                                <Text color="dimmed" size="sm">
-                                    Including images or videos helps you find
-                                    best merchant for your task.
-                                </Text>
-                                <CustomDropZone
-                                    accept={[MIME_TYPES.mp4]}
-                                    uploadedFiles={taskDetail?.videos ?? []}
-                                    fileType="video"
-                                    name="task-video"
-                                    maxSize={100 * 1024 ** 2}
-                                    onRemoveUploadedFiles={setInitialVideoIds}
-                                    onDrop={(videos) =>
-                                        setFieldValue("videos", videos)
-                                    }
+                                <MultiFileDropzoneDuplicate
+                                    name="videos"
+                                    labelName="Upload your Video"
+                                    textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 4MB."
+                                    error={formik.errors.videos as string}
+                                    touch={formik.touched.videos as boolean}
+                                    imagePreview="videoPreviewUrl"
+                                    formik={formik}
+                                    accept={["video/mp4"]}
+                                    maxFiles={2}
+                                    maxSize={100}
+                                    multiple
+                                    showFileDetail
                                 />
                             </Stack>
                             <Checkbox

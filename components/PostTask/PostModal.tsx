@@ -2,6 +2,8 @@ import { CustomDropZone } from "@components/common/CustomDropZone";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
+import MultiFileDropzone from "@components/common/MultiFileDropzone";
+import MultiFileDropzoneDuplicate from "@components/common/MultiFileDropzoneDuplicate";
 import { postServiceSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import {
@@ -16,6 +18,7 @@ import { parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useEditTask } from "hooks/task/use-edit-task";
 import { useUploadFile } from "hooks/use-upload-file";
+import * as _ from "lodash";
 import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
@@ -52,6 +55,21 @@ const PostModal = ({
     // const [isOnPremise, setIsOnPremise] = useState(isRemote ? false : true);
     const { mutate } = useEditTask();
 
+    const getServiceImages =
+        taskDetail?.images &&
+        taskDetail?.images.map((val) => {
+            const fileName = _.split(val?.name, "/");
+            return {
+                id: val?.id,
+                src: val?.media,
+                file: {
+                    name: _.last(fileName),
+                    size: val?.size,
+                    type: val?.media_type,
+                },
+            };
+        });
+
     const editValues: PostTaskProps = {
         title: taskDetail?.title,
         description: extractContent(taskDetail?.description),
@@ -62,8 +80,10 @@ const PostModal = ({
         budget: taskDetail?.budget_to ? taskDetail?.budget_to : "",
         minBudget: taskDetail?.budget_to,
         maxBudget: taskDetail?.budget_from,
-        images: "",
-        video: "",
+        images: taskDetail?.images as any[],
+        imagePreviewUrl: getServiceImages as any[],
+        videos: taskDetail?.videos as any[],
+        videoPreviewUrl: taskDetail?.videos as any[],
         date: taskDetail?.start_date ? parseISO(taskDetail?.start_date) : "",
 
         date_from: taskDetail?.start_date
@@ -72,22 +92,6 @@ const PostModal = ({
         date_to: taskDetail?.end_date ? parseISO(taskDetail?.end_date) : "",
     };
 
-    const getInitialImageIds = useCallback(
-        () => (taskDetail?.images ?? []).map((image) => image.id),
-        [taskDetail?.images]
-    );
-
-    const getInitialVideoIds = useCallback(
-        () => (taskDetail?.videos ?? []).map((video) => video.id),
-        [taskDetail?.videos]
-    );
-
-    const [initialImageIds, setInitialImageIds] = useState<number[]>(() =>
-        getInitialImageIds()
-    );
-    const [initialVideoIds, setInitialVideoIds] = useState<number[]>(() =>
-        getInitialVideoIds()
-    );
     const { mutateAsync: uploadFileMutation } = useUploadFile();
 
     const initialHighlights = taskDetail?.highlights
@@ -107,28 +111,51 @@ const PostModal = ({
                         }
                         validationSchema={postServiceSchema}
                         onSubmit={async (values) => {
-                            const uploadedImageIds = await uploadFileMutation({
-                                files: values.images,
-                                media_type: "image",
-                            });
-                            const uploadedVideoIds = await uploadFileMutation({
-                                files: values.video,
-                                media_type: "video",
-                            });
-                            const imageIds = [
-                                ...uploadedImageIds,
-                                ...initialImageIds,
+                            let newUploadImageID: number[] = [];
+                            if (values.images.some((val) => val?.path)) {
+                                const uploadedImageIds =
+                                    await uploadFileMutation({
+                                        files: values?.images.filter(
+                                            (val) => val?.path
+                                        ) as unknown as string,
+                                        media_type: "image",
+                                    });
+                                newUploadImageID = uploadedImageIds;
+                            }
+
+                            let newUploadVideoID: number[] = [];
+                            if (values.images.some((val) => val?.path)) {
+                                const uploadedVideosIds =
+                                    await uploadFileMutation({
+                                        files: values?.images.filter(
+                                            (val) => val?.path
+                                        ) as unknown as string,
+                                        media_type: "image",
+                                    });
+                                newUploadVideoID = uploadedVideosIds;
+                            }
+
+                            const imageIds = values?.images
+                                .filter((val) => !val?.path)
+                                .map((val) => val.id);
+                            const videoIds = values?.images
+                                .filter((val) => !val?.path)
+                                .map((val) => val.id);
+
+                            const imagesIds = [
+                                ...imageIds,
+                                ...newUploadImageID,
                             ];
-                            const videoIds = [
-                                ...uploadedVideoIds,
-                                ...initialVideoIds,
+                            const videosIds = [
+                                ...videoIds,
+                                ...newUploadVideoID,
                             ];
 
                             const postTaskPayload = {
                                 ...values,
                                 highlights: values.highlights,
-                                images: imageIds,
-                                videos: videoIds,
+                                images: imagesIds,
+                                videos: videosIds,
                                 extra_data: [],
                             };
                             mutate(
@@ -152,10 +179,6 @@ const PostModal = ({
                                             taskId
                                         );
                                         setshowPostModel(false);
-
-                                        // queryClient.invalidateQueries([
-                                        //     "all-tasks",
-                                        // ]);
                                     },
                                 }
                             );
@@ -169,6 +192,7 @@ const PostModal = ({
                             setFieldValue,
                         }) => (
                             <Form>
+                                <pre>{JSON.stringify(errors, null, 4)}</pre>
                                 <InputField
                                     type="text"
                                     name="title"
@@ -340,21 +364,19 @@ const PostModal = ({
                                     requirements better.
                                 </p>
                                 <Col md={5}>
-                                    <CustomDropZone
-                                        //accept={IMAGE_MIME_TYPE}
-                                        accept={{
-                                            "image/*": [], // All images
-                                        }}
-                                        uploadedFiles={taskDetail?.images ?? []}
-                                        fileType="image"
-                                        sx={{ maxWidth: "30rem" }}
+                                    <MultiFileDropzone
                                         name="images"
-                                        onRemoveUploadedFiles={
-                                            setInitialImageIds
+                                        labelName="Upload your images"
+                                        textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 4MB."
+                                        error={errors.images as string}
+                                        touch={
+                                            touched.images as unknown as boolean
                                         }
-                                        onDrop={(images) =>
-                                            setFieldValue("images", images)
-                                        }
+                                        imagePreview="imagePreviewUrl"
+                                        maxFiles={5}
+                                        maxSize={4}
+                                        multiple
+                                        showFileDetail
                                     />
                                 </Col>
                                 <h4>When do you need this done?</h4>
@@ -363,17 +385,20 @@ const PostModal = ({
                                     requirements better.
                                 </p>
                                 <Col md={5}>
-                                    <CustomDropZone
-                                        accept={[MIME_TYPES.mp4]}
-                                        uploadedFiles={taskDetail?.videos ?? []}
-                                        fileType="video"
-                                        name="task-video"
-                                        onRemoveUploadedFiles={
-                                            setInitialVideoIds
+                                    <MultiFileDropzone
+                                        name="videos"
+                                        labelName="Upload your Video"
+                                        textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 4MB."
+                                        error={errors.videos as string}
+                                        touch={
+                                            touched.videos as unknown as boolean
                                         }
-                                        onDrop={(videos) =>
-                                            setFieldValue("videos", videos)
-                                        }
+                                        imagePreview="videoPreviewUrl"
+                                        accept={["video/mp4"]}
+                                        maxFiles={2}
+                                        maxSize={100}
+                                        multiple
+                                        showFileDetail
                                     />
                                 </Col>
                                 <h4>When do you need this done?</h4>

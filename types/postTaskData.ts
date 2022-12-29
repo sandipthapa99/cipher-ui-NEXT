@@ -10,8 +10,36 @@ export interface PostTaskProps {
     budget: string | undefined | number;
     minBudget: number | undefined;
     maxBudget: number | undefined;
-    images: string;
-    video: string;
+    images: {
+        id: number;
+        media: string;
+        size: number;
+        name: string;
+        media_type: string;
+        path?: string;
+    }[];
+    imagePreviewUrl: {
+        id: number;
+        media: string;
+        size: number;
+        name: string;
+        media_type: string;
+    }[];
+    videos: {
+        id: number;
+        media: string;
+        size: number;
+        name: string;
+        media_type: string;
+        path?: string;
+    }[];
+    videoPreviewUrl: {
+        id: number;
+        media: string;
+        size: number;
+        name: string;
+        media_type: string;
+    }[];
     date: string | null | Date;
     date_from: string | null | Date;
     date_to: string | null | Date;
