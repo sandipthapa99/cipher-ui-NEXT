@@ -39,16 +39,22 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
         `${urls.task.my_applicants}?entity_service=${taskId}&is_requested=true`,
         istaskId()
     );
+    console.log(
+        "🚀 ~ file: TaskersTab.tsx ~ line 38 ~ TaskersTab ~ taskApplicants",
+        taskApplicants
+    );
 
     const { data: profileDetails } = useGetProfile();
 
-    const requestedTask = Error
-        ? true
-        : taskApplicants?.data.result.find(
-              (requestedTask: any) =>
-                  requestedTask?.entity_service.created_by.id ===
-                  profileDetails?.user.id
-          );
+    const requestedTask = taskApplicants?.data.result.find(
+        (requestedTask: any) =>
+            requestedTask?.entity_service.created_by.id ===
+            profileDetails?.user.id
+    );
+    console.log(
+        "🚀 ~ file: TaskersTab.tsx ~ line 55 ~ TaskersTab ~ requestedTask",
+        requestedTask
+    );
 
     return (
         <div className="tasker-tab-taskdetail">
@@ -58,7 +64,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                     title={""}
                     color="orange"
                 >
-                    {`You can't view the applicants`}
+                    {"There are no applicants yet"}
                 </Alert>
             ) : TaskApplicantLoading ? (
                 <Loader />
@@ -68,7 +74,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                     title={""}
                     color="orange"
                 >
-                    {"There are no applicants yet"}
+                    {`You can't view the applicants`}
                 </Alert>
             ) : (
                 <Row className="g-5">
