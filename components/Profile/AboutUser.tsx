@@ -470,7 +470,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {userInterest
+                                {userInterest.length > 0
                                     ? userInterest.map((info: any, i: any) => (
                                           <div className="skills__type" key={i}>
                                               {info}

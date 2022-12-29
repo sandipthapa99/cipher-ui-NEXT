@@ -53,7 +53,6 @@ const AppliedTaskDetail = ({
     //     ["my-requested-task"],
     //     `${urls.task.requested_task}`
     // );
--
 
     // const { data: taskApplicants } = useData<TaskerCount>(
     //     ["get-task-applicants", taskDetail?.id],
