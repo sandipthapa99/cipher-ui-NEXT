@@ -49,6 +49,7 @@ export interface ITask {
     };
     id: string;
     title: string;
+    is_endorsed: boolean;
 
     city: {
         id: number;
