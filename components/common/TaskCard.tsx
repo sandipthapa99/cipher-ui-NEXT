@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import parser from "html-react-parser";
+import Image from "next/image";
 import Link from "next/link";
 import type { ITask, TaskerCount } from "types/task";
 
@@ -23,7 +24,18 @@ interface TaskCardProps {
     isSaved?: boolean;
 }
 const TaskCard = ({ task }: TaskCardProps) => {
-    const { title, location, description, status, currency, slug, id } = task;
+    const {
+        title,
+        location,
+        description,
+        status,
+        currency,
+        slug,
+        id,
+        created_by,
+    } = task;
+
+    const haveTaskId: boolean = task?.id ? true : false;
 
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", id],
@@ -33,12 +45,14 @@ const TaskCard = ({ task }: TaskCardProps) => {
 
     const isTaskBookmarked = useIsBookmarked("entityservice", id);
     const queryClient = useQueryClient();
+
     return (
         <div className="task-card-block p-5">
             <Link href={`/task/${id}`}>
                 <a>
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>
+
                         <h2 className="charge">
                             {currency ? currency?.symbol : ""}{" "}
                             {task?.budget_from
