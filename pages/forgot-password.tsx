@@ -1,25 +1,31 @@
+import BigButton from "@components/common/Button";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { Radio } from "@mantine/core";
+import {
+    faCircleCheck,
+    faCircleExclamation,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, Radio } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import {
     emailValidationSchema,
     phoneNumberValidationSchema,
 } from "utils/formValidation/emailValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { toast } from "utils/toast";
 
 const ForgotPassword = () => {
     const [sendOnce, setSendOnce] = useState(false);
     const [choosedValue, setChoosedValue] = useState("email");
+    const [successAlertMsg, setSuccessAlertMsg] = useState("");
+    const [errorAlertMsg, setErrorAlertMsg] = useState("");
     const router = useRouter();
     const { mutate } = useForm("/user/reset/");
-    const toggleSuccessModal = useToggleSuccessModal();
 
     return (
         <OnBoardingLayout
@@ -39,8 +45,22 @@ const ForgotPassword = () => {
                     size="md"
                     defaultValue="email"
                 >
-                    <Radio value="email" label="Email" />
-                    <Radio value="phone" label="Phone Number" />
+                    <Radio
+                        value="email"
+                        label="Email"
+                        onClick={() => {
+                            setSuccessAlertMsg("");
+                            setErrorAlertMsg("");
+                        }}
+                    />
+                    <Radio
+                        value="phone"
+                        label="Phone Number"
+                        onClick={() => {
+                            setSuccessAlertMsg("");
+                            setErrorAlertMsg("");
+                        }}
+                    />
                 </Radio.Group>
             </div>
 
@@ -67,21 +87,18 @@ const ForgotPassword = () => {
                             ? emailValidationSchema
                             : phoneNumberValidationSchema
                     }
-                    onSubmit={async (values, actions) => {
+                    onSubmit={(values, actions) => {
                         const formData = values.email
                             ? { email: values?.email }
                             : { phone: values?.phone };
+
                         mutate(formData, {
-                            onSuccess: async () => {
+                            onSuccess: async (data: any) => {
                                 actions.resetForm();
-                                toggleSuccessModal();
-                                choosedValue === "email"
-                                    ? toast.success(
-                                          "Reset link has been sent to your email. Please visit that link"
-                                      )
-                                    : toast.success(
-                                          "An OTP has been sent to your mobile number .. please enter that otp and new password"
-                                      );
+                                setErrorAlertMsg("");
+                                setSuccessAlertMsg(data?.message);
+
+                                //       );
                                 setSendOnce(true);
                                 if (choosedValue === "phone") {
                                     router.push({
@@ -91,7 +108,10 @@ const ForgotPassword = () => {
                                 }
                             },
                             onError: () => {
-                                toast.error("please enter valid user");
+                                setSuccessAlertMsg("");
+                                setErrorAlertMsg(
+                                    "No user found for the provided information."
+                                );
                             },
                         });
                     }}
@@ -108,14 +128,38 @@ const ForgotPassword = () => {
                                     placeHolder="example@example.com"
                                 />
                             ) : (
-                                <InputField
-                                    type="text"
+                                <PhoneNumberInput
                                     name="phone"
                                     labelName="Phone Number"
                                     touch={touched.phone}
                                     error={errors.phone}
-                                    placeHolder="+9779805284906"
                                 />
+                            )}
+                            {successAlertMsg !== "" && (
+                                <Alert
+                                    icon={
+                                        <FontAwesomeIcon icon={faCircleCheck} />
+                                    }
+                                    title="Success"
+                                    color="teal"
+                                    className="mb-5"
+                                >
+                                    {successAlertMsg}
+                                </Alert>
+                            )}
+                            {errorAlertMsg !== "" && (
+                                <Alert
+                                    icon={
+                                        <FontAwesomeIcon
+                                            icon={faCircleExclamation}
+                                        />
+                                    }
+                                    title="Oops!"
+                                    color="red"
+                                    className="mb-5"
+                                >
+                                    {errorAlertMsg}
+                                </Alert>
                             )}
                             {!sendOnce ? (
                                 <FormButton
