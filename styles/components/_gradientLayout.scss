@@ -109,5 +109,10 @@
                 }
             }
         }
+        .anchor-button {
+            &:hover {
+                background-color: $primary-color;
+            }
+        }
     }
 }
