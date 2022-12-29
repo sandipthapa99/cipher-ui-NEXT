@@ -79,6 +79,7 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                                         : task?.images
                                 }
                                 serviceProvider={`${task?.created_by?.first_name} ${task?.created_by?.last_name}`}
+                                is_endorsed={task?.is_endorsed}
                             />
                         </a>
                     </Link>

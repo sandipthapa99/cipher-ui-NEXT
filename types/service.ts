@@ -47,6 +47,7 @@ export interface IService {
     slug: string;
     is_active: boolean;
     merchant: any;
+    is_endorsed: boolean;
 }
 
 export interface Currency {
