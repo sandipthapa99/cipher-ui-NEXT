@@ -14,7 +14,10 @@ export interface ServiceCardProps {
     proService?: boolean;
     isEdit?: boolean;
 }
-
+export interface CategoryNameProps {
+    id: number;
+    name: string;
+}
 export interface ServicesValueProps {
     total_pages: number;
     count: number;

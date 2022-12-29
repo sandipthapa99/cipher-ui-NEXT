@@ -64,7 +64,8 @@ const urls = {
     },
     follow: `${taskerPath}follow/`,
 
-    category: { list: `/task/task-category/nested/` },
+    category: { list: `/task/task-category/nested/`, name: "/task/category/" },
+
     carrer: { list: `${careerPath}list/`, detail: `${careerPath}detail/` },
     blog: { list: blogPath, detail: `${blogPath}detail/` },
     wishlist: {
