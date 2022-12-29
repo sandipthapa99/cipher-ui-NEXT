@@ -1,5 +1,5 @@
 import type { PostTaskPayload } from "@components/Task/PostTaskModal";
-import type { FormikConfig, FormikProps } from "formik";
+import type { FormikProps } from "formik";
 import type { CSSProperties, ReactNode } from "react";
 
 export interface MultiFileDropzoneProps {

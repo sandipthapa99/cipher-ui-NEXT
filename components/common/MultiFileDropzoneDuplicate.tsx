@@ -1,19 +1,10 @@
-import {
-    faCircleArrowUp,
-    faTrashCan,
-    faXmark,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faCircleArrowUp, faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Group, Text } from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
-import type { FieldProps } from "formik";
-import { Field } from "formik";
 import * as _ from "lodash";
-import type {
-    MultiFileDropzoneDuplicateProps,
-    MultiFileDropzoneProps,
-} from "types/MultiFileDropzoneProps";
+import type { MultiFileDropzoneDuplicateProps } from "types/MultiFileDropzoneProps";
 import { FileTypeGrid } from "utils/fileType";
 import { formatBytes } from "utils/formatBytes";
 

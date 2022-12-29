@@ -171,7 +171,14 @@ export const ElipsisReport = ({
 
                         {owner && (
                             <>
-                                <Dropdown.Item onClick={handleEdit}>
+                                <Dropdown.Item
+                                    onClick={() =>
+                                        toggleShowPostTaskModal(
+                                            taskId ? "true" : "false",
+                                            taskId ?? serviceId
+                                        )
+                                    }
+                                >
                                     <FontAwesomeIcon
                                         icon={faPenToSquare}
                                         className="svg-icon"

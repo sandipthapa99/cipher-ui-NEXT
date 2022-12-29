@@ -1,5 +1,7 @@
 import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
+import type { FieldProps } from "formik";
+import { Field } from "formik";
 import { useServiceOptions } from "hooks/service/use-service-options";
 import { useState } from "react";
 
@@ -8,29 +10,27 @@ interface TaskCategoryProps extends Omit<SelectProps, "data"> {
     data?: SelectItem[];
 }
 export const ServiceOptions = ({
-    value,
+    name,
     onServiceChange,
     ...rest
 }: TaskCategoryProps) => {
     const { data: serviceOptions = [] } = useServiceOptions();
 
-    const [service, setService] = useState(() => value);
-    const handleServiceChange = (selectedService: string | null) => {
-        if (!selectedService) return;
-        onServiceChange(selectedService);
-        setService(selectedService);
-    };
     return (
-        <Select
-            {...rest}
-            searchable
-            label="Category"
-            placeholder="Select a category"
-            value={service}
-            onChange={handleServiceChange}
-            // onSearchChange={setQuery}
-            data={serviceOptions}
-            required
-        />
+        <Field name={name}>
+            {({ field }: FieldProps) => (
+                <Select
+                    {...rest}
+                    {...field}
+                    name={name}
+                    searchable
+                    label="Category"
+                    placeholder="Select a category"
+                    onChange={onServiceChange}
+                    data={serviceOptions}
+                    required
+                />
+            )}
+        </Field>
     );
 };
