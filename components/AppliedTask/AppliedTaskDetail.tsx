@@ -49,6 +49,10 @@ const AppliedTaskDetail = ({
     type?: string;
     taskDetail: ITask;
 }) => {
+    console.log(
+        "🚀 ~ file: AppliedTaskDetail.tsx ~ line 52 ~ taskDetail",
+        taskDetail
+    );
     // const { data: myRequestedTask } = useData<MyBookings>(
     //     ["my-requested-task"],
     //     `${urls.task.requested_task}`
@@ -60,11 +64,11 @@ const AppliedTaskDetail = ({
         return true;
     };
 
-    const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants", taskDetail?.id],
-        `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`,
-        istaskId()
-    );
+    // const { data: taskApplicants } = useData<TaskerCount>(
+    //     ["get-task-applicants", taskDetail?.id],
+    //     `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`,
+    //     istaskId()
+    // );
 
     const queryClient = useQueryClient();
     const { data: user } = useUser();
@@ -353,10 +357,7 @@ const AppliedTaskDetail = ({
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        <span>
-                            {" "}
-                            {taskApplicants?.data.count[0].tasker_count} Applied
-                        </span>
+                        <span> {taskDetail.count} Applied</span>
                     </p>
                 </div>
 
@@ -393,12 +394,7 @@ const AppliedTaskDetail = ({
                         onTabClick={setActiveTabIdx}
                         items={[
                             {
-                                title: `Taskers (${
-                                    taskApplicants
-                                        ? taskApplicants?.data.count[0]
-                                              .tasker_count
-                                        : 0
-                                })`,
+                                title: `Taskers (${taskDetail.count})`,
                                 content: (
                                     <TaskersTab
                                         taskId={taskDetail ? taskDetail.id : ""}

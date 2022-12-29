@@ -257,9 +257,7 @@ export const ApplicantsCard = ({
                                                     queryClient.invalidateQueries(
                                                         ["get-my-applicants"]
                                                     );
-                                                    queryClient.invalidateQueries(
-                                                        ["get-task-applicants"]
-                                                    );
+
                                                     queryClient.invalidateQueries(
                                                         ["my-requested-task"]
                                                     );
@@ -293,9 +291,7 @@ export const ApplicantsCard = ({
                                                     queryClient.invalidateQueries(
                                                         ["get-my-applicants"]
                                                     );
-                                                    queryClient.invalidateQueries(
-                                                        ["get-task-applicants"]
-                                                    );
+
                                                     queryClient.invalidateQueries(
                                                         ["my-requested-task"]
                                                     );
