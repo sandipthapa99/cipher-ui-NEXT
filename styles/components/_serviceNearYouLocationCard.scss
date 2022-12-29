@@ -78,20 +78,21 @@
                 margin-bottom: 0rem;
             }
         }
-        .endorsed-icon{
+        .endorsed-icon {
             position: absolute;
             top: 1.6rem;
             right: 0.4rem;
-            .img{
+            .img {
                 height: 2.4rem;
                 width: 2.4rem;
             }
         }
-    }  .offer {
+    }
+    .offer {
         position: absolute;
         bottom: 0;
         left: 0;
-            background: linear-gradient(
+        background: linear-gradient(
             180deg,
             rgba(252, 165, 0, 0.9) 0%,
             rgba(244, 88, 0, 0.81) 145%
