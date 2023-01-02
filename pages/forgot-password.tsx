@@ -94,6 +94,7 @@ const ForgotPassword = () => {
 
                         mutate(formData, {
                             onSuccess: async (data: any) => {
+                                actions.setSubmitting(false);
                                 actions.resetForm();
                                 setErrorAlertMsg("");
                                 setSuccessAlertMsg(data?.message);
@@ -107,11 +108,15 @@ const ForgotPassword = () => {
                                     });
                                 }
                             },
-                            onError: () => {
+                            onError: (error: any) => {
+                                actions.setSubmitting(false);
+                                const {
+                                    data: { email, phone },
+                                } = error.response;
+
+                                actions.setFieldError("email", email);
+                                actions.setFieldError("phone", phone);
                                 setSuccessAlertMsg("");
-                                setErrorAlertMsg(
-                                    "No user found for the provided information."
-                                );
                             },
                         });
                     }}
@@ -157,6 +162,8 @@ const ForgotPassword = () => {
                                     title="Oops!"
                                     color="red"
                                     className="mb-5"
+                                    withCloseButton={true}
+                                    onClose={() => setErrorAlertMsg("")}
                                 >
                                     {errorAlertMsg}
                                 </Alert>
