@@ -1,11 +1,13 @@
+import { async } from "@firebase/util";
 import { faKey, faUser } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Modal, PasswordInput, Stack, TextInput } from "@mantine/core";
+import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
 import localforage from "localforage";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     useClearPausedFunction,
     useHideLoginPrompt,
@@ -17,11 +19,14 @@ import {
  * @description Displays a login prompt on unauthenticated actions
  */
 export const LoginPrompt = () => {
+    const queryClient = useQueryClient();
     const { mutate: loginMutation, isLoading } = useLogin();
     const showLoginPrompt = useShowLoginPrompt();
     const hideLoginPrompt = useHideLoginPrompt();
-    const pausedFunction = usePausedFunction();
-    const clearPausedFunction = useClearPausedFunction();
+    // const pausedFunction = usePausedFunction();
+    // const clearPausedFunction = useClearPausedFunction();
+    const [usernameErrorMsg, setUsernameErrorMsg] = useState("");
+    const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
 
     // const theme = useMantineTheme();
 
@@ -37,11 +42,12 @@ export const LoginPrompt = () => {
     }, [hideLoginPrompt, router.events]);
     return (
         <Modal
-            overlayOpacity={0.55}
-            overlayBlur={3}
-            centered
             opened={showLoginPrompt}
             onClose={hideLoginPrompt}
+            centered
+            overlayColor="#DEE2E6"
+            overlayOpacity={0.1}
+            overlayBlur={3}
             title="Login to continue"
         >
             <Formik
@@ -52,12 +58,21 @@ export const LoginPrompt = () => {
                     loginMutation(
                         { ...values, fcm_token: fcmToken },
                         {
-                            onSuccess: () => {
+                            onSuccess: async () => {
                                 hideLoginPrompt();
-                                if (pausedFunction) {
-                                    pausedFunction();
-                                    clearPausedFunction();
-                                }
+                                // if (pausedFunction) {
+                                //     pausedFunction();
+                                //     clearPausedFunction();
+                                // }
+                                await queryClient.invalidateQueries(["user"]);
+                            },
+                            onError: (error: any) => {
+                                const {
+                                    data: { username, password },
+                                } = error.response;
+
+                                setUsernameErrorMsg(username);
+                                setPasswordErrorMsg(password);
                             },
                         }
                     );
@@ -66,16 +81,18 @@ export const LoginPrompt = () => {
             >
                 {({ getFieldProps }) => (
                     <Form>
-                        <Stack>
+                        <Stack style={{ boxShadow: "none" }}>
                             <TextInput
                                 {...getFieldProps("username")}
                                 icon={<FontAwesomeIcon icon={faUser} />}
                                 placeholder="Username or phone number"
+                                error={usernameErrorMsg && usernameErrorMsg}
                             />
                             <PasswordInput
                                 {...getFieldProps("password")}
                                 icon={<FontAwesomeIcon icon={faKey} />}
                                 placeholder="Password"
+                                error={passwordErrorMsg && passwordErrorMsg}
                             />
                             <Button loading={isLoading} type="submit">
                                 Login

@@ -91,15 +91,23 @@ const Login = () => {
                         username: "",
                         password: "",
                     }}
-                    onSubmit={(values) => {
+                    onSubmit={(values, actions) => {
                         const newValues = {
                             ...values,
                             fcm_token: fcmToken ? fcmToken : null,
                         };
 
                         loginMutation(newValues, {
-                            onError: (error) => {
-                                toast.error(error.message);
+                            onError: (error: any) => {
+                                const {
+                                    data: { username, password },
+                                } = error.response;
+
+                                actions.setFieldError(
+                                    "username",
+                                    username && username[0]
+                                );
+                                actions.setFieldError("password", password);
                             },
                             onSuccess: async (hasProfile) => {
                                 const { next } = router.query;

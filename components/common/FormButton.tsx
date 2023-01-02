@@ -26,7 +26,7 @@ const FormButton = ({
             onClick={handleClick}
             disabled={disabled || isSubmitting || isLoading}
         >
-            {!isLoading || !isSubmitting ? (
+            {!isSubmitting ? (
                 <span>{name}</span>
             ) : (
                 <span>

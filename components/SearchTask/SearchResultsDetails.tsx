@@ -1,7 +1,6 @@
 import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
 import { ElipsisReport } from "@components/common/ElipsisReport";
-import { FilterReview } from "@components/common/FilterReview";
 import OfferCard from "@components/common/OfferCard";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
@@ -530,7 +529,9 @@ const SearchResultsDetail = ({
                                 <CardBtn
                                     btnTitle="Book Now"
                                     backgroundColor="#211D4F"
-                                    handleClick={() => handleClickBookNow()}
+                                    handleClick={withLogin(() =>
+                                        handleClickBookNow()
+                                    )}
                                 />
                             )}
                         </div>
