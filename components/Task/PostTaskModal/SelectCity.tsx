@@ -16,7 +16,7 @@ export interface SelectCityProps extends Omit<SelectProps, "data" | "value"> {
     onCitySelect: (value: string | null) => void;
     data?: SelectItem[];
     name: string;
-    initialCity: ITask["city"];
+    initialCity?: ITask["city"];
     touch?: boolean;
 }
 
@@ -69,6 +69,7 @@ export const SelectCity = ({
                     withAsterisk
                     onBlur={onBlur}
                     searchable
+                    nothingFound="No city found"
                     label="City"
                     placeholder="Search and select your city"
                     data={

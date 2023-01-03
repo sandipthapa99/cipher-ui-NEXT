@@ -1,4 +1,3 @@
-import { EditService } from "@components/services/EditService";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
@@ -60,9 +59,6 @@ const ServiceCard = ({
         }
     };
 
-    const handleCloseEditModal = () => {
-        setShowEditModal(false);
-    };
     const queryClient = useQueryClient();
     const isServiceBookmarked = useIsBookmarked(
         "entityservice",
@@ -268,11 +264,6 @@ const ServiceCard = ({
                     "" + " " + serviceCard?.created_by?.last_name
                 }
                 currencySymbol={serviceCard?.currency?.symbol}
-            />
-            <EditService
-                showEditModal={showEditModal}
-                handleClose={handleCloseEditModal}
-                serviceDetail={serviceCard}
             />
         </div>
         // </Link>

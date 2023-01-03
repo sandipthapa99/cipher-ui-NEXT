@@ -6,7 +6,6 @@ import {
     faEllipsisVertical,
     faFlag,
     faPenToSquare,
-    faRepeat,
     faTrashCan,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -38,7 +37,6 @@ interface ElipsisReportProps {
     owner?: boolean;
     isService?: boolean;
     // handleDelete?: () => void;
-    handleEdit?: () => void;
 }
 
 export const ElipsisReport = ({
@@ -56,9 +54,8 @@ export const ElipsisReport = ({
     taskerDescription,
     owner,
     isService,
-    // handleDelete,
-    handleEdit,
-}: ElipsisReportProps) => {
+}: // handleDelete,
+ElipsisReportProps) => {
     const [moreOpen, setMoreOpen] = useState(false);
     const [reportForm, setReportForm] = useState(false);
 

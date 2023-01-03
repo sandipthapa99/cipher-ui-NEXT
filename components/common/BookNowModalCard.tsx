@@ -175,6 +175,7 @@ const BookNowModalCard = ({
                             budget_to: budget_to,
                             videos: "",
                             offer: "",
+                            city: "",
                             requirements: "",
                             location: "",
                         }}
@@ -388,6 +389,8 @@ const BookNowModalCard = ({
                                     onCitySelect={(cityId) =>
                                         setFieldValue("city", cityId)
                                     }
+                                    value={values.city}
+                                    name={"city"}
                                 />
 
                                 <div className="book-now-gallery">

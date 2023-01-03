@@ -8,7 +8,6 @@ import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
-import { EditService } from "@components/services/EditService";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
@@ -195,8 +194,6 @@ const SearchResultsDetail = ({
             String(getSingleService?.[0].id) === servicePackage?.service?.id
     );
 
-    const [editModal, setEditModal] = useState(false);
-
     const isServiceBookmarked = useIsBookmarked(
         "entityservice",
         String(serviceId)
@@ -243,10 +240,6 @@ const SearchResultsDetail = ({
         } else {
             return false;
         }
-    };
-
-    const handleEdit = () => {
-        setEditModal(true);
     };
 
     const confirmDelete = () => {
@@ -376,7 +369,6 @@ const SearchResultsDetail = ({
                                 serviceId={serviceId}
                                 owner={isUserService}
                                 isService={true}
-                                handleEdit={handleEdit}
                                 //   handleDelete={handleDelete}
                             />
                         </div>
@@ -925,14 +917,6 @@ const SearchResultsDetail = ({
                     currencySymbol={currency}
                     setShow={() => setShow(false)}
                 />
-
-                {service && (
-                    <EditService
-                        showEditModal={editModal}
-                        handleClose={() => setEditModal(false)}
-                        serviceDetail={service}
-                    />
-                )}
             </div>
         </div>
     );
