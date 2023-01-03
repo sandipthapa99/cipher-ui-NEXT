@@ -32,7 +32,7 @@ export const ChangePhoneNumber = () => {
                     password: "",
                 }}
                 //validationSchema={changePasswordFormSchema}
-                onSubmit={async (values) => {
+                onSubmit={async (values, actions) => {
                     changePhoneNumber.mutate(values, {
                         onSuccess: () => {
                             setMyOtp(true);
@@ -46,7 +46,9 @@ export const ChangePhoneNumber = () => {
                             //       );
                         },
                         onError: (err: any) => {
-                            toast.error(err.response.data.password);
+                            const { phone, password } = err.response.data;
+                            actions.setFieldError("phone", phone && phone[0]);
+                            actions.setFieldError("password", password);
                         },
                     });
 
