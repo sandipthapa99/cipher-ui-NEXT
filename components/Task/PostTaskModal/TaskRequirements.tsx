@@ -118,6 +118,7 @@ export const TaskRequirements = ({
         </Box>
     );
 };
+
 export const useStyles = createStyles(() => ({
     listItem: {
         display: "flex",

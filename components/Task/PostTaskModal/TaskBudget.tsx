@@ -1,5 +1,4 @@
-import type { EditServicePayload } from "@components/services/EditService";
-import type { PostTaskPayload } from "@components/Task/PostTaskModal/PostTaskModal";
+import type { PostTaskPayloadProps } from "@components/Task/PostTaskModal/PostTaskModal";
 import { Box, NumberInput, Radio, Select, Space, Text } from "@mantine/core";
 import type { FormikErrors, FormikTouched } from "formik";
 import { useState } from "react";
@@ -15,9 +14,9 @@ export interface TaskBudgetProps {
     initialbudgetType?: string;
     setFieldValue: (field: string, value: any) => void;
     setFieldError: (field: string, value: any) => void;
-    setFieldTouched: (field: string, value: any) => void;
-    touched: FormikTouched<PostTaskPayload>;
-    errors: FormikErrors<PostTaskPayload>;
+    setFieldTouched: (value: any) => void;
+    touched: FormikTouched<PostTaskPayloadProps>;
+    errors: FormikErrors<PostTaskPayloadProps>;
 }
 
 const budgetType = [
@@ -43,6 +42,7 @@ export const TaskBudget = ({
     initialBudgetTo,
     initialbudgetType,
     setFieldValue,
+    setFieldTouched,
     touched,
     errors,
 }: TaskBudgetProps) => {
@@ -56,6 +56,7 @@ export const TaskBudget = ({
         setFieldValue("budgetTypeRadio", type);
         setValue(type);
     };
+
     return (
         <Box>
             <Radio.Group
@@ -85,6 +86,7 @@ export const TaskBudget = ({
                                     setFieldValue("budget_from", value)
                                 }
                                 min={1}
+                                onBlur={() => setFieldTouched("budget_from")}
                                 max={100000}
                                 error={
                                     touched.budget_from && errors.budget_from
@@ -104,6 +106,7 @@ export const TaskBudget = ({
                         placeholder="Enter your price"
                         value={initialBudgetTo}
                         onChange={(value) => setFieldValue("budget_to", value)}
+                        onBlur={() => setFieldTouched("budget_to")}
                         min={1}
                         max={100000}
                         error={

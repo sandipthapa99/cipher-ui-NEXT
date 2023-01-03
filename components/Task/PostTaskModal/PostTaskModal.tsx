@@ -1,15 +1,10 @@
-import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
-import { CustomDropZone } from "@components/common/CustomDropZone";
 import MantineDateField from "@components/common/MantineDateField";
 import MantineInputField from "@components/common/MantineInputField";
+import MantineTimeField from "@components/common/MantineTimeField";
 import MultiFileDropzone from "@components/common/MultiFileDropzone";
-import MultiFileDropzoneDuplicate from "@components/common/MultiFileDropzoneDuplicate";
 import { RichText } from "@components/RichText";
-import {
-    postServiceSchema,
-    postTaskSchema,
-} from "@components/Task/PostTaskModal/postTaskSchema";
+import { postEntityServiceSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
@@ -27,28 +22,21 @@ import {
     Modal,
     Stack,
     Text,
-    TextInput,
     Title,
 } from "@mantine/core";
-import { DatePicker, TimeInput } from "@mantine/dates";
-import { MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
 import type { FormikErrors, FormikTouched } from "formik";
 import { Form, Formik } from "formik";
-import { useSerivceEntity } from "hooks/service/use-service-entity";
-import { useEditTask } from "hooks/task/use-edit-task";
-import { usePostTask } from "hooks/task/use-post-task";
 import { useData } from "hooks/use-data";
 import { useEntityService } from "hooks/use-entity-service";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { useEditTaskDetail } from "store/use-edit-task";
 import {
+    useClearPostTaskserviceType,
     usePostTaskserviceId,
     usePostTaskserviceType,
     useShowPostTaskModal,
@@ -60,7 +48,7 @@ import type { ITask } from "types/task";
 import { convertTimeStringToDateString } from "utils/formatTime";
 import { toast } from "utils/toast";
 
-export interface PostTaskPayload {
+export interface PostTaskPayloadProps {
     title: string;
     description: string;
     highlights: string[];
@@ -73,82 +61,75 @@ export interface PostTaskPayload {
     budget_to: number | string;
     is_negotiable: boolean;
     images: any[];
-    imagePreviewUrl: any[];
+    imagePreviewUrl?: any[];
     videos: any[];
-    videoPreviewUrl: any[];
-    estimated_time: number;
-    is_recursion: boolean;
-    is_requested: boolean;
-    is_everyday: boolean;
+    videoPreviewUrl?: any[];
     start_date?: string;
     end_date?: string;
-    start_time?: string;
-    end_time?: string;
+    start_time?: string | null;
+    end_time?: string | null;
     is_active: boolean;
     share_location: boolean;
+    is_terms_condition?: boolean;
 }
 
 export const PostTaskModal = () => {
     const toggleSuccessModal = useToggleSuccessModal();
-    // const { mutate: createTaskMutation, isLoading: createTaskLoading } =
-    //     usePostTask();
 
-    // const { mutate: editTaskMutation, isLoading: editTaskLoading } =
-    //     useEditTask();
+    const queryClient = useQueryClient();
 
+    //required when editing
     const showPostTaskserviceType = usePostTaskserviceType();
-    console.log(
-        "🚀 ~ file: PostTaskModal.tsx:99 ~ PostTaskModal ~ showPostTaskserviceType",
-        showPostTaskserviceType
-    );
-
+    const clearPostTaskserviceType = useClearPostTaskserviceType();
     const entityServiceId = usePostTaskserviceId();
-    console.log(
-        "🚀 ~ file: PostTaskModal.tsx:102 ~ PostTaskModal ~ entityServiceId",
-        entityServiceId
-    );
 
+    //TO switch between entity service(is_requested='true' | 'false')
     const [is_requested, setIs_requested] = useState<"true" | "false">(
         showPostTaskserviceType ?? "true"
     );
-    console.log(
-        "🚀 ~ file: PostTaskModal.tsx:109 ~ PostTaskModal ~ is_requested",
-        is_requested
-    );
 
+    //TO change state of is_requested(true | false)
     useEffect(() => {
         if (showPostTaskserviceType) {
             setIs_requested(showPostTaskserviceType);
         }
     }, [showPostTaskserviceType]);
 
-    const { mutate, isLoading } = useEntityService(is_requested);
-    const showPostTaskModal = useShowPostTaskModal();
+    //For Filestore API
+    const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
+        useUploadFile();
 
+    //TO render Title according to entity Service Type
+    const renderTitle = () => {
+        switch (showPostTaskserviceType) {
+            case "true":
+                return "Edit Task";
+            case "false":
+                return "Edit Service";
+            default:
+                return "Post a Task or Service";
+        }
+    };
+
+    const { mutate, isLoading } = useEntityService(is_requested);
+
+    const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
     const handleCloseModal = () => {
         toggleShowPostTaskModal();
+        clearPostTaskserviceType();
     };
 
-    const { data: entityServiceData } = useData<ITask>(
-        ["get-entity-serviceser", entityServiceId],
+    const { data: entityServiceData, isFetching } = useData<ITask>(
+        ["get-entity-service", entityServiceId],
         `${urls.task.list}${entityServiceId}/`,
         !!entityServiceId
     );
 
     const entityService = entityServiceData?.data;
-    console.log(
-        "🚀 ~ file: PostTaskModal.tsx:138 ~ PostTaskModal ~ entityService",
-        entityService
-    );
 
-    const [termsAccepted, setTermsAccepted] = useState(true);
-
-    const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
-        useUploadFile();
-
-    const isCreateTaskLoading = isLoading || uploadFileLoading;
+    const isCreateTaskLoading = isLoading || uploadFileLoading || isFetching;
 
     return (
         <>
@@ -163,31 +144,32 @@ export const PostTaskModal = () => {
                 closeOnClickOutside={false}
                 overlayOpacity={0.55}
                 overlayBlur={3}
-                title="Post a Task or Service"
+                title={renderTitle()}
                 size="xl"
             >
-                <div className="choose-email-or-phone mb-5">
-                    <Radio.Group
-                        label="Please select task or service which you want to post "
-                        onChange={(value: "true" | "false") =>
-                            setIs_requested(value)
-                        }
-                        size="sm"
-                        defaultValue={is_requested}
-                    >
-                        <Radio value="true" label="Post Task" />
-                        <Radio value="false" label="Post Service" />
-                    </Radio.Group>
-                </div>
+                {!entityServiceId && (
+                    <div className="choose-email-or-phone mb-5">
+                        <Radio.Group
+                            label="Please select task or service which you want to post "
+                            onChange={(value: "true" | "false") =>
+                                setIs_requested(value)
+                            }
+                            size="sm"
+                            value={is_requested}
+                        >
+                            <Radio value="true" label="Post Task" />
+                            <Radio value="false" label="Post Service" />
+                        </Radio.Group>
+                    </div>
+                )}
+
                 <Formik
-                    enableReinitialize
                     initialValues={{
                         title: entityService ? entityService.title : "",
                         description: entityService
                             ? entityService.description
                             : "",
-                        //   highlights: taskDetail ? initialHighlights : [],
-                        highlights: [],
+                        highlights: entityService?.highlights ?? [],
                         city: entityService
                             ? String(entityService?.city?.id)
                             : "",
@@ -197,7 +179,7 @@ export const PostTaskModal = () => {
                         budget_type: "Project",
                         budget_from: entityService
                             ? Number(entityService.budget_from)
-                            : "",
+                            : null,
                         budget_to: entityService
                             ? Number(entityService.budget_to)
                             : "",
@@ -205,34 +187,43 @@ export const PostTaskModal = () => {
                             ? entityService?.service?.id ?? ({} as any)
                             : "",
                         is_negotiable: false,
-                        estimated_time: 5,
-                        is_recursion: false,
-                        is_requested: true,
-                        is_everyday: false,
+                        // estimated_time: 5,
+                        // is_recursion: false,
+                        // is_everyday: false,
+                        is_requested: is_requested,
                         start_date: entityService?.start_date
-                            ? parseISO(entityService?.start_date)
-                            : null,
+                            ? (parseISO(
+                                  entityService?.start_date
+                              ) as unknown as string)
+                            : "",
                         end_date: entityService?.end_date
-                            ? parseISO(entityService?.end_date)
-                            : null,
+                            ? (parseISO(
+                                  entityService?.end_date
+                              ) as unknown as string)
+                            : "",
                         start_time: entityService?.start_time
-                            ? entityService?.start_time
+                            ? convertTimeStringToDateString(
+                                  entityService?.start_time
+                              )
                             : null,
                         end_time: entityService?.end_time
-                            ? entityService?.end_time
+                            ? convertTimeStringToDateString(
+                                  entityService?.end_time
+                              )
                             : null,
                         currency: entityService
                             ? String(entityService?.currency?.code)
                             : "NPR",
                         images: (entityService?.images as any[]) ?? [],
-                        imagePreviewUrl: entityService?.images as any[],
+                        imagePreviewUrl: (entityService?.images as any[]) ?? [],
                         videos: (entityService?.videos as any[]) ?? [],
-                        videoPreviewUrl: entityService?.videos as any[],
+                        videoPreviewUrl: (entityService?.videos as any[]) ?? [],
                         is_active: true,
+                        is_terms_condition: entityService ? true : false,
                         share_location: true,
                     }}
-                    validationSchema={postServiceSchema}
-                    onSubmit={async (values, actions) => {
+                    validationSchema={postEntityServiceSchema(is_requested)}
+                    onSubmit={async (values: PostTaskPayloadProps, actions) => {
                         let newUploadImageID: number[] = [];
                         if (values.images.some((val) => val?.path)) {
                             const uploadedImageIds = await uploadFileMutation({
@@ -245,12 +236,12 @@ export const PostTaskModal = () => {
                         }
 
                         let newUploadVideoID: number[] = [];
-                        if (values.images.some((val) => val?.path)) {
+                        if (values.videos.some((val) => val?.path)) {
                             const uploadedVideosIds = await uploadFileMutation({
-                                files: values?.images.filter(
+                                files: values?.videos.filter(
                                     (val) => val?.path
                                 ) as unknown as string,
-                                media_type: "image",
+                                media_type: "video",
                             });
                             newUploadVideoID = uploadedVideosIds;
                         }
@@ -258,7 +249,7 @@ export const PostTaskModal = () => {
                         const imageIds = values?.images
                             .filter((val) => !val?.path)
                             .map((val) => val.id);
-                        const videoIds = values?.images
+                        const videoIds = values?.videos
                             .filter((val) => !val?.path)
                             .map((val) => val.id);
 
@@ -270,32 +261,39 @@ export const PostTaskModal = () => {
                             highlights: values.highlights,
                             images: imagesIds,
                             videos: videosIds,
-                            start_date: format(
-                                new Date(String(values.start_date)),
-                                "yyyy-MM-dd"
-                            ),
-                            end_date: format(
-                                new Date(String(values.end_date)),
-                                "yyyy-MM-dd"
-                            ),
-                            start_time: format(
-                                new Date(
-                                    convertTimeStringToDateString(
-                                        String(values.start_time)
-                                    )
-                                ),
-                                "hh:mm aa"
-                            ),
-                            end_time: format(
-                                new Date(
-                                    convertTimeStringToDateString(
-                                        String(values.start_time)
-                                    )
-                                ),
-                                "hh:mm aa"
-                            ),
+                            is_requested:
+                                is_requested === "false" ? false : true,
+                            start_date: values.start_date
+                                ? format(
+                                      new Date(String(values.start_date)),
+                                      "yyyy-MM-dd"
+                                  )
+                                : null,
+                            end_date: values.end_date
+                                ? format(
+                                      new Date(String(values.end_date)),
+                                      "yyyy-MM-dd"
+                                  )
+                                : null,
+                            start_time: values.start_time
+                                ? format(
+                                      new Date(String(values.start_time)),
+                                      "HH:mm"
+                                  )
+                                : null,
+                            end_time: values.end_time
+                                ? format(
+                                      new Date(String(values.end_time)),
+                                      "HH:mm"
+                                  )
+                                : null,
                             extra_data: [],
                         };
+                        //To remove unneccessary fields
+                        delete postTaskPayload.imagePreviewUrl;
+                        delete postTaskPayload.videoPreviewUrl;
+                        delete postTaskPayload.is_terms_condition;
+
                         mutate(
                             {
                                 id: String(entityServiceId),
@@ -303,27 +301,42 @@ export const PostTaskModal = () => {
                             },
                             {
                                 onSuccess: () => {
-                                    toggleSuccessModal(
-                                        "Task Updated Successfully"
-                                    );
+                                    toggleSuccessModal();
                                     actions.resetForm();
+                                    handleCloseModal();
+                                    queryClient.invalidateQueries([
+                                        ReactQueryKeys.TASK_DETAIL,
+                                        entityServiceId,
+                                    ]);
 
-                                    // queryClient.invalidateQueries([
-                                    //     ReactQueryKeys.TASK_DETAIL,
-                                    //     taskId,
-                                    // ]);
+                                    queryClient.invalidateQueries([
+                                        ReactQueryKeys.TASKS,
+                                    ]);
+                                    queryClient.invalidateQueries([
+                                        ReactQueryKeys.SERVICE_DETAIL,
+                                        entityServiceId,
+                                    ]);
 
-                                    // queryClient.invalidateQueries([
-                                    //     ReactQueryKeys.TASKS,
-                                    // ]);
-                                    // queryClient.setQueryData(
-                                    //     ["task-detail"],
-                                    //     taskId
-                                    // );
-                                    // setshowPostModel(false);
+                                    queryClient.invalidateQueries([
+                                        ReactQueryKeys.SERVICES,
+                                    ]);
                                 },
-                                onError: () => {
-                                    toggleSuccessModal("Failed");
+                                onError: (e: any) => {
+                                    toast.error("Post Task Failed");
+                                    const { title, end_date, city } =
+                                        e.response.data;
+                                    actions.setFieldError(
+                                        "title",
+                                        title && title[0]
+                                    );
+                                    actions.setFieldError(
+                                        "end_date",
+                                        end_date && end_date[0]
+                                    );
+                                    actions.setFieldError(
+                                        "city",
+                                        city && city[0]
+                                    );
                                 },
                             }
                         );
@@ -344,11 +357,13 @@ export const PostTaskModal = () => {
                                     name="title"
                                     labelName={"Title"}
                                     placeHolder={"Enter your title"}
+                                    fieldRequired
+                                    error={errors.title}
+                                    touch={touched.title}
                                 />
 
                                 <RichText
-                                    {...getFieldProps("description")}
-                                    value={values.description ?? ""}
+                                    value={values.description}
                                     onChange={(value) =>
                                         setFieldValue("description", value)
                                     }
@@ -356,7 +371,9 @@ export const PostTaskModal = () => {
                                     aria-errormessage="123"
                                 />
                                 <TaskRequirements
-                                    initialRequirements={[]}
+                                    initialRequirements={
+                                        entityService?.highlights ?? []
+                                    }
                                     onRequirementsChange={(requirements) =>
                                         setFieldValue(
                                             "highlights",
@@ -364,100 +381,126 @@ export const PostTaskModal = () => {
                                         )
                                     }
                                     error={errors.highlights}
-                                    {...getFieldProps("highlights")}
-                                    labelName="Requirements"
+                                    name={"highlights"}
+                                    labelName={
+                                        is_requested === "true"
+                                            ? `Requirements`
+                                            : `Highlights`
+                                    }
                                     description="This helps the tasker understand about your task better"
                                 />
-                                <Row>
-                                    <Col md={6}>
-                                        <MantineDateField
-                                            name="start_date"
-                                            labelName="Start Date"
-                                            placeHolder="Select Start Date"
-                                            icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
+                                {is_requested === "true" && (
+                                    <>
+                                        <Row>
+                                            <Col md={6}>
+                                                <MantineDateField
+                                                    name="start_date"
+                                                    labelName="Start Date"
+                                                    placeHolder="Select Start Date"
+                                                    icon={
+                                                        <FontAwesomeIcon
+                                                            icon={
+                                                                faCalendarDays
+                                                            }
+                                                            className="svg-icons"
+                                                        />
+                                                    }
+                                                    error={errors.start_date}
+                                                    touch={touched.start_date}
+                                                    minDate={new Date()}
+                                                    handleChange={(value) => {
+                                                        setFieldValue(
+                                                            "start_date",
+                                                            value
+                                                        );
+                                                    }}
                                                 />
-                                            }
-                                            minDate={new Date()}
-                                            handleChange={(value) => {
-                                                setFieldValue(
-                                                    "start_date",
-                                                    value
-                                                );
-                                            }}
-                                        />
-                                    </Col>
+                                            </Col>
 
-                                    <Col md={6}>
-                                        <MantineDateField
-                                            name="end_date"
-                                            labelName="End Date"
-                                            placeHolder="Select End Date"
-                                            icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
+                                            <Col md={6}>
+                                                <MantineDateField
+                                                    name="end_date"
+                                                    labelName="End Date"
+                                                    fieldRequired
+                                                    placeHolder="Select End Date"
+                                                    error={errors.end_date}
+                                                    touch={touched.end_date}
+                                                    icon={
+                                                        <FontAwesomeIcon
+                                                            icon={
+                                                                faCalendarDays
+                                                            }
+                                                            className="svg-icons"
+                                                        />
+                                                    }
+                                                    minDate={new Date()}
+                                                    handleChange={(value) => {
+                                                        setFieldValue(
+                                                            "end_date",
+                                                            value
+                                                        );
+                                                    }}
                                                 />
-                                            }
-                                            minDate={new Date()}
-                                            handleChange={(value) => {
-                                                setFieldValue(
-                                                    "end_date",
-                                                    format(
-                                                        new Date(value),
-                                                        "yyyy-MM-dd"
-                                                    )
-                                                );
-                                            }}
-                                        />
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col md={3}>
-                                        <TimeInput
-                                            name="start_time"
-                                            label="Start time"
-                                            format="12"
-                                            onChange={(value) => {
-                                                setFieldValue(
-                                                    "start_time",
-                                                    value
-                                                );
-                                            }}
-                                        />
-                                    </Col>
-                                    <Col md={3}>
-                                        <TimeInput
-                                            name="end_time"
-                                            label="End time"
-                                            format="12"
-                                            onChange={(value) => {
-                                                setFieldValue(
-                                                    "end_time",
-                                                    value
-                                                );
-                                            }}
-                                        />
-                                    </Col>
-                                </Row>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col md={3}>
+                                                <MantineTimeField
+                                                    name="start_time"
+                                                    labelName="Start Time"
+                                                    placeHolder="hh/mm"
+                                                    touch={touched.start_time}
+                                                    error={errors.start_time}
+                                                    handleChange={(value) => {
+                                                        setFieldValue(
+                                                            "start_time",
+                                                            value
+                                                        );
+                                                    }}
+                                                />
+                                            </Col>
+                                            <Col md={3}>
+                                                <MantineTimeField
+                                                    name="end_time"
+                                                    labelName="End time"
+                                                    placeHolder="hh/mm"
+                                                    touch={touched.end_time}
+                                                    error={errors.end_time}
+                                                    handleChange={(value) => {
+                                                        setFieldValue(
+                                                            "end_time",
+                                                            value
+                                                        );
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </>
+                                )}
 
                                 <SelectCity
                                     name="city"
+                                    error={errors.city}
+                                    value={values.city}
+                                    touch={touched.city}
+                                    onBlur={() => setFieldTouched("city")}
                                     onCitySelect={(cityId) =>
                                         setFieldValue("city", cityId)
                                     }
-                                    value={
-                                        entityService ? entityService?.city : ""
+                                    initialCity={
+                                        entityService?.city
+                                            ? entityService?.city
+                                            : ({} as ITask["city"])
                                     }
                                 />
                                 <ServiceOptions
+                                    name={"service"}
                                     onServiceChange={(service) =>
                                         setFieldValue("service", service)
                                     }
-                                    name={"service"}
+                                    touch={touched.service}
                                     error={errors.service}
+                                    onBlur={() => setFieldTouched("service")}
                                 />
                                 <SelectTaskType
                                     setFieldValue={setFieldValue}
@@ -469,12 +512,8 @@ export const PostTaskModal = () => {
                                     error={errors.location}
                                 />
                                 <TaskCurrency
-                                    value={
-                                        entityService
-                                            ? entityService?.currency?.code?.toString()
-                                            : ""
-                                    }
                                     name={"currency"}
+                                    value={values?.currency}
                                     data={
                                         entityService?.currency
                                             ? [
@@ -501,10 +540,10 @@ export const PostTaskModal = () => {
                                     setFieldError={setFieldError}
                                     setFieldTouched={setFieldTouched}
                                     touched={
-                                        touched as FormikTouched<PostTaskPayload>
+                                        touched as FormikTouched<PostTaskPayloadProps>
                                     }
                                     errors={
-                                        errors as FormikErrors<PostTaskPayload>
+                                        errors as FormikErrors<PostTaskPayloadProps>
                                     }
                                 />
                                 <Checkbox
@@ -550,37 +589,38 @@ export const PostTaskModal = () => {
                                         showFileDetail
                                     />
                                 </Stack>
-                                <Checkbox
-                                    label="is active"
-                                    name="is_active"
-                                    defaultChecked={true}
-                                    onChange={(event) =>
-                                        setFieldValue(
-                                            "is_active",
-                                            event.currentTarget.checked
-                                        )
-                                    }
-                                />
-                                {/* <TaskDate setFieldValue={setFieldValue} /> */}
-                                <Checkbox
-                                    checked={termsAccepted}
-                                    onChange={(event) =>
-                                        setTermsAccepted(event.target.checked)
-                                    }
-                                    label={
-                                        <Text>
-                                            Accept all{" "}
-                                            <Link
-                                                passHref
-                                                href="/terms-and-conditions"
-                                            >
-                                                <Anchor>
-                                                    Terms and Conditions
-                                                </Anchor>
-                                            </Link>
-                                        </Text>
-                                    }
-                                />
+                                {!entityService ? (
+                                    <Checkbox
+                                        checked={values.is_terms_condition}
+                                        name={"is_terms_condition"}
+                                        onChange={(event) =>
+                                            setFieldValue(
+                                                "is_terms_condition",
+                                                event.target.checked
+                                            )
+                                        }
+                                        error={
+                                            touched.is_terms_condition &&
+                                            errors.is_terms_condition
+                                                ? errors?.is_terms_condition
+                                                : null
+                                        }
+                                        label={
+                                            <Text>
+                                                Accept all{" "}
+                                                <Link
+                                                    passHref
+                                                    href="/terms-and-conditions"
+                                                >
+                                                    <Anchor>
+                                                        Terms and Conditions
+                                                    </Anchor>
+                                                </Link>
+                                            </Text>
+                                        }
+                                    />
+                                ) : null}
+
                                 <Box
                                     sx={{
                                         display: "flex",
