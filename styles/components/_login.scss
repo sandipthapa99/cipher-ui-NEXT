@@ -152,7 +152,8 @@
     &.forgot-password,
     &.signup,
     &.client-signup,
-    &.tasker-signup {
+    &.tasker-signup,
+    &.reset-password {
         width: 100%;
         @include respond(lg) {
             width: 70%;

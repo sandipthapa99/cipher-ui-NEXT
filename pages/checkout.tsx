@@ -726,7 +726,7 @@ export default function Checkout() {
                                 }
                             }}
                         >
-                            Proceed to Confirm
+                            Proceed to Pay
                         </Button>
                     </Col>
                 </Row>

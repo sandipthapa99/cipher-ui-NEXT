@@ -90,11 +90,24 @@
         @include respond(xs) {
             margin-top: 6px;
         }
-
+        .user-info {
+            padding: 1rem 0rem;
+            .thumbnail-img {
+                border-radius: 50%;
+                height: 3.2rem;
+                width: 3.2rem;
+            }
+            .user-name {
+                color: $secondary-text-color;
+                font-size: 1.2rem;
+                font-weight: 400;
+                margin: 0rem 0rem 0rem 1rem;
+            }
+        }
         .task-description {
             font-size: 1.2rem;
             font-weight: 400;
-            color: #495057;
+            color: $secondary-text-color;
             line-height: 2.4rem;
             margin-bottom: 2.4rem;
         }

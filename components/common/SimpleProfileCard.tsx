@@ -77,7 +77,7 @@ const SimpleProfileCard = ({
                 queryClient.invalidateQueries(["my-requested-task"]);
                 queryClient.invalidateQueries(["approved-task"]);
                 toast.success("Booking successfully cancelled.");
-                queryClient.invalidateQueries(["get-task-applicants"]);
+
                 onApply?.();
             },
             onError: async () => {

@@ -24,6 +24,7 @@ const VerifyOtp = () => {
             welcomeText="Hey! No worries   👋"
             headerText="Reset your password?"
             mainImg="/illustrations/forgot-pass.svg"
+            currentPage="reset-password"
             redirectionLink="/login"
             title="OTP Verification"
         >
@@ -62,11 +63,11 @@ const VerifyOtp = () => {
                     <Form className="login-form">
                         <InputField
                             name={"otp"}
-                            labelName={"OTP key"}
+                            labelName={"OTP Code"}
                             type="text"
                             touch={touched.otp}
                             error={errors.otp}
-                            placeHolder={"OTP key"}
+                            placeHolder={"Six digits OTP"}
                         />
                         <PasswordField
                             type="password"
@@ -74,7 +75,7 @@ const VerifyOtp = () => {
                             labelName="Password"
                             touch={touched.password}
                             error={errors.password}
-                            placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                            placeHolder="New Password"
                         />
                         <PasswordField
                             type="password"
@@ -82,7 +83,7 @@ const VerifyOtp = () => {
                             labelName="Confirm Password"
                             touch={touched.confirm_password}
                             error={errors.confirm_password}
-                            placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                            placeHolder="Confirm New Password"
                         />
                         <FormButton
                             type="submit"

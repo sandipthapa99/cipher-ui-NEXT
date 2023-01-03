@@ -54,10 +54,11 @@ const AppliedTaskDetail = ({
     //     `${urls.task.requested_task}`
     // );
 
-    const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants", taskDetail?.id],
-        `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`
-    );
+    // const { data: taskApplicants } = useData<TaskerCount>(
+    //     ["get-task-applicants", taskDetail?.id],
+    //     `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`,
+    //     istaskId()
+    // );
 
     const queryClient = useQueryClient();
     const { data: user } = useUser();
@@ -346,10 +347,7 @@ const AppliedTaskDetail = ({
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        <span>
-                            {" "}
-                            {taskApplicants?.data.count[0].tasker_count} Applied
-                        </span>
+                        <span> {taskDetail.count} Applied</span>
                     </p>
                 </div>
 
@@ -386,12 +384,7 @@ const AppliedTaskDetail = ({
                         onTabClick={setActiveTabIdx}
                         items={[
                             {
-                                title: `Taskers (${
-                                    taskApplicants
-                                        ? taskApplicants?.data.count[0]
-                                              .tasker_count
-                                        : 0
-                                })`,
+                                title: `Taskers (${taskDetail.count})`,
                                 content: (
                                     <TaskersTab
                                         taskId={taskDetail ? taskDetail.id : ""}
@@ -450,7 +443,7 @@ export const getStaticProps: GetStaticProps = async () => {
         const queryClient = new QueryClient();
         await Promise.all([
             queryClient.prefetchQuery(["get-my-applicants"]),
-            queryClient.prefetchQuery(["get-task-applicants"]),
+            //  queryClient.prefetchQuery(["get-task-applicants"]),
             queryClient.prefetchQuery(["task-detail"]),
             queryClient.prefetchQuery(["tasks"]),
         ]);

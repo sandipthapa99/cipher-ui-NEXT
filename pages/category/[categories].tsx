@@ -11,11 +11,12 @@ import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Grid, Highlight } from "@mantine/core";
 import urls from "constants/urls";
+import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import type { HeroCategoryProps } from "types/heroCategory";
-import type { ServicesValueProps } from "types/serviceCard";
+import type { CategoryNameProps, ServicesValueProps } from "types/serviceCard";
 import type { ITaskApiResponse } from "types/task";
 import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
@@ -37,11 +38,22 @@ const Gardening = ({
     const category = (
         (serviceData?.length > 0 ? serviceData : taskData) as any[]
     )?.find((item) => item?.category?.slug === categories);
+
     const categoryImage = (
         (serviceData?.length > 0 ? serviceData : taskData) as any[]
     )?.map((item) => item[0]?.category.image);
 
     const categoryName = category ? category.category.name : categories;
+
+    const { data: categoryNameResult } = useData<CategoryNameProps>(
+        ["category-name", categories],
+        `${urls.category.name}${categories}`
+    );
+    // console.log(
+    //     "🚀 ~ file: [categories].tsx ~ line 57 ~ data",
+    //     categoryNameResult?.data.name
+    // );
+    const category_name = categoryNameResult?.data?.name;
 
     return (
         <Layout
@@ -53,14 +65,16 @@ const Gardening = ({
             <div className="gardening -page">
                 <Container fluid="xl" className="px-4">
                     <BreadCrumb
-                        currentPage={categoryName ? categoryName : "Loading..."}
+                        currentPage={
+                            category_name ? category_name : "Loading..."
+                        }
                     />
-                    <h1 className="section-title m-0">{categoryName}</h1>
+                    <h1 className="section-title m-0">{category_name}</h1>
                     <section className="services-near-you">
                         <h1 className="heading-title mt-3">
-                            {categoryName ? (
+                            {category_name ? (
                                 <span>
-                                    {categoryName} &nbsp; Services Near You
+                                    {category_name} &nbsp; Services Near You
                                 </span>
                             ) : (
                                 <Highlight highlight={"Loading..."}>
@@ -87,7 +101,8 @@ const Gardening = ({
                             >
                                 {/* <Highlight highlight={[categoryName, "No"]}> */}
                                 There are No services in{" "}
-                                {categoryName ? categoryName : "this"} category
+                                {category_name ? category_name : "this"}{" "}
+                                category
                                 {/* </Highlight> */}
                             </Alert>
                         )}
@@ -114,9 +129,9 @@ const Gardening = ({
 
                     <section className="tasks-near-you">
                         <h1 className="heading-title">
-                            {categoryName ? (
+                            {category_name ? (
                                 <span>
-                                    {categoryName} &nbsp; Tasks Near You
+                                    {category_name} &nbsp; Tasks Near You
                                 </span>
                             ) : (
                                 <Highlight highlight={"Loading..."}>
@@ -143,7 +158,8 @@ const Gardening = ({
                             >
                                 {/* <Highlight highlight={[categoryName, "No"]}> */}
                                 There are No task in{" "}
-                                {categoryName ? categoryName : "this"} category
+                                {category_name ? category_name : "this"}{" "}
+                                category
                                 {/* </Highlight> */}
                             </Alert>
                         )}
@@ -159,9 +175,9 @@ const Gardening = ({
 
                     <section className="taskers-near-you">
                         <h1 className="heading-title">
-                            {categoryName ? (
+                            {category_name ? (
                                 <span>
-                                    {categoryName} &nbsp; Tasker Near You
+                                    {category_name} &nbsp; Tasker Near You
                                 </span>
                             ) : (
                                 <Highlight highlight={"Loading..."}>
@@ -180,7 +196,8 @@ const Gardening = ({
                             >
                                 {/* <Highlight highlight={[categoryName, "No"]}> */}
                                 There are No tasker in{" "}
-                                {categoryName ? categoryName : "this"} category
+                                {category_name ? category_name : "this"}{" "}
+                                category
                                 {/* </Highlight> */}
                             </Alert>
                         )}

@@ -186,6 +186,7 @@ const BankForm = ({
                                       "tasker-bank-account",
                                   ]);
 
+                                  editDetails == null;
                                   setDisableButton(true);
                               },
 
@@ -324,6 +325,18 @@ const BankForm = ({
                                 className="me-3 mb-0 cancel-btn"
                                 onClick={() => {
                                     resetForm();
+                                    setFieldValue("bank_account_number", "");
+                                    setFieldValue("bank_account_name", "");
+                                    setFieldValue(
+                                        "branch_name",
+
+                                        bankBranchResults[0]?.value
+                                    );
+                                    setFieldValue(
+                                        "bank_name",
+                                        bankNamesResults[0]?.value
+                                    );
+                                    setFieldValue("is_primary", false);
                                 }}
                             >
                                 Clear

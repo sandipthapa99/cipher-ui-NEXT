@@ -16,6 +16,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import type { NewsletterDataTypes } from "types/newsletter";
 import { axiosClient } from "utils/axiosClient";
 import { emailValidationSchema } from "utils/formValidation/emailValidation";
+import { getCurrentYear } from "utils/helpers";
 import { toast } from "utils/toast";
 
 import CommingSoonModal from "./common/ComingSoonModal";
@@ -388,7 +389,7 @@ const Footer = () => {
                         </Row>
                     </div>
                     <p className="copyright">
-                        © 2022 Homaale®. All Rights Reserved
+                        © {getCurrentYear()} Homaale®. All Rights Reserved
                     </p>
                     {/* Cipher footer social links section end */}
                 </Container>

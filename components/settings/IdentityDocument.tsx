@@ -108,7 +108,6 @@ export const IdentityDocument = () => {
             }) => (
                 <Form>
                     <h5>Identity Information</h5>
-                    <pre>{JSON.stringify(values, null, 4)}</pre>
                     <Row>
                         <Col md={6}>
                             <SelectInputField

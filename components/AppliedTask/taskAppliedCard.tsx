@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ITask, TaskerCount } from "types/task";
@@ -30,14 +31,14 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         budget_from,
         budget_to,
         currency,
+        created_by,
+        count,
     } = task;
 
-    const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants", taskId],
-        `${urls.task.taskApplicantsNumber}/${taskId}`
-    );
-
-    const applicants_count = taskApplicants?.data.count[0].tasker_count;
+    // const { data: taskApplicants } = useData<TaskerCount>(
+    //     ["get-task-applicants", taskId],
+    //     `${urls.task.taskApplicantsNumber}/${taskId}`
+    // );
 
     return (
         <div
@@ -54,6 +55,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                 <a>
                     <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
                         <span className="title">{title}</span>
+
                         {budget_from && budget_to ? (
                             <span className="charge">
                                 {currency.symbol} {budget_from} - {budget_to}
@@ -69,7 +71,26 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                             </span>
                         )}
                     </div>
+
                     <div className="task-applied-card-block__body">
+                        <div className="user-info d-flex align-items-center">
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={
+                                        created_by.profile_image
+                                            ? created_by.profile_image
+                                            : "/userprofile/unknownPerson.jpg"
+                                    }
+                                    alt="profile-image"
+                                    layout="fill"
+                                />
+                            </figure>
+                            <div className="user-name">
+                                {task?.created_by.first_name}{" "}
+                                {task?.created_by.middle_name ?? ""}{" "}
+                                {task?.created_by?.last_name}{" "}
+                            </div>
+                        </div>
                         <p className="location mb-3 d-flex align-items-center">
                             <FontAwesomeIcon
                                 icon={faLocationDot}
@@ -122,32 +143,47 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                     </div>
                 </a>
             </Link>
-            <div className="d-flex mt-4 align-items-center task-applied-card-block__footer">
-                <ShareIcon
-                    url={`https://homaale.com/task/${taskId}`}
-                    quote="Please Share this task for all"
-                    hashtag="Homaale-task"
-                    showText
-                    className="px-1 me-3"
-                />
+            <div className="d-flex mt-4 align-items-center task-applied-card-block__footer justify-content-between">
+                <div className="d-flex align-items-center">
+                    <ShareIcon
+                        url={`https://homaale.com/task/${taskId}`}
+                        quote="Please Share this task for all"
+                        hashtag="Homaale-task"
+                        showText
+                        className="px-1 me-3"
+                    />
 
-                <Link
-                    href={
-                        type === "you may like"
-                            ? `/task-you-may-like/${task?.id}`
-                            : `/task/${task?.id}`
-                    }
-                >
-                    <a>
-                        <span className="applicants d-flex align-items-center text-black">
-                            <FontAwesomeIcon
-                                icon={faUserGroup}
-                                className="svg-icon"
+                    <Link
+                        href={
+                            type === "you may like"
+                                ? `/task-you-may-like/${task?.id}`
+                                : `/task/${task?.id}`
+                        }
+                    >
+                        <a>
+                            <span className="applicants d-flex align-items-center text-black">
+                                <FontAwesomeIcon
+                                    icon={faUserGroup}
+                                    className="svg-icon"
+                                />
+                                {count} Applied
+                            </span>
+                        </a>
+                    </Link>
+                </div>
+                <div>
+                    {task?.is_endorsed && (
+                        <figure className="endorsed-icon">
+                            <Image
+                                src={"/endorsed-green.svg"}
+                                height={24}
+                                width={24}
+                                objectFit="contain"
+                                alt="servicecard-image"
                             />
-                            {applicants_count} Applied
-                        </span>
-                    </a>
-                </Link>
+                        </figure>
+                    )}
+                </div>
             </div>
         </div>
     );

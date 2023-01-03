@@ -49,6 +49,7 @@ export interface ITask {
     };
     id: string;
     title: string;
+    is_endorsed: boolean;
 
     city: {
         id: number;
@@ -103,7 +104,7 @@ export interface ITask {
     task_draft: any;
     date: string;
     time: string;
-    applicants_count: number;
+    count: number;
     images: Media[];
     videos: Media[];
 }

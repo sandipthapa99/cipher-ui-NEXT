@@ -42,17 +42,17 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
 
     const { data: profileDetails } = useGetProfile();
 
-    const requestedTask = Error
-        ? true
-        : taskApplicants?.data.result.find(
-              (requestedTask: any) =>
-                  requestedTask?.entity_service.created_by.id ===
-                  profileDetails?.user.id
-          );
+    // const requestedTask = Error
+    //     ? true
+    //     : taskApplicants?.data.result.find(
+    //           (requestedTask: any) =>
+    //               requestedTask?.entity_service.created_by.id ===
+    //               profileDetails?.user.id
+    //       );
 
     return (
         <div className="tasker-tab-taskdetail">
-            {!requestedTask ? (
+            {Error ? (
                 <Alert
                     icon={<FontAwesomeIcon icon={faWarning} />}
                     title={""}
@@ -62,7 +62,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                 </Alert>
             ) : TaskApplicantLoading ? (
                 <Loader />
-            ) : Error ? (
+            ) : !Error ? (
                 <Alert
                     icon={<FontAwesomeIcon icon={faWarning} />}
                     title={""}
