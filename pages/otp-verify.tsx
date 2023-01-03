@@ -33,7 +33,7 @@ const VerifyOtp = () => {
                     otp: "",
                     password: "",
                     confirm_password: "",
-                    scope: "verify",
+                    scope: "reset",
                 }}
                 validationSchema={resetFormSchema}
                 onSubmit={async (values, actions) => {
