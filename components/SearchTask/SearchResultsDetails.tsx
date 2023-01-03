@@ -2,7 +2,6 @@ import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
 import { ElipsisReport } from "@components/common/ElipsisReport";
 import OfferCard from "@components/common/OfferCard";
-import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
@@ -14,8 +13,8 @@ import {
     faCalendar,
     faChevronLeft,
     faClockEight,
-    faEye,
     faLocationDot,
+    faUserGroup,
     faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
@@ -34,12 +33,10 @@ import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { Fragment, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { RatingResponse } from "types/ratingProps";
-import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
@@ -60,7 +57,6 @@ const SearchResultsDetail = ({
     serviceId,
     serviceProviderId,
     serviceCreated,
-    serviceViews,
     currency,
     service,
     offers,
@@ -71,7 +67,7 @@ const SearchResultsDetail = ({
 
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    // const setBookNowDetails = useSetBookNowDetails();
+
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
 
@@ -91,11 +87,6 @@ const SearchResultsDetail = ({
 
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
-    const { data: servicesData } = useData<ServicesValueProps>(
-        ["all-services"],
-        urls.task.service
-    );
-
     const parsedDescription = parse(serviceDescription ?? "");
 
     const haveDesc = serviceDescription ? serviceDescription?.length : 0;
@@ -104,90 +95,14 @@ const SearchResultsDetail = ({
         serviceDescription?.substring(0, 400) ?? ""
     );
     const [seeMore, setSeeMore] = useState(false);
-    const { data: myServicePackage } = useData<{
-        result: Array<{
-            id: number;
-            service: {
-                id: string;
-                created_by: {
-                    id: string;
-                    email: string;
-                    full_name: string;
-                    profile_image: string;
-                };
-                category: {
-                    id: number;
-                    name: string;
-                    slug: string;
-                    icon: string;
-                };
-                city: any;
-                images: Array<{
-                    id: number;
-                    media: string;
-                    media_type: string;
-                    size: number;
-                    name: string;
-                    placeholder: string;
-                }>;
-                created_at: string;
-                updated_at: string;
-                title: string;
-                budget_type: string;
-                budget_from: number;
-                budget_to: number;
-                status: string;
-                description: string;
-                highlights: string;
-                views_count: number;
-                location: string;
-                happy_clients: any;
-                success_rate: any;
-                is_professional: boolean;
-                is_online: boolean;
-                video: string;
-                no_of_revisions: number;
-                discount_type: string;
-                discount_value: any;
-                is_active: boolean;
-                slug: string;
-            };
-            title: string;
-            description: string;
-            budget: number;
-            no_of_revision: number;
-            service_offered: string;
-            is_active: boolean;
-            slug: string;
-            budget_type: string;
-            discount_type: string;
-            discount_value: number;
-            is_recommended: boolean;
-        }>;
-    }>(["my-service-packages"], "/task/service-package/");
 
     const { data: user } = useUser();
-    const { data: taskerCount } = useData<{
-        count: Array<{
-            applicants_count: number;
-        }>;
-    }>(
-        ["tasker-count", serviceId],
-        `/task/entity/service/tasker-count/${serviceId}/`
-    );
-
     //
     const withLogin = useWithLogin();
-    const router = useRouter();
-    const { data: myBookings } = useGetMyBookings(serviceId);
-    const servSlug = router.query.slug;
-    const getSingleService = servicesData?.data?.result.filter(
-        (item) => item.slug === servSlug
-    );
 
-    const getPackageAccordingService = myServicePackage?.data?.result.filter(
-        (servicePackage) =>
-            String(getSingleService?.[0].id) === servicePackage?.service?.id
+    const { data: myBookings } = useGetMyBookings(
+        serviceId,
+        service?.count ?? 0
     );
 
     const isServiceBookmarked = useIsBookmarked(
@@ -501,20 +416,20 @@ const SearchResultsDetail = ({
                             ? format(new Date(serviceCreated), "p")
                             : "N/A"}
                     </p>
-                    <p>
+                    {/* <p>
                         <FontAwesomeIcon
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
                         {serviceViews} Views
-                    </p>
-                    {/* <p>
+                    </p> */}
+                    <p>
                         <FontAwesomeIcon
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                         Applied
-                    </p> */}
+                        {service?.count} Applied
+                    </p>
                 </div>
 
                 <div className="task-detail__desc">
@@ -599,7 +514,7 @@ const SearchResultsDetail = ({
                     </section>
                 ) : null}
 
-                {getPackageAccordingService &&
+                {/* {getPackageAccordingService &&
                     getPackageAccordingService
                         // .filter(
                         //     (service) =>
@@ -662,48 +577,50 @@ const SearchResultsDetail = ({
                                         </Carousel>
                                     </section>
                                 )
+                        )} */}
+                {service?.count ? (
+                    <section>
+                        {isCurrentUserService() && (
+                            <div ref={tabRef}>
+                                <Tab
+                                    activeIndex={activeTabIdx}
+                                    onTabClick={setActiveTabIdx}
+                                    items={[
+                                        {
+                                            title: `Applicants (${service?.count})`,
+                                            content: (
+                                                <Row className="py-3">
+                                                    <>
+                                                        {renderBookedClients}
+                                                        {myBookings ===
+                                                            undefined && (
+                                                            <Alert
+                                                                icon={
+                                                                    <FontAwesomeIcon
+                                                                        icon={
+                                                                            faWarning
+                                                                        }
+                                                                    />
+                                                                }
+                                                                title={
+                                                                    "No Applicants Available!"
+                                                                }
+                                                                color={"red"}
+                                                            >
+                                                                {" "}
+                                                            </Alert>
+                                                        )}
+                                                    </>
+                                                </Row>
+                                            ),
+                                        },
+                                    ]}
+                                />
+                            </div>
                         )}
-                <section>
-                    {isCurrentUserService() && (
-                        <div ref={tabRef}>
-                            <Tab
-                                activeIndex={activeTabIdx}
-                                onTabClick={setActiveTabIdx}
-                                items={[
-                                    {
-                                        title: `Applicants (${taskerCount?.data?.count[0].applicants_count})`,
+                    </section>
+                ) : null}
 
-                                        content: (
-                                            <Row className="py-3">
-                                                <>
-                                                    {renderBookedClients}
-                                                    {myBookings ===
-                                                        undefined && (
-                                                        <Alert
-                                                            icon={
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faWarning
-                                                                    }
-                                                                />
-                                                            }
-                                                            title={
-                                                                "No Applicants Available!"
-                                                            }
-                                                            color={"red"}
-                                                        >
-                                                            {" "}
-                                                        </Alert>
-                                                    )}
-                                                </>
-                                            </Row>
-                                        ),
-                                    },
-                                ]}
-                            />
-                        </div>
-                    )}
-                </section>
                 <hr />
                 {/* <FilterReview
                     totalReviews={

@@ -142,7 +142,7 @@ const Home: NextPage<{
                                             className="hero-cta"
                                             onClick={handleShowPostTaskModal}
                                         >
-                                            Post a Task
+                                            Post
                                         </a>
                                     )}
                                 </div>

@@ -111,6 +111,17 @@ export const PostTaskModal = () => {
         }
     };
 
+    const render_budget_price = () => {
+        switch (is_requested) {
+            case "true":
+                return "Budget";
+            case "false":
+                return "Price";
+            default:
+                return "Budget";
+        }
+    };
+
     const { mutate, isLoading } = useEntityService(is_requested);
 
     const showPostTaskModal = useShowPostTaskModal();
@@ -534,6 +545,7 @@ export const PostTaskModal = () => {
                                     initialBudgetFrom={
                                         values.budget_from as number
                                     }
+                                    label={render_budget_price()}
                                     initialBudgetTo={values.budget_to as number}
                                     initialbudgetType={values.budget_type}
                                     setFieldValue={setFieldValue}

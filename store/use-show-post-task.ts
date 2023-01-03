@@ -2,7 +2,7 @@ import create from "zustand";
 
 export type serviceType = "false" | "true";
 export interface ShowPostTaskModalStore {
-    serviceType?: serviceType;
+    serviceType?: serviceType | null;
     id?: string;
     showPostTaskModal: boolean;
     toggleShowPostTaskModal: (
@@ -13,7 +13,7 @@ export interface ShowPostTaskModalStore {
 }
 export const showPostTaskModalStore = create<ShowPostTaskModalStore>((set) => ({
     showPostTaskModal: false,
-    serviceType: "true",
+    serviceType: null,
     id: "",
     toggleShowPostTaskModal: (newServiceType, newId) =>
         set((state) => ({

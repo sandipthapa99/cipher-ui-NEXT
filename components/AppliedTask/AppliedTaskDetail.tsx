@@ -299,53 +299,60 @@ const AppliedTaskDetail = ({
 
                 {/* <TeamMembersSection /> */}
                 <div ref={ref}>
-                    <Tab
-                        activeIndex={activeTabIdx}
-                        onTabClick={setActiveTabIdx}
-                        items={[
-                            {
-                                title: `Taskers (${taskDetail.count})`,
-                                content: (
-                                    <TaskersTab
-                                        taskId={taskDetail ? taskDetail.id : ""}
-                                    />
-                                ),
-                            },
-                            {
-                                title: "Collaboration",
-                                content: <Collaboration />,
-                            },
-                        ]}
-                        icons={[
-                            {
-                                index: 0,
-                                type: (
-                                    <FontAwesomeIcon
-                                        icon={faMagnifyingGlass}
-                                        className="svg-icon"
-                                        onClick={() => setShowInput(!showInput)}
-                                    />
-                                ),
-                                iconContent: showInput ? (
-                                    <RenderInputBox />
-                                ) : null,
-                            },
-                            // {
-                            //     index: 1,
-                            //     type: (
-                            //         <EllipsisDropdown
-                            //             showModal={true}
-                            //             handleOnClick={() => setShowModal(true)}
-                            //         >
-                            //             <FontAwesomeIcon
-                            //                 icon={faFilterList}
-                            //                 className="svg-icon"
-                            //             />
-                            //         </EllipsisDropdown>
-                            //     ),
-                            // },
-                        ]}
-                    />
+                    {isUserTask ? (
+                        <Tab
+                            activeIndex={activeTabIdx}
+                            onTabClick={setActiveTabIdx}
+                            items={[
+                                {
+                                    title: `Taskers (${taskDetail.count})`,
+                                    content: (
+                                        <TaskersTab
+                                            taskId={
+                                                taskDetail ? taskDetail.id : ""
+                                            }
+                                            count={taskDetail?.count ?? 0}
+                                        />
+                                    ),
+                                },
+                                {
+                                    title: "Collaboration",
+                                    content: <Collaboration />,
+                                },
+                            ]}
+                            icons={[
+                                {
+                                    index: 0,
+                                    type: (
+                                        <FontAwesomeIcon
+                                            icon={faMagnifyingGlass}
+                                            className="svg-icon"
+                                            onClick={() =>
+                                                setShowInput(!showInput)
+                                            }
+                                        />
+                                    ),
+                                    iconContent: showInput ? (
+                                        <RenderInputBox />
+                                    ) : null,
+                                },
+                                // {
+                                //     index: 1,
+                                //     type: (
+                                //         <EllipsisDropdown
+                                //             showModal={true}
+                                //             handleOnClick={() => setShowModal(true)}
+                                //         >
+                                //             <FontAwesomeIcon
+                                //                 icon={faFilterList}
+                                //                 className="svg-icon"
+                                //             />
+                                //         </EllipsisDropdown>
+                                //     ),
+                                // },
+                            ]}
+                        />
+                    ) : null}
                 </div>
             </div>
         </div>

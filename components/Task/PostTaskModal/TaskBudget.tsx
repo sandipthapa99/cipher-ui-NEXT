@@ -12,6 +12,7 @@ export interface TaskBudgetProps {
     initialBudgetFrom?: number;
     initialBudgetTo?: number;
     initialbudgetType?: string;
+    label: string;
     setFieldValue: (field: string, value: any) => void;
     setFieldError: (field: string, value: any) => void;
     setFieldTouched: (value: any) => void;
@@ -41,6 +42,7 @@ export const TaskBudget = ({
     initialBudgetFrom,
     initialBudgetTo,
     initialbudgetType,
+    label,
     setFieldValue,
     setFieldTouched,
     touched,
@@ -60,7 +62,7 @@ export const TaskBudget = ({
     return (
         <Box>
             <Radio.Group
-                label="Budget"
+                label={label}
                 required
                 value={value}
                 onChange={(value) => {
