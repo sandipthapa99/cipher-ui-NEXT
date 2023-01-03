@@ -3,6 +3,7 @@ import { Select } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import type { FieldProps } from "formik";
 import { Field } from "formik";
+import { debounce } from "lodash";
 import { useState } from "react";
 import type { ITask } from "types/task";
 import { axiosClient } from "utils/axiosClient";
@@ -75,10 +76,10 @@ export const SelectCity = ({
                     data={
                         selectCityData.length ? selectCityData : [InitialData]
                     }
-                    onSearchChange={(value) => {
+                    onSearchChange={debounce((value) => {
                         if (value && value.length >= 3) setQuery(value);
                         else setQuery("");
-                    }}
+                    }, 300)}
                     onChange={onCitySelect}
                 />
             )}
