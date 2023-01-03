@@ -466,13 +466,31 @@ export default function Checkout() {
                                                                                 ]
                                                                             );
                                                                         },
-                                                                    onError:
-                                                                        () => {
-                                                                            actions.setFieldError(
-                                                                                "code",
-                                                                                "Error in promo code"
-                                                                            );
-                                                                        },
+                                                                    onError: (
+                                                                        error: any
+                                                                    ) => {
+                                                                        const {
+                                                                            detail,
+                                                                            code,
+                                                                            non_field_errors,
+                                                                        } =
+                                                                            error
+                                                                                .response
+                                                                                .data;
+                                                                        actions.setFieldError(
+                                                                            "code",
+                                                                            detail
+                                                                        );
+                                                                        actions.setFieldError(
+                                                                            "code",
+                                                                            code
+                                                                        );
+                                                                        actions.setFieldError(
+                                                                            "code",
+                                                                            non_field_errors &&
+                                                                                non_field_errors[0]
+                                                                        );
+                                                                    },
                                                                 }
                                                             );
                                                         }}
@@ -572,13 +590,21 @@ export default function Checkout() {
                                                                                 ]
                                                                             );
                                                                         },
-                                                                    onError:
-                                                                        () => {
-                                                                            actions.setFieldError(
-                                                                                "code",
-                                                                                "Error in promo code"
-                                                                            );
-                                                                        },
+                                                                    onError: (
+                                                                        error: any
+                                                                    ) => {
+                                                                        const {
+                                                                            redeem_offer,
+                                                                        } =
+                                                                            error
+                                                                                .response
+                                                                                .data;
+                                                                        actions.setFieldError(
+                                                                            "redeem_offer",
+                                                                            redeem_offer &&
+                                                                                redeem_offer[0]
+                                                                        );
+                                                                    },
                                                                 }
                                                             );
                                                         }}
