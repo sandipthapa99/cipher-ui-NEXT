@@ -1,7 +1,10 @@
 import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import type { FieldProps } from "formik";
+import { Field } from "formik";
 import { useState } from "react";
+import type { ITask } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
 export interface TaskCity {
@@ -9,9 +12,12 @@ export interface TaskCity {
     name: string;
 }
 export interface SelectCityProps extends Omit<SelectProps, "data" | "value"> {
-    value?: { id: number; name: string } | string;
-    onCitySelect: (cityId: number) => void;
+    value: string;
+    onCitySelect: (value: string | null) => void;
     data?: SelectItem[];
+    name: string;
+    initialCity?: ITask["city"];
+    touch?: boolean;
 }
 
 const useCities = (searchQuery: string) =>
@@ -23,44 +29,59 @@ const useCities = (searchQuery: string) =>
                     `/locale/client/city/options?search=${searchQuery}`
                 )
                 .then((response) => response.data),
-        { initialData: [], enabled: !!searchQuery && searchQuery.length >= 3 }
+        { enabled: !!searchQuery }
     );
-export const SelectCity = ({ onCitySelect, ...rest }: SelectCityProps) => {
-    const initialCity =
-        typeof rest.value !== "string"
-            ? {
-                  id: rest?.value?.id ? rest?.value?.id : "",
-                  label: rest?.value?.name ? rest?.value?.name : "",
-                  value: rest?.value?.id ? rest?.value?.id.toString() : "",
-              }
-            : undefined;
-    const [value, setValue] = useState(initialCity?.value ?? "");
 
+export const SelectCity = ({
+    onCitySelect,
+    value,
+    initialCity,
+    touch,
+    error,
+    onBlur,
+    name,
+    ...rest
+}: SelectCityProps) => {
     const [query, setQuery] = useState("");
-    const { data: cities } = useCities(query);
+    const { data: cities = [] } = useCities(query);
+
     const selectCityData: SelectItem[] = cities.map((city) => ({
-        id: city.id.toString(),
         label: city.name,
         value: city.id.toString(),
     }));
-    const handleCityChange = (value: string | null) => {
-        if (!value) return;
-        const cityId = parseInt(value, 10);
-        setValue(value);
-        onCitySelect(cityId);
+
+    const InitialData = {
+        label: initialCity?.name ? initialCity.name.toString() : "",
+        value: initialCity?.id ? initialCity.id.toString() : "",
     };
 
+    const errTouch = error && touch ? error : null;
+
     return (
-        <Select
-            {...rest}
-            value={value}
-            searchable
-            required
-            label="City"
-            placeholder="Search and select your city"
-            data={query ? selectCityData : initialCity ? [initialCity] : []}
-            onSearchChange={(value) => setQuery(value)}
-            onChange={handleCityChange}
-        />
+        <Field name={name}>
+            {({ field }: FieldProps) => (
+                <Select
+                    {...rest}
+                    {...field}
+                    name={name}
+                    value={value}
+                    error={errTouch}
+                    withAsterisk
+                    onBlur={onBlur}
+                    searchable
+                    nothingFound="No city found"
+                    label="City"
+                    placeholder="Search and select your city"
+                    data={
+                        selectCityData.length ? selectCityData : [InitialData]
+                    }
+                    onSearchChange={(value) => {
+                        if (value && value.length >= 3) setQuery(value);
+                        else setQuery("");
+                    }}
+                    onChange={onCitySelect}
+                />
+            )}
+        </Field>
     );
 };

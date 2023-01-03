@@ -1,8 +1,10 @@
-import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
-import { CustomDropZone } from "@components/common/CustomDropZone";
+import MantineDateField from "@components/common/MantineDateField";
+import MantineInputField from "@components/common/MantineInputField";
+import MantineTimeField from "@components/common/MantineTimeField";
+import MultiFileDropzone from "@components/common/MultiFileDropzone";
 import { RichText } from "@components/RichText";
-import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
+import { postEntityServiceSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
@@ -20,32 +22,33 @@ import {
     Modal,
     Stack,
     Text,
-    TextInput,
     Title,
 } from "@mantine/core";
-import { DatePicker, TimeInput } from "@mantine/dates";
-import { MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { useFormik } from "formik";
-import { useEditTask } from "hooks/task/use-edit-task";
-import { usePostTask } from "hooks/task/use-post-task";
+import urls from "constants/urls";
+import { format, parseISO } from "date-fns";
+import type { FormikErrors, FormikTouched } from "formik";
+import { Form, Formik } from "formik";
+import { useData } from "hooks/use-data";
+import { useEntityService } from "hooks/use-entity-service";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { useEditTaskDetail } from "store/use-edit-task";
 import {
-    usePostTaskModalType,
+    useClearPostTaskserviceType,
+    usePostTaskserviceId,
+    usePostTaskserviceType,
     useShowPostTaskModal,
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { ReactQueryKeys } from "types/queryKeys";
+import type { ITask } from "types/task";
+import { convertTimeStringToDateString } from "utils/formatTime";
 import { toast } from "utils/toast";
 
-export interface PostTaskPayload {
+export interface PostTaskPayloadProps {
     title: string;
     description: string;
     highlights: string[];
@@ -54,189 +57,79 @@ export interface PostTaskPayload {
     location: TaskType;
     currency: string;
     budget_type: string;
-    budget_from: number | string;
+    budget_from?: number | string | null;
     budget_to: number | string;
     is_negotiable: boolean;
-    images: string;
-    videos: string;
-    estimated_time: number;
-    is_recursion: boolean;
-    is_requested: boolean;
-    is_everyday: boolean;
-    start_date: string;
-    end_date: string;
-    start_time: string;
-    end_time: string;
+    images: any[];
+    imagePreviewUrl?: any[];
+    videos: any[];
+    videoPreviewUrl?: any[];
+    start_date?: string;
+    end_date?: string;
+    start_time?: string | null;
+    end_time?: string | null;
     is_active: boolean;
     share_location: boolean;
+    is_terms_condition?: boolean;
 }
 
 export const PostTaskModal = () => {
-    const [choosedValue, setChoosedValue] = useState("task");
     const toggleSuccessModal = useToggleSuccessModal();
+
     const queryClient = useQueryClient();
-    const { mutate: createTaskMutation, isLoading: createTaskLoading } =
-        usePostTask();
-    const { mutate: editTaskMutation, isLoading: editTaskLoading } =
-        useEditTask();
-    const showPostTaskModalType = usePostTaskModalType();
-    const showPostTaskModal = useShowPostTaskModal();
-    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
-    const editTaskDetail = useEditTaskDetail();
+    //required when editing
+    const showPostTaskserviceType = usePostTaskserviceType();
+    const clearPostTaskserviceType = useClearPostTaskserviceType();
+    const entityServiceId = usePostTaskserviceId();
 
-    const taskDetail =
-        showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
-    const [termsAccepted, setTermsAccepted] = useState(true);
-
-    const getInitialImageIds = useCallback(
-        () => (editTaskDetail?.images ?? []).map((image) => image.id),
-        [editTaskDetail?.images]
-    );
-    const getInitialVideoIds = useCallback(
-        () => (editTaskDetail?.videos ?? []).map((video) => video.id),
-        [editTaskDetail?.videos]
+    //TO switch between entity service(is_requested='true' | 'false')
+    const [is_requested, setIs_requested] = useState<"true" | "false">(
+        showPostTaskserviceType ?? "true"
     );
 
-    const [initialImageIds, setInitialImageIds] = useState<number[]>(() =>
-        getInitialImageIds()
-    );
-    const [initialVideoIds, setInitialVideoIds] = useState<number[]>(() =>
-        getInitialVideoIds()
-    );
+    //TO change state of is_requested(true | false)
+    useEffect(() => {
+        if (showPostTaskserviceType) {
+            setIs_requested(showPostTaskserviceType);
+        }
+    }, [showPostTaskserviceType]);
 
+    //For Filestore API
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
 
-    useEffect(() => {
-        setInitialImageIds(getInitialImageIds());
-    }, [getInitialImageIds]);
+    //TO render Title according to entity Service Type
+    const renderTitle = () => {
+        switch (showPostTaskserviceType) {
+            case "true":
+                return "Edit Task";
+            case "false":
+                return "Edit Service";
+            default:
+                return "Post a Task or Service";
+        }
+    };
 
-    useEffect(() => {
-        setInitialVideoIds(getInitialVideoIds());
-    }, [getInitialVideoIds]);
+    const { mutate, isLoading } = useEntityService(is_requested);
 
-    const router = useRouter();
-    const formik = useFormik<PostTaskPayload>({
-        initialValues: {
-            title: taskDetail ? taskDetail.title : "",
-            description: taskDetail ? taskDetail.description : "",
-            //   highlights: taskDetail ? initialHighlights : [],
-            highlights: [],
-            city: taskDetail ? String(taskDetail?.city?.id) : "",
-            location: taskDetail ? (taskDetail.location as TaskType) : "remote",
-            budget_type: "Project",
-            budget_from: taskDetail ? Number(taskDetail.budget_from) : "",
-            budget_to: taskDetail ? Number(taskDetail.budget_to) : "",
-            service: taskDetail ? taskDetail.service.id ?? ({} as any) : "",
-            is_negotiable: false,
-            estimated_time: 5,
-            is_recursion: false,
-            is_requested: true,
-            is_everyday: false,
-            start_date: "",
-            end_date: "",
-            start_time: "",
-            end_time: "",
-            currency: taskDetail ? String(taskDetail?.currency?.code) : "NPR",
-            images: "",
-            videos: "",
-            is_active: true,
-            share_location: true,
-        },
-        enableReinitialize: true,
-        validationSchema: postTaskSchema,
-
-        onSubmit: async (values, action) => {
-            if (!termsAccepted) {
-                toast.error(
-                    "You must accept the terms and conditions before posting a task"
-                );
-                return;
-            }
-            const uploadedImageIds = await uploadFileMutation({
-                files: values.images,
-                media_type: "image",
-            });
-            const uploadedVideoIds = await uploadFileMutation({
-                files: values.videos,
-                media_type: "video",
-            });
-            const imageIds = [...uploadedImageIds, ...initialImageIds];
-            const videoIds = [...uploadedVideoIds, ...initialVideoIds];
-
-            const postTaskPayload = {
-                ...values,
-                highlights: values.highlights,
-                images: imageIds,
-                videos: videoIds,
-                extra_data: [],
-            };
-
-            const updatedPayload = Object.entries(postTaskPayload).reduce(
-                (acc, curr) => {
-                    const [key, value] = curr;
-                    if (value) acc[key] = value;
-                    return acc;
-                },
-                {} as Record<string, unknown>
-            );
-
-            if (showPostTaskModalType === "EDIT" && taskDetail) {
-                editTaskMutation(
-                    { id: taskDetail.id, data: updatedPayload },
-                    {
-                        onSuccess: async () => {
-                            handleCloseModal();
-                            await queryClient.invalidateQueries([
-                                ReactQueryKeys.TASK_DETAIL,
-                                taskDetail.id,
-                            ]);
-
-                            queryClient.invalidateQueries(["all-tasks"]);
-
-                            toggleSuccessModal("Task Edited Successfully");
-                        },
-                    }
-                );
-                return;
-            }
-            createTaskMutation(updatedPayload, {
-                onSuccess: async (response) => {
-                    handleCloseModal();
-                    action.resetForm();
-
-                    toggleSuccessModal("Task Posted Successfully");
-                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
-                    await queryClient.invalidateQueries(["notification"]);
-                    await queryClient.invalidateQueries(["my-task"]);
-                    router.push(`/task/${response.id}`);
-                },
-                onError: (error) => {
-                    toast.error(error.message);
-                },
-            });
-        },
-    });
-
-    const {
-        getFieldProps,
-        handleSubmit,
-        touched,
-        errors,
-        setFieldValue,
-        values,
-    } = formik;
-    const getFieldError = (key: keyof PostTaskPayload) =>
-        touched[key] && errors[key] ? (errors[key] as string) : null;
+    const showPostTaskModal = useShowPostTaskModal();
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
     const handleCloseModal = () => {
-        formik.resetForm();
-        toggleShowPostTaskModal("CREATE");
-        setChoosedValue("task");
+        toggleShowPostTaskModal();
+        clearPostTaskserviceType();
     };
-    const isCreateTaskLoading =
-        createTaskLoading || uploadFileLoading || editTaskLoading;
+
+    const { data: entityServiceData, isFetching } = useData<ITask>(
+        ["get-entity-service", entityServiceId],
+        `${urls.task.list}${entityServiceId}/`,
+        !!entityServiceId
+    );
+
+    const entityService = entityServiceData?.data;
+
+    const isCreateTaskLoading = isLoading || uploadFileLoading || isFetching;
 
     return (
         <>
@@ -251,314 +144,507 @@ export const PostTaskModal = () => {
                 closeOnClickOutside={false}
                 overlayOpacity={0.55}
                 overlayBlur={3}
-                title="Post a Task or Service"
+                title={renderTitle()}
                 size="xl"
             >
-                {showPostTaskModalType === "CREATE" && (
+                {!entityServiceId && (
                     <div className="choose-email-or-phone mb-5">
                         <Radio.Group
                             label="Please select task or service which you want to post "
-                            onChange={(value) => setChoosedValue(value)}
+                            onChange={(value: "true" | "false") =>
+                                setIs_requested(value)
+                            }
                             size="sm"
-                            defaultValue="task"
+                            value={is_requested}
                         >
-                            <Radio value="task" label="Post Task" />
-                            <Radio value="service" label="Post Service" />
+                            <Radio value="true" label="Post Task" />
+                            <Radio value="false" label="Post Service" />
                         </Radio.Group>
                     </div>
                 )}
-                {choosedValue === "task" ? (
-                    <form encType="multipart/formData" onSubmit={handleSubmit}>
-                        <Stack spacing="md">
-                            <TextInput
-                                placeholder="Enter your title"
-                                label="Title"
-                                required
-                                {...getFieldProps("title")}
-                                error={getFieldError("title")}
-                            />
 
-                            <RichText
-                                {...getFieldProps("description")}
-                                value={values.description ?? ""}
-                                onChange={(value) =>
-                                    setFieldValue("description", value)
-                                }
-                                placeholder="Enter your description"
-                                aria-errormessage="123"
-                            />
-                            <TaskRequirements
-                                initialRequirements={[]}
-                                onRequirementsChange={(requirements) =>
-                                    setFieldValue("highlights", requirements)
-                                }
-                                error={getFieldError("highlights")}
-                                {...getFieldProps("highlights")}
-                                labelName="Requirements"
-                                description="This helps the tasker understand about your task better"
-                            />
-                            <Row>
-                                <Col md={6}>
-                                    <DatePicker
-                                        placeholder="Start date"
-                                        label="Start date"
-                                        withAsterisk
-                                        minDate={new Date()}
-                                        {...getFieldProps("start_date")}
-                                        error={getFieldError("start_date")}
-                                        onChange={(event) => {
-                                            if (event !== null) {
-                                                setFieldValue(
-                                                    "start_date",
-                                                    format(
-                                                        new Date(event),
-                                                        "yyyy-MM-dd"
-                                                    )
-                                                );
-                                            }
-                                        }}
-                                        icon={
-                                            <FontAwesomeIcon
-                                                icon={faCalendarDays}
-                                                className="svg-icons"
-                                            />
-                                        }
-                                    />
-                                </Col>
+                <Formik
+                    initialValues={{
+                        title: entityService ? entityService.title : "",
+                        description: entityService
+                            ? entityService.description
+                            : "",
+                        highlights: entityService?.highlights ?? [],
+                        city: entityService
+                            ? String(entityService?.city?.id)
+                            : "",
+                        location: entityService
+                            ? (entityService.location as TaskType)
+                            : "remote",
+                        budget_type: "Project",
+                        budget_from: entityService
+                            ? Number(entityService.budget_from)
+                            : null,
+                        budget_to: entityService
+                            ? Number(entityService.budget_to)
+                            : "",
+                        service: entityService
+                            ? entityService?.service?.id ?? ({} as any)
+                            : "",
+                        is_negotiable: false,
+                        // estimated_time: 5,
+                        // is_recursion: false,
+                        // is_everyday: false,
+                        is_requested: is_requested,
+                        start_date: entityService?.start_date
+                            ? (parseISO(
+                                  entityService?.start_date
+                              ) as unknown as string)
+                            : "",
+                        end_date: entityService?.end_date
+                            ? (parseISO(
+                                  entityService?.end_date
+                              ) as unknown as string)
+                            : "",
+                        start_time: entityService?.start_time
+                            ? convertTimeStringToDateString(
+                                  entityService?.start_time
+                              )
+                            : null,
+                        end_time: entityService?.end_time
+                            ? convertTimeStringToDateString(
+                                  entityService?.end_time
+                              )
+                            : null,
+                        currency: entityService
+                            ? String(entityService?.currency?.code)
+                            : "NPR",
+                        images: (entityService?.images as any[]) ?? [],
+                        imagePreviewUrl: (entityService?.images as any[]) ?? [],
+                        videos: (entityService?.videos as any[]) ?? [],
+                        videoPreviewUrl: (entityService?.videos as any[]) ?? [],
+                        is_active: true,
+                        is_terms_condition: entityService ? true : false,
+                        share_location: true,
+                    }}
+                    validationSchema={postEntityServiceSchema(is_requested)}
+                    onSubmit={async (values: PostTaskPayloadProps, actions) => {
+                        let newUploadImageID: number[] = [];
+                        if (values.images.some((val) => val?.path)) {
+                            const uploadedImageIds = await uploadFileMutation({
+                                files: values?.images.filter(
+                                    (val) => val?.path
+                                ) as unknown as string,
+                                media_type: "image",
+                            });
+                            newUploadImageID = uploadedImageIds;
+                        }
 
-                                <Col md={6}>
-                                    <DatePicker
-                                        placeholder="End date"
-                                        label="End date"
-                                        // name="end_date"
-                                        withAsterisk
-                                        {...getFieldProps("end_date")}
-                                        error={getFieldError("end_date")}
-                                        minDate={new Date()}
-                                        onChange={(event) => {
-                                            if (event !== null) {
-                                                setFieldValue(
-                                                    "end_date",
-                                                    format(
-                                                        new Date(event),
-                                                        "yyyy-MM-dd"
-                                                    )
-                                                );
-                                            }
-                                        }}
-                                        icon={
-                                            <FontAwesomeIcon
-                                                icon={faCalendarDays}
-                                                className="svg-icons"
-                                            />
-                                        }
-                                    />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md={3}>
-                                    <TimeInput
-                                        label="Start time"
-                                        format="12"
-                                        defaultValue={new Date()}
-                                        onChange={(event) => {
-                                            if (event !== null) {
-                                                setFieldValue(
-                                                    "start_time",
-                                                    format(
-                                                        new Date(event),
-                                                        "hh:mm aa"
-                                                    )
-                                                );
-                                            }
-                                        }}
-                                    />
-                                </Col>
-                                <Col md={3}>
-                                    <TimeInput
-                                        label="End time"
-                                        format="12"
-                                        onChange={(event) => {
-                                            if (event !== null) {
-                                                setFieldValue(
-                                                    "end_time",
-                                                    format(
-                                                        new Date(event),
-                                                        "hh:mm aa"
-                                                    )
-                                                );
-                                            }
-                                        }}
-                                    />
-                                </Col>
-                            </Row>
+                        let newUploadVideoID: number[] = [];
+                        if (values.videos.some((val) => val?.path)) {
+                            const uploadedVideosIds = await uploadFileMutation({
+                                files: values?.videos.filter(
+                                    (val) => val?.path
+                                ) as unknown as string,
+                                media_type: "video",
+                            });
+                            newUploadVideoID = uploadedVideosIds;
+                        }
 
-                            <SelectCity
-                                onCitySelect={(cityId) =>
-                                    setFieldValue("city", cityId)
-                                }
-                                value={taskDetail ? taskDetail?.city : ""}
-                            />
-                            <ServiceOptions
-                                {...getFieldProps("service")}
-                                onServiceChange={(service) =>
-                                    setFieldValue("service", service)
-                                }
-                                error={getFieldError("service")}
-                                data={
-                                    taskDetail?.service
-                                        ? [
-                                              {
-                                                  id: taskDetail?.service?.id,
-                                                  label: taskDetail?.service
-                                                      ?.title,
-                                                  value: taskDetail?.service
-                                                      ?.id,
-                                              },
-                                          ]
-                                        : []
-                                }
-                                value={
-                                    taskDetail ? taskDetail?.service?.id : ""
-                                }
-                            />
-                            <SelectTaskType
-                                setFieldValue={setFieldValue}
-                                onTypeChange={(type) =>
-                                    setFieldValue("location", type)
-                                }
-                                {...getFieldProps("location")}
-                                location={values.location}
-                                error={getFieldError("location")}
-                            />
-                            <TaskCurrency
-                                value={
-                                    taskDetail
-                                        ? taskDetail?.currency?.code?.toString()
-                                        : ""
-                                }
-                                data={
-                                    taskDetail?.currency
-                                        ? [
-                                              {
-                                                  label: taskDetail?.currency
-                                                      ?.name,
-                                                  value: taskDetail?.currency?.code.toString(),
-                                              },
-                                          ]
-                                        : []
-                                }
-                                onCurrencyChange={(currencyId) =>
-                                    setFieldValue("currency", currencyId)
-                                }
-                                error={getFieldError("currency")}
-                            />
-                            <TaskBudget
-                                initialBudgetFrom={taskDetail?.budget_from}
-                                initialBudgetTo={taskDetail?.budget_to}
-                                {...formik}
-                            />
-                            <Checkbox
-                                defaultChecked={taskDetail?.is_negotiable}
-                                label="Yes, it is negotiable."
-                                {...getFieldProps("is_negotiable")}
-                            />
-                            <Stack sx={{ maxWidth: "40rem" }}>
-                                <Title order={6}>Images</Title>
-                                <Text color="dimmed" size="sm">
-                                    Including images helps you find best
-                                    merchant for your task.
-                                </Text>
-                                <CustomDropZone
-                                    //  accept={IMAGE_MIME_TYPE}
-                                    accept={{
-                                        "image/*": [], // All images
-                                    }}
-                                    uploadedFiles={taskDetail?.images ?? []}
-                                    fileType="image"
-                                    sx={{ maxWidth: "30rem" }}
-                                    maxSize={5 * 1024 ** 2}
-                                    name="images"
-                                    onRemoveUploadedFiles={setInitialImageIds}
-                                    onDrop={(images) =>
-                                        setFieldValue("images", images)
+                        const imageIds = values?.images
+                            .filter((val) => !val?.path)
+                            .map((val) => val.id);
+                        const videoIds = values?.videos
+                            .filter((val) => !val?.path)
+                            .map((val) => val.id);
+
+                        const imagesIds = [...imageIds, ...newUploadImageID];
+                        const videosIds = [...videoIds, ...newUploadVideoID];
+
+                        const postTaskPayload = {
+                            ...values,
+                            highlights: values.highlights,
+                            images: imagesIds,
+                            videos: videosIds,
+                            is_requested:
+                                is_requested === "false" ? false : true,
+                            start_date: values.start_date
+                                ? format(
+                                      new Date(String(values.start_date)),
+                                      "yyyy-MM-dd"
+                                  )
+                                : null,
+                            end_date: values.end_date
+                                ? format(
+                                      new Date(String(values.end_date)),
+                                      "yyyy-MM-dd"
+                                  )
+                                : null,
+                            start_time: values.start_time
+                                ? format(
+                                      new Date(String(values.start_time)),
+                                      "HH:mm"
+                                  )
+                                : null,
+                            end_time: values.end_time
+                                ? format(
+                                      new Date(String(values.end_time)),
+                                      "HH:mm"
+                                  )
+                                : null,
+                            extra_data: [],
+                        };
+                        //To remove unneccessary fields
+                        delete postTaskPayload.imagePreviewUrl;
+                        delete postTaskPayload.videoPreviewUrl;
+                        delete postTaskPayload.is_terms_condition;
+
+                        mutate(
+                            {
+                                id: String(entityServiceId),
+                                data: postTaskPayload,
+                            },
+                            {
+                                onSuccess: () => {
+                                    toggleSuccessModal();
+                                    actions.resetForm();
+                                    handleCloseModal();
+                                    queryClient.invalidateQueries([
+                                        ReactQueryKeys.TASK_DETAIL,
+                                        entityServiceId,
+                                    ]);
+
+                                    queryClient.invalidateQueries([
+                                        ReactQueryKeys.TASKS,
+                                    ]);
+                                    queryClient.invalidateQueries([
+                                        ReactQueryKeys.SERVICE_DETAIL,
+                                        entityServiceId,
+                                    ]);
+
+                                    queryClient.invalidateQueries([
+                                        ReactQueryKeys.SERVICES,
+                                    ]);
+                                },
+                                onError: (e: any) => {
+                                    toast.error("Post Task Failed");
+                                    const { title, end_date, city } =
+                                        e.response.data;
+                                    actions.setFieldError(
+                                        "title",
+                                        title && title[0]
+                                    );
+                                    actions.setFieldError(
+                                        "end_date",
+                                        end_date && end_date[0]
+                                    );
+                                    actions.setFieldError(
+                                        "city",
+                                        city && city[0]
+                                    );
+                                },
+                            }
+                        );
+                    }}
+                >
+                    {({
+                        getFieldProps,
+                        values,
+                        setFieldValue,
+                        setFieldTouched,
+                        errors,
+                        setFieldError,
+                        touched,
+                    }) => (
+                        <Form encType="multipart/formData">
+                            <Stack spacing="md">
+                                <MantineInputField
+                                    name="title"
+                                    labelName={"Title"}
+                                    placeHolder={"Enter your title"}
+                                    fieldRequired
+                                    error={errors.title}
+                                    touch={touched.title}
+                                />
+
+                                <RichText
+                                    value={values.description}
+                                    onChange={(value) =>
+                                        setFieldValue("description", value)
+                                    }
+                                    placeholder="Enter your description"
+                                    aria-errormessage="123"
+                                />
+                                <TaskRequirements
+                                    initialRequirements={
+                                        entityService?.highlights ?? []
+                                    }
+                                    onRequirementsChange={(requirements) =>
+                                        setFieldValue(
+                                            "highlights",
+                                            requirements
+                                        )
+                                    }
+                                    error={errors.highlights}
+                                    name={"highlights"}
+                                    labelName={
+                                        is_requested === "true"
+                                            ? `Requirements`
+                                            : `Highlights`
+                                    }
+                                    description="This helps the tasker understand about your task better"
+                                />
+                                {is_requested === "true" && (
+                                    <>
+                                        <Row>
+                                            <Col md={6}>
+                                                <MantineDateField
+                                                    name="start_date"
+                                                    labelName="Start Date"
+                                                    placeHolder="Select Start Date"
+                                                    icon={
+                                                        <FontAwesomeIcon
+                                                            icon={
+                                                                faCalendarDays
+                                                            }
+                                                            className="svg-icons"
+                                                        />
+                                                    }
+                                                    error={errors.start_date}
+                                                    touch={touched.start_date}
+                                                    minDate={new Date()}
+                                                    handleChange={(value) => {
+                                                        setFieldValue(
+                                                            "start_date",
+                                                            value
+                                                        );
+                                                    }}
+                                                />
+                                            </Col>
+
+                                            <Col md={6}>
+                                                <MantineDateField
+                                                    name="end_date"
+                                                    labelName="End Date"
+                                                    fieldRequired
+                                                    placeHolder="Select End Date"
+                                                    error={errors.end_date}
+                                                    touch={touched.end_date}
+                                                    icon={
+                                                        <FontAwesomeIcon
+                                                            icon={
+                                                                faCalendarDays
+                                                            }
+                                                            className="svg-icons"
+                                                        />
+                                                    }
+                                                    minDate={new Date()}
+                                                    handleChange={(value) => {
+                                                        setFieldValue(
+                                                            "end_date",
+                                                            value
+                                                        );
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col md={3}>
+                                                <MantineTimeField
+                                                    name="start_time"
+                                                    labelName="Start Time"
+                                                    placeHolder="hh/mm"
+                                                    touch={touched.start_time}
+                                                    error={errors.start_time}
+                                                    handleChange={(value) => {
+                                                        setFieldValue(
+                                                            "start_time",
+                                                            value
+                                                        );
+                                                    }}
+                                                />
+                                            </Col>
+                                            <Col md={3}>
+                                                <MantineTimeField
+                                                    name="end_time"
+                                                    labelName="End time"
+                                                    placeHolder="hh/mm"
+                                                    touch={touched.end_time}
+                                                    error={errors.end_time}
+                                                    handleChange={(value) => {
+                                                        setFieldValue(
+                                                            "end_time",
+                                                            value
+                                                        );
+                                                    }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </>
+                                )}
+
+                                <SelectCity
+                                    name="city"
+                                    error={errors.city}
+                                    value={values.city}
+                                    touch={touched.city}
+                                    onBlur={() => setFieldTouched("city")}
+                                    onCitySelect={(cityId) =>
+                                        setFieldValue("city", cityId)
+                                    }
+                                    initialCity={
+                                        entityService?.city
+                                            ? entityService?.city
+                                            : ({} as ITask["city"])
                                     }
                                 />
-                            </Stack>
-                            <Stack sx={{ maxWidth: "40rem" }}>
-                                <Title order={6}>Videos</Title>
-                                <Text color="dimmed" size="sm">
-                                    Including images or videos helps you find
-                                    best merchant for your task.
-                                </Text>
-                                <CustomDropZone
-                                    accept={[MIME_TYPES.mp4]}
-                                    uploadedFiles={taskDetail?.videos ?? []}
-                                    fileType="video"
-                                    name="task-video"
-                                    maxSize={100 * 1024 ** 2}
-                                    onRemoveUploadedFiles={setInitialVideoIds}
-                                    onDrop={(videos) =>
-                                        setFieldValue("videos", videos)
+                                <ServiceOptions
+                                    name={"service"}
+                                    onServiceChange={(service) =>
+                                        setFieldValue("service", service)
+                                    }
+                                    touch={touched.service}
+                                    error={errors.service}
+                                    onBlur={() => setFieldTouched("service")}
+                                />
+                                <SelectTaskType
+                                    setFieldValue={setFieldValue}
+                                    name="location"
+                                    onTypeChange={(type) =>
+                                        setFieldValue("location", type)
+                                    }
+                                    location={values.location}
+                                    error={errors.location}
+                                />
+                                <TaskCurrency
+                                    name={"currency"}
+                                    value={values?.currency}
+                                    data={
+                                        entityService?.currency
+                                            ? [
+                                                  {
+                                                      label: entityService
+                                                          ?.currency?.name,
+                                                      value: entityService?.currency?.code.toString(),
+                                                  },
+                                              ]
+                                            : []
+                                    }
+                                    onCurrencyChange={(currencyId) =>
+                                        setFieldValue("currency", currencyId)
+                                    }
+                                    error={errors.currency}
+                                />
+                                <TaskBudget
+                                    initialBudgetFrom={
+                                        values.budget_from as number
+                                    }
+                                    initialBudgetTo={values.budget_to as number}
+                                    initialbudgetType={values.budget_type}
+                                    setFieldValue={setFieldValue}
+                                    setFieldError={setFieldError}
+                                    setFieldTouched={setFieldTouched}
+                                    touched={
+                                        touched as FormikTouched<PostTaskPayloadProps>
+                                    }
+                                    errors={
+                                        errors as FormikErrors<PostTaskPayloadProps>
                                     }
                                 />
-                            </Stack>
-                            <Checkbox
-                                label="is active"
-                                name="is_active"
-                                defaultChecked={true}
-                                onChange={(event) =>
-                                    setFieldValue(
-                                        "is_active",
-                                        event.currentTarget.checked
-                                    )
-                                }
-                            />
-                            {/* <TaskDate setFieldValue={setFieldValue} /> */}
-                            <Checkbox
-                                checked={termsAccepted}
-                                onChange={(event) =>
-                                    setTermsAccepted(event.target.checked)
-                                }
-                                label={
-                                    <Text>
-                                        Accept all{" "}
-                                        <Link
-                                            passHref
-                                            href="/terms-and-conditions"
-                                        >
-                                            <Anchor>
-                                                Terms and Conditions
-                                            </Anchor>
-                                        </Link>
+                                <Checkbox
+                                    defaultChecked={
+                                        entityService?.is_negotiable
+                                    }
+                                    label="Yes, it is negotiable."
+                                    {...getFieldProps("is_negotiable")}
+                                />
+                                <Stack sx={{ maxWidth: "40rem" }}>
+                                    <Title order={6}>Images</Title>
+                                    <Text color="dimmed" size="sm">
+                                        Including images helps you find best
+                                        merchant for your task.
                                     </Text>
-                                }
-                            />
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    gap: "1rem",
-                                }}
-                            >
-                                <Button
-                                    onClick={handleCloseModal}
-                                    className="close-btn close-btn-mod btn p-3 h-25"
+
+                                    <MultiFileDropzone
+                                        name="images"
+                                        labelName="Upload your images"
+                                        textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 4MB."
+                                        error={errors.images as string}
+                                        touch={touched.images as boolean}
+                                        imagePreview="imagePreviewUrl"
+                                        maxFiles={5}
+                                        maxSize={4}
+                                        multiple
+                                        showFileDetail
+                                    />
+                                </Stack>
+                                <Stack sx={{ maxWidth: "40rem" }}>
+                                    <Title order={6}>Videos</Title>
+                                    <MultiFileDropzone
+                                        name="videos"
+                                        labelName="Upload your Video"
+                                        textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 4MB."
+                                        error={errors.videos as string}
+                                        touch={touched.videos as boolean}
+                                        imagePreview="videoPreviewUrl"
+                                        accept={["video/mp4"]}
+                                        maxFiles={2}
+                                        maxSize={100}
+                                        multiple
+                                        showFileDetail
+                                    />
+                                </Stack>
+                                {!entityService ? (
+                                    <Checkbox
+                                        checked={values.is_terms_condition}
+                                        name={"is_terms_condition"}
+                                        onChange={(event) =>
+                                            setFieldValue(
+                                                "is_terms_condition",
+                                                event.target.checked
+                                            )
+                                        }
+                                        error={
+                                            touched.is_terms_condition &&
+                                            errors.is_terms_condition
+                                                ? errors?.is_terms_condition
+                                                : null
+                                        }
+                                        label={
+                                            <Text>
+                                                Accept all{" "}
+                                                <Link
+                                                    passHref
+                                                    href="/terms-and-conditions"
+                                                >
+                                                    <Anchor>
+                                                        Terms and Conditions
+                                                    </Anchor>
+                                                </Link>
+                                            </Text>
+                                        }
+                                    />
+                                ) : null}
+
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        gap: "1rem",
+                                    }}
                                 >
-                                    Cancel
-                                </Button>
-                                <BigButton
-                                    type="submit"
-                                    className="close-btn btn p-3 h-25 text-white"
-                                    btnTitle="Post Task"
-                                    backgroundColor="#211D4F"
-                                />
-                            </Box>
-                        </Stack>
-                    </form>
-                ) : (
-                    <AddServiceModalComponent />
-                )}
+                                    <Button
+                                        onClick={handleCloseModal}
+                                        className="close-btn close-btn-mod btn p-3 h-25"
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <BigButton
+                                        type="submit"
+                                        className="close-btn btn p-3 h-25 text-white"
+                                        btnTitle="Post Task"
+                                        backgroundColor="#211D4F"
+                                    />
+                                </Box>
+                            </Stack>
+                        </Form>
+                    )}
+                </Formik>
             </Modal>
         </>
     );

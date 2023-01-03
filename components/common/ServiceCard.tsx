@@ -1,4 +1,3 @@
-import { EditService } from "@components/services/EditService";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
@@ -15,6 +14,7 @@ import { useRouter } from "next/router";
 // import { parse } from "path";
 import { useState } from "react";
 import { useWithLogin } from "store/use-login-prompt-store";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { ServicesValueProps } from "types/serviceCard";
 import { toast } from "utils/toast";
 
@@ -40,9 +40,10 @@ const ServiceCard = ({
     const serviceProviderId = serviceCard?.created_by?.id;
     const canEdit = userId == serviceProviderId;
 
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
+
     //modal card
     const [showModal, setShowModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
 
     const handleShowModal = () => {
         if (!user?.is_kyc_verified) {
@@ -52,7 +53,7 @@ const ServiceCard = ({
         if (user && !canEdit) {
             setShowModal(true);
         } else if (user && canEdit) {
-            setShowEditModal(true);
+            toggleShowPostTaskModal("false", serviceCard?.id);
         } else {
             router.push({
                 pathname: `/service/${serviceCard?.slug}`,
@@ -60,9 +61,6 @@ const ServiceCard = ({
         }
     };
 
-    const handleCloseEditModal = () => {
-        setShowEditModal(false);
-    };
     const queryClient = useQueryClient();
     const isServiceBookmarked = useIsBookmarked(
         "entityservice",
@@ -268,11 +266,6 @@ const ServiceCard = ({
                     "" + " " + serviceCard?.created_by?.last_name
                 }
                 currencySymbol={serviceCard?.currency?.symbol}
-            />
-            <EditService
-                showEditModal={showEditModal}
-                handleClose={handleCloseEditModal}
-                serviceDetail={serviceCard}
             />
         </div>
         // </Link>

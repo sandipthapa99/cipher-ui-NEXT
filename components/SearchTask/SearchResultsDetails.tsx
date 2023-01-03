@@ -8,7 +8,6 @@ import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
-import { EditService } from "@components/services/EditService";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
@@ -22,9 +21,8 @@ import {
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Grid, List, Select, Skeleton, Text } from "@mantine/core";
+import { Grid, List, Select, Skeleton } from "@mantine/core";
 import { Alert } from "@mantine/core";
-import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -33,7 +31,6 @@ import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useGetMyBookings } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
-import { useDeleteData } from "hooks/use-delete";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
@@ -180,8 +177,6 @@ const SearchResultsDetail = ({
     );
 
     //
-
-    const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
     const withLogin = useWithLogin();
     const router = useRouter();
     const { data: myBookings } = useGetMyBookings(serviceId);
@@ -194,8 +189,6 @@ const SearchResultsDetail = ({
         (servicePackage) =>
             String(getSingleService?.[0].id) === servicePackage?.service?.id
     );
-
-    const [editModal, setEditModal] = useState(false);
 
     const isServiceBookmarked = useIsBookmarked(
         "entityservice",
@@ -245,63 +238,6 @@ const SearchResultsDetail = ({
         }
     };
 
-    const handleEdit = () => {
-        setEditModal(true);
-    };
-
-    const confirmDelete = () => {
-        mutate(serviceId, {
-            onSuccess: async () => {
-                toast.success("service deleted successfully");
-                router.push({ pathname: "/service" });
-            },
-            onError: (error) => {
-                toast.error(error?.message);
-            },
-        });
-    };
-
-    // const confirmInactive = () => {
-    //     editServiceMutation({ id: serviceId, data: { is_active: false } }),
-    //         {
-    //             onSuccess: async () => {
-    //                 toast.success("Successfully inactivated service");
-    //                 router.push({ pathname: "/service" });
-    //             },
-    //             onError: (error: any) => {
-    //                 toast.error(error.message);
-    //             },
-    //         };
-    // };
-
-    const handleDelete = () =>
-        openConfirmModal({
-            title: "Delete this service",
-            centered: true,
-            children: (
-                <Text size="sm">
-                    Are you sure you want to delete this service?
-                </Text>
-            ),
-            labels: { confirm: "Delete", cancel: "Cancel" },
-            confirmProps: { color: "red" },
-            onConfirm: () => confirmDelete(),
-        });
-
-    // const handleInactive = () => {
-    //     openConfirmModal({
-    //         title: "Inactive this service",
-    //         centered: true,
-    //         children: (
-    //             <Text size="sm">
-    //                 Are you sure you want to inactive this service?
-    //             </Text>
-    //         ),
-    //         labels: { confirm: "Inactive", cancel: "Cancel" },
-    //         confirmProps: { color: "red" },
-    //         onConfirm: () => confirmInactive(),
-    //     });
-    // };
     const handleClickBookNow = () => {
         if (!profile) {
             toast.showComponent(
@@ -376,7 +312,6 @@ const SearchResultsDetail = ({
                                 serviceId={serviceId}
                                 owner={isUserService}
                                 isService={true}
-                                handleEdit={handleEdit}
                                 //   handleDelete={handleDelete}
                             />
                         </div>
@@ -925,14 +860,6 @@ const SearchResultsDetail = ({
                     currencySymbol={currency}
                     setShow={() => setShow(false)}
                 />
-
-                {service && (
-                    <EditService
-                        showEditModal={editModal}
-                        handleClose={() => setEditModal(false)}
-                        serviceDetail={service}
-                    />
-                )}
             </div>
         </div>
     );

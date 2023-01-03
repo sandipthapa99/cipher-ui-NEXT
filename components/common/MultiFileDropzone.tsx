@@ -4,26 +4,21 @@ import {
     faXmark,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    ActionIcon,
-    Box,
-    Group,
-    Image,
-    Text,
-    useMantineTheme,
-} from "@mantine/core";
+import { ActionIcon, Box, Group, Text } from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import type { FieldProps } from "formik";
 import { Field } from "formik";
+import * as _ from "lodash";
 import type { MultiFileDropzoneProps } from "types/MultiFileDropzoneProps";
+import { FileTypeGrid } from "utils/fileType";
 import { formatBytes } from "utils/formatBytes";
 
 const MultiFileDropzone = ({
     name,
     labelName,
     textMuted,
-    accept,
+    accept = ["image/png", "image/jpeg", "image/jpg"],
     multiple = false,
     maxSize = 1,
     imagePreview,
@@ -31,12 +26,13 @@ const MultiFileDropzone = ({
     touch,
     style,
     maxFiles,
-    imageDisplay = "grid",
+    displayView = "grid",
     showFileDetail = false,
+    withCloseButton = true,
     ...restProps
 }: MultiFileDropzoneProps & Partial<DropzoneProps>) => {
-    const theme = useMantineTheme();
     const errTouch = error && touch ? error : null;
+
     return (
         <Field name={name}>
             {({ form }: FieldProps) => {
@@ -48,9 +44,9 @@ const MultiFileDropzone = ({
                             size:
                                 showFileDetail && formatBytes(val?.file?.size),
                             src: val?.src,
+                            type: _.last(val?.file?.type.split("/")),
                         };
                     });
-
                 const isPreviewImage =
                     imagePreview && form.values[imagePreview]?.length;
 
@@ -70,26 +66,110 @@ const MultiFileDropzone = ({
                                 size="xs"
                                 component="div"
                                 mb={10}
-                                color={`${theme.colors.gray[6]}`}
+                                color={`#868E96`}
                             >
                                 {textMuted}
                             </Text>
                         )}
                         <Box style={{ marginBottom: 20, ...style }}>
+                            {isPreviewImage > 0 &&
+                                multiple &&
+                                displayView === "grid" && (
+                                    <Group position="left" spacing={13} mb={20}>
+                                        {imageFile?.map(
+                                            (val: any, index: number) => {
+                                                return (
+                                                    <Box
+                                                        key={index}
+                                                        sx={{
+                                                            position:
+                                                                "relative",
+                                                        }}
+                                                    >
+                                                        <FileTypeGrid
+                                                            type={val?.type}
+                                                            filePath={val?.src}
+                                                            fileSize={val?.size}
+                                                            showFileDetail={
+                                                                showFileDetail
+                                                            }
+                                                            fileName={val?.name}
+                                                        />
+                                                        {withCloseButton && (
+                                                            <ActionIcon
+                                                                variant="light"
+                                                                color="dark"
+                                                                radius="xl"
+                                                                size="xs"
+                                                                sx={{
+                                                                    position:
+                                                                        "absolute",
+                                                                    top: -7,
+                                                                    right: -6,
+                                                                    zIndex: 1,
+                                                                }}
+                                                                onClick={() => {
+                                                                    form.setFieldValue(
+                                                                        name,
+                                                                        form.values[
+                                                                            name
+                                                                        ]?.filter(
+                                                                            (
+                                                                                _: any,
+                                                                                key: number
+                                                                            ) =>
+                                                                                key !==
+                                                                                Number(
+                                                                                    index
+                                                                                )
+                                                                        )
+                                                                    );
+                                                                    imagePreview &&
+                                                                        form.setFieldValue(
+                                                                            imagePreview,
+                                                                            form.values[
+                                                                                imagePreview
+                                                                            ]?.filter(
+                                                                                (
+                                                                                    _: any,
+                                                                                    key: number
+                                                                                ) =>
+                                                                                    key !==
+                                                                                    Number(
+                                                                                        index
+                                                                                    )
+                                                                            )
+                                                                        );
+                                                                }}
+                                                            >
+                                                                <FontAwesomeIcon
+                                                                    icon={
+                                                                        faXmark
+                                                                    }
+                                                                    fontSize={
+                                                                        14
+                                                                    }
+                                                                />
+                                                            </ActionIcon>
+                                                        )}
+                                                    </Box>
+                                                );
+                                            }
+                                        )}
+                                    </Group>
+                                )}
+
                             <Dropzone
                                 {...restProps}
                                 py={5}
                                 styles={{
                                     root: {
                                         borderColor: `${
-                                            !error
-                                                ? theme.colors.gray[4]
-                                                : theme.colors.red[7]
+                                            !error ? "#D8D8D8" : "#FE5050"
                                         }`,
                                     },
                                 }}
                                 onDrop={(files) => {
-                                    //
                                     const multipleFiles = files.map(
                                         (file, index) => {
                                             const src =
@@ -104,7 +184,7 @@ const MultiFileDropzone = ({
                                         }
                                     );
                                     form.setFieldValue(name, [
-                                        ...form.values.images,
+                                        ...form.values[name],
                                         ...files,
                                     ]);
                                     imagePreview &&
@@ -148,7 +228,7 @@ const MultiFileDropzone = ({
                                             <FontAwesomeIcon
                                                 icon={faCircleArrowUp}
                                                 fontSize={18}
-                                                color={theme.colors.blue[6]}
+                                                color={"#3EAEFF"}
                                             />
                                             <Text>
                                                 Drop files or click here to
@@ -168,7 +248,7 @@ const MultiFileDropzone = ({
                                             <FontAwesomeIcon
                                                 icon={faXmark}
                                                 fontSize={18}
-                                                color={theme.colors.red[6]}
+                                                color={"#FE5050"}
                                             />
                                             <Text>Unsupported file format</Text>
                                         </Group>
@@ -185,9 +265,9 @@ const MultiFileDropzone = ({
                                             <FontAwesomeIcon
                                                 icon={faCircleArrowUp}
                                                 fontSize={18}
-                                                color={theme.colors.blue[6]}
+                                                color={"#3EAEFF"}
                                             />
-                                            <Text color={theme.colors.dark[9]}>
+                                            <Text color={"#343A40"}>
                                                 Drop files or click here to
                                                 upload
                                             </Text>
@@ -208,249 +288,6 @@ const MultiFileDropzone = ({
                                 </Text>
                             )}
                         </Box>
-                        {isPreviewImage > 0 &&
-                            multiple &&
-                            imageDisplay === "grid" && (
-                                <Group position="left" spacing={13} mb={20}>
-                                    {imageFile?.map(
-                                        (val: any, index: number) => {
-                                            return (
-                                                <Box
-                                                    key={index}
-                                                    sx={{
-                                                        position: "relative",
-                                                    }}
-                                                >
-                                                    <Image
-                                                        src={val?.src}
-                                                        width={70}
-                                                        height={70}
-                                                        radius="md"
-                                                        alt="img"
-                                                        mb={
-                                                            showFileDetail &&
-                                                            val?.size !==
-                                                                "NaN undefined"
-                                                                ? 20
-                                                                : 0
-                                                        }
-                                                        caption={
-                                                            showFileDetail &&
-                                                            val?.size !==
-                                                                "NaN undefined" && (
-                                                                <Text
-                                                                    size={11}
-                                                                    weight={500}
-                                                                    color="dimmed"
-                                                                >
-                                                                    {val?.size}
-                                                                </Text>
-                                                            )
-                                                        }
-                                                        styles={{
-                                                            imageWrapper: {
-                                                                background:
-                                                                    theme.colors
-                                                                        .gray[2],
-                                                                borderRadius:
-                                                                    theme.radius
-                                                                        .md,
-                                                            },
-                                                            image: {
-                                                                padding: 0,
-                                                            },
-                                                            caption: {
-                                                                marginTop: 5,
-                                                            },
-                                                        }}
-                                                    />
-
-                                                    <ActionIcon
-                                                        variant="light"
-                                                        color="dark"
-                                                        radius="xl"
-                                                        size="xs"
-                                                        sx={{
-                                                            position:
-                                                                "absolute",
-                                                            top: -7,
-                                                            right: -6,
-                                                            zIndex: 1,
-                                                        }}
-                                                        onClick={() => {
-                                                            form.setFieldValue(
-                                                                name,
-                                                                form.values[
-                                                                    name
-                                                                ]?.filter(
-                                                                    (
-                                                                        _: any,
-                                                                        key: number
-                                                                    ) =>
-                                                                        key !==
-                                                                        Number(
-                                                                            index
-                                                                        )
-                                                                )
-                                                            );
-                                                            imagePreview &&
-                                                                form.setFieldValue(
-                                                                    imagePreview,
-                                                                    form.values[
-                                                                        imagePreview
-                                                                    ]?.filter(
-                                                                        (
-                                                                            _: any,
-                                                                            key: number
-                                                                        ) =>
-                                                                            key !==
-                                                                            Number(
-                                                                                index
-                                                                            )
-                                                                    )
-                                                                );
-                                                        }}
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            icon={faXmark}
-                                                            fontSize={14}
-                                                        />
-                                                    </ActionIcon>
-                                                </Box>
-                                            );
-                                        }
-                                    )}
-                                </Group>
-                            )}
-                        {isPreviewImage > 0 &&
-                            multiple &&
-                            imageDisplay === "list" && (
-                                <Box mb={20}>
-                                    {imageFile?.map(
-                                        (val: any, index: number) => {
-                                            return (
-                                                <Group
-                                                    key={index}
-                                                    position="apart"
-                                                    spacing={10}
-                                                    mb={10}
-                                                >
-                                                    <Group position="left">
-                                                        <Image
-                                                            src={val?.src}
-                                                            width={50}
-                                                            height={50}
-                                                            radius="sm"
-                                                            alt="img"
-                                                            styles={{
-                                                                imageWrapper: {
-                                                                    background:
-                                                                        theme
-                                                                            .colors
-                                                                            .gray[0],
-                                                                    borderRadius:
-                                                                        theme
-                                                                            .radius
-                                                                            .sm,
-                                                                },
-                                                                image: {
-                                                                    padding: 0,
-                                                                },
-                                                            }}
-                                                        />
-                                                        {showFileDetail &&
-                                                            (val?.name ||
-                                                                val?.size !==
-                                                                    "NaN undefined") && (
-                                                                <Box>
-                                                                    <Text
-                                                                        size={
-                                                                            12
-                                                                        }
-                                                                        weight={
-                                                                            500
-                                                                        }
-                                                                        mb={2}
-                                                                        sx={{
-                                                                            color: theme
-                                                                                .colors
-                                                                                .gray[0],
-                                                                        }}
-                                                                    >
-                                                                        {
-                                                                            val?.name
-                                                                        }
-                                                                    </Text>
-                                                                    <Text
-                                                                        size={
-                                                                            11
-                                                                        }
-                                                                        weight={
-                                                                            500
-                                                                        }
-                                                                        color="dimmed"
-                                                                    >
-                                                                        {
-                                                                            val?.size
-                                                                        }
-                                                                    </Text>
-                                                                </Box>
-                                                            )}
-                                                    </Group>
-                                                    <ActionIcon
-                                                        variant="subtle"
-                                                        color="red"
-                                                        radius="xl"
-                                                        size="md"
-                                                        onClick={() => {
-                                                            form.setFieldValue(
-                                                                name,
-                                                                form.values[
-                                                                    name
-                                                                ]?.filter(
-                                                                    (
-                                                                        _: any,
-                                                                        key: number
-                                                                    ) =>
-                                                                        key !==
-                                                                        Number(
-                                                                            index
-                                                                        )
-                                                                )
-                                                            );
-                                                            imagePreview &&
-                                                                form.setFieldValue(
-                                                                    imagePreview,
-                                                                    form.values[
-                                                                        imagePreview
-                                                                    ]?.filter(
-                                                                        (
-                                                                            _: any,
-                                                                            key: number
-                                                                        ) =>
-                                                                            key !==
-                                                                            Number(
-                                                                                index
-                                                                            )
-                                                                    )
-                                                                );
-                                                        }}
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            icon={faTrashCan}
-                                                            fontSize={14}
-                                                            color={
-                                                                theme.colors
-                                                                    .red[6]
-                                                            }
-                                                        />
-                                                    </ActionIcon>
-                                                </Group>
-                                            );
-                                        }
-                                    )}
-                                </Box>
-                            )}
                     </>
                 );
             }}

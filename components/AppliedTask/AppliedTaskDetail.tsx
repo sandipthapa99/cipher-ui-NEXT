@@ -1,12 +1,10 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
 import { ElipsisReport } from "@components/common/ElipsisReport";
-import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { GoBack } from "@components/common/GoBack";
 import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
-import PostModal from "@components/PostTask/PostModal";
 import {
     faCalendar,
     faClockEight,
@@ -14,10 +12,7 @@ import {
     faLocationDot,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
-import {
-    faFilterList,
-    faMagnifyingGlass,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
@@ -26,15 +21,13 @@ import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
-import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { useRef } from "react";
 import { Fragment, useState } from "react";
-import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import type { ITask, TaskApplicantsProps, TaskerCount } from "types/task";
+import type { ITask, TaskApplicantsProps } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
@@ -49,21 +42,9 @@ const AppliedTaskDetail = ({
     type?: string;
     taskDetail: ITask;
 }) => {
-    // const { data: myRequestedTask } = useData<MyBookings>(
-    //     ["my-requested-task"],
-    //     `${urls.task.requested_task}`
-    // );
-
-    // const { data: taskApplicants } = useData<TaskerCount>(
-    //     ["get-task-applicants", taskDetail?.id],
-    //     `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`,
-    //     istaskId()
-    // );
-
     const queryClient = useQueryClient();
     const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
-    const [showModal, setShowModal] = useState(false);
     const [showInput, setShowInput] = useState(false);
 
     const RenderInputBox = () => {
@@ -86,38 +67,6 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
-    // const highlights = safeParse<string[]>({
-    //     rawString: taskDetail?.highlights,
-    //     initialData: [],
-    // });
-
-    //for scroll
-
-    // const confirmDelete = () => {
-    //     mutate(serviceId, {
-    //         onSuccess: async () => {
-    //             toast.success("service deleted successfully");
-    //             router.push({ pathname: "/service" });
-    //         },
-    //         onError: (error) => {
-    //             toast.error(error?.message);
-    //         },
-    //     });
-    // };
-
-    // const handleDelete = () =>
-    //     openConfirmModal({
-    //         title: "Delete this service",
-    //         centered: true,
-    //         children: (
-    //             <Text size="sm">
-    //                 Are you sure you want to delete this service?
-    //             </Text>
-    //         ),
-    //         labels: { confirm: "Delete", cancel: "Cancel" },
-    //         confirmProps: { color: "red" },
-    //         onConfirm: () => confirmDelete(),
-    //     });
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -165,43 +114,14 @@ const AppliedTaskDetail = ({
                                 hashtag="cipher-task"
                             />
 
-                            {/* <EllipsisDropdown
-                                task={taskDetail}
-                                showModal={true}
-                                handleOnClick={() => setShowModal(true)}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faEllipsisVertical}
-                                    className="svg-icon option"
-                                />
-                            </EllipsisDropdown> */}
                             <ElipsisReport
                                 task={true}
                                 taskId={taskDetail?.id}
                                 taskTitle={taskDetail?.title}
                                 taskDescription={taskDetail?.description}
                                 owner={isUserTask}
-                                handleEdit={() => setShowModal(true)}
                                 isService={false}
                             />
-                            <Modal
-                                show={showModal}
-                                onHide={() => setShowModal(false)}
-                                // backdrop="static"
-                                className="post-modal"
-                            >
-                                <Modal.Header
-                                    className="mt-4"
-                                    closeButton
-                                ></Modal.Header>
-                                <Modal.Body>
-                                    <PostModal
-                                        setshowPostModel={() =>
-                                            setShowModal(false)
-                                        }
-                                    />
-                                </Modal.Body>
-                            </Modal>
                         </div>
                     </div>
                 </Row>
@@ -410,20 +330,20 @@ const AppliedTaskDetail = ({
                                     <RenderInputBox />
                                 ) : null,
                             },
-                            {
-                                index: 1,
-                                type: (
-                                    <EllipsisDropdown
-                                        showModal={true}
-                                        handleOnClick={() => setShowModal(true)}
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faFilterList}
-                                            className="svg-icon"
-                                        />
-                                    </EllipsisDropdown>
-                                ),
-                            },
+                            // {
+                            //     index: 1,
+                            //     type: (
+                            //         <EllipsisDropdown
+                            //             showModal={true}
+                            //             handleOnClick={() => setShowModal(true)}
+                            //         >
+                            //             <FontAwesomeIcon
+                            //                 icon={faFilterList}
+                            //                 className="svg-icon"
+                            //             />
+                            //         </EllipsisDropdown>
+                            //     ),
+                            // },
                         ]}
                     />
                 </div>
