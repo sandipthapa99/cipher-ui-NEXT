@@ -50,9 +50,12 @@ const VerifyOtp = () => {
                                     pathname: "/login",
                                 });
                             },
-                            onError: () => {
-                                toast.error(
-                                    "You have entered old password or you entered wrong OTP"
+                            onError: (error: any) => {
+                                const { otp, password } = error.response.data;
+                                actions.setFieldError("otp", otp && otp[0]);
+                                actions.setFieldError(
+                                    "password",
+                                    password && password[0]
                                 );
                             },
                         }
@@ -62,7 +65,7 @@ const VerifyOtp = () => {
                 {({ isSubmitting, errors, touched }) => (
                     <Form className="login-form">
                         <InputField
-                            name={"otp"}
+                            name="otp"
                             labelName={"OTP Code"}
                             type="text"
                             touch={touched.otp}
