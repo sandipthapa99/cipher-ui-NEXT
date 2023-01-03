@@ -9,7 +9,7 @@ import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Grid, Highlight } from "@mantine/core";
+import { Alert, Grid, Highlight, Skeleton } from "@mantine/core";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps } from "next";
@@ -77,9 +77,13 @@ const Gardening = ({
                                     {category_name} &nbsp; Services Near You
                                 </span>
                             ) : (
-                                <Highlight highlight={"Loading..."}>
-                                    {`Loading...`}
-                                </Highlight>
+                                <>
+                                    <Skeleton
+                                        height={20}
+                                        radius="xl"
+                                        width="25%"
+                                    />
+                                </>
                             )}
                         </h1>
                         {!serviceData && (
@@ -134,9 +138,13 @@ const Gardening = ({
                                     {category_name} &nbsp; Tasks Near You
                                 </span>
                             ) : (
-                                <Highlight highlight={"Loading..."}>
-                                    {`Loading...`}
-                                </Highlight>
+                                <>
+                                    <Skeleton
+                                        height={20}
+                                        radius="xl"
+                                        width="25%"
+                                    />
+                                </>
                             )}
                         </h1>
                         {!taskData && (
@@ -180,9 +188,13 @@ const Gardening = ({
                                     {category_name} &nbsp; Tasker Near You
                                 </span>
                             ) : (
-                                <Highlight highlight={"Loading..."}>
-                                    {`Loading...`}
-                                </Highlight>
+                                <>
+                                    <Skeleton
+                                        height={20}
+                                        radius="xl"
+                                        width="25%"
+                                    />
+                                </>
                             )}
                         </h1>
                         {!taskerData && <TaskerSkeleton direction="row" />}
