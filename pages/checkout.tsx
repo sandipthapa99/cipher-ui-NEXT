@@ -472,6 +472,7 @@ export default function Checkout() {
                                                                         const {
                                                                             detail,
                                                                             code,
+                                                                            non_field_errors,
                                                                         } =
                                                                             error
                                                                                 .response
@@ -483,6 +484,11 @@ export default function Checkout() {
                                                                         actions.setFieldError(
                                                                             "code",
                                                                             code
+                                                                        );
+                                                                        actions.setFieldError(
+                                                                            "code",
+                                                                            non_field_errors &&
+                                                                                non_field_errors[0]
                                                                         );
                                                                     },
                                                                 }
