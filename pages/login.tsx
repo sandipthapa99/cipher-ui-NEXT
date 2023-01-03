@@ -160,6 +160,7 @@ const Login = () => {
                                         className="ms-auto border border-grey"
                                         color={"gray.1"}
                                         size={48}
+                                        style={{ width: 112 }}
                                     >
                                         <FontAwesomeIcon
                                             icon={
@@ -167,6 +168,16 @@ const Login = () => {
                                             }
                                             className="text-black"
                                         />
+                                        <span
+                                            style={{
+                                                color: "#343A40",
+                                                marginLeft: "0.8rem",
+                                                fontSize: "1.4rem",
+                                                fontWeight: 500,
+                                            }}
+                                        >
+                                            {is_email ? "Phone" : "Email"}
+                                        </span>
                                     </ActionIcon>
                                 </Tooltip>
                             </div>
