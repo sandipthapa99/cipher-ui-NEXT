@@ -41,7 +41,7 @@ export type MyBookings = {
                 user_rating_count: number;
                 avg_rating: any;
             };
-            country: string;
+            country: { id: string; name: string };
             language: string;
             city: any;
             status: string;
@@ -164,13 +164,16 @@ export type MyBookings = {
     }>;
 };
 
-export const useGetMyBookings = (service_id: string | undefined) => {
+export const useGetMyBookings = (
+    service_id: string | undefined,
+    applied_count: number
+) => {
     return useQuery<MyBookings>(
         ["get-my-bookings", service_id],
         async () => {
             try {
                 const { data } = await axiosClient.get<MyBookings>(
-                    `/task/entity/service-booking/?entity_service=${service_id}&is_active=true&is_requested=false`
+                    `/task/entity/service-booking/?entity_service=${service_id}`
                 );
                 return data;
             } catch (error) {
@@ -184,7 +187,7 @@ export const useGetMyBookings = (service_id: string | undefined) => {
             }
         },
         {
-            enabled: !!service_id,
+            enabled: !!service_id && applied_count > 0,
         }
     );
 };

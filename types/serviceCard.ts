@@ -73,6 +73,7 @@ export interface ServicesValueProps {
         start_time: any;
         end_time: any;
         share_location: boolean;
+        count: number;
         is_negotiable: boolean;
         revisions: number;
         recursion_type: string;
