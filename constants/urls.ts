@@ -38,6 +38,7 @@ const urls = {
         heroCategory: "task/hero-category",
         approval: `task/entity/service-booking/approval/`,
         decline: `task/entity/service-booking/reject/`,
+        status: `${taskPath}task/status/`,
     },
     profile: {
         portfolio: `${taskerPath}portfolio/`,
