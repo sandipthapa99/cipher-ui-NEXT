@@ -156,7 +156,7 @@ export const UserTaskDetailHeader = ({
                                     const files = event.target.files;
                                     field?.("image", (files ?? [])[0]);
                                     setImage(files[0]);
-                                    
+
                                     setShowEditForm(!showEditForm);
                                 }}
                             />

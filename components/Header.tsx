@@ -7,10 +7,17 @@ import {
     faObjectsColumn,
     faTelescope,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Indicator } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
+import {
+    ArrowDownward,
+    DashboardOutlined,
+    ExploreOutlined,
+    KeyboardArrowDown,
+    PersonSearchOutlined,
+    PlagiarismOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
 import { useGetNotification } from "hooks/Notifications/use-notification";
@@ -61,10 +68,7 @@ const Header = () => {
                             >
                                 <Link href="/service">
                                     <a className="nav-link">
-                                        <FontAwesomeIcon
-                                            icon={faTelescope}
-                                            className="svg-icon d-none d-sm-inline-block"
-                                        />
+                                        <ExploreOutlined className="svg-icon d-none d-sm-inline-block" />
                                         Explore Services
                                     </a>
                                 </Link>
@@ -72,10 +76,7 @@ const Header = () => {
                             <li className={handleMenuActive("/task", router)}>
                                 <Link href="/task">
                                     <a className="nav-link">
-                                        <FontAwesomeIcon
-                                            icon={faListCheck}
-                                            className="svg-icon d-none d-sm-inline-block"
-                                        />
+                                        <PlagiarismOutlined className="svg-icon d-none d-sm-inline-block" />
                                         Find Tasks
                                     </a>
                                 </Link>
@@ -83,10 +84,7 @@ const Header = () => {
                             <li className={handleMenuActive("/tasker", router)}>
                                 <Link href="/tasker">
                                     <a className="nav-link">
-                                        <FontAwesomeIcon
-                                            icon={faUserHelmetSafety}
-                                            className="svg-icon d-none d-sm-inline-block"
-                                        />
+                                        <PersonSearchOutlined className="svg-icon d-none d-sm-inline-block" />
                                         Find Taskers
                                     </a>
                                 </Link>
@@ -99,10 +97,7 @@ const Header = () => {
                             >
                                 <Link href="/category">
                                     <a className="nav-link d-none responsive-category">
-                                        <FontAwesomeIcon
-                                            icon={faObjectsColumn}
-                                            className="svg-icon d-none d-sm-inline-block"
-                                        />
+                                        <DashboardOutlined className="svg-icon d-none d-sm-inline-block" />
                                         Categories
                                     </a>
                                 </Link>
@@ -116,15 +111,9 @@ const Header = () => {
                                 >
                                     <Link href="">
                                         <a className="nav-link d-none d-md-inline-block categories-menu">
-                                            <FontAwesomeIcon
-                                                icon={faObjectsColumn}
-                                                className="svg-icon"
-                                            />
+                                            <DashboardOutlined className="svg-icon d-none d-sm-inline-block" />
                                             Categories
-                                            <FontAwesomeIcon
-                                                icon={faAngleDown}
-                                                className="faAngleDown-svg-icon"
-                                            />
+                                            <KeyboardArrowDown className="faAngleDown-svg-icon" />
                                         </a>
                                     </Link>
                                 </li>
