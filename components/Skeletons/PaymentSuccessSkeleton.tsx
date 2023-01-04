@@ -1,18 +1,32 @@
-import { Box, Skeleton, Stack } from "@mantine/core";
+import { Box, Loader, Skeleton, Stack } from "@mantine/core";
 
 export const PaymentSuccessSkeleton = () => {
     return (
         <Box
             sx={{
                 width: "100%",
-                minHeight: "40rem",
+                minHeight: "60rem",
                 background: "#fff",
-                marginBlock: "2rem",
+                marginBlock: "3.2rem",
                 borderRadius: "10px",
-                padding: "2rem",
+                padding: "3.2rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
             }}
         >
             <Box
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    color: "#5C5F66",
+                }}
+            >
+                <h2 className="me-3 mb-0">Processing</h2>{" "}
+                <Loader color="yellow" variant="dots" size="lg" />
+            </Box>
+            {/* <Box
                 sx={{
                     display: "flex",
                     justifyContent: "center",
@@ -42,7 +56,7 @@ export const PaymentSuccessSkeleton = () => {
                         }}
                     />
                 </Stack>
-            </Box>
+            </Box> */}
         </Box>
     );
 };
