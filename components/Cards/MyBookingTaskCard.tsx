@@ -7,6 +7,7 @@ import { faHourglassClock, faPeriod } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, Button, RingProgress, Text } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format } from "date-fns";
 import Image from "next/image";
 import router from "next/router";
@@ -32,7 +33,7 @@ export const MyBookingTaskCard = ({
         { id: string; status: string }
     >(async ({ id, status }) =>
         axiosClient
-            .post("/task/entity/service/task/status/", { task: id, status })
+            .post(urls.task.status, { task: id, status })
             .then((res) => res.data.message)
             .catch((error) => {
                 throw new Error(error?.response?.data);

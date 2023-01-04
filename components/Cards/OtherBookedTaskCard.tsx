@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, RingProgress, Text } from "@mantine/core";
 import { Badge } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,13 +37,22 @@ export const OtherBookedTaskCard = ({
     const [opened, setOpened] = useState(false);
     const [openReviewModal, setOpenReviewModal] = useState(false);
 
+    const { created_at, location, start_date, id, status } =
+        myTask ?? Approvedtask ?? item ?? {};
+
+    const {
+        title,
+        currency: { symbol } = { symbol: "" },
+        charge,
+    } = myTask ?? Approvedtask ?? {};
+
     const taskCloseMutaion = useMutation<
         string,
         Error,
         { id: string; status: string }
     >(async ({ id, status }) =>
         axiosClient
-            .post("/task/entity/service/task/status/", { task: id, status })
+            .post(urls.task.status, { task: id, status })
             .then((res) => res.data.message)
             .catch((error) => {
                 throw new Error(error?.response?.data);
@@ -66,14 +76,6 @@ export const OtherBookedTaskCard = ({
             }
         );
     };
-
-    let status;
-    if (item) {
-        status = item?.status;
-    }
-    if (Approvedtask) {
-        status = Approvedtask?.status;
-    }
 
     let color, progress;
     if (status === "Open") {
@@ -115,16 +117,9 @@ export const OtherBookedTaskCard = ({
                                           40
                                       ) + "..."
                                     : item?.entity_service?.title}
-
-                                {myTask?.title && myTask?.title?.length > 40
-                                    ? myTask?.title.substring(0, 40) + "..."
-                                    : myTask?.title}
-
-                                {Approvedtask?.title &&
-                                Approvedtask?.title?.length > 40
-                                    ? Approvedtask?.title.substring(0, 40) +
-                                      "..."
-                                    : Approvedtask?.title}
+                                {title && title?.length > 40
+                                    ? title.substring(0, 40) + "..."
+                                    : title}
                                 {order?.task?.title}
                             </h3>
                         </div>
@@ -132,13 +127,12 @@ export const OtherBookedTaskCard = ({
                             <h2 className="text-nowrap">
                                 {item?.entity_service?.currency?.symbol} {""}
                                 {item?.budget_to}
-                                {myTask?.currency?.symbol} {""}
+                                {symbol} {""}
                                 {myTask?.budget_from
                                     ? `${myTask?.budget_from} -`
                                     : ""}{" "}
                                 {myTask?.budget_to}
-                                {Approvedtask?.currency?.symbol} {""}
-                                {Approvedtask?.charge}
+                                {charge}
                             </h2>
                             <p>
                                 {item?.entity_service?.budget_type}{" "}
@@ -149,15 +143,7 @@ export const OtherBookedTaskCard = ({
                     </div>
                     <p className="posted-date" onClick={() => setOpened(true)}>
                         Posted on{" "}
-                        {item?.entity_service?.created_at &&
-                            format(
-                                new Date(item?.entity_service?.created_at),
-                                "PPP"
-                            )}
-                        {myTask?.created_at &&
-                            format(new Date(myTask?.created_at), "PPP")}
-                        {Approvedtask?.created_at &&
-                            format(new Date(Approvedtask?.created_at), "PPP")}
+                        {created_at && format(new Date(created_at), "PPP")}
                     </p>
                     <div
                         className="center-section d-flex flex-column flex-sm-row justify-content-between"
@@ -170,36 +156,15 @@ export const OtherBookedTaskCard = ({
                                     icon={faLocationDot}
                                     className="svg-icon me-4"
                                 />
-                                <span>
-                                    {item?.location}{" "}
-                                    {myTask?.is_requested
-                                        ? myTask?.location
-                                        : myTask?.city?.name}{" "}
-                                    {Approvedtask?.location}
-                                </span>
+                                <span>{location}</span>
                             </div>
                             <div className="time d-flex align-items-center">
                                 <FontAwesomeIcon
                                     icon={faHourglassClock}
                                     className="svg-icon ms-1 me-4"
                                 />
-
-                                {item?.start_date &&
-                                    format(new Date(item?.start_date), "PPP")}
-                                {myTask?.is_requested
-                                    ? myTask?.start_date
-                                        ? format(
-                                              new Date(myTask?.start_date),
-                                              "PPP"
-                                          )
-                                        : ""
-                                    : "Flexible"}
-                                {Approvedtask?.start_date
-                                    ? format(
-                                          new Date(Approvedtask?.start_date),
-                                          "PPP"
-                                      )
-                                    : ""}
+                                {start_date &&
+                                    format(new Date(start_date), "PPP")}
                             </div>
                             {!myTask && !Approvedtask && (
                                 <div className="name-and-image d-flex">
@@ -326,9 +291,7 @@ export const OtherBookedTaskCard = ({
                                 variant="light"
                                 color="green"
                                 onClick={() => {
-                                    taskCloseHandler(
-                                        Approvedtask?.id ? Approvedtask?.id : ""
-                                    );
+                                    taskCloseHandler(id ? (id as string) : "");
                                 }}
                             >
                                 Close
@@ -340,23 +303,23 @@ export const OtherBookedTaskCard = ({
                 <BookingDetails
                     show={opened}
                     setShow={setOpened}
-                    bookingId={String(item?.id) ?? ""}
+                    bookingId={String(id) ?? ""}
                 />
             )}
             {router.query.activeTab === "2" && (
                 <ApprovedTaskDetail
                     show={opened}
                     setShow={setOpened}
-                    approvedId={String(Approvedtask?.id) ?? ""}
+                    approvedId={String(id) ?? ""}
                 />
             )}
-            {Approvedtask?.id && (
+            {id && (
                 <ReviewModal
                     open={
                         (status === "Completed" || "closed") && openReviewModal
                     }
                     handleClose={() => setOpenReviewModal(false)}
-                    taskId={Approvedtask?.id}
+                    taskId={id as string}
                 />
             )}
         </div>
