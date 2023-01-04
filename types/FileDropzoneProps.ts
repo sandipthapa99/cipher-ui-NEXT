@@ -16,3 +16,16 @@ export interface MultiFileDropzoneProps {
     showFileDetail?: boolean;
     withCloseButton?: boolean;
 }
+
+export interface FileDropzoneProps {
+    name: string;
+    accept: string[];
+    fieldRequired?: boolean;
+    labelName?: string;
+    multiple?: boolean;
+    maxSize: number;
+    imagePreview?: string;
+    error?: string;
+    touch?: boolean;
+    style?: CSSProperties;
+}

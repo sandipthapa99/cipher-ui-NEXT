@@ -6,7 +6,7 @@ import { Dropzone } from "@mantine/dropzone";
 import type { FieldProps } from "formik";
 import { Field } from "formik";
 import * as _ from "lodash";
-import type { MultiFileDropzoneProps } from "types/MultiFileDropzoneProps";
+import type { MultiFileDropzoneProps } from "types/FileDropzoneProps";
 import { FileTypeGrid } from "utils/fileType";
 import { formatBytes } from "utils/formatBytes";
 

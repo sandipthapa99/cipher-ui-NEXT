@@ -1,8 +1,8 @@
-import { CustomDropZone } from "@components/common/CustomDropZone";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
+import FileDropzone from "@components/common/SingleFileDropzone";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
@@ -51,7 +51,8 @@ export const IdentityDocument = () => {
             initialValues={{
                 document_type: "",
                 document_id: "",
-                file: "",
+                imagePreviewUrl: [],
+                file: [],
                 issuer_organization: "",
                 issued_date: "",
                 valid_through: "",
@@ -80,7 +81,7 @@ export const IdentityDocument = () => {
                         formData.append(key, value.toString());
                     }
                 });
-                formData.append("file", val.file);
+                formData.append("file", val.file[0]);
                 mutate(formData, {
                     onSuccess: () => {
                         refetch();
@@ -103,6 +104,7 @@ export const IdentityDocument = () => {
                 errors,
                 touched,
                 setFieldValue,
+                setFieldTouched,
                 resetForm,
                 values,
             }) => (
@@ -113,6 +115,7 @@ export const IdentityDocument = () => {
                             <SelectInputField
                                 name="document_type"
                                 labelName="Identity Type"
+                                fieldRequired
                                 touch={touched.document_type}
                                 error={errors.document_type}
                                 placeHolder="Select Identity Type"
@@ -127,6 +130,7 @@ export const IdentityDocument = () => {
                                 name="document_id"
                                 labelName="Document ID"
                                 error={errors.document_id}
+                                fieldRequired
                                 touch={touched.document_id}
                                 placeHolder="Enter your document number"
                             />
@@ -135,6 +139,7 @@ export const IdentityDocument = () => {
                             <InputField
                                 name="issuer_organization"
                                 labelName=" Issuer Organization"
+                                fieldRequired
                                 error={errors.issuer_organization}
                                 touch={touched.issuer_organization}
                                 placeHolder="Enter document Issuer Organization"
@@ -147,6 +152,7 @@ export const IdentityDocument = () => {
                                 name="issued_date"
                                 labelName="Issued Date"
                                 placeHolder="dd/mm/yy"
+                                fieldRequired
                                 touch={touched.issued_date}
                                 error={errors.issued_date}
                                 icon={
@@ -173,6 +179,7 @@ export const IdentityDocument = () => {
                                     name="valid_through"
                                     labelName="Valid through"
                                     placeHolder="dd/mm/yy"
+                                    fieldRequired
                                     touch={touched.issued_date}
                                     error={errors.issued_date}
                                     icon={
@@ -198,17 +205,23 @@ export const IdentityDocument = () => {
                         )}
                     </Row>
                     <Col md={6}>
-                        <CustomDropZone
-                            accept={{
-                                "image/*": [], // All images
-                            }}
-                            fileType="image"
-                            error={errors.file}
-                            touch={touched.file}
-                            sx={{ maxWidth: "30rem" }}
-                            maxSize={5 * 1024 ** 2}
-                            name="file"
-                            onDrop={(files) => setFieldValue("file", files[0])}
+                        <FileDropzone
+                            name={"file"}
+                            accept={[
+                                "image/png",
+                                "image/jpeg",
+                                "image/jpg",
+                                "application/pdf",
+                                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                            ]}
+                            imagePreview="imagePreviewUrl"
+                            labelName="Verification Document"
+                            onTouchStart={() => setFieldTouched("file", true)}
+                            fieldRequired
+                            error={errors.file as string}
+                            touch={touched.file as unknown as boolean}
+                            maxSize={1024 * 1024}
+                            multiple={false}
                         />
                     </Col>
                     <hr />
