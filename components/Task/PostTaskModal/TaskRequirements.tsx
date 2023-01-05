@@ -104,6 +104,7 @@ export const TaskRequirements = ({
             <TextInput
                 {...rest}
                 value={newRequirement}
+                size="md"
                 onChange={(event) =>
                     setNewRequirement(event.currentTarget.value)
                 }

@@ -67,6 +67,7 @@ export const SelectCity = ({
                     name={name}
                     value={value}
                     error={errTouch}
+                    size={"md"}
                     withAsterisk
                     onBlur={onBlur}
                     searchable

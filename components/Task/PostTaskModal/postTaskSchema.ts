@@ -1,6 +1,10 @@
 import * as Yup from "yup";
 
-export const postEntityServiceSchema = (is_requested: string) =>
+export const postEntityServiceSchema = (
+    is_requested: string,
+    maxImages: number,
+    maxVideos: number
+) =>
     Yup.object().shape({
         // title: Yup.string().required("Title is required"),
         description: Yup.string()
@@ -46,4 +50,12 @@ export const postEntityServiceSchema = (is_requested: string) =>
                 }),
             })
             .nullable(true),
+        imagePreviewUrl: Yup.array().max(
+            maxImages,
+            `Cannot Upload more than ${maxImages} images`
+        ),
+        videoPreviewUrl: Yup.array().max(
+            maxVideos,
+            `Cannot Upload more than ${maxVideos} images`
+        ),
     });

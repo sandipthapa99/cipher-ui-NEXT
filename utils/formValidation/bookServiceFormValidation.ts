@@ -5,9 +5,13 @@ const stringReqOnly = Yup.string().required("Required field");
 export const bookServiceSchema = ({
     budget_from,
     budget_to,
+    maxImages,
+    maxVideos,
 }: {
     budget_from: number;
     budget_to: number;
+    maxImages: number;
+    maxVideos: number;
 }) =>
     Yup.object().shape({
         description: stringReqOnly,
@@ -31,4 +35,15 @@ export const bookServiceSchema = ({
                 return Yup.date().required("Required field").nullable(true);
             })
             .nullable(true),
+        start_time: Yup.string().required("Required field"),
+        location: Yup.string().required("Required Field"),
+        city: Yup.string().required("Required field"),
+        imagePreviewUrl: Yup.array().max(
+            maxImages,
+            `Cannot Upload more than ${maxImages} images`
+        ),
+        videoPreviewUrl: Yup.array().max(
+            maxVideos,
+            `Cannot Upload more than ${maxVideos} images`
+        ),
     });
