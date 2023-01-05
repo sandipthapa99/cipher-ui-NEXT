@@ -1,10 +1,10 @@
 import {
     faBarChart,
-    faMedal,
     faSmile,
     faTire,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { RecommendOutlined } from "@mui/icons-material";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 
@@ -32,11 +32,7 @@ export const UserStats = ({
                 <span>{happyCustomers}</span>
             </Col>
             <Col className="type d-flex">
-                <FontAwesomeIcon
-                    className="svg-icon"
-                    color="#0693E3"
-                    icon={faMedal}
-                />
+                <RecommendOutlined className="svg-icons" />
                 <span>{+rewardPercentage?.toFixed(2)}%</span>
             </Col>
             <Col className="type d-flex">
