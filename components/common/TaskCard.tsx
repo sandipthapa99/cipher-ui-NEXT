@@ -5,6 +5,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     CalendarTodayOutlined,
+    LocationOnOutlined,
+    ScheduleOutlined,
     SupervisorAccountOutlined,
 } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
@@ -62,10 +64,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                         </p> */}
                         <div className="task-location-time d-flex flex-column flex-sm-row">
                             <p className="d-flex align-items-center pe-4 location">
-                                <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="svg-icon"
-                                />
+                                <LocationOnOutlined className="svg-icon" />
                                 {location}
                             </p>
                             <p className="d-flex align-items-center date pe-4 my-3 my-sm-0">
@@ -78,10 +77,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                                     : ""}
                             </p>
                             <div className="d-flex align-items-center pe-4 time">
-                                <FontAwesomeIcon
-                                    icon={faClockEight}
-                                    className="svg-icon"
-                                />
+                                <ScheduleOutlined className="svg-icon" />
                                 {task.created_at
                                     ? format(new Date(task.created_at), "p")
                                     : ""}
