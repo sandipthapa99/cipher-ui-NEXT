@@ -6,9 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Indicator } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import {
+    Chat,
+    ChatOutlined,
     DashboardOutlined,
     ExploreOutlined,
     KeyboardArrowDown,
+    LocationOn,
+    LocationOnOutlined,
     NotificationsOutlined,
     PersonSearchOutlined,
     PlagiarismOutlined,
@@ -151,10 +155,7 @@ const Header = () => {
                                     style={{ marginRight: "1.6rem" }}
                                 >
                                     {location?.data?.city}
-                                    <FontAwesomeIcon
-                                        icon={faLocationDot}
-                                        className="svg-icon"
-                                    />
+                                    <LocationOnOutlined className="svg-icon" />
                                 </a>
                             </Link>
                         )}
@@ -164,10 +165,7 @@ const Header = () => {
                                     className="btn location-btn d-none d-md-inline-block"
                                     style={{ marginRight: "1.6rem" }}
                                 >
-                                    <FontAwesomeIcon
-                                        icon={faMessageCaptions}
-                                        className="svg-icon"
-                                    />
+                                    <ChatOutlined className="svg-icon" />
                                 </a>
                             </Link>
                         ) : null}

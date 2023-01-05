@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { EastOutlined } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
@@ -97,10 +98,7 @@ const Footer = () => {
                                                 >
                                                     {errors.email ===
                                                         undefined && (
-                                                        <FontAwesomeIcon
-                                                            icon={faArrowRight}
-                                                            className="svg-icon"
-                                                        />
+                                                        <EastOutlined className="svg-icon" />
                                                     )}
                                                 </button>
                                             </div>
