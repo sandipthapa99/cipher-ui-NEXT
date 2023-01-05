@@ -2,6 +2,7 @@ import { ApplicantsCard } from "@components/common/ApplicantsCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Loader } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -51,7 +52,7 @@ export const TaskersTab = ({
         <div className="tasker-tab-taskdetail">
             {Error ? (
                 <Alert
-                    icon={<FontAwesomeIcon icon={faWarning} />}
+                    icon={<ErrorOutlineOutlined />}
                     title={""}
                     color="orange"
                 >
@@ -144,7 +145,7 @@ export const TaskersTab = ({
                         </Row>
                     ) : (
                         <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            icon={<ErrorOutlineOutlined />}
                             title={""}
                             color="orange"
                         >
