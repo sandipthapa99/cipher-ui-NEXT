@@ -341,17 +341,6 @@ const Footer = () => {
                                             />
                                         </figure>
                                     </a>
-                                    {/* <a
-                                        href="https://www.youtube.com"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="wrapper youtube"
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faYoutube}
-                                            className="svg-icon "
-                                        />
-                                    </a> */}
                                 </div>
                             </Col>
                             <Col

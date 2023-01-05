@@ -1,8 +1,7 @@
 import BigButton from "@components/common/Button";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import { faCircleDot, faCircleSmall } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AdjustOutlined, FiberManualRecord } from "@mui/icons-material";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
@@ -100,15 +99,9 @@ export const EachTimeline = ({
                             }`}
                         >
                             {id === activeId ? (
-                                <FontAwesomeIcon
-                                    className="circle-dot"
-                                    icon={faCircleDot}
-                                />
+                                <AdjustOutlined className="circle-dot" />
                             ) : (
-                                <FontAwesomeIcon
-                                    className="circle-small"
-                                    icon={faCircleSmall}
-                                />
+                                <FiberManualRecord className="circle-small" />
                             )}
                         </div>
 
