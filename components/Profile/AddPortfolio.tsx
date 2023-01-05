@@ -319,7 +319,6 @@ const AddPortfolio = ({
                     >
                         {({
                             isSubmitting,
-                            getFieldProps,
                             setFieldValue,
                             errors,
                             values,
@@ -347,7 +346,11 @@ const AddPortfolio = ({
                                             placeHolder="Portfolio Description"
                                         /> */}
                                         <RichText
-                                            {...getFieldProps("description")}
+                                            error={errors.description as string}
+                                            touched={
+                                                touched.description as boolean
+                                            }
+                                            name={"description"}
                                             value={values?.description ?? ""}
                                             onChange={(value) =>
                                                 setFieldValue(

@@ -6,10 +6,10 @@ export const postEntityServiceSchema = (
     maxVideos: number
 ) =>
     Yup.object().shape({
-        // title: Yup.string().required("Title is required"),
+        title: Yup.string().required("Title is required"),
         description: Yup.string()
             .required("Description is required")
-            .min(10, "Description must be at least 10 characters"),
+            .min(10, "Description is too short"),
         highlights: Yup.array().required("Requirements is required"),
         currency: Yup.string().required("Currency is required"),
         // category: Yup.string().required("Category is required"),

@@ -32,6 +32,7 @@ import { Form, Formik } from "formik";
 import { useData } from "hooks/use-data";
 import { useEntityService } from "hooks/use-entity-service";
 import { useUploadFile } from "hooks/use-upload-file";
+import _ from "lodash";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
@@ -144,6 +145,36 @@ export const PostTaskModal = () => {
 
     const entityService = entityServiceData?.data;
 
+    const getServiceImages =
+        entityService?.images &&
+        entityService?.images.map((val) => {
+            const fileName = _.split(val?.name, "/");
+            return {
+                id: val?.id,
+                src: val?.media,
+                file: {
+                    name: _.last(fileName),
+                    size: val?.size,
+                    type: val?.media_type,
+                },
+            };
+        });
+
+    const getServiceVideos =
+        entityService?.videos &&
+        entityService?.videos.map((val) => {
+            const fileName = _.split(val?.name, "/");
+            return {
+                id: val?.id,
+                src: val?.media,
+                file: {
+                    name: _.last(fileName),
+                    size: val?.size,
+                    type: val?.media_type,
+                },
+            };
+        });
+
     const isCreateTaskLoading = isLoading || uploadFileLoading || isFetching;
 
     return (
@@ -230,9 +261,9 @@ export const PostTaskModal = () => {
                             ? String(entityService?.currency?.code)
                             : "NPR",
                         images: (entityService?.images as any[]) ?? [],
-                        imagePreviewUrl: (entityService?.images as any[]) ?? [],
+                        imagePreviewUrl: getServiceImages ?? [],
                         videos: (entityService?.videos as any[]) ?? [],
-                        videoPreviewUrl: (entityService?.videos as any[]) ?? [],
+                        videoPreviewUrl: getServiceVideos ?? [],
                         is_active: true,
                         is_terms_condition: entityService ? true : false,
                         share_location: true,
@@ -376,16 +407,23 @@ export const PostTaskModal = () => {
                                 <MantineInputField
                                     name="title"
                                     labelName={"Title"}
+                                    withAsterisk
                                     placeHolder={"Enter your title"}
-                                    fieldRequired
                                     error={errors.title}
                                     touch={touched.title}
                                 />
 
                                 <RichText
                                     value={values.description}
+                                    name={"description"}
+                                    labelName={"Description"}
+                                    withAsterisk
                                     onChange={(value) =>
                                         setFieldValue("description", value)
+                                    }
+                                    error={errors.description as string}
+                                    touched={
+                                        touched.description as unknown as boolean
                                     }
                                     placeholder="Enter your description"
                                     aria-errormessage="123"
