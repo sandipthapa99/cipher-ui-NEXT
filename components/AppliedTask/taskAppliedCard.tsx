@@ -6,6 +6,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     CalendarTodayOutlined,
+    LocationOnOutlined,
+    ScheduleOutlined,
     SupervisorAccountOutlined,
 } from "@mui/icons-material";
 import urls from "constants/urls";
@@ -94,10 +96,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                             </div>
                         </div>
                         <p className="location mb-3 d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faLocationDot}
-                                className="svg-icon"
-                            />
+                            <LocationOnOutlined className="svg-icon" />
                             <span>
                                 {task?.location
                                     ? task.location
@@ -106,10 +105,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                         </p>
                         <div className="task-location-time d-flex justify-content-between">
                             <span className="time me-4 d-flex align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faClockEight}
-                                    className="svg-icon"
-                                />
+                                <ScheduleOutlined className="svg-icon" />
                                 <span>
                                     {task?.created_at
                                         ? format(
@@ -131,13 +127,6 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                                         : "N/A"}
                                 </span>
                             </span>
-                            {/* <span className="date d-flex align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faLocationArrow}
-                                    className="svg-icon"
-                                />
-                                <span> 2 Km away</span>
-                            </span> */}
                         </div>
                     </div>
                 </a>
