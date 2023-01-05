@@ -1,8 +1,4 @@
-import {
-    faCircleArrowUp,
-    faTrashCan,
-    faXmark,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faCircleArrowUp, faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Group, Text } from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
@@ -10,7 +6,7 @@ import { Dropzone } from "@mantine/dropzone";
 import type { FieldProps } from "formik";
 import { Field } from "formik";
 import * as _ from "lodash";
-import type { MultiFileDropzoneProps } from "types/MultiFileDropzoneProps";
+import type { MultiFileDropzoneProps } from "types/FileDropzoneProps";
 import { FileTypeGrid } from "utils/fileType";
 import { formatBytes } from "utils/formatBytes";
 
@@ -72,47 +68,60 @@ const MultiFileDropzone = ({
                             </Text>
                         )}
                         <Box style={{ marginBottom: 20, ...style }}>
-                            {isPreviewImage > 0 &&
-                                multiple &&
-                                displayView === "grid" && (
-                                    <Group position="left" spacing={13} mb={20}>
-                                        {imageFile?.map(
-                                            (val: any, index: number) => {
-                                                return (
-                                                    <Box
-                                                        key={index}
-                                                        sx={{
-                                                            position:
-                                                                "relative",
-                                                        }}
-                                                    >
-                                                        <FileTypeGrid
-                                                            type={val?.type}
-                                                            filePath={val?.src}
-                                                            fileSize={val?.size}
-                                                            showFileDetail={
-                                                                showFileDetail
-                                                            }
-                                                            fileName={val?.name}
-                                                        />
-                                                        {withCloseButton && (
-                                                            <ActionIcon
-                                                                variant="light"
-                                                                color="dark"
-                                                                radius="xl"
-                                                                size="xs"
-                                                                sx={{
-                                                                    position:
-                                                                        "absolute",
-                                                                    top: -7,
-                                                                    right: -6,
-                                                                    zIndex: 1,
-                                                                }}
-                                                                onClick={() => {
+                            {isPreviewImage > 0 && displayView === "grid" && (
+                                <Group position="left" spacing={13} mb={20}>
+                                    {imageFile?.map(
+                                        (val: any, index: number) => {
+                                            return (
+                                                <Box
+                                                    key={index}
+                                                    sx={{
+                                                        position: "relative",
+                                                    }}
+                                                >
+                                                    <FileTypeGrid
+                                                        type={val?.type}
+                                                        filePath={val?.src}
+                                                        fileSize={val?.size}
+                                                        showFileDetail={
+                                                            showFileDetail
+                                                        }
+                                                        fileName={val?.name}
+                                                    />
+                                                    {withCloseButton && (
+                                                        <ActionIcon
+                                                            variant="light"
+                                                            color="dark"
+                                                            radius="xl"
+                                                            size="xs"
+                                                            sx={{
+                                                                position:
+                                                                    "absolute",
+                                                                top: -7,
+                                                                right: -6,
+                                                                zIndex: 1,
+                                                            }}
+                                                            onClick={() => {
+                                                                form.setFieldValue(
+                                                                    name,
+                                                                    form.values[
+                                                                        name
+                                                                    ]?.filter(
+                                                                        (
+                                                                            _: any,
+                                                                            key: number
+                                                                        ) =>
+                                                                            key !==
+                                                                            Number(
+                                                                                index
+                                                                            )
+                                                                    )
+                                                                );
+                                                                imagePreview &&
                                                                     form.setFieldValue(
-                                                                        name,
+                                                                        imagePreview,
                                                                         form.values[
-                                                                            name
+                                                                            imagePreview
                                                                         ]?.filter(
                                                                             (
                                                                                 _: any,
@@ -124,40 +133,20 @@ const MultiFileDropzone = ({
                                                                                 )
                                                                         )
                                                                     );
-                                                                    imagePreview &&
-                                                                        form.setFieldValue(
-                                                                            imagePreview,
-                                                                            form.values[
-                                                                                imagePreview
-                                                                            ]?.filter(
-                                                                                (
-                                                                                    _: any,
-                                                                                    key: number
-                                                                                ) =>
-                                                                                    key !==
-                                                                                    Number(
-                                                                                        index
-                                                                                    )
-                                                                            )
-                                                                        );
-                                                                }}
-                                                            >
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faXmark
-                                                                    }
-                                                                    fontSize={
-                                                                        14
-                                                                    }
-                                                                />
-                                                            </ActionIcon>
-                                                        )}
-                                                    </Box>
-                                                );
-                                            }
-                                        )}
-                                    </Group>
-                                )}
+                                                            }}
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={faXmark}
+                                                                fontSize={14}
+                                                            />
+                                                        </ActionIcon>
+                                                    )}
+                                                </Box>
+                                            );
+                                        }
+                                    )}
+                                </Group>
+                            )}
 
                             <Dropzone
                                 {...restProps}
@@ -170,6 +159,7 @@ const MultiFileDropzone = ({
                                     },
                                 }}
                                 onDrop={(files) => {
+                                    form.setFieldTouched(name);
                                     const multipleFiles = files.map(
                                         (file, index) => {
                                             const src =

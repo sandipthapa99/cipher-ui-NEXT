@@ -1,12 +1,5 @@
 import BigButton from "@components/common/Button";
 import BankDetailModal from "@components/settings/BankDetailModal";
-import { faCircleDot } from "@fortawesome/pro-regular-svg-icons";
-import {
-    faBuildingColumns,
-    faCircleDot as circleDot,
-} from "@fortawesome/pro-solid-svg-icons";
-import { faLinkSimple } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     Adjust,
     AdjustOutlined,

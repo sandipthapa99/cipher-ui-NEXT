@@ -7,7 +7,6 @@ import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
-import { MIME_TYPES } from "@mantine/dropzone";
 import { CalendarTodayOutlined } from "@mui/icons-material";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -36,9 +35,9 @@ import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
 import { db } from "../../firebase/firebase";
-import { CustomDropZone } from "./CustomDropZone";
 import MantineDateField from "./MantineDateField";
 import MantineTimeField from "./MantineTimeField";
+import MultiFileDropzone from "./MultiFileDropzone";
 
 // const useBookNowService = () =>
 //     useMutation<string, AxiosError, any>((payload) =>
@@ -70,6 +69,10 @@ const BookNowModalCard = ({
     const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = new QueryClient();
     const parsedDescription = parse(description ?? "");
+
+    //To assign max file number of Images and videos
+    const MaxImages = 5;
+    const MaxVideos = 1;
 
     const { data: user } = useUser();
 
@@ -171,10 +174,12 @@ const BookNowModalCard = ({
                             description: "",
                             end_date: "",
                             start_time: "",
-                            images: "",
+                            images: [],
+                            imagePreviewUrl: [],
+                            videos: [],
+                            videoPreviewUrl: [],
                             entity_service: "",
                             budget_to: budget_to,
-                            videos: "",
                             offer: "",
                             city: "",
                             requirements: "",
@@ -184,6 +189,8 @@ const BookNowModalCard = ({
                             bookServiceSchema({
                                 budget_from: budget_from ?? 0,
                                 budget_to: budget_to ?? 100000000,
+                                maxImages: MaxImages,
+                                maxVideos: MaxVideos,
                             })
                         }
                         onSubmit={async (values) => {
@@ -229,7 +236,7 @@ const BookNowModalCard = ({
                             errors,
                             touched,
                             setFieldValue,
-                            getFieldProps,
+                            setFieldTouched,
                             values,
                         }) => (
                             <Form encType="multipart/formData">
@@ -339,95 +346,77 @@ const BookNowModalCard = ({
                                         />
                                     </Col>
                                 </Row>
-                                <Row className="mt-2 mb-3">
-                                    <PlacesAutocomplete
-                                        size="md"
-                                        label="Location"
-                                        placeholder="Enter your primary address"
-                                        // disabled={isInputDisabled}
-                                        error={
-                                            touched.location && errors.location
-                                                ? errors.location
-                                                : undefined
-                                        }
-                                        {...getFieldProps("location")}
-                                        value={values.location}
-                                        onPlaceChange={(value) =>
-                                            setFieldValue("location", value)
-                                        }
-                                    />
-                                    {/* <Checkbox
-                                        label="Share my location"
-                                        onChange={(e) => {
-                                            setFieldValue(
-                                                "location",
-                                                e.target.checked.toString()
-                                            );
-
-                                            if (
-                                                e.currentTarget.checked === true
-                                            ) {
-                                                navigator.geolocation.getCurrentPosition(
-                                                    (pos) => {
-                                                        const {
-                                                            latitude,
-                                                            longitude,
-                                                        } = pos.coords;
-                                                    }
-                                                );
-                                            }
-                                        }}
-                                    /> */}
-                                </Row>
+                                <PlacesAutocomplete
+                                    size="md"
+                                    label="Location"
+                                    value={values.location}
+                                    className="mb-4"
+                                    placeholder="Enter your primary address"
+                                    error={
+                                        touched.location && errors.location
+                                            ? errors.location
+                                            : undefined
+                                    }
+                                    withAsterisk
+                                    onBlur={() => setFieldTouched("location")}
+                                    name={"location"}
+                                    onPlaceChange={(value) =>
+                                        setFieldValue("location", value)
+                                    }
+                                />
                                 <SelectCity
                                     onCitySelect={(cityId) =>
                                         setFieldValue("city", cityId)
                                     }
                                     value={values.city}
+                                    error={errors.city}
+                                    onBlur={() => setFieldTouched("city")}
+                                    touch={touched.city}
                                     name={"city"}
                                 />
 
                                 <div className="book-now-gallery">
                                     <h4>Gallery</h4>
                                     <p>Add relevant images or videos</p>
-
-                                    <Row className="gx-5">
-                                        <Col md={6}>
-                                            <CustomDropZone
-                                                //  accept={IMAGE_MIME_TYPE}
-                                                accept={{
-                                                    "image/*": [], // All images
-                                                }}
-                                                fileType="image"
-                                                sx={{ maxWidth: "30rem" }}
-                                                maxSize={5 * 1024 ** 2}
-                                                name="task-image"
-                                                onDrop={(images) =>
-                                                    setFieldValue(
-                                                        "images",
-                                                        images
-                                                    )
-                                                }
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Row className="my-4">
-                                        <Col md={6}>
-                                            <CustomDropZone
-                                                accept={[MIME_TYPES.mp4]}
-                                                fileType="video"
-                                                maxSize={100 * 1024 ** 2}
-                                                sx={{ maxWidth: "30rem" }}
-                                                name="task-video"
-                                                onDrop={(videos) =>
-                                                    setFieldValue(
-                                                        "videos",
-                                                        videos
-                                                    )
-                                                }
-                                            />
-                                        </Col>
-                                    </Row>
+                                    <Col md={6} className={"mb-4"}>
+                                        <MultiFileDropzone
+                                            name="images"
+                                            labelName="Upload your images"
+                                            textMuted={`More than ${MaxImages} images cannot be uploaded. File supported: .jpeg, .jpg, .png. Maximum size 4MB.`}
+                                            error={
+                                                (errors.imagePreviewUrl as string) ||
+                                                (errors.images as string)
+                                            }
+                                            touch={
+                                                touched.images as unknown as boolean
+                                            }
+                                            imagePreview="imagePreviewUrl"
+                                            maxFiles={MaxImages}
+                                            maxSize={4}
+                                            multiple
+                                            showFileDetail
+                                        />
+                                    </Col>
+                                    <Col md={6}>
+                                        <MultiFileDropzone
+                                            name="videos"
+                                            labelName="Upload your Videos"
+                                            textMuted={`More than ${MaxVideos} videos cannot be uploaded. Maximum size 10MB.`}
+                                            error={
+                                                (errors.videoPreviewUrl as string) ||
+                                                (errors.videos as string)
+                                            }
+                                            touch={
+                                                touched.videos as unknown as boolean
+                                            }
+                                            accept={["video/mp4"]}
+                                            imagePreview="videoPreviewUrl"
+                                            maxFiles={MaxVideos}
+                                            maxSize={100}
+                                            multiple
+                                            showFileDetail
+                                        />
+                                    </Col>
                                     {offer &&
                                         offer.filter(
                                             (item) =>

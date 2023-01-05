@@ -217,7 +217,7 @@ export const UserTaskDetailHeader = ({
                             happyCustomers={taskerDetail?.stats?.happy_clients}
                             rewardPercentage={taskerDetail?.stats?.success_rate}
                             taskCompleted={taskerDetail?.stats?.task_completed}
-                            rank={"12"}
+                            rank={taskerDetail?.badge?.title}
                         />
                     </div>
                 </Col>

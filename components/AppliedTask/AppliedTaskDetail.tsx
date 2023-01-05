@@ -6,14 +6,16 @@ import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
 import {
+    faCalendar,
     faClockEight,
-    faEye,
     faLocationDot,
+    faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { Tooltip } from "@mantine/core";
 import {
     CalendarTodayOutlined,
     Check,
@@ -232,35 +234,49 @@ const AppliedTaskDetail = ({
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
-                    <p className="d-flex align-items-center">
-                        <LocationOnOutlined className="svg-icon svg-icon-location" />
-                        <span>
-                            {" "}
-                            {taskDetail?.city?.name
-                                ? taskDetail?.city?.name
-                                : "Not Provided"}
-                        </span>
-                    </p>
-                    {taskDetail?.created_at && (
+                    <Tooltip.Floating label="Task Location" color={"blue"}>
                         <p className="d-flex align-items-center">
-                            <CalendarTodayOutlined className="svg-icon svg-icon-calender" />
-                            {format(new Date(taskDetail?.created_at), "PP")}
+                            <LocationOnOutlined className="svg-icon svg-icon-location" />
+                            <span>
+                                {" "}
+                                {taskDetail?.city?.name
+                                    ? taskDetail?.city?.name
+                                    : "Not Provided"}
+                            </span>
                         </p>
+                    </Tooltip.Floating>
+
+                    {taskDetail?.created_at && (
+                        <Tooltip.Floating label="Date Posted" color={"blue"}>
+                            <p className="d-flex align-items-center">
+                                <CalendarTodayOutlined className="svg-icon svg-icon-calender" />
+                                {format(new Date(taskDetail?.created_at), "PP")}
+                            </p>
+                        </Tooltip.Floating>
                     )}
-                    <p className="d-flex align-items-center">
-                        <ScheduleOutlined className="svg-icon svg-icon-clock" />
-                        {taskDetail?.updated_at
-                            ? format(new Date(taskDetail?.updated_at), "p")
-                            : "N/A"}
-                    </p>
-                    <p className="d-flex align-items-center">
-                        <VisibilityOutlined className="svg-icon svg-icon-eye" />
-                        <span> 200 Views</span>
-                    </p>
-                    <p className="d-flex align-items-center">
-                        <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
-                        <span> {taskDetail.count} Applied</span>
-                    </p>
+                    <Tooltip.Floating label="Time posted" color={"blue"}>
+                        <p className="d-flex align-items-center">
+                            <ScheduleOutlined className="svg-icon svg-icon-clock" />
+                            {taskDetail?.updated_at
+                                ? format(new Date(taskDetail?.updated_at), "p")
+                                : "N/A"}
+                        </p>
+                    </Tooltip.Floating>
+                    {/* <Tooltip.Floating label="No. of Application" color={"blue"}>
+                        <p className="d-flex align-items-center">
+                            <FontAwesomeIcon
+                                icon={faEye}
+                                className="svg-icon svg-icon-eye"
+                            />
+                            <span> 200 Views</span>
+                        </p>
+                    </Tooltip.Floating> */}
+                    <Tooltip.Floating label="No. of Application" color={"blue"}>
+                        <p className="d-flex align-items-center">
+                            <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
+                            <span> {taskDetail.count} Applied</span>
+                        </p>
+                    </Tooltip.Floating>
                 </div>
 
                 <div className="task-detail__desc">

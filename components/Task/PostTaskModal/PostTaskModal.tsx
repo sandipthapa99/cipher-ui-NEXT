@@ -122,6 +122,10 @@ export const PostTaskModal = () => {
         }
     };
 
+    //To assign max file number of Images and videos
+    const MaxImages = 5;
+    const MaxVideos = 1;
+
     const { mutate, isLoading } = useEntityService(is_requested);
 
     const showPostTaskModal = useShowPostTaskModal();
@@ -233,7 +237,11 @@ export const PostTaskModal = () => {
                         is_terms_condition: entityService ? true : false,
                         share_location: true,
                     }}
-                    validationSchema={postEntityServiceSchema(is_requested)}
+                    validationSchema={postEntityServiceSchema(
+                        is_requested,
+                        MaxImages,
+                        MaxVideos
+                    )}
                     onSubmit={async (values: PostTaskPayloadProps, actions) => {
                         let newUploadImageID: number[] = [];
                         if (values.images.some((val) => val?.path)) {
@@ -300,6 +308,7 @@ export const PostTaskModal = () => {
                                 : null,
                             extra_data: [],
                         };
+
                         //To remove unneccessary fields
                         delete postTaskPayload.imagePreviewUrl;
                         delete postTaskPayload.videoPreviewUrl;
@@ -565,11 +574,14 @@ export const PostTaskModal = () => {
                                     <MultiFileDropzone
                                         name="images"
                                         labelName="Upload your images"
-                                        textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 4MB."
-                                        error={errors.images as string}
+                                        textMuted={`More than ${MaxImages} images cannot be uploaded. File supported: .jpeg, .jpg, .png. Maximum size 4MB.`}
+                                        error={
+                                            (errors.imagePreviewUrl as string) ||
+                                            (errors.images as string)
+                                        }
                                         touch={touched.images as boolean}
                                         imagePreview="imagePreviewUrl"
-                                        maxFiles={5}
+                                        maxFiles={MaxImages}
                                         maxSize={4}
                                         multiple
                                         showFileDetail
@@ -580,12 +592,15 @@ export const PostTaskModal = () => {
                                     <MultiFileDropzone
                                         name="videos"
                                         labelName="Upload your Video"
-                                        textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 4MB."
-                                        error={errors.videos as string}
+                                        textMuted={`More than ${MaxVideos} videos cannot be uploaded. Maximum size 10MB.`}
+                                        error={
+                                            (errors.videoPreviewUrl as string) ||
+                                            (errors.videos as string)
+                                        }
                                         touch={touched.videos as boolean}
                                         imagePreview="videoPreviewUrl"
                                         accept={["video/mp4"]}
-                                        maxFiles={2}
+                                        maxFiles={MaxVideos}
                                         maxSize={100}
                                         multiple
                                         showFileDetail
@@ -612,7 +627,7 @@ export const PostTaskModal = () => {
                                                 Accept all{" "}
                                                 <Link
                                                     passHref
-                                                    href="/terms-and-conditions"
+                                                    href="/terms-conditions"
                                                 >
                                                     <Anchor>
                                                         Terms and Conditions

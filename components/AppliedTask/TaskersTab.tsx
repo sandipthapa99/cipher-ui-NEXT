@@ -1,19 +1,10 @@
 import { ApplicantsCard } from "@components/common/ApplicantsCard";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Loader } from "@mantine/core";
 import { ErrorOutlineOutlined } from "@mui/icons-material";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import urls from "constants/urls";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useGetMyBookings } from "hooks/task/use-get-service-booking";
 // import type { MyBookings } from "hooks/task/use-get-service-booking";
-import { useData } from "hooks/use-data";
-import type { GetStaticProps } from "next";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskApplicantsProps } from "types/task";
-import { axiosClient } from "utils/axiosClient";
 
 export const TaskersTab = ({
     taskId,
@@ -56,7 +47,7 @@ export const TaskersTab = ({
                     title={""}
                     color="orange"
                 >
-                    {`You can't view the applicants`}
+                    {`There are no applicants yet`}
                 </Alert>
             ) : TaskApplicantLoading ? (
                 <Loader />
@@ -149,7 +140,7 @@ export const TaskersTab = ({
                             title={""}
                             color="orange"
                         >
-                            {`You can't view the applicants`}
+                            {`There are no applicants yet`}
                         </Alert>
                     )}
                 </>
