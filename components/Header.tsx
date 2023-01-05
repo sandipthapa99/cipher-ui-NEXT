@@ -1,17 +1,11 @@
 import {
-    faAngleDown,
-    faBell,
-    faListCheck,
     faLocationDot,
     faMessageCaptions,
-    faObjectsColumn,
-    faTelescope,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Indicator } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import {
-    ArrowDownward,
     DashboardOutlined,
     ExploreOutlined,
     KeyboardArrowDown,
