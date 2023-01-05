@@ -12,6 +12,7 @@ import {
 import type { DropzoneProps } from "@mantine/dropzone";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
+import { Close } from "@mui/icons-material";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Media } from "types/task";
@@ -297,7 +298,7 @@ const PreviewFiles = ({
                                     onFileRemove(!!file.isUploaded, file.name);
                                 }}
                             >
-                                <FontAwesomeIcon icon={faRemove} />
+                                <Close />
                             </ActionIcon>
                         </Box>
                         <Text align="center" size="xs">
