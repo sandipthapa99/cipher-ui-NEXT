@@ -2,11 +2,12 @@ import ShareIcon from "@components/common/ShareIcon";
 import { ReviewModal } from "@components/Review/ReviewModal";
 import { ApprovedTaskDetail } from "@components/SearchTask/ApprovedTaskDetail";
 import BookingDetails from "@components/SearchTask/BookingDetails";
-import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
-import { faHourglassClock } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, RingProgress, Text } from "@mantine/core";
 import { Badge } from "@mantine/core";
+import {
+    HourglassBottomOutlined,
+    LocationOnOutlined,
+} from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -152,17 +153,11 @@ export const OtherBookedTaskCard = ({
                     >
                         <div className="name-and-location">
                             <div className="d-flex align-items-center location">
-                                <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="svg-icon me-4"
-                                />
+                                <LocationOnOutlined className="svg-icon me-4" />
                                 <span>{location}</span>
                             </div>
                             <div className="time d-flex align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faHourglassClock}
-                                    className="svg-icon ms-1 me-4"
-                                />
+                                <HourglassBottomOutlined className="svg-icon ms-1 me-4" />
                                 {start_date &&
                                     format(new Date(start_date), "PPP")}
                             </div>
