@@ -1,7 +1,6 @@
 import {
     faArrowRightFromBracket,
     faChartSimpleHorizontal,
-    faGauge,
     faGear,
     faGift,
     faSackDollar,
@@ -10,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
+import { Dashboard, GridViewOutlined } from "@mui/icons-material";
 import { useLogout } from "hooks/auth/useLogout";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
@@ -126,7 +126,7 @@ const PROFILE_LINKS = {
     sectionOne: [
         {
             title: "My Dashboard",
-            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
+            icon: <GridViewOutlined style={{ color: REGULAR_ICON_COLOR }} />,
             href: "/home",
             color: "#495057",
         },
