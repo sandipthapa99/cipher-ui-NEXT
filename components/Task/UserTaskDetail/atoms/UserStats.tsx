@@ -7,7 +7,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mantine/core";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
 
 interface UserStatsProps {
     happyCustomers: number;

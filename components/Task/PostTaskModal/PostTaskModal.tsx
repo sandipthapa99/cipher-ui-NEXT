@@ -637,7 +637,7 @@ export const PostTaskModal = () => {
                                                 Accept all{" "}
                                                 <Link
                                                     passHref
-                                                    href="/terms-and-conditions"
+                                                    href="/terms-conditions"
                                                 >
                                                     <Anchor>
                                                         Terms and Conditions
