@@ -4,10 +4,7 @@ import MantineDateField from "@components/common/MantineDateField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import { RichText } from "@components/RichText";
-import {
-    faCalendarDays,
-    faSquareCheck,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -160,12 +157,14 @@ const EducationForm = ({
                                 /> */}
                                 <h4>Description</h4>
                                 <RichText
-                                    {...getFieldProps("description")}
+                                    name="description"
                                     value={values?.description ?? ""}
                                     onChange={(value) =>
                                         setFieldValue("description", value)
                                     }
                                     placeholder="Description"
+                                    error={errors.description as string}
+                                    touched={touched.description as boolean}
                                 />
                                 <InputField
                                     name="degree"

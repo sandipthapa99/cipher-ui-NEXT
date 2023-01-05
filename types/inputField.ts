@@ -2,6 +2,7 @@ export interface InputFieldProps {
     name: string;
     labelName?: string;
     touch?: boolean;
+    withAsterisk?: boolean;
     error?: string;
     placeHolder?: string;
     textMuted?: string;

@@ -11,6 +11,7 @@ const MantineInputField = ({
     placeHolder,
     labelName,
     fieldRequired,
+    withAsterisk,
     ...rest
 }: InputFieldProps & InputHTMLAttributes<HTMLInputElement>) => {
     const errTouch = error && touch ? error : null;
@@ -22,6 +23,7 @@ const MantineInputField = ({
                     {...rest}
                     placeholder={placeHolder}
                     label={labelName}
+                    withAsterisk={withAsterisk}
                     name={name}
                     error={errTouch}
                     size="md"
