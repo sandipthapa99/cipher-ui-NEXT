@@ -3,6 +3,7 @@ import CardBtn from "@components/common/CardBtn";
 import { faCircleCheck } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
+import { CheckCircleOutlineOutlined } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
@@ -44,10 +45,7 @@ const ProfileSuccessModalCard = ({
             >
                 <div className="content d-flex align-items-center justify-content-center flex-column">
                     <div className="icon-block">
-                        <FontAwesomeIcon
-                            icon={faCircleCheck}
-                            className="check-icon"
-                        />
+                        <CheckCircleOutlineOutlined className="check-icon" />
                     </div>
                     <h1>Profile Created</h1>
                     <p>Now, you can post tasks and services.</p>

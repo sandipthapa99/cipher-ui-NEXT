@@ -1,6 +1,7 @@
 import Layout from "@components/Layout";
 import { faFileCircleXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { HighlightOffOutlined } from "@mui/icons-material";
 import Link from "next/link";
 
 const PageNotFound = () => {
@@ -8,10 +9,7 @@ const PageNotFound = () => {
         <Layout>
             <section className="page-not-found d-flex flex-column justify-content-center align-items-center">
                 <div className="not-found-icon">
-                    <FontAwesomeIcon
-                        icon={faFileCircleXmark}
-                        className="icon"
-                    />
+                    <HighlightOffOutlined className="icon" />
                 </div>
                 <h1>Page not found</h1>
                 <p>
