@@ -8,6 +8,7 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { faEnvelope, faMobile } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Tooltip } from "@mantine/core";
+import { EmailOutlined, PhoneIphoneOutlined } from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
@@ -162,12 +163,17 @@ const Login = () => {
                                         size={48}
                                         style={{ width: 112 }}
                                     >
-                                        <FontAwesomeIcon
-                                            icon={
-                                                is_email ? faMobile : faEnvelope
-                                            }
-                                            className="text-black"
-                                        />
+                                        {is_email ? (
+                                            <PhoneIphoneOutlined
+                                                className="text-black"
+                                                style={{ fontSize: 18 }}
+                                            />
+                                        ) : (
+                                            <EmailOutlined
+                                                className="text-black"
+                                                style={{ fontSize: 18 }}
+                                            />
+                                        )}
                                         <span
                                             style={{
                                                 color: "#343A40",
