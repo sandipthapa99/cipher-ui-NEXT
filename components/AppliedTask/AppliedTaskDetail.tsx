@@ -6,7 +6,6 @@ import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
 import {
-    faCalendar,
     faClockEight,
     faEye,
     faLocationDot,
@@ -15,7 +14,10 @@ import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { SupervisorAccountOutlined } from "@mui/icons-material";
+import {
+    CalendarTodayOutlined,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -239,10 +241,7 @@ const AppliedTaskDetail = ({
                     </p>
                     {taskDetail?.created_at && (
                         <p className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faCalendar}
-                                className="svg-icon svg-icon-calender"
-                            />
+                            <CalendarTodayOutlined className="svg-icon svg-icon-calender" />
                             {format(new Date(taskDetail?.created_at), "PP")}
                         </p>
                     )}

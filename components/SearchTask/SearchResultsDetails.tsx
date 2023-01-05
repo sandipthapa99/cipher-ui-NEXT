@@ -10,7 +10,6 @@ import { Tab } from "@components/common/Tab";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
-    faCalendar,
     faChevronLeft,
     faClockEight,
     faLocationDot,
@@ -21,7 +20,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Grid, List, Select, Skeleton } from "@mantine/core";
 import { Alert } from "@mantine/core";
-import { SupervisorAccountOutlined } from "@mui/icons-material";
+import {
+    CalendarTodayOutlined,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -398,10 +400,7 @@ const SearchResultsDetail = ({
                             : "N/A"}
                     </p>
                     <p>
-                        <FontAwesomeIcon
-                            icon={faCalendar}
-                            className="svg-icon svg-icon-calender"
-                        />
+                        <CalendarTodayOutlined className="svg-icon svg-icon-calender" />
                         {serviceCreated
                             ? //format(new Date(serviceCreated), "dd-MM-yyyy")
                               format(new Date(serviceCreated), "PP")

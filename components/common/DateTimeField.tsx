@@ -1,7 +1,6 @@
 import "react-datepicker/dist/react-datepicker.css";
 
-import { faCalendar } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { ErrorMessage, Field } from "formik";
 import React from "react";
 import DateView from "react-datepicker";
@@ -54,10 +53,7 @@ const DatePickerField = ({
                     }}
                 </Field>
                 <span className="position-absolute top-50 translate-middle-y">
-                    <FontAwesomeIcon
-                        icon={faCalendar}
-                        className="svg-icon svg-icon-calender-grey ms-3"
-                    />
+                    <CalendarTodayOutlined className="svg-icon svg-icon-calender-grey ms-3" />
                 </span>
             </div>
             <ErrorMessage

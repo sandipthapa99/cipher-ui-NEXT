@@ -1,9 +1,6 @@
-import {
-    faCalendar,
-    faClock,
-    faMoneyBill,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faClock, faMoneyBill } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import { useMyTasks } from "hooks/task/use-my-tasks";
 import { FormCheck, Modal } from "react-bootstrap";
@@ -39,11 +36,7 @@ export const HireMerchantModal = ({
                         <p className="hmm-value-text">{project?.description}</p>
                         <div className="hmm-time-and-charge-icons">
                             <span className="hmm-icon-text align-items-center">
-                                <FontAwesomeIcon
-                                    className="svg-icon"
-                                    color="#F06700"
-                                    icon={faCalendar}
-                                />
+                                <CalendarTodayOutlined className="svg-icons" />
                                 <p className="hmm-value-text">
                                     {project?.created_at &&
                                         format(

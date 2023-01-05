@@ -1,10 +1,12 @@
 import {
-    faCalendar,
     faClockEight,
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SupervisorAccountOutlined } from "@mui/icons-material";
+import {
+    CalendarTodayOutlined,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -67,10 +69,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                                 {location}
                             </p>
                             <p className="d-flex align-items-center date pe-4 my-3 my-sm-0">
-                                <FontAwesomeIcon
-                                    icon={faCalendar}
-                                    className="svg-icon"
-                                />
+                                <CalendarTodayOutlined className="svg-icon" />
                                 {task.created_at
                                     ? format(
                                           new Date(task.created_at),

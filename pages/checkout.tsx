@@ -1,11 +1,7 @@
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
-import {
-    faCalendar,
-    faClock,
-    faLocationDot,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faClock, faLocationDot } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import {
@@ -17,6 +13,7 @@ import {
     Skeleton,
     Text,
 } from "@mantine/core";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -377,11 +374,7 @@ export default function Checkout() {
                                                     <div className="d-flex">
                                                         <p>
                                                             <span className="icon calendar-icon">
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCalendar
-                                                                    }
-                                                                />
+                                                                <CalendarTodayOutlined />
                                                             </span>{" "}
                                                             {format(
                                                                 new Date(

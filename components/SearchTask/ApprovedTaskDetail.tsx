@@ -3,7 +3,6 @@ import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import {
-    faCalendar,
     faClockEight,
     faEye,
     faLocationDot,
@@ -12,7 +11,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Modal } from "@mantine/core";
-import { SupervisorAccountOutlined } from "@mui/icons-material";
+import {
+    CalendarTodayOutlined,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
@@ -223,10 +225,7 @@ export const ApprovedTaskDetail = ({
                     </p>
                     {approvedTask?.data?.created_at && (
                         <p className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faCalendar}
-                                className="svg-icon svg-icon-calender"
-                            />
+                            <CalendarTodayOutlined className="svg-icon svg-icon-calender" />
                             {format(
                                 new Date(approvedTask?.data?.created_at),
                                 "PP"

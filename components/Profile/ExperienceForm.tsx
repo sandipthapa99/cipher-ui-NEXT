@@ -5,12 +5,9 @@ import SelectInputField from "@components/common/SelectInputField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import { RichText } from "@components/RichText";
-import {
-    faCalendarDays,
-    faSquareCheck,
-} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox, Textarea } from "@mantine/core";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -276,10 +273,7 @@ const ExperienceForm = ({
                                     )}
                                     //fieldRequired={true}
                                     icon={
-                                        <FontAwesomeIcon
-                                            icon={faCalendarDays}
-                                            className="svg-icons"
-                                        />
+                                        <CalendarTodayOutlined className="svg-icons" />
                                     }
                                     handleChange={(value) => {
                                         setFieldValue(
@@ -310,10 +304,7 @@ const ExperienceForm = ({
                                     error={errors.end_date}
                                     disabled={toggle ? true : false}
                                     icon={
-                                        <FontAwesomeIcon
-                                            icon={faCalendarDays}
-                                            className="svg-icons"
-                                        />
+                                        <CalendarTodayOutlined className="svg-icons" />
                                     }
                                     handleChange={(value) => {
                                         setFieldValue(

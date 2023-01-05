@@ -10,16 +10,14 @@ import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import { SelectCity } from "@components/SelectCity";
 import { faCamera } from "@fortawesome/pro-light-svg-icons";
-import {
-    faCalendarDays,
-    faSquareCheck,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { MultiSelect } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -841,10 +839,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 error={errors.date_of_birth}
                                 touch={touched.date_of_birth}
                                 icon={
-                                    <FontAwesomeIcon
-                                        icon={faCalendarDays}
-                                        className="svg-icons"
-                                    />
+                                    <CalendarTodayOutlined className="svg-icons" />
                                 }
                                 disabled={isInputDisabled}
                                 handleChange={(value) => {

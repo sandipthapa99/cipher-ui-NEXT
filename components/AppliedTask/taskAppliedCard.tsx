@@ -1,11 +1,13 @@
 import ShareIcon from "@components/common/ShareIcon";
 import {
-    faCalendar,
     faClockEight,
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SupervisorAccountOutlined } from "@mui/icons-material";
+import {
+    CalendarTodayOutlined,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
@@ -118,10 +120,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                                 </span>
                             </span>
                             <span className="date d-flex align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faCalendar}
-                                    className="svg-icon"
-                                />
+                                <CalendarTodayOutlined className="svg-icon" />
                                 <span>
                                     {" "}
                                     {task?.created_at
