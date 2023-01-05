@@ -1,6 +1,5 @@
 import {
     faArrowRightFromBracket,
-    faChartSimpleHorizontal,
     faGear,
     faGift,
     faSackDollar,
@@ -9,7 +8,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
-import { Dashboard, GridViewOutlined } from "@mui/icons-material";
+import {
+    AccountCircleOutlined,
+    Dashboard,
+    GridViewOutlined,
+} from "@mui/icons-material";
 import { useLogout } from "hooks/auth/useLogout";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
@@ -133,10 +136,7 @@ const PROFILE_LINKS = {
         {
             title: "Profile",
             icon: (
-                <FontAwesomeIcon
-                    color={REGULAR_ICON_COLOR}
-                    icon={faChartSimpleHorizontal}
-                />
+                <AccountCircleOutlined style={{ color: REGULAR_ICON_COLOR }} />
             ),
             href: "/profile",
             color: "#495057",
