@@ -6,7 +6,6 @@ import {
     faGear,
     faLocationDot,
     faPhone,
-    faSparkles,
     faStar as emptyStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
@@ -16,6 +15,7 @@ import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
 import { Rating } from "@mantine/core";
+import { ScienceOutlined } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
@@ -195,7 +195,7 @@ const UserProfileCard = ({
                                     const files = event.target.files;
                                     field?.("image", (files ?? [])[0]);
                                     setImage(files[0]);
-                                    
+
                                     setShowEditForm(!showEditForm);
                                 }}
                             />
@@ -372,10 +372,7 @@ const UserProfileCard = ({
                                 </div>
 
                                 <div className="type d-flex flex-wrap flex-col">
-                                    <FontAwesomeIcon
-                                        icon={faSparkles}
-                                        className="thumbnail-img"
-                                    />
+                                    <ScienceOutlined className="thumbnail-img" />
                                     {services
                                         ? services.map(
                                               (info: any, index: any) => (

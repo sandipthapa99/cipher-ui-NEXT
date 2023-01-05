@@ -1,12 +1,12 @@
 import Spoiler from "@components/Spoiler/Spoiler";
 import {
     faLocationDot,
-    faSparkles,
     faTimer,
     faUser,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, Text } from "@mantine/core";
+import { ScienceOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import { Col, Row } from "react-bootstrap";
 import type { ITasker } from "types/tasker";
@@ -83,7 +83,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                 </div>
 
                 <div className="td-user-short-intro-text skills">
-                    <FontAwesomeIcon icon={faSparkles} className="svg-icon" />
+                    <ScienceOutlined className="svg-icon" />
 
                     {userSkills
                         ? userSkills.map((info: any, index: any) => (
