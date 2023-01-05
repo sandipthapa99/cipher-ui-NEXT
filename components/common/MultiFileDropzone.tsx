@@ -159,6 +159,7 @@ const MultiFileDropzone = ({
                                     },
                                 }}
                                 onDrop={(files) => {
+                                    form.setFieldTouched(name);
                                     const multipleFiles = files.map(
                                         (file, index) => {
                                             const src =
