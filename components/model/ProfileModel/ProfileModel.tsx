@@ -1,5 +1,4 @@
 import {
-    faArrowRightFromBracket,
     faGear,
     faGift,
     faSackDollar,
@@ -12,6 +11,7 @@ import {
     ConfirmationNumberOutlined,
     Dashboard,
     GridViewOutlined,
+    LogoutOutlined,
     RedeemOutlined,
     SavingsOutlined,
 } from "@mui/icons-material";
@@ -112,11 +112,7 @@ export const ProfileModel = () => {
                             sx={{ fontWeight: 500 }}
                             color={"red"}
                             variant="white"
-                            leftIcon={
-                                <FontAwesomeIcon
-                                    icon={faArrowRightFromBracket}
-                                />
-                            }
+                            leftIcon={<LogoutOutlined />}
                             onClick={logout}
                         >
                             Logout
