@@ -1,5 +1,4 @@
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Star } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
@@ -131,10 +130,7 @@ const MerchantCard = ({
                         </div>
                         <div className="ratings-wrapper d-flex justify-content-between">
                             <p className="ratings d-flex align-items-center justify-content-sm-center">
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="svg-icon star"
-                                />
+                                <Star className="svg-icon star" />
                                 {merchantRating && merchantRating > 0
                                     ? merchantRating?.toFixed(2)
                                     : 0}
