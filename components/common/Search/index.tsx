@@ -2,6 +2,7 @@ import { faSearch, faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, createStyles, LoadingOverlay, Select } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { useFormik } from "formik";
@@ -164,7 +165,7 @@ export const Search = () => {
             {searchError && (
                 <Alert
                     title="Search failed"
-                    icon={<FontAwesomeIcon icon={faWarning} />}
+                    icon={<ErrorOutlineOutlined />}
                     color="red"
                     withCloseButton
                     closeButtonLabel="Close"

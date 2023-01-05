@@ -23,6 +23,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -102,7 +103,7 @@ const Home: NextPage<{
         <Layout
             title="Homaale - Catering Your Requirements"
             description="Homaale is a platform designed to provide service booking solutions to the
-             service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+             service seekers and business opportunities to various service providing companies by bridging a gap between them.
             It covers a wide range of services from various industries like Accounting, Gardening,
              Health, Beauty, and many more."
             keywords="homaale"
@@ -213,7 +214,7 @@ const Home: NextPage<{
                             </Carousel>
                         ) : (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -441,7 +442,7 @@ const Home: NextPage<{
                     {heroCategoryData ??
                         (heroCategoryData?.result.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -545,7 +546,7 @@ const Home: NextPage<{
                         {topTaskerData?.result &&
                             topTaskerData?.result?.length <= 0 && (
                                 <Alert
-                                    icon={<FontAwesomeIcon icon={faWarning} />}
+                                    icon={<ErrorOutlineOutlined />}
                                     title="No data Available"
                                     color="orange"
                                     radius="md"
@@ -713,7 +714,7 @@ const Home: NextPage<{
                     </div>
                     {topCategoryData?.length <= 0 && (
                         <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            icon={<ErrorOutlineOutlined />}
                             title="No data Available"
                             color="orange"
                             radius="md"
@@ -849,8 +850,8 @@ const Home: NextPage<{
                             <MarketPlaceCard
                                 icon="/icons/globe-location.svg"
                                 title="Location"
-                                description="It is always convenient to be connected to the clients and the tasks 
-                                closer to you. With us, you can view who or which tasks are closer to you or your 
+                                description="It is always convenient to be connected to the clients and the tasks
+                                closer to you. With us, you can view who or which tasks are closer to you or your
                                     preferred location."
                                 redirectionTo="/service"
                                 iconBackground="#CDE9F9"
@@ -889,7 +890,7 @@ const Home: NextPage<{
                         {/* <TopCategories /> */}
                         {topCategoryData?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"

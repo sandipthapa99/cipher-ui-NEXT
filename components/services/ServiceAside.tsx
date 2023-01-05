@@ -4,6 +4,7 @@ import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, ScrollArea } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { useServices } from "hooks/service/use-services";
 import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
@@ -118,7 +119,7 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                         ) : null}
                         {!isLoading && !searchParam && totalServices === 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="Services Unavailable"
                                 variant="filled"
                                 color="yellow"

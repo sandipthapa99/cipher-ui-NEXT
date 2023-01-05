@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ITasker } from "types/tasker";
@@ -83,7 +84,7 @@ const ServiceList = ({
             {!taskerService ||
                 (taskerService?.result?.length <= 0 && (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"

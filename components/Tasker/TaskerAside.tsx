@@ -4,6 +4,7 @@ import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, ScrollArea } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { useSearchedTaskers } from "components/common/Search/searchStore";
 import { useTaskers } from "hooks/tasker/use-taskers";
 import { useInViewPort } from "hooks/use-in-viewport";
@@ -95,7 +96,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                             {renderTaskCards}
                             {!isLoading && !searchParam && totalTaskers === 0 && (
                                 <Alert
-                                    icon={<FontAwesomeIcon icon={faWarning} />}
+                                    icon={<ErrorOutlineOutlined />}
                                     title="Taskers Unavailable"
                                     variant="filled"
                                     color="yellow"

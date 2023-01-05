@@ -13,6 +13,7 @@ import { Carousel } from "@mantine/carousel";
 import { Alert, Modal } from "@mantine/core";
 import {
     CalendarTodayOutlined,
+    ErrorOutlineOutlined,
     SupervisorAccountOutlined,
 } from "@mui/icons-material";
 import { format } from "date-fns";
@@ -272,7 +273,7 @@ export const ApprovedTaskDetail = ({
                     </>
                 ) : (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"
