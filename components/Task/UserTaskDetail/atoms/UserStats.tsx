@@ -1,10 +1,10 @@
-import {
-    faBarChart,
-    faSmile,
-    faTire,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faSmile, faTire } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { RecommendOutlined } from "@mui/icons-material";
+import {
+    RecommendOutlined,
+    SentimentVerySatisfiedOutlined,
+    TaskOutlined,
+} from "@mui/icons-material";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 
@@ -24,10 +24,9 @@ export const UserStats = ({
     return (
         <Row className="td-mt-24 justify-content-between">
             <Col className="type d-flex">
-                <FontAwesomeIcon
-                    color="#F98900"
+                <SentimentVerySatisfiedOutlined
                     className="svg-icon"
-                    icon={faSmile}
+                    // color="#F98900"
                 />
                 <span>{happyCustomers}</span>
             </Col>
@@ -36,10 +35,9 @@ export const UserStats = ({
                 <span>{+rewardPercentage?.toFixed(2)}%</span>
             </Col>
             <Col className="type d-flex">
-                <FontAwesomeIcon
-                    className="svg-icon"
-                    color="#752DE8"
-                    icon={faBarChart}
+                <TaskOutlined
+                    className="svg-icons"
+                    // color="#752DE8"
                 />
                 <span>{taskCompleted}</span>
             </Col>
