@@ -1,7 +1,12 @@
 import { faCrab, faObjectsColumn } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Box, Navbar, ScrollArea } from "@mantine/core";
-import { NotificationsOutlined, PersonOutlined } from "@mui/icons-material";
+import {
+    DashboardOutlined,
+    Insights,
+    NotificationsOutlined,
+    PersonOutlined,
+} from "@mui/icons-material";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
@@ -203,19 +208,13 @@ const Layout: FC<MetaDataProps> = ({
                                     </Link>
                                 </div>
                                 <div className="d-flex align-items-center gap-4 text-icon">
-                                    <FontAwesomeIcon
-                                        icon={faObjectsColumn}
-                                        className="side-bar-icon"
-                                    />
+                                    <DashboardOutlined className="side-bar-icon" />
                                     <Link href="/category">
                                         <p>Categories</p>
                                     </Link>
                                 </div>
                                 <div className="d-flex align-items-center gap-4 text-icon">
-                                    <FontAwesomeIcon
-                                        icon={faCrab}
-                                        className="side-bar-icon"
-                                    />
+                                    <Insights className="side-bar-icon" />
                                     <Link href="/rasifal">
                                         <p>Rashifal</p>
                                     </Link>
