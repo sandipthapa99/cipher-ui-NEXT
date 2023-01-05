@@ -3,6 +3,7 @@ import { PaymentSuccessSkeleton } from "@components/Skeletons/PaymentSuccessSkel
 import { faDashboard, faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Box, Button } from "@mantine/core";
+import { DashboardOutlined, ErrorOutlineOutlined } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import Image from "next/image";
@@ -101,7 +102,7 @@ const PaymentSuccess = () => {
             <Layout
                 title="Payment Verification | Homaale"
                 description="Homaale is a platform designed to provide service booking solutions to the
-            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+            service seekers and business opportunities to various service providing companies by bridging a gap between them.
              It covers a wide range of services from various industries like Accounting, Gardening,
             Health, Beauty, and many more."
                 keywords="homaale, airtasker-nepali,nepali-working-platform, homaale-payment, ecommerce, homaale-feeback, business, online-business"
@@ -123,10 +124,7 @@ const PaymentSuccess = () => {
                                     >
                                         <Alert
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faWarning}
-                                                    className="svg-icon me-0"
-                                                />
+                                                <ErrorOutlineOutlined className="svg-icon me-0" />
                                             }
                                             color="yellow"
                                             title="Payment already processed"
@@ -163,10 +161,7 @@ const PaymentSuccess = () => {
                                             color="yellow"
                                             onClick={navigateToDashboard}
                                             leftIcon={
-                                                <FontAwesomeIcon
-                                                    className="svg-icon me-0"
-                                                    icon={faDashboard}
-                                                />
+                                                <DashboardOutlined className="svg-icon me-0" />
                                             }
                                         >
                                             Go to Dashboard
