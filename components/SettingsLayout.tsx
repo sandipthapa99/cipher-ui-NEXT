@@ -1,23 +1,10 @@
 import {
-    faBell,
-    faFileInvoiceDollar,
-    faGlobe,
-    faKey,
-    faLifeRing,
-    faLinkSimple,
-    faUser,
-    faUserTag,
-    faXmark,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
     BadgeOutlined,
     CancelOutlined,
     KeyOutlined,
     LanguageOutlined,
     LinkOutlined,
     NotificationsOutlined,
-    Person,
     PersonOutlined,
     RequestQuoteOutlined,
     SupportOutlined,

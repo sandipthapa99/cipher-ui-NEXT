@@ -1,12 +1,7 @@
-import {
-    faBell,
-    faCrab,
-    faObjectsColumn,
-    faUser,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faCrab, faObjectsColumn } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Box, Navbar, ScrollArea } from "@mantine/core";
-import { PersonOutlined } from "@mui/icons-material";
+import { NotificationsOutlined, PersonOutlined } from "@mui/icons-material";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
@@ -196,10 +191,7 @@ const Layout: FC<MetaDataProps> = ({
     > */}
                             <div className="all-sidebar-items">
                                 <div className="d-flex align-items-center gap-4 text-icon">
-                                    <FontAwesomeIcon
-                                        icon={faBell}
-                                        className="side-bar-icon"
-                                    />
+                                    <NotificationsOutlined className="side-bar-icon" />
                                     <Link href="/how-it-works">
                                         <p>How it works</p>
                                     </Link>

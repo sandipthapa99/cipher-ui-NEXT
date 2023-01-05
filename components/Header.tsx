@@ -15,6 +15,7 @@ import {
     DashboardOutlined,
     ExploreOutlined,
     KeyboardArrowDown,
+    NotificationsOutlined,
     PersonSearchOutlined,
     PlagiarismOutlined,
 } from "@mui/icons-material";
@@ -216,16 +217,10 @@ const Header = () => {
                                                 inline
                                                 size={15}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faBell}
-                                                    className="svg-icon"
-                                                />
+                                                <NotificationsOutlined className="svg-icon" />
                                             </Indicator>
                                         ) : (
-                                            <FontAwesomeIcon
-                                                icon={faBell}
-                                                className="svg-icon"
-                                            />
+                                            <NotificationsOutlined className="svg-icon" />
                                         )}
                                     </div>
                                 </a>

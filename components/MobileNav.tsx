@@ -1,11 +1,6 @@
-import {
-    faBars,
-    faBell,
-    faHome,
-    faUser,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faBars, faHome } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PersonOutlined } from "@mui/icons-material";
+import { NotificationsOutlined, PersonOutlined } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -80,7 +75,7 @@ const MobileNav = ({ getSide }: MobileProps) => {
                             router
                         )}`}
                     >
-                        <FontAwesomeIcon icon={faBell} className="nav-icon" />
+                        <NotificationsOutlined className="nav-icon" />
                     </a>
                 </Link>
                 <Link href="">
