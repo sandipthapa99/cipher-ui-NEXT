@@ -1,18 +1,10 @@
-import { ApplicantsCard } from "@components/common/ApplicantsCard";
+import { ApplicantCard } from "@components/SearchTask/ApplicantCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Loader } from "@mantine/core";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import urls from "constants/urls";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useGetMyBookings } from "hooks/task/use-get-service-booking";
-// import type { MyBookings } from "hooks/task/use-get-service-booking";
-import { useData } from "hooks/use-data";
-import type { GetStaticProps } from "next";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskApplicantsProps } from "types/task";
-import { axiosClient } from "utils/axiosClient";
 
 export const TaskersTab = ({
     taskId,
@@ -30,16 +22,6 @@ export const TaskersTab = ({
             setEntityServiceId(taskId);
         }
     }, [taskId, setEntityServiceId, entityServiceId]);
-
-    // const {
-    //     data: taskApplicants,
-    //     error: Error,
-    //     isLoading: TaskApplicantLoading,
-    // } = useData<TaskApplicantsProps>(
-    //     ["get-my-applicants", entityServiceId],
-    //     `${urls.task.my_applicants}?entity_service=${taskId}&is_requested=true`,
-    //     istaskId()
-    // );
 
     const {
         data: taskApplicants,
@@ -72,10 +54,9 @@ export const TaskersTab = ({
                                         xxl={6}
                                         key={item.id}
                                     >
-                                        <ApplicantsCard
+                                        <ApplicantCard
+                                            bookingId={item?.id}
                                             collabButton={false}
-                                            id={item.id}
-                                            //  bookingId={}
                                             image={
                                                 item?.created_by?.profile_image
                                                     ? item?.created_by
@@ -83,60 +64,30 @@ export const TaskersTab = ({
                                                     : item?.created_by?.avatar
                                                           ?.image
                                             }
-                                            name={
-                                                item
-                                                    ? item.created_by.user
-                                                          .first_name +
-                                                      " " +
-                                                      item.created_by.user
-                                                          .last_name
-                                                    : ""
-                                            }
-                                            speciality={
-                                                item.created_by.designation
-                                            }
+                                            name={`${item?.created_by?.user?.first_name} ${item?.created_by?.user?.last_name}`}
                                             rating={
-                                                item.created_by?.rating
-                                                    ? item.created_by?.rating
-                                                          .avg_rating
-                                                    : 0
+                                                item?.created_by?.rating
+                                                    ?.user_rating_count
                                             }
                                             happyClients={
-                                                item
-                                                    ? item.created_by?.stats
-                                                          ?.happy_clients
-                                                    : 0
+                                                item?.created_by?.stats
+                                                    ?.happy_clients
                                             }
-                                            awardPercentage={
-                                                item
-                                                    ? item.created_by?.stats
-                                                          ?.task_completed
-                                                    : ""
-                                            }
+                                            awardPercentage={10}
                                             location={
-                                                item.created_by?.address_line1
-                                                    ? `${item?.created_by?.address_line1}, ${item?.created_by?.country?.name}`
-                                                    : ""
+                                                item?.created_by?.address_line1
                                             }
-                                            distance={"2 km"}
-                                            bio={
-                                                item ? item?.created_by.bio : ""
-                                            }
+                                            distance={""}
+                                            bio={item?.created_by?.bio}
                                             charge={
-                                                item
-                                                    ? `${item?.created_by?.charge_currency?.symbol} ${item?.created_by?.hourly_rate}`
-                                                    : ""
+                                                item?.entity_service
+                                                    ?.discount_value
                                             }
-                                            // charge={
-                                            //     item ? `${item?.budget_to}` : ""
-                                            // }
-                                            taskId={taskId}
-                                            tasker={
-                                                item
-                                                    ? item.created_by?.user.id
-                                                    : ""
+                                            tasker={item?.created_by?.user.id}
+                                            isApproved={item?.is_accepted}
+                                            designation={
+                                                item?.created_by.designation
                                             }
-                                            isTasker={false}
                                         />
                                     </Col>
                                 ) : null
