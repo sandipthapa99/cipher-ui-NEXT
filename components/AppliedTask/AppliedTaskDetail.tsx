@@ -16,7 +16,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import {
     CalendarTodayOutlined,
+    Check,
+    LocationOnOutlined,
+    ScheduleOutlined,
+    Search,
     SupervisorAccountOutlined,
+    VisibilityOutlined,
 } from "@mui/icons-material";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -228,10 +233,7 @@ const AppliedTaskDetail = ({
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon svg-icon-location"
-                        />
+                        <LocationOnOutlined className="svg-icon svg-icon-location" />
                         <span>
                             {" "}
                             {taskDetail?.city?.name
@@ -246,19 +248,13 @@ const AppliedTaskDetail = ({
                         </p>
                     )}
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon svg-icon-clock"
-                        />
+                        <ScheduleOutlined className="svg-icon svg-icon-clock" />
                         {taskDetail?.updated_at
                             ? format(new Date(taskDetail?.updated_at), "p")
                             : "N/A"}
                     </p>
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faEye}
-                            className="svg-icon svg-icon-eye"
-                        />
+                        <VisibilityOutlined className="svg-icon svg-icon-eye" />
                         <span> 200 Views</span>
                     </p>
                     <p className="d-flex align-items-center">
@@ -282,10 +278,7 @@ const AppliedTaskDetail = ({
                             )} */}
                             {taskDetail?.highlights.map((highlight, index) => (
                                 <p className="mb-4" key={index}>
-                                    <FontAwesomeIcon
-                                        icon={faCheck}
-                                        className="me-3 svg-icon svg-icon-check"
-                                    />
+                                    <Check className="me-3 svg-icon svg-icon-check" />
                                     {highlight}
                                 </p>
                             ))}
@@ -320,8 +313,7 @@ const AppliedTaskDetail = ({
                                 {
                                     index: 0,
                                     type: (
-                                        <FontAwesomeIcon
-                                            icon={faMagnifyingGlass}
+                                        <Search
                                             className="svg-icon"
                                             onClick={() =>
                                                 setShowInput(!showInput)
