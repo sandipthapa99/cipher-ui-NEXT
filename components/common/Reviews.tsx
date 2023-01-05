@@ -1,9 +1,7 @@
 import { RepliedModal } from "@components/Review/RepliedModal";
 import { ReplyModal } from "@components/Review/ReplyModal";
-import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
+import { StarBorderRounded, StarRounded } from "@mui/icons-material";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import Link from "next/link";
@@ -78,16 +76,10 @@ const Reviews = ({
                                     value={ratings}
                                     readOnly
                                     emptySymbol={
-                                        <FontAwesomeIcon
-                                            icon={emptyStar}
-                                            className="star"
-                                        />
+                                        <StarBorderRounded className="star" />
                                     }
                                     fullSymbol={
-                                        <FontAwesomeIcon
-                                            icon={faStar}
-                                            className="star"
-                                        />
+                                        <StarRounded className="star" />
                                     }
                                 />
                                 <span>{ratings > 5 ? 5 : ratings}</span>

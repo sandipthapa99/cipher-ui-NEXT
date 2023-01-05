@@ -20,10 +20,6 @@ const PasswordField = ({
 }: InputFieldProps & Partial<HTMLInputElement>) => {
     const [visible, setVisibility] = useState(false);
     const Icon = visible ? <Visibility /> : <VisibilityOff />;
-    // <FontAwesomeIcon
-    //     icon={visible ? faEye : faEyeSlash}
-    //     className="svg-icon svg-color-grey svg-icon-eye-slash"
-    // />
 
     const InputType = visible ? "text" : "password";
     return (
