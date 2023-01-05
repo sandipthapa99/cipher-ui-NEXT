@@ -3,7 +3,6 @@ import {
     faGear,
     faGift,
     faSackDollar,
-    faTicket,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Button, Divider, Text } from "@mantine/core";
@@ -13,6 +12,7 @@ import {
     ConfirmationNumberOutlined,
     Dashboard,
     GridViewOutlined,
+    RedeemOutlined,
     SavingsOutlined,
 } from "@mui/icons-material";
 import { useLogout } from "hooks/auth/useLogout";
@@ -162,7 +162,7 @@ const PROFILE_LINKS = {
 
         {
             title: "Offers",
-            icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,
+            icon: <RedeemOutlined style={{ color: SPECIAL_ICON_COLOR }} />,
             href: "/offers",
             color: "#F98900",
         },
