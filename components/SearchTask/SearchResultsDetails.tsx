@@ -20,7 +20,7 @@ import {
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Grid, List, Select, Skeleton } from "@mantine/core";
+import { Grid, List, Select, Skeleton, Tooltip } from "@mantine/core";
 import { Alert } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -97,7 +97,7 @@ const SearchResultsDetail = ({
     const [seeMore, setSeeMore] = useState(false);
 
     const { data: user } = useUser();
-    //
+
     const withLogin = useWithLogin();
 
     const { data: myBookings } = useGetMyBookings(
@@ -210,16 +210,6 @@ const SearchResultsDetail = ({
                                 hashtag={"Homaale-services"}
                             />
 
-                            {/* <EllipsisDropdownService
-                                handleEdit={handleEdit}
-                                handleDelete={handleDelete}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faEllipsisVertical}
-                                    className="svg-icon option"
-                                />
-                            </EllipsisDropdownService> */}
-
                             <ElipsisReport
                                 service={true}
                                 serviceTitle={serviceTitle}
@@ -227,7 +217,6 @@ const SearchResultsDetail = ({
                                 serviceId={serviceId}
                                 owner={isUserService}
                                 isService={true}
-                                //   handleDelete={handleDelete}
                             />
                         </div>
                     </div>
@@ -388,48 +377,49 @@ const SearchResultsDetail = ({
                     </Col>
                 </Row>
                 <div className="d-flex flex-column flex-sm-row mt-4 task-detail__loc-time">
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon svg-icon-location"
-                        />
-                        {serviceProviderLocation
-                            ? serviceProviderLocation
-                            : "N/A"}
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faCalendar}
-                            className="svg-icon svg-icon-calender"
-                        />
-                        {serviceCreated
-                            ? //format(new Date(serviceCreated), "dd-MM-yyyy")
-                              format(new Date(serviceCreated), "PP")
-                            : "N/A"}
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon svg-icon-clock"
-                        />
-                        {serviceCreated
-                            ? format(new Date(serviceCreated), "p")
-                            : "N/A"}
-                    </p>
-                    {/* <p>
-                        <FontAwesomeIcon
-                            icon={faEye}
-                            className="svg-icon svg-icon-eye"
-                        />
-                        {serviceViews} Views
-                    </p> */}
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon svg-icon-user-group"
-                        />
-                        {service?.count} Applied
-                    </p>
+                    <Tooltip.Floating label="Service Location" color={"blue"}>
+                        <p>
+                            <FontAwesomeIcon
+                                icon={faLocationDot}
+                                className="svg-icon svg-icon-location"
+                            />
+                            {serviceProviderLocation
+                                ? serviceProviderLocation
+                                : "N/A"}
+                        </p>
+                    </Tooltip.Floating>
+                    <Tooltip.Floating label="Date Posted" color={"blue"}>
+                        <p>
+                            <FontAwesomeIcon
+                                icon={faCalendar}
+                                className="svg-icon svg-icon-calender"
+                            />
+                            {serviceCreated
+                                ? //format(new Date(serviceCreated), "dd-MM-yyyy")
+                                  format(new Date(serviceCreated), "PP")
+                                : "N/A"}
+                        </p>
+                    </Tooltip.Floating>
+                    <Tooltip.Floating label="Time Posted" color={"blue"}>
+                        <p>
+                            <FontAwesomeIcon
+                                icon={faClockEight}
+                                className="svg-icon svg-icon-clock"
+                            />
+                            {serviceCreated
+                                ? format(new Date(serviceCreated), "p")
+                                : "N/A"}
+                        </p>
+                    </Tooltip.Floating>
+                    <Tooltip.Floating label="No. of Application" color={"blue"}>
+                        <p>
+                            <FontAwesomeIcon
+                                icon={faUserGroup}
+                                className="svg-icon svg-icon-user-group"
+                            />
+                            {service?.count} Applied
+                        </p>
+                    </Tooltip.Floating>
                 </div>
 
                 <div className="task-detail__desc">
@@ -514,70 +504,6 @@ const SearchResultsDetail = ({
                     </section>
                 ) : null}
 
-                {/* {getPackageAccordingService &&
-                    getPackageAccordingService
-                        // .filter(
-                        //     (service) =>
-                        //         service.service.slug === servSlug
-                        // )
-                        .map(
-                            (offer, key) =>
-                                offer && (
-                                    <section
-                                        className="service-details__package-offers"
-                                        style={{ margin: "41px 0 0 0" }}
-                                    >
-                                        <h1>Packages &amp; Offers</h1>
-                                        <Carousel
-                                            slideSize="32%"
-                                            slideGap="sm"
-                                            align="start"
-                                            breakpoints={[
-                                                {
-                                                    maxWidth: "md",
-                                                    slideSize: "50%",
-                                                },
-                                                {
-                                                    maxWidth: "sm",
-                                                    slideSize: "90%",
-                                                    slideGap: 10,
-                                                },
-                                            ]}
-                                            styles={{
-                                                control: {
-                                                    "&[data-inactive]": {
-                                                        opacity: 0,
-                                                        cursor: "default",
-                                                    },
-                                                },
-                                            }}
-                                            className="pt-4"
-                                        >
-                                            <Carousel.Slide key={key}>
-                                                <PackageOffersCard
-                                                    title={offer.title}
-                                                    price={offer.budget.toString()}
-                                                    offers={
-                                                        offer.service_offered &&
-                                                        JSON.parse(
-                                                            offer?.service_offered
-                                                        )
-                                                    }
-                                                    isRecommended={
-                                                        offer.is_recommended
-                                                    }
-                                                    isPermium={offer.is_active}
-                                                    advantage={offer.title}
-                                                    isFromAddService={false}
-                                                    discountAmount={
-                                                        offer.discount_value
-                                                    }
-                                                />
-                                            </Carousel.Slide>
-                                        </Carousel>
-                                    </section>
-                                )
-                        )} */}
                 {service?.count ? (
                     <section>
                         {isCurrentUserService() && (

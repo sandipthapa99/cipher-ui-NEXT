@@ -55,7 +55,7 @@ export const TaskersTab = ({
                     title={""}
                     color="orange"
                 >
-                    {`You can't view the applicants`}
+                    {`There are no applicants yet`}
                 </Alert>
             ) : TaskApplicantLoading ? (
                 <Loader />
