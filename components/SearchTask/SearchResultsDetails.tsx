@@ -22,6 +22,11 @@ import { Grid, List, Select, Skeleton, Tooltip } from "@mantine/core";
 import { Alert } from "@mantine/core";
 import {
     CalendarTodayOutlined,
+    ChevronLeftOutlined,
+    ErrorOutlineOutlined,
+    LocalOffer,
+    LocationOnOutlined,
+    ScheduleOutlined,
     SupervisorAccountOutlined,
 } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
@@ -176,10 +181,7 @@ const SearchResultsDetail = ({
             <div className="task-detail p-5">
                 <Link href="/service">
                     <a>
-                        <FontAwesomeIcon
-                            icon={faChevronLeft}
-                            className="svg-icon"
-                        />
+                        <ChevronLeftOutlined className="svg-icon" />
                         Go Back
                     </a>
                 </Link>
@@ -381,10 +383,7 @@ const SearchResultsDetail = ({
                 <div className="d-flex flex-column flex-sm-row mt-4 task-detail__loc-time">
                     <Tooltip.Floating label="Service Location" color={"blue"}>
                         <p>
-                            <FontAwesomeIcon
-                                icon={faLocationDot}
-                                className="svg-icon svg-icon-location"
-                            />
+                            <LocationOnOutlined className="svg-icon svg-icon-location" />
                             {serviceProviderLocation
                                 ? serviceProviderLocation
                                 : "N/A"}
@@ -392,10 +391,7 @@ const SearchResultsDetail = ({
                     </Tooltip.Floating>
                     <Tooltip.Floating label="Date Posted" color={"blue"}>
                         <p>
-                            <FontAwesomeIcon
-                                icon={faCalendar}
-                                className="svg-icon svg-icon-calender"
-                            />
+                            <ScheduleOutlined className="svg-icon svg-icon-calender" />
                             {serviceCreated
                                 ? //format(new Date(serviceCreated), "dd-MM-yyyy")
                                   format(new Date(serviceCreated), "PP")
@@ -404,10 +400,7 @@ const SearchResultsDetail = ({
                     </Tooltip.Floating>
                     <Tooltip.Floating label="Time Posted" color={"blue"}>
                         <p>
-                            <FontAwesomeIcon
-                                icon={faClockEight}
-                                className="svg-icon svg-icon-clock"
-                            />
+                            <ScheduleOutlined className="svg-icon svg-icon-clock" />
                             {serviceCreated
                                 ? format(new Date(serviceCreated), "p")
                                 : "N/A"}
@@ -415,10 +408,7 @@ const SearchResultsDetail = ({
                     </Tooltip.Floating>
                     <Tooltip.Floating label="No. of Application" color={"blue"}>
                         <p>
-                            <FontAwesomeIcon
-                                icon={faUserGroup}
-                                className="svg-icon svg-icon-user-group"
-                            />
+                            <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
                             {service?.count} Applied
                         </p>
                     </Tooltip.Floating>
@@ -448,7 +438,7 @@ const SearchResultsDetail = ({
                 <h3>Highlights</h3>
                 {highlights && highlights.length < 1 ? (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"
@@ -478,10 +468,7 @@ const SearchResultsDetail = ({
                                                 "d-flex align-items-center gap-3"
                                             }
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faTag}
-                                                className="text-warning"
-                                            />
+                                            <LocalOffer className="text-warning" />
                                             {offer?.title}
                                         </span>
                                     </List.Item>
@@ -524,11 +511,7 @@ const SearchResultsDetail = ({
                                                             undefined && (
                                                             <Alert
                                                                 icon={
-                                                                    <FontAwesomeIcon
-                                                                        icon={
-                                                                            faWarning
-                                                                        }
-                                                                    />
+                                                                    <ErrorOutlineOutlined />
                                                                 }
                                                                 title={
                                                                     "No Applicants Available!"
@@ -633,7 +616,7 @@ const SearchResultsDetail = ({
                     ))
                 ) : (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"

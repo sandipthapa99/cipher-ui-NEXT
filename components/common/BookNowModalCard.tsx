@@ -7,7 +7,12 @@ import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
-import { CalendarTodayOutlined } from "@mui/icons-material";
+import {
+    CalendarTodayOutlined,
+    Check,
+    LocalOffer,
+    LocalOfferOutlined,
+} from "@mui/icons-material";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import {
@@ -457,19 +462,11 @@ const BookNowModalCard = ({
                                                                 "d-flex align-items-center gap-3"
                                                             }
                                                         >
-                                                            <FontAwesomeIcon
-                                                                icon={faTag}
-                                                                className="text-warning"
-                                                            />
+                                                            <LocalOffer className="text-warning" />
                                                             {offer?.title}
                                                             {offerSelector ===
                                                                 offer?.id && (
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCheck
-                                                                    }
-                                                                    className="text-primary"
-                                                                />
+                                                                <Check className="text-primary" />
                                                             )}
                                                         </span>
                                                     </List.Item>
