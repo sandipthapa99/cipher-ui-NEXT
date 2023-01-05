@@ -10,8 +10,10 @@ import { Avatar, Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import {
     AccountCircleOutlined,
+    ConfirmationNumberOutlined,
     Dashboard,
     GridViewOutlined,
+    SavingsOutlined,
 } from "@mui/icons-material";
 import { useLogout } from "hooks/auth/useLogout";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -143,19 +145,16 @@ const PROFILE_LINKS = {
         },
         {
             title: "My Earnings",
-            icon: (
-                <FontAwesomeIcon
-                    color={REGULAR_ICON_COLOR}
-                    icon={faSackDollar}
-                />
-            ),
+            icon: <SavingsOutlined style={{ color: REGULAR_ICON_COLOR }} />,
             href: "/my-Earnings",
             color: "#495057",
         },
         {
             title: "My Tickets",
             icon: (
-                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faTicket} />
+                <ConfirmationNumberOutlined
+                    style={{ color: REGULAR_ICON_COLOR }}
+                />
             ),
             href: "/my-tickets",
             color: "#495057",
