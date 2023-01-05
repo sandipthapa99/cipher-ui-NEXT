@@ -1,6 +1,7 @@
 import { LoginPrompt } from "@components/model/LoginPrompt";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ChevronRight } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 import { useWithLogin } from "store/use-login-prompt-store";
@@ -39,19 +40,13 @@ const CipherCard = ({
                         type="button"
                     >
                         {title}
-                        <FontAwesomeIcon
-                            icon={faAngleRight}
-                            className="svg-icon"
-                        />
+                        <ChevronRight className="svg-icon" />
                     </a>
                 ) : (
                     <Link href={redirectTo}>
                         <a>
                             {title}
-                            <FontAwesomeIcon
-                                icon={faAngleRight}
-                                className="svg-icon"
-                            />
+                            <ChevronRight className="svg-icon" />
                         </a>
                     </Link>
                 )}
