@@ -1,5 +1,6 @@
 import { faArrowLeftLong } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { West } from "@mui/icons-material";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -86,10 +87,7 @@ const OnBoardingLayout = ({
                 <div className="login-layout-wrapper__right">
                     <Link href="/">
                         <a>
-                            <FontAwesomeIcon
-                                icon={faArrowLeftLong}
-                                className="backarrow"
-                            />
+                            <West className="backarrow" />
                         </a>
                     </Link>
                     <div className="redirection-text">
