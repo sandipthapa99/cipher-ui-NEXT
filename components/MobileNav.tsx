@@ -5,6 +5,7 @@ import {
     faUser,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PersonOutlined } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -69,7 +70,7 @@ const MobileNav = ({ getSide }: MobileProps) => {
                             router
                         )}`}
                     >
-                        <FontAwesomeIcon icon={faUser} className="nav-icon" />
+                        <PersonOutlined className="nav-icon" />
                     </a>
                 </Link>
                 <Link href="/notifications">

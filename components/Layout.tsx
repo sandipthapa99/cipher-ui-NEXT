@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Box, Navbar, ScrollArea } from "@mantine/core";
+import { PersonOutlined } from "@mui/icons-material";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
@@ -204,10 +205,7 @@ const Layout: FC<MetaDataProps> = ({
                                     </Link>
                                 </div>
                                 <div className="d-flex align-items-center gap-4 text-icon">
-                                    <FontAwesomeIcon
-                                        icon={faUser}
-                                        className="side-bar-icon"
-                                    />
+                                    <PersonOutlined className="side-bar-icon" />
                                     <Link href="/resources">
                                         <p>Resources</p>
                                     </Link>
