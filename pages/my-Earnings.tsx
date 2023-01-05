@@ -1,17 +1,5 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
-import type { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
-import { faEllipsisVertical } from "@fortawesome/pro-regular-svg-icons";
-import { faPrint } from "@fortawesome/pro-regular-svg-icons";
-import { faFilter } from "@fortawesome/pro-regular-svg-icons";
-import { faSearch } from "@fortawesome/pro-regular-svg-icons";
-import {
-    faFileInvoiceDollar,
-    faMoneyFromBracket,
-    faPiggyBank,
-    faSackDollar,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     Button,
     Checkbox,
@@ -24,11 +12,22 @@ import {
     TextInput,
 } from "@mantine/core";
 import { DateRangePicker } from "@mantine/dates";
+import {
+    AttachMoneyOutlined,
+    FilterAltOutlined,
+    MoreVertOutlined,
+    PaidOutlined,
+    PriceCheckOutlined,
+    PrintOutlined,
+    SavingsOutlined,
+    SearchOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { useGetEarningHistory } from "hooks/use-earning-history";
 import { useMyWallet } from "hooks/use-wallet";
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { convertAmount } from "utils/convertAmount.js";
@@ -37,7 +36,7 @@ type INCOME_DATA_TYPE = {
     id: number;
     title: string;
     amount: number | undefined | string;
-    icon: IconDefinition;
+    icon: ReactNode;
     color: string;
 }[];
 
@@ -86,28 +85,28 @@ const MyEarnings = () => {
             id: 1,
             title: "Current Balance",
             amount: myWallet?.length !== 0 && myWallet ? available_balance : 0,
-            icon: faSackDollar,
+            icon: <PaidOutlined className="income-card-icon" />,
             color: "#211D4F",
         },
         {
             id: 2,
             title: "Total Earnings",
             amount: myWallet?.length !== 0 && myWallet ? total_income : 0,
-            icon: faPiggyBank,
+            icon: <SavingsOutlined className="income-card-icon" />,
             color: "#38C675",
         },
         {
             id: 3,
             title: "Total Withdrawals",
             amount: myWallet?.length !== 0 && myWallet ? total_withdrawals : 0,
-            icon: faMoneyFromBracket,
+            icon: <PriceCheckOutlined className="income-card-icon" />,
             color: "#FE5050",
         },
         {
             id: 4,
             title: "Pending Amount",
             amount: myWallet?.length !== 0 && myWallet ? frozen_amount : 0,
-            icon: faFileInvoiceDollar,
+            icon: <AttachMoneyOutlined className="income-card-icon" />,
             color: "#FF9700",
         },
     ];
@@ -158,10 +157,7 @@ const MyEarnings = () => {
                       {element.amount}
                   </td>
                   <td className="text-center">
-                      <FontAwesomeIcon
-                          icon={faEllipsisVertical}
-                          className="svg-icon"
-                      />
+                      <MoreVertOutlined className="svg-icon" />
                   </td>
               </tr>
           ))
@@ -217,10 +213,7 @@ const MyEarnings = () => {
                     >{`Nrs.${item.amount}`}</p>
                     <p className="income-card-title">{item.title}</p>
                 </div>
-                <FontAwesomeIcon
-                    icon={item.icon}
-                    className="income-card-icon"
-                />
+                {item.icon}
             </Col>
         );
     });
@@ -242,10 +235,7 @@ const MyEarnings = () => {
                             <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
                                 <TextInput
                                     icon={
-                                        <FontAwesomeIcon
-                                            icon={faSearch}
-                                            className="me-0 svg-icon"
-                                        />
+                                        <SearchOutlined className="me-0 svg-icon" />
                                     }
                                     placeholder="Enter a search keyword"
                                 />
@@ -256,10 +246,7 @@ const MyEarnings = () => {
                                                 color="gray"
                                                 className="d-flex align-items-center me-4"
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faFilter}
-                                                    className="svg-icon"
-                                                />
+                                                <FilterAltOutlined className="svg-icon" />
                                                 Filter
                                             </Button>
                                         </Menu.Target>
@@ -302,10 +289,7 @@ const MyEarnings = () => {
                                                 color="gray"
                                                 className="d-flex align-items-center"
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faPrint}
-                                                    className="svg-icon"
-                                                />
+                                                <PrintOutlined className="svg-icon" />
                                                 Export
                                             </Button>
                                         </Menu.Target>
