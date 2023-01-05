@@ -50,7 +50,7 @@ import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
 import { toast } from "utils/toast";
 
-import { MyBookingsCard } from "./MyBookings";
+import { ApplicantCard } from "./ApplicantCard";
 
 const SearchResultsDetail = ({
     budget_from,
@@ -126,7 +126,7 @@ const SearchResultsDetail = ({
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
             <Col md={6} key={index}>
-                <MyBookingsCard
+                <ApplicantCard
                     bookingId={item?.id}
                     collabButton={false}
                     image={
@@ -135,7 +135,6 @@ const SearchResultsDetail = ({
                             : item?.created_by?.avatar?.image
                     }
                     name={`${item?.created_by?.user?.first_name} ${item?.created_by?.user?.last_name}`}
-                    // speciality={item?.created_by?.user_type}
                     rating={item?.created_by?.rating?.user_rating_count}
                     happyClients={item?.created_by?.stats?.happy_clients}
                     awardPercentage={10}
