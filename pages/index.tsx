@@ -23,7 +23,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert } from "@mantine/core";
-import { ErrorOutlineOutlined } from "@mui/icons-material";
+import { East, ErrorOutlineOutlined, West } from "@mui/icons-material";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -179,12 +179,8 @@ const Home: NextPage<{
                                 ]}
                                 loop
                                 align="start"
-                                nextControlIcon={
-                                    <FontAwesomeIcon icon={faArrowRight} />
-                                }
-                                previousControlIcon={
-                                    <FontAwesomeIcon icon={faArrowLeft} />
-                                }
+                                nextControlIcon={<East />}
+                                previousControlIcon={<West />}
                             >
                                 {heroCategoryData &&
                                     heroCategoryData?.result
