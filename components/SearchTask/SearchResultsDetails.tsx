@@ -14,7 +14,6 @@ import {
     faChevronLeft,
     faClockEight,
     faLocationDot,
-    faUserGroup,
     faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faTag } from "@fortawesome/pro-solid-svg-icons";
@@ -22,6 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Grid, List, Select, Skeleton } from "@mantine/core";
 import { Alert } from "@mantine/core";
+import { SupervisorAccountOutlined } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -424,10 +424,7 @@ const SearchResultsDetail = ({
                         {serviceViews} Views
                     </p> */}
                     <p>
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon svg-icon-user-group"
-                        />
+                        <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
                         {service?.count} Applied
                     </p>
                 </div>

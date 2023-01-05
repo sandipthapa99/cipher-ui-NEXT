@@ -10,12 +10,12 @@ import {
     faClockEight,
     faEye,
     faLocationDot,
-    faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { SupervisorAccountOutlined } from "@mui/icons-material";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -263,10 +263,7 @@ const AppliedTaskDetail = ({
                         <span> 200 Views</span>
                     </p>
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon svg-icon-user-group"
-                        />
+                        <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
                         <span> {taskDetail.count} Applied</span>
                     </p>
                 </div>

@@ -7,12 +7,12 @@ import {
     faClockEight,
     faEye,
     faLocationDot,
-    faUserGroup,
     faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Modal } from "@mantine/core";
+import { SupervisorAccountOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
@@ -253,10 +253,7 @@ export const ApprovedTaskDetail = ({
                         <span> 200 Views</span>
                     </p>
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon svg-icon-user-group"
-                        />
+                        <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
                     </p>
                 </div>
                 <div className="task-detail__desc">

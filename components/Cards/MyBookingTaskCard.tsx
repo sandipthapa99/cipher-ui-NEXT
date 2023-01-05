@@ -210,10 +210,7 @@ export const MyBookingTaskCard = ({
                                 )}
                         </div>
                         {/* <div className="location">
-        <FontAwesomeIcon
-            icon={faUserGroup}
-            className="svg-icon"
-        />
+                        <SupervisorAccountOutlined className="svg-icon" />
         <span>100 Applied</span>
     </div> */}
                     </div>

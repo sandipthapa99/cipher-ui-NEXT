@@ -3,9 +3,9 @@ import {
     faCalendar,
     faClockEight,
     faLocationDot,
-    faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SupervisorAccountOutlined } from "@mui/icons-material";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
@@ -162,10 +162,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                     >
                         <a>
                             <span className="applicants d-flex align-items-center text-black">
-                                <FontAwesomeIcon
-                                    icon={faUserGroup}
-                                    className="svg-icon"
-                                />
+                                <SupervisorAccountOutlined className="svg-icon" />
                                 {count} Applied
                             </span>
                         </a>
