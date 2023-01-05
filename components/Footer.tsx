@@ -285,45 +285,61 @@ const Footer = () => {
                                         href="https://www.facebook.com/profile.php?id=100086263383456"
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="wrapper facebook"
+                                        className="wrapper "
                                     >
-                                        <FontAwesomeIcon
-                                            icon={faFacebookF}
-                                            className="svg-icon "
-                                        />
-                                    </a>
-                                    <a
-                                        href="https://www.tiktok.com/@homaaleservices"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="wrapper linkedIn"
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faTiktok}
-                                            className="svg-icon "
-                                        />
-                                    </a>
-                                    <a
-                                        href="https://twitter.com/homaaleservices"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="wrapper twitter"
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faTwitter}
-                                            className="svg-icon "
-                                        />
+                                        <figure>
+                                            <Image
+                                                src="/brand-icons/facebook.svg"
+                                                alt="Facebook-logo"
+                                                height={30}
+                                                width={30}
+                                            />
+                                        </figure>
                                     </a>
                                     <a
                                         href="https://www.instagram.com/homaaleservices/"
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="wrapper instagram"
+                                        className="wrapper"
                                     >
-                                        <FontAwesomeIcon
-                                            icon={faInstagram}
-                                            className="svg-icon "
-                                        />
+                                        <figure>
+                                            <Image
+                                                src="/brand-icons/instagram.svg"
+                                                alt="Facebook-logo"
+                                                height={30}
+                                                width={30}
+                                            />
+                                        </figure>
+                                    </a>
+                                    <a
+                                        href="https://www.tiktok.com/@homaaleservices"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="wrapper"
+                                    >
+                                        <figure>
+                                            <Image
+                                                src="/brand-icons/tiktok.svg"
+                                                alt="Facebook-logo"
+                                                height={30}
+                                                width={30}
+                                            />
+                                        </figure>
+                                    </a>
+                                    <a
+                                        href="https://twitter.com/homaaleservices"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="wrapper"
+                                    >
+                                        <figure>
+                                            <Image
+                                                src="/brand-icons/twitter.svg"
+                                                alt="Facebook-logo"
+                                                height={30}
+                                                width={30}
+                                            />
+                                        </figure>
                                     </a>
                                     {/* <a
                                         href="https://www.youtube.com"
