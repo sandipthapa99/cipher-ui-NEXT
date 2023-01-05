@@ -41,7 +41,7 @@ interface Props {
     isApproved: boolean | undefined;
 }
 
-export const MyBookingsCard = ({
+export const ApplicantCard = ({
     image,
     name,
     rating,
