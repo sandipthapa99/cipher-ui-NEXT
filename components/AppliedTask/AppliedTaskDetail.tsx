@@ -252,15 +252,6 @@ const AppliedTaskDetail = ({
                                 : "N/A"}
                         </p>
                     </Tooltip.Floating>
-                    {/* <Tooltip.Floating label="No. of Application" color={"blue"}>
-                        <p className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faEye}
-                                className="svg-icon svg-icon-eye"
-                            />
-                            <span> 200 Views</span>
-                        </p>
-                    </Tooltip.Floating> */}
                     <Tooltip.Floating label="No. of Application" color={"blue"}>
                         <p className="d-flex align-items-center">
                             <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
@@ -330,20 +321,6 @@ const AppliedTaskDetail = ({
                                         <RenderInputBox />
                                     ) : null,
                                 },
-                                // {
-                                //     index: 1,
-                                //     type: (
-                                //         <EllipsisDropdown
-                                //             showModal={true}
-                                //             handleOnClick={() => setShowModal(true)}
-                                //         >
-                                //             <FontAwesomeIcon
-                                //                 icon={faFilterList}
-                                //                 className="svg-icon"
-                                //             />
-                                //         </EllipsisDropdown>
-                                //     ),
-                                // },
                             ]}
                         />
                     ) : null}
