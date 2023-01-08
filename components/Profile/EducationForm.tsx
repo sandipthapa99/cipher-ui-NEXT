@@ -157,12 +157,14 @@ const EducationForm = ({
                                 /> */}
                                 <h4>Description</h4>
                                 <RichText
-                                    {...getFieldProps("description")}
+                                    name="description"
                                     value={values?.description ?? ""}
                                     onChange={(value) =>
                                         setFieldValue("description", value)
                                     }
                                     placeholder="Description"
+                                    error={errors.description as string}
+                                    touched={touched.description as boolean}
                                 />
                                 <InputField
                                     name="degree"
