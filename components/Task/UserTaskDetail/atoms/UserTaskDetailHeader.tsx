@@ -4,16 +4,10 @@ import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import type { FollowMutationData } from "@components/common/UserFollowersModal";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";
-import {
-    faStar as emptyStar,
-    faUserCheck,
-    faUserPlus,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
 import {
+    PersonAddAlt1Outlined,
+    PersonRemoveAlt1Outlined,
     StarOutlineOutlined,
     StarRounded,
     VerifiedRounded,
@@ -217,9 +211,12 @@ export const UserTaskDetailHeader = ({
                 <Col md={4} className="d-flex flex-column align-items-end">
                     <div className="td-task-detail-header-icons">
                         {taskerDetail?.is_followed ? (
-                            <FontAwesomeIcon
-                                icon={faUserCheck}
-                                color="#297796"
+                            <PersonAddAlt1Outlined
+                                style={{
+                                    color: "#297796",
+                                    // height: "2.4rem",
+                                    // width: "2.4rem",
+                                }}
                                 height={24}
                                 width={24}
                                 visibility={taskerHimself ? "hidden" : "none"}
@@ -232,9 +229,12 @@ export const UserTaskDetailHeader = ({
                                 }
                             />
                         ) : (
-                            <FontAwesomeIcon
-                                icon={faUserPlus}
-                                color="#297796"
+                            <PersonRemoveAlt1Outlined
+                                style={{
+                                    color: "#297796",
+                                    // height: "2.4rem",
+                                    // width: "2.4rem",
+                                }}
                                 height={24}
                                 visibility={taskerHimself ? "hidden" : "none"}
                                 width={24}

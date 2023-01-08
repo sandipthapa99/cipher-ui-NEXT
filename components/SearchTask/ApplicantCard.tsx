@@ -1,11 +1,4 @@
 import SaveIcon from "@components/common/SaveIcon";
-import {
-    faAward,
-    faCircleInfo,
-    faLocationArrow,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon } from "@mantine/core";
 import {
     ErrorOutlineOutlined,

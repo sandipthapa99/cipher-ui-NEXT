@@ -2,15 +2,15 @@ import { TimelineTab } from "@components/AppliedTask/TimelineTab";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
-import { faClockEight, faEye } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Modal } from "@mantine/core";
 import {
     CalendarTodayOutlined,
     ErrorOutlineOutlined,
     LocationOnOutlined,
+    ScheduleOutlined,
     SupervisorAccountOutlined,
+    VisibilityOutlined,
 } from "@mui/icons-material";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
@@ -227,10 +227,7 @@ export const ApprovedTaskDetail = ({
                         </p>
                     )}
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon svg-icon-clock"
-                        />
+                        <ScheduleOutlined className="svg-icon svg-icon-clock" />
                         {approvedTask?.data?.updated_at
                             ? format(
                                   new Date(approvedTask?.data?.updated_at),
@@ -239,10 +236,7 @@ export const ApprovedTaskDetail = ({
                             : "N/A"}
                     </p>
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faEye}
-                            className="svg-icon svg-icon-eye"
-                        />
+                        <VisibilityOutlined className="svg-icon svg-icon-eye" />
                         <span> 200 Views</span>
                     </p>
                     <p className="d-flex align-items-center">
