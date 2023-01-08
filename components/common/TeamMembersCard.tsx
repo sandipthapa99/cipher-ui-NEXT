@@ -1,8 +1,10 @@
 import SaveIcon from "@components/common/SaveIcon";
-import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
-import { faAward, faFaceGrinBeam } from "@fortawesome/pro-regular-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    MilitaryTechOutlined,
+    SentimentVerySatisfiedOutlined,
+    StarOutlineRounded,
+    StarRounded,
+} from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -117,10 +119,6 @@ export const TeamMembersCard = ({
                         <div className="w-100 name-post-count">
                             <div className="d-flex justify-content-between title-and-dots text-dark">
                                 <h5>{name}</h5>
-                                {/* <FontAwesomeIcon
-                            className="ellipsis-vertical"
-                            icon={faEllipsisVertical}
-                        /> */}
                             </div>
                             <h6 className="text-dark">
                                 <span>{speciality} </span>{" "}
@@ -129,14 +127,11 @@ export const TeamMembersCard = ({
                             </h6>
                             <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
                                 <span className="star d-flex align-items-center">
-                                    <FontAwesomeIcon
-                                        className="star"
-                                        icon={
-                                            rating && rating > 0
-                                                ? faStar
-                                                : HollowStar
-                                        }
-                                    />
+                                    {rating && rating > 0 ? (
+                                        <StarRounded className="star" />
+                                    ) : (
+                                        <StarOutlineRounded className="star" />
+                                    )}
                                     {rating &&
                                     rating > 0 &&
                                     Number.isSafeInteger(rating) ? (
@@ -149,26 +144,13 @@ export const TeamMembersCard = ({
                                 </span>
 
                                 <span className="emoji d-flex align-items-center">
-                                    <FontAwesomeIcon
-                                        className="emoji"
-                                        icon={faFaceGrinBeam}
-                                    />
+                                    <SentimentVerySatisfiedOutlined className="emoji" />
                                     <span>{happyClients}</span>
                                 </span>
                                 <span className="award d-flex align-items-center">
-                                    <FontAwesomeIcon
-                                        className="award"
-                                        icon={faAward}
-                                    />
+                                    <MilitaryTechOutlined className="award" />
                                     <span>{awardPercentage}</span>
                                 </span>
-                                {/* <span className="location d-flex align-items-center">
-                                    <FontAwesomeIcon
-                                        className="location"
-                                        icon={faLocationArrow}
-                                    />
-                                    <span> {distance}</span>
-                                </span> */}
                             </div>
                         </div>
                     </div>

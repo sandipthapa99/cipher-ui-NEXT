@@ -1,12 +1,11 @@
 import Spoiler from "@components/Spoiler/Spoiler";
-import {
-    faLocationDot,
-    faTimer,
-    faUser,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, Text } from "@mantine/core";
-import { ScienceOutlined } from "@mui/icons-material";
+import {
+    LocationOnOutlined,
+    Person,
+    ScienceOutlined,
+    TimerOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { Col, Row } from "react-bootstrap";
 import type { ITasker } from "types/tasker";
@@ -46,10 +45,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
         <Row className="td-mt-24">
             <Col md={6}>
                 <div className="td-user-short-intro-text">
-                    <FontAwesomeIcon
-                        icon={faLocationDot}
-                        className="svg-icon"
-                    />
+                    <LocationOnOutlined className="svg-icon" />
 
                     <span>
                         {/* Location{" "} */}
@@ -60,7 +56,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                 </div>
                 {memberSince && (
                     <div className="td-user-short-intro-text">
-                        <FontAwesomeIcon className="svg-icon" icon={faUser} />
+                        <Person className="svg-icon" />
                         <span>
                             {/* Member since{" "} */}
                             <Text className={classes.boldText}>
@@ -70,7 +66,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                     </div>
                 )}
                 <div className="td-user-short-intro-text">
-                    <FontAwesomeIcon icon={faTimer} className="svg-icon" />
+                    <TimerOutlined className="svg-icon" />
                     <span>
                         {/* Active Hours &nbsp; */}
                         <Text className={classes.boldText}>

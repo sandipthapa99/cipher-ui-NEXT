@@ -13,6 +13,11 @@ import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
+import {
+    StarOutlineOutlined,
+    StarRounded,
+    VerifiedRounded,
+} from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
@@ -125,8 +130,7 @@ export const UserTaskDetailHeader = ({
 
                     <figure className="td-user-image-container">
                         {taskerDetail?.is_profile_verified ? (
-                            <FontAwesomeIcon
-                                icon={faBadgeCheck}
+                            <VerifiedRounded
                                 // className="badge-icon"
                                 className="td-user-image-container__badge"
                             />
@@ -140,10 +144,7 @@ export const UserTaskDetailHeader = ({
                                 className="browse text-primary"
                                 role="button"
                             >
-                                <FontAwesomeIcon
-                                    icon={faCamera}
-                                    className="camera-icon"
-                                />
+                                <PhotoCameraOutlined className="camera-icon"/>
                             </label>
 
                             <input
@@ -200,17 +201,9 @@ export const UserTaskDetailHeader = ({
                             }
                             readOnly
                             emptySymbol={
-                                <FontAwesomeIcon
-                                    icon={emptyStar}
-                                    className="star"
-                                />
+                                <StarOutlineOutlined className="star" />
                             }
-                            fullSymbol={
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="star"
-                                />
-                            }
+                            fullSymbol={<StarRounded className="star" />}
                         />
 
                         <UserStats
@@ -287,10 +280,7 @@ export const UserTaskDetailHeader = ({
                             showModal={showMenu}
                             handleOnClick={() => toggleShowMenu()}
                         >
-                            <FontAwesomeIcon
-                                icon={faEllipsisVertical}
-                                className="svg-icon option"
-                            />
+                            <MoreVertOutlined className="svg-icon option" />
                         </EllipsisDropdown> */}
                     </div>
                     <p className="td-task-charge my-4">

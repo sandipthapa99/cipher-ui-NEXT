@@ -1,7 +1,8 @@
-import { faLocationDot, faUser } from "@fortawesome/pro-regular-svg-icons";
+import { faUser } from "@fortawesome/pro-regular-svg-icons";
 import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { LocationOnOutlined, Person } from "@mui/icons-material";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
@@ -78,18 +79,12 @@ const ServiceNearYouCard = ({
                         <h4>{serviceTitle}</h4>
                         <div className="information">
                             <div className="type d-flex flex-col align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faUser}
-                                    className="user svg-icon"
-                                />
+                                <Person className="user svg-icon" />
 
                                 <p>{serviceProvider}</p>
                             </div>
                             <div className="type d-flex flex-col align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="location svg-icon"
-                                />
+                                <LocationOnOutlined className="location svg-icon" />
                                 <p>
                                     {serviceProviderLocation &&
                                     serviceProviderLocation.length > 1

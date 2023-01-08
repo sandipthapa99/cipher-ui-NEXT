@@ -10,7 +10,7 @@ export const FillKyc = ({ onClick }: FillKycProps) => {
         <div className="complete-profile">
             {/* <Col md={6} className="all-info-detail">
                 <div className="info-details-kyc">
-                    <FontAwesomeIcon className="info-kyc" icon={faCircleInfo} />
+                    <ErrorOutlineOutlined className="info-kyc"  />
                     <p className="p-info">Have you filled up your KYC form ?</p>
                 </div>
                 <p className="detail-kyc">

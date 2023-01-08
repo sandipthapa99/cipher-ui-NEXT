@@ -1,19 +1,13 @@
-import {
-    faGear,
-    faGift,
-    faSackDollar,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import {
     AccountCircleOutlined,
     ConfirmationNumberOutlined,
-    Dashboard,
     GridViewOutlined,
     LogoutOutlined,
     RedeemOutlined,
     SavingsOutlined,
+    SettingsOutlined,
 } from "@mui/icons-material";
 import { useLogout } from "hooks/auth/useLogout";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -176,7 +170,7 @@ const PROFILE_LINKS = {
     sectionThree: [
         {
             title: "Settings",
-            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGear} />,
+            icon: <SettingsOutlined style={{ color: REGULAR_ICON_COLOR }} />,
             href: "/settings/account/individual",
             color: "#495057",
         },

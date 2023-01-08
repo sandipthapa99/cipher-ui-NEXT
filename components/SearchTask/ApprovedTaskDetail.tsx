@@ -2,18 +2,14 @@ import { TimelineTab } from "@components/AppliedTask/TimelineTab";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
-import {
-    faClockEight,
-    faEye,
-    faLocationDot,
-    faWarning,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faClockEight, faEye } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Modal } from "@mantine/core";
 import {
     CalendarTodayOutlined,
     ErrorOutlineOutlined,
+    LocationOnOutlined,
     SupervisorAccountOutlined,
 } from "@mui/icons-material";
 import { format } from "date-fns";
@@ -213,10 +209,7 @@ export const ApprovedTaskDetail = ({
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon svg-icon-location"
-                        />
+                        <LocationOnOutlined className="svg-icon svg-icon-location" />
                         <span>
                             {" "}
                             {approvedTask?.data?.location

@@ -1,21 +1,20 @@
 import { MyEarnings } from "@components/Profile/MyEarnings";
-import {
-    faAt,
-    faCircleQuestion,
-    faEllipsisVertical,
-    faGear,
-    faLocationDot,
-    faPhone,
-    faStar as emptyStar,
-    faTimer,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { faCircle } from "@fortawesome/pro-solid-svg-icons";
-import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
 import { Rating } from "@mantine/core";
-import { ScienceOutlined } from "@mui/icons-material";
+import {
+    AlternateEmailOutlined,
+    Circle,
+    HelpOutline,
+    LocationOnOutlined,
+    MoreVertOutlined,
+    PhoneIphoneOutlined,
+    ScienceOutlined,
+    SettingsOutlined,
+    StarOutlineRounded,
+    StarRounded,
+    TimerOutlined,
+    VerifiedRounded,
+} from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
@@ -148,10 +147,7 @@ const UserProfileCard = ({
                                 href="#/action-3"
                                 className="d-flex align-items-center"
                             >
-                                <FontAwesomeIcon
-                                    className="svg-icon"
-                                    icon={faGear}
-                                />
+                                <SettingsOutlined className="svg-icon" />
                                 Settings
                             </Dropdown.Item>
                         </Link>
@@ -167,10 +163,7 @@ const UserProfileCard = ({
                 <Col md={3} className="profile-card-block__profile">
                     <figure className="profile-img mx-auto">
                         {is_profile_verified ?? (
-                            <FontAwesomeIcon
-                                icon={faBadgeCheck}
-                                className="badge-icon"
-                            />
+                            <VerifiedRounded className="badge-icon" />
                         )}
 
                         {/* <div className="img-dragdrop d-flex align-items-center justify-content-center">
@@ -179,10 +172,7 @@ const UserProfileCard = ({
                                 className="browse text-primary"
                                 role="button"
                             >
-                                <FontAwesomeIcon
-                                    icon={faCamera}
-                                    className="camera-icon"
-                                />
+                                <PhotoCameraOutlined className="camera-icon"/>
                             </label>
 
                             <input
@@ -226,10 +216,7 @@ const UserProfileCard = ({
                     <div className="profile-intro d-flex">
                         <h1 className="name text-center">{full_name}</h1>
                         {/* <div className="active"></div> */}
-                        <FontAwesomeIcon
-                            icon={faCircle}
-                            className="svg-icon active"
-                        />
+                        <Circle className="svg-icon active" />
                     </div>
 
                     {renderType}
@@ -268,17 +255,9 @@ const UserProfileCard = ({
                             defaultValue={rating > 0 ? rating : 0}
                             readOnly
                             emptySymbol={
-                                <FontAwesomeIcon
-                                    icon={emptyStar}
-                                    className="unrated-star star"
-                                />
+                                <StarOutlineRounded className="unrated-star star" />
                             }
-                            fullSymbol={
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="star"
-                                />
-                            }
+                            fullSymbol={<StarRounded className="star" />}
                         />
                     </div>
 
@@ -303,10 +282,7 @@ const UserProfileCard = ({
 
                             <div className="content">
                                 <div className="type d-flex flex-col">
-                                    <FontAwesomeIcon
-                                        icon={faPhone}
-                                        className="thumbnail-img"
-                                    />
+                                    <PhoneIphoneOutlined className="thumbnail-img" />
                                     {user.phone ? (
                                         <p>
                                             {countryData?.phone_code}
@@ -322,10 +298,7 @@ const UserProfileCard = ({
                                 </div>
                                 {/* {user.email && (
                                     <div className="type d-flex flex-col">
-                                        <FontAwesomeIcon
-                                            icon={faAt}
-                                            className="thumbnail-img"
-                                        />
+                                        <AlternateEmailOutlined className="thumbnail-img" />
 
                            const { data: followersData } = useQuery(["followers"], async () => {
         const data = await axiosClient.get(urls.followers.list);
@@ -334,10 +307,7 @@ const UserProfileCard = ({
                                     </div>
                                 )} */}
                                 <div className="type d-flex flex-col">
-                                    <FontAwesomeIcon
-                                        icon={faAt}
-                                        className="thumbnail-img"
-                                    />
+                                    <AlternateEmailOutlined className="thumbnail-img" />
                                     {user.email ? (
                                         <p>{user.email}</p>
                                     ) : (
@@ -350,19 +320,13 @@ const UserProfileCard = ({
                                     )}
                                 </div>
                                 <div className="type d-flex flex-col">
-                                    <FontAwesomeIcon
-                                        icon={faLocationDot}
-                                        className="thumbnail-img"
-                                    />
+                                    <LocationOnOutlined className="thumbnail-img" />
 
                                     <p>{address_line1}</p>
                                 </div>
 
                                 <div className="type d-flex flex-col">
-                                    <FontAwesomeIcon
-                                        icon={faTimer}
-                                        className="thumbnail-img"
-                                    />
+                                    <TimerOutlined className="thumbnail-img" />
                                     <p>
                                         &nbsp;Active Hours: &nbsp;
                                         {finalfrom?.replace(":00", "")} AM
@@ -404,10 +368,7 @@ const UserProfileCard = ({
                                     />
                                 </div>
                                 <ProfileDropdown>
-                                    <FontAwesomeIcon
-                                        icon={faEllipsisVertical}
-                                        className="svg-icon option"
-                                    />
+                                    <MoreVertOutlined className="svg-icon option" />
                                 </ProfileDropdown>
                             </div>
                             <div className="bio d-flex">
@@ -435,10 +396,7 @@ const UserProfileCard = ({
                                             place="top"
                                         >
                                             <span>
-                                                <FontAwesomeIcon
-                                                    icon={faCircleQuestion}
-                                                    className="svg-icon"
-                                                />
+                                                <HelpOutline className="svg-icon" />
                                             </span>
                                         </TooltipMessage>
                                     </div>

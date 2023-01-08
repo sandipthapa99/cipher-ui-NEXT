@@ -2,12 +2,18 @@ import SaveIcon from "@components/common/SaveIcon";
 import {
     faAward,
     faCircleInfo,
-    faFaceGrinBeam,
     faLocationArrow,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon } from "@mantine/core";
+import {
+    ErrorOutlineOutlined,
+    MilitaryTechOutlined,
+    NearMeOutlined,
+    SentimentVerySatisfiedOutlined,
+    StarRounded,
+} from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
@@ -108,10 +114,7 @@ export const ApplicantCard = ({
                         <div className="d-flex align-items-start justify-content-between title-and-dots text-dark">
                             <h5>{name}</h5>
                             <ActionIcon color="yellow">
-                                <FontAwesomeIcon
-                                    icon={faCircleInfo}
-                                    className="svg-icon me-0"
-                                />
+                                <ErrorOutlineOutlined className="svg-icon me-0" />
                             </ActionIcon>
                         </div>
                         <h6 className="text-dark">
@@ -121,10 +124,7 @@ export const ApplicantCard = ({
                         </h6>
                         <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
                             <span className="star">
-                                <FontAwesomeIcon
-                                    className="star"
-                                    icon={faStar}
-                                />
+                                <StarRounded className="star" />
                                 {rating &&
                                 rating > 0 &&
                                 Number.isSafeInteger(rating) ? (
@@ -137,25 +137,16 @@ export const ApplicantCard = ({
                             </span>
 
                             <span className="emoji">
-                                <FontAwesomeIcon
-                                    className="emoji"
-                                    icon={faFaceGrinBeam}
-                                />
+                                <SentimentVerySatisfiedOutlined className="emoji" />
                                 <span>{happyClients}</span>
                             </span>
                             <span className="award">
-                                <FontAwesomeIcon
-                                    className="award"
-                                    icon={faAward}
-                                />
+                                <MilitaryTechOutlined className="award" />
                                 <span> {awardPercentage}</span>
                             </span>
                             {distance && (
                                 <span className="location">
-                                    <FontAwesomeIcon
-                                        className="location"
-                                        icon={faLocationArrow}
-                                    />
+                                    <NearMeOutlined className="location" />
                                     <span> {distance}</span>
                                 </span>
                             )}
