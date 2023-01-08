@@ -1,8 +1,6 @@
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
-import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
+import { StarOutlineRounded, StarRounded } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -169,14 +167,11 @@ const ServiceCard = ({
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
-                                <FontAwesomeIcon
-                                    icon={
-                                        serviceRating && serviceRating > 0
-                                            ? faStar
-                                            : HollowStar
-                                    }
-                                    className="svg-icon star"
-                                />
+                                {serviceRating && serviceRating > 0 ? (
+                                    <StarRounded className="svg-icon star" />
+                                ) : (
+                                    <StarOutlineRounded className="svg-icon star" />
+                                )}
                                 <span> {serviceRating}</span>
                             </p>
                             <p className="price">

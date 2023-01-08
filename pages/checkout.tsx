@@ -1,8 +1,6 @@
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
-import { faClock, faLocationDot } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import {
     Button,
@@ -13,7 +11,11 @@ import {
     Skeleton,
     Text,
 } from "@mantine/core";
-import { CalendarTodayOutlined } from "@mui/icons-material";
+import {
+    CalendarTodayOutlined,
+    LocationOnOutlined,
+    ScheduleOutlined,
+} from "@mui/icons-material";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -363,11 +365,7 @@ export default function Checkout() {
                                                     <h2>{item?.task?.title}</h2>
                                                     <p>
                                                         <span className="icon location-icon">
-                                                            <FontAwesomeIcon
-                                                                icon={
-                                                                    faLocationDot
-                                                                }
-                                                            />
+                                                            <LocationOnOutlined />
                                                         </span>{" "}
                                                         {item?.task?.location}
                                                     </p>
@@ -385,11 +383,7 @@ export default function Checkout() {
                                                         </p>
                                                         <p className="mx-5">
                                                             <span className="icon clock-icon">
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faClock
-                                                                    }
-                                                                />
+                                                                <ScheduleOutlined />
                                                             </span>{" "}
                                                             {format(
                                                                 new Date(

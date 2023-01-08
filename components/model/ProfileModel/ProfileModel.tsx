@@ -47,7 +47,6 @@ export const ProfileModel = () => {
                             data-is-active={router.pathname === item.href}
                             key={key}
                         >
-                            {/* <FontAwesomeIcon icon={faCar} color={item.color} /> */}
                             {item.icon}
                             <NextLink
                                 style={{ color: item.color }}
@@ -157,16 +156,6 @@ const PROFILE_LINKS = {
             color: "#F98900",
         },
     ],
-    //sectionTwo: [
-    //    {
-    //        title: "Switch to i am the...",
-    //        icon: (
-    //            <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faRepeat} />
-    //        ),
-    //        href: "/switch",
-    //        color: "#495057",
-    //    },
-    //],
     sectionThree: [
         {
             title: "Settings",

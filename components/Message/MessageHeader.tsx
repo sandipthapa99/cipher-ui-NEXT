@@ -37,10 +37,6 @@ export const MessageHeader = ({
                     text="Back to Task"
                 /> */}
                 <PhoneIphoneOutlined style={{ color: "#868E96" }} />
-                {/* <FontAwesomeIcon
-                    color="#FE5050"
-                    icon={isFavorite ? faHeartFilled : faHeartOutlined}
-                /> */}
                 <MoreVert style={{ color: "#868E96" }} />
             </div>
         </div>

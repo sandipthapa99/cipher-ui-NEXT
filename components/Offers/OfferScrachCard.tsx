@@ -1,5 +1,4 @@
-import { faShareNodes } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ShareLocationOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import couponWrapperBlack from "public/offers/bar1.png";
 import React from "react";
@@ -49,7 +48,7 @@ export default function OfferScrachCard({
                 <div className="footer d-flex justify-content-between align-items-center">
                     <span className="view">View Details</span>
                     <span className="icon">
-                        <FontAwesomeIcon icon={faShareNodes} size="sm" />
+                        <ShareLocationOutlined />
                     </span>
                 </div>
             </Card.Body>

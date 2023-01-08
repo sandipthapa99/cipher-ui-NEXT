@@ -31,8 +31,7 @@ const CategoryCardNew = ({
                         <Link href={`category/${categorySlug}`}>
                             <a className="d-flex">
                                 <span>explore category</span>
-                                <FontAwesomeIcon
-                                    icon={faArrowRight}
+                                <EastOutlined
                                     className="icon"
                                 />
                             </a>

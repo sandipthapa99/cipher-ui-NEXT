@@ -31,7 +31,7 @@ import { MembershipPackage } from "./MembershipPackage";
 //             {children}
 //             {isCurrentEventKey ? (
 //                 <span className="my-3 my-md-0">
-//                     Show Plan <FontAwesomeIcon icon={faChevronDown} />
+//                     Show Plan <ExpandMoreOutlined className="svg-icon" />
 //                 </span>
 //             ) : (
 //                 <span className="my-3 my-md-0">
