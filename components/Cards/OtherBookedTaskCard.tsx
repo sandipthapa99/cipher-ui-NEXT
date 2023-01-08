@@ -38,7 +38,7 @@ export const OtherBookedTaskCard = ({
     const [opened, setOpened] = useState(false);
     const [openReviewModal, setOpenReviewModal] = useState(false);
 
-    const { created_at, location, start_date, id, status } =
+    const { created_at, location, start_date, end_date, id, status } =
         myTask ?? Approvedtask ?? item ?? {};
 
     const {
@@ -158,8 +158,7 @@ export const OtherBookedTaskCard = ({
                             </div>
                             <div className="time d-flex align-items-center">
                                 <HourglassBottomOutlined className="svg-icon ms-1 me-4" />
-                                {start_date &&
-                                    format(new Date(start_date), "PPP")}
+                                {end_date && end_date}
                             </div>
                             {!myTask && !Approvedtask && (
                                 <div className="name-and-image d-flex">
