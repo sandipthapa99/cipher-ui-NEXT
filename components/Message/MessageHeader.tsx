@@ -1,8 +1,4 @@
-import {
-    faEllipsisVertical,
-    faPhone,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MoreVert, PhoneIphoneOutlined } from "@mui/icons-material";
 import Image from "next/image";
 
 interface MessageHeaderProps {
@@ -40,12 +36,12 @@ export const MessageHeader = ({
                     type="button"
                     text="Back to Task"
                 /> */}
-                <FontAwesomeIcon icon={faPhone} color="#868E96" />
+                <PhoneIphoneOutlined style={{ color: "#868E96" }} />
                 {/* <FontAwesomeIcon
                     color="#FE5050"
                     icon={isFavorite ? faHeartFilled : faHeartOutlined}
                 /> */}
-                <FontAwesomeIcon color="#868E96" icon={faEllipsisVertical} />
+                <MoreVert style={{ color: "#868E96" }} />
             </div>
         </div>
     );

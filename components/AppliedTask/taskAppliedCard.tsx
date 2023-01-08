@@ -1,22 +1,15 @@
 import ShareIcon from "@components/common/ShareIcon";
 import {
-    faClockEight,
-    faLocationDot,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
     CalendarTodayOutlined,
     LocationOnOutlined,
     ScheduleOutlined,
     SupervisorAccountOutlined,
 } from "@mui/icons-material";
-import urls from "constants/urls";
 import { format } from "date-fns";
-import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import type { ITask, TaskerCount } from "types/task";
+import type { ITask } from "types/task";
 // import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
 

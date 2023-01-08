@@ -2,9 +2,6 @@ import ShareIcon from "@components/common/ShareIcon";
 import { ReviewModal } from "@components/Review/ReviewModal";
 import { ApprovedTaskDetail } from "@components/SearchTask/ApprovedTaskDetail";
 import BookingDetails from "@components/SearchTask/BookingDetails";
-import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
-import { faHourglassClock, faPeriod } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, Button, RingProgress, Text } from "@mantine/core";
 import {
     HourglassBottomOutlined,

@@ -1,5 +1,3 @@
-import { faCrab, faObjectsColumn } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Box, Navbar, ScrollArea } from "@mantine/core";
 import {
     DashboardOutlined,

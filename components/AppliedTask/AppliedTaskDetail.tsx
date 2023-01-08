@@ -5,15 +5,6 @@ import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
-import {
-    faCalendar,
-    faClockEight,
-    faLocationDot,
-    faUserGroup,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
-import { faCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Tooltip } from "@mantine/core";
 import {
@@ -23,7 +14,6 @@ import {
     ScheduleOutlined,
     Search,
     SupervisorAccountOutlined,
-    VisibilityOutlined,
 } from "@mui/icons-material";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
