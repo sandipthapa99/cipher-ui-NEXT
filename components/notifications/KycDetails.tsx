@@ -97,8 +97,6 @@ export const KycDetails = ({
                     </p>
                 </div>
             </div>
-
-            {/* <FontAwesomeIcon icon={faXmark} /> */}
         </div>
     );
 };

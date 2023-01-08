@@ -1,7 +1,6 @@
-import { faXmark } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Skeleton } from "@mantine/core";
 import { useClickOutside, useScrollLock } from "@mantine/hooks";
+import { Close } from "@mui/icons-material";
 import axios from "axios";
 import cheerio from "cheerio";
 import {} from "date-fns/locale";
@@ -119,7 +118,7 @@ export const RasifalSlideComponent = ({
                             document.body.style.overflow = "unset";
                         }}
                     >
-                        <FontAwesomeIcon icon={faXmark} />
+                        <Close />
                     </span>
                 </div>
 

@@ -135,19 +135,13 @@ const PaymentMethod = () => {
                                     <div className="linked">
                                         {bank.is_primary ? (
                                             <div className="primary">
-                                                <FontAwesomeIcon
-                                                    icon={faBuildingColumns}
-                                                    className="svg-icon"
-                                                />
+                                                <AccountBalanceOutlined className="svg-icon" />
                                             </div>
                                         ) : (
                                             ""
                                         )}
                                         <div className="linked-icons">
-                                            <FontAwesomeIcon
-                                                icon={faLinkSimple}
-                                                className="svg-icon"
-                                            />
+                                            <LinkOutlined className="svg-icon" />
                                             <a href="" className="link">
                                                 Linked
                                             </a>

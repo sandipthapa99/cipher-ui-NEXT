@@ -77,8 +77,6 @@ export const PostNotifyTask = ({
                     </p>
                 </div>
             </div>
-
-            {/* <FontAwesomeIcon icon={faXmark} /> */}
         </div>
     );
 };

@@ -1,14 +1,9 @@
-import BigButton from "@components/common/Button";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import {
-    faCircleCheck,
-    faCircleExclamation,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Radio } from "@mantine/core";
+import { CheckCircle, ErrorOutlineOutlined } from "@mui/icons-material";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
@@ -142,9 +137,7 @@ const ForgotPassword = () => {
                             )}
                             {successAlertMsg !== "" && (
                                 <Alert
-                                    icon={
-                                        <FontAwesomeIcon icon={faCircleCheck} />
-                                    }
+                                    icon={<CheckCircle />}
                                     title="Success"
                                     color="teal"
                                     className="mb-5"
@@ -154,11 +147,7 @@ const ForgotPassword = () => {
                             )}
                             {errorAlertMsg !== "" && (
                                 <Alert
-                                    icon={
-                                        <FontAwesomeIcon
-                                            icon={faCircleExclamation}
-                                        />
-                                    }
+                                    icon={<ErrorOutlineOutlined />}
                                     title="Oops!"
                                     color="red"
                                     className="mb-5"

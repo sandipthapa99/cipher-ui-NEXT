@@ -219,9 +219,8 @@ const SimpleProfileCard = ({
                                 defaultValue={priceValue}
                             />
                         </div>
-                        <FontAwesomeIcon
-                            icon={faCirclePlus}
-                            onClick={() => {
+                        <AddCircleOutline
+                        onClick={() => {
                                 setPriceValue(priceValue + 1);
                                 setPriceChanged(true);
                             }}

@@ -82,8 +82,6 @@ export const TaskStatus = ({
                     </p>
                 </div>
             </div>
-
-            {/* <FontAwesomeIcon icon={faXmark} /> */}
         </div>
     );
 };

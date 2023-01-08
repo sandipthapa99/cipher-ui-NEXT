@@ -1,8 +1,7 @@
-import { faCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { Button } from "@mantine/core";
 import { Select } from "@mantine/core";
+import { Check } from "@mui/icons-material";
 import { QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
@@ -103,10 +102,7 @@ const AvatarForm = ({
                                       "avatar-section__click"
                                   }`}
                               >
-                                  <FontAwesomeIcon
-                                      icon={faCheck}
-                                      className="avatar-section__click--icon"
-                                  />
+                                  <Check className="avatar-section__click--icon" />
                               </div>
                           </figure>
                       ))

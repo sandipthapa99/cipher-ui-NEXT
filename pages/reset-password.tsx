@@ -1,9 +1,8 @@
 import FormButton from "@components/common/FormButton";
 import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { faCircleExclamation } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
@@ -82,11 +81,7 @@ const ResetPassword = () => {
                         />
                         {errorAlertMsg !== "" && (
                             <Alert
-                                icon={
-                                    <FontAwesomeIcon
-                                        icon={faCircleExclamation}
-                                    />
-                                }
+                                icon={<ErrorOutlineOutlined />}
                                 title="Oops!"
                                 color="red"
                                 className="mb-5"

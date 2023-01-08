@@ -1,5 +1,4 @@
 import {
-    faCircleCheck,
     faCircleQuestion,
     faEnvelope,
     faFolder,
@@ -8,6 +7,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Accordion, Alert, Badge, Container, Divider } from "@mantine/core";
+import { CheckCircle } from "@mui/icons-material";
 import { format } from "date-fns";
 import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
@@ -46,7 +46,7 @@ export const KYCStatus = () => {
                         </p>
                         {item?.is_verified && (
                             <Badge color="green">
-                                <FontAwesomeIcon icon={faCircleCheck} />
+                                <CheckCircle />
                             </Badge>
                         )}
                     </div>

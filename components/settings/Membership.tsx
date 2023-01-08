@@ -79,10 +79,7 @@ const Membership = () => {
 //                             (value, key) => (
 //                                 <li key={key}>
 //                                     <span className="bg-info w-25 rounded me-4">
-//                                         <FontAwesomeIcon
-//                                             icon={faCheck}
-//                                             className="px-1 text-white"
-//                                         />
+// <Check className="px-1 text-white"/>
 //                                     </span>
 //                                     {value}
 //                                 </li>
@@ -113,10 +110,7 @@ const Membership = () => {
 //                             (value, key) => (
 //                                 <li key={key}>
 //                                     <span className="bg-info w-25 rounded me-4">
-//                                         <FontAwesomeIcon
-//                                             icon={faCheck}
-//                                             className="px-1 text-white"
-//                                         />
+//                                         <Check className="px-1 text-white"/>
 //                                     </span>
 //                                     {value}
 //                                 </li>
@@ -147,10 +141,7 @@ const Membership = () => {
 //                             (value, key) => (
 //                                 <li key={key}>
 //                                     <span className="bg-info w-25 rounded me-4">
-//                                         <FontAwesomeIcon
-//                                             icon={faCheck}
-//                                             className="px-1 text-white"
-//                                         />
+//                                         <Check className="px-1 text-white"/>
 //                                     </span>
 //                                     {value}
 //                                 </li>
@@ -181,10 +172,7 @@ const Membership = () => {
 //                             (value, key) => (
 //                                 <li key={key}>
 //                                     <span className="bg-info w-25 rounded me-4">
-//                                         <FontAwesomeIcon
-//                                             icon={faCheck}
-//                                             className="px-1 text-white"
-//                                         />
+//                                         <Check className="px-1 text-white"/>
 //                                     </span>
 //                                     {value}
 //                                 </li>

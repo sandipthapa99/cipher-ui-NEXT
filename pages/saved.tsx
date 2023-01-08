@@ -1,8 +1,7 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import { faAngleRight, faFilterList } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ChevronRight, FilterList } from "@mui/icons-material";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
@@ -12,7 +11,7 @@ const Saved: NextPage = () => {
         <Layout
             title="Saved | Homaale"
             description="Homaale is a platform designed to provide service booking solutions to the
-            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+            service seekers and business opportunities to various service providing companies by bridging a gap between them.
              It covers a wide range of services from various industries like Accounting, Gardening,
             Health, Beauty, and many more."
             keywords="homaale, bookmarks, saved, homaale-bookmarks, airtasker-nepali,nepali-working-platform, business, online-business"
@@ -37,10 +36,7 @@ const Saved: NextPage = () => {
                                     </Col>
                                     <Col md={2} sm={2}>
                                         <div className="filter-icon">
-                                            <FontAwesomeIcon
-                                                icon={faFilterList}
-                                                className="svg-icon"
-                                            />
+                                            <FilterList className="svg-icon" />
                                         </div>
                                     </Col>
                                 </Row>
@@ -56,10 +52,7 @@ const Saved: NextPage = () => {
                                 <Link href="/search">
                                     <a className="view-more">
                                         view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        <ChevronRight className="svg-icon" />
                                     </a>
                                 </Link>
                                 <div className="content"></div>
@@ -73,10 +66,7 @@ const Saved: NextPage = () => {
                                 </h2>
                                 <a href="#!" className="view-more">
                                     view more{" "}
-                                    <FontAwesomeIcon
-                                        icon={faAngleRight}
-                                        className="svg-icon"
-                                    />
+                                    <ChevronRight className="svg-icon" />
                                 </a>
                             </div>
                         </div>
