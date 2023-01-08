@@ -87,8 +87,8 @@ export const KYCStatus = () => {
                             <Image
                                 src={item.file}
                                 alt="pic"
-                                height={75}
-                                width={75}
+                                height={80}
+                                width={80}
                                 className="photo-kyc-document-status"
                             />
                         </Col>
@@ -109,8 +109,8 @@ export const KYCStatus = () => {
                             "/userprofile/unknownPerson.jpg"
                         }
                         alt="pic"
-                        height={100}
-                        width={100}
+                        height={120}
+                        width={120}
                         className="photo-kyc-status"
                     />
                     <div className="text-cont-kyc">

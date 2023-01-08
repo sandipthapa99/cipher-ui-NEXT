@@ -12,7 +12,7 @@ const SelectInputField = ({
     placeHolder,
     labelName,
     textMuted,
-    fieldRequired = false,
+    fieldRequired,
     options,
 
     ...restProps

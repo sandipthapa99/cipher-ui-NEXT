@@ -764,6 +764,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 ? false
                                                 : true
                                         }
+                                        fieldRequired
                                     />
                                 </Col>
                                 <Col md={4}>
@@ -794,6 +795,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 ? false
                                                 : true
                                         }
+                                        fieldRequired
                                     />
                                 </Col>
                             </Row>
@@ -805,6 +807,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 placeHolder="Enter your Bio"
                                 as="textarea"
                                 disabled={isInputDisabled}
+                                fieldRequired
                             />
                             <InputField
                                 name="designation"
@@ -826,6 +829,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 touch={touched.gender}
                                 error={errors.gender}
                                 disabled={isInputDisabled}
+                                fieldRequired
                             />
                             <MantineDateField
                                 name="date_of_birth"
@@ -850,7 +854,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             />
                             <hr />
                             <h3>Professional Information</h3>
-                            <h4>Select User Type</h4>
+                            <div className="d-flex">
+                                <h4 className="me-2">Select User Type</h4>
+                                <span className="asterisk"> * </span>
+                            </div>
                             <div
                                 role="group"
                                 aria-labelledby="checkbox-group"
@@ -906,6 +913,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     return item;
                                 }}
                                 disabled={isInputDisabled}
+                                withAsterisk
                             />
                             <MultiSelect
                                 data={interestOptions}
@@ -929,7 +937,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                                 fieldRequired
                             />
-                            <h4>Active Hours</h4>
+                            <div className="d-flex">
+                                <h4 className="me-2">Active Hours</h4>
+                                <span className="asterisk">{` *`}</span>
+                            </div>
                             <Row className="g-5">
                                 <Col md={3}>
                                     <MantineTimeField
@@ -965,7 +976,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md={3}>
+                                <Col md={4}>
                                     <InputField
                                         type="number"
                                         name="hourly_rate"
@@ -974,6 +985,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                         touch={touched.hourly_rate}
                                         disabled={isInputDisabled}
                                         placeHolder="Base Rate Per Hour"
+                                        fieldRequired
                                     />
                                 </Col>
                             </Row>
@@ -1023,6 +1035,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 onPlaceChange={(value) =>
                                     setFieldValue("address_line1", value)
                                 }
+                                withAsterisk
                             />
                             <InputField
                                 type="text"
@@ -1066,6 +1079,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 }}
                                 data={currencyResults ?? []}
                                 error={errors.charge_currency}
+                                withAsterisk
                             />
                             <hr />
                             <h3>Profile Configurations</h3>
@@ -1077,6 +1091,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                                 placeHolder="Select your visibility"
                                 options={profile_visibility}
+                                fieldRequired
                             />
                             <SelectInputField
                                 name="task_preferences"
@@ -1086,6 +1101,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 placeHolder="Select your preferences"
                                 options={task_preferences}
                                 disabled={isInputDisabled}
+                                fieldRequired
                             />
                             {profile ? null : (
                                 <div className="d-flex justify-content-end">
