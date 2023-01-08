@@ -1,6 +1,5 @@
 import Layout from "@components/Layout";
 import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ContentCopyOutlined } from "@mui/icons-material";
 import urls from "constants/urls";

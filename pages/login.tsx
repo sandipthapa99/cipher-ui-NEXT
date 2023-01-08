@@ -5,8 +5,6 @@ import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { faEnvelope, faMobile } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { EmailOutlined, PhoneIphoneOutlined } from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

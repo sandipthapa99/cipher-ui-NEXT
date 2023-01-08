@@ -1,6 +1,4 @@
 import Layout from "@components/Layout";
-import { faFileCircleXmark } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HighlightOffOutlined } from "@mui/icons-material";
 import Link from "next/link";
 

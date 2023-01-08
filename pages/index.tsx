@@ -14,16 +14,14 @@ import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import Layout from "@components/Layout";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
-import {
-    faAngleRight,
-    faArrowLeft,
-    faArrowRight,
-    faWarning,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert } from "@mantine/core";
-import { East, ErrorOutlineOutlined, West } from "@mui/icons-material";
+import {
+    ChevronRightOutlined,
+    East,
+    ErrorOutlineOutlined,
+    West,
+} from "@mui/icons-material";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -277,10 +275,7 @@ const Home: NextPage<{
                                 <Link href="/service">
                                     <a className="view-more">
                                         view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        <ChevronRightOutlined className="svg-icon" />
                                     </a>
                                 </Link>
                             </>
@@ -327,10 +322,7 @@ const Home: NextPage<{
                                 <Link href="/service">
                                     <a className="view-more">
                                         view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        <ChevronRightOutlined className="svg-icon" />
                                     </a>
                                 </Link>
                             </div>
@@ -376,10 +368,7 @@ const Home: NextPage<{
                                 <Link href="/service">
                                     <a className="view-more">
                                         view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        <ChevronRightOutlined className="svg-icon" />
                                     </a>
                                 </Link>
                             </div>
@@ -531,10 +520,7 @@ const Home: NextPage<{
                                     <Link href="/tasker">
                                         <a className="view-more">
                                             view more{" "}
-                                            <FontAwesomeIcon
-                                                icon={faAngleRight}
-                                                className="svg-icon"
-                                            />
+                                            <ChevronRightOutlined className="svg-icon" />
                                         </a>
                                     </Link>
                                 )}
@@ -676,10 +662,7 @@ const Home: NextPage<{
                                 <Link href="/task-you-may-like">
                                     <a className="view-more">
                                         view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        <ChevronRightOutlined className="svg-icon" />
                                     </a>
                                 </Link>
                             </div>
@@ -769,10 +752,7 @@ const Home: NextPage<{
                             <Link href="/blogs">
                                 <a className="view-more">
                                     view more{" "}
-                                    <FontAwesomeIcon
-                                        icon={faAngleRight}
-                                        className="svg-icon"
-                                    />
+                                    <ChevronRightOutlined className="svg-icon" />
                                 </a>
                             </Link>
                         </div>

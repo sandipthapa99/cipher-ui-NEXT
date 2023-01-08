@@ -1,7 +1,5 @@
 import Layout from "@components/Layout";
 import { PaymentSuccessSkeleton } from "@components/Skeletons/PaymentSuccessSkeleton";
-import { faDashboard, faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Box, Button } from "@mantine/core";
 import { DashboardOutlined, ErrorOutlineOutlined } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";

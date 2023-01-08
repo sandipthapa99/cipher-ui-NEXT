@@ -1,8 +1,6 @@
 import { UserShortIntro } from "@components/Task/UserTaskDetail/atoms/UserShortIntro";
 import { UserTaskDetailHeader } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailHeader";
 import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
-import { faChevronLeft } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChevronLeft } from "@mui/icons-material";
 import Link from "next/link";
 import type { HTMLAttributes } from "react";

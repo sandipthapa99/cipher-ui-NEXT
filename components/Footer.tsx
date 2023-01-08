@@ -1,11 +1,3 @@
-import {
-    faFacebookF,
-    faInstagram,
-    faTiktok,
-    faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
-import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { EastOutlined } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";

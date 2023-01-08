@@ -4,8 +4,6 @@ import BusinessGoal from "@components/common/BusinessGoal";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { East } from "@mui/icons-material";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";

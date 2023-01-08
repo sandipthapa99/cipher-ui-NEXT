@@ -1,5 +1,3 @@
-import { faXmarkLarge } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Close } from "@mui/icons-material";
 
 interface RecommendationChipsProps {

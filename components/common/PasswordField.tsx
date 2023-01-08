@@ -1,5 +1,3 @@
-import { faEye, faEyeSlash } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { ErrorMessage, Field } from "formik";
 import Link from "next/link";

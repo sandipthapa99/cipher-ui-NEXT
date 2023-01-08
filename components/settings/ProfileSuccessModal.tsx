@@ -1,10 +1,6 @@
-import BigButton from "@components/common/Button";
 import CardBtn from "@components/common/CardBtn";
-import { faCircleCheck } from "@fortawesome/pro-thin-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
 import { CheckCircleOutlineOutlined } from "@mui/icons-material";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
 interface ProfileSuccessModalCardProps {
