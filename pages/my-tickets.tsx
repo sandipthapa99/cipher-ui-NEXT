@@ -1,8 +1,7 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Button, Col, Grid, Skeleton } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
@@ -129,7 +128,7 @@ const MyTickets = () => {
                     </div>
                     {supportTickets?.result.length === 0 && !isFetching ? (
                         <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            icon={<ErrorOutlineOutlined />}
                             title={"No Tickets Avaiable."}
                             color="orange"
                         >

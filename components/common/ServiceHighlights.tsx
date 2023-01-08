@@ -1,5 +1,4 @@
-import { faCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Check } from "@mui/icons-material";
 import { Fragment } from "react";
 
 interface ServiceHighlightsProps {
@@ -10,10 +9,7 @@ const ServiceHighlights = ({ highlights = [] }: ServiceHighlightsProps) => {
         <>
             {highlights?.map((value, key) => (
                 <p className="mb-4" key={key}>
-                    <FontAwesomeIcon
-                        icon={faCheck}
-                        className="me-3 svg-icon svg-icon-check"
-                    />
+                    <Check className="me-3 svg-icon svg-icon-check" />
                     {value}
                 </p>
             ))}

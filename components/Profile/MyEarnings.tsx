@@ -1,9 +1,4 @@
-import {
-    faArrowDown,
-    faArrowUp,
-    faFileInvoiceDollar,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { North, ReceiptOutlined, South } from "@mui/icons-material";
 import { useMyWallet } from "hooks/use-wallet";
 import { useRouter } from "next/router";
 
@@ -28,11 +23,7 @@ export const MyEarnings = () => {
                                 ? `${myWallet[0].last_received}`
                                 : "0 "}
                         </p>
-                        <FontAwesomeIcon
-                            icon={faArrowUp}
-                            style={{ fontSize: "16px" }}
-                            color={"#38C675"}
-                        />
+                        <North style={{ fontSize: "16px", color: "#38C675" }} />
                     </div>
                     <div className="d-flex align-items-center justify-content-center gap-3">
                         <p className="m-0 weekly-points">
@@ -40,18 +31,16 @@ export const MyEarnings = () => {
                                 ? `${myWallet[0].last_paid}`
                                 : "0 "}
                         </p>
-                        <FontAwesomeIcon
-                            icon={faArrowDown}
-                            style={{ fontSize: "16px" }}
-                            color="#FE5050"
-                        />
+                        <South style={{ fontSize: "16px", color: "#FE5050" }} />
                     </div>
                 </div>
                 <div className="div-invoice">
-                    <FontAwesomeIcon
-                        icon={faFileInvoiceDollar}
-                        style={{ fontSize: "24px", cursor: "pointer" }}
-                        color="#fff"
+                    <ReceiptOutlined
+                        style={{
+                            fontSize: "24px",
+                            cursor: "pointer",
+                            color: "#fff",
+                        }}
                         onClick={() => router.push("/my-Earnings")}
                     />
                 </div>

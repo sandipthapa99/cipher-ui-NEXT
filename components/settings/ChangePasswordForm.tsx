@@ -1,7 +1,6 @@
 import FormButton from "@components/common/FormButton";
 import PasswordField from "@components/common/PasswordField";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Accordion } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";

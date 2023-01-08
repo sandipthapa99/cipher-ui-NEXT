@@ -1,7 +1,6 @@
 import Reviews from "@components/common/Reviews";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Grid, Select, Skeleton } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import { useState } from "react";
@@ -67,7 +66,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             {!ratingData ||
                 (ratingData.length <= 0 && (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"
@@ -143,7 +142,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             ) : (
                 ""
             )}
-            {/* 
+            {/*
             <span className="td-divider"></span>
             <div className="ratings">
                 <AddReviewForm />

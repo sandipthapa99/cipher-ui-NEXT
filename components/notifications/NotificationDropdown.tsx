@@ -1,5 +1,4 @@
-import { faBell } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NotificationsOutlined } from "@mui/icons-material";
 import { QueryClient } from "@tanstack/react-query";
 import { useGetNotification } from "hooks/Notifications/use-notification";
 import Link from "next/link";
@@ -594,7 +593,7 @@ export const NotificationDropdown = () => {
     return (
         <div className="notification-dropdown">
             <div className="d-flex notification-title align-items-center">
-                <FontAwesomeIcon icon={faBell} />
+                <NotificationsOutlined />
                 <h3>Notifications</h3>
             </div>
             <div className="d-flex justify-content-between second-title">

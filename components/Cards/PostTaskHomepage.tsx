@@ -1,6 +1,5 @@
 import BigButton from "@components/common/Button";
-import { faListCheck, faXmark } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Close, PlaylistAddCheckOutlined } from "@mui/icons-material";
 import React from "react";
 import { useWithLogin } from "store/use-login-prompt-store";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
@@ -15,9 +14,9 @@ export const PostTaskHomepage = ({ handleClose }: PostTaskHomepageProps) => {
     return (
         <div className="d-flex flex-column justify-content-center align-items-center post-task-homepage">
             <span className="xmark" onClick={handleClose}>
-                <FontAwesomeIcon icon={faXmark} />
+                <Close />
             </span>
-            <FontAwesomeIcon icon={faListCheck} />
+            <PlaylistAddCheckOutlined />
 
             <h4 className="justify-text-center">Ease your workload</h4>
             <BigButton

@@ -1,8 +1,12 @@
-import { faCircleArrowUp, faXmark } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Group, Text } from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
+import {
+    ArrowCircleUpOutlined,
+    Close,
+    ErrorOutlineOutlined,
+    FileUpload,
+} from "@mui/icons-material";
 import type { FieldProps } from "formik";
 import { Field } from "formik";
 import * as _ from "lodash";
@@ -135,10 +139,7 @@ const MultiFileDropzone = ({
                                                                     );
                                                             }}
                                                         >
-                                                            <FontAwesomeIcon
-                                                                icon={faXmark}
-                                                                fontSize={14}
-                                                            />
+                                                            <Close />
                                                         </ActionIcon>
                                                     )}
                                                 </Box>
@@ -215,10 +216,8 @@ const MultiFileDropzone = ({
                                                 pointerEvents: "none",
                                             }}
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faCircleArrowUp}
-                                                fontSize={18}
-                                                color={"#3EAEFF"}
+                                            <ArrowCircleUpOutlined
+                                            // color={"#3EAEFF"}
                                             />
                                             <Text>
                                                 Drop files or click here to
@@ -235,11 +234,7 @@ const MultiFileDropzone = ({
                                                 pointerEvents: "none",
                                             }}
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faXmark}
-                                                fontSize={18}
-                                                color={"#FE5050"}
-                                            />
+                                            <ErrorOutlineOutlined />
                                             <Text>Unsupported file format</Text>
                                         </Group>
                                     </Dropzone.Reject>
@@ -252,10 +247,11 @@ const MultiFileDropzone = ({
                                                 pointerEvents: "none",
                                             }}
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faCircleArrowUp}
-                                                fontSize={18}
-                                                color={"#3EAEFF"}
+                                            <FileUpload
+                                                style={{
+                                                    color: "#3EAEFF",
+                                                    fontSize: 20,
+                                                }}
                                             />
                                             <Text color={"#343A40"}>
                                                 Drop files or click here to

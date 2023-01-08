@@ -5,9 +5,8 @@ import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
-import { faAngleRight, faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "@mantine/core";
+import { ChevronRight, ErrorOutlineOutlined } from "@mui/icons-material";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
@@ -53,10 +52,7 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
                             <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}
-                                    <FontAwesomeIcon
-                                        icon={faAngleRight}
-                                        className="svg-icon"
-                                    />
+                                    <ChevronRight className="svg-icon" />
                                 </a>
                             </Link>
                         </div>
@@ -87,7 +83,7 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
                         <h1>Top Merchants</h1>
                         {taskerData.result && taskerData.result.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="Taskers Unavailable"
                                 variant="filled"
                                 color="yellow"

@@ -1,5 +1,4 @@
-import { faCircleQuestion, faStar } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { HelpOutline, StarRounded } from "@mui/icons-material";
 import Image from "next/image";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
@@ -58,9 +57,7 @@ export const PersonalSuccessCard = ({
                                     <div className="d-flex title">
                                         <h5>Platinum Badge</h5>
                                         <span>
-                                            <FontAwesomeIcon
-                                                icon={faCircleQuestion}
-                                            />
+                                            <HelpOutline />
                                         </span>
                                     </div>
                                     <h6>
@@ -70,7 +67,7 @@ export const PersonalSuccessCard = ({
                             </div>
                             <div className="d-flex footer">
                                 <span>
-                                    <FontAwesomeIcon icon={faStar} />
+                                    <StarRounded />
                                 </span>
                                 <span>4.5 stars from 400 reviews</span>
                             </div>

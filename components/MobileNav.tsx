@@ -1,10 +1,9 @@
 import {
-    faBars,
-    faBell,
-    faHome,
-    faUser,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+    HomeOutlined,
+    Menu,
+    NotificationsOutlined,
+    PersonOutlined,
+} from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -48,20 +47,10 @@ const MobileNav = ({ getSide }: MobileProps) => {
             <nav className={`nav-active ${show && "nav-hidden"}`}>
                 <Link href="/">
                     <a className={`nav-link ${handleMenuActive("/", router)}`}>
-                        <FontAwesomeIcon icon={faHome} className="nav-icon" />
+                        <HomeOutlined className="nav-icon" />
                         {/* <span className="nav__text">Dashboard</span> */}
                     </a>
                 </Link>
-                {/* <Link href="/search">
-                    <a
-                        className={`nav-link ${handleMenuActive(
-                            "/search",
-                            router
-                        )}`}
-                    >
-                        <FontAwesomeIcon icon={faSearch} className="nav-icon" />
-                    </a>
-                </Link> */}
                 <Link href="/profile">
                     <a
                         className={`nav-link ${handleMenuActive(
@@ -69,7 +58,7 @@ const MobileNav = ({ getSide }: MobileProps) => {
                             router
                         )}`}
                     >
-                        <FontAwesomeIcon icon={faUser} className="nav-icon" />
+                        <PersonOutlined className="nav-icon" />
                     </a>
                 </Link>
                 <Link href="/notifications">
@@ -79,7 +68,7 @@ const MobileNav = ({ getSide }: MobileProps) => {
                             router
                         )}`}
                     >
-                        <FontAwesomeIcon icon={faBell} className="nav-icon" />
+                        <NotificationsOutlined className="nav-icon" />
                     </a>
                 </Link>
                 <Link href="">
@@ -90,7 +79,7 @@ const MobileNav = ({ getSide }: MobileProps) => {
                             getSide((prev: boolean) => !prev);
                         }}
                     >
-                        <FontAwesomeIcon icon={faBars} className="nav-icon" />
+                        <Menu className="nav-icon" />
                     </a>
                 </Link>
             </nav>

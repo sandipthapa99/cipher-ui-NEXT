@@ -6,9 +6,8 @@ import Layout from "@components/Layout";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Grid, Highlight } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
@@ -41,7 +40,7 @@ const SearchPage: NextPage = () => {
             <Layout
                 title="Search | Homaale"
                 description="Homaale is a platform designed to provide service booking solutions to the
-            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+            service seekers and business opportunities to various service providing companies by bridging a gap between them.
              It covers a wide range of services from various industries like Accounting, Gardening,
             Health, Beauty, and many more."
                 keywords="homaale, search, search-homaale, airtasker-nepali,nepali-working-platform, business, online-business"
@@ -93,7 +92,7 @@ const SearchPage: NextPage = () => {
                         </Row>
                         {!fetchingService && !serviceData?.data?.result && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -129,7 +128,7 @@ const SearchPage: NextPage = () => {
                         )}
                         {taskData && taskData?.data?.result?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -167,7 +166,7 @@ const SearchPage: NextPage = () => {
                             taskerData &&
                             taskerData?.data?.result?.length <= 0 && (
                                 <Alert
-                                    icon={<FontAwesomeIcon icon={faWarning} />}
+                                    icon={<ErrorOutlineOutlined />}
                                     title="No data Available"
                                     color="orange"
                                     radius="md"

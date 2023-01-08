@@ -5,7 +5,7 @@ import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import TaxCalculatorInfo from "@components/TaxCalculator/InfoList";
 import RelatedInfo from "@components/TaxCalculator/RelatedInformation";
-import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
+import { HelpOutline } from "@mui/icons-material";
 import { Form, Formik } from "formik";
 import { useTaxCalculator } from "hooks/tax-calculator/useTaxCalculator";
 import type { NextPage } from "next";
@@ -159,7 +159,7 @@ const TaxCalculator: NextPage = () => {
         <Layout
             title="Tax-Calculator | Homaale"
             description="Homaale is a platform designed to provide service booking solutions to the
-        service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+        service seekers and business opportunities to various service providing companies by bridging a gap between them.
          It covers a wide range of services from various industries like Accounting, Gardening,
         Health, Beauty, and many more."
             keywords="homaale, tax, tax-calculator, homaale-tax, airtasker-nepali,nepali-working-platform, business, online-business"
@@ -320,7 +320,7 @@ const TaxCalculator: NextPage = () => {
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
-                                                                faCircleQuestion
+                                                                <HelpOutline />
                                                             }
                                                             placeHolder="Festival Bonus"
                                                         />
@@ -337,7 +337,7 @@ const TaxCalculator: NextPage = () => {
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
-                                                                faCircleQuestion
+                                                                <HelpOutline />
                                                             }
                                                         />
 
@@ -353,7 +353,7 @@ const TaxCalculator: NextPage = () => {
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
-                                                                faCircleQuestion
+                                                                <HelpOutline />
                                                             }
                                                         />
                                                     </div>
@@ -370,7 +370,7 @@ const TaxCalculator: NextPage = () => {
                                                             touch={touched.pf}
                                                             haveIcon={true}
                                                             inputIcon={
-                                                                faCircleQuestion
+                                                                <HelpOutline />
                                                             }
                                                         />
 
@@ -384,7 +384,7 @@ const TaxCalculator: NextPage = () => {
                                                             touch={touched.cit}
                                                             haveIcon={true}
                                                             inputIcon={
-                                                                faCircleQuestion
+                                                                <HelpOutline />
                                                             }
                                                         />
 
@@ -400,7 +400,7 @@ const TaxCalculator: NextPage = () => {
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
-                                                                faCircleQuestion
+                                                                <HelpOutline />
                                                             }
                                                         />
 
@@ -416,7 +416,7 @@ const TaxCalculator: NextPage = () => {
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
-                                                                faCircleQuestion
+                                                                <HelpOutline />
                                                             }
                                                         />
                                                     </div>

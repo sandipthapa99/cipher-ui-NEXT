@@ -1,8 +1,7 @@
 import ServiceHighlights from "@components/common/ServiceHighlights";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Modal, Spoiler } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
@@ -234,7 +233,7 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                     </div>
                 ) : (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"

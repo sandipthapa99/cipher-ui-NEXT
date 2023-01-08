@@ -5,17 +5,16 @@ import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
-import {
-    faCalendar,
-    faClockEight,
-    faLocationDot,
-    faUserGroup,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
-import { faCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Tooltip } from "@mantine/core";
+import {
+    CalendarTodayOutlined,
+    Check,
+    LocationOnOutlined,
+    ScheduleOutlined,
+    Search,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -227,10 +226,7 @@ const AppliedTaskDetail = ({
                 <div className="d-flex mt-4 task-detail__loc-time">
                     <Tooltip.Floating label="Task Location" color={"blue"}>
                         <p className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faLocationDot}
-                                className="svg-icon svg-icon-location"
-                            />
+                            <LocationOnOutlined className="svg-icon svg-icon-location" />
                             <span>
                                 {" "}
                                 {taskDetail?.city?.name
@@ -243,40 +239,22 @@ const AppliedTaskDetail = ({
                     {taskDetail?.created_at && (
                         <Tooltip.Floating label="Date Posted" color={"blue"}>
                             <p className="d-flex align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faCalendar}
-                                    className="svg-icon svg-icon-calender"
-                                />
+                                <CalendarTodayOutlined className="svg-icon svg-icon-calender" />
                                 {format(new Date(taskDetail?.created_at), "PP")}
                             </p>
                         </Tooltip.Floating>
                     )}
                     <Tooltip.Floating label="Time posted" color={"blue"}>
                         <p className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faClockEight}
-                                className="svg-icon svg-icon-clock"
-                            />
+                            <ScheduleOutlined className="svg-icon svg-icon-clock" />
                             {taskDetail?.updated_at
                                 ? format(new Date(taskDetail?.updated_at), "p")
                                 : "N/A"}
                         </p>
                     </Tooltip.Floating>
-                    {/* <Tooltip.Floating label="No. of Application" color={"blue"}>
-                        <p className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faEye}
-                                className="svg-icon svg-icon-eye"
-                            />
-                            <span> 200 Views</span>
-                        </p>
-                    </Tooltip.Floating> */}
                     <Tooltip.Floating label="No. of Application" color={"blue"}>
                         <p className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faUserGroup}
-                                className="svg-icon svg-icon-user-group"
-                            />
+                            <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
                             <span> {taskDetail.count} Applied</span>
                         </p>
                     </Tooltip.Floating>
@@ -297,10 +275,7 @@ const AppliedTaskDetail = ({
                             )} */}
                             {taskDetail?.highlights.map((highlight, index) => (
                                 <p className="mb-4" key={index}>
-                                    <FontAwesomeIcon
-                                        icon={faCheck}
-                                        className="me-3 svg-icon svg-icon-check"
-                                    />
+                                    <Check className="me-3 svg-icon svg-icon-check" />
                                     {highlight}
                                 </p>
                             ))}
@@ -335,8 +310,7 @@ const AppliedTaskDetail = ({
                                 {
                                     index: 0,
                                     type: (
-                                        <FontAwesomeIcon
-                                            icon={faMagnifyingGlass}
+                                        <Search
                                             className="svg-icon"
                                             onClick={() =>
                                                 setShowInput(!showInput)
@@ -347,20 +321,6 @@ const AppliedTaskDetail = ({
                                         <RenderInputBox />
                                     ) : null,
                                 },
-                                // {
-                                //     index: 1,
-                                //     type: (
-                                //         <EllipsisDropdown
-                                //             showModal={true}
-                                //             handleOnClick={() => setShowModal(true)}
-                                //         >
-                                //             <FontAwesomeIcon
-                                //                 icon={faFilterList}
-                                //                 className="svg-icon"
-                                //             />
-                                //         </EllipsisDropdown>
-                                //     ),
-                                // },
                             ]}
                         />
                     ) : null}

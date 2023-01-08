@@ -1,8 +1,7 @@
 import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
-import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Grid, Select, Skeleton } from "@mantine/core";
+import { DeleteOutline, Edit } from "@mui/icons-material";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
@@ -249,8 +248,7 @@ const AboutProfile = () => {
                                                       : "icons"
                                               }
                                           >
-                                              <FontAwesomeIcon
-                                                  icon={faPencil}
+                                              <Edit
                                                   className={
                                                       isOnlyPortfolioText
                                                           ? "blak-icon"
@@ -264,8 +262,7 @@ const AboutProfile = () => {
                                                       setIsEditProfile(true);
                                                   }}
                                               />
-                                              <FontAwesomeIcon
-                                                  icon={faTrashCan}
+                                              <DeleteOutline
                                                   className={
                                                       isOnlyPortfolioText
                                                           ? "trash black-icon"
@@ -341,10 +338,7 @@ const AboutProfile = () => {
                                                           {experienceHovered ===
                                                           value.id ? (
                                                               <div className="icons">
-                                                                  <FontAwesomeIcon
-                                                                      icon={
-                                                                          faPencil
-                                                                      }
+                                                                  <Edit
                                                                       className="svg-icon"
                                                                       onClick={() => {
                                                                           handleEdit(
@@ -355,10 +349,7 @@ const AboutProfile = () => {
                                                                           );
                                                                       }}
                                                                   />
-                                                                  <FontAwesomeIcon
-                                                                      icon={
-                                                                          faTrashCan
-                                                                      }
+                                                                  <DeleteOutline
                                                                       className="trash svg-icon"
                                                                       onClick={() =>
                                                                           handleDelete(
@@ -527,10 +518,7 @@ const AboutProfile = () => {
                                                       {educationHovered ===
                                                       value.id ? (
                                                           <div className="icons">
-                                                              <FontAwesomeIcon
-                                                                  icon={
-                                                                      faPencil
-                                                                  }
+                                                              <Edit
                                                                   className="svg-icon"
                                                                   onClick={() => {
                                                                       setShowEducationForm(
@@ -544,10 +532,7 @@ const AboutProfile = () => {
                                                                       );
                                                                   }}
                                                               />
-                                                              <FontAwesomeIcon
-                                                                  icon={
-                                                                      faTrashCan
-                                                                  }
+                                                              <DeleteOutline
                                                                   className="trash svg-icon"
                                                                   onClick={() =>
                                                                       handleDelete(
@@ -653,10 +638,7 @@ const AboutProfile = () => {
                                                       {certificationHovered ===
                                                       value?.id ? (
                                                           <div className="icons">
-                                                              <FontAwesomeIcon
-                                                                  icon={
-                                                                      faPencil
-                                                                  }
+                                                              <Edit
                                                                   className="svg-icon"
                                                                   onClick={() => {
                                                                       setShowCertificationModal(
@@ -670,10 +652,7 @@ const AboutProfile = () => {
                                                                       );
                                                                   }}
                                                               />
-                                                              <FontAwesomeIcon
-                                                                  icon={
-                                                                      faTrashCan
-                                                                  }
+                                                              <DeleteOutline
                                                                   className="trash svg-icon"
                                                                   onClick={() =>
                                                                       handleDelete(

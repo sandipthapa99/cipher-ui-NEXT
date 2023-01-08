@@ -1,6 +1,3 @@
-import { faCamera, faSmile } from "@fortawesome/pro-light-svg-icons";
-import { faImage, faLink } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Input } from "@mantine/core";
 import {
     arrayUnion,
@@ -19,7 +16,7 @@ import { db } from "../../firebase/firebase";
 export type SendMessageInputProps = HTMLAttributes<HTMLInputElement>;
 
 export const SendMessageInput = (props: SendMessageInputProps) => {
-    const icons = [faImage, faCamera, faLink, faSmile];
+    // const icons = [faImage, faCamera, faLink, faSmile];
 
     const router = useRouter();
 
@@ -27,16 +24,16 @@ export const SendMessageInput = (props: SendMessageInputProps) => {
 
     const senderId: any = router.query.client;
 
-    const renderIcons = () => {
-        return icons.map((icon, index) => (
-            <FontAwesomeIcon
-                className="svg-icon"
-                color="#868E96"
-                icon={icon}
-                key={index}
-            />
-        ));
-    };
+    // const renderIcons = () => {
+    //     return icons.map((icon, index) => (
+    //         <FontAwesomeIcon
+    //             className="svg-icon"
+    //             color="#868E96"
+    //             icon={icon}
+    //             key={index}
+    //         />
+    //     ));
+    // };
 
     const { data: userId } = useUser();
 
@@ -86,7 +83,7 @@ export const SendMessageInput = (props: SendMessageInputProps) => {
                     style="position: absolute; left: -9999px; width: 1px; height: 1px;"
                     tabIndex="-1"
                 /> */}
-            <div className="send-message-input__icons">{renderIcons()}</div>
+            {/* <div className="send-message-input__icons">{renderIcons()}</div> */}
             <Button
                 onClick={(e: any) => {
                     e.preventDefault();

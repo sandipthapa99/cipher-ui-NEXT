@@ -3,8 +3,8 @@ import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
 import FileDropzone from "@components/common/SingleFileDropzone";
-import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
@@ -156,10 +156,7 @@ export const IdentityDocument = () => {
                                 touch={touched.issued_date}
                                 error={errors.issued_date}
                                 icon={
-                                    <FontAwesomeIcon
-                                        icon={faCalendarDays}
-                                        className="svg-icons"
-                                    />
+                                    <CalendarTodayOutlined className="svg-icons" />
                                 }
                                 maxDate={new Date()}
                                 handleChange={(value) => {
@@ -183,10 +180,7 @@ export const IdentityDocument = () => {
                                     touch={touched.issued_date}
                                     error={errors.issued_date}
                                     icon={
-                                        <FontAwesomeIcon
-                                            icon={faCalendarDays}
-                                            className="svg-icons"
-                                        />
+                                        <CalendarTodayOutlined className="svg-icons" />
                                     }
                                     minDate={new Date()}
                                     handleChange={(value) => {

@@ -1,7 +1,5 @@
-import { async } from "@firebase/util";
-import { faKey, faUser } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Modal, PasswordInput, Stack, TextInput } from "@mantine/core";
+import { KeyOutlined, Person } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
@@ -9,9 +7,7 @@ import localforage from "localforage";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import {
-    useClearPausedFunction,
     useHideLoginPrompt,
-    usePausedFunction,
     useShowLoginPrompt,
 } from "store/use-login-prompt-store";
 
@@ -84,13 +80,13 @@ export const LoginPrompt = () => {
                         <Stack style={{ boxShadow: "none" }}>
                             <TextInput
                                 {...getFieldProps("username")}
-                                icon={<FontAwesomeIcon icon={faUser} />}
+                                icon={<Person />}
                                 placeholder="Username or phone number"
                                 error={usernameErrorMsg && usernameErrorMsg}
                             />
                             <PasswordInput
                                 {...getFieldProps("password")}
-                                icon={<FontAwesomeIcon icon={faKey} />}
+                                icon={<KeyOutlined />}
                                 placeholder="Password"
                                 error={passwordErrorMsg && passwordErrorMsg}
                             />

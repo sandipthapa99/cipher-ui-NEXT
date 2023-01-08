@@ -2,17 +2,16 @@ import { TimelineTab } from "@components/AppliedTask/TimelineTab";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
-import {
-    faCalendar,
-    faClockEight,
-    faEye,
-    faLocationDot,
-    faUserGroup,
-    faWarning,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Modal } from "@mantine/core";
+import {
+    CalendarTodayOutlined,
+    ErrorOutlineOutlined,
+    LocationOnOutlined,
+    ScheduleOutlined,
+    SupervisorAccountOutlined,
+    VisibilityOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
@@ -210,10 +209,7 @@ export const ApprovedTaskDetail = ({
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon svg-icon-location"
-                        />
+                        <LocationOnOutlined className="svg-icon svg-icon-location" />
                         <span>
                             {" "}
                             {approvedTask?.data?.location
@@ -223,10 +219,7 @@ export const ApprovedTaskDetail = ({
                     </p>
                     {approvedTask?.data?.created_at && (
                         <p className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faCalendar}
-                                className="svg-icon svg-icon-calender"
-                            />
+                            <CalendarTodayOutlined className="svg-icon svg-icon-calender" />
                             {format(
                                 new Date(approvedTask?.data?.created_at),
                                 "PP"
@@ -234,10 +227,7 @@ export const ApprovedTaskDetail = ({
                         </p>
                     )}
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon svg-icon-clock"
-                        />
+                        <ScheduleOutlined className="svg-icon svg-icon-clock" />
                         {approvedTask?.data?.updated_at
                             ? format(
                                   new Date(approvedTask?.data?.updated_at),
@@ -246,17 +236,11 @@ export const ApprovedTaskDetail = ({
                             : "N/A"}
                     </p>
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faEye}
-                            className="svg-icon svg-icon-eye"
-                        />
+                        <VisibilityOutlined className="svg-icon svg-icon-eye" />
                         <span> 200 Views</span>
                     </p>
                     <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon svg-icon-user-group"
-                        />
+                        <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
                     </p>
                 </div>
                 <div className="task-detail__desc">
@@ -276,7 +260,7 @@ export const ApprovedTaskDetail = ({
                     </>
                 ) : (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"

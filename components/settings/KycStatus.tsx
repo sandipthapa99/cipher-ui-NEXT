@@ -1,13 +1,12 @@
-import {
-    faCircleCheck,
-    faCircleQuestion,
-    faEnvelope,
-    faFolder,
-    faLocationDot,
-    faPhone,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Accordion, Alert, Badge, Container, Divider } from "@mantine/core";
+import {
+    CheckCircle,
+    Folder,
+    HelpOutline,
+    LocationOnOutlined,
+    MailOutline,
+    PhoneIphoneOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
@@ -40,13 +39,13 @@ export const KYCStatus = () => {
             <Accordion.Item key={index} value={item?.document_id}>
                 <Accordion.Control className="mt-1 p-3">
                     <div className="d-flex align-items-center gap-3 folder-text-accordian account-form">
-                        <FontAwesomeIcon icon={faFolder} />
+                        <Folder />
                         <p className="m-0 document-kyc">
                             {item?.document_type}
                         </p>
                         {item?.is_verified && (
                             <Badge color="green">
-                                <FontAwesomeIcon icon={faCircleCheck} />
+                                <CheckCircle />
                             </Badge>
                         )}
                     </div>
@@ -121,10 +120,7 @@ export const KYCStatus = () => {
                             {`${profileDetails?.user?.first_name} ${profileDetails?.user?.last_name}`}
                         </p>
                         <div className="d-flex align-items-center gap-2">
-                            <FontAwesomeIcon
-                                icon={faEnvelope}
-                                className="font-icon-kyc"
-                            />
+                            <MailOutline className="font-icon-kyc" />
                             <p className="m-0 body-kyc">
                                 {profileDetails?.user.email
                                     ? profileDetails?.user.email
@@ -132,10 +128,7 @@ export const KYCStatus = () => {
                             </p>
                         </div>
                         <div className="d-flex align-items-center gap-2">
-                            <FontAwesomeIcon
-                                icon={faPhone}
-                                className="font-icon-kyc"
-                            />
+                            <PhoneIphoneOutlined className="font-icon-kyc" />
                             <p className="m-0 body-kyc">
                                 {profileDetails?.user.phone
                                     ? profileDetails?.user.phone
@@ -146,10 +139,7 @@ export const KYCStatus = () => {
                 </Col>
                 <Col md={4} className="location-text-kyc">
                     <div className="d-flex align-items-center gap-2">
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="font-icon-kyc text-black"
-                        />
+                        <LocationOnOutlined className="font-icon-kyc text-black" />
                         <p className="m-0 body-kyc">{KycData?.country?.name}</p>
                     </div>
                     <p className="m-0 body-kyc">
@@ -203,11 +193,7 @@ export const KYCStatus = () => {
                 <h2 className="mt-5 title-kyc-status">KYC Documents</h2>
                 <Divider my="sm" size="xs" variant="dashed" className="mb-4" />
                 {!KycData || KycDocuments?.length === 0 ? (
-                    <Alert
-                        icon={<FontAwesomeIcon icon={faCircleQuestion} />}
-                        title=""
-                        color="#e7f5ff"
-                    >
+                    <Alert icon={<HelpOutline />} title="" color="#e7f5ff">
                         No Kyc Documents provided
                     </Alert>
                 ) : (

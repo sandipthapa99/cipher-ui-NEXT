@@ -1,9 +1,5 @@
-import {
-    faCircleCheck,
-    faCircleExclamation,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "@mantine/core";
+import { CheckCircleOutline, ErrorOutline } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useForm } from "hooks/use-form";
@@ -191,11 +187,7 @@ const AuthenticationModalCard = ({
 
                         {errorAlertMsg !== "" && (
                             <Alert
-                                icon={
-                                    <FontAwesomeIcon
-                                        icon={faCircleExclamation}
-                                    />
-                                }
+                                icon={<ErrorOutline />}
                                 title="Oops!"
                                 color="red"
                                 className="mt-3"
@@ -207,7 +199,7 @@ const AuthenticationModalCard = ({
                         )}
                         {successAlertMsg !== "" && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faCircleCheck} />}
+                                icon={<CheckCircleOutline />}
                                 title="Success"
                                 color="teal"
                                 className="mt-3"

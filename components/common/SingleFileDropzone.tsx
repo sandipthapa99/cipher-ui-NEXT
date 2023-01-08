@@ -1,13 +1,12 @@
-import {
-    faArrowUpFromArc,
-    faImage,
-    faTrashCan,
-    faXmark,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, BackgroundImage, Box, Group, Text } from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
+import {
+    Close,
+    DeleteOutline,
+    FileUploadOutlined,
+    ImageOutlined,
+} from "@mui/icons-material";
 import type { FieldProps } from "formik";
 import { Field } from "formik";
 import type { FileDropzoneProps } from "types/FileDropzoneProps";
@@ -76,9 +75,8 @@ const FileDropzone = ({
                                                     );
                                             }}
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faTrashCan}
-                                                fontSize={18}
+                                            <DeleteOutline
+                                                style={{ fontSize: "18" }}
                                             />
                                         </ActionIcon>
                                     </Group>
@@ -147,9 +145,8 @@ const FileDropzone = ({
                                                 pointerEvents: "none",
                                             }}
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faArrowUpFromArc}
-                                                fontSize={22}
+                                            <FileUploadOutlined
+                                                style={{ fontSize: "2.2rem" }}
                                             />
                                             <div>
                                                 <Text size="sm" inline>
@@ -175,9 +172,8 @@ const FileDropzone = ({
                                                 pointerEvents: "none",
                                             }}
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faXmark}
-                                                fontSize={22}
+                                            <Close
+                                                style={{ fontSize: "2.2rem" }}
                                             />
                                             <Text size="sm" inline>
                                                 Unsupported file format
@@ -192,10 +188,11 @@ const FileDropzone = ({
                                                 pointerEvents: "none",
                                             }}
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faImage}
-                                                fontSize={22}
-                                                color={`#CED4DA`}
+                                            <ImageOutlined
+                                                style={{
+                                                    fontSize: "2.2rem",
+                                                    color: "#CED4DA",
+                                                }}
                                             />
                                             <div>
                                                 <Text

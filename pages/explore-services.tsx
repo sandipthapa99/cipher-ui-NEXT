@@ -4,8 +4,7 @@ import RecommendationChips from "@components/common/RecommendationChips";
 import ServiceCard from "@components/common/ServiceCard";
 import Layout from "@components/Layout";
 import { ServiceCategories } from "@components/services/ServiceCategories";
-import { faSearch } from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SearchOutlined } from "@mui/icons-material";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
@@ -67,10 +66,7 @@ const ExploreServices: NextPage = () => {
                                     />
 
                                     <button className="search-btn">
-                                        <FontAwesomeIcon
-                                            icon={faSearch}
-                                            className="icon"
-                                        />
+                                        <SearchOutlined className="icon" />
                                     </button>
                                 </div>
                                 {chips.length > 0 && (

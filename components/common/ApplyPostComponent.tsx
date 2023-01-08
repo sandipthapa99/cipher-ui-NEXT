@@ -1,5 +1,4 @@
-import { faFolderOpen } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Folder } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { Button } from "react-bootstrap";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
@@ -25,7 +24,7 @@ export const ApplyPostComponent = ({
     return (
         <div className="apply-post">
             <div className="folder">
-                <FontAwesomeIcon icon={faFolderOpen} className="folder-icon" />
+                <Folder className="folder-icon" />
             </div>
             <div className="text-post">
                 <p className="head">{title}</p>

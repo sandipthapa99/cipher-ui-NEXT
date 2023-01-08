@@ -1,5 +1,4 @@
-import { faXmarkLarge } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Close } from "@mui/icons-material";
 
 interface RecommendationChipsProps {
     title: string;
@@ -13,8 +12,7 @@ const RecommendationChips = ({
         <div className="chips-wrapper">
             <div className="chips-content d-flex justify-content-between">
                 <h6>{title}</h6>
-                <FontAwesomeIcon
-                    icon={faXmarkLarge}
+                <Close
                     className="svg-icon"
                     onClick={() => onChipRemove?.(title)}
                 />

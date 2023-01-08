@@ -33,10 +33,7 @@ const Home: NextPage = () => {
                             <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}
-                                    <FontAwesomeIcon
-                                        icon={faAngleRight}
-                                        className="svg-icon"
-                                    />
+                                    <ChevronRight className="svg-icon" />
                                 </a>
                             </Link>
                         </div>

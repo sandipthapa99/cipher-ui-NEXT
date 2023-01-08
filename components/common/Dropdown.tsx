@@ -1,6 +1,5 @@
-import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Skeleton } from "@mantine/core";
+import { ChevronRight } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import parse from "html-react-parser";
@@ -172,10 +171,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                                 : ""}
                         </a>
                     </Link>
-                    <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className="svg-icon"
-                    />
+                    <ChevronRight className="svg-icon" />
                 </li>
             );
         }
@@ -246,10 +242,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                     </a>
                 </Link>
                 {item?.child.length > 0 && (
-                    <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className="svg-icon angle-right"
-                    />
+                    <ChevronRight className="svg-icon angle-right" />
                 )}
             </li>
         );

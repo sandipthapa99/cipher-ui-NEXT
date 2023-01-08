@@ -1,11 +1,10 @@
-import {
-    faBarChart,
-    faMedal,
-    faSmile,
-    faTire,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mantine/core";
+import {
+    RecommendOutlined,
+    SentimentVerySatisfiedOutlined,
+    TaskOutlined,
+    WorkspacePremium,
+} from "@mui/icons-material";
 import React from "react";
 
 interface UserStatsProps {
@@ -25,40 +24,36 @@ export const UserStats = ({
         <div className="d-flex align-items-center gap-5 mt-4">
             <Tooltip.Floating label="Happy Clients" color={"blue"}>
                 <div className="type">
-                    <FontAwesomeIcon
-                        color="#F98900"
+                    <SentimentVerySatisfiedOutlined
+                        style={{ color: "#F98900" }}
                         className="svg-icon"
-                        icon={faSmile}
                     />
                     <span>{happyCustomers}</span>
                 </div>
             </Tooltip.Floating>
             <Tooltip.Floating label="Success Rate" color={"blue"}>
                 <div className="type">
-                    <FontAwesomeIcon
+                    <RecommendOutlined
                         className="svg-icon"
-                        color="#0693E3"
-                        icon={faMedal}
+                        style={{ color: "#0693E3" }}
                     />
                     <span>{+rewardPercentage?.toFixed(2)}%</span>
                 </div>
             </Tooltip.Floating>
             <Tooltip.Floating label="Task Done" color={"blue"}>
                 <div className="type">
-                    <FontAwesomeIcon
+                    <TaskOutlined
                         className="svg-icon"
-                        color="#752DE8"
-                        icon={faBarChart}
+                        style={{ color: "#752DE8" }}
                     />
                     <span>{taskCompleted}</span>
                 </div>
             </Tooltip.Floating>
             <Tooltip.Floating label="Badge" color={"blue"}>
                 <div className="type">
-                    <FontAwesomeIcon
+                    <WorkspacePremium
                         className="svg-icon"
-                        icon={faTire}
-                        color="#297796"
+                        style={{ color: "#297796" }}
                     />
                     <span>{rank}</span>
                 </div>

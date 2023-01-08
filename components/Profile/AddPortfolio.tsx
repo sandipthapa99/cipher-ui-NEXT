@@ -5,10 +5,9 @@ import MantineDateField from "@components/common/MantineDateField";
 // import MultiImageDropzone from "@components/common/MultiImageDropzone";
 // import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
 import { RichText } from "@components/RichText";
-import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, LoadingOverlay } from "@mantine/core";
 import { MIME_TYPES } from "@mantine/dropzone";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
@@ -383,10 +382,7 @@ const AddPortfolio = ({
                                             touch={Boolean(touched.issued_date)}
                                             placeHolder="2022-03-06"
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
-                                                />
+                                                <CalendarTodayOutlined className="svg-icons" />
                                             }
                                             handleChange={(value) => {
                                                 setFieldValue(
@@ -434,7 +430,7 @@ const AddPortfolio = ({
                                                     }
                                                 />
                                                 <br />
-                                                {/* 
+                                                {/*
                                                 <MultiImageDropzone
                                                     name="images"
                                                     labelName="Upload your image"

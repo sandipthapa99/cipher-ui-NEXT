@@ -4,8 +4,7 @@ import BusinessGoal from "@components/common/BusinessGoal";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { East } from "@mui/icons-material";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
@@ -20,7 +19,7 @@ const Resources: NextPage = () => {
         <Layout
             title="Resources | Homaale"
             description="Homaale is a platform designed to provide service booking solutions to the
-            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+            service seekers and business opportunities to various service providing companies by bridging a gap between them.
              It covers a wide range of services from various industries like Accounting, Gardening,
             Health, Beauty, and many more."
             keywords="homaale, homaale-resources, airtasker-nepali,nepali-working-platform, business, online-business"
@@ -86,11 +85,7 @@ const Resources: NextPage = () => {
                                 <h3>Featured Resources</h3>
                                 <Link href="/blogs">
                                     <a className="view-more">
-                                        view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        view more <East className="svg-icon" />
                                     </a>
                                 </Link>
                             </div>

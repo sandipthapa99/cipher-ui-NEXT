@@ -3,10 +3,13 @@ import InputField from "@components/common/InputField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
-import { faCalendarDays, faCheck } from "@fortawesome/pro-regular-svg-icons";
-import { faTag } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
+import {
+    CalendarTodayOutlined,
+    Check,
+    LocalOffer,
+    LocalOfferOutlined,
+} from "@mui/icons-material";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import {
@@ -270,10 +273,7 @@ const BookNowModalCard = ({
                                                 labelName="Start Date"
                                                 placeHolder="Select Start Date"
                                                 icon={
-                                                    <FontAwesomeIcon
-                                                        icon={faCalendarDays}
-                                                        className="svg-icons"
-                                                    />
+                                                    <CalendarTodayOutlined className="svg-icons" />
                                                 }
                                                 minDate={new Date()}
                                                 handleChange={(value) => {
@@ -294,11 +294,7 @@ const BookNowModalCard = ({
                                                 placeHolder="Select End Date"
                                                 error={errors.end_date}
                                                 touch={touched.end_date}
-                                                icon={
-                                                    <FontAwesomeIcon
-                                                        icon={faCalendarDays}
-                                                    />
-                                                }
+                                                icon={<CalendarTodayOutlined />}
                                                 minDate={new Date()}
                                                 handleChange={(value) =>
                                                     setFieldValue(
@@ -463,19 +459,11 @@ const BookNowModalCard = ({
                                                                 "d-flex align-items-center gap-3"
                                                             }
                                                         >
-                                                            <FontAwesomeIcon
-                                                                icon={faTag}
-                                                                className="text-warning"
-                                                            />
+                                                            <LocalOffer className="text-warning" />
                                                             {offer?.title}
                                                             {offerSelector ===
                                                                 offer?.id && (
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCheck
-                                                                    }
-                                                                    className="text-primary"
-                                                                />
+                                                                <Check className="text-primary" />
                                                             )}
                                                         </span>
                                                     </List.Item>

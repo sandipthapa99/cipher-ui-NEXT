@@ -1,7 +1,6 @@
 import { ProfileModel } from "@components/model/ProfileModel";
 import { PostTaskModal } from "@components/Task/PostTaskModal";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import {
     Avatar,
     Button as MantineButton,
@@ -122,26 +121,6 @@ export function UpperHeader() {
                                 </li>
                             </div>
                         </div>
-                        {/* {checkPageForHeader && (
-                            <div className="upper-navigation__center d-none d-md-block">
-                                <div className="search-input d-md-flex">
-                                     <Form.Control
-                                        placeholder="Find your Services"
-                                        aria-label="Find your Services &amp; Taskers"
-                                        aria-describedby="basic-addon2"
-                                    />
-                                    <Button
-                                        className="search-btn"
-                                        id="button-addon2"
-                                    >
-                                        <FontAwesomeIcon
-                                            className="search-icon"
-                                            icon={faMagnifyingGlass}
-                                        />
-                                    </Button>
-                                </div>
-                            </div>
-                        )} */}
                         <div className="upper-navigation__right d-flex">
                             {!user && (
                                 <>

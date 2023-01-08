@@ -1,9 +1,5 @@
-import {
-    faCheckCircle,
-    faExclamationCircle,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { showNotification } from "@mantine/notifications";
+import { CheckCircleOutline, ErrorOutlineOutlined } from "@mui/icons-material";
 import type { ReactNode } from "react";
 
 export const toast = {
@@ -12,14 +8,14 @@ export const toast = {
             title: "Error",
             message,
             color: "red",
-            icon: <FontAwesomeIcon icon={faExclamationCircle} />,
+            icon: <ErrorOutlineOutlined />,
         }),
     success: (message: ReactNode) =>
         showNotification({
             title: "Success",
             message,
             color: "green",
-            icon: <FontAwesomeIcon icon={faCheckCircle} />,
+            icon: <CheckCircleOutline />,
         }),
     showComponent: (title: string, component: ReactNode) => {
         showNotification({
@@ -36,7 +32,7 @@ export const toast = {
             title: "Message",
             message,
             color: "blue",
-            icon: <FontAwesomeIcon icon={faExclamationCircle} />,
+            icon: <ErrorOutlineOutlined />,
         });
     },
 };

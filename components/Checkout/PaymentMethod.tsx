@@ -1,12 +1,11 @@
 import BigButton from "@components/common/Button";
 import BankDetailModal from "@components/settings/BankDetailModal";
-import { faCircleDot } from "@fortawesome/pro-regular-svg-icons";
 import {
-    faBuildingColumns,
-    faCircleDot as circleDot,
-} from "@fortawesome/pro-solid-svg-icons";
-import { faLinkSimple } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+    Adjust,
+    AdjustOutlined,
+    ApartmentOutlined,
+    Link,
+} from "@mui/icons-material";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import type { ReactNode } from "react";
@@ -46,15 +45,9 @@ function ContextAwareToggle({
     return (
         <button type="button" onClick={decoratedOnClick}>
             {isCurrentEventKey ? (
-                <FontAwesomeIcon
-                    icon={circleDot}
-                    className="svg-icon-boolen-circle me-3"
-                />
+                <Adjust className="svg-icon-boolen-circle me-3" />
             ) : (
-                <FontAwesomeIcon
-                    icon={faCircleDot}
-                    className="svg-icon-simple-circle me-3"
-                />
+                <AdjustOutlined className="svg-icon-simple-circle me-3" />
             )}
             {children}
         </button>
@@ -142,19 +135,13 @@ const PaymentMethod = () => {
                                     <div className="linked">
                                         {bank.is_primary ? (
                                             <div className="primary">
-                                                <FontAwesomeIcon
-                                                    icon={faBuildingColumns}
-                                                    className="svg-icon"
-                                                />
+                                                <AccountBalanceOutlined className="svg-icon" />
                                             </div>
                                         ) : (
                                             ""
                                         )}
                                         <div className="linked-icons">
-                                            <FontAwesomeIcon
-                                                icon={faLinkSimple}
-                                                className="svg-icon"
-                                            />
+                                            <LinkOutlined className="svg-icon" />
                                             <a href="" className="link">
                                                 Linked
                                             </a>
@@ -207,21 +194,13 @@ const PaymentMethod = () => {
                                                 <div className="linked">
                                                     {bank.is_primary ? (
                                                         <div className="primary">
-                                                            <FontAwesomeIcon
-                                                                icon={
-                                                                    faBuildingColumns
-                                                                }
-                                                                className="svg-icon"
-                                                            />
+                                                            <ApartmentOutlined className="svg-icon" />
                                                         </div>
                                                     ) : (
                                                         ""
                                                     )}
                                                     <div className="linked-icons">
-                                                        <FontAwesomeIcon
-                                                            icon={faLinkSimple}
-                                                            className="svg-icon"
-                                                        />
+                                                        <Link className="svg-icon" />
                                                         <a
                                                             href=""
                                                             className="link"

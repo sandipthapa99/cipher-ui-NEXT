@@ -7,9 +7,8 @@ import Layout from "@components/Layout";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Grid, Highlight, Skeleton } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps } from "next";
@@ -97,7 +96,7 @@ const Gardening = ({
                         )}
                         {serviceData && serviceData?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -158,7 +157,7 @@ const Gardening = ({
                         )}
                         {taskData && taskData?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -200,7 +199,7 @@ const Gardening = ({
                         {!taskerData && <TaskerSkeleton direction="row" />}
                         {taskerData && taskerData?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"

@@ -2,10 +2,11 @@ import ShareIcon from "@components/common/ShareIcon";
 import { ReviewModal } from "@components/Review/ReviewModal";
 import { ApprovedTaskDetail } from "@components/SearchTask/ApprovedTaskDetail";
 import BookingDetails from "@components/SearchTask/BookingDetails";
-import { faLocationDot } from "@fortawesome/pro-regular-svg-icons";
-import { faHourglassClock, faPeriod } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, Button, RingProgress, Text } from "@mantine/core";
+import {
+    HourglassBottomOutlined,
+    LocationOnOutlined,
+} from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -139,7 +140,6 @@ export const MyBookingTaskCard = ({
                                     className="profile-image"
                                 />
                             )}
-
                             <span>
                                 {item?.entity_service?.created_by?.first_name}{" "}
                                 {item?.entity_service?.created_by
@@ -149,10 +149,7 @@ export const MyBookingTaskCard = ({
                                 {Approvedtask?.assigner?.middle_name ?? ""}{" "}
                                 {Approvedtask?.assigner?.last_name}
                             </span>
-                            <FontAwesomeIcon
-                                icon={faPeriod}
-                                className={"svg-icon"}
-                            />
+                            .
                             <span>
                                 {item?.created_at &&
                                     format(new Date(item?.created_at), "PP")}
@@ -188,19 +185,13 @@ export const MyBookingTaskCard = ({
                 >
                     <div className="name-and-location">
                         <div className="location d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faLocationDot}
-                                className="svg-icon"
-                            />
+                            <LocationOnOutlined className="svg-icon" />
                             <span>
                                 {item?.location} {Approvedtask?.location}
                             </span>
                         </div>
                         <div className="location d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faHourglassClock}
-                                className="svg-icon"
-                            />
+                            <HourglassBottomOutlined className="svg-icon" />
                             {item?.start_date &&
                                 format(new Date(item?.start_date), "PP")}
                             {Approvedtask?.start_date &&
@@ -210,10 +201,7 @@ export const MyBookingTaskCard = ({
                                 )}
                         </div>
                         {/* <div className="location">
-        <FontAwesomeIcon
-            icon={faUserGroup}
-            className="svg-icon"
-        />
+                        <SupervisorAccountOutlined className="svg-icon" />
         <span>100 Applied</span>
     </div> */}
                     </div>

@@ -1,7 +1,6 @@
 import PortfolioDetails from "@components/Profile/PortfolioDetail";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import parse from "html-react-parser";
 import Image from "next/image";
@@ -31,7 +30,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                     {!taskerDetail ||
                         (taskerDetail?.portfolio?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -118,7 +117,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                     {!taskerDetail ||
                         (taskerDetail?.experience?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -189,7 +188,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                     {!userSkills ||
                         (userSkills?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -221,7 +220,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                     {!taskerDetail?.education ||
                         (taskerDetail?.education?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -285,7 +284,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                     {!taskerDetail?.certificates ||
                         (taskerDetail?.certificates?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"

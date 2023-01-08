@@ -1,6 +1,5 @@
-import { faCheck, faCopy } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, CopyButton, Tooltip } from "@mantine/core";
+import { Check, ContentCopyOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 
@@ -45,13 +44,9 @@ const OfferCard = ({ offer }: { offer: OfferCardProps }) => {
                                             onClick={copy}
                                         >
                                             {copied ? (
-                                                <FontAwesomeIcon
-                                                    icon={faCheck}
-                                                />
+                                                <Check />
                                             ) : (
-                                                <FontAwesomeIcon
-                                                    icon={faCopy}
-                                                />
+                                                <ContentCopyOutlined />
                                             )}
                                         </ActionIcon>
                                     </Tooltip>

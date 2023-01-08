@@ -1,5 +1,4 @@
-import { faPaperclipVertical } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AttachFile } from "@mui/icons-material";
 import { ErrorMessage } from "formik";
 import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import type { FileInputFieldProps } from "types/fileInputField";
@@ -36,10 +35,7 @@ const FileInputField = ({
                         : "file-attachment"
                 }
             >
-                <FontAwesomeIcon
-                    icon={faPaperclipVertical}
-                    className="svg-icon-paper-clip"
-                />
+                <AttachFile className="svg-icon-paper-clip" />
                 <span>
                     {fileName === undefined || fileName.length === 0
                         ? placeHolder

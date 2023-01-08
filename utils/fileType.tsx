@@ -1,14 +1,4 @@
 import {
-    faFileCsv,
-    faFileExcel,
-    faFilePdf,
-    faFileSpreadsheet,
-    faFileWord,
-    faFilm,
-    faWaveformLines,
-} from "@fortawesome/pro-light-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
     Box,
     Image,
     Text,
@@ -16,6 +6,13 @@ import {
     Tooltip,
     useMantineTheme,
 } from "@mantine/core";
+import {
+    Article,
+    DescriptionOutlined,
+    Movie,
+    PhotoSizeSelectActual,
+    PictureAsPdf,
+} from "@mui/icons-material";
 
 export interface FileTypeProps {
     type?: string;
@@ -59,7 +56,7 @@ export const FileTypeGrid = ({
                             color="indigo"
                             size={60}
                         >
-                            <FontAwesomeIcon icon={faFilm} fontSize={28} />
+                            <Movie style={{ fontSize: "2.8rem" }} />
                         </ThemeIcon>
                     </Tooltip>
                     <Text
@@ -94,7 +91,9 @@ export const FileTypeGrid = ({
                             color="green"
                             size={60}
                         >
-                            <FontAwesomeIcon icon={faFileCsv} fontSize={28} />
+                            <DescriptionOutlined
+                                style={{ fontSize: "2.8rem" }}
+                            />
                         </ThemeIcon>
                     </Tooltip>
                     <Text
@@ -130,7 +129,9 @@ export const FileTypeGrid = ({
                             color="cyan"
                             size={60}
                         >
-                            <FontAwesomeIcon icon={faFileWord} fontSize={28} />
+                            <DescriptionOutlined
+                                style={{ fontSize: "2.8rem" }}
+                            />
                         </ThemeIcon>
                     </Tooltip>
                     <Text
@@ -165,9 +166,8 @@ export const FileTypeGrid = ({
                             color="green"
                             size={60}
                         >
-                            <FontAwesomeIcon
-                                icon={faFileSpreadsheet}
-                                fontSize={28}
+                            <DescriptionOutlined
+                                style={{ fontSize: "2.8rem" }}
                             />
                         </ThemeIcon>
                     </Tooltip>
@@ -203,7 +203,7 @@ export const FileTypeGrid = ({
                             color="red"
                             size={60}
                         >
-                            <FontAwesomeIcon icon={faFilePdf} fontSize={28} />
+                            <PictureAsPdf style={{ fontSize: "2.8rem" }} />
                         </ThemeIcon>
                     </Tooltip>
                     <Text
@@ -238,7 +238,7 @@ export const FileTypeGrid = ({
                             color="teal"
                             size={60}
                         >
-                            <FontAwesomeIcon icon={faFileExcel} fontSize={28} />
+                            <Article style={{ fontSize: "2.8rem" }} />
                         </ThemeIcon>
                     </Tooltip>
                     <Text
@@ -273,9 +273,8 @@ export const FileTypeGrid = ({
                             color="orange"
                             size={60}
                         >
-                            <FontAwesomeIcon
-                                icon={faWaveformLines}
-                                fontSize={28}
+                            <PhotoSizeSelectActual
+                                style={{ fontSize: "2.8rem" }}
                             />
                         </ThemeIcon>
                     </Tooltip>
@@ -348,44 +347,44 @@ export const FileTypeList = ({ type, filePath, fileSize }: FileTypeProps) => {
         case "avi":
             return (
                 <ThemeIcon variant="light" radius="md" color="indigo" size={44}>
-                    <FontAwesomeIcon icon={faFilm} fontSize={24} />
+                    <Movie style={{ fontSize: "2.4rem" }} />
                 </ThemeIcon>
             );
         case "csv":
             return (
                 <ThemeIcon variant="light" radius="md" color="green" size={44}>
-                    <FontAwesomeIcon icon={faFileCsv} fontSize={24} />
+                    <Article style={{ fontSize: "2.4rem" }} />
                 </ThemeIcon>
             );
         case "vnd.openxmlformats-officedocument.wordprocessingml.document":
         case "msword":
             return (
                 <ThemeIcon variant="light" radius="md" color="cyan" size={44}>
-                    <FontAwesomeIcon icon={faFileWord} fontSize={24} />
+                    <Article style={{ fontSize: "2.4rem" }} />
                 </ThemeIcon>
             );
         case "vnd.openxmlformats-officedocument.spreadsheetml.sheet":
             return (
                 <ThemeIcon variant="light" radius="md" color="green" size={44}>
-                    <FontAwesomeIcon icon={faFileSpreadsheet} fontSize={24} />
+                    <DescriptionOutlined style={{ fontSize: "2.4rem" }} />
                 </ThemeIcon>
             );
         case "pdf":
             return (
                 <ThemeIcon variant="light" radius="md" color="red" size={44}>
-                    <FontAwesomeIcon icon={faFilePdf} fontSize={24} />
+                    <PictureAsPdf style={{ fontSize: "2.4rem" }} />
                 </ThemeIcon>
             );
         case "vnd.ms-excel":
             return (
                 <ThemeIcon variant="light" radius="md" color="teal" size={44}>
-                    <FontAwesomeIcon icon={faFileExcel} fontSize={24} />
+                    <Article style={{ fontSize: "2.4rem" }} />
                 </ThemeIcon>
             );
         case "mpeg":
             return (
                 <ThemeIcon variant="light" radius="md" color="orange" size={44}>
-                    <FontAwesomeIcon icon={faWaveformLines} fontSize={24} />
+                    <PhotoSizeSelectActual style={{ fontSize: "2.4rem" }} />
                 </ThemeIcon>
             );
 

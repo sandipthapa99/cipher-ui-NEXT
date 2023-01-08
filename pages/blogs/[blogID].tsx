@@ -1,7 +1,7 @@
 import Layout from "@components/Layout";
 import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ContentCopyOutlined } from "@mui/icons-material";
 import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
@@ -46,10 +46,7 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
                                             );
                                         }}
                                     >
-                                        <FontAwesomeIcon
-                                            icon={faLink}
-                                            height={16}
-                                        />
+                                        <ContentCopyOutlined className="svg-icon" />
                                         Copy Link
                                     </p>
                                 </button>

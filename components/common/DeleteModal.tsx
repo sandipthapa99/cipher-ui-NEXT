@@ -1,6 +1,10 @@
-import { faXmarkCircle } from "@fortawesome/pro-thin-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
+import {
+    CancelOutlined,
+    Close,
+    HighlightOff,
+    HighlightOffOutlined,
+} from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDeleteData } from "hooks/use-delete";
 import Image from "next/image";
@@ -45,10 +49,7 @@ const DeleteModal = ({
             >
                 <div className="content d-flex align-items-center justify-content-center flex-column">
                     <div className="icon-block">
-                        <FontAwesomeIcon
-                            icon={faXmarkCircle}
-                            className="xmark-icon"
-                        />
+                        <HighlightOffOutlined className="xmark-icon" />
                     </div>
                     <h1>Are you sure?</h1>
                     <p>

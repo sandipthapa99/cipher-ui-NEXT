@@ -1,5 +1,4 @@
-import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { East } from "@mui/icons-material";
 import Link from "next/link";
 import React from "react";
 import type { CareerValueProps } from "types/careerValuesProps";
@@ -10,7 +9,7 @@ const CareerCard = ({ values }: { values: CareerValueProps["result"][0] }) => {
             <h3>{values.title}</h3>
             <Link href={`/career/${values.slug}`}>
                 <a>
-                    Apply <FontAwesomeIcon icon={faArrowRight} />
+                    Apply <East />
                 </a>
             </Link>
         </div>

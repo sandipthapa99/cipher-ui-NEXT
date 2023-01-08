@@ -1,10 +1,9 @@
 import {
-    faCalendar,
-    faClockEight,
-    faLocationDot,
-    faUserGroup,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+    CalendarTodayOutlined,
+    LocationOnOutlined,
+    ScheduleOutlined,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -60,17 +59,11 @@ const TaskCard = ({ task }: TaskCardProps) => {
                         </p> */}
                         <div className="task-location-time d-flex flex-column flex-sm-row">
                             <p className="d-flex align-items-center pe-4 location">
-                                <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="svg-icon"
-                                />
+                                <LocationOnOutlined className="svg-icon" />
                                 {location}
                             </p>
                             <p className="d-flex align-items-center date pe-4 my-3 my-sm-0">
-                                <FontAwesomeIcon
-                                    icon={faCalendar}
-                                    className="svg-icon"
-                                />
+                                <CalendarTodayOutlined className="svg-icon" />
                                 {task.created_at
                                     ? format(
                                           new Date(task.created_at),
@@ -79,10 +72,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                                     : ""}
                             </p>
                             <div className="d-flex align-items-center pe-4 time">
-                                <FontAwesomeIcon
-                                    icon={faClockEight}
-                                    className="svg-icon"
-                                />
+                                <ScheduleOutlined className="svg-icon" />
                                 {task.created_at
                                     ? format(new Date(task.created_at), "p")
                                     : ""}
@@ -131,10 +121,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                     <Link href={`/task/${slug}` ?? "/"}>
                         <a>
                             <p className="applicants  d-flex align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faUserGroup}
-                                    className="svg-icon"
-                                />
+                                <SupervisorAccountOutlined className="svg-icon" />
                                 {count} Applied
                             </p>
                         </a>

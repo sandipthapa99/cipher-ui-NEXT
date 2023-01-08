@@ -1,14 +1,13 @@
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { AboutTasker } from "@components/Tasker/AboutTasker";
-import {
-    faArrowLeft,
-    faArrowRight,
-    faWarning,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert } from "@mantine/core";
+import {
+    EastOutlined,
+    ErrorOutlineOutlined,
+    WestOutlined,
+} from "@mui/icons-material";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ITasker } from "types/tasker";
@@ -59,8 +58,8 @@ const ServiceList = ({
                     { maxWidth: "xs", slideSize: "80%", slideGap: 0 },
                 ]}
                 align="start"
-                nextControlIcon={<FontAwesomeIcon icon={faArrowRight} />}
-                previousControlIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+                nextControlIcon={<EastOutlined />}
+                previousControlIcon={<WestOutlined />}
                 styles={{
                     control: {
                         "&[data-inactive]": {
@@ -83,7 +82,7 @@ const ServiceList = ({
             {!taskerService ||
                 (taskerService?.result?.length <= 0 && (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"

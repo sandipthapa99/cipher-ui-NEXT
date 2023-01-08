@@ -1,9 +1,6 @@
 import CardBtn from "@components/common/CardBtn";
-import type { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
-import { faCircleCheck } from "@fortawesome/pro-thin-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
-import { Button } from "react-bootstrap";
+import { CheckCircle } from "@mui/icons-material";
 import {
     useShowSuccessModal,
     useShowSuccessModalMessage,
@@ -33,7 +30,7 @@ export const PostCard = ({ buttonName, type }: Props) => {
             className="success-modal"
         >
             <div className="success-content ">
-                <FontAwesomeIcon icon={faCircleCheck} className="svg-icon" />
+                <CheckCircle className="svg-icon" />
                 <div className="success-text">
                     <h3 className="mt-5">{type}</h3>
                     <p>{toggleSuccessModalMessage}</p>

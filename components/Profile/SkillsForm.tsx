@@ -1,6 +1,5 @@
 import FormButton from "@components/common/FormButton";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { MultiSelect } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";

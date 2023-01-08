@@ -9,17 +9,15 @@ import { ImageUpload } from "@components/ImageUpload";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import { SelectCity } from "@components/SelectCity";
-import { faCamera } from "@fortawesome/pro-light-svg-icons";
-import {
-    faCalendarDays,
-    faSquareCheck,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { MultiSelect } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
+import {
+    CalendarTodayOutlined,
+    PhotoCameraOutlined,
+    VerifiedRounded,
+} from "@mui/icons-material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -631,10 +629,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
-                                        <FontAwesomeIcon
-                                            icon={faBadgeCheck}
-                                            className="badge-icon"
-                                        />
+                                        <VerifiedRounded className="badge-icon" />
                                     ) : (
                                         ""
                                     )}
@@ -647,8 +642,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     >
                                         {!profile || isEditButtonClicked ? (
                                             <>
-                                                <FontAwesomeIcon
-                                                    icon={faCamera}
+                                                <PhotoCameraOutlined
                                                     className="camera-icon"
                                                     onClick={onButtonClick}
                                                 />
@@ -841,10 +835,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 error={errors.date_of_birth}
                                 touch={touched.date_of_birth}
                                 icon={
-                                    <FontAwesomeIcon
-                                        icon={faCalendarDays}
-                                        className="svg-icons"
-                                    />
+                                    <CalendarTodayOutlined className="svg-icons" />
                                 }
                                 disabled={isInputDisabled}
                                 handleChange={(value) => {

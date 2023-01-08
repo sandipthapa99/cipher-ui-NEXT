@@ -1,8 +1,6 @@
-import { faShare } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Button } from "@mantine/core";
+import { ShortcutOutlined } from "@mui/icons-material";
 import { useState } from "react";
-import type { ShareButtonProps } from "types/shareButton";
 
 import ShareModal from "./ShareModalCard";
 
@@ -29,12 +27,7 @@ const ShareIcon = ({
                 <Button
                     {...rest}
                     variant="subtle"
-                    leftIcon={
-                        <FontAwesomeIcon
-                            className="svg-icon me-0"
-                            icon={faShare}
-                        />
-                    }
+                    leftIcon={<ShortcutOutlined className="svg-icon me-0" />}
                     onClick={handleOnClick}
                     className={className}
                 >
@@ -42,7 +35,7 @@ const ShareIcon = ({
                 </Button>
             ) : (
                 <ActionIcon color="blue" onClick={handleOnClick}>
-                    <FontAwesomeIcon className="svg-icon me-0" icon={faShare} />
+                    <ShortcutOutlined className="svg-icon me-0" />
                 </ActionIcon>
             )}
             <div className="share-modal">
