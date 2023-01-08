@@ -4,20 +4,19 @@ import {
     useClearSearchQuery,
     useSearchQuery,
 } from "@components/common/Search/searchStore";
-import {
-    faCity,
-    faClose,
-    faDollarSign,
-    faGlobe,
-    faGrid2,
-    faLanguage,
-    faSearch,
-    faSort,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { Button } from "@mantine/core";
 import { Box, createStyles, Select, TextInput } from "@mantine/core";
+import {
+    AttachMoneyOutlined,
+    Close,
+    GridViewOutlined,
+    ImportExportOutlined,
+    LanguageOutlined,
+    LocationCityOutlined,
+    SearchOutlined,
+    TranslateOutlined,
+} from "@mui/icons-material";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useServiceOptions } from "hooks/service/use-service-options";
@@ -232,12 +231,7 @@ export const SearchCategory = ({
                 <Col md={4}>
                     <TextInput
                         value={params.search ?? ""}
-                        icon={
-                            <FontAwesomeIcon
-                                icon={faSearch}
-                                className="me-0 svg-icon"
-                            />
-                        }
+                        icon={<SearchOutlined className="me-0 svg-icon" />}
                         placeholder="Enter a search keyword"
                         onChange={handleSearchChange}
                     />
@@ -252,12 +246,7 @@ export const SearchCategory = ({
                 >
                     {searchModal !== "booking" && (hasParams || searchQuery) && (
                         <Button
-                            leftIcon={
-                                <FontAwesomeIcon
-                                    icon={faClose}
-                                    className="me-0 svg-icon"
-                                />
-                            }
+                            leftIcon={<Close className="me-0 svg-icon" />}
                             variant="white"
                             color="red"
                             onClick={handleClearFilters}
@@ -272,10 +261,7 @@ export const SearchCategory = ({
                                 clearable
                                 searchable
                                 icon={
-                                    <FontAwesomeIcon
-                                        className="me-0 svg-icon"
-                                        icon={faGrid2}
-                                    />
+                                    <GridViewOutlined className="me-0 svg-icon" />
                                 }
                                 placeholder="Filter by Service"
                                 value={params.service ?? ""}
@@ -288,10 +274,7 @@ export const SearchCategory = ({
                                 clearable
                                 searchable
                                 icon={
-                                    <FontAwesomeIcon
-                                        icon={faCity}
-                                        className="me-0 svg-icon"
-                                    />
+                                    <LocationCityOutlined className="me-0 svg-icon" />
                                 }
                                 placeholder="Filter by City"
                                 value={params.city ?? ""}
@@ -305,10 +288,7 @@ export const SearchCategory = ({
                                 <Select
                                     clearable
                                     icon={
-                                        <FontAwesomeIcon
-                                            icon={faDollarSign}
-                                            className="me-0 svg-icon"
-                                        />
+                                        <AttachMoneyOutlined className="me-0 svg-icon" />
                                     }
                                     placeholder="Filter by Pricing"
                                     value={params.ordering ?? ""}
@@ -326,10 +306,7 @@ export const SearchCategory = ({
                                 clearable
                                 searchable
                                 icon={
-                                    <FontAwesomeIcon
-                                        icon={faGlobe}
-                                        className="me-0 svg-icon"
-                                    />
+                                    <LanguageOutlined className="me-0 svg-icon" />
                                 }
                                 value={params.country ?? ""}
                                 placeholder="Filter by country"
@@ -341,10 +318,7 @@ export const SearchCategory = ({
                             <Select
                                 clearable
                                 icon={
-                                    <FontAwesomeIcon
-                                        icon={faLanguage}
-                                        className="me-0 svg-icon"
-                                    />
+                                    <TranslateOutlined className="me-0 svg-icon" />
                                 }
                                 value={params.language ?? ""}
                                 placeholder="Filter by language"
@@ -357,10 +331,7 @@ export const SearchCategory = ({
                                 clearable
                                 searchable
                                 icon={
-                                    <FontAwesomeIcon
-                                        icon={faSort}
-                                        className="me-0 svg-icon"
-                                    />
+                                    <ImportExportOutlined className="me-0 svg-icon" />
                                 }
                                 placeholder="Order by"
                                 data={orderTaskersData}
@@ -388,10 +359,7 @@ export const SearchCategory = ({
                                 <TextInput
                                     value={params.search ?? ""}
                                     icon={
-                                        <FontAwesomeIcon
-                                            icon={faSearch}
-                                            className="me-0 svg-icon"
-                                        />
+                                        <SearchOutlined className="me-0 svg-icon" />
                                     }
                                     placeholder="Search"
                                     onChange={handleSearchChange}
@@ -451,12 +419,7 @@ export const SearchCategory = ({
                 <Col md={3} className={"d-flex"}>
                     {(hasParams || searchQuery) && (
                         <Button
-                            leftIcon={
-                                <FontAwesomeIcon
-                                    icon={faClose}
-                                    className="me-0 svg-icon"
-                                />
-                            }
+                            leftIcon={<Close className="me-0 svg-icon" />}
                             variant="white"
                             color="red"
                             onClick={handleClearFilters}
