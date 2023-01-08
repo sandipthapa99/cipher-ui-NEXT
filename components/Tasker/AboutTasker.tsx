@@ -1,6 +1,4 @@
 import PortfolioDetails from "@components/Profile/PortfolioDetail";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "@mantine/core";
 import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { format } from "date-fns";

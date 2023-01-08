@@ -1,5 +1,3 @@
-import { faCircleArrowUp, faXmark } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Group, Text } from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";

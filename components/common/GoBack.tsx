@@ -1,5 +1,3 @@
-import { faChevronLeft } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChevronLeft } from "@mui/icons-material";
 import Link from "next/link";
 import type { HTMLAttributes } from "react";

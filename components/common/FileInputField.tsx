@@ -1,5 +1,3 @@
-import { faPaperclipVertical } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AttachFile } from "@mui/icons-material";
 import { ErrorMessage } from "formik";
 import type { DetailedHTMLProps, InputHTMLAttributes } from "react";

@@ -3,9 +3,6 @@ import InputField from "@components/common/InputField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
-import { faCheck } from "@fortawesome/pro-regular-svg-icons";
-import { faTag } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
 import {
     CalendarTodayOutlined,

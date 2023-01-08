@@ -1,7 +1,6 @@
 import { ProfileModel } from "@components/model/ProfileModel";
 import { PostTaskModal } from "@components/Task/PostTaskModal";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import {
     Avatar,
     Button as MantineButton,

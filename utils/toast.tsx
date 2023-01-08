@@ -1,8 +1,3 @@
-import {
-    faCheckCircle,
-    faExclamationCircle,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { showNotification } from "@mantine/notifications";
 import { CheckCircleOutline, ErrorOutlineOutlined } from "@mui/icons-material";
 import type { ReactNode } from "react";

@@ -1,7 +1,5 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Button, Col, Grid, Skeleton } from "@mantine/core";
 import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";

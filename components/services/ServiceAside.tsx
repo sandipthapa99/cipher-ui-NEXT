@@ -1,8 +1,6 @@
 import { useSearchedServices } from "@components/common/Search/searchStore";
 import ServiceNearYouCard from "@components/SearchTask/searchAside";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, ScrollArea } from "@mantine/core";
 import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { useServices } from "hooks/service/use-services";

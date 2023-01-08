@@ -1,14 +1,4 @@
 import { ReportRevisionForm } from "@components/AppliedTask/ReportRevisionForm";
-import {
-    faChevronDown,
-    faChevronRight,
-    faCopy,
-    faEllipsisVertical,
-    faFlag,
-    faPenToSquare,
-    faTrashCan,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Text } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { useModals } from "@mantine/modals";

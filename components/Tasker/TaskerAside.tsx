@@ -1,8 +1,6 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, ScrollArea } from "@mantine/core";
 import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { useSearchedTaskers } from "components/common/Search/searchStore";

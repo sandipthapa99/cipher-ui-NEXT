@@ -1,5 +1,3 @@
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { East } from "@mui/icons-material";
 import parse from "html-react-parser";
 import Image from "next/image";

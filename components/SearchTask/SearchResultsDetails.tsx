@@ -9,19 +9,10 @@ import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
-import {
-    faChevronLeft,
-    faClockEight,
-    faLocationDot,
-    faWarning,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faTag } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Grid, List, Select, Skeleton, Tooltip } from "@mantine/core";
 import { Alert } from "@mantine/core";
 import {
-    CalendarTodayOutlined,
     ChevronLeftOutlined,
     ErrorOutlineOutlined,
     LocalOffer,

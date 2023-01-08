@@ -1,5 +1,3 @@
-import { faSmile, faTire } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mantine/core";
 import {
     RecommendOutlined,

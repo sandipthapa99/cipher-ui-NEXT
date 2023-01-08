@@ -1,5 +1,3 @@
-import { faXmarkCircle } from "@fortawesome/pro-thin-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
 import {
     CancelOutlined,

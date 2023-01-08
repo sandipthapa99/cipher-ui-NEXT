@@ -1,5 +1,3 @@
-import { faArrowLeftLong } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { West } from "@mui/icons-material";
 import Head from "next/head";
 import Image from "next/image";

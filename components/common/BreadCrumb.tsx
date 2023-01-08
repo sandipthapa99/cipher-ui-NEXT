@@ -1,5 +1,3 @@
-import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChevronRight } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/router";

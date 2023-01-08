@@ -1,5 +1,3 @@
-import { faRemove } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     ActionIcon,
     Box,
