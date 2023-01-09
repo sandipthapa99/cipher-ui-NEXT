@@ -9,6 +9,7 @@ import {
 import { format } from "date-fns";
 import { Col, Row } from "react-bootstrap";
 import type { ITasker } from "types/tasker";
+import { convertTo12HourFormat } from "utils/formatTime";
 
 interface UserShortIntroProps {
     user: ITasker;
@@ -70,10 +71,8 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                     <span>
                         {/* Active Hours &nbsp; */}
                         <Text className={classes.boldText}>
-                            {`${activeHourStart?.replace(
-                                ":00",
-                                ""
-                            )} AM to ${activeHourEnd?.replace(":00", "")} PM`}
+                            {`${convertTo12HourFormat(activeHourStart)} to 
+                            ${convertTo12HourFormat(activeHourEnd)}`}
                         </Text>
                     </span>
                 </div>

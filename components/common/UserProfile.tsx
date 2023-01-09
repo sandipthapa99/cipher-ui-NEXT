@@ -29,6 +29,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import type { UserProfileInfoProps } from "types/userProfile";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
+import { convertTo12HourFormat } from "utils/formatTime";
 import { toast } from "utils/toast";
 
 import ShareIcon from "./ShareIcon";
@@ -329,9 +330,9 @@ const UserProfileCard = ({
                                     <TimerOutlined className="thumbnail-img" />
                                     <p>
                                         &nbsp;Active Hours: &nbsp;
-                                        {finalfrom?.replace(":00", "")} AM
+                                        {convertTo12HourFormat(finalfrom)}
                                         &nbsp;to &nbsp;
-                                        {finalto?.replace(":00", "")} PM
+                                        {convertTo12HourFormat(finalto)}
                                     </p>
                                 </div>
 
