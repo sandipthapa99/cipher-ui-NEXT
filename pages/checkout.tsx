@@ -222,7 +222,7 @@ export default function Checkout() {
                                                 className="wrapper mb-3 d-flex align-items-center"
                                                 onClick={() => {
                                                     // setOpened(true);
-                                                    setPaymentType(item.name);
+                                                    setPaymentType(item?.slug);
                                                     setErrorMsg("");
                                                 }}
                                             >
@@ -268,7 +268,7 @@ export default function Checkout() {
                                         key={item.id}
                                         onClick={() => {
                                             // setOpened(true);
-                                            setPaymentType(item.name);
+                                            setPaymentType(item?.slug);
                                             setErrorMsg("");
                                         }}
                                     >
