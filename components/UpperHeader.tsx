@@ -143,7 +143,7 @@ export function UpperHeader() {
                                     className="nav-cta-btn"
                                     // disabled={userGet()?.is_suspended}
                                 >
-                                    Post Task
+                                    Post
                                 </button>
                             )}
                             {user && (
