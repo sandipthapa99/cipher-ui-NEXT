@@ -125,7 +125,7 @@ const Login = () => {
                 >
                     {({ errors, touched }) => (
                         <Form className="login-form">
-                            <div className="d-flex align-items-center gap-3">
+                            <div className="d-flex align-items-top gap-3">
                                 {is_email ? (
                                     <InputField
                                         name="username"
@@ -158,6 +158,7 @@ const Login = () => {
                                         onClick={() => setIs_email(!is_email)}
                                         className="ms-auto border border-grey"
                                         color={"gray.1"}
+                                        mt={28}
                                         size={48}
                                         style={{ width: 112 }}
                                     >
