@@ -28,6 +28,10 @@ export const emailResetFormSchema = Yup.object().shape({
         .required("Required field"),
 });
 
+export const emailResendSchema = Yup.object().shape({
+    email: Yup.string().email().required("Required field"),
+});
+
 export const resetFormSchema = Yup.object().shape({
     password: passwordValidate,
     confirm_password: Yup.string()
