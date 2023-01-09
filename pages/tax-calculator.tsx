@@ -6,6 +6,7 @@ import Layout from "@components/Layout";
 import TaxCalculatorInfo from "@components/TaxCalculator/InfoList";
 import RelatedInfo from "@components/TaxCalculator/RelatedInformation";
 import { HelpOutline } from "@mui/icons-material";
+import { gender, maritalStatus, salaryType } from "constants/taxOptions";
 import { Form, Formik } from "formik";
 import { useTaxCalculator } from "hooks/tax-calculator/useTaxCalculator";
 import type { NextPage } from "next";
@@ -16,7 +17,6 @@ import Table from "react-bootstrap/Table";
 import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { gender, maritalStatus, salaryType } from "utils/options";
 import { toast } from "utils/toast";
 
 const TaxCalculator: NextPage = () => {
