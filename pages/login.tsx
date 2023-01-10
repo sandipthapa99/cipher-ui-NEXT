@@ -101,11 +101,11 @@ const Login = () => {
                                 {is_email ? (
                                     <InputField
                                         name="username"
-                                        labelName="Username"
+                                        labelName="Email"
                                         className="w-100"
                                         touch={touched.username}
                                         error={errors.username}
-                                        placeHolder="Enter your username"
+                                        placeHolder="Enter your email"
                                     />
                                 ) : (
                                     <PhoneNumberInput
