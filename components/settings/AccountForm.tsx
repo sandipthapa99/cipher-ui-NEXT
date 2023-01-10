@@ -368,8 +368,8 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             profile && profile.date_of_birth
                                 ? parseISO(profile.date_of_birth)
                                 : "",
-                        skill: skills,
-                        interests: profile ? defaultInterests : [""],
+                        skill: profile?.skill ? JSON.parse(profile?.skill) : [],
+                        interests: profile ? defaultInterests : [],
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start: profile?.active_hour_start
                             ? convertTimeStringToDateString(
@@ -437,14 +437,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     ) {
                                         return false;
                                     }
-                                    // if (
-                                    //     key !== "profile_image" &&
-                                    //     key !== "interests"
-                                    // ) {
-                                    //     formData.append(
-                                    //         key,
-                                    //         value ? value : ""
-                                    //     );
                                     if (key !== "profile_image") {
                                         formData.append(
                                             key,
@@ -622,6 +614,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                         touched,
                         values,
                         resetForm,
+                        setFieldTouched,
                         setFieldValue,
                         getFieldProps,
                     }) => (
@@ -759,6 +752,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                         error={errors.first_name}
                                         touch={touched.first_name}
                                         placeHolder="First Name"
+                                        pattern="[a-zA-Z]*"
                                         disabled={
                                             isEditButtonClicked || !profile
                                                 ? false
@@ -834,6 +828,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                             <MantineDateField
                                 name="date_of_birth"
                                 labelName="Date of birth"
+                                fieldRequired
                                 inputFormat="DD/MM/YYYY"
                                 placeHolder="dd/mm/yy"
                                 error={errors.date_of_birth}
@@ -892,11 +887,17 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 searchable
                                 name="skill"
                                 creatable
+                                error={
+                                    touched.skill && errors.skill
+                                        ? (errors.skill as string)
+                                        : null
+                                }
                                 getCreateLabel={(query) => `+ Create ${query}`}
                                 onChange={(value) => {
                                     setFieldValue("skill", value);
                                 }}
-                                value={profile && values?.skill}
+                                size="md"
+                                value={values?.skill}
                                 onCreate={(query) => {
                                     const item = { label: query, value: query };
                                     setDataSkills((current: any) => [
@@ -912,12 +913,21 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
                                     return item;
                                 }}
+                                onBlur={() => setFieldTouched("skill")}
                                 disabled={isInputDisabled}
                                 withAsterisk
                             />
                             <MultiSelect
                                 data={interestOptions}
                                 name="interests"
+                                error={
+                                    touched.interests && errors.interests
+                                        ? (errors.interests as string)
+                                        : null
+                                }
+                                size="md"
+                                onBlur={() => setFieldTouched("interests")}
+                                withAsterisk
                                 onChange={(value) => {
                                     setFieldValue("interests", value);
                                 }}
@@ -976,7 +986,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md={4}>
+                                <Col md={3}>
                                     <InputField
                                         type="number"
                                         name="hourly_rate"
@@ -996,20 +1006,28 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 placeholder="Select your country"
                                 name="country"
                                 searchable
+                                withAsterisk
+                                size="md"
                                 nothingFound="No result found."
                                 value={countryChange}
                                 onChange={(value) => {
                                     setCountryChange(value ? value : "");
                                     handleCountryChanged(value, setFieldValue);
                                 }}
+                                onBlur={() => setFieldTouched("country")}
                                 data={countryResults ?? []}
-                                error={errors.country}
+                                error={
+                                    touched?.country && errors.country
+                                        ? errors.country
+                                        : null
+                                }
                                 disabled={isInputDisabled}
                             />
                             <SelectCity
                                 disabled={isInputDisabled || !countryChange}
                                 countryId={countryChange ? countryChange : ""}
                                 label="City"
+                                withAsterisk
                                 placeholder="Select your city"
                                 onCityChange={(city) =>
                                     setFieldValue("city", city, true)
@@ -1051,10 +1069,10 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 placeholder="Select your language"
                                 name="language"
                                 searchable
+                                withAsterisk
                                 disabled={isInputDisabled}
                                 nothingFound="No result found."
                                 value={languageChange}
-                                //   key={languageChange}
                                 onChange={(value) => {
                                     setLanguageChange(value ? value : "");
                                     handleLanguageChanged(value, setFieldValue);
@@ -1072,7 +1090,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 value={currencyChange}
                                 defaultValue="NPR"
                                 key={currencyChange}
-                                //value={currencyChange}
                                 onChange={(value) => {
                                     setCurrencyChange(value ? value : "NPR");
                                     handleCurrencyChanged(value, setFieldValue);
