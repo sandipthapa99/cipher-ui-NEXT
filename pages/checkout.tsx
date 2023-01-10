@@ -18,7 +18,7 @@ import {
 } from "@mui/icons-material";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -28,6 +28,7 @@ import { useForm } from "hooks/use-form";
 import * as _ from "lodash";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { serialize } from "object-to-formdata";
 import React, { forwardRef, Fragment, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { CheckoutDataProps } from "types/checkoutDataProps";
@@ -124,6 +125,29 @@ export default function Checkout() {
         : [];
 
     SelectItem.displayName = "SelectItem";
+    const connectIPSMutation = useMutation((values: any) => {
+        return axiosClient.post(urls.connectIPS, values);
+    });
+
+    const callConnectIPS = () => {
+        const formData = serialize(paymentData.data.data);
+
+        connectIPSMutation.mutate(formData, {
+            onSuccess: (data) => {
+                console.log(data.data);
+                // router.push(
+                //     "https://uat.connectips.com:7443/connectipswebgw/loginpage"
+                // );
+            },
+            onError: (err: any) => {
+                console.log("error");
+            },
+        });
+        // object
+        // options, // optional
+        // existingFormData, // optional
+        // keyPrefix // optional
+    };
 
     const {
         data: paymentData,
@@ -272,7 +296,7 @@ export default function Checkout() {
                                             setErrorMsg("");
                                         }}
                                     >
-                                        {item.name === paymentType && (
+                                        {item.slug === paymentType && (
                                             <figure className="verified">
                                                 <Image
                                                     src={
@@ -720,7 +744,7 @@ export default function Checkout() {
                                 await refetch();
 
                                 switch (paymentType) {
-                                    case "Khalti":
+                                    case "khalti":
                                         router.push(
                                             paymentData
                                                 ? paymentData?.data?.data
@@ -728,11 +752,14 @@ export default function Checkout() {
                                                 : ""
                                         );
                                         break;
-                                    case "Paypal":
+                                    case "paypal":
                                         router.push(
                                             paymentData?.data?.data?.links[1]
                                                 ?.href
                                         );
+                                        break;
+                                    case "connect_ips":
+                                        callConnectIPS();
                                         break;
                                     default:
                                         setOpened(true);
