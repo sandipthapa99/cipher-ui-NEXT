@@ -93,6 +93,7 @@ const urls = {
         list: `${offer}offerredeem/list/`,
         all: `${offer}serviceoffer/all/`,
     },
+    connectIPS: "https://uat.connectips.com:7443/connectipswebgw/loginpage",
 };
 
 export default urls;
