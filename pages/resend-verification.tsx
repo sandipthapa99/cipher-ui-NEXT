@@ -68,7 +68,7 @@ const ResendVerification = () => {
                         <FormButton
                             type="submit"
                             variant="primary"
-                            name="Reset"
+                            name="Resend"
                             className="login-btn"
                             isSubmitting={isSubmitting}
                             isSubmittingClass={isSubmittingClass(isSubmitting)}
