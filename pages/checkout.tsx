@@ -226,7 +226,7 @@ export default function Checkout() {
                                                     setErrorMsg("");
                                                 }}
                                             >
-                                                {item.name === paymentType && (
+                                                {item.slug === paymentType && (
                                                     <figure className="verified">
                                                         <Image
                                                             src={
