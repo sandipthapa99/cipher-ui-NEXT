@@ -17,8 +17,10 @@ export interface SuccessPageQuery {
     pidx?: string;
     payment_intent?: string;
     token?: string;
+    TXNID?: string;
 }
 export enum PaymentMethods {
+    connect_ips = "connect_ips",
     khalti = "khalti",
     stripe = "stripe",
     paypal = "paypal",
@@ -37,7 +39,8 @@ const PaymentSuccess = () => {
 
     const navigateToDashboard = () => router.push("/home");
 
-    const { pidx, payment_intent, token } = router.query as SuccessPageQuery;
+    const { pidx, payment_intent, token, TXNID } =
+        router.query as SuccessPageQuery;
     let provider: string;
     // const provider = payment_intent
     //     ? PaymentMethods.stripe
@@ -50,6 +53,9 @@ const PaymentSuccess = () => {
     }
     if (token) {
         provider = PaymentMethods.paypal;
+    }
+    if (TXNID) {
+        provider = PaymentMethods.connect_ips;
     }
 
     const { mutate: completeOrderMutation, isLoading } = useMutation<
@@ -74,6 +80,9 @@ const PaymentSuccess = () => {
         if (token) {
             payload = { verification_id: token } as PaymentPayload;
         }
+        if (TXNID) {
+            payload = { verification_id: TXNID } as PaymentPayload;
+        }
 
         if (!payload) return;
 
@@ -93,7 +102,7 @@ const PaymentSuccess = () => {
                 }
             },
         });
-    }, [completeOrderMutation, payment_intent, pidx, token]);
+    }, [completeOrderMutation, payment_intent, pidx, token, TXNID]);
 
     return (
         <>
