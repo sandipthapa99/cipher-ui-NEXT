@@ -24,10 +24,12 @@ export const BreadCrumb = ({ currentPage }: BreadCrumbProps) => {
                             <Link href={`/${route?.toLowerCase()}`}>
                                 <a>{route}</a>
                             </Link>
-                            <ChevronRight className="svg-icon me-0 ps-3" />
+                            <ChevronRight className="svg-icon ms-3 me-0" />
                         </span>
                     ))}
-                    <Breadcrumb.Item active>{currentPage}</Breadcrumb.Item>
+                    <Breadcrumb.Item active className="text-capitalize">
+                        {currentPage}
+                    </Breadcrumb.Item>
                 </Breadcrumb>
             </Container>
         </div>
