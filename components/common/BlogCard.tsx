@@ -1,4 +1,4 @@
-import { East } from "@mui/icons-material";
+import { ArrowForward, East } from "@mui/icons-material";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,7 +31,7 @@ const CommunityBlogCard = ({
                 <Link href={`/blogs/${blogData?.slug}`}>
                     <a>
                         See More
-                        <East className="svg-icon" />
+                        <ArrowForward className="svg-icon" />
                     </a>
                 </Link>
             </div>
