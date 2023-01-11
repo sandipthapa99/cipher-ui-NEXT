@@ -181,6 +181,23 @@ export default function Checkout() {
         { enabled: !!paymentType }
     );
 
+    const HandleEsewaMutation = (path: string, params: any) => {
+        const form = document.createElement("form");
+        form.setAttribute("method", "POST");
+        form.setAttribute("action", path);
+
+        for (const key in params) {
+            const hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+            form.appendChild(hiddenField);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    };
+
     const { data: servicesCheckoutData, isLoading: checkoutLoading } =
         useData<CheckoutDataProps>(
             ["all-services-checkout"],
@@ -761,6 +778,12 @@ export default function Checkout() {
                                     case "connect_ips":
                                         callConnectIPS();
                                         break;
+                                    case "esewa":
+                                        HandleEsewaMutation(
+                                            "https://uat.esewa.com.np/epay/main",
+                                            paymentData?.data?.data
+                                        );
+                                        break;
                                     default:
                                         setOpened(true);
                                 }
@@ -784,7 +807,7 @@ export default function Checkout() {
                     setOpened(false);
                 }}
             >
-                {paymentType === "Stripe" && (
+                {paymentType === "stripe" && (
                     <div className="App mt-5 mb-5">
                         {options.clientSecret && (
                             <Elements stripe={stripePromise} options={options}>
