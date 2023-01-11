@@ -793,7 +793,7 @@ export default function Checkout() {
                                 }
                             }}
                         >
-                            {isIntentLoading || isFetching ? (
+                            {isFetching ? (
                                 <Loader size="sm" color="gray" variant="dots" />
                             ) : (
                                 "Proceed to Pay"
