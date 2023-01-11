@@ -46,7 +46,13 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
                                             );
                                         }}
                                     >
-                                        <ContentCopyOutlined className="svg-icon" />
+                                        <ContentCopyOutlined
+                                            className="svg-icon"
+                                            style={{
+                                                height: "1.6rem",
+                                                width: "1.6rem",
+                                            }}
+                                        />
                                         Copy Link
                                     </p>
                                 </button>

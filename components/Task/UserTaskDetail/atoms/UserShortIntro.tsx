@@ -2,7 +2,7 @@ import Spoiler from "@components/Spoiler/Spoiler";
 import { createStyles, Text } from "@mantine/core";
 import {
     LocationOnOutlined,
-    Person,
+    PersonOutline,
     ScienceOutlined,
     TimerOutlined,
 } from "@mui/icons-material";
@@ -57,7 +57,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                 </div>
                 {memberSince && (
                     <div className="td-user-short-intro-text">
-                        <Person className="svg-icon" />
+                        <PersonOutline className="svg-icon" />
                         <span>
                             {/* Member since{" "} */}
                             <Text className={classes.boldText}>

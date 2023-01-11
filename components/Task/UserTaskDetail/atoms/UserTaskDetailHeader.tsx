@@ -6,8 +6,8 @@ import type { FollowMutationData } from "@components/common/UserFollowersModal";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";
 import { Rating } from "@mantine/core";
 import {
+    HowToRegOutlined,
     PersonAddAlt1Outlined,
-    PersonRemoveAlt1Outlined,
     StarOutlineOutlined,
     StarRounded,
     VerifiedRounded,
@@ -211,16 +211,14 @@ export const UserTaskDetailHeader = ({
                 <Col md={4} className="d-flex flex-column align-items-end">
                     <div className="td-task-detail-header-icons">
                         {taskerDetail?.is_followed ? (
-                            <PersonAddAlt1Outlined
+                            <HowToRegOutlined
                                 style={{
                                     color: "#297796",
-                                    // height: "2.4rem",
-                                    // width: "2.4rem",
+                                    height: "2rem",
+                                    width: "2rem",
                                 }}
-                                height={24}
-                                width={24}
                                 visibility={taskerHimself ? "hidden" : "none"}
-                                className="svg-follow-icon"
+                                className="svg-follow-icon me-2"
                                 onClick={() =>
                                     handleFollowClick(
                                         taskerDetail?.user?.id,
@@ -229,16 +227,14 @@ export const UserTaskDetailHeader = ({
                                 }
                             />
                         ) : (
-                            <PersonRemoveAlt1Outlined
+                            <PersonAddAlt1Outlined
                                 style={{
                                     color: "#297796",
-                                    // height: "2.4rem",
-                                    // width: "2.4rem",
+                                    height: "2rem",
+                                    width: "2rem",
                                 }}
-                                height={24}
                                 visibility={taskerHimself ? "hidden" : "none"}
-                                width={24}
-                                className="svg-follow-icon"
+                                className="svg-follow-icon me-2"
                                 onClick={() =>
                                     handleFollowClick(
                                         taskerDetail?.user?.id,

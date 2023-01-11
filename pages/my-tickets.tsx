@@ -129,10 +129,10 @@ const MyTickets = () => {
                     {supportTickets?.result.length === 0 && !isFetching ? (
                         <Alert
                             icon={<ErrorOutlineOutlined />}
-                            title={"No Tickets Avaiable."}
+                            title={"No Tickets Available."}
                             color="orange"
                         >
-                            {`You dont have opened any support tickets.`}
+                            {`You don't have opened any support tickets.`}
                         </Alert>
                     ) : (
                         renderAllTickets
