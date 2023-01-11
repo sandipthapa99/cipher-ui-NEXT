@@ -272,7 +272,7 @@ export default function Checkout() {
                                             setErrorMsg("");
                                         }}
                                     >
-                                        {item.name === paymentType && (
+                                        {item.slug === paymentType && (
                                             <figure className="verified">
                                                 <Image
                                                     src={
@@ -739,7 +739,7 @@ export default function Checkout() {
                                 }
                             }}
                         >
-                            {isIntentLoading || isFetching ? (
+                            {isFetching ? (
                                 <Loader size="sm" color="gray" variant="dots" />
                             ) : (
                                 "Proceed to Pay"
