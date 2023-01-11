@@ -18,7 +18,7 @@ import {
 } from "@mui/icons-material";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -28,7 +28,6 @@ import { useForm } from "hooks/use-form";
 import * as _ from "lodash";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { serialize } from "object-to-formdata";
 import React, { forwardRef, Fragment, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { CheckoutDataProps } from "types/checkoutDataProps";
@@ -46,6 +45,22 @@ export interface OfferSelectProps extends CheckoutOffersProps {
     label: string;
     image: string;
 }
+
+export type EsewaProps = {
+    success: boolean;
+    data: {
+        amt: number;
+        pdc: number;
+        psc: number;
+        txAmt: number;
+        tAmt: number;
+        pid: string;
+        scd: string;
+        su: string;
+        fu: string;
+    };
+    intent_id: string;
+};
 
 const getStripeApiKey = () => {
     const url = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -125,29 +140,6 @@ export default function Checkout() {
         : [];
 
     SelectItem.displayName = "SelectItem";
-    // const connectIPSMutation = useMutation((values: any) => {
-    //     return axiosClient.post(urls.connectIPS, values);
-    // });
-
-    // const callConnectIPS = () => {
-    //     const formData = serialize(paymentData.data.data);
-
-    //     connectIPSMutation.mutate(formData, {
-    //         onSuccess: (data) => {
-    //             console.log(data.data);
-    //             // router.push(
-    //             //     "https://uat.connectips.com:7443/connectipswebgw/loginpage"
-    //             // );
-    //         },
-    //         onError: (err: any) => {
-    //             console.log("error");
-    //         },
-    //     });
-    // object
-    // options, // optional
-    // existingFormData, // optional
-    // keyPrefix // optional
-    // };
 
     const {
         data: paymentData,
@@ -181,7 +173,7 @@ export default function Checkout() {
         { enabled: !!paymentType }
     );
 
-    const HandleEsewaMutation = (path: string, params: any) => {
+    const HandleEsewaMutation = (path: string, params: EsewaProps["data"]) => {
         const form = document.createElement("form");
         form.setAttribute("method", "POST");
         form.setAttribute("action", path);
@@ -190,7 +182,10 @@ export default function Checkout() {
             const hiddenField = document.createElement("input");
             hiddenField.setAttribute("type", "hidden");
             hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", params[key]);
+            hiddenField.setAttribute(
+                "value",
+                String(params[key as keyof EsewaProps["data"]])
+            );
             form.appendChild(hiddenField);
         }
 
