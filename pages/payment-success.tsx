@@ -18,15 +18,19 @@ export interface SuccessPageQuery {
     payment_intent?: string;
     token?: string;
     TXNID?: string;
+    refId?: string;
+    oid?: string;
 }
 export enum PaymentMethods {
     connect_ips = "connect_ips",
     khalti = "khalti",
     stripe = "stripe",
     paypal = "paypal",
+    esewa = "esewa",
 }
 export type PaymentPayload = {
     verification_id: string;
+    intent_id?: string;
 };
 
 export type CompleteOrderPayload = PaymentPayload;
@@ -39,8 +43,9 @@ const PaymentSuccess = () => {
 
     const navigateToDashboard = () => router.push("/home");
 
-    const { pidx, payment_intent, token, TXNID } =
+    const { pidx, payment_intent, token, refId, oid, TXNID } =
         router.query as SuccessPageQuery;
+
     let provider: string;
     // const provider = payment_intent
     //     ? PaymentMethods.stripe
@@ -56,6 +61,9 @@ const PaymentSuccess = () => {
     }
     if (TXNID) {
         provider = PaymentMethods.connect_ips;
+    }
+    if (refId) {
+        provider = PaymentMethods.esewa;
     }
 
     const { mutate: completeOrderMutation, isLoading } = useMutation<
@@ -83,6 +91,12 @@ const PaymentSuccess = () => {
         if (TXNID) {
             payload = { verification_id: TXNID } as PaymentPayload;
         }
+        if (refId) {
+            payload = {
+                verification_id: refId,
+                intent_id: oid,
+            } as PaymentPayload;
+        }
 
         if (!payload) return;
 
@@ -102,7 +116,7 @@ const PaymentSuccess = () => {
                 }
             },
         });
-    }, [completeOrderMutation, payment_intent, pidx, token, TXNID]);
+    }, [completeOrderMutation, payment_intent, pidx, token, refId, oid, TXNID]);
 
     return (
         <>
