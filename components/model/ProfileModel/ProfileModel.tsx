@@ -102,10 +102,12 @@ export const ProfileModel = () => {
                     <Divider my="1rem" />
                     <li>
                         <Button
-                            sx={{ fontWeight: 500 }}
+                            sx={{ fontWeight: 500, padding: 0 }}
                             color={"red"}
                             variant="white"
-                            leftIcon={<LogoutOutlined />}
+                            leftIcon={
+                                <LogoutOutlined style={{ fontSize: "2rem" }} />
+                            }
                             onClick={logout}
                         >
                             Logout
