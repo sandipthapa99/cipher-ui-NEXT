@@ -4,7 +4,7 @@ import BusinessGoal from "@components/common/BusinessGoal";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import { East } from "@mui/icons-material";
+import { ChevronRight, East } from "@mui/icons-material";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
@@ -85,7 +85,8 @@ const Resources: NextPage = () => {
                                 <h3>Featured Resources</h3>
                                 <Link href="/blogs">
                                     <a className="view-more">
-                                        view more <East className="svg-icon" />
+                                        view more{" "}
+                                        <ChevronRight className="svg-icon" />
                                     </a>
                                 </Link>
                             </div>

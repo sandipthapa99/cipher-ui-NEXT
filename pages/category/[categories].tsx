@@ -7,7 +7,7 @@ import Layout from "@components/Layout";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
-import { Alert, Grid, Highlight, Skeleton } from "@mantine/core";
+import { Alert, Grid, Skeleton } from "@mantine/core";
 import { ErrorOutlineOutlined } from "@mui/icons-material";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
@@ -48,10 +48,6 @@ const Gardening = ({
         ["category-name", categories],
         `${urls.category.name}${categories}`
     );
-    // console.log(
-    //     "🚀 ~ file: [categories].tsx ~ line 57 ~ data",
-    //     categoryNameResult?.data.name
-    // );
     const category_name = categoryNameResult?.data?.name;
 
     return (
@@ -68,12 +64,14 @@ const Gardening = ({
                             category_name ? category_name : "Loading..."
                         }
                     />
-                    <h1 className="section-title m-0">{category_name}</h1>
+                    <h1 className="section-title m-0 text-capitalize">
+                        {category_name}
+                    </h1>
                     <section className="services-near-you">
                         <h1 className="heading-title mt-3">
                             {category_name ? (
-                                <span>
-                                    {category_name} &nbsp; Services Near You
+                                <span className="text-capitalize">
+                                    {category_name} &nbsp;Services Near You
                                 </span>
                             ) : (
                                 <>
@@ -133,8 +131,8 @@ const Gardening = ({
                     <section className="tasks-near-you">
                         <h1 className="heading-title">
                             {category_name ? (
-                                <span>
-                                    {category_name} &nbsp; Tasks Near You
+                                <span className="text-capitalize">
+                                    {category_name} &nbsp;Tasks Near You
                                 </span>
                             ) : (
                                 <>
@@ -183,8 +181,8 @@ const Gardening = ({
                     <section className="taskers-near-you">
                         <h1 className="heading-title">
                             {category_name ? (
-                                <span>
-                                    {category_name} &nbsp; Tasker Near You
+                                <span className="text-capitalize">
+                                    {category_name} &nbsp;Taskers Near You
                                 </span>
                             ) : (
                                 <>

@@ -35,6 +35,10 @@ export const useProfileModelStyles = createStyles((_theme) => ({
         flexDirection: "column",
         gap: "1.5rem",
 
+        svg: {
+            fontSize: "2rem",
+        },
+
         "& > li": {
             position: "relative",
             display: "flex",
@@ -45,7 +49,7 @@ export const useProfileModelStyles = createStyles((_theme) => ({
             "&::before": {
                 position: "absolute",
                 content: "''",
-                width: "0.15rem",
+                width: "0.20rem",
                 height: "100%",
                 backgroundColor: "#F98900",
                 marginLeft: "-1.5rem",
