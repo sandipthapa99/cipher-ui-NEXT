@@ -125,29 +125,29 @@ export default function Checkout() {
         : [];
 
     SelectItem.displayName = "SelectItem";
-    const connectIPSMutation = useMutation((values: any) => {
-        return axiosClient.post(urls.connectIPS, values);
-    });
+    // const connectIPSMutation = useMutation((values: any) => {
+    //     return axiosClient.post(urls.connectIPS, values);
+    // });
 
-    const callConnectIPS = () => {
-        const formData = serialize(paymentData.data.data);
+    // const callConnectIPS = () => {
+    //     const formData = serialize(paymentData.data.data);
 
-        connectIPSMutation.mutate(formData, {
-            onSuccess: (data) => {
-                console.log(data.data);
-                // router.push(
-                //     "https://uat.connectips.com:7443/connectipswebgw/loginpage"
-                // );
-            },
-            onError: (err: any) => {
-                console.log("error");
-            },
-        });
-        // object
-        // options, // optional
-        // existingFormData, // optional
-        // keyPrefix // optional
-    };
+    //     connectIPSMutation.mutate(formData, {
+    //         onSuccess: (data) => {
+    //             console.log(data.data);
+    //             // router.push(
+    //             //     "https://uat.connectips.com:7443/connectipswebgw/loginpage"
+    //             // );
+    //         },
+    //         onError: (err: any) => {
+    //             console.log("error");
+    //         },
+    //     });
+    // object
+    // options, // optional
+    // existingFormData, // optional
+    // keyPrefix // optional
+    // };
 
     const {
         data: paymentData,
@@ -776,7 +776,11 @@ export default function Checkout() {
                                         );
                                         break;
                                     case "connect_ips":
-                                        callConnectIPS();
+                                        router.push(
+                                            paymentData &&
+                                                paymentData?.data?.data
+                                                    ?.redirect_url
+                                        );
                                         break;
                                     case "esewa":
                                         HandleEsewaMutation(
