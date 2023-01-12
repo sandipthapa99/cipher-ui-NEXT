@@ -239,7 +239,7 @@ const MyEarnings = () => {
                                     }
                                     placeholder="Enter a search keyword"
                                 />
-                                <div className="d-flex mt-3 mt-sm-0">
+                                {/* <div className="d-flex mt-3 mt-sm-0">
                                     <Menu shadow="md" width={350}>
                                         <Menu.Target>
                                             <Button
@@ -303,7 +303,7 @@ const MyEarnings = () => {
                                             </Button>
                                         </Menu.Dropdown>
                                     </Menu>
-                                </div>
+                                </div> */}
                             </div>
                             <ScrollArea>
                                 <Table>

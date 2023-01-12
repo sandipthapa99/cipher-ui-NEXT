@@ -295,7 +295,9 @@ const UserProfileCard = ({
                                         </p>
                                     ) : (
                                         <Link href="/settings/account/security">
-                                            Add a phone number.
+                                            <a className="text-primary">
+                                                Add a phone number.
+                                            </a>
                                         </Link>
                                     )}
                                 </div>
