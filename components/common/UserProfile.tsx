@@ -89,13 +89,15 @@ const UserProfileCard = ({
 
     const userType: string[] = user_type ? JSON.parse(user_type) : [];
 
-    const renderType = userType.map((type: string, index: number) => {
-        return (
-            <p className="organization" key={index}>
-                Individual | {type}
-            </p>
-        );
-    });
+    const renderType =
+        userType &&
+        userType?.map((type: string, index: number) => {
+            return (
+                <p className="organization" key={index}>
+                    Individual | {type}
+                </p>
+            );
+        });
 
     // Modal close when the following list is empty
 

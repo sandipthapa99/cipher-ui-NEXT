@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
+import { object } from "yup";
 
 const ORDER_ALREADY_PROCESSED_MESSAGE = "The order has already been processed";
 
@@ -50,19 +51,16 @@ const PaymentSuccess = () => {
     // const provider = payment_intent
     //     ? PaymentMethods.stripe
     //     : PaymentMethods.khalti;
+
     if (pidx) {
         provider = PaymentMethods.khalti;
-    }
-    if (payment_intent) {
+    } else if (payment_intent) {
         provider = PaymentMethods.stripe;
-    }
-    if (token) {
+    } else if (token) {
         provider = PaymentMethods.paypal;
-    }
-    if (TXNID) {
+    } else if (TXNID) {
         provider = PaymentMethods.connect_ips;
-    }
-    if (refId) {
+    } else if (refId) {
         provider = PaymentMethods.esewa;
     }
 
@@ -81,17 +79,13 @@ const PaymentSuccess = () => {
         let payload;
         if (pidx) {
             payload = { verification_id: pidx } as PaymentPayload;
-        }
-        if (payment_intent) {
+        } else if (payment_intent) {
             payload = { verification_id: payment_intent } as PaymentPayload;
-        }
-        if (token) {
+        } else if (token) {
             payload = { verification_id: token } as PaymentPayload;
-        }
-        if (TXNID) {
+        } else if (TXNID) {
             payload = { verification_id: TXNID } as PaymentPayload;
-        }
-        if (refId) {
+        } else if (refId) {
             payload = {
                 verification_id: refId,
                 intent_id: oid,

@@ -86,10 +86,9 @@ export default function Checkout() {
     const router = useRouter();
     const query = router.query.id;
 
-    const [opened, setOpened] = useState(false);
-    const [paymentType, setPaymentType] = useState("");
-    const [errorMsg, setErrorMsg] = useState("");
-
+    const [opened, setOpened] = useState<boolean>(false);
+    const [paymentType, setPaymentType] = useState<string>("");
+    const [errorMsg, setErrorMsg] = useState<string>("");
     const [offer, setOffer] = useState<boolean>();
 
     const { mutate, isLoading: applyPromoLoader } = useForm(
@@ -801,13 +800,14 @@ export default function Checkout() {
                 opened={opened}
                 overlayOpacity={0.55}
                 overlayBlur={3}
-                withCloseButton={false}
+                withCloseButton={true}
+                closeOnClickOutside={false}
                 onClose={() => {
                     setOpened(false);
                 }}
             >
                 {paymentType === "stripe" && (
-                    <div className="App mt-5 mb-5">
+                    <div className="App mb-5">
                         {options.clientSecret && (
                             <Elements stripe={stripePromise} options={options}>
                                 <CheckoutForm />

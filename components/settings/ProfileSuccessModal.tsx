@@ -61,39 +61,6 @@ const ProfileSuccessModalCard = ({
                     </div>
                 </div>
             </Modal>
-            {/* <Modal
-                show={show}
-                centered
-                className="profile-success-modal"
-                backdrop="static"
-            >
-                <Modal.Header>
-                    <Modal.Title className="mx-auto">
-                        Profile Created Successfully!
-                    </Modal.Title>
-                </Modal.Header>
-
-                <div className="modal-body-content">
-                    <div className="problem"></div>
-
-                    <Modal.Footer>
-                        <BigButton
-                            btnTitle={"Complete KYC"}
-                            backgroundColor={"#FFCA6A"}
-                            textColor={"#212529"}
-                            handleClick={handleCloseModal}
-                        />
-                        <Link href={"/home"} className="text-profile">
-                            <BigButton
-                                btnTitle={"Home"}
-                                backgroundColor={"#211d4f"}
-                                textColor={"#fff"}
-                                handleClick={handleGoHome}
-                            />
-                        </Link>
-                    </Modal.Footer>
-                </div>
-            </Modal> */}
         </>
     );
 };
