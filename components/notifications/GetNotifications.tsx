@@ -1,607 +1,81 @@
 //import "firebase/messaging";
 
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, useInfiniteQuery } from "@tanstack/react-query";
 import { useGetNotification } from "hooks/Notifications/use-notification";
+import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
+import React, { useMemo } from "react";
 import { Container } from "react-bootstrap";
+import type { NotificationResponseProps } from "types/notificationResponseProps";
 import { axiosClient } from "utils/axiosClient";
+import { getNextPageParam } from "utils/getNextPageParam";
 
-import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
-import { KycDetails } from "./KycDetails";
-import { PostNotifyTask } from "./PostedTask";
-import { TaskStatus } from "./TaskStatus";
+import { NotificationCard } from "./NotificationCard";
 
 export default function GetNotifications() {
-    // const router = useRouter();
+    const { ref } = useInViewPort<HTMLDivElement>(() => {
+        if (hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
+    });
 
-    const { data: allNotifications, refetch } = useGetNotification();
-    // const allNotify = allNotifications ? allNotifications.result : [];
-    const queryClient = new QueryClient();
-    const router = useRouter();
-
-    //
-    const todayNotifications = allNotifications?.result.filter((notify) => {
-        const date = new Date(notify.created_date);
-        const today = new Date();
-
-        return (
-            date.getDate() === today.getDate() &&
-            date.getMonth() === today.getMonth() &&
-            date.getFullYear() === today.getFullYear()
+    const { refetch, data, isFetchingNextPage, fetchNextPage, hasNextPage } =
+        useInfiniteQuery(
+            ["notifications"],
+            async ({ pageParam = 1 }) => {
+                const res = await axiosClient.get(
+                    "/notification/?page=" + pageParam
+                );
+                return res.data;
+            },
+            {
+                getNextPageParam,
+            }
         );
-    });
-    //
 
-    const earlierNotifications = allNotifications?.result.filter((notify) => {
-        const date = new Date(notify.created_date);
-        const today = new Date();
-
-        return date.getDate() !== today.getDate();
-    });
-    const readSingleNotification = async (
-        slug: string,
-        id: number,
-        type: string
-    ) => {
-        if (slug !== null) {
-            router.push(`/${type}/${slug}`);
-        }
-
-        await axiosClient.post(`/notification/read/?id=${id}`);
-        await queryClient.invalidateQueries(["notifications"]);
-    };
-    //
-
-    const renderTodayNotifications = todayNotifications?.map(
-        (notification, index: number) => {
-            if (notification.title === "created") {
-                return (
-                    <div
-                        key={index}
-                        onClick={async () => {
-                            await axiosClient.get(
-                                `/notification/read/?id=${notification.id}`
-                            );
-
-                            await queryClient.invalidateQueries([
-                                "notification",
-                            ]);
-                        }}
-                    >
-                        <PostNotifyTask
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.is_requested
-                            }
-                            taskTitle={`${notification?.content_object.title}`}
-                            taskObject={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            createdDate={notification.created_date}
-                            slug={notification?.content_object?.slug}
-                            type={"created"}
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.content_object?.entity_service
-                                        ?.slug,
-                                    notification?.id,
-                                    notification?.content_object?.entity_service
-                                        ?.is_requested
-                                        ? "task"
-                                        : "service"
-                                )
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "KYC Verification") {
-                return (
-                    <div
-                        key={index}
-                        onClick={async () => {
-                            await axiosClient.get(
-                                `/notification/read/?id=${notification.id}`
-                            );
-
-                            await queryClient.invalidateQueries([
-                                "notification",
-                            ]);
-                        }}
-                    >
-                        <KycDetails
-                            userPhoto={notification?.created_for?.profile_image}
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.is_requested
-                            }
-                            createdDate={notification.created_date}
-                            handleClick={() => console.log("clicked")}
-                        />
-                    </div>
-                );
-            } else if (notification.title === "status completed") {
-                return (
-                    <div key={index}>
-                        <TaskStatus
-                            userPhoto={notification?.created_for?.profile_image}
-                            created_for={notification?.created_for?.full_name}
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                            }
-                            taskTitle={notification?.title}
-                            taskObject={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            createdDate={notification?.created_date}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                            notificationTaskStatus="completed"
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.content_object?.entity_service
-                                        ?.slug,
-                                    notification?.id,
-                                    notification?.content_object?.entity_service
-                                        ?.is_requested
-                                        ? "task"
-                                        : "service"
-                                )
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "status closed") {
-                return (
-                    <div key={index}>
-                        <TaskStatus
-                            userPhoto={notification?.created_for?.profile_image}
-                            created_for={notification?.created_for?.full_name}
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                            }
-                            taskTitle={notification?.title}
-                            taskObject={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            createdDate={notification?.created_date}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                            notificationTaskStatus="closed"
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.content_object?.entity_service
-                                        ?.slug,
-                                    notification?.id,
-                                    notification?.content_object?.entity_service
-                                        ?.is_requested
-                                        ? "task"
-                                        : "service"
-                                )
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "booking") {
-                return (
-                    <div
-                        key={index}
-                        onClick={() =>
-                            readSingleNotification(
-                                notification?.content_object?.entity_service
-                                    ?.slug,
-                                notification?.id,
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                                    ? "task"
-                                    : "service"
-                            )
-                        }
-                    >
-                        <PostNotifyTask
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                            }
-                            taskTitle={notification?.title}
-                            taskObject={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            createdDate={notification?.created_date}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                            type={"booked"}
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.content_object?.entity_service
-                                        ?.slug,
-                                    notification?.id,
-                                    notification?.content_object?.entity_service
-                                        ?.is_requested
-                                        ? "task"
-                                        : "service"
-                                )
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "approval") {
-                return (
-                    <div
-                        key={index}
-                        onClick={() =>
-                            readSingleNotification(
-                                notification?.content_object?.entity_service
-                                    ?.slug,
-                                notification?.id,
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                                    ? "task"
-                                    : "service"
-                            )
-                        }
-                    >
-                        <ApproveNotification
-                            userPhoto={notification?.created_for?.profile_image}
-                            read={notification.read_date}
-                            bookingId={notification?.content_object?.id}
-                            title="booked"
-                            body={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            user={notification?.created_for?.full_name}
-                            accept={true}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                            date={notification?.created_date}
-                            type={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                                    ? "task"
-                                    : "service"
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "Approved") {
-                return (
-                    <div
-                        key={index}
-                        onClick={() =>
-                            readSingleNotification(
-                                notification?.content_object?.entity_service
-                                    ?.slug,
-                                notification?.id,
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                                    ? "task"
-                                    : "service"
-                            )
-                        }
-                    >
-                        <ApproveNotification
-                            userPhoto={notification?.created_for?.profile_image}
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                            }
-                            title="Approved"
-                            body={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            user={notification?.created_for?.full_name}
-                            date={notification?.created_date}
-                            type="booking"
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                        />
-                    </div>
-                );
-            }
-            return;
-        }
+    const notifications: NotificationResponseProps["result"] = useMemo(
+        () => data?.pages.map((page) => page.result).flat() ?? [],
+        [data?.pages]
     );
 
-    const renderEarlierNotifications = earlierNotifications?.map(
-        (notification, index: number) => {
-            if (notification.title === "created") {
-                return (
-                    <div
-                        key={index}
-                        onClick={async () => {
-                            router.push(
-                                `/task/${notification?.content_object?.entity_service?.slug}`
-                            );
-                            await axiosClient.get(
-                                `/notification/read/?id=${notification.id}`
-                            );
+    const isLastTaskerOnPage = (index: number) =>
+        index === notifications?.length - 1;
 
-                            await queryClient.invalidateQueries([
-                                "notification",
-                            ]);
-                        }}
-                    >
-                        <PostNotifyTask
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                            }
-                            taskTitle={`${notification?.content_object.title}`}
-                            taskObject={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            createdDate={notification.created_date}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                            type={"created"}
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.content_object?.entity_service
-                                        ?.slug,
-                                    notification?.id,
-                                    notification?.content_object?.entity_service
-                                        ?.is_requested
-                                        ? "task"
-                                        : "service"
-                                )
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "KYC Verification") {
-                return (
-                    <div
-                        key={index}
-                        onClick={async () => {
-                            await axiosClient.get(
-                                `/notification/read/?id=${notification.id}`
-                            );
+    const todayNotifications = notifications
+        ?.filter((date) => {
+            return (
+                new Date(date.created_date).getFullYear() ===
+                    new Date().getFullYear() &&
+                new Date(date.created_date).getMonth() ===
+                    new Date().getMonth() &&
+                new Date(date.created_date).getDate() === new Date().getDate()
+            );
+        })
+        .map((notification, index) => {
+            return (
+                <div ref={ref} key={index}>
+                    <NotificationCard notification={notification} />
+                </div>
+            );
+        });
 
-                            await queryClient.invalidateQueries([
-                                "notification",
-                            ]);
-                        }}
-                    >
-                        <KycDetails
-                            userPhoto={notification?.created_for?.profile_image}
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.is_requested
-                            }
-                            createdDate={notification.created_date}
-                            handleClick={() => console.log("clicked")}
-                        />
-                    </div>
-                );
-            } else if (notification.title === "status completed") {
-                return (
-                    <div key={index}>
-                        <TaskStatus
-                            userPhoto={notification?.created_for?.profile_image}
-                            created_for={notification?.created_for?.full_name}
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                            }
-                            taskTitle={notification?.title}
-                            taskObject={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            createdDate={notification?.created_date}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                            notificationTaskStatus="completed"
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.content_object?.entity_service
-                                        ?.slug,
-                                    notification?.id,
-                                    notification?.content_object?.entity_service
-                                        ?.is_requested
-                                        ? "task"
-                                        : "service"
-                                )
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "status closed") {
-                return (
-                    <div key={index}>
-                        <TaskStatus
-                            userPhoto={notification?.created_for?.profile_image}
-                            created_for={notification?.created_for?.full_name}
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                            }
-                            taskTitle={notification?.title}
-                            taskObject={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            createdDate={notification?.created_date}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                            notificationTaskStatus="closed"
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.content_object?.entity_service
-                                        ?.slug,
-                                    notification?.id,
-                                    notification?.content_object?.entity_service
-                                        ?.is_requested
-                                        ? "task"
-                                        : "service"
-                                )
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "booking") {
-                return (
-                    <div
-                        key={index}
-                        onClick={() =>
-                            readSingleNotification(
-                                notification?.content_object?.entity_service
-                                    ?.slug,
-                                notification?.id,
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                                    ? "task"
-                                    : "service"
-                            )
-                        }
-                    >
-                        <PostNotifyTask
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                            }
-                            taskTitle={notification?.title}
-                            taskObject={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            createdDate={notification?.created_date}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                            type={"booked"}
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.content_object?.entity_service
-                                        ?.slug,
-                                    notification?.id,
-                                    notification?.content_object?.entity_service
-                                        ?.is_requested
-                                        ? "task"
-                                        : "service"
-                                )
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "approval") {
-                return (
-                    <div
-                        key={index}
-                        onClick={() =>
-                            readSingleNotification(
-                                notification?.content_object?.entity_service
-                                    ?.slug,
-                                notification?.id,
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                                    ? "task"
-                                    : "service"
-                            )
-                        }
-                    >
-                        <ApproveNotification
-                            userPhoto={notification?.created_for?.profile_image}
-                            read={notification.read_date}
-                            bookingId={notification?.content_object?.id}
-                            title="booked"
-                            body={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            user={notification?.created_for?.full_name}
-                            accept={true}
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                            date={notification?.created_date}
-                            type={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                                    ? "task"
-                                    : "service"
-                            }
-                        />
-                    </div>
-                );
-            } else if (notification.title === "Approved") {
-                return (
-                    <div
-                        key={index}
-                        onClick={() =>
-                            readSingleNotification(
-                                notification?.content_object?.entity_service
-                                    ?.slug,
-                                notification?.id,
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                                    ? "task"
-                                    : "service"
-                            )
-                        }
-                    >
-                        <ApproveNotification
-                            userPhoto={notification?.created_for?.profile_image}
-                            read={notification?.read_date}
-                            is_requested={
-                                notification?.content_object?.entity_service
-                                    ?.is_requested
-                            }
-                            title="Approved"
-                            body={
-                                notification?.content_object?.entity_service
-                                    ?.title
-                            }
-                            user={notification?.created_for?.full_name}
-                            date={notification?.created_date}
-                            type="booking"
-                            slug={
-                                notification?.content_object?.entity_service
-                                    ?.slug
-                            }
-                        />
-                    </div>
-                );
-            }
-            return;
-        }
-    );
+    const otherNotifications = notifications
+        ?.filter((date) => {
+            return (
+                new Date(date.created_date).getFullYear() !==
+                    new Date().getFullYear() &&
+                new Date(date.created_date).getMonth() !==
+                    new Date().getMonth() &&
+                new Date(date.created_date).getDate() !== new Date().getDate()
+            );
+        })
+        .map((notification, index) => {
+            return (
+                <div ref={isLastTaskerOnPage(index) ? ref : null} key={index}>
+                    <NotificationCard notification={notification} />
+                </div>
+            );
+        });
 
     return (
         <section id="get-notification-section" className="get-notification">
@@ -635,17 +109,16 @@ export default function GetNotifications() {
                             No today&apos;s notifications to show.
                         </p>
                     ) : (
-                        renderTodayNotifications
+                        todayNotifications
                     )}
                     <div className="header">
                         <h4 className="mt-3">Earlier</h4>
-                        {allNotifications?.result.length === 0 && (
-                            <p className="text-center">
-                                No notifications to show.
-                            </p>
-                        )}
-                        {renderEarlierNotifications}
                     </div>
+                    {otherNotifications?.length === 0 ? (
+                        <p className="text-center">No notifications to show.</p>
+                    ) : (
+                        otherNotifications
+                    )}
 
                     {/* <AcceptedNotification /> */}
                     {/* <AcceptedNotification /> */}

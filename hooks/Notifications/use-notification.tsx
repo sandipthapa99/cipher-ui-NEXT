@@ -1,8 +1,9 @@
 import { NumberInputProps } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useUser } from "hooks/auth/useUser";
 import { axiosClient } from "utils/axiosClient";
+import { getNextPageParam } from "utils/getNextPageParam";
 
 export interface CreatedFor {
     id: string;
@@ -40,17 +41,16 @@ export type NotificationResponse = {
 };
 
 export const useGetNotification = () => {
-    return useQuery<NotificationResponse>(["notification"], async () => {
-        try {
-            const { data } = await axiosClient.get<NotificationResponse>(
-                "/notification/"
+    return useInfiniteQuery(
+        ["notifications"],
+        async ({ pageParam = 1 }) => {
+            const res = await axiosClient.get(
+                "/notification/?page=" + pageParam
             );
-            return data;
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                throw new Error(error?.response?.data?.message);
-            }
-            throw new Error("Something went wrong");
+            return res.data;
+        },
+        {
+            getNextPageParam,
         }
-    });
+    );
 };

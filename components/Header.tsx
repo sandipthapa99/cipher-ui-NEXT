@@ -20,7 +20,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
-import { axiosClient } from "utils/axiosClient";
 import { handleMenuActive } from "utils/helpers";
 
 import { Dropdown } from "./common/Dropdown";
@@ -41,7 +40,7 @@ const Header = () => {
     const [notopen, setNotopen] = useState(false);
     const [rasifal, setRasifal] = useState(false);
     const { data: profileDetails } = useGetProfile();
-    const { data: allNotification, refetch } = useGetNotification();
+    const { data: allNotification } = useGetNotification();
 
     const notificationRef = useClickOutside(() => setNotopen(false));
 
@@ -176,28 +175,15 @@ const Header = () => {
                                         )
                                     }
                                 >
-                                    <div
-                                        className="bell-icon-header"
-                                        onClick={async () => {
-                                            const response =
-                                                await axiosClient.get(
-                                                    "/notification/read/"
-                                                );
-
-                                            if (response.status === 200) {
-                                                refetch();
-                                                // await queryClient.invalidateQueries([
-                                                //     "notification",
-                                                // ]);
-                                            }
-                                        }}
-                                    >
+                                    <div className="bell-icon-header">
                                         {allNotification &&
-                                        allNotification?.unread_count > 0 ? (
+                                        allNotification?.pages[0]
+                                            ?.unread_count > 0 ? (
                                             <Indicator
                                                 color="#e62e04"
                                                 label={
-                                                    allNotification?.unread_count
+                                                    allNotification?.pages[0]
+                                                        ?.unread_count
                                                 }
                                                 inline
                                                 size={15}
