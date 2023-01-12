@@ -1,7 +1,4 @@
-//import "firebase/messaging";
-
-import { QueryClient, useInfiniteQuery } from "@tanstack/react-query";
-import { useGetNotification } from "hooks/Notifications/use-notification";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
 import React, { useMemo } from "react";

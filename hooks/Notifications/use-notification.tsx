@@ -1,7 +1,4 @@
-import { NumberInputProps } from "@mantine/core";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import { useUser } from "hooks/auth/useUser";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { axiosClient } from "utils/axiosClient";
 import { getNextPageParam } from "utils/getNextPageParam";
 
