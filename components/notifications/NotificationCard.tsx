@@ -123,7 +123,7 @@ export const NotificationCard = ({
                 return {
                     body: (
                         <>
-                            Created Task{" "}
+                            Created{" "}
                             <span className="span-name">
                                 {content_object?.title}
                             </span>
@@ -141,16 +141,25 @@ export const NotificationCard = ({
                 return {
                     body: (
                         <>
-                            status_closed{" "}
                             <span className="span-name">
-                                {content_object?.title}
+                                {created_for?.full_name}{" "}
+                            </span>{" "}
+                            has closed{" "}
+                            <span className="span-name">
+                                {content_object?.entity_service?.title}
                             </span>
                         </>
                     ),
                     image: (
-                        <figure className="d-flex justify-content-center notification-image rounded-circle">
-                            <BusinessCenterOutlined
-                                style={{ color: "white" }}
+                        <figure className="d-flex flex-column justify-content-center notification-image bg-transparent">
+                            <Image
+                                alt="testimage"
+                                src={
+                                    created_for?.profile_image ??
+                                    "/userprofile/unknownPerson.jpg"
+                                }
+                                height={50}
+                                width={50}
                             />
                         </figure>
                     ),
@@ -159,16 +168,25 @@ export const NotificationCard = ({
                 return {
                     body: (
                         <>
-                            status_completed{" "}
                             <span className="span-name">
-                                {content_object?.title}
+                                {created_for?.full_name}{" "}
+                            </span>{" "}
+                            has completed{" "}
+                            <span className="span-name">
+                                {content_object?.entity_service?.title}
                             </span>
                         </>
                     ),
                     image: (
-                        <figure className="d-flex flex-column justify-content-center notification-image rounded-circle">
-                            <BusinessCenterOutlined
-                                style={{ color: "white" }}
+                        <figure className="d-flex flex-column justify-content-center notification-image bg-transparent">
+                            <Image
+                                alt="testimage"
+                                src={
+                                    created_for?.profile_image ??
+                                    "/userprofile/unknownPerson.jpg"
+                                }
+                                height={50}
+                                width={50}
                             />
                         </figure>
                     ),
