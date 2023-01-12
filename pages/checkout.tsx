@@ -444,7 +444,7 @@ export default function Checkout() {
                                             <>
                                                 {!item?.offer && offer && (
                                                     <p
-                                                        className="text-primary m-2"
+                                                        className="text-primary mb-0"
                                                         role={"button"}
                                                         onClick={() => {
                                                             setOffer(false);
@@ -556,7 +556,7 @@ export default function Checkout() {
                                                 )}
                                                 {!item?.offer && !offer && (
                                                     <p
-                                                        className="text-primary m-2"
+                                                        className="text-primary mt -1 mb-0"
                                                         role={"button"}
                                                         onClick={() => {
                                                             setOffer(true);
@@ -638,7 +638,7 @@ export default function Checkout() {
                                                             isSubmitting,
                                                             setFieldValue,
                                                         }) => (
-                                                            <Form className="d-flex justify-content-between gap-4 w-100 mt-4 mb-4">
+                                                            <Form className="d-flex justify-content-between gap-4 w-100 mt-2 mb-2">
                                                                 <Select
                                                                     placeholder="pick an offer"
                                                                     name="redeem_offer"
@@ -747,7 +747,7 @@ export default function Checkout() {
                             </p>
                         </div>
                         <Button
-                            className="checkout-btn"
+                            className="checkout-btn mt-5"
                             disabled={
                                 paymentType === "" ||
                                 errorMsg !== "" ||
