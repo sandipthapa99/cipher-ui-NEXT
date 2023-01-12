@@ -482,7 +482,7 @@ const Home: NextPage<{
             {/* Get services section end */}
 
             {/* Find & Hire section start */}
-            <section id="find-hire" className="find-hire mt-4">
+            <section id="find-hire" className="find-hire mt-5">
                 <Container fluid="xl" className="px-4">
                     <h1 className="section-main-title">Find &amp; Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
