@@ -224,7 +224,7 @@ const AppliedTaskDetail = ({
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
-                    <Tooltip.Floating label="Task Location" color={"blue"}>
+                    <Tooltip.Floating label="Task location" color={"blue"}>
                         <p className="d-flex align-items-center">
                             <LocationOnOutlined className="svg-icon svg-icon-location" />
                             <span>
@@ -237,14 +237,14 @@ const AppliedTaskDetail = ({
                     </Tooltip.Floating>
 
                     {taskDetail?.created_at && (
-                        <Tooltip.Floating label="Date Posted" color={"blue"}>
+                        <Tooltip.Floating label="Deadline" color={"blue"}>
                             <p className="d-flex align-items-center">
                                 <CalendarTodayOutlined className="svg-icon svg-icon-calender" />
-                                {format(new Date(taskDetail?.created_at), "PP")}
+                                {format(new Date(taskDetail?.end_date), "PP")}
                             </p>
                         </Tooltip.Floating>
                     )}
-                    <Tooltip.Floating label="Time posted" color={"blue"}>
+                    <Tooltip.Floating label="Last updated" color={"blue"}>
                         <p className="d-flex align-items-center">
                             <ScheduleOutlined className="svg-icon svg-icon-clock" />
                             {taskDetail?.updated_at
@@ -252,7 +252,10 @@ const AppliedTaskDetail = ({
                                 : "N/A"}
                         </p>
                     </Tooltip.Floating>
-                    <Tooltip.Floating label="No. of Application" color={"blue"}>
+                    <Tooltip.Floating
+                        label="No. of Applications"
+                        color={"blue"}
+                    >
                         <p className="d-flex align-items-center">
                             <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
                             <span> {taskDetail.count} Applied</span>

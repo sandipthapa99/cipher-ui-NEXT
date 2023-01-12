@@ -521,7 +521,7 @@ export default function Checkout() {
                                                             isSubmitting,
                                                             errors,
                                                         }) => (
-                                                            <Form className="d-flex justify-content-between align-items-center gap-4 w-100 mt-4">
+                                                            <Form className="d-flex justify-content-between align-items-top gap-4 w-100 mt-4">
                                                                 <InputField
                                                                     name="code"
                                                                     placeHolder="Apply a Promo Code"
@@ -540,6 +540,9 @@ export default function Checkout() {
                                                                     className={
                                                                         "close-btn"
                                                                     }
+                                                                    style={{
+                                                                        height: "4.5rem",
+                                                                    }}
                                                                 >
                                                                     {applyPromoLoader ? (
                                                                         <Loader size="sm" />
