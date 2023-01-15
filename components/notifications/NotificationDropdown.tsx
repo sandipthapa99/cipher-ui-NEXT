@@ -1,12 +1,11 @@
 import { ScrollArea } from "@mantine/core";
 import { NotificationsOutlined } from "@mui/icons-material";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useGetNotification } from "hooks/Notifications/use-notification";
 import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
 import React, { useMemo } from "react";
 import type { NotificationResponseProps } from "types/notificationResponseProps";
 import { axiosClient } from "utils/axiosClient";
-import { getNextPageParam } from "utils/getNextPageParam";
 
 import { NotificationCard } from "./NotificationCard";
 
@@ -18,18 +17,7 @@ export const NotificationDropdown = () => {
     });
 
     const { refetch, data, isFetchingNextPage, fetchNextPage, hasNextPage } =
-        useInfiniteQuery(
-            ["notifications"],
-            async ({ pageParam = 1 }) => {
-                const res = await axiosClient.get(
-                    "/notification/?page=" + pageParam
-                );
-                return res.data;
-            },
-            {
-                getNextPageParam,
-            }
-        );
+        useGetNotification();
 
     const notifications: NotificationResponseProps["result"] = useMemo(
         () => data?.pages.map((page) => page.result).flat() ?? [],
@@ -60,10 +48,6 @@ export const NotificationDropdown = () => {
     const otherNotifications = notifications
         ?.filter((date) => {
             return (
-                new Date(date.created_date).getFullYear() !==
-                    new Date().getFullYear() &&
-                new Date(date.created_date).getMonth() !==
-                    new Date().getMonth() &&
                 new Date(date.created_date).getDate() !== new Date().getDate()
             );
         })
@@ -104,12 +88,16 @@ export const NotificationDropdown = () => {
             >
                 <div className="d-flex justify-content-between second-title"></div>
                 <p className="today ps-4">Today</p>
-                {todayNotifications}
-                <p className="today ps-4 my-4">Earlier</p>
-                {otherNotifications?.length === 0 ? (
+                {todayNotifications?.length > 0 ? (
+                    todayNotifications
+                ) : (
                     <p className="text-center">
                         No today&apos;s notifications to show.
                     </p>
+                )}
+                <p className="today ps-4 my-4">Earlier</p>
+                {otherNotifications?.length < 0 ? (
+                    <p className="text-center">No notifications to show.</p>
                 ) : (
                     otherNotifications
                 )}
