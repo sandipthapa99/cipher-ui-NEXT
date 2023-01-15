@@ -1,11 +1,10 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useGetNotification } from "hooks/Notifications/use-notification";
 import { useInViewPort } from "hooks/use-in-viewport";
 import Link from "next/link";
 import React, { useMemo } from "react";
 import { Container } from "react-bootstrap";
 import type { NotificationResponseProps } from "types/notificationResponseProps";
 import { axiosClient } from "utils/axiosClient";
-import { getNextPageParam } from "utils/getNextPageParam";
 
 import { NotificationCard } from "./NotificationCard";
 
@@ -17,18 +16,7 @@ export default function GetNotifications() {
     });
 
     const { refetch, data, isFetchingNextPage, fetchNextPage, hasNextPage } =
-        useInfiniteQuery(
-            ["notifications"],
-            async ({ pageParam = 1 }) => {
-                const res = await axiosClient.get(
-                    "/notification/?page=" + pageParam
-                );
-                return res.data;
-            },
-            {
-                getNextPageParam,
-            }
-        );
+        useGetNotification();
 
     const notifications: NotificationResponseProps["result"] = useMemo(
         () => data?.pages.map((page) => page.result).flat() ?? [],
