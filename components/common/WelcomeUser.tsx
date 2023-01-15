@@ -66,25 +66,6 @@ const WelcomeUser = () => {
                             </div>
                         </Col>
                     </Row>
-                    {/* <Row>
-                        {SearchBodyData.map((data) => (
-                            <Col
-                                className="user-stat-card"
-                                key={data.id}
-                                lg={3}
-                                md={6}
-                                sm={6}
-                                xs={6}
-                            >
-                                <SearchBody
-                                    number={data.number}
-                                    color={data.color}
-                                    textOne={data.textOne}
-                                    textColor={data.textColor}
-                                />
-                            </Col>
-                        ))}
-                    </Row> */}
                 </Col>
             </Row>
         </>
