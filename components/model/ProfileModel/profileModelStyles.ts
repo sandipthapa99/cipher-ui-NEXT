@@ -8,8 +8,22 @@ export const useProfileModelStyles = createStyles((_theme) => ({
         padding: "2.4rem 2.4rem 1.2rem 2.4rem",
         backgroundColor: "#fff",
         minWidth: "28rem",
+        margin: "5px 0 0 0",
         boxShadow: "0px 4px 14px rgba(33, 29, 79, 0.1)",
         zIndex: 999,
+
+        "&::before": {
+            content: '""',
+            position: "absolute",
+            top: -10,
+            right: "-1px",
+            transform: "translateX(-50%)",
+            borderWidth: "0 15px 15px 15px",
+            boxShadow: "0px 1px 1px 1px rgba(33, 29, 79, 0.1)",
+            borderRadius: "5px",
+            borderStyle: "solid",
+            borderColor: "transparent transparent white transparent",
+        },
     },
     header: {
         display: "flex",
