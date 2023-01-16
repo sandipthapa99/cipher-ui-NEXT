@@ -39,7 +39,7 @@ export const NotificationDropdown = () => {
         })
         .map((notification, index) => {
             return (
-                <div ref={ref} key={index}>
+                <div ref={isLastTaskerOnPage(index) ? ref : null} key={index}>
                     <NotificationCard notification={notification} />
                 </div>
             );
@@ -53,7 +53,7 @@ export const NotificationDropdown = () => {
         })
         .map((notification, index) => {
             return (
-                <div ref={isLastTaskerOnPage(index) ? ref : null} key={index}>
+                <div ref={ref} key={index}>
                     <NotificationCard notification={notification} />
                 </div>
             );
@@ -86,7 +86,6 @@ export const NotificationDropdown = () => {
                 offsetScrollbars
                 scrollbarSize={5}
             >
-                <div className="d-flex justify-content-between second-title"></div>
                 <p className="today ps-4">Today</p>
                 {todayNotifications?.length > 0 ? (
                     todayNotifications
@@ -96,10 +95,10 @@ export const NotificationDropdown = () => {
                     </p>
                 )}
                 <p className="today ps-4 my-4">Earlier</p>
-                {otherNotifications?.length < 0 ? (
-                    <p className="text-center">No notifications to show.</p>
-                ) : (
+                {otherNotifications?.length > 0 ? (
                     otherNotifications
+                ) : (
+                    <p className="text-center">No notifications to show.</p>
                 )}
             </ScrollArea.Autosize>
             <div className="d-flex align-items-center justify-content-center footer-section">
