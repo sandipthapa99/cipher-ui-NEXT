@@ -62,6 +62,7 @@ export const ProfileModel = () => {
     };
     return (
         <div className={classes.root}>
+            <div id="backdrop" className="backdrop-blur"></div>
             <div className={classes.header}>
                 <Avatar
                     src={

@@ -24,7 +24,7 @@ export const MyOrder = () => {
         setSearchParam(router.query.name);
     }, [router.query.name]);
 
-    const [bookingPageNo, setBookingPageNo] = useState<number>(1);
+    const bookingPageNo = 1;
 
     const { data: myOrderPage, isLoading } = useOrder(
         searchParam,

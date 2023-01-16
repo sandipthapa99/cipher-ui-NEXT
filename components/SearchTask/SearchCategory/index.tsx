@@ -54,6 +54,7 @@ export const SearchCategory = ({
 
     const [cityQuery, setCityQuery] = useState("");
     const { data: cities } = useCities(cityQuery, countryId);
+
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
 
@@ -392,15 +393,6 @@ export const SearchCategory = ({
                                     }
                                     data={statusData}
                                 />
-                                {/* <Select
-                                    clearable
-                                    placeholder="Any Date"
-                                    value={params.ordering ?? ""}
-                                    onChange={(value) =>
-                                        onSelectChange("ordering", value)
-                                    }
-                                    data={orderServiceData}
-                                /> */}
                                 <Select
                                     clearable
                                     placeholder="Sort"
