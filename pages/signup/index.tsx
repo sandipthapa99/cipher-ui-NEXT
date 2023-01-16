@@ -4,8 +4,8 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { Anchor, Checkbox, Radio, Text } from "@mantine/core";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Anchor, Radio } from "@mantine/core";
+import { Field, Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
 import Cookies from "js-cookie";
 import Link from "next/link";
@@ -24,8 +24,6 @@ const SignUp = () => {
     const { mutate, isLoading } = useSignup();
     const [choosedValue, setChoosedValue] = useState("email");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
-    const [termsAccepted, setTermsAccepted] = useState(false);
-    const [termsError, setTermsError] = useState(false);
     //for 2 factor modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -104,7 +102,7 @@ const SignUp = () => {
                         );
                     }}
                 >
-                    {({ isSubmitting, errors, values, touched }) => (
+                    {({ isSubmitting, errors, touched }) => (
                         <Form className="login-form">
                             <div className="choose-email-or-phone mb-5">
                                 <Radio.Group
@@ -128,14 +126,6 @@ const SignUp = () => {
                                     placeHolder="example@example.com"
                                 />
                             ) : (
-                                // <InputField
-                                //     type="text"
-                                //     name="phone"
-                                //     labelName="Phone Number"
-                                //     touch={touched.phone}
-                                //     error={errors.phone}
-                                //     placeHolder="+9779805284906"
-                                // />
                                 <PhoneNumberInput
                                     name={"phone"}
                                     fieldRequired={true}
@@ -188,16 +178,10 @@ const SignUp = () => {
                                     .
                                 </label>
                             </div>
-
-                            {/* <ErrorMessage
-                                name="acceptTerms"
-                                component="div"
-                                className="invalid-feedback"
-                            /> */}
-
                             <FormButton
                                 type="submit"
                                 variant="primary"
+                                id="-signup"
                                 name={isLoading ? "Loading..." : "Sign Up"}
                                 className="login-btn"
                                 isSubmitting={isSubmitting}
