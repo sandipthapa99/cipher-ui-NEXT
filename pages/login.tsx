@@ -176,6 +176,7 @@ const Login = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
+                                id="-login"
                                 name={isLoading ? "Loading" : "Login"}
                                 className="login-btn"
                                 isSubmitting={isLoading}
