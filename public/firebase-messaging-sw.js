@@ -1,6 +1,11 @@
 /* eslint-disable no-undef */
-importScripts("https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js");
-importScripts("https://www.gstatic.com/firebasejs/8.2.1/firebase-messaging.js");
+// Scripts for firebase and firebase messaging
+importScripts(
+    "https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"
+);
+importScripts(
+    "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"
+);
 
 // firebase.initializeApp({
 //     apiKey: "AIzaSyBSPPQD4M1anH8uT7Ldh-zevS2lgWoL-9Q",
@@ -12,13 +17,13 @@ importScripts("https://www.gstatic.com/firebasejs/8.2.1/firebase-messaging.js");
 //     measurementId: "G-XBZJZJR69",
 // });
 firebase.initializeApp({
-    apiKey: process.env.NEXT_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PROJECT_ID,
-    storageBucket: process.env.NEXT_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_MESSAGE_SENDER_ID,
-    appId: process.env.NEXT_APP_ID,
-    measurementId: process.env.NEXT_MEASUREMENT_ID,
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGE_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background

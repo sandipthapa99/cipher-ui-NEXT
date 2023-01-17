@@ -26,8 +26,6 @@ const Login = () => {
 
     const { mutate: loginMutation, isLoading } = useLogin();
 
-    const [fcmToken, setFcmToken] = useState("");
-
     const getFCMTOKEN = async () => {
         if (typeof window !== "undefined") {
             const token = await localforage.getItem<string>("fcm_token");
@@ -35,12 +33,12 @@ const Login = () => {
         }
         return null;
     };
-    const token = getFCMTOKEN();
-    token.then((token) => {
-        if (token) {
-            setFcmToken(token);
-        }
-    });
+    // const token = getFCMTOKEN();
+    // token.then((token) => {
+    //     if (token) {
+    //         setFcmToken(token);
+    //     }
+    // });
 
     const [is_email, setIs_email] = useState(true);
 
@@ -62,10 +60,11 @@ const Login = () => {
                         username: "",
                         password: "",
                     }}
-                    onSubmit={(values, actions) => {
+                    onSubmit={async (values, actions) => {
+                        const token = await getFCMTOKEN();
                         const newValues = {
                             ...values,
-                            fcm_token: fcmToken ? fcmToken : null,
+                            fcm_token: token,
                         };
 
                         loginMutation(newValues, {
