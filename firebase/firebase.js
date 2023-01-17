@@ -3,6 +3,7 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { doc, getFirestore, getStorage, setDoc } from "firebase/firestore";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import Cookies from "js-cookie";
 import localforage from "localforage";
 import { toast } from "utils/toast";
 
@@ -60,11 +61,15 @@ const firebaseCloudMessaging = {
                 vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
             })
                 .then((currentToken) => {
+                    console.log(
+                        "🚀 ~ file: firebase.js:64 ~ .then ~ currentToken",
+                        currentToken
+                    );
                     //
                     if (currentToken) {
                         // Send the token to your server and update the UI if necessary
                         // save the token in your database
-                        localforage.setItem("fcm_token", currentToken);
+                        Cookies.set("fcm_token", currentToken);
                         //
                     } else {
                         console.log("213131232");
