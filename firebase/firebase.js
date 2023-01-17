@@ -37,7 +37,7 @@ const firebaseCloudMessaging = {
     onMessage: async () => {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
-            toast.success(`Successfully ${payload?.data?.title} `, {
+            toast.success(`${payload?.data?.title} `, {
                 onClick: () => {
                     window.open(
                         `/task/${payload?.data?.object_slug}`,
@@ -53,7 +53,7 @@ const firebaseCloudMessaging = {
             //
             const messaging = getMessaging(app);
             await Notification.requestPermission();
-            const token = await getToken(messaging, {
+            getToken(messaging, {
                 vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
             })
                 .then((currentToken) => {

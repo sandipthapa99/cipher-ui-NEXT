@@ -72,9 +72,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     // const cookies = Cookies.get("access");
     // const cookiesProvided = cookies ? true : false;
 
-    if (mounted) {
-        firebaseCloudMessaging.onMessage();
-    }
+    firebaseCloudMessaging.onMessage();
 
     const getFire = () =>
         firebaseCloudMessaging
