@@ -57,6 +57,7 @@ const Login = () => {
                             ...values,
                             fcm_token: token ?? null,
                         };
+                        console.log(token);
 
                         loginMutation(newValues, {
                             onError: (error: any) => {
@@ -166,6 +167,7 @@ const Login = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
+                                id="-login"
                                 name={isLoading ? "Loading" : "Login"}
                                 className="login-btn"
                                 isSubmitting={isLoading}

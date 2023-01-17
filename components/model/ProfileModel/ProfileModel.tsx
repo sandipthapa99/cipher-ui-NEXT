@@ -40,12 +40,13 @@ export const ProfileModel = () => {
         return Object.entries(PROFILE_LINKS).map((entry) => {
             const [key, value] = entry;
             return (
-                <ul className={classes.bodyItem} key={key}>
+                <ul className={classes.bodyItem} id={key} key={key}>
                     <Divider my="1rem" />
                     {value.map((item, key) => (
                         <li
                             data-is-active={router.pathname === item.href}
                             key={key}
+                            id={`profile-${item.id}`}
                         >
                             {item.icon}
                             <NextLink
@@ -62,7 +63,6 @@ export const ProfileModel = () => {
     };
     return (
         <div className={classes.root}>
-            <div id="backdrop" className="backdrop-blur"></div>
             <div className={classes.header}>
                 <Avatar
                     src={
@@ -106,6 +106,7 @@ export const ProfileModel = () => {
                             sx={{ fontWeight: 500, padding: 0 }}
                             color={"red"}
                             variant="white"
+                            id="profile-logout"
                             leftIcon={
                                 <LogoutOutlined style={{ fontSize: "2rem" }} />
                             }
@@ -123,12 +124,14 @@ const PROFILE_LINKS = {
     sectionOne: [
         {
             title: "My Dashboard",
+            id: "dashboard",
             icon: <GridViewOutlined style={{ color: REGULAR_ICON_COLOR }} />,
             href: "/home",
             color: "#495057",
         },
         {
             title: "Profile",
+            id: "profile",
             icon: (
                 <AccountCircleOutlined style={{ color: REGULAR_ICON_COLOR }} />
             ),
@@ -137,12 +140,14 @@ const PROFILE_LINKS = {
         },
         {
             title: "My Earnings",
+            id: "my-earnings",
             icon: <SavingsOutlined style={{ color: REGULAR_ICON_COLOR }} />,
             href: "/my-Earnings",
             color: "#495057",
         },
         {
             title: "My Tickets",
+            id: "my-tickets",
             icon: (
                 <ConfirmationNumberOutlined
                     style={{ color: REGULAR_ICON_COLOR }}
@@ -154,6 +159,7 @@ const PROFILE_LINKS = {
 
         {
             title: "Offers",
+            id: "offers",
             icon: <RedeemOutlined style={{ color: SPECIAL_ICON_COLOR }} />,
             href: "/offers",
             color: "#F98900",
@@ -162,6 +168,7 @@ const PROFILE_LINKS = {
     sectionThree: [
         {
             title: "Settings",
+            id: "settings",
             icon: <SettingsOutlined style={{ color: REGULAR_ICON_COLOR }} />,
             href: "/settings/account/individual",
             color: "#495057",

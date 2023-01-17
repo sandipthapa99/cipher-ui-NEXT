@@ -247,6 +247,7 @@ const AppliedForm = ({
 
                                     <FormButton
                                         type="submit"
+                                        id={"-apply"}
                                         variant="primary"
                                         name="Apply"
                                         className="submit-btn"
