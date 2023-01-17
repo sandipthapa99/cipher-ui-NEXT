@@ -31,7 +31,7 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
-        const token = await localforage.getItem("fcm_token");
+        const token = Cookies.get("fcm_token");
         return token;
     },
     onMessage: async () => {
@@ -50,14 +50,10 @@ const firebaseCloudMessaging = {
 
     init: async function () {
         try {
-            if ((await this.tokenInlocalforage()) !== null) {
-                //
-                return false;
-            }
             //
             const messaging = getMessaging(app);
             await Notification.requestPermission();
-            getToken(messaging, {
+            const token = await getToken(messaging, {
                 vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
             })
                 .then((currentToken) => {

@@ -76,14 +76,15 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
         firebaseCloudMessaging.onMessage();
     }
 
-    firebaseCloudMessaging
-        .tokenInlocalforage()
-        .then((data) => {
-            setToken(data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    const getFire = () =>
+        firebaseCloudMessaging
+            .tokenInlocalforage()
+            .then((data) => {
+                setToken(data ?? "");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
     useEffect(() => {
         firebaseCloudMessaging.init();
@@ -94,6 +95,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 // not working
             }
         };
+        getFire();
     }, [token]);
 
     useEffect(() => {
