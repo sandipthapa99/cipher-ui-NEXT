@@ -137,9 +137,9 @@ const ServiceNearYouCard = ({
                         {is_endorsed && (
                             <figure className="endorsed-icon">
                                 <Image
-                                    src={"/endorsed-green.svg"}
+                                    src={"/featured.svg"}
                                     height={24}
-                                    width={24}
+                                    width={96}
                                     objectFit="contain"
                                     alt="servicecard-image"
                                 />

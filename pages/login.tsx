@@ -66,6 +66,7 @@ const Login = () => {
                             ...values,
                             fcm_token: token,
                         };
+                        console.log(token);
 
                         loginMutation(newValues, {
                             onError: (error: any) => {
