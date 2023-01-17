@@ -96,13 +96,13 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
         };
     }, [token]);
 
-    useEffect(() => {
-        if (!token && typeof window !== "undefined" && mounted) {
-            navigator.serviceWorker.getRegistrations().then((r) => {
-                return Promise.all(r.map((reg) => reg.unregister()));
-            });
-        }
-    }, [token, mounted]);
+    // useEffect(() => {
+    //     if (!token && typeof window !== "undefined" && mounted) {
+    //         navigator.serviceWorker.getRegistrations().then((r) => {
+    //             return Promise.all(r.map((reg) => reg.unregister()));
+    //         });
+    //     }
+    // }, [token, mounted]);
 
     // useEffect(() => {
     //     if (
