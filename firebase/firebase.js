@@ -60,7 +60,7 @@ const firebaseCloudMessaging = {
             const messaging = getMessaging(app);
             await Notification.requestPermission();
             getToken(messaging, {
-                vapidKey: process.env.NEXT_VAPID_KEY,
+                vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
             })
                 .then((currentToken) => {
                     //
@@ -70,6 +70,7 @@ const firebaseCloudMessaging = {
                         localforage.setItem("fcm_token", currentToken);
                         //
                     } else {
+                        console.log("213131232");
                         // Show permission request UI
                         //
                         //         "NOTIFICACION, No registration token available. Request permission to generate one."
@@ -78,6 +79,7 @@ const firebaseCloudMessaging = {
                     }
                 })
                 .catch((err) => {
+                    console.log("🚀 ~ file: firebase.js:85 ~ err", err);
                     //
                     //     "NOTIFICACIONAn error occurred while retrieving token . "
                     // );
