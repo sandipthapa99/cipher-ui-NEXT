@@ -27,11 +27,8 @@ const Login = () => {
     const { mutate: loginMutation, isLoading } = useLogin();
 
     const getFCMTOKEN = async () => {
-        if (typeof window !== "undefined") {
-            const token = await localforage.getItem<string>("fcm_token");
-            return token;
-        }
-        return null;
+        const token = await localforage.getItem<string>("fcm_token");
+        return token;
     };
     // const token = getFCMTOKEN();
     // token.then((token) => {
