@@ -10,7 +10,7 @@ import { EmailOutlined, PhoneIphoneOutlined } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
-import localforage from "localforage";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -27,15 +27,9 @@ const Login = () => {
     const { mutate: loginMutation, isLoading } = useLogin();
 
     const getFCMTOKEN = async () => {
-        const token = await localforage.getItem<string>("fcm_token");
+        const token = Cookies.get("fcm_token");
         return token;
     };
-    // const token = getFCMTOKEN();
-    // token.then((token) => {
-    //     if (token) {
-    //         setFcmToken(token);
-    //     }
-    // });
 
     const [is_email, setIs_email] = useState(true);
 
@@ -61,7 +55,7 @@ const Login = () => {
                         const token = await getFCMTOKEN();
                         const newValues = {
                             ...values,
-                            fcm_token: token,
+                            fcm_token: token ?? null,
                         };
 
                         loginMutation(newValues, {
