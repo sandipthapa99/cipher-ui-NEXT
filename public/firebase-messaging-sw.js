@@ -17,13 +17,13 @@ importScripts(
 //     measurementId: "G-XBZJZJR69",
 // });
 firebase.initializeApp({
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGE_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_APP_ID,
-    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
+    apiKey: "AIzaSyBYnEmAHcAjLEnwYRHsD-U6jOitzaOLyA0",
+    authDomain: "homaale-c945b.firebaseapp.com",
+    projectId: "homaale-c945b",
+    storageBucket: "homaale-c945b.appspot.com",
+    messagingSenderId: "17609084275",
+    appId: "1:17609084275:web:3e820a0e0c64bbe7bc8906",
+    measurementId: "G-6MNMFK079G",
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
