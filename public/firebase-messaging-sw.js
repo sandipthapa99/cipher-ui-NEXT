@@ -7,25 +7,17 @@ importScripts(
     "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"
 );
 
-// firebase.initializeApp({
-//     apiKey: "AIzaSyBSPPQD4M1anH8uT7Ldh-zevS2lgWoL-9Q",
-//     projectId: "notification-cipher-61823",
-//     authDomain: "notification-cipher-61823.firebaseapp.com",
-//     storageBucket: "notification-cipher-61823.appspot.com",
-//     messagingSenderId: "185572736284",
-//     appId: "1:185572736284:web:54928d1587844ac5fc0ed9",
-//     measurementId: "G-XBZJZJR69",
-// });
 firebase.initializeApp({
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGE_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_APP_ID,
-    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
+    apiKey: "AIzaSyBYnEmAHcAjLEnwYRHsD-U6jOitzaOLyA0",
+    authDomain: "homaale-c945b.firebaseapp.com",
+    projectId: "homaale-c945b",
+    storageBucket: "homaale-c945b.appspot.com",
+    messagingSenderId: "17609084275",
+    appId: "1:17609084275:web:3e820a0e0c64bbe7bc8906",
+    measurementId: "G-6MNMFK079G",
 });
 
+console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
 const messaging = firebase.messaging();
@@ -36,13 +28,6 @@ messaging.onBackgroundMessage(function (payload) {
         body: payload.data.body,
         icon: "/firebase-logo.png",
     };
-    // Customize notification here
-
-    // const notificationTitle = payload?.data?.title;
-    // const notificationOptions = {
-    //     body: payload?.data?.body,
-    //     icon: "/firebase-logo.png",
-    // };
 
     self.registration.showNotification(notificationTitle, notificationOptions);
 });

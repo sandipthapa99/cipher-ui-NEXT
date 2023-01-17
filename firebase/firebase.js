@@ -61,10 +61,6 @@ const firebaseCloudMessaging = {
                 vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
             })
                 .then((currentToken) => {
-                    console.log(
-                        "🚀 ~ file: firebase.js:64 ~ .then ~ currentToken",
-                        currentToken
-                    );
                     //
                     if (currentToken) {
                         // Send the token to your server and update the UI if necessary
