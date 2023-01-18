@@ -172,6 +172,7 @@ const ExperienceForm = ({
                                     error={errors.title}
                                     touch={touched.title}
                                     placeHolder="Experience Title"
+                                    fieldRequired
                                 />
                                 <InputField
                                     name="description"
@@ -180,6 +181,7 @@ const ExperienceForm = ({
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                    fieldRequired
                                 />
                                 {/* <RichText
                                     {...getFieldProps("description")}
@@ -203,6 +205,7 @@ const ExperienceForm = ({
                                     touch={touched.company_name}
                                     error={errors.company_name}
                                     placeHolder="Company Name"
+                                    fieldRequired
                                 />
                                 {/* <InputField
                                     name="location"
@@ -225,6 +228,7 @@ const ExperienceForm = ({
                                     onPlaceChange={(value) =>
                                         setFieldValue("location", value)
                                     }
+                                    withAsterisk
                                 />
                                 <p className="mb-3">
                                     {/* <Checkbox
@@ -271,7 +275,7 @@ const ExperienceForm = ({
                                             ? errors.start_date
                                             : ""
                                     )}
-                                    //fieldRequired={true}
+                                    fieldRequired={true}
                                     icon={
                                         <CalendarTodayOutlined className="svg-icons" />
                                     }
