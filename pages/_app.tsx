@@ -22,7 +22,6 @@ import { useEffect, useState } from "react";
 import { SSRProvider } from "react-bootstrap";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
-//import MessengerCustomerChat from "react-messenger-customer-chat";
 import { firebaseCloudMessaging } from "../firebase/firebase";
 
 localforage.defineDriver(memoryDriver);
@@ -43,18 +42,6 @@ const getReptcha = () => {
 };
 
 function MyApp({ Component, pageProps }: CustomAppProps) {
-    // const queryClient = useMemo(
-    //     () =>
-    //         new QueryClient({
-    //             defaultOptions: {
-    //                 queries: {
-    //                     refetchOnWindowFocus: false,
-    //                     retry: false,
-    //                 },
-    //             },
-    //         }),
-    //     []
-    // );
     const [queryClient] = useState(
         () =>
             new QueryClient({
@@ -69,10 +56,10 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     const [mounted, setMounted] = useState(false);
     const [opened, setOpened] = useState(false);
     const [token, setToken] = useState("");
-    // const cookies = Cookies.get("access");
-    // const cookiesProvided = cookies ? true : false;
 
-    firebaseCloudMessaging.onMessage();
+    if (mounted) {
+        firebaseCloudMessaging.onMessage();
+    }
 
     const getFire = () =>
         firebaseCloudMessaging
@@ -90,9 +77,9 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             const token = await firebaseCloudMessaging.tokenInlocalforage();
             if (token) {
                 setMounted(true);
-                // not working
             }
         };
+        setToken();
         getFire();
     }, [token]);
 
@@ -103,18 +90,6 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             });
         }
     }, [token, mounted]);
-
-    // useEffect(() => {
-    //     if (
-    //         Notification.permission === "default" ||
-    //         Notification.permission === "denied"
-    //     ) {
-    //         const timer = setTimeout(() => {
-    //             setOpened(true);
-    //         }, 500000);
-    //         return () => clearTimeout(timer);
-    //     }
-    // }, []);
 
     return (
         <>
@@ -146,11 +121,6 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                                             reCaptchaKey={getReptcha()}
                                         >
                                             <Component {...pageProps} />
-                                            {/* <MessengerCustomerChat
-                                            pageId="<PAGE_ID>"
-                                            appId="<APP_ID>"
-                                            htmlRef="<REF_STRING>"
-                                        /> */}
                                         </GoogleReCaptchaProvider>
                                     </ModalsProvider>
                                 </NotificationsProvider>
