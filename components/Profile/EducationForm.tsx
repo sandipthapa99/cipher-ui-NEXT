@@ -146,6 +146,7 @@ const EducationForm = ({
                                     error={errors.school}
                                     touch={touched.school}
                                     placeHolder="Eg: Tribhuvan University"
+                                    fieldRequired
                                 />
                                 {/* <InputField
                                     name="description"
@@ -155,9 +156,10 @@ const EducationForm = ({
                                     placeHolder="Experience Description"
                                     as="textarea"
                                 /> */}
-                                <h4>Description</h4>
                                 <RichText
                                     name="description"
+                                    labelName="Description"
+                                    className="mb-4"
                                     value={values?.description ?? ""}
                                     onChange={(value) =>
                                         setFieldValue("description", value)
@@ -165,6 +167,7 @@ const EducationForm = ({
                                     placeholder="Description"
                                     error={errors.description as string}
                                     touched={touched.description as boolean}
+                                    withAsterisk
                                 />
                                 <InputField
                                     name="degree"
@@ -172,6 +175,7 @@ const EducationForm = ({
                                     touch={touched.degree}
                                     error={errors.degree}
                                     placeHolder="Eg: Bachelor's"
+                                    fieldRequired
                                 />
                                 <InputField
                                     name="field_of_study"
@@ -179,6 +183,7 @@ const EducationForm = ({
                                     touch={touched.field_of_study}
                                     error={errors.field_of_study}
                                     placeHolder="Eg: Business"
+                                    fieldRequired
                                 />
                                 {/* <InputField
                                     name="location"
@@ -190,6 +195,7 @@ const EducationForm = ({
                                 <PlacesAutocomplete
                                     size="md"
                                     label="Location"
+                                    className="mb-5"
                                     placeholder="Eg: New Baneshwor, Kathmandu"
                                     error={
                                         touched.location && errors.location
@@ -201,6 +207,7 @@ const EducationForm = ({
                                     onPlaceChange={(value) =>
                                         setFieldValue("location", value)
                                     }
+                                    withAsterisk
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
@@ -222,7 +229,7 @@ const EducationForm = ({
                                                     ? errors.start_date
                                                     : ""
                                             )}
-                                            //fieldRequired={true}
+                                            fieldRequired
                                             icon={
                                                 <CalendarTodayOutlined className="svg-icons" />
                                             }
@@ -251,6 +258,7 @@ const EducationForm = ({
                                             icon={
                                                 <CalendarTodayOutlined className="svg-icons" />
                                             }
+                                            fieldRequired
                                             handleChange={(value) => {
                                                 setFieldValue(
                                                     "end_date",
