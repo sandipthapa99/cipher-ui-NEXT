@@ -124,7 +124,7 @@ export const KYCStatus = () => {
                             <p className="m-0 body-kyc">
                                 {profileDetails?.user.email
                                     ? profileDetails?.user.email
-                                    : "Add Email"}
+                                    : "N/A"}
                             </p>
                         </div>
                         <div className="d-flex align-items-center gap-2">
@@ -132,7 +132,7 @@ export const KYCStatus = () => {
                             <p className="m-0 body-kyc">
                                 {profileDetails?.user.phone
                                     ? profileDetails?.user.phone
-                                    : "Add a Phone Number"}
+                                    : "N/A"}
                             </p>
                         </div>
                     </div>
