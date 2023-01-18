@@ -172,6 +172,7 @@ const CertificationForm = ({
                                     error={errors.name}
                                     touch={touched.name}
                                     placeHolder="Eg: Certified Gardener"
+                                    fieldRequired
                                 />
                                 <InputField
                                     name="issuing_organization"
@@ -179,6 +180,7 @@ const CertificationForm = ({
                                     touch={touched.issuing_organization}
                                     error={errors.issuing_organization}
                                     placeHolder="Eg: Cagtu"
+                                    fieldRequired
                                 />
                                 {/* <InputField
                                     name="description"
@@ -195,6 +197,7 @@ const CertificationForm = ({
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                    fieldRequired
                                 />
                                 {/* <RichText
                                     {...getFieldProps("description")}
@@ -211,6 +214,7 @@ const CertificationForm = ({
                                     touch={touched.credential_id}
                                     error={errors.credential_id}
                                     placeHolder="Eg: Cagtu"
+                                    fieldRequired
                                 />
                                 <InputField
                                     name="certificate_url"
@@ -218,8 +222,8 @@ const CertificationForm = ({
                                     touch={touched.certificate_url}
                                     error={errors.certificate_url}
                                     placeHolder="Eg: Cagtu"
+                                    fieldRequired
                                 />
-                                <br />
                                 <p className="mb-3 d-flex checkbox">
                                     {/* <input
                                         type="checkbox"
@@ -228,7 +232,7 @@ const CertificationForm = ({
                                         onChange={() => setToggled(!toggle)}
                                     /> */}
                                     <Checkbox
-                                        label="This certifate does not expire"
+                                        label="This certificate does not expire"
                                         defaultChecked={checked}
                                         {...getFieldProps("does_expire")}
                                         // onChange={(event) => {
@@ -261,7 +265,7 @@ const CertificationForm = ({
                                                     ? errors.issued_date
                                                     : ""
                                             )}
-                                            //fieldRequired={true}
+                                            fieldRequired
                                             icon={
                                                 <CalendarTodayOutlined className="svg-icons" />
                                             }
