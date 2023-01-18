@@ -20,6 +20,7 @@ export interface InputFieldProps {
     inputIcon?: any;
     create?: boolean;
     value?: any;
+    className?: string;
 }
 
 // interface defaultValue {

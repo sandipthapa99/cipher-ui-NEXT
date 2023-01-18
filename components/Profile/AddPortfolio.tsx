@@ -326,16 +326,16 @@ const AddPortfolio = ({
                             <Form>
                                 <div className="d-flex add-portfolio justify-content-between align-items-end flex-column flex-md-row">
                                     <Row>
-                                        <h4>Title</h4>
                                         <InputField
+                                            labelName="Title"
                                             type="text"
                                             name="title"
                                             min="1"
                                             error={errors.title}
                                             touch={touched.title}
                                             placeHolder="Portfolio Title"
+                                            fieldRequired
                                         />
-                                        <h4>Description</h4>
                                         {/* <InputField
                                             as="textarea"
                                             name="description"
@@ -358,6 +358,8 @@ const AddPortfolio = ({
                                                 )
                                             }
                                             placeholder="Portfolio Description"
+                                            labelName="Description"
+                                            withAsterisk
                                         />
 
                                         {/* <h4 className="">Issued Date</h4> */}
@@ -393,8 +395,8 @@ const AddPortfolio = ({
                                                     )
                                                 );
                                             }}
+                                            fieldRequired
                                         />
-                                        <h4>Portfolio URL</h4>
                                         <InputField
                                             type="url"
                                             name="credential_url"
@@ -402,6 +404,8 @@ const AddPortfolio = ({
                                             error={errors.credential_url}
                                             touch={touched.credential_url}
                                             placeHolder="URL"
+                                            labelName="Portfolio URL"
+                                            fieldRequired
                                         />
 
                                         <Row>
