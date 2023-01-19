@@ -12,7 +12,6 @@ import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoadingOverlay, Radio } from "@mantine/core";
 import {
     Anchor,
@@ -233,9 +232,6 @@ export const PostTaskModal = () => {
                             ? entityService?.service?.id ?? ({} as any)
                             : "",
                         is_negotiable: false,
-                        // estimated_time: 5,
-                        // is_recursion: false,
-                        // is_everyday: false,
                         is_requested: is_requested,
                         start_date: entityService?.start_date
                             ? (parseISO(
@@ -267,6 +263,9 @@ export const PostTaskModal = () => {
                         is_active: true,
                         is_terms_condition: entityService ? true : false,
                         share_location: true,
+                        // estimated_time: 5,
+                        // is_recursion: false,
+                        // is_everyday: false,
                     }}
                     validationSchema={postEntityServiceSchema(
                         is_requested,
@@ -373,7 +372,7 @@ export const PostTaskModal = () => {
                                     ]);
                                 },
                                 onError: (e: any) => {
-                                    toast.error("Post Task Failed");
+                                    toast.error("Post Failed");
                                     const { title, end_date, city } =
                                         e.response.data;
                                     actions.setFieldError(
@@ -445,7 +444,7 @@ export const PostTaskModal = () => {
                                             ? `Requirements`
                                             : `Highlights`
                                     }
-                                    description="This helps the tasker understand about your task better"
+                                    description="This helps the tasker understand about your post better"
                                 />
                                 {is_requested === "true" && (
                                     <>
@@ -606,7 +605,7 @@ export const PostTaskModal = () => {
                                     <Title order={6}>Images</Title>
                                     <Text color="dimmed" size="sm">
                                         Including images helps you find best
-                                        merchant for your task.
+                                        merchant for your post.
                                     </Text>
 
                                     <MultiFileDropzone
@@ -692,7 +691,7 @@ export const PostTaskModal = () => {
                                     <BigButton
                                         type="submit"
                                         className="close-btn btn p-3 h-25 text-white"
-                                        btnTitle="Post Task"
+                                        btnTitle="Submit"
                                         backgroundColor="#211D4F"
                                     />
                                 </Box>

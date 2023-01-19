@@ -17,6 +17,7 @@ export enum TITLE_TYPES {
     status_closed = "status closed",
     created = "created",
     rejected = "Rejected",
+    followed = "followed",
 }
 
 export enum APPROVAL_STATUS {
@@ -32,6 +33,10 @@ export const NotificationCard = ({
 }: {
     notification: NotificationResponseProps["result"][0];
 }) => {
+    console.log(
+        "🚀 ~ file: NotificationCard.tsx:36 ~ notification",
+        notification
+    );
     const { read_date, created_date, content_object, created_for, title, id } =
         notification ?? {};
 
@@ -218,6 +223,30 @@ export const NotificationCard = ({
                         </figure>
                     ),
                 };
+            case TITLE_TYPES.followed:
+                return {
+                    body: (
+                        <>
+                            <span className="span-name">
+                                {created_for?.full_name}{" "}
+                            </span>{" "}
+                            has followed <span className="span-name">You</span>
+                        </>
+                    ),
+                    image: (
+                        <figure className="d-flex flex-column justify-content-center notification-image bg-transparent">
+                            <Image
+                                alt="testimage"
+                                src={
+                                    created_for?.profile_image ??
+                                    "/userprofile/unknownPerson.jpg"
+                                }
+                                height={50}
+                                width={50}
+                            />
+                        </figure>
+                    ),
+                };
             default:
                 return null;
         }
@@ -361,8 +390,23 @@ export const NotificationCard = ({
         queryClient.invalidateQueries(["notifications"]);
     };
 
-    const handleRedirect = (type: boolean, slug?: string, taskID?: string) => {
-        if (type) {
+    const handleRedirect = (
+        type: boolean,
+        slug?: string,
+        taskID?: string,
+        content_object_id?: string,
+        content_object_slug?: string,
+        content_object_type?: boolean
+    ) => {
+        if (title === TITLE_TYPES.followed) {
+            router?.push(`/tasker/${content_object_id}`);
+        } else if (title === TITLE_TYPES.created) {
+            if (content_object_type) {
+                router.push(`/task/${content_object_id}`);
+            } else {
+                router.push(`/service/${content_object_slug}`);
+            }
+        } else if (type) {
             router.push(`/task/${taskID}`);
         } else {
             router.push(`/service/${slug}`);
@@ -383,7 +427,10 @@ export const NotificationCard = ({
                 handleRedirect(
                     content_object?.entity_service?.is_requested,
                     content_object?.entity_service?.slug,
-                    content_object?.entity_service?.id
+                    content_object?.entity_service?.id,
+                    content_object?.id,
+                    content_object?.slug,
+                    content_object?.is_requested
                 );
             }}
         >
