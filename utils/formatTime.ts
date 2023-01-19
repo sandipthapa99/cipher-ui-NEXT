@@ -23,14 +23,14 @@ export const convertTimeStringToDateString = (value: string) =>
 //Function to convert time i.e. 14:00:00 to 12hr i.e. 2:00pm format
 export function convertTo12HourFormat(time: string) {
     //padStart adds Inital 0 to make length more than 8 digits
-    time = time.padStart(8, "0");
+    time = time?.padStart(8, "0");
     const options: Intl.DateTimeFormatOptions = {
         hour: "numeric",
         minute: "numeric",
         hour12: true,
         timeZone: "UTC",
     };
-    return new Intl.DateTimeFormat("en-US", options).format(
+    return new Intl.DateTimeFormat("en-US", options)?.format(
         new Date("1970-01-01T" + time + "Z")
     );
 }
