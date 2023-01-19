@@ -781,7 +781,8 @@ export default function Checkout() {
                                         break;
                                     case "esewa":
                                         HandleEsewaMutation(
-                                            "https://uat.esewa.com.np/epay/main",
+                                            paymentData?.data?.data
+                                                ?.request_url,
                                             paymentData?.data?.data
                                         );
                                         break;

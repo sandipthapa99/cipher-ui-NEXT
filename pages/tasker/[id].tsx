@@ -7,14 +7,17 @@ import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import type { ServicesValueProps } from "types/serviceCard";
+import type { ITaskApiResponse } from "types/task";
 import type { ITasker } from "types/tasker";
 import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
 
 const TaskerDetail = ({
     taskerService,
+    taskerTask,
 }: {
     taskerService: ServicesValueProps;
+    taskerTask: ITaskApiResponse;
 }) => {
     const router = useRouter();
 
@@ -43,6 +46,7 @@ const TaskerDetail = ({
                         taskerService={taskerService}
                         taskerDetail={tasker ?? ({} as ITasker)}
                         taskerHimself={taskerHimself}
+                        taskerTask={taskerTask}
                     />
                 ) : (
                     <div className="bg-white p-5">
@@ -80,9 +84,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             await axiosClient.get<ServicesValueProps>(
                 `/task/entity/service/?created_by=${params?.id}&is_requested=false`
             );
+        const { data: taskerTask } = await axiosClient.get<ITaskApiResponse>(
+            `/task/entity/service/?created_by=${params?.id}&is_requested=true`
+        );
         return {
             props: {
                 taskerService: taskerService,
+                taskerTask: taskerTask,
             },
             revalidate: 10,
         };
@@ -90,6 +98,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         return {
             props: {
                 taskerService: {},
+                taskerTask: {},
             },
             revalidate: 10,
         };
