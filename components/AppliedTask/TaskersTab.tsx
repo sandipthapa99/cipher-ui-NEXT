@@ -53,41 +53,7 @@ export const TaskersTab = ({
                                         xxl={6}
                                         key={item.id}
                                     >
-                                        <ApplicantCard
-                                            bookingId={item?.id}
-                                            collabButton={false}
-                                            image={
-                                                item?.created_by?.profile_image
-                                                    ? item?.created_by
-                                                          ?.profile_image
-                                                    : item?.created_by?.avatar
-                                                          ?.image
-                                            }
-                                            name={`${item?.created_by?.user?.first_name} ${item?.created_by?.user?.last_name}`}
-                                            rating={
-                                                item?.created_by?.rating
-                                                    ?.user_rating_count
-                                            }
-                                            happyClients={
-                                                item?.created_by?.stats
-                                                    ?.happy_clients
-                                            }
-                                            awardPercentage={10}
-                                            location={
-                                                item?.created_by?.address_line1
-                                            }
-                                            distance={""}
-                                            bio={item?.created_by?.bio}
-                                            charge={
-                                                item?.entity_service
-                                                    ?.discount_value
-                                            }
-                                            tasker={item?.created_by?.user.id}
-                                            isApproved={item?.is_accepted}
-                                            designation={
-                                                item?.created_by.designation
-                                            }
-                                        />
+                                        <ApplicantCard card={item} />
                                     </Col>
                                 ) : null
                             )}

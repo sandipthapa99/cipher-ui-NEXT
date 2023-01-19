@@ -1,13 +1,12 @@
-import BigButton from "@components/common/Button";
 import { BusinessCenterOutlined } from "@mui/icons-material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import type { NotificationResponseProps } from "types/notificationResponseProps";
+import { RenderDifferentButton } from "utils/AcceptRejectBtn";
 import { axiosClient } from "utils/axiosClient";
-import { toast } from "utils/toast";
 
 export enum TITLE_TYPES {
     booking = "booking",
@@ -20,34 +19,13 @@ export enum TITLE_TYPES {
     followed = "followed",
 }
 
-export enum APPROVAL_STATUS {
-    pending = "pending",
-    approved = "approved",
-    rejected = "rejected",
-    closed = "closed",
-    cancelled = "cancelled",
-}
-
 export const NotificationCard = ({
     notification,
 }: {
     notification: NotificationResponseProps["result"][0];
 }) => {
-    console.log(
-        "🚀 ~ file: NotificationCard.tsx:36 ~ notification",
-        notification
-    );
     const { read_date, created_date, content_object, created_for, title, id } =
         notification ?? {};
-
-    const sendBookApproval = useMutation(
-        (data: { booking: number | undefined }) =>
-            axiosClient.post("/task/entity/service-booking/approval/", data)
-    );
-    const sendBookReject = useMutation(
-        (data: { booking: number | undefined }) =>
-            axiosClient.post("/task/entity/service-booking/reject/", data)
-    );
 
     const router = useRouter();
 
@@ -252,137 +230,6 @@ export const NotificationCard = ({
         }
     };
 
-    const renderDifferentButton = () => {
-        switch (content_object?.status) {
-            case APPROVAL_STATUS?.pending:
-                return (
-                    <>
-                        <div className="d-flex align-items-center gap-3 approve-reject-buttons">
-                            <BigButton
-                                btnTitle={"Decline"}
-                                backgroundColor={"#fff"}
-                                handleClick={() => {
-                                    sendBookReject.mutate(
-                                        {
-                                            booking: parseInt(
-                                                content_object?.id
-                                            ),
-                                        },
-                                        {
-                                            onSuccess: () => {
-                                                toast.success(
-                                                    "Booking Rejected"
-                                                );
-                                                queryClient.invalidateQueries([
-                                                    "notifications",
-                                                ]);
-                                                // router.push("/home");
-                                            },
-                                            onError: (error: any) => {
-                                                toast.error(
-                                                    error.response.data.booking
-                                                        .message
-                                                );
-                                            },
-                                        }
-                                    );
-                                }}
-                                textColor={"#211D4F"}
-                                border="1px solid #211D4F"
-                            />
-                            <BigButton
-                                btnTitle={"Approve"}
-                                backgroundColor={"#211D4F"}
-                                loading={sendBookApproval.isLoading}
-                                handleClick={() => {
-                                    sendBookApproval.mutate(
-                                        {
-                                            booking: parseInt(
-                                                content_object?.id
-                                            ),
-                                        },
-                                        {
-                                            onSuccess: () => {
-                                                toast.success(
-                                                    "Booking Approved"
-                                                );
-                                                queryClient.invalidateQueries([
-                                                    "get-my-bookings",
-                                                ]);
-                                                queryClient.invalidateQueries([
-                                                    "notifications",
-                                                ]);
-                                            },
-                                            onError: (error: any) => {
-                                                toast.error(
-                                                    error.response.data.booking
-                                                        .message
-                                                );
-                                            },
-                                        }
-                                    );
-                                }}
-                                textColor={"#fff"}
-                            />
-                        </div>
-                    </>
-                );
-            case APPROVAL_STATUS?.approved:
-                return (
-                    <div
-                        className="d-flex align-items-center gap-3 approve-reject-buttons"
-                        onClick={() =>
-                            queryClient.invalidateQueries(["notifications"])
-                        }
-                    >
-                        <BigButton
-                            btnTitle={"Approved"}
-                            backgroundColor={"#32cd32"}
-                            className="border-0"
-                            loading={sendBookApproval.isLoading}
-                            textColor={"#fff"}
-                        />
-                    </div>
-                );
-            case APPROVAL_STATUS?.cancelled:
-                return (
-                    <div className="d-flex align-items-center gap-3 approve-reject-buttons">
-                        <BigButton
-                            btnTitle={"Cancelled"}
-                            backgroundColor={"#32cd32"}
-                            className="border-0"
-                            loading={sendBookApproval.isLoading}
-                            textColor={"#fff"}
-                        />
-                    </div>
-                );
-            case APPROVAL_STATUS?.closed:
-                return (
-                    <div className="d-flex align-items-center gap-3 approve-reject-buttons">
-                        <BigButton
-                            btnTitle={"Closed"}
-                            backgroundColor={"#FE5050"}
-                            className="border-0"
-                            loading={sendBookApproval.isLoading}
-                            textColor={"#fff"}
-                        />
-                    </div>
-                );
-            case APPROVAL_STATUS?.rejected:
-                return (
-                    <div className="d-flex align-items-center gap-3 approve-reject-buttons">
-                        <BigButton
-                            btnTitle={"Rejected"}
-                            backgroundColor={"#FE5050"}
-                            className="border-0"
-                            loading={sendBookApproval.isLoading}
-                            textColor={"#fff"}
-                        />
-                    </div>
-                );
-        }
-    };
-
     const queryClient = useQueryClient();
 
     const readSingleNotification = async (id: number) => {
@@ -421,7 +268,6 @@ export const NotificationCard = ({
             }}
             onClick={() => {
                 if (!read_date) {
-                    console.log("asdasdsdasd");
                     readSingleNotification(id);
                 }
                 handleRedirect(
@@ -447,7 +293,10 @@ export const NotificationCard = ({
                             })}
                         </p>
                         {title === TITLE_TYPES.approval &&
-                            renderDifferentButton()}
+                            RenderDifferentButton(
+                                content_object?.status,
+                                content_object?.id
+                            )}
                     </div>
                 </div>
             </div>
