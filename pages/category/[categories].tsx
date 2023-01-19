@@ -67,214 +67,184 @@ const Gardening = ({
                     <h1 className="section-title m-0 text-capitalize">
                         {category_name}
                     </h1>
-                    <section className="services-near-you">
-                        <h1 className="heading-title mt-3">
-                            {category_name ? (
-                                <span className="text-capitalize">
-                                    {category_name} &nbsp;Services Near You
-                                </span>
-                            ) : (
-                                <>
-                                    <Skeleton
-                                        height={20}
-                                        radius="xl"
-                                        width="25%"
-                                    />
-                                </>
-                            )}
-                        </h1>
-                        {!serviceData && (
-                            <Grid>
-                                {Array.from({ length: 4 }).map((_, key) => (
-                                    <Grid.Col span={3} key={key}>
-                                        <SkeletonServiceCard />
-                                    </Grid.Col>
-                                ))}
-                            </Grid>
-                        )}
-                        {serviceData && serviceData?.length <= 0 && (
-                            <Alert
-                                icon={<ErrorOutlineOutlined />}
-                                title="No data Available"
-                                color="orange"
-                                radius="md"
-                                sx={{ minWidth: 100 }}
-                            >
-                                {/* <Highlight highlight={[categoryName, "No"]}> */}
-                                There are No services in{" "}
-                                {category_name ? category_name : "this"}{" "}
-                                category
-                                {/* </Highlight> */}
-                            </Alert>
-                        )}
-                        <Row className="gx-5">
-                            {serviceData &&
-                                serviceData?.slice(0, 4).map((service, key) => {
-                                    return (
-                                        <Col
-                                            sm={6}
-                                            md={4}
-                                            lg={3}
-                                            key={key}
-                                            className="d-flex"
-                                        >
-                                            <ServiceCard
-                                                serviceCard={service}
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
-                        {/* <ServiceCategories /> */}
-                    </section>
 
-                    <section className="tasks-near-you">
-                        <h1 className="heading-title">
-                            {category_name ? (
-                                <span className="text-capitalize">
-                                    {category_name} &nbsp;Tasks Near You
-                                </span>
-                            ) : (
-                                <>
-                                    <Skeleton
-                                        height={20}
-                                        radius="xl"
-                                        width="25%"
-                                    />
-                                </>
+                    {serviceData && serviceData?.length > 0 && (
+                        <section className="services-near-you">
+                            <h1 className="heading-title mt-3">
+                                {category_name ? (
+                                    <span className="text-capitalize">
+                                        {category_name} &nbsp;Services Near You
+                                    </span>
+                                ) : (
+                                    <>
+                                        <Skeleton
+                                            height={20}
+                                            radius="xl"
+                                            width="25%"
+                                        />
+                                    </>
+                                )}
+                            </h1>
+                            {!serviceData && (
+                                <Grid>
+                                    {Array.from({ length: 4 }).map((_, key) => (
+                                        <Grid.Col span={3} key={key}>
+                                            <SkeletonServiceCard />
+                                        </Grid.Col>
+                                    ))}
+                                </Grid>
                             )}
-                        </h1>
-                        {!taskData && (
-                            <Grid>
-                                {Array.from({ length: 4 }).map((_, key) => (
-                                    <Grid.Col span={3} key={key}>
-                                        <SkeletonTaskCard />
-                                    </Grid.Col>
-                                ))}
-                            </Grid>
-                        )}
-                        {taskData && taskData?.length <= 0 && (
-                            <Alert
-                                icon={<ErrorOutlineOutlined />}
-                                title="No data Available"
-                                color="orange"
-                                radius="md"
-                                sx={{ minWidth: 100 }}
-                            >
-                                {/* <Highlight highlight={[categoryName, "No"]}> */}
-                                There are No task in{" "}
-                                {category_name ? category_name : "this"}{" "}
-                                category
-                                {/* </Highlight> */}
-                            </Alert>
-                        )}
-                        <Row className="gx-5">
-                            {taskData &&
-                                taskData?.map((task, key) => (
-                                    <Col sm="12" md={6} key={key}>
-                                        <TaskCard task={task} />
-                                    </Col>
-                                ))}
-                        </Row>
-                    </section>
+                            <Row className="gx-5">
+                                {serviceData &&
+                                    serviceData
+                                        ?.slice(0, 4)
+                                        .map((service, key) => {
+                                            return (
+                                                <Col
+                                                    sm={6}
+                                                    md={4}
+                                                    lg={3}
+                                                    key={key}
+                                                    className="d-flex"
+                                                >
+                                                    <ServiceCard
+                                                        serviceCard={service}
+                                                    />
+                                                </Col>
+                                            );
+                                        })}
+                            </Row>
+                            {/* <ServiceCategories /> */}
+                        </section>
+                    )}
 
-                    <section className="taskers-near-you">
-                        <h1 className="heading-title">
-                            {category_name ? (
-                                <span className="text-capitalize">
-                                    {category_name} &nbsp;Taskers Near You
-                                </span>
-                            ) : (
-                                <>
-                                    <Skeleton
-                                        height={20}
-                                        radius="xl"
-                                        width="25%"
-                                    />
-                                </>
+                    {taskData && taskData?.length > 0 && (
+                        <section className="tasks-near-you">
+                            <h1 className="heading-title">
+                                {category_name ? (
+                                    <span className="text-capitalize">
+                                        {category_name} &nbsp;Tasks Near You
+                                    </span>
+                                ) : (
+                                    <>
+                                        <Skeleton
+                                            height={20}
+                                            radius="xl"
+                                            width="25%"
+                                        />
+                                    </>
+                                )}
+                            </h1>
+                            {!taskData && (
+                                <Grid>
+                                    {Array.from({ length: 4 }).map((_, key) => (
+                                        <Grid.Col span={3} key={key}>
+                                            <SkeletonTaskCard />
+                                        </Grid.Col>
+                                    ))}
+                                </Grid>
                             )}
-                        </h1>
-                        {!taskerData && <TaskerSkeleton direction="row" />}
-                        {taskerData && taskerData?.length <= 0 && (
-                            <Alert
-                                icon={<ErrorOutlineOutlined />}
-                                title="No data Available"
-                                color="orange"
-                                radius="md"
-                                sx={{ minWidth: 100 }}
-                            >
-                                {/* <Highlight highlight={[categoryName, "No"]}> */}
-                                There are No tasker in{" "}
-                                {category_name ? category_name : "this"}{" "}
-                                category
-                                {/* </Highlight> */}
-                            </Alert>
-                        )}
-                        <Row className="gx-5">
-                            {taskerData &&
-                                taskerData?.slice(0, 4)?.map((merchant) => {
-                                    return (
-                                        <Col
-                                            sm={6}
-                                            lg={4}
-                                            xl={3}
-                                            key={merchant?.id}
-                                            className="d-flex"
-                                        >
-                                            <MerchantCard
-                                                merchantImage={
-                                                    merchant?.profile_image
-                                                        ? merchant?.profile_image
-                                                        : merchant?.avatar
-                                                              ?.image
-                                                }
-                                                merchantName={
-                                                    merchant?.user?.first_name +
-                                                        " " +
-                                                        merchant?.user
-                                                            ?.middle_name ??
-                                                    "" +
-                                                        " " +
-                                                        merchant?.user
-                                                            ?.last_name
-                                                }
-                                                merchantCategory={
-                                                    merchant?.designation
-                                                }
-                                                merchantLocation={
-                                                    merchant?.address_line1 +
-                                                    ", " +
-                                                    merchant?.address_line2
-                                                }
-                                                merchantDescription={
-                                                    merchant?.bio
-                                                }
-                                                merchantRating={
-                                                    merchant?.rating?.avg_rating
-                                                }
-                                                merchantPrice={
-                                                    merchant?.hourly_rate
-                                                }
-                                                happyClients={
-                                                    merchant?.stats
-                                                        ?.happy_clients
-                                                }
-                                                successRate={
-                                                    +merchant?.stats?.success_rate?.toFixed(
-                                                        1
-                                                    )
-                                                }
-                                                merchantId={merchant?.user?.id}
-                                                currency={
-                                                    merchant?.charge_currency
-                                                        ?.symbol
-                                                }
-                                            />
+                            <Row className="gx-5">
+                                {taskData &&
+                                    taskData?.map((task, key) => (
+                                        <Col sm="12" md={6} key={key}>
+                                            <TaskCard task={task} />
                                         </Col>
-                                    );
-                                })}
-                        </Row>
-                    </section>
+                                    ))}
+                            </Row>
+                        </section>
+                    )}
+
+                    {taskerData && taskerData?.length > 0 && (
+                        <section className="taskers-near-you">
+                            <h1 className="heading-title">
+                                {category_name ? (
+                                    <span className="text-capitalize">
+                                        {category_name} &nbsp;Taskers Near You
+                                    </span>
+                                ) : (
+                                    <>
+                                        <Skeleton
+                                            height={20}
+                                            radius="xl"
+                                            width="25%"
+                                        />
+                                    </>
+                                )}
+                            </h1>
+                            {!taskerData && <TaskerSkeleton direction="row" />}
+
+                            <Row className="gx-5">
+                                {taskerData &&
+                                    taskerData?.slice(0, 4)?.map((merchant) => {
+                                        return (
+                                            <Col
+                                                sm={6}
+                                                lg={4}
+                                                xl={3}
+                                                key={merchant?.id}
+                                                className="d-flex"
+                                            >
+                                                <MerchantCard
+                                                    merchantImage={
+                                                        merchant?.profile_image
+                                                            ? merchant?.profile_image
+                                                            : merchant?.avatar
+                                                                  ?.image
+                                                    }
+                                                    merchantName={
+                                                        merchant?.user
+                                                            ?.first_name +
+                                                            " " +
+                                                            merchant?.user
+                                                                ?.middle_name ??
+                                                        "" +
+                                                            " " +
+                                                            merchant?.user
+                                                                ?.last_name
+                                                    }
+                                                    merchantCategory={
+                                                        merchant?.designation
+                                                    }
+                                                    merchantLocation={
+                                                        merchant?.address_line1 +
+                                                        ", " +
+                                                        merchant?.address_line2
+                                                    }
+                                                    merchantDescription={
+                                                        merchant?.bio
+                                                    }
+                                                    merchantRating={
+                                                        merchant?.rating
+                                                            ?.avg_rating
+                                                    }
+                                                    merchantPrice={
+                                                        merchant?.hourly_rate
+                                                    }
+                                                    happyClients={
+                                                        merchant?.stats
+                                                            ?.happy_clients
+                                                    }
+                                                    successRate={
+                                                        +merchant?.stats?.success_rate?.toFixed(
+                                                            1
+                                                        )
+                                                    }
+                                                    merchantId={
+                                                        merchant?.user?.id
+                                                    }
+                                                    currency={
+                                                        merchant
+                                                            ?.charge_currency
+                                                            ?.symbol
+                                                    }
+                                                />
+                                            </Col>
+                                        );
+                                    })}
+                            </Row>
+                        </section>
+                    )}
                 </Container>
                 <section id="browse-category" className="browse-category mb-0">
                     <Container fluid="xl">

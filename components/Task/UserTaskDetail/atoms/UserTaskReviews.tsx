@@ -66,14 +66,12 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             {!ratingData ||
                 (ratingData.length <= 0 && (
                     <Alert
-                        icon={<ErrorOutlineOutlined />}
-                        title="No data Available"
-                        color="orange"
+                        color="gray"
                         radius="md"
                         className="mt-5"
                         sx={{ minWidth: 100 }}
                     >
-                        Product not reviewed yet
+                        There are no reviews for this user yet.
                     </Alert>
                 ))}
             {ratingLoading ? (
