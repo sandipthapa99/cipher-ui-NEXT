@@ -2,97 +2,55 @@ import SaveIcon from "@components/common/SaveIcon";
 import { ActionIcon } from "@mantine/core";
 import {
     ErrorOutlineOutlined,
-    MilitaryTechOutlined,
-    NearMeOutlined,
     SentimentVerySatisfiedOutlined,
     StarRounded,
 } from "@mui/icons-material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useState } from "react";
-import type { Tasker } from "types/tasks";
-import { axiosClient } from "utils/axiosClient";
-import { toast } from "utils/toast";
+import type { MyBookings } from "types/bookings";
+import { RenderDifferentButton } from "utils/AcceptRejectBtn";
 
-import BigButton from "../common/Button";
 import ShareIcon from "../common/ShareIcon";
 import BookingDetails from "./BookingDetails";
 
-interface Props {
-    taskers?: Tasker;
-    tasker: string;
-    collabButton?: boolean;
-    onTaskClick?: (taskerId: string) => void;
-    handleButtonClick?: () => void;
-    image?: string;
-    name?: string;
-    designation?: string;
-    rating?: number;
-    happyClients?: number;
-    awardPercentage?: string | number;
-    location?: string;
-    distance?: string;
-    bio?: string;
-    charge?: string;
-    bookingId?: number | undefined;
-    isApproved: boolean | undefined;
-}
+export const ApplicantCard = ({ card }: { card: MyBookings["result"][0] }) => {
+    const { created_by, location, id, status } = card;
 
-export const ApplicantCard = ({
-    image,
-    name,
-    rating,
-    happyClients,
-    awardPercentage,
-    location,
-    tasker,
-    distance,
-    bio,
-    bookingId,
-    isApproved,
-    designation,
-}: Props) => {
-    const userId = tasker;
+    const {
+        user: { first_name, middle_name, last_name, id: userId },
+        designation,
+        rating: { avg_rating },
+        stats: { happy_clients },
+        bio,
+        profile_image,
+    } = created_by ?? {};
+
     const isBookmarked = useIsBookmarked("user", userId);
     const queryClient = useQueryClient();
-
-    const router = useRouter();
-    const path = router.query.id;
-    const sendBookApproval = useMutation(
-        (data: { booking: number | undefined }) =>
-            axiosClient.post("/task/entity/service-booking/approval/", data)
-    );
-    const sendBookReject = useMutation(
-        (data: { booking: number | undefined }) =>
-            axiosClient.post("/task/entity/service-booking/reject/", data)
-    );
 
     const [opened, setOpened] = useState(false);
 
     return (
         <>
-            <div
-                data-active={JSON.stringify(path === tasker)}
-                className="team-members-card mb-5 active"
-            >
+            <div className="team-members-card mb-5 active">
                 <div
                     className="d-flex w-100 image-and-title"
                     onClick={() => setOpened(true)}
                     role="button"
                 >
-                    {image && (
+                    {profile_image && (
                         <figure className="team-member-card-image">
                             <Image
-                                src={image}
+                                src={profile_image}
                                 alt="team-member-card-image"
                                 height={80}
                                 width={80}
                             />
                         </figure>
                     )}
-                    {!image && (
+                    {!profile_image && (
                         <figure className="team-member-card-image">
                             <Image
                                 src={"/placeholder/profilePlaceholder.png"}
@@ -105,7 +63,9 @@ export const ApplicantCard = ({
 
                     <div className="w-100 name-post-count">
                         <div className="d-flex align-items-start justify-content-between title-and-dots text-dark">
-                            <h5>{name}</h5>
+                            <h5>
+                                {first_name} {middle_name} {last_name}
+                            </h5>
                             <ActionIcon color="yellow">
                                 <ErrorOutlineOutlined className="svg-icon me-0" />
                             </ActionIcon>
@@ -118,31 +78,31 @@ export const ApplicantCard = ({
                         <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
                             <span className="star">
                                 <StarRounded className="star" />
-                                {rating &&
-                                rating > 0 &&
-                                Number.isSafeInteger(rating) ? (
-                                    <span>{`${rating}.0`}</span>
-                                ) : rating === null || 0 ? (
+                                {avg_rating &&
+                                avg_rating > 0 &&
+                                Number.isSafeInteger(avg_rating) ? (
+                                    <span>{`${avg_rating}.0`}</span>
+                                ) : avg_rating === null || 0 ? (
                                     <span>0</span>
                                 ) : (
-                                    <span>{`${rating?.toFixed(1)}`}</span>
+                                    <span>{`${avg_rating?.toFixed(1)}`}</span>
                                 )}
                             </span>
 
                             <span className="emoji">
                                 <SentimentVerySatisfiedOutlined className="emoji" />
-                                <span>{happyClients}</span>
+                                <span>{happy_clients}</span>
                             </span>
-                            <span className="award">
+                            {/* <span className="award">
                                 <MilitaryTechOutlined className="award" />
                                 <span> {awardPercentage}</span>
-                            </span>
-                            {distance && (
+                            </span> */}
+                            {/* {distance && (
                                 <span className="location">
                                     <NearMeOutlined className="location" />
                                     <span> {distance}</span>
                                 </span>
-                            )}
+                            )} */}
                         </div>
                     </div>
                 </div>
@@ -173,87 +133,14 @@ export const ApplicantCard = ({
                         />
                     </div>
                     <div className="d-flex align-items-center gap-3 approve-reject-buttons">
-                        {isApproved === false && (
-                            <BigButton
-                                btnTitle={"Decline"}
-                                backgroundColor={"#fff"}
-                                handleClick={() => {
-                                    sendBookReject.mutate(
-                                        { booking: bookingId },
-                                        {
-                                            onSuccess: () => {
-                                                toast.success(
-                                                    "Booking Rejected"
-                                                );
-                                                queryClient.invalidateQueries([
-                                                    "get-my-bookings",
-                                                ]);
-                                                // router.push("/home");
-                                            },
-                                            onError: (error: any) => {
-                                                toast.error(
-                                                    error.response.data.booking
-                                                        .message
-                                                );
-                                            },
-                                        }
-                                    );
-                                }}
-                                textColor={"#211D4F"}
-                                border="1px solid #211D4F"
-                            />
-                        )}
-                        <BigButton
-                            btnTitle={isApproved ? "Approved" : "Approve"}
-                            backgroundColor={isApproved ? "#32cd32" : "#211D4F"}
-                            disabled={isApproved ? true : false}
-                            loading={sendBookApproval.isLoading}
-                            handleClick={() => {
-                                sendBookApproval.mutate(
-                                    { booking: bookingId },
-                                    {
-                                        onSuccess: () => {
-                                            toast.success("Booking Approved");
-                                            queryClient.invalidateQueries([
-                                                "get-my-bookings",
-                                            ]);
-                                            queryClient.invalidateQueries([
-                                                "notification",
-                                            ]);
-                                        },
-                                        onError: (error: any) => {
-                                            toast.error(
-                                                error.response.data.booking
-                                                    .message
-                                            );
-                                        },
-                                    }
-                                );
-                            }}
-                            textColor={"#fff"}
-                        />
+                        {RenderDifferentButton(status, String(id))}
                     </div>
-                    {/* <Link href={`/tasker/${tasker}/`}>
-        <a>
-            {collabButton == true ? (
-                <div className="collab-button">
-                    <BigButton
-                        btnTitle={"Collab"}
-                        backgroundColor={"#211D4F"}
-                        handleClick={handleButtonClick}
-                    />
-                </div>
-            ) : (
-                <span className="task-price"> {charge}</span>
-            )}
-        </a>
-    </Link> */}
                 </div>
             </div>
             <BookingDetails
                 show={opened}
                 setShow={setOpened}
-                bookingId={String(bookingId) ?? ""}
+                bookingId={String(id) ?? ""}
             />
         </>
     );
