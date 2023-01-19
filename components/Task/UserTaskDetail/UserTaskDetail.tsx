@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { HTMLAttributes } from "react";
 import React from "react";
 import type { ServicesValueProps } from "types/serviceCard";
+import type { ITaskApiResponse } from "types/task";
 import type { ITasker } from "types/tasker";
 
 import { UserTaskDetailTabs } from "./atoms/UserTaskDetailTabs";
@@ -14,6 +15,7 @@ interface UserTaskDetailProps extends HTMLAttributes<HTMLDivElement> {
     maxHeaderWidth?: string;
     taskerDetail: ITasker;
     taskerService: ServicesValueProps;
+    taskerTask: ITaskApiResponse;
     taskerHimself?: boolean;
 }
 
@@ -21,6 +23,7 @@ const UserTaskDetail = ({
     maxHeaderWidth,
     taskerDetail,
     taskerService,
+    taskerTask,
     taskerHimself,
 }: UserTaskDetailProps) => {
     return (
@@ -41,6 +44,7 @@ const UserTaskDetail = ({
                 />
                 <UserShortIntro user={taskerDetail} />
                 <UserTaskDetailTabs
+                    taskerTask={taskerTask}
                     taskerService={taskerService}
                     taskerDetail={taskerDetail}
                 />
