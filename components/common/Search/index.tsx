@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import type { IService } from "types/service";
+import type { ITask } from "types/task";
 import type { ITasker } from "types/tasker";
 import { axiosClient } from "utils/axiosClient";
 
@@ -29,6 +30,7 @@ export interface SearchApiResponse {
 export interface SearchDashboardResult {
     taskers: ITasker[];
     services: IService[];
+    tasks: ITask[];
 }
 
 export interface SearchDashboardPayload {
@@ -48,9 +50,22 @@ export const useSearchDashboard = () => {
             .filter((item) => item.c_type === "tasker.Profile")
             .map((item) => item.result) as ITasker[];
         const services = data.result
-            .filter((item) => item.c_type === "task.EntityService")
+            .filter(
+                (item) =>
+                    item.c_type === "task.EntityService" &&
+                    !item?.result?.is_requested
+            )
             .map((item) => item.result) as IService[];
-        return { taskers, services };
+        const tasks = data.result
+            .filter(
+                (item) =>
+                    item.c_type === "task.EntityService" &&
+                    item?.result?.is_requested
+            )
+            .map((item) => item.result) as ITask[];
+
+        console.log("tasks:", tasks);
+        return { taskers, services, tasks };
         // return data.result;
     });
 };
@@ -78,23 +93,20 @@ export const Search = () => {
         },
         onSubmit: (values) => {
             mutate(values, {
-                onSuccess: ({ services, taskers }) => {
-                    if (services.length === 0 && taskers.length === 0) {
+                onSuccess: ({ services, taskers, tasks }) => {
+                    if (
+                        services.length === 0 &&
+                        taskers.length === 0 &&
+                        tasks.length === 0
+                    ) {
                         setSearchError(
                             `No search result's found for ${values.q}`
                         );
-                    }
-                    if (services.length > 0 && taskers.length > 0) {
-                        setSearchedTaskers(taskers);
-                        setSearchedServices(services);
-                        setSearchQuery({
-                            context: "all",
-                            query: values.q,
-                        });
-                        router.push(`/search?search=${values.q}`);
-                        return;
-                    }
-                    if (taskers.length > 0) {
+                    } else if (
+                        taskers.length > 0 &&
+                        services.length <= 0 &&
+                        tasks.length <= 0
+                    ) {
                         setSearchedTaskers(taskers);
 
                         setSearchQuery({
@@ -103,8 +115,11 @@ export const Search = () => {
                         });
                         router.push("/tasker");
                         return;
-                    }
-                    if (services.length > 0) {
+                    } else if (
+                        taskers.length <= 0 &&
+                        services.length > 0 &&
+                        tasks.length <= 0
+                    ) {
                         setSearchedServices(services);
 
                         setSearchQuery({
@@ -112,6 +127,27 @@ export const Search = () => {
                             query: values.q,
                         });
                         router.push({ pathname: "/service" });
+                    } else if (
+                        taskers.length <= 0 &&
+                        services.length <= 0 &&
+                        tasks.length > 0
+                    ) {
+                        setSearchedServices(services);
+
+                        setSearchQuery({
+                            context: "task.EntityService",
+                            query: values.q,
+                        });
+                        router.push({ pathname: "/task" });
+                    } else {
+                        setSearchedTaskers(taskers);
+                        setSearchedServices(services);
+                        setSearchQuery({
+                            context: "all",
+                            query: values.q,
+                        });
+                        router.push(`/search?search=${values.q}`);
+                        return;
                     }
                 },
                 onError: (error: any) => {
