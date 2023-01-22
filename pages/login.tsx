@@ -159,11 +159,13 @@ const Login = () => {
                                 placeHolder="Password"
                                 forgotPassword="Forgot Password?"
                             />
-                            <Link href={"/resend-verification"}>
-                                <a className="d-flex justify-content-end mb-3 small">
-                                    Didn&apos;t get verification email?
-                                </a>
-                            </Link>
+                            {is_email && (
+                                <Link href={"/resend-verification"}>
+                                    <a className="d-flex justify-content-end mb-3 small">
+                                        Didn&apos;t get verification email?
+                                    </a>
+                                </Link>
+                            )}
                             <FormButton
                                 type="submit"
                                 variant="primary"
