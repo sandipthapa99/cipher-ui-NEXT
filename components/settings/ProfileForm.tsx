@@ -56,6 +56,7 @@ export const CompleteProfile = ({ onClick }: CompleteProfileProps) => {
                     backgroundColor={"#211d4f"}
                     textColor={"#fff"}
                     handleClick={() => onClick()}
+                    id="fill-profile"
                 />
             </div>
         </div>

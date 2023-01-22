@@ -62,15 +62,7 @@ export const ApprovedTaskDetail = ({
         ...(approvedTask?.data?.entity_service?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
-    const requirements = safeParse<string[]>({
-        rawString: approvedTask?.data?.requirements
-            ? approvedTask?.data?.requirements
-            : "",
-        initialData: [],
-    });
-
-    //for scroll
-
+    const requirements = approvedTask && approvedTask?.data?.requirements;
     const ref = useRef<HTMLDivElement>(null);
 
     const handleClick = () => {

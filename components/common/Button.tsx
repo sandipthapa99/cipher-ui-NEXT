@@ -29,7 +29,6 @@ const BigButton = ({
             <Button
                 {...rest}
                 className={`big-btn ${className ? className : ""}`}
-                id={`button-${btnTitle}`}
                 style={{
                     backgroundColor: `${backgroundColor}`,
                     color: `${textColor}`,

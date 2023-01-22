@@ -128,7 +128,7 @@ export type ApprovedTaskDetailProps = {
     status: string;
     title: string;
     description: string;
-    requirements: string;
+    requirements: string[];
     charge: number;
     location: string;
     estimated_time: number;
