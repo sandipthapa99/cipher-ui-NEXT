@@ -680,52 +680,43 @@ const Home: NextPage<{
 
             {/* some success stories sectioin start */}
 
-            <section
-                id="some-success-stories-section"
-                className="some-success-stories-section"
-            >
-                <Container fluid="xl" className="px-4">
-                    <div className="success-sroties-header">
-                        <h1 className="text-center">
-                            Bridging the gap between individuals
-                        </h1>
-                        <h3 className="text-center">HOMAALE Stories</h3>
-                    </div>
-                    {topCategoryData?.length <= 0 && (
-                        <Alert
-                            icon={<ErrorOutlineOutlined />}
-                            title="No data Available"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            There are No Success Stories available
-                        </Alert>
-                    )}
-                    <Carousel
-                        mx="auto"
-                        styles={{
-                            control: {
-                                "&[data-inactive]": {
-                                    opacity: 0,
-                                    cursor: "default",
+            {topCategoryData && topCategoryData?.length > 0 && (
+                <section
+                    id="some-success-stories-section"
+                    className="some-success-stories-section"
+                >
+                    <Container fluid="xl" className="px-4">
+                        <div className="success-sroties-header">
+                            <h1 className="text-center">
+                                Bridging the gap between individuals
+                            </h1>
+                            <h3 className="text-center">HOMAALE Stories</h3>
+                        </div>
+                        <Carousel
+                            mx="auto"
+                            styles={{
+                                control: {
+                                    "&[data-inactive]": {
+                                        opacity: 0,
+                                        cursor: "default",
+                                    },
                                 },
-                            },
-                        }}
-                        className="rounded"
-                        withIndicators
-                    >
-                        {successStoryData &&
-                            successStoryData?.result?.map((value, key) => (
-                                <Carousel.Slide key={key}>
-                                    <PersonalSuccessCard
-                                        successStoryData={value}
-                                    />
-                                </Carousel.Slide>
-                            ))}
-                    </Carousel>
-                </Container>
-            </section>
+                            }}
+                            className="rounded"
+                            withIndicators
+                        >
+                            {successStoryData &&
+                                successStoryData?.result?.map((value, key) => (
+                                    <Carousel.Slide key={key}>
+                                        <PersonalSuccessCard
+                                            successStoryData={value}
+                                        />
+                                    </Carousel.Slide>
+                                ))}
+                        </Carousel>
+                    </Container>
+                </section>
+            )}
 
             {/* Notable quality section starts  */}
             <section id="notable-quality" className="notable-quality">
