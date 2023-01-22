@@ -1,3 +1,4 @@
+import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import { MyOrderItem } from "@components/common/MyOrderItem";
 import {
     useClearSearchedTaskers,
@@ -119,25 +120,13 @@ export const MyOrder = () => {
                         )}
                 </div>
                 {!isLoading && orders?.length <= 0 && (
-                    <div className="bg-white p-5 text-center">
-                        <figure className="position-relative">
-                            <Image
-                                src={"/orderEmpty.png"}
-                                alt="order-empty-img"
-                                height={243}
-                                width={243}
-                            />
-                        </figure>
-                        <p className="mb-3" style={{ fontSize: "2.4rem" }}>
-                            You Have No Approved Bookings Yet.
-                        </p>
-                        <p>
-                            <Link href={"/home?activeTab=1"}>
-                                <a>Click here </a>
-                            </Link>
-                            to see your booking details.
-                        </p>
-                    </div>
+                    <ApplyPostComponent
+                        model="service"
+                        title="You Have No Approved Bookings Yet"
+                        subtitle="Visit Bookings tab to for your booking status."
+                        buttonText="Go to bookings"
+                        href="/home?activeTab=1"
+                    />
                 )}
             </div>
         </>
