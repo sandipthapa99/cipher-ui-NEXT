@@ -1,5 +1,4 @@
-import { faCirclePlus, faXmark } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AddCircleOutline, Close } from "@mui/icons-material";
 import type { KeyboardEvent } from "react";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
@@ -72,8 +71,7 @@ const AddRequirements = ({
                         {index + 1}. {requirement.name}
                     </li>
 
-                    <FontAwesomeIcon
-                        icon={faXmark}
+                    <Close
                         className="svg-icon"
                         style={{ marginRight: "2rem" }}
                         onClick={() => deleteRequirements(requirement?.id)}
@@ -108,11 +106,12 @@ const AddRequirements = ({
                             />
 
                             <div className="add-requirements--button">
-                                <FontAwesomeIcon
+                                <AddCircleOutline
                                     onClick={addRequirements}
-                                    icon={faCirclePlus}
                                     className="svg-icon "
-                                    style={{ color: "#3EAEFF" }}
+                                    style={{
+                                        color: "#3EAEFF",
+                                    }}
                                 />
                             </div>
                         </InputGroup>

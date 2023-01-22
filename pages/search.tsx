@@ -6,9 +6,8 @@ import Layout from "@components/Layout";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Grid, Highlight } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
@@ -41,210 +40,200 @@ const SearchPage: NextPage = () => {
             <Layout
                 title="Search | Homaale"
                 description="Homaale is a platform designed to provide service booking solutions to the
-            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+            service seekers and business opportunities to various service providing companies by bridging a gap between them.
              It covers a wide range of services from various industries like Accounting, Gardening,
             Health, Beauty, and many more."
                 keywords="homaale, search, search-homaale, airtasker-nepali,nepali-working-platform, business, online-business"
             >
                 <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage={"Search"} />
-                    <section className="services-near-you">
-                        <h1 className="heading-title mt-3">
-                            {searchName ? (
-                                <span>
-                                    {`"${searchName}"`} &nbsp; Services Near You
-                                </span>
-                            ) : (
-                                <Highlight highlight={"Loading..."}>
-                                    {`Loading...`}
-                                </Highlight>
-                            )}
-                        </h1>
-                        {fetchingService && (
-                            <Grid>
-                                {Array.from({ length: 4 }).map((_, key) => (
-                                    <Grid.Col span={3} key={key}>
-                                        <SkeletonServiceCard />
-                                    </Grid.Col>
-                                ))}
-                            </Grid>
-                        )}
 
-                        <Row className="gx-5">
-                            {!fetchingService &&
-                                serviceData?.data?.result &&
-                                serviceData?.data?.result
-                                    ?.slice(0, 4)
-                                    .map((service, key) => {
-                                        return (
-                                            <Col
-                                                sm={6}
-                                                md={4}
-                                                lg={3}
-                                                key={key}
-                                                className="d-flex"
-                                            >
-                                                <ServiceCard
-                                                    serviceCard={service}
-                                                />
-                                            </Col>
-                                        );
-                                    })}
-                        </Row>
-                        {!fetchingService && !serviceData?.data?.result && (
-                            <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available"
-                                color="orange"
-                                radius="md"
-                                sx={{ minWidth: 100 }}
-                            >
-                                {/* <Highlight highlight={[categoryName, "No"]}> */}
-                                There are No services in{" "}
-                                {searchName ? searchName : "this"} category
-                                {/* </Highlight> */}
-                            </Alert>
-                        )}
-                    </section>
-                    <section className="tasks-near-you">
-                        <h1 className="heading-title">
-                            {searchName ? (
-                                <span>
-                                    {`"${searchName}"`} &nbsp; Tasks Near You
-                                </span>
-                            ) : (
-                                <Highlight highlight={"Loading..."}>
-                                    {`Loading...`}
-                                </Highlight>
+                    {serviceData && serviceData?.data?.result.length > 0 && (
+                        <section className="services-near-you m-0">
+                            <h1 className="heading-title mt-3">
+                                {searchName ? (
+                                    <span className="text-secondary">
+                                        Services matching your search,{" "}
+                                        <span
+                                            style={{
+                                                fontStyle: "italic",
+                                            }}
+                                        >{`'${searchName}'.`}</span>
+                                    </span>
+                                ) : (
+                                    <Highlight highlight={"Loading..."}>
+                                        {`Loading...`}
+                                    </Highlight>
+                                )}
+                            </h1>
+                            {fetchingService && (
+                                <Grid>
+                                    {Array.from({ length: 4 }).map((_, key) => (
+                                        <Grid.Col span={3} key={key}>
+                                            <SkeletonServiceCard />
+                                        </Grid.Col>
+                                    ))}
+                                </Grid>
                             )}
-                        </h1>
-                        {fetchingTask && (
-                            <Grid>
-                                {Array.from({ length: 4 }).map((_, key) => (
-                                    <Grid.Col span={3} key={key}>
-                                        <SkeletonTaskCard />
-                                    </Grid.Col>
-                                ))}
-                            </Grid>
-                        )}
-                        {taskData && taskData?.data?.result?.length <= 0 && (
-                            <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available"
-                                color="orange"
-                                radius="md"
-                                sx={{ minWidth: 100 }}
-                            >
-                                {/* <Highlight highlight={[categoryName, "No"]}> */}
-                                There are No task in{" "}
-                                {searchName ? searchName : "this"} category
-                                {/* </Highlight> */}
-                            </Alert>
-                        )}
-                        <Row className="gx-5">
-                            {taskData &&
-                                taskData?.data?.result?.map((task, key) => (
-                                    <Col sm="12" md={6} key={key}>
-                                        <TaskCard task={task} />
-                                    </Col>
-                                ))}
-                        </Row>
-                    </section>
-                    <section className="taskers-near-you">
-                        <h1 className="heading-title">
-                            {searchName ? (
-                                <span>
-                                    {`"${searchName}"`} &nbsp; Tasker Near You
-                                </span>
-                            ) : (
-                                <Highlight highlight={"Loading..."}>
-                                    {`Loading...`}
-                                </Highlight>
+
+                            <Row className="gx-5">
+                                {!fetchingService &&
+                                    serviceData?.data?.result &&
+                                    serviceData?.data?.result.map(
+                                        (service, key) => {
+                                            return (
+                                                <Col
+                                                    sm={6}
+                                                    md={4}
+                                                    lg={3}
+                                                    key={key}
+                                                    className="d-flex mb-5"
+                                                >
+                                                    <ServiceCard
+                                                        serviceCard={service}
+                                                    />
+                                                </Col>
+                                            );
+                                        }
+                                    )}
+                            </Row>
+                        </section>
+                    )}
+
+                    {taskData && taskData?.data?.result?.length > 0 && (
+                        <section className="tasks-near-you m-0">
+                            <h1 className="heading-title">
+                                {searchName ? (
+                                    <span className="text-secondary">
+                                        Tasks matching your search,{" "}
+                                        <span
+                                            style={{
+                                                fontStyle: "italic",
+                                            }}
+                                        >{`'${searchName}'.`}</span>
+                                    </span>
+                                ) : (
+                                    <Highlight highlight={"Loading..."}>
+                                        {`Loading...`}
+                                    </Highlight>
+                                )}
+                            </h1>
+                            {fetchingTask && (
+                                <Grid>
+                                    {Array.from({ length: 4 }).map((_, key) => (
+                                        <Grid.Col span={3} key={key}>
+                                            <SkeletonTaskCard />
+                                        </Grid.Col>
+                                    ))}
+                                </Grid>
                             )}
-                        </h1>
-                        {fetchingTasker && <TaskerSkeleton direction="row" />}
-                        {!fetchingTasker &&
-                            taskerData &&
-                            taskerData?.data?.result?.length <= 0 && (
-                                <Alert
-                                    icon={<FontAwesomeIcon icon={faWarning} />}
-                                    title="No data Available"
-                                    color="orange"
-                                    radius="md"
-                                    sx={{ minWidth: 100 }}
-                                >
-                                    There are No tasker in{" "}
-                                    {searchName ? searchName : "this"} category
-                                </Alert>
+                            <Row className="gx-5">
+                                {taskData &&
+                                    taskData?.data?.result?.map((task, key) => (
+                                        <Col
+                                            sm="12"
+                                            md={6}
+                                            key={key}
+                                            className="mb-5"
+                                        >
+                                            <TaskCard task={task} />
+                                        </Col>
+                                    ))}
+                            </Row>
+                        </section>
+                    )}
+
+                    {taskerData && taskerData?.data?.result?.length > 0 && (
+                        <section className="taskers-near-you m-0">
+                            <h1 className="heading-title">
+                                {searchName ? (
+                                    <span className="text-secondary">
+                                        Taskers matching your search,{" "}
+                                        <span
+                                            style={{
+                                                fontStyle: "italic",
+                                            }}
+                                        >{`'${searchName}'.`}</span>
+                                    </span>
+                                ) : (
+                                    <Highlight highlight={"Loading..."}>
+                                        {`Loading...`}
+                                    </Highlight>
+                                )}
+                            </h1>
+                            {fetchingTasker && (
+                                <TaskerSkeleton direction="row" />
                             )}
-                        <Row className="gx-5">
-                            {taskerData &&
-                                taskerData?.data?.result
-                                    .slice(0, 4)
-                                    ?.map((merchant) => {
-                                        return (
-                                            <Col
-                                                sm={6}
-                                                lg={4}
-                                                xl={3}
-                                                key={merchant?.id}
-                                                className="d-flex"
-                                            >
-                                                <MerchantCard
-                                                    merchantImage={
-                                                        merchant?.profile_image
-                                                            ? merchant?.profile_image
-                                                            : merchant?.avatar
-                                                                  ?.image
-                                                    }
-                                                    merchantName={
-                                                        merchant?.user
-                                                            ?.first_name +
-                                                            " " +
+                            <Row className="gx-5">
+                                {taskerData &&
+                                    taskerData?.data?.result
+                                        .slice(0, 4)
+                                        ?.map((merchant) => {
+                                            return (
+                                                <Col
+                                                    sm={6}
+                                                    lg={4}
+                                                    xl={3}
+                                                    key={merchant?.id}
+                                                    className="d-flex"
+                                                >
+                                                    <MerchantCard
+                                                        merchantImage={
+                                                            merchant?.profile_image
+                                                                ? merchant?.profile_image
+                                                                : merchant
+                                                                      ?.avatar
+                                                                      ?.image
+                                                        }
+                                                        merchantName={
                                                             merchant?.user
-                                                                ?.middle_name ??
-                                                        "" +
-                                                            " " +
-                                                            merchant?.user
-                                                                ?.last_name
-                                                    }
-                                                    merchantCategory={
-                                                        merchant?.designation
-                                                    }
-                                                    merchantLocation={
-                                                        merchant?.address_line1 +
-                                                        ", " +
-                                                        merchant?.address_line2
-                                                    }
-                                                    merchantDescription={
-                                                        merchant?.bio
-                                                    }
-                                                    merchantRating={
-                                                        merchant?.rating
-                                                            ?.avg_rating
-                                                    }
-                                                    merchantPrice={
-                                                        merchant
-                                                            ?.charge_currency
-                                                            ?.symbol +
-                                                        merchant?.hourly_rate
-                                                    }
-                                                    happyClients={
-                                                        merchant?.stats
-                                                            ?.happy_clients
-                                                    }
-                                                    successRate={merchant?.stats?.success_rate.toFixed(
-                                                        1
-                                                    )}
-                                                    merchantId={
-                                                        merchant?.user?.id
-                                                    }
-                                                />
-                                            </Col>
-                                        );
-                                    })}
-                        </Row>
-                    </section>
+                                                                ?.first_name +
+                                                                " " +
+                                                                merchant?.user
+                                                                    ?.middle_name ??
+                                                            "" +
+                                                                " " +
+                                                                merchant?.user
+                                                                    ?.last_name
+                                                        }
+                                                        merchantCategory={
+                                                            merchant?.designation
+                                                        }
+                                                        merchantLocation={
+                                                            merchant?.address_line1 +
+                                                            ", " +
+                                                            merchant?.address_line2
+                                                        }
+                                                        merchantDescription={
+                                                            merchant?.bio
+                                                        }
+                                                        merchantRating={
+                                                            merchant?.rating
+                                                                ?.avg_rating
+                                                        }
+                                                        merchantPrice={
+                                                            merchant
+                                                                ?.charge_currency
+                                                                ?.symbol +
+                                                            merchant?.hourly_rate
+                                                        }
+                                                        happyClients={
+                                                            merchant?.stats
+                                                                ?.happy_clients
+                                                        }
+                                                        successRate={merchant?.stats?.success_rate.toFixed(
+                                                            1
+                                                        )}
+                                                        merchantId={
+                                                            merchant?.user?.id
+                                                        }
+                                                    />
+                                                </Col>
+                                            );
+                                        })}
+                            </Row>
+                        </section>
+                    )}
                 </Container>
             </Layout>
         </>

@@ -1,5 +1,4 @@
-import { faChevronDown } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ExpandMoreOutlined } from "@mui/icons-material";
 import { ErrorMessage, Field } from "formik";
 import type {
     SelectInputFieldProps,
@@ -13,7 +12,7 @@ const SelectInputField = ({
     placeHolder,
     labelName,
     textMuted,
-    fieldRequired = false,
+    fieldRequired,
     options,
 
     ...restProps
@@ -46,10 +45,7 @@ const SelectInputField = ({
                     ))}
                 </Field>
                 <span className="position-absolute top-50 end-0 translate-middle-y me-4">
-                    <FontAwesomeIcon
-                        icon={faChevronDown}
-                        className="svg-icon"
-                    />
+                    <ExpandMoreOutlined className="svg-icon" />
                 </span>
             </div>
             <ErrorMessage

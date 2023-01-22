@@ -1,3 +1,7 @@
+import {
+    DISCOUNT_TYPES_OPTIONS,
+    OFFER_TYPES_OPTIONS,
+} from "constants/OffersTypes";
 import format from "date-fns/format";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
@@ -5,7 +9,6 @@ import { useState } from "react";
 import React from "react";
 import type { AllOffersProps } from "types/allOffersProps";
 import type { OfferListingProps } from "types/offerListingProps";
-import { DISCOUNT_TYPES_OPTIONS, OFFER_TYPES_OPTIONS } from "utils/OffersTypes";
 
 import { OfferModel } from "./OfferModel";
 

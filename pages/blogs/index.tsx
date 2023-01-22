@@ -1,6 +1,5 @@
 import Layout from "@components/Layout";
-import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -97,12 +96,7 @@ const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
                                                         <div className="author-date">
                                                             <p className="author">{`${blog?.author}`}</p>
                                                             <p className="published-date">
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCalendarDays
-                                                                    }
-                                                                    className="svg-icon"
-                                                                />
+                                                                <CalendarTodayOutlined className="svg-icon" />
                                                                 {`${formatMonthDate(
                                                                     blog?.created_at
                                                                 )}`}

@@ -1,6 +1,7 @@
 import CardBtn from "@components/common/CardBtn";
 import type { SelectItem } from "@mantine/core";
 import { Modal, Select } from "@mantine/core";
+import { DISCOUNT_TYPES_OPTIONS } from "constants/OffersTypes";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import Image from "next/image";
@@ -10,7 +11,6 @@ import { useState } from "react";
 import React from "react";
 import type { AllOffersProps } from "types/allOffersProps";
 import type { OfferListingProps } from "types/offerListingProps";
-import { DISCOUNT_TYPES_OPTIONS } from "utils/OffersTypes";
 
 export interface OfferDetailsProps {
     show: boolean;

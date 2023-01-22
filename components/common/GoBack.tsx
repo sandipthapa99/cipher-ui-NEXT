@@ -1,5 +1,4 @@
-import { faChevronLeft } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ChevronLeft } from "@mui/icons-material";
 import Link from "next/link";
 import type { HTMLAttributes } from "react";
 
@@ -22,7 +21,7 @@ export const GoBack = (props: GoBackProps) => {
         const { onClick, ...rest } = restProps as GoBackButtonProps;
         return (
             <button className={goBackClass} {...rest} onClick={onClick}>
-                <FontAwesomeIcon className="svg-icon" icon={faChevronLeft} />
+                <ChevronLeft className="svg-icon" />
                 <span>{text ?? "Go Back"}</span>
             </button>
         );
@@ -32,10 +31,7 @@ export const GoBack = (props: GoBackProps) => {
         return (
             <Link href={href}>
                 <a className={goBackClass} {...rest}>
-                    <FontAwesomeIcon
-                        className="svg-icon"
-                        icon={faChevronLeft}
-                    />
+                    <ChevronLeft className="svg-icon" />
                     <span>Go Back</span>
                 </a>
             </Link>

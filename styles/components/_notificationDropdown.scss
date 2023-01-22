@@ -6,13 +6,23 @@
     z-index: 2;
     right: 0;
     padding: 1.6rem 0 0;
-    transform: translateY(5%);
+    transform: translateY(2%);
     border-radius: 1rem;
-    max-height: 60vh;
-    overflow-y: auto;
-    margin: 0 0 1rem;
+    margin: -0.5rem 0 1rem;
     z-index: 3;
     cursor: pointer;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -12px; /* adjust the height of the triangle */
+        left: 85%;
+        transform: translateX(-50%);
+        border-radius: 1rem;
+        border-width: 0 15px 15px 15px; /* adjust the width and height of the triangle */
+        border-style: solid;
+        border-color: black transparent white transparent;
+    }
 
     ::-webkit-scrollbar {
         display: none;
@@ -37,21 +47,20 @@
         }
     }
 
+    .mark {
+        font: 400 1.2rem $poppins-font;
+        color: #1a5fc9;
+        text-decoration: none;
+        cursor: pointer;
+        background: none;
+        @include transition();
+        margin-bottom: 1.6rem;
+        &:hover {
+            color: $secondary-color;
+        }
+    }
     .second-title {
         padding: 0 1.6rem;
-        .today,
-        .mark {
-            font: 400 1.2rem $poppins-font;
-            color: #1a5fc9;
-            text-decoration: none;
-            cursor: pointer;
-            background: none;
-            @include transition();
-            margin-bottom: 1.6rem;
-            &:hover {
-                color: $secondary-color;
-            }
-        }
     }
 
     .footer-section {

@@ -1,10 +1,10 @@
-import BigButton from "@components/common/Button";
-import Link from "next/link";
+import CardBtn from "@components/common/CardBtn";
+import { Modal } from "@mantine/core";
+import { CheckCircleOutlineOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
-import Modal from "react-bootstrap/Modal";
 interface ProfileSuccessModalCardProps {
-    show?: boolean;
+    show: boolean;
     onClick: () => void;
     setShowForm: Dispatch<SetStateAction<boolean>>;
     handleClose?: () => void;
@@ -27,39 +27,38 @@ const ProfileSuccessModalCard = ({
     };
     return (
         <>
-            {/* Modal component */}
             <Modal
-                show={show}
+                opened={show}
+                onClose={handleCloseModal}
                 centered
+                withCloseButton={false}
+                closeOnClickOutside={false}
+                // overlayColor="909296"
+                overlayOpacity={0.55}
+                overlayBlur={3}
+                size="md"
                 className="profile-success-modal"
-                backdrop="static"
             >
-                <Modal.Header>
-                    <Modal.Title className="mx-auto">
-                        Profile Created Successfully!
-                    </Modal.Title>
-                </Modal.Header>
-
-                <div className="modal-body-content">
-                    <div className="problem"></div>
-
-                    <Modal.Footer>
-                        <BigButton
-                            btnTitle={"Complete KYC"}
-                            backgroundColor={"#FFCA6A"}
-                            textColor={"#212529"}
+                <div className="content d-flex align-items-center justify-content-center flex-column">
+                    <div className="icon-block">
+                        <CheckCircleOutlineOutlined className="check-icon" />
+                    </div>
+                    <h1>Profile Created</h1>
+                    <p>Now, you can post tasks and services.</p>
+                    <div className="btn-group">
+                        <CardBtn
+                            backgroundColor="#FFCA6A"
+                            btnTitle="Complete KYC"
                             handleClick={handleCloseModal}
+                            color="#495057"
                         />
-                        <Link href={"/home"} className="text-profile">
-                            {/* <Button className="submit-btn">Go Home</Button> */}
-                            <BigButton
-                                btnTitle={"Home"}
-                                backgroundColor={"#211d4f"}
-                                textColor={"#fff"}
-                                handleClick={handleGoHome}
-                            />
-                        </Link>
-                    </Modal.Footer>
+                        <CardBtn
+                            backgroundColor="#211d4f"
+                            btnTitle="Home"
+                            handleClick={handleGoHome}
+                            color="#E9ECEF"
+                        />
+                    </div>
                 </div>
             </Modal>
         </>

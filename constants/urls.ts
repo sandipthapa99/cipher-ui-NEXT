@@ -38,6 +38,7 @@ const urls = {
         heroCategory: "task/hero-category",
         approval: `task/entity/service-booking/approval/`,
         decline: `task/entity/service-booking/reject/`,
+        status: `${taskPath}task/status/`,
     },
     profile: {
         portfolio: `${taskerPath}portfolio/`,
@@ -64,7 +65,8 @@ const urls = {
     },
     follow: `${taskerPath}follow/`,
 
-    category: { list: `/task/task-category/nested/` },
+    category: { list: `/task/task-category/nested/`, name: "/task/category/" },
+
     carrer: { list: `${careerPath}list/`, detail: `${careerPath}detail/` },
     blog: { list: blogPath, detail: `${blogPath}detail/` },
     wishlist: {
@@ -91,6 +93,7 @@ const urls = {
         list: `${offer}offerredeem/list/`,
         all: `${offer}serviceoffer/all/`,
     },
+    connectIPS: "https://uat.connectips.com:7443/connectipswebgw/loginpage",
 };
 
 export default urls;

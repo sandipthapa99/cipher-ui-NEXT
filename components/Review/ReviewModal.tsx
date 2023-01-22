@@ -1,9 +1,7 @@
 import CardBtn from "@components/common/CardBtn";
-import { faStar as emptyStar } from "@fortawesome/pro-regular-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal, Textarea } from "@mantine/core";
 import { Rating } from "@mantine/core";
+import { StarOutlineRounded, StarRounded } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { Form } from "react-bootstrap";
@@ -90,17 +88,9 @@ export const ReviewModal = ({
                                 defaultValue={0}
                                 value={values.rating}
                                 emptySymbol={
-                                    <FontAwesomeIcon
-                                        icon={emptyStar}
-                                        className="star"
-                                    />
+                                    <StarOutlineRounded className="star" />
                                 }
-                                fullSymbol={
-                                    <FontAwesomeIcon
-                                        icon={faStar}
-                                        className="star"
-                                    />
-                                }
+                                fullSymbol={<StarRounded className="star" />}
                                 onChange={(selectedValue) => {
                                     setFieldValue("rating", selectedValue);
                                 }}

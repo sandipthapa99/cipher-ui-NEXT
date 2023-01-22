@@ -1,6 +1,7 @@
 .payment-method {
     padding: 2.5rem;
     background: #fff;
+
     h2 {
         border-bottom: 0.1rem solid #ced4da;
         margin: 0;
@@ -9,13 +10,16 @@
         font-size: 2rem;
         color: $primary-color;
     }
+
     .payment-method-wraper__cards {
         ul {
             font-weight: 500;
             font-size: 1.4rem;
             padding: 0 0 0 2rem;
+
             li {
                 margin: 1rem 0 0;
+
                 h3 {
                     font-weight: 500;
                     font-size: 1.4rem;
@@ -23,6 +27,7 @@
             }
         }
     }
+
     .linked-account {
         .accounts {
             background: #ffffff;
@@ -31,12 +36,15 @@
             box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
             border-radius: 0.4rem;
             margin-right: 0.8rem;
+
             .account-wrapper {
                 flex-direction: column;
+                width: 100%;
+
                 .account-info {
                     display: flex;
                     align-items: center;
-                    justify-content: center;
+
                     p {
                         margin-left: 2rem;
                         margin-bottom: 0rem;
@@ -45,13 +53,10 @@
                         font-weight: 400;
                     }
                 }
+
                 .linked {
-                    margin-left: auto;
-                    width: 11rem;
                     text-align: right;
                     display: flex;
-                    justify-content: center;
-                    /* justify-content: flex-end; */
                     margin-top: 1rem;
                     color: #3eaeff;
 
@@ -61,19 +66,28 @@
                         margin: 0rem;
                         text-decoration: none;
                     }
-                    a,
-                    .svg-icon {
+
+                    a {
                         padding: 0.5rem;
                     }
+
+                    .svg-icon {
+                        height: 2.4rem;
+                        width: 2.4rem;
+                    }
+
                     .primary,
                     .linked-icons {
                         background: #ecf7ff;
                         border-radius: 0.5rem;
+
                         .svg-icon {
-                            margin: auto;
-                            padding: 0.5rem 0.7rem;
+                            margin: 0.5rem;
+                            height: 2.4rem;
+                            width: 2.4rem;
                         }
                     }
+
                     .linked-icons {
                         display: flex;
                         background: #ecf7ff;
@@ -84,10 +98,12 @@
                 }
             }
         }
+
         .card-block {
             padding: 0rem;
             padding: 2rem 1.6rem;
             padding-bottom: 0.8rem;
+
             .thumbnail-img {
                 height: 4rem;
                 width: 4rem;
@@ -98,9 +114,11 @@
     .accordion {
         .card {
             border: none;
+
             &-header {
                 border: none;
                 background: none;
+
                 button {
                     background: none;
                     border: none;

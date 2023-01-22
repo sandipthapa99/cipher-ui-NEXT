@@ -4,15 +4,14 @@ import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import type { FollowMutationData } from "@components/common/UserFollowersModal";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";
-import {
-    faStar as emptyStar,
-    faUserCheck,
-    faUserPlus,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Rating } from "@mantine/core";
+import {
+    HowToRegOutlined,
+    PersonAddAlt1Outlined,
+    StarOutlineOutlined,
+    StarRounded,
+    VerifiedRounded,
+} from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
@@ -125,8 +124,7 @@ export const UserTaskDetailHeader = ({
 
                     <figure className="td-user-image-container">
                         {taskerDetail?.is_profile_verified ? (
-                            <FontAwesomeIcon
-                                icon={faBadgeCheck}
+                            <VerifiedRounded
                                 // className="badge-icon"
                                 className="td-user-image-container__badge"
                             />
@@ -140,10 +138,7 @@ export const UserTaskDetailHeader = ({
                                 className="browse text-primary"
                                 role="button"
                             >
-                                <FontAwesomeIcon
-                                    icon={faCamera}
-                                    className="camera-icon"
-                                />
+                                <PhotoCameraOutlined className="camera-icon"/>
                             </label>
 
                             <input
@@ -156,7 +151,7 @@ export const UserTaskDetailHeader = ({
                                     const files = event.target.files;
                                     field?.("image", (files ?? [])[0]);
                                     setImage(files[0]);
-                                    
+
                                     setShowEditForm(!showEditForm);
                                 }}
                             />
@@ -200,37 +195,30 @@ export const UserTaskDetailHeader = ({
                             }
                             readOnly
                             emptySymbol={
-                                <FontAwesomeIcon
-                                    icon={emptyStar}
-                                    className="star"
-                                />
+                                <StarOutlineOutlined className="star" />
                             }
-                            fullSymbol={
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="star"
-                                />
-                            }
+                            fullSymbol={<StarRounded className="star" />}
                         />
 
                         <UserStats
                             happyCustomers={taskerDetail?.stats?.happy_clients}
                             rewardPercentage={taskerDetail?.stats?.success_rate}
                             taskCompleted={taskerDetail?.stats?.task_completed}
-                            rank={"12"}
+                            rank={taskerDetail?.badge?.title}
                         />
                     </div>
                 </Col>
                 <Col md={4} className="d-flex flex-column align-items-end">
                     <div className="td-task-detail-header-icons">
                         {taskerDetail?.is_followed ? (
-                            <FontAwesomeIcon
-                                icon={faUserCheck}
-                                color="#297796"
-                                height={24}
-                                width={24}
+                            <HowToRegOutlined
+                                style={{
+                                    color: "#297796",
+                                    height: "2rem",
+                                    width: "2rem",
+                                }}
                                 visibility={taskerHimself ? "hidden" : "none"}
-                                className="svg-follow-icon"
+                                className="svg-follow-icon me-2"
                                 onClick={() =>
                                     handleFollowClick(
                                         taskerDetail?.user?.id,
@@ -239,13 +227,14 @@ export const UserTaskDetailHeader = ({
                                 }
                             />
                         ) : (
-                            <FontAwesomeIcon
-                                icon={faUserPlus}
-                                color="#297796"
-                                height={24}
+                            <PersonAddAlt1Outlined
+                                style={{
+                                    color: "#297796",
+                                    height: "2rem",
+                                    width: "2rem",
+                                }}
                                 visibility={taskerHimself ? "hidden" : "none"}
-                                width={24}
-                                className="svg-follow-icon"
+                                className="svg-follow-icon me-2"
                                 onClick={() =>
                                     handleFollowClick(
                                         taskerDetail?.user?.id,
@@ -287,10 +276,7 @@ export const UserTaskDetailHeader = ({
                             showModal={showMenu}
                             handleOnClick={() => toggleShowMenu()}
                         >
-                            <FontAwesomeIcon
-                                icon={faEllipsisVertical}
-                                className="svg-icon option"
-                            />
+                            <MoreVertOutlined className="svg-icon option" />
                         </EllipsisDropdown> */}
                     </div>
                     <p className="td-task-charge my-4">

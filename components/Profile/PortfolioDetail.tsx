@@ -1,6 +1,5 @@
 import ShareIcon from "@components/common/ShareIcon";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Carousel } from "@mantine/carousel";
 import { useGetPortfolioById } from "hooks/profile/getProfileById";
 import parse from "html-react-parser";
@@ -218,7 +217,6 @@ const PortfolioDetails = ({
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
             <AddPortfolio
                 show={showAddPortfolioModal}

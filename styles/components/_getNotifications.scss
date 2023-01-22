@@ -23,7 +23,7 @@
 
 //Accepetd Notification
 .accepted-notification {
-    padding: 1.6rem 2rem;
+    padding: 1.6rem 1.5rem;
     background: #f8f9fa;
     border-width: 1px 0px;
     border-style: solid;
@@ -37,7 +37,9 @@
     // flex-wrap: wrap;
 
     .notification-image {
-        padding: 0 0.8rem 0 0;
+        height: 5rem;
+        width: 5.5rem;
+        background: $secondary-color-s3;
         img {
             border-radius: 50%;
         }
@@ -70,16 +72,11 @@
             font: 400 1.2rem $poppins-font;
             margin: 0 0 0.8rem;
         }
-
-        .date {
-            font: 400 1rem $poppins-font;
-            color: #868e96;
-        }
     }
     svg {
-        height: 2rem;
-        width: 2rem;
-        fill: $primary-color;
+        align-self: center;
+        height: 2.4rem;
+        width: 2.4rem;
         cursor: pointer;
     }
     .image-cont-scheduling {
@@ -95,6 +92,17 @@
             padding: 0.8rem 2rem;
             font-weight: 400;
             font-size: 12px;
+        }
+    }
+    .notification-wrapper {
+        .approve-reject-buttons {
+            button {
+                padding: 1rem 1rem;
+            }
+        }
+        .date {
+            font: 400 1rem $poppins-font;
+            color: #868e96;
         }
     }
 }

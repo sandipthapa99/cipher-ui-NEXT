@@ -500,7 +500,7 @@ const AddService: NextPage<{
                                             error={errors.video}
                                             touch={touched.video}
                                         />
-                                        <MultiFileDropzone
+                                        {/* <MultiFileDropzone
                                             name="images"
                                             labelName="Upload your images"
                                             textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 1MB."
@@ -513,7 +513,7 @@ const AddService: NextPage<{
                                                 "image/*": [],
                                             }}
                                             showFileDetail
-                                        />
+                                        /> */}
 
                                         <Checkbox
                                             label="is active?"

@@ -12,7 +12,7 @@
     position: relative;
 
     @include respond(sm) {
-        position: sticky;
+        // position: sticky;
     }
     &__newsletter {
         border: 2px solid #ffffff40;
@@ -121,7 +121,7 @@
             .wrapper {
                 color: #fff;
                 padding: 0.5rem;
-                margin-right: 1.6rem;
+                margin-right: 0.8rem;
                 border-radius: 0.5rem;
                 display: flex;
             }

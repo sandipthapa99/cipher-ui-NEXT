@@ -1,10 +1,12 @@
 import FormButton from "@components/common/FormButton";
 import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { Alert } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
-import { useToggleSuccessModal } from "store/use-success-modal";
+import { useState } from "react";
 import { emailResetFormSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
@@ -16,9 +18,10 @@ const ResetPassword = () => {
     const uid = u;
     const token = t;
 
-    const toggleSuccessModal = useToggleSuccessModal();
+    const [errorAlertMsg, setErrorAlertMsg] = useState("");
 
     const { mutate } = useForm("/user/reset/email/verify/");
+
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -37,9 +40,9 @@ const ResetPassword = () => {
                     mutate(
                         { uid, token, ...values },
                         {
-                            onSuccess: async () => {
+                            onSuccess: async (data) => {
+                                console.log(data);
                                 actions.resetForm();
-                                toggleSuccessModal();
                                 toast.success(
                                     "Successfully Changed your password. Please login with the changed password"
                                 );
@@ -47,8 +50,12 @@ const ResetPassword = () => {
                                     pathname: "/login",
                                 });
                             },
-                            onError: (error) => {
-                                toast.error(error.message);
+                            onError: (error: any) => {
+                                const {
+                                    data: { password, token },
+                                } = error.response;
+                                token && setErrorAlertMsg(token);
+                                actions.setFieldError("password", password);
                             },
                         }
                     );
@@ -62,7 +69,7 @@ const ResetPassword = () => {
                             labelName="Password"
                             touch={touched.password}
                             error={errors.password}
-                            placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                            placeHolder="New Password"
                         />
                         <PasswordField
                             type="password"
@@ -70,8 +77,20 @@ const ResetPassword = () => {
                             labelName="Confirm Password"
                             touch={touched.confirm_password}
                             error={errors.confirm_password}
-                            placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                            placeHolder="Confirm New Password"
                         />
+                        {errorAlertMsg !== "" && (
+                            <Alert
+                                icon={<ErrorOutlineOutlined />}
+                                title="Oops!"
+                                color="red"
+                                className="mb-5"
+                                withCloseButton={true}
+                                onClose={() => setErrorAlertMsg("")}
+                            >
+                                {errorAlertMsg}
+                            </Alert>
+                        )}
                         <FormButton
                             type="submit"
                             variant="primary"

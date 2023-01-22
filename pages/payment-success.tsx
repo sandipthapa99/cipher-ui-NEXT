@@ -1,8 +1,7 @@
 import Layout from "@components/Layout";
 import { PaymentSuccessSkeleton } from "@components/Skeletons/PaymentSuccessSkeleton";
-import { faDashboard, faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Box, Button } from "@mantine/core";
+import { DashboardOutlined, ErrorOutlineOutlined } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import Image from "next/image";
@@ -11,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
+import { object } from "yup";
 
 const ORDER_ALREADY_PROCESSED_MESSAGE = "The order has already been processed";
 
@@ -18,14 +18,20 @@ export interface SuccessPageQuery {
     pidx?: string;
     payment_intent?: string;
     token?: string;
+    TXNID?: string;
+    refId?: string;
+    oid?: string;
 }
 export enum PaymentMethods {
+    connect_ips = "connect_ips",
     khalti = "khalti",
     stripe = "stripe",
     paypal = "paypal",
+    esewa = "esewa",
 }
 export type PaymentPayload = {
     verification_id: string;
+    intent_id?: string;
 };
 
 export type CompleteOrderPayload = PaymentPayload;
@@ -38,19 +44,24 @@ const PaymentSuccess = () => {
 
     const navigateToDashboard = () => router.push("/home");
 
-    const { pidx, payment_intent, token } = router.query as SuccessPageQuery;
+    const { pidx, payment_intent, token, refId, oid, TXNID } =
+        router.query as SuccessPageQuery;
+
     let provider: string;
     // const provider = payment_intent
     //     ? PaymentMethods.stripe
     //     : PaymentMethods.khalti;
+
     if (pidx) {
         provider = PaymentMethods.khalti;
-    }
-    if (payment_intent) {
+    } else if (payment_intent) {
         provider = PaymentMethods.stripe;
-    }
-    if (token) {
+    } else if (token) {
         provider = PaymentMethods.paypal;
+    } else if (TXNID) {
+        provider = PaymentMethods.connect_ips;
+    } else if (refId) {
+        provider = PaymentMethods.esewa;
     }
 
     const { mutate: completeOrderMutation, isLoading } = useMutation<
@@ -68,12 +79,17 @@ const PaymentSuccess = () => {
         let payload;
         if (pidx) {
             payload = { verification_id: pidx } as PaymentPayload;
-        }
-        if (payment_intent) {
+        } else if (payment_intent) {
             payload = { verification_id: payment_intent } as PaymentPayload;
-        }
-        if (token) {
+        } else if (token) {
             payload = { verification_id: token } as PaymentPayload;
+        } else if (TXNID) {
+            payload = { verification_id: TXNID } as PaymentPayload;
+        } else if (refId) {
+            payload = {
+                verification_id: refId,
+                intent_id: oid,
+            } as PaymentPayload;
         }
 
         if (!payload) return;
@@ -94,14 +110,14 @@ const PaymentSuccess = () => {
                 }
             },
         });
-    }, [completeOrderMutation, payment_intent, pidx, token]);
+    }, [completeOrderMutation, payment_intent, pidx, token, refId, oid, TXNID]);
 
     return (
         <>
             <Layout
                 title="Payment Verification | Homaale"
                 description="Homaale is a platform designed to provide service booking solutions to the
-            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+            service seekers and business opportunities to various service providing companies by bridging a gap between them.
              It covers a wide range of services from various industries like Accounting, Gardening,
             Health, Beauty, and many more."
                 keywords="homaale, airtasker-nepali,nepali-working-platform, homaale-payment, ecommerce, homaale-feeback, business, online-business"
@@ -123,10 +139,7 @@ const PaymentSuccess = () => {
                                     >
                                         <Alert
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faWarning}
-                                                    className="svg-icon me-0"
-                                                />
+                                                <ErrorOutlineOutlined className="svg-icon me-0" />
                                             }
                                             color="yellow"
                                             title="Payment already processed"
@@ -163,10 +176,7 @@ const PaymentSuccess = () => {
                                             color="yellow"
                                             onClick={navigateToDashboard}
                                             leftIcon={
-                                                <FontAwesomeIcon
-                                                    className="svg-icon me-0"
-                                                    icon={faDashboard}
-                                                />
+                                                <DashboardOutlined className="svg-icon me-0" />
                                             }
                                         >
                                             Go to Dashboard

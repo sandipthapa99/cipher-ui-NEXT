@@ -1,7 +1,6 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Field, Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
@@ -131,7 +130,6 @@ const AddCardForm = ({
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </>
     );

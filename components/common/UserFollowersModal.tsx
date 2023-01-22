@@ -1,6 +1,5 @@
-import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
+import { VerifiedRounded } from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import Image from "next/image";
@@ -120,10 +119,9 @@ export const UserFollowersModal = ({
                                         </a>
                                     </Link>
                                     {item?.is_profile_verified && (
-                                        <FontAwesomeIcon
-                                            icon={faBadgeCheck}
+                                        <VerifiedRounded
                                             className="svg-icon"
-                                            color="#3EAEFF"
+                                            style={{ color: "#3EAEFF" }}
                                         />
                                     )}
                                 </div>

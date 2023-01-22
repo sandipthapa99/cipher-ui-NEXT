@@ -1,9 +1,6 @@
-import { EditService } from "@components/services/EditService";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
-import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
+import { StarOutlineRounded, StarRounded } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -15,6 +12,7 @@ import { useRouter } from "next/router";
 // import { parse } from "path";
 import { useState } from "react";
 import { useWithLogin } from "store/use-login-prompt-store";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { ServicesValueProps } from "types/serviceCard";
 import { toast } from "utils/toast";
 
@@ -40,9 +38,10 @@ const ServiceCard = ({
     const serviceProviderId = serviceCard?.created_by?.id;
     const canEdit = userId == serviceProviderId;
 
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
+
     //modal card
     const [showModal, setShowModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
 
     const handleShowModal = () => {
         if (!user?.is_kyc_verified) {
@@ -52,7 +51,7 @@ const ServiceCard = ({
         if (user && !canEdit) {
             setShowModal(true);
         } else if (user && canEdit) {
-            setShowEditModal(true);
+            toggleShowPostTaskModal("false", serviceCard?.id);
         } else {
             router.push({
                 pathname: `/service/${serviceCard?.slug}`,
@@ -60,9 +59,6 @@ const ServiceCard = ({
         }
     };
 
-    const handleCloseEditModal = () => {
-        setShowEditModal(false);
-    };
     const queryClient = useQueryClient();
     const isServiceBookmarked = useIsBookmarked(
         "entityservice",
@@ -139,7 +135,7 @@ const ServiceCard = ({
                             <a>
                                 <span>
                                     {serviceCard?.created_by?.first_name === ""
-                                        ? "Cipher"
+                                        ? "Homaale"
                                         : ` ${serviceCard?.created_by?.first_name} ${serviceCard?.created_by?.last_name}`}
                                 </span>{" "}
                             </a>
@@ -171,14 +167,11 @@ const ServiceCard = ({
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
-                                <FontAwesomeIcon
-                                    icon={
-                                        serviceRating && serviceRating > 0
-                                            ? faStar
-                                            : HollowStar
-                                    }
-                                    className="svg-icon star"
-                                />
+                                {serviceRating && serviceRating > 0 ? (
+                                    <StarRounded className="svg-icon star" />
+                                ) : (
+                                    <StarOutlineRounded className="svg-icon star" />
+                                )}
                                 <span> {serviceRating}</span>
                             </p>
                             <p className="price">
@@ -267,11 +260,7 @@ const ServiceCard = ({
                         serviceCard?.created_by?.middle_name ??
                     "" + " " + serviceCard?.created_by?.last_name
                 }
-            />
-            <EditService
-                showEditModal={showEditModal}
-                handleClose={handleCloseEditModal}
-                serviceDetail={serviceCard}
+                currencySymbol={serviceCard?.currency?.symbol}
             />
         </div>
         // </Link>

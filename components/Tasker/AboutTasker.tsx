@@ -1,7 +1,6 @@
 import PortfolioDetails from "@components/Profile/PortfolioDetail";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import parse from "html-react-parser";
 import Image from "next/image";
@@ -25,19 +24,17 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                 <div className="type portfolio">
                     <div className="title-wrapper d-flex justify-content-between">
                         {/* <h2 className="heading-title">Community activity</h2> */}
-                        <h1>My Portfolio</h1>
+                        <h1>Portfolio</h1>
                     </div>
 
                     {!taskerDetail ||
                         (taskerDetail?.portfolio?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available"
-                                color="orange"
+                                color="gray"
                                 radius="md"
                                 sx={{ minWidth: 100 }}
                             >
-                                The User has no Portfolio data
+                                This user has not updated any portfolio details.
                             </Alert>
                         ))}
                     <div className="content">
@@ -118,14 +115,13 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                     {!taskerDetail ||
                         (taskerDetail?.experience?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available"
-                                color="orange"
+                                color="gray"
                                 radius="md"
                                 className="mb-4"
                                 sx={{ minWidth: 100 }}
                             >
-                                The User has no Experience data
+                                This user has not updated any experience
+                                details.
                             </Alert>
                         ))}
                     <Row>
@@ -189,14 +185,12 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                     {!userSkills ||
                         (userSkills?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available"
-                                color="orange"
+                                color="gray"
                                 radius="md"
                                 className="mb-4"
                                 sx={{ minWidth: 100 }}
                             >
-                                The User has no Skill data
+                                This user has not updated any skill details.
                             </Alert>
                         ))}
                     <Row>
@@ -221,14 +215,12 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                     {!taskerDetail?.education ||
                         (taskerDetail?.education?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available"
-                                color="orange"
+                                color="gray"
                                 radius="md"
                                 className="mb-4"
                                 sx={{ minWidth: 100 }}
                             >
-                                The User has no Education data
+                                This user has not updated any education details.
                             </Alert>
                         ))}
                     <Row>
@@ -285,14 +277,13 @@ export const AboutTasker = ({ taskerDetail }: AboutTaskerProps) => {
                     {!taskerDetail?.certificates ||
                         (taskerDetail?.certificates?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available"
-                                color="orange"
+                                color="gray"
                                 radius="md"
                                 className="mb-4"
                                 sx={{ minWidth: 100 }}
                             >
-                                The User has no Certification data
+                                This user has not updated any certification
+                                details.
                             </Alert>
                         ))}
                     <Row>

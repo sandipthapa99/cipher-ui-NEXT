@@ -4,7 +4,6 @@ import InputField from "@components/common/InputField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import ReCaptchaV3 from "@components/common/ReCaptchaV3";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import router from "next/router";
@@ -213,7 +212,6 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </>
     );

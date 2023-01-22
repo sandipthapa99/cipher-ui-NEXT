@@ -1,7 +1,6 @@
 import { ProfileModel } from "@components/model/ProfileModel";
 import { PostTaskModal } from "@components/Task/PostTaskModal";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import {
     Avatar,
     Button as MantineButton,
@@ -67,7 +66,7 @@ export function UpperHeader() {
         <>
             {/* Site Upper Header Start */}
             <header id="site-upper-header" className="site-upper-header">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-4">
                     <Navbar
                         expand="lg"
                         className="upper-navigation ms-lg-auto d-flex align-items-center justify-content-between"
@@ -122,26 +121,6 @@ export function UpperHeader() {
                                 </li>
                             </div>
                         </div>
-                        {/* {checkPageForHeader && (
-                            <div className="upper-navigation__center d-none d-md-block">
-                                <div className="search-input d-md-flex">
-                                     <Form.Control
-                                        placeholder="Find your Services"
-                                        aria-label="Find your Services &amp; Taskers"
-                                        aria-describedby="basic-addon2"
-                                    />
-                                    <Button
-                                        className="search-btn"
-                                        id="button-addon2"
-                                    >
-                                        <FontAwesomeIcon
-                                            className="search-icon"
-                                            icon={faMagnifyingGlass}
-                                        />
-                                    </Button>
-                                </div>
-                            </div>
-                        )} */}
                         <div className="upper-navigation__right d-flex">
                             {!user && (
                                 <>
@@ -164,7 +143,7 @@ export function UpperHeader() {
                                     className="nav-cta-btn"
                                     // disabled={userGet()?.is_suspended}
                                 >
-                                    Post Task
+                                    Post
                                 </button>
                             )}
                             {user && (
@@ -223,7 +202,6 @@ export function UpperHeader() {
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
 
             {/* Site Upper Header End */}

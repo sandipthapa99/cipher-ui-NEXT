@@ -8,12 +8,15 @@ export const useMyBooking = (searchParam?: string, page?: number) => {
     useEffect(() => {
         setChangePage(page);
     }, [page]);
-    return useQuery(["my-Booking", searchParam, changePage], () =>
-        axiosClient
-            .get<MyBookingServiceProps>(
-                `${urls.profile.my_bookings}?${searchParam}&page_size=9&page=${changePage}`
-            )
-            .then((response) => response.data)
-            .catch((error) => error && setChangePage(1))
+    return useQuery(
+        ["my-Booking", searchParam, changePage],
+        () =>
+            axiosClient
+                .get<MyBookingServiceProps>(
+                    `${urls.profile.my_bookings}?${searchParam}&page_size=9&page=${changePage}`
+                )
+                .then((response) => response.data)
+                .catch((error) => error && setChangePage(1)),
+        { enabled: !!changePage }
     );
 };

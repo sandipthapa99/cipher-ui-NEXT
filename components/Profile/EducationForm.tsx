@@ -4,11 +4,8 @@ import MantineDateField from "@components/common/MantineDateField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import { RichText } from "@components/RichText";
-import {
-    faCalendarDays,
-    faSquareCheck,
-} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -149,6 +146,7 @@ const EducationForm = ({
                                     error={errors.school}
                                     touch={touched.school}
                                     placeHolder="Eg: Tribhuvan University"
+                                    fieldRequired
                                 />
                                 {/* <InputField
                                     name="description"
@@ -158,14 +156,18 @@ const EducationForm = ({
                                     placeHolder="Experience Description"
                                     as="textarea"
                                 /> */}
-                                <h4>Description</h4>
                                 <RichText
-                                    {...getFieldProps("description")}
+                                    name="description"
+                                    labelName="Description"
+                                    className="mb-4"
                                     value={values?.description ?? ""}
                                     onChange={(value) =>
                                         setFieldValue("description", value)
                                     }
                                     placeholder="Description"
+                                    error={errors.description as string}
+                                    touched={touched.description as boolean}
+                                    withAsterisk
                                 />
                                 <InputField
                                     name="degree"
@@ -173,6 +175,7 @@ const EducationForm = ({
                                     touch={touched.degree}
                                     error={errors.degree}
                                     placeHolder="Eg: Bachelor's"
+                                    fieldRequired
                                 />
                                 <InputField
                                     name="field_of_study"
@@ -180,6 +183,7 @@ const EducationForm = ({
                                     touch={touched.field_of_study}
                                     error={errors.field_of_study}
                                     placeHolder="Eg: Business"
+                                    fieldRequired
                                 />
                                 {/* <InputField
                                     name="location"
@@ -191,6 +195,7 @@ const EducationForm = ({
                                 <PlacesAutocomplete
                                     size="md"
                                     label="Location"
+                                    className="mb-5"
                                     placeholder="Eg: New Baneshwor, Kathmandu"
                                     error={
                                         touched.location && errors.location
@@ -202,6 +207,7 @@ const EducationForm = ({
                                     onPlaceChange={(value) =>
                                         setFieldValue("location", value)
                                     }
+                                    withAsterisk
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
@@ -223,12 +229,9 @@ const EducationForm = ({
                                                     ? errors.start_date
                                                     : ""
                                             )}
-                                            //fieldRequired={true}
+                                            fieldRequired
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
-                                                />
+                                                <CalendarTodayOutlined className="svg-icons" />
                                             }
                                             handleChange={(value) => {
                                                 setFieldValue(
@@ -253,11 +256,9 @@ const EducationForm = ({
                                                     : ""
                                             }
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
-                                                />
+                                                <CalendarTodayOutlined className="svg-icons" />
                                             }
+                                            fieldRequired
                                             handleChange={(value) => {
                                                 setFieldValue(
                                                     "end_date",
@@ -299,7 +300,6 @@ const EducationForm = ({
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </>
     );

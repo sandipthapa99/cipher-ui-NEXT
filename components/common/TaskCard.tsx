@@ -1,18 +1,14 @@
 import {
-    faCalendar,
-    faClockEight,
-    faLocationDot,
-    faUserGroup,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+    CalendarTodayOutlined,
+    LocationOnOutlined,
+    ScheduleOutlined,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
-import urls from "constants/urls";
 import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
-import { useData } from "hooks/use-data";
-import parser from "html-react-parser";
 import Link from "next/link";
-import type { ITask, TaskerCount } from "types/task";
+import type { ITask } from "types/task";
 
 import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
@@ -23,22 +19,32 @@ interface TaskCardProps {
     isSaved?: boolean;
 }
 const TaskCard = ({ task }: TaskCardProps) => {
-    const { title, location, description, status, currency, slug, id } = task;
+    const {
+        title,
+        location,
 
-    const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants", id],
-        `${urls.task.taskApplicantsNumber}/${id}`
-    );
-    const applicants_count = taskApplicants?.data.count[0].tasker_count;
+        status,
+        currency,
+        slug,
+        count,
+        id,
+    } = task;
+
+    // const { data: taskApplicants } = useData<TaskerCount>(
+    //     ["get-task-applicants", id],
+    //     `${urls.task.taskApplicantsNumber}/${id}`
+    // );
 
     const isTaskBookmarked = useIsBookmarked("entityservice", id);
     const queryClient = useQueryClient();
+
     return (
         <div className="task-card-block p-5">
             <Link href={`/task/${id}`}>
                 <a>
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>
+
                         <h2 className="charge">
                             {currency ? currency?.symbol : ""}{" "}
                             {task?.budget_from
@@ -53,17 +59,11 @@ const TaskCard = ({ task }: TaskCardProps) => {
                         </p> */}
                         <div className="task-location-time d-flex flex-column flex-sm-row">
                             <p className="d-flex align-items-center pe-4 location">
-                                <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="svg-icon"
-                                />
+                                <LocationOnOutlined className="svg-icon" />
                                 {location}
                             </p>
                             <p className="d-flex align-items-center date pe-4 my-3 my-sm-0">
-                                <FontAwesomeIcon
-                                    icon={faCalendar}
-                                    className="svg-icon"
-                                />
+                                <CalendarTodayOutlined className="svg-icon" />
                                 {task.created_at
                                     ? format(
                                           new Date(task.created_at),
@@ -72,10 +72,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                                     : ""}
                             </p>
                             <div className="d-flex align-items-center pe-4 time">
-                                <FontAwesomeIcon
-                                    icon={faClockEight}
-                                    className="svg-icon"
-                                />
+                                <ScheduleOutlined className="svg-icon" />
                                 {task.created_at
                                     ? format(new Date(task.created_at), "p")
                                     : ""}
@@ -124,11 +121,8 @@ const TaskCard = ({ task }: TaskCardProps) => {
                     <Link href={`/task/${slug}` ?? "/"}>
                         <a>
                             <p className="applicants  d-flex align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faUserGroup}
-                                    className="svg-icon"
-                                />
-                                {applicants_count} Applied
+                                <SupervisorAccountOutlined className="svg-icon" />
+                                {count} Applied
                             </p>
                         </a>
                     </Link>

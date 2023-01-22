@@ -1,9 +1,11 @@
 .account-settings {
     margin: 4rem 0;
+
     .nav {
         ul {
             li {
                 padding: 0 0 2.4rem;
+
                 a {
                     display: flex;
                     align-items: center;
@@ -12,13 +14,17 @@
                     color: $secondary-text-color;
                     border-left: 0.2rem solid transparent;
 
-                    svg {
+                    .svg-icon {
                         padding: 0 0 0 1.7rem;
+                        height: 4rem;
+                        width: 4rem;
                     }
+
                     &:hover {
                         color: $nav-link-color;
                         border-left: 0.2rem solid $nav-link-color;
                     }
+
                     &.active {
                         color: $nav-link-color;
                         border-left: 0.2rem solid $nav-link-color;

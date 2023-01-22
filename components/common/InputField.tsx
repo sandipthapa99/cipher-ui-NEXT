@@ -1,5 +1,4 @@
 import TooltipMessage from "@components/common/Tooltip";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
 import type { InputHTMLAttributes } from "react";
 import type { InputFieldProps } from "types/inputField";
@@ -41,12 +40,7 @@ const InputField = ({
                         message="Medical TAX(15% of Medical Expenses)"
                         place="right"
                     >
-                        <div>
-                            <FontAwesomeIcon
-                                icon={inputIcon}
-                                className="svg-icon"
-                            />
-                        </div>
+                        <div>{inputIcon}</div>
                     </TooltipMessage>
                 </div>
             ) : (

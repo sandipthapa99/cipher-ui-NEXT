@@ -1,7 +1,6 @@
 import FormButton from "@components/common/FormButton";
 import PasswordField from "@components/common/PasswordField";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Accordion } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
@@ -9,6 +8,7 @@ import { useChangePassword } from "hooks/profile/changePassword/useChangePasswor
 import Cookies from "js-cookie";
 import React from "react";
 import Button from "react-bootstrap/Button";
+import changePasswordFormSchema from "utils/formValidation/changePasswordFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
@@ -54,27 +54,41 @@ const ChangePasswordForm = () => {
                                 }}
                                 // validationSchema={changePasswordFormSchema}
                                 onSubmit={async (values, action) => {
-                                    console.log(values);
-
                                     mutate(values, {
                                         onSuccess: () => {
                                             toast.success(
                                                 "Password changed successfully"
                                             );
-                                            // toggleSuccessModal();
+                                            action.resetForm();
                                         },
-                                        onError: (err) => {
-                                            toast.error(err.message);
+                                        onError: (error: any) => {
+                                            const {
+                                                old_password,
+                                                new_password,
+                                                confirm_password,
+                                            } = error.response.data;
+                                            action.setFieldError(
+                                                "old_password",
+                                                old_password && old_password[0]
+                                            );
+                                            action.setFieldError(
+                                                "new_password",
+                                                new_password && new_password[0]
+                                            );
+                                            action.setFieldError(
+                                                "confirm_password",
+                                                confirm_password &&
+                                                    confirm_password[0]
+                                            );
                                         },
                                     });
-
-                                    action.resetForm();
                                 }}
                             >
                                 {({
                                     isSubmitting,
                                     errors,
                                     touched,
+                                    dirty,
                                     resetForm,
                                 }) => (
                                     <Form autoComplete="off">
@@ -96,7 +110,7 @@ const ChangePasswordForm = () => {
                                             error={errors.new_password}
                                             touch={touched.new_password}
                                             placeHolder="New Password"
-                                            fieldRequired
+                                            // fieldRequired
                                         />
 
                                         <PasswordField
@@ -106,7 +120,7 @@ const ChangePasswordForm = () => {
                                             error={errors.confirm_password}
                                             touch={touched.confirm_password}
                                             placeHolder="Confirm Password"
-                                            fieldRequired
+                                            // fieldRequired
                                         />
 
                                         <div className="d-flex justify-content-end">
@@ -125,6 +139,7 @@ const ChangePasswordForm = () => {
                                                 isSubmittingClass={isSubmittingClass(
                                                     isSubmitting
                                                 )}
+                                                // disabled={!dirty}
                                             />
                                         </div>
                                     </Form>
@@ -179,7 +194,6 @@ const ChangePasswordForm = () => {
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </>
     );

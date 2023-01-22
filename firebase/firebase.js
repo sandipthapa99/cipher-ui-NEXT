@@ -3,6 +3,7 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { doc, getFirestore, getStorage, setDoc } from "firebase/firestore";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import Cookies from "js-cookie";
 import localforage from "localforage";
 import { toast } from "utils/toast";
 
@@ -30,14 +31,13 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
-        const token = await localforage.getItem("fcm_token");
-        //
+        const token = Cookies.get("fcm_token");
         return token;
     },
     onMessage: async () => {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
-            toast.success(`Successfully ${payload?.data?.title} `, {
+            toast.success(`${payload?.data?.title} `, {
                 onClick: () => {
                     window.open(
                         `/task/${payload?.data?.object_slug}`,
@@ -45,31 +45,26 @@ const firebaseCloudMessaging = {
                     );
                 },
             });
-
-            // alert("Notificacion");
         });
     },
 
     init: async function () {
         try {
-            if ((await this.tokenInlocalforage()) !== null) {
-                //
-                return false;
-            }
             //
             const messaging = getMessaging(app);
             await Notification.requestPermission();
             getToken(messaging, {
-                vapidKey: process.env.NEXT_VAPID_KEY,
+                vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
             })
                 .then((currentToken) => {
                     //
                     if (currentToken) {
                         // Send the token to your server and update the UI if necessary
                         // save the token in your database
-                        localforage.setItem("fcm_token", currentToken);
+                        Cookies.set("fcm_token", currentToken);
                         //
                     } else {
+                        console.log("213131232");
                         // Show permission request UI
                         //
                         //         "NOTIFICACION, No registration token available. Request permission to generate one."
@@ -78,6 +73,7 @@ const firebaseCloudMessaging = {
                     }
                 })
                 .catch((err) => {
+                    console.log("🚀 ~ file: firebase.js:85 ~ err", err);
                     //
                     //     "NOTIFICACIONAn error occurred while retrieving token . "
                     // );

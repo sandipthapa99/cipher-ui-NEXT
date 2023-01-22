@@ -1,5 +1,4 @@
-import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DeleteOutline, Edit } from "@mui/icons-material";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import Link from "next/link";
@@ -81,16 +80,14 @@ export const RepliedModal = ({
                                 {replyHovered === reviewId &&
                                 profile?.user.id === ratedToId ? (
                                     <div className="icons">
-                                        <FontAwesomeIcon
-                                            icon={faPencil}
+                                        <Edit
                                             className="svg-icon"
                                             onClick={() => {
                                                 setShowReplyContainer(true);
                                                 setId(reviewId);
                                             }}
                                         />
-                                        <FontAwesomeIcon
-                                            icon={faTrashCan}
+                                        <DeleteOutline
                                             className="trash svg-icon"
                                             onClick={() =>
                                                 handleDelete(reviewId)

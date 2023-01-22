@@ -1,5 +1,4 @@
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ArrowForward, East } from "@mui/icons-material";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,10 +31,7 @@ const CommunityBlogCard = ({
                 <Link href={`/blogs/${blogData?.slug}`}>
                     <a>
                         See More
-                        <FontAwesomeIcon
-                            icon={faAngleRight}
-                            className="svg-icon"
-                        />
+                        <ArrowForward className="svg-icon" />
                     </a>
                 </Link>
             </div>

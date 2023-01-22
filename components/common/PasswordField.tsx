@@ -1,5 +1,4 @@
-import { faEye, faEyeSlash } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { ErrorMessage, Field } from "formik";
 import Link from "next/link";
 import { useState } from "react";
@@ -18,12 +17,7 @@ const PasswordField = ({
     ...restProps
 }: InputFieldProps & Partial<HTMLInputElement>) => {
     const [visible, setVisibility] = useState(false);
-    const Icon = (
-        <FontAwesomeIcon
-            icon={visible ? faEye : faEyeSlash}
-            className="svg-icon svg-color-grey svg-icon-eye-slash"
-        />
-    );
+    const Icon = visible ? <Visibility /> : <VisibilityOff />;
 
     const InputType = visible ? "text" : "password";
     return (
@@ -50,7 +44,7 @@ const PasswordField = ({
                     as={as}
                 />
                 <span
-                    className="position-absolute top-50 end-0 translate-middle-y me-5"
+                    className="position-absolute top-50 end-0 translate-middle-y me-4"
                     onClick={() => setVisibility((prevState) => !prevState)}
                     role="button"
                 >

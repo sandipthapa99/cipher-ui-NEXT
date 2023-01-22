@@ -3,4 +3,5 @@ export interface PaymentMethodProps {
     name: string;
     logo: string;
     type: string;
+    slug: string;
 }

@@ -38,6 +38,7 @@ export const ClientSignUpFormData: ClientSignUpValueProps = {
     // phoneNumber: "",
     password: "",
     confirmPassword: "",
+    acceptTerms: false,
     // phone: "",
     // gender: "male",
     // isAgree: true,
@@ -270,11 +271,13 @@ export const PostTaskFormData: PostTaskProps = {
     budget: "",
     minBudget: 0,
     maxBudget: 0,
-    images: "undefined",
-    video: "",
+    images: [],
+    videos: [],
     date: null,
     date_from: null,
     date_to: null,
+    imagePreviewUrl: [],
+    videoPreviewUrl: [],
 };
 
 export const ServicePostData: ServicePostProps = {

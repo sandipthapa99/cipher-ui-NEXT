@@ -3,7 +3,6 @@ import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
-import type { MyBookings } from "hooks/task/use-get-service-booking";
 import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
@@ -13,6 +12,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ApprovedTaskDetailProps } from "types/approvedTaskProps";
+import type { MyBookings } from "types/bookings";
 import type { ITask } from "types/task";
 // import { userGet } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
@@ -77,7 +77,7 @@ const SimpleProfileCard = ({
                 queryClient.invalidateQueries(["my-requested-task"]);
                 queryClient.invalidateQueries(["approved-task"]);
                 toast.success("Booking successfully cancelled.");
-                queryClient.invalidateQueries(["get-task-applicants"]);
+
                 onApply?.();
             },
             onError: async () => {
@@ -219,9 +219,8 @@ const SimpleProfileCard = ({
                                 defaultValue={priceValue}
                             />
                         </div>
-                        <FontAwesomeIcon
-                            icon={faCirclePlus}
-                            onClick={() => {
+                        <AddCircleOutline
+                        onClick={() => {
                                 setPriceValue(priceValue + 1);
                                 setPriceChanged(true);
                             }}

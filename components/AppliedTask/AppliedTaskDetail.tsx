@@ -1,40 +1,32 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
 import { ElipsisReport } from "@components/common/ElipsisReport";
-import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { GoBack } from "@components/common/GoBack";
 import SaveIcon from "@components/common/SaveIcon";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
-import PostModal from "@components/PostTask/PostModal";
-import {
-    faCalendar,
-    faClockEight,
-    faEye,
-    faLocationDot,
-    faUserGroup,
-} from "@fortawesome/pro-regular-svg-icons";
-import {
-    faFilterList,
-    faMagnifyingGlass,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { Tooltip } from "@mantine/core";
+import {
+    CalendarTodayOutlined,
+    Check,
+    LocationOnOutlined,
+    ScheduleOutlined,
+    Search,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
-import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { useRef } from "react";
 import { Fragment, useState } from "react";
-import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import type { ITask, TaskApplicantsProps, TaskerCount } from "types/task";
+import type { ITask, TaskApplicantsProps } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
@@ -49,20 +41,9 @@ const AppliedTaskDetail = ({
     type?: string;
     taskDetail: ITask;
 }) => {
-    // const { data: myRequestedTask } = useData<MyBookings>(
-    //     ["my-requested-task"],
-    //     `${urls.task.requested_task}`
-    // );
-
-    const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants", taskDetail?.id],
-        `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`
-    );
-
     const queryClient = useQueryClient();
     const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
-    const [showModal, setShowModal] = useState(false);
     const [showInput, setShowInput] = useState(false);
 
     const RenderInputBox = () => {
@@ -85,38 +66,6 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
-    // const highlights = safeParse<string[]>({
-    //     rawString: taskDetail?.highlights,
-    //     initialData: [],
-    // });
-
-    //for scroll
-
-    // const confirmDelete = () => {
-    //     mutate(serviceId, {
-    //         onSuccess: async () => {
-    //             toast.success("service deleted successfully");
-    //             router.push({ pathname: "/service" });
-    //         },
-    //         onError: (error) => {
-    //             toast.error(error?.message);
-    //         },
-    //     });
-    // };
-
-    // const handleDelete = () =>
-    //     openConfirmModal({
-    //         title: "Delete this service",
-    //         centered: true,
-    //         children: (
-    //             <Text size="sm">
-    //                 Are you sure you want to delete this service?
-    //             </Text>
-    //         ),
-    //         labels: { confirm: "Delete", cancel: "Cancel" },
-    //         confirmProps: { color: "red" },
-    //         onConfirm: () => confirmDelete(),
-    //     });
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -160,47 +109,18 @@ const AppliedTaskDetail = ({
                             <ShareIcon
                                 showText
                                 url={getPageUrl()}
-                                quote={"This is the task from Homaale"}
-                                hashtag={"cipher-task"}
+                                quote="This is the task from Homaale"
+                                hashtag="cipher-task"
                             />
 
-                            {/* <EllipsisDropdown
-                                task={taskDetail}
-                                showModal={true}
-                                handleOnClick={() => setShowModal(true)}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faEllipsisVertical}
-                                    className="svg-icon option"
-                                />
-                            </EllipsisDropdown> */}
                             <ElipsisReport
                                 task={true}
                                 taskId={taskDetail?.id}
                                 taskTitle={taskDetail?.title}
                                 taskDescription={taskDetail?.description}
                                 owner={isUserTask}
-                                handleEdit={() => setShowModal(true)}
                                 isService={false}
                             />
-                            <Modal
-                                show={showModal}
-                                onHide={() => setShowModal(false)}
-                                // backdrop="static"
-                                className="post-modal"
-                            >
-                                <Modal.Header
-                                    className="mt-4"
-                                    closeButton
-                                ></Modal.Header>
-                                <Modal.Body>
-                                    <PostModal
-                                        setshowPostModel={() =>
-                                            setShowModal(false)
-                                        }
-                                    />
-                                </Modal.Body>
-                            </Modal>
                         </div>
                     </div>
                 </Row>
@@ -217,7 +137,7 @@ const AppliedTaskDetail = ({
                                                 objectFit="cover"
                                                 layout="fill"
                                                 placeholder="blur"
-                                                blurDataURL="/service-details/Garden.svg"
+                                                blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                             />
                                         </figure>
                                     ) : isVideo(file.media_type) ? (
@@ -261,7 +181,7 @@ const AppliedTaskDetail = ({
                                                     layout="fill"
                                                     objectFit="cover"
                                                     placeholder="blur"
-                                                    blurDataURL="/service-details/Garden.svg"
+                                                    blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                                 />
                                             </figure>
                                         ) : isVideo(file.media_type) ? (
@@ -304,53 +224,43 @@ const AppliedTaskDetail = ({
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
-                    <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon svg-icon-location"
-                        />
-                        <span>
-                            {" "}
-                            {taskDetail?.city?.name
-                                ? taskDetail?.city?.name
-                                : "Not Provided"}
-                        </span>
-                    </p>
-                    {taskDetail?.created_at && (
+                    <Tooltip.Floating label="Task location" color={"blue"}>
                         <p className="d-flex align-items-center">
-                            <FontAwesomeIcon
-                                icon={faCalendar}
-                                className="svg-icon svg-icon-calender"
-                            />
-                            {format(new Date(taskDetail?.created_at), "PP")}
+                            <LocationOnOutlined className="svg-icon svg-icon-location" />
+                            <span>
+                                {" "}
+                                {taskDetail?.city?.name
+                                    ? taskDetail?.city?.name
+                                    : "Not Provided"}
+                            </span>
                         </p>
+                    </Tooltip.Floating>
+
+                    {taskDetail?.created_at && (
+                        <Tooltip.Floating label="Deadline" color={"blue"}>
+                            <p className="d-flex align-items-center">
+                                <CalendarTodayOutlined className="svg-icon svg-icon-calender" />
+                                {format(new Date(taskDetail?.end_date), "PP")}
+                            </p>
+                        </Tooltip.Floating>
                     )}
-                    <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon svg-icon-clock"
-                        />
-                        {taskDetail?.updated_at
-                            ? format(new Date(taskDetail?.updated_at), "p")
-                            : "N/A"}
-                    </p>
-                    <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faEye}
-                            className="svg-icon svg-icon-eye"
-                        />
-                        <span> 200 Views</span>
-                    </p>
-                    <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon svg-icon-user-group"
-                        />
-                        <span>
-                            {" "}
-                            {taskApplicants?.data.count[0].tasker_count} Applied
-                        </span>
-                    </p>
+                    <Tooltip.Floating label="Last updated" color={"blue"}>
+                        <p className="d-flex align-items-center">
+                            <ScheduleOutlined className="svg-icon svg-icon-clock" />
+                            {taskDetail?.updated_at
+                                ? format(new Date(taskDetail?.updated_at), "p")
+                                : "N/A"}
+                        </p>
+                    </Tooltip.Floating>
+                    <Tooltip.Floating
+                        label="No. of Applications"
+                        color={"blue"}
+                    >
+                        <p className="d-flex align-items-center">
+                            <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
+                            <span> {taskDetail.count} Applied</span>
+                        </p>
+                    </Tooltip.Floating>
                 </div>
 
                 <div className="task-detail__desc">
@@ -368,10 +278,7 @@ const AppliedTaskDetail = ({
                             )} */}
                             {taskDetail?.highlights.map((highlight, index) => (
                                 <p className="mb-4" key={index}>
-                                    <FontAwesomeIcon
-                                        icon={faCheck}
-                                        className="me-3 svg-icon svg-icon-check"
-                                    />
+                                    <Check className="me-3 svg-icon svg-icon-check" />
                                     {highlight}
                                 </p>
                             ))}
@@ -381,58 +288,45 @@ const AppliedTaskDetail = ({
 
                 {/* <TeamMembersSection /> */}
                 <div ref={ref}>
-                    <Tab
-                        activeIndex={activeTabIdx}
-                        onTabClick={setActiveTabIdx}
-                        items={[
-                            {
-                                title: `Taskers (${
-                                    taskApplicants
-                                        ? taskApplicants?.data.count[0]
-                                              .tasker_count
-                                        : 0
-                                })`,
-                                content: (
-                                    <TaskersTab
-                                        taskId={taskDetail ? taskDetail.id : ""}
-                                    />
-                                ),
-                            },
-                            {
-                                title: "Collaboration",
-                                content: <Collaboration />,
-                            },
-                        ]}
-                        icons={[
-                            {
-                                index: 0,
-                                type: (
-                                    <FontAwesomeIcon
-                                        icon={faMagnifyingGlass}
-                                        className="svg-icon"
-                                        onClick={() => setShowInput(!showInput)}
-                                    />
-                                ),
-                                iconContent: showInput ? (
-                                    <RenderInputBox />
-                                ) : null,
-                            },
-                            {
-                                index: 1,
-                                type: (
-                                    <EllipsisDropdown
-                                        showModal={true}
-                                        handleOnClick={() => setShowModal(true)}
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faFilterList}
-                                            className="svg-icon"
+                    {isUserTask ? (
+                        <Tab
+                            activeIndex={activeTabIdx}
+                            onTabClick={setActiveTabIdx}
+                            items={[
+                                {
+                                    title: `Taskers (${taskDetail.count})`,
+                                    content: (
+                                        <TaskersTab
+                                            taskId={
+                                                taskDetail ? taskDetail.id : ""
+                                            }
+                                            count={taskDetail?.count ?? 0}
                                         />
-                                    </EllipsisDropdown>
-                                ),
-                            },
-                        ]}
-                    />
+                                    ),
+                                },
+                                {
+                                    title: "Collaboration",
+                                    content: <Collaboration />,
+                                },
+                            ]}
+                            icons={[
+                                {
+                                    index: 0,
+                                    type: (
+                                        <Search
+                                            className="svg-icon"
+                                            onClick={() =>
+                                                setShowInput(!showInput)
+                                            }
+                                        />
+                                    ),
+                                    iconContent: showInput ? (
+                                        <RenderInputBox />
+                                    ) : null,
+                                },
+                            ]}
+                        />
+                    ) : null}
                 </div>
             </div>
         </div>
@@ -450,7 +344,7 @@ export const getStaticProps: GetStaticProps = async () => {
         const queryClient = new QueryClient();
         await Promise.all([
             queryClient.prefetchQuery(["get-my-applicants"]),
-            queryClient.prefetchQuery(["get-task-applicants"]),
+            //  queryClient.prefetchQuery(["get-task-applicants"]),
             queryClient.prefetchQuery(["task-detail"]),
             queryClient.prefetchQuery(["tasks"]),
         ]);

@@ -1,6 +1,5 @@
 import InputField from "@components/common/InputField";
-import { faSearch } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SearchOutlined } from "@mui/icons-material";
 import { Form, Formik } from "formik";
 
 export interface Props {
@@ -32,7 +31,7 @@ export const SearchInputField = ({ validationSchema, placeholder }: Props) => {
                         className="btn"
                         disabled={isSubmitting}
                     >
-                        <FontAwesomeIcon icon={faSearch} className="svg-icon" />
+                        <SearchOutlined className="svg-icon" />
                     </button>
                 </Form>
             )}

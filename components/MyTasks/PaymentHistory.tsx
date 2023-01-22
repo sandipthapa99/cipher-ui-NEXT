@@ -1,12 +1,5 @@
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import {
-    faEllipsisVertical,
-    faFilter,
-    faPrint,
-    faSearch,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
     Button,
     Checkbox,
     Menu,
@@ -18,6 +11,12 @@ import {
     TextInput,
 } from "@mantine/core";
 import { DateRangePicker } from "@mantine/dates";
+import {
+    FilterAltOutlined,
+    MoreVertOutlined,
+    PrintOutlined,
+    SearchOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { useGetTransactionHistory } from "hooks/use-transaction-history";
 import { useState } from "react";
@@ -98,10 +97,7 @@ export const PaymentHistory = () => {
                   </td>
                   <td>{element.ammount}</td>
                   <td className="text-center">
-                      <FontAwesomeIcon
-                          icon={faEllipsisVertical}
-                          className="svg-icon"
-                      />
+                      <MoreVertOutlined className="svg-icon" />
                   </td>
               </tr>
           ))
@@ -151,12 +147,7 @@ export const PaymentHistory = () => {
         <div className="bg-white pt-5 payment-history mt-5">
             <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
                 <TextInput
-                    icon={
-                        <FontAwesomeIcon
-                            icon={faSearch}
-                            className="me-0 svg-icon"
-                        />
-                    }
+                    icon={<SearchOutlined className="me-0 svg-icon" />}
                     placeholder="Enter a search keyword"
                 />
                 <div className="d-flex mt-3 mt-sm-0">
@@ -166,10 +157,7 @@ export const PaymentHistory = () => {
                                 color="gray"
                                 className="d-flex align-items-center me-4"
                             >
-                                <FontAwesomeIcon
-                                    icon={faFilter}
-                                    className="svg-icon"
-                                />
+                                <FilterAltOutlined className="svg-icon" />
                                 Filter
                             </Button>
                         </Menu.Target>
@@ -202,10 +190,7 @@ export const PaymentHistory = () => {
                                 color="gray"
                                 className="d-flex align-items-center"
                             >
-                                <FontAwesomeIcon
-                                    icon={faPrint}
-                                    className="svg-icon"
-                                />
+                                <PrintOutlined className="svg-icon" />
                                 Export
                             </Button>
                         </Menu.Target>

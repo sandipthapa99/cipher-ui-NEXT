@@ -1,10 +1,3 @@
-import {
-    faCheck,
-    faCircleExclamation,
-    faCirclePlus,
-    faXmark,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { TextInputProps } from "@mantine/core";
 import { Space } from "@mantine/core";
 import {
@@ -15,6 +8,12 @@ import {
     Text,
     TextInput,
 } from "@mantine/core";
+import {
+    AddCircleOutline,
+    Check,
+    Close,
+    ErrorOutlineOutlined,
+} from "@mui/icons-material";
 import type { KeyboardEvent } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -78,13 +77,13 @@ export const TaskRequirements = ({
         return requirements.map((requirement, index) => (
             <li className={classes.listItem} key={index}>
                 <ActionIcon>
-                    <FontAwesomeIcon icon={faCheck} color="#3EAEFF" />
+                    <Check style={{ color: "#3EAEFF" }} />
                 </ActionIcon>
                 <Text className={classes.listItemTitle}>{requirement}</Text>
                 <ActionIcon
                     onClick={() => handleRemoveRequirement(requirement)}
                 >
-                    <FontAwesomeIcon icon={faXmark} color="#CED4DA" />
+                    <Close style={{ color: "#CED4DA" }} />
                 </ActionIcon>
             </li>
         ));
@@ -93,7 +92,7 @@ export const TaskRequirements = ({
         <Box>
             <Box className={classes.requirement}>
                 <Text>{labelName}</Text>
-                <FontAwesomeIcon icon={faCircleExclamation} color="#FF9700" />
+                <ErrorOutlineOutlined style={{ color: "#FF9700" }} />
             </Box>
             <Space h={5} />
             <Text color="dimmed" size="sm">
@@ -104,6 +103,7 @@ export const TaskRequirements = ({
             <TextInput
                 {...rest}
                 value={newRequirement}
+                size="md"
                 onChange={(event) =>
                     setNewRequirement(event.currentTarget.value)
                 }
@@ -111,13 +111,18 @@ export const TaskRequirements = ({
                 placeholder="Add your requirements"
                 rightSection={
                     <ActionIcon onClick={handleAddRequirement}>
-                        <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
+                        <AddCircleOutline
+                            style={{
+                                color: "#3EAEFF",
+                            }}
+                        />
                     </ActionIcon>
                 }
             />
         </Box>
     );
 };
+
 export const useStyles = createStyles(() => ({
     listItem: {
         display: "flex",

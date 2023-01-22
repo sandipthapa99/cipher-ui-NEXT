@@ -1,8 +1,7 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
-import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DeleteOutline, Edit } from "@mui/icons-material";
 import {
     dehydrate,
     QueryClient,
@@ -154,24 +153,22 @@ export const SecurityQuestions = () => {
                                         item?.question?.question
                                     }`}
                                     <div>
-                                        <FontAwesomeIcon
+                                        <Edit
                                             className="svg-icon"
-                                            icon={faPencil}
-                                            color="#002366"
+                                            style={{ color: "#002366" }}
                                             onClick={() => {
                                                 setOpenInput(!openInput);
                                                 setQuestionId(item.question.id);
                                                 setHovered(item.question.id);
                                             }}
                                         />
-                                        <FontAwesomeIcon
+                                        <DeleteOutline
                                             className="svg-icon"
-                                            color="red"
-                                            icon={faTrashCan}
                                             onClick={() => {
                                                 setShowDelete(true);
                                                 setDeleteID(item?.question?.id);
                                             }}
+                                            style={{ color: "FF0000" }}
                                         />
                                     </div>
                                 </li>

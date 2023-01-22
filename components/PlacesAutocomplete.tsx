@@ -1,9 +1,8 @@
-import { faClose, faLocation } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { AutocompleteProps } from "@mantine/core";
 import { Loader } from "@mantine/core";
 import { ActionIcon } from "@mantine/core";
 import { Autocomplete } from "@mantine/core";
+import { Close, LocationOnOutlined } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useLatLng } from "hooks/location/useLocation";
@@ -58,11 +57,11 @@ export const PlacesAutocomplete = ({
     return (
         <Autocomplete
             {...props}
-            icon={<FontAwesomeIcon icon={faLocation} />}
+            icon={<LocationOnOutlined />}
             rightSection={
                 input && !isLoading ? (
                     <ActionIcon disabled={disabled} onClick={clearSearchQuery}>
-                        <FontAwesomeIcon icon={faClose} />
+                        <Close />
                     </ActionIcon>
                 ) : isLoading ? (
                     <Loader size="sm" />

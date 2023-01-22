@@ -1,15 +1,15 @@
 import Spoiler from "@components/Spoiler/Spoiler";
-import {
-    faLocationDot,
-    faSparkles,
-    faTimer,
-    faUser,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, Text } from "@mantine/core";
+import {
+    LocationOnOutlined,
+    PersonOutline,
+    ScienceOutlined,
+    TimerOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { Col, Row } from "react-bootstrap";
 import type { ITasker } from "types/tasker";
+import { convertTo12HourFormat } from "utils/formatTime";
 
 interface UserShortIntroProps {
     user: ITasker;
@@ -46,10 +46,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
         <Row className="td-mt-24">
             <Col md={6}>
                 <div className="td-user-short-intro-text">
-                    <FontAwesomeIcon
-                        icon={faLocationDot}
-                        className="svg-icon"
-                    />
+                    <LocationOnOutlined className="svg-icon" />
 
                     <span>
                         {/* Location{" "} */}
@@ -60,7 +57,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                 </div>
                 {memberSince && (
                     <div className="td-user-short-intro-text">
-                        <FontAwesomeIcon className="svg-icon" icon={faUser} />
+                        <PersonOutline className="svg-icon" />
                         <span>
                             {/* Member since{" "} */}
                             <Text className={classes.boldText}>
@@ -70,20 +67,18 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                     </div>
                 )}
                 <div className="td-user-short-intro-text">
-                    <FontAwesomeIcon icon={faTimer} className="svg-icon" />
+                    <TimerOutlined className="svg-icon" />
                     <span>
                         {/* Active Hours &nbsp; */}
                         <Text className={classes.boldText}>
-                            {`${activeHourStart?.replace(
-                                ":00",
-                                ""
-                            )} AM to ${activeHourEnd?.replace(":00", "")} PM`}
+                            {`${convertTo12HourFormat(activeHourStart)} to 
+                            ${convertTo12HourFormat(activeHourEnd)}`}
                         </Text>
                     </span>
                 </div>
 
                 <div className="td-user-short-intro-text skills">
-                    <FontAwesomeIcon icon={faSparkles} className="svg-icon" />
+                    <ScienceOutlined className="svg-icon" />
 
                     {userSkills
                         ? userSkills.map((info: any, index: any) => (

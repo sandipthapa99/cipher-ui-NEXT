@@ -3,12 +3,9 @@ import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { RichText } from "@components/RichText";
-import {
-    faCalendarDays,
-    faSquareCheck,
-} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox } from "@mantine/core";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -175,6 +172,7 @@ const CertificationForm = ({
                                     error={errors.name}
                                     touch={touched.name}
                                     placeHolder="Eg: Certified Gardener"
+                                    fieldRequired
                                 />
                                 <InputField
                                     name="issuing_organization"
@@ -182,6 +180,7 @@ const CertificationForm = ({
                                     touch={touched.issuing_organization}
                                     error={errors.issuing_organization}
                                     placeHolder="Eg: Cagtu"
+                                    fieldRequired
                                 />
                                 {/* <InputField
                                     name="description"
@@ -198,6 +197,7 @@ const CertificationForm = ({
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                    fieldRequired
                                 />
                                 {/* <RichText
                                     {...getFieldProps("description")}
@@ -214,6 +214,7 @@ const CertificationForm = ({
                                     touch={touched.credential_id}
                                     error={errors.credential_id}
                                     placeHolder="Eg: Cagtu"
+                                    fieldRequired
                                 />
                                 <InputField
                                     name="certificate_url"
@@ -221,8 +222,8 @@ const CertificationForm = ({
                                     touch={touched.certificate_url}
                                     error={errors.certificate_url}
                                     placeHolder="Eg: Cagtu"
+                                    fieldRequired
                                 />
-                                <br />
                                 <p className="mb-3 d-flex checkbox">
                                     {/* <input
                                         type="checkbox"
@@ -231,7 +232,7 @@ const CertificationForm = ({
                                         onChange={() => setToggled(!toggle)}
                                     /> */}
                                     <Checkbox
-                                        label="This certifate does not expire"
+                                        label="This certificate does not expire"
                                         defaultChecked={checked}
                                         {...getFieldProps("does_expire")}
                                         // onChange={(event) => {
@@ -264,12 +265,9 @@ const CertificationForm = ({
                                                     ? errors.issued_date
                                                     : ""
                                             )}
-                                            //fieldRequired={true}
+                                            fieldRequired
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
-                                                />
+                                                <CalendarTodayOutlined className="svg-icons" />
                                             }
                                             handleChange={(value) => {
                                                 setFieldValue(
@@ -313,10 +311,7 @@ const CertificationForm = ({
                                             }
                                             disabled={checked ? true : false}
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
-                                                />
+                                                <CalendarTodayOutlined className="svg-icons" />
                                             }
                                             handleChange={(value) => {
                                                 setFieldValue(
@@ -359,7 +354,6 @@ const CertificationForm = ({
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </Fragment>
     );

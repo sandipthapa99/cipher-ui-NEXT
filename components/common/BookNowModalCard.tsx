@@ -3,11 +3,13 @@ import InputField from "@components/common/InputField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
-import { faCalendarDays, faCheck } from "@fortawesome/pro-regular-svg-icons";
-import { faTag } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { List, LoadingOverlay } from "@mantine/core";
-import { MIME_TYPES } from "@mantine/dropzone";
+import {
+    CalendarTodayOutlined,
+    Check,
+    LocalOffer,
+    LocalOfferOutlined,
+} from "@mui/icons-material";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import {
@@ -35,8 +37,9 @@ import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
 
 import { db } from "../../firebase/firebase";
-import { CustomDropZone } from "./CustomDropZone";
 import MantineDateField from "./MantineDateField";
+import MantineTimeField from "./MantineTimeField";
+import MultiFileDropzone from "./MultiFileDropzone";
 
 // const useBookNowService = () =>
 //     useMutation<string, AxiosError, any>((payload) =>
@@ -68,6 +71,10 @@ const BookNowModalCard = ({
     const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = new QueryClient();
     const parsedDescription = parse(description ?? "");
+
+    //To assign max file number of Images and videos
+    const MaxImages = 5;
+    const MaxVideos = 1;
 
     const { data: user } = useUser();
 
@@ -103,10 +110,7 @@ const BookNowModalCard = ({
                             [combinedId + ".date"]: serverTimestamp(),
                         });
                     } catch (error) {
-                        console.log(
-                            "🚀 ~ file: MyBookings.tsx ~ line 109 ~ handleRoomcreate ~ error",
-                            error
-                        );
+                        toast.error("Chat Room creation failed");
                     }
 
                     await updateDoc(doc(db, "userChats", tasker_id), {
@@ -119,7 +123,7 @@ const BookNowModalCard = ({
                     });
                 }
             } catch (error) {
-                console.log("this isit", error);
+                toast.error("Chat Room creation failed");
             }
         }
     };
@@ -170,14 +174,16 @@ const BookNowModalCard = ({
                     <Formik
                         initialValues={{
                             description: "",
-                            start_date: "",
                             end_date: "",
-                            start_time: 1,
-                            images: "",
+                            start_time: "",
+                            images: [],
+                            imagePreviewUrl: [],
+                            videos: [],
+                            videoPreviewUrl: [],
                             entity_service: "",
                             budget_to: budget_to,
-                            videos: "",
                             offer: "",
+                            city: "",
                             requirements: "",
                             location: "",
                         }}
@@ -185,6 +191,8 @@ const BookNowModalCard = ({
                             bookServiceSchema({
                                 budget_from: budget_from ?? 0,
                                 budget_to: budget_to ?? 100000000,
+                                maxImages: MaxImages,
+                                maxVideos: MaxVideos,
                             })
                         }
                         onSubmit={async (values) => {
@@ -200,6 +208,10 @@ const BookNowModalCard = ({
                                 videos: videoIds,
                                 entity_service: entity_service_id,
                                 offer: offerSelector ? [offerSelector] : [],
+                                start_time: format(
+                                    new Date(values.start_time),
+                                    "HH:mm"
+                                ),
                             };
 
                             mutate(newvalues, {
@@ -226,7 +238,7 @@ const BookNowModalCard = ({
                             errors,
                             touched,
                             setFieldValue,
-                            getFieldProps,
+                            setFieldTouched,
                             values,
                         }) => (
                             <Form encType="multipart/formData">
@@ -242,14 +254,6 @@ const BookNowModalCard = ({
                                         fieldRequired
                                     />
                                 </div>
-                                {/* <AddRequirements
-                                    onSubmit={(value) =>
-                                        setFieldValue("requirements", value)
-                                    }
-                                    title="Highligits"
-                                    placeHolder="e.g.Bring something"
-                                    description="Add requirements"
-                                /> */}
                                 <TaskRequirements
                                     initialRequirements={[]}
                                     onRequirementsChange={(requirements) =>
@@ -268,13 +272,8 @@ const BookNowModalCard = ({
                                                 name="start_date"
                                                 labelName="Start Date"
                                                 placeHolder="Select Start Date"
-                                                error={errors.start_date}
-                                                touch={touched.start_date}
                                                 icon={
-                                                    <FontAwesomeIcon
-                                                        icon={faCalendarDays}
-                                                        className="svg-icons"
-                                                    />
+                                                    <CalendarTodayOutlined className="svg-icons" />
                                                 }
                                                 minDate={new Date()}
                                                 handleChange={(value) => {
@@ -295,11 +294,7 @@ const BookNowModalCard = ({
                                                 placeHolder="Select End Date"
                                                 error={errors.end_date}
                                                 touch={touched.end_date}
-                                                icon={
-                                                    <FontAwesomeIcon
-                                                        icon={faCalendarDays}
-                                                    />
-                                                }
+                                                icon={<CalendarTodayOutlined />}
                                                 minDate={new Date()}
                                                 handleChange={(value) =>
                                                     setFieldValue(
@@ -336,106 +331,104 @@ const BookNowModalCard = ({
                                 </div>
                                 <Row>
                                     <Col md={6} className="estimated-time">
-                                        <InputField
+                                        <MantineTimeField
+                                            name={"start_time"}
                                             labelName="Start Time"
-                                            type="time"
-                                            name="start_time"
-                                            min="1"
+                                            placeHolder="Select Start Time"
                                             error={errors.start_time}
                                             touch={touched.start_time}
-                                            placeHolder="00:00"
+                                            defaultValue={new Date()}
                                             fieldRequired
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "start_time",
+                                                    value
+                                                );
+                                            }}
                                         />
                                     </Col>
                                 </Row>
-                                <Row className="mt-2 mb-3">
-                                    <PlacesAutocomplete
-                                        size="md"
-                                        label="Location"
-                                        placeholder="Enter your primary address"
-                                        // disabled={isInputDisabled}
-                                        error={
-                                            touched.location && errors.location
-                                                ? errors.location
-                                                : undefined
-                                        }
-                                        {...getFieldProps("location")}
-                                        value={values.location}
-                                        onPlaceChange={(value) =>
-                                            setFieldValue("location", value)
-                                        }
-                                    />
-                                    {/* <Checkbox
-                                        label="Share my location"
-                                        onChange={(e) => {
-                                            setFieldValue(
-                                                "location",
-                                                e.target.checked.toString()
-                                            );
-
-                                            if (
-                                                e.currentTarget.checked === true
-                                            ) {
-                                                navigator.geolocation.getCurrentPosition(
-                                                    (pos) => {
-                                                        const {
-                                                            latitude,
-                                                            longitude,
-                                                        } = pos.coords;
-                                                    }
-                                                );
-                                            }
-                                        }}
-                                    /> */}
-                                </Row>
+                                <PlacesAutocomplete
+                                    size="md"
+                                    label="Location"
+                                    value={values.location}
+                                    className="mb-4"
+                                    placeholder="Enter your primary address"
+                                    error={
+                                        touched.location && errors.location
+                                            ? errors.location
+                                            : undefined
+                                    }
+                                    withAsterisk
+                                    onBlur={() => setFieldTouched("location")}
+                                    name={"location"}
+                                    onPlaceChange={(value) =>
+                                        setFieldValue("location", value)
+                                    }
+                                />
                                 <SelectCity
                                     onCitySelect={(cityId) =>
                                         setFieldValue("city", cityId)
                                     }
+                                    value={values.city}
+                                    error={errors.city}
+                                    onBlur={() => setFieldTouched("city")}
+                                    touch={touched.city}
+                                    name={"city"}
                                 />
 
                                 <div className="book-now-gallery">
                                     <h4>Gallery</h4>
                                     <p>Add relevant images or videos</p>
+                                    <Col md={6} className={"mb-4"}>
+                                        <MultiFileDropzone
+                                            name="images"
+                                            labelName="Upload your images"
+                                            textMuted={`More than ${MaxImages} images cannot be uploaded. File supported: .jpeg, .jpg, .png. Maximum size 4MB.`}
+                                            error={
+                                                (errors.imagePreviewUrl as string) ||
+                                                (errors.images as string)
+                                            }
+                                            touch={
+                                                touched.images as unknown as boolean
+                                            }
+                                            imagePreview="imagePreviewUrl"
+                                            maxFiles={MaxImages}
+                                            maxSize={4}
+                                            multiple
+                                            showFileDetail
+                                        />
+                                    </Col>
+                                    <Col md={6}>
+                                        <MultiFileDropzone
+                                            name="videos"
+                                            labelName="Upload your Videos"
+                                            textMuted={`More than ${MaxVideos} videos cannot be uploaded. Maximum size 10MB.`}
+                                            error={
+                                                (errors.videoPreviewUrl as string) ||
+                                                (errors.videos as string)
+                                            }
+                                            touch={
+                                                touched.videos as unknown as boolean
+                                            }
+                                            accept={["video/mp4"]}
+                                            imagePreview="videoPreviewUrl"
+                                            maxFiles={MaxVideos}
+                                            maxSize={100}
+                                            multiple
+                                            showFileDetail
+                                        />
+                                    </Col>
+                                    {offer &&
+                                        offer.filter(
+                                            (item) =>
+                                                item.offer_type === "basic"
+                                        ).length > 0 && (
+                                            <h4 className="mb-3">
+                                                Select Offer
+                                            </h4>
+                                        )}
 
-                                    <Row className="gx-5">
-                                        <Col md={6}>
-                                            <CustomDropZone
-                                                //  accept={IMAGE_MIME_TYPE}
-                                                accept={{
-                                                    "image/*": [], // All images
-                                                }}
-                                                fileType="image"
-                                                sx={{ maxWidth: "30rem" }}
-                                                maxSize={5 * 1024 ** 2}
-                                                name="task-image"
-                                                onDrop={(images) =>
-                                                    setFieldValue(
-                                                        "images",
-                                                        images
-                                                    )
-                                                }
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Row className="my-4">
-                                        <Col md={6}>
-                                            <CustomDropZone
-                                                accept={[MIME_TYPES.mp4]}
-                                                fileType="video"
-                                                maxSize={100 * 1024 ** 2}
-                                                sx={{ maxWidth: "30rem" }}
-                                                name="task-video"
-                                                onDrop={(videos) =>
-                                                    setFieldValue(
-                                                        "videos",
-                                                        videos
-                                                    )
-                                                }
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <h4 className="mb-3">Select Offer</h4>
                                     <List className="mb-5 book-now-gallery__list">
                                         {offer &&
                                             offer
@@ -466,35 +459,16 @@ const BookNowModalCard = ({
                                                                 "d-flex align-items-center gap-3"
                                                             }
                                                         >
-                                                            <FontAwesomeIcon
-                                                                icon={faTag}
-                                                                className="text-warning"
-                                                            />
+                                                            <LocalOffer className="text-warning" />
                                                             {offer?.title}
                                                             {offerSelector ===
                                                                 offer?.id && (
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCheck
-                                                                    }
-                                                                    className="text-primary"
-                                                                />
+                                                                <Check className="text-primary" />
                                                             )}
                                                         </span>
                                                     </List.Item>
                                                 ))}
                                     </List>
-
-                                    <div className="size-warning">
-                                        {/* <FontAwesomeIcon
-                                            icon={faCircleInfo}
-                                            className="svg-icon"
-                                        /> */}
-                                        {/* <p>
-                                            Images and videos should not be more
-                                            than 200MB
-                                        </p> */}
-                                    </div>
                                 </div>
                                 <Modal.Footer>
                                     <Button

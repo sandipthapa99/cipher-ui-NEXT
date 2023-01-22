@@ -1,15 +1,14 @@
-import {
-    faArrowRightFromBracket,
-    faChartSimpleHorizontal,
-    faGauge,
-    faGear,
-    faGift,
-    faSackDollar,
-    faTicket,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
+import {
+    AccountCircleOutlined,
+    ConfirmationNumberOutlined,
+    GridViewOutlined,
+    LogoutOutlined,
+    RedeemOutlined,
+    SavingsOutlined,
+    SettingsOutlined,
+} from "@mui/icons-material";
 import { useLogout } from "hooks/auth/useLogout";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
@@ -41,14 +40,14 @@ export const ProfileModel = () => {
         return Object.entries(PROFILE_LINKS).map((entry) => {
             const [key, value] = entry;
             return (
-                <ul className={classes.bodyItem} key={key}>
+                <ul className={classes.bodyItem} id={key} key={key}>
                     <Divider my="1rem" />
                     {value.map((item, key) => (
                         <li
                             data-is-active={router.pathname === item.href}
                             key={key}
+                            id={`profile-${item.id}`}
                         >
-                            {/* <FontAwesomeIcon icon={faCar} color={item.color} /> */}
                             {item.icon}
                             <NextLink
                                 style={{ color: item.color }}
@@ -104,13 +103,12 @@ export const ProfileModel = () => {
                     <Divider my="1rem" />
                     <li>
                         <Button
-                            sx={{ fontWeight: 500 }}
+                            sx={{ fontWeight: 500, padding: 0 }}
                             color={"red"}
                             variant="white"
+                            id="profile-logout"
                             leftIcon={
-                                <FontAwesomeIcon
-                                    icon={faArrowRightFromBracket}
-                                />
+                                <LogoutOutlined style={{ fontSize: "2rem" }} />
                             }
                             onClick={logout}
                         >
@@ -126,36 +124,34 @@ const PROFILE_LINKS = {
     sectionOne: [
         {
             title: "My Dashboard",
-            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
+            id: "dashboard",
+            icon: <GridViewOutlined style={{ color: REGULAR_ICON_COLOR }} />,
             href: "/home",
             color: "#495057",
         },
         {
             title: "Profile",
+            id: "profile",
             icon: (
-                <FontAwesomeIcon
-                    color={REGULAR_ICON_COLOR}
-                    icon={faChartSimpleHorizontal}
-                />
+                <AccountCircleOutlined style={{ color: REGULAR_ICON_COLOR }} />
             ),
             href: "/profile",
             color: "#495057",
         },
         {
             title: "My Earnings",
-            icon: (
-                <FontAwesomeIcon
-                    color={REGULAR_ICON_COLOR}
-                    icon={faSackDollar}
-                />
-            ),
+            id: "my-earnings",
+            icon: <SavingsOutlined style={{ color: REGULAR_ICON_COLOR }} />,
             href: "/my-Earnings",
             color: "#495057",
         },
         {
             title: "My Tickets",
+            id: "my-tickets",
             icon: (
-                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faTicket} />
+                <ConfirmationNumberOutlined
+                    style={{ color: REGULAR_ICON_COLOR }}
+                />
             ),
             href: "/my-tickets",
             color: "#495057",
@@ -163,25 +159,17 @@ const PROFILE_LINKS = {
 
         {
             title: "Offers",
-            icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,
+            id: "offers",
+            icon: <RedeemOutlined style={{ color: SPECIAL_ICON_COLOR }} />,
             href: "/offers",
             color: "#F98900",
         },
     ],
-    //sectionTwo: [
-    //    {
-    //        title: "Switch to i am the...",
-    //        icon: (
-    //            <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faRepeat} />
-    //        ),
-    //        href: "/switch",
-    //        color: "#495057",
-    //    },
-    //],
     sectionThree: [
         {
             title: "Settings",
-            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGear} />,
+            id: "settings",
+            icon: <SettingsOutlined style={{ color: REGULAR_ICON_COLOR }} />,
             href: "/settings/account/individual",
             color: "#495057",
         },

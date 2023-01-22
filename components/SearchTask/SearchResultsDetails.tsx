@@ -1,31 +1,25 @@
 import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
 import { ElipsisReport } from "@components/common/ElipsisReport";
-import { FilterReview } from "@components/common/FilterReview";
 import OfferCard from "@components/common/OfferCard";
-import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
-import { EditService } from "@components/services/EditService";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
-import {
-    faCalendar,
-    faChevronLeft,
-    faClockEight,
-    faEye,
-    faLocationDot,
-    faWarning,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faTag } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Grid, List, Select, Skeleton, Text } from "@mantine/core";
+import { Grid, List, Select, Skeleton, Tooltip } from "@mantine/core";
 import { Alert } from "@mantine/core";
-import { openConfirmModal } from "@mantine/modals";
+import {
+    ChevronLeftOutlined,
+    ErrorOutlineOutlined,
+    LocalOffer,
+    LocationOnOutlined,
+    ScheduleOutlined,
+    SupervisorAccountOutlined,
+} from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -34,23 +28,20 @@ import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useGetMyBookings } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
-import { useDeleteData } from "hooks/use-delete";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { Fragment, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { RatingResponse } from "types/ratingProps";
-import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
 import { toast } from "utils/toast";
 
-import { MyBookingsCard } from "./MyBookings";
+import { ApplicantCard } from "./ApplicantCard";
 
 const SearchResultsDetail = ({
     budget_from,
@@ -64,7 +55,6 @@ const SearchResultsDetail = ({
     serviceId,
     serviceProviderId,
     serviceCreated,
-    serviceViews,
     currency,
     service,
     offers,
@@ -75,7 +65,7 @@ const SearchResultsDetail = ({
 
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    // const setBookNowDetails = useSetBookNowDetails();
+
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
 
@@ -95,11 +85,6 @@ const SearchResultsDetail = ({
 
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
-    const { data: servicesData } = useData<ServicesValueProps>(
-        ["all-services"],
-        urls.task.service
-    );
-
     const parsedDescription = parse(serviceDescription ?? "");
 
     const haveDesc = serviceDescription ? serviceDescription?.length : 0;
@@ -108,95 +93,15 @@ const SearchResultsDetail = ({
         serviceDescription?.substring(0, 400) ?? ""
     );
     const [seeMore, setSeeMore] = useState(false);
-    const { data: myServicePackage } = useData<{
-        result: Array<{
-            id: number;
-            service: {
-                id: string;
-                created_by: {
-                    id: string;
-                    email: string;
-                    full_name: string;
-                    profile_image: string;
-                };
-                category: {
-                    id: number;
-                    name: string;
-                    slug: string;
-                    icon: string;
-                };
-                city: any;
-                images: Array<{
-                    id: number;
-                    media: string;
-                    media_type: string;
-                    size: number;
-                    name: string;
-                    placeholder: string;
-                }>;
-                created_at: string;
-                updated_at: string;
-                title: string;
-                budget_type: string;
-                budget_from: number;
-                budget_to: number;
-                status: string;
-                description: string;
-                highlights: string;
-                views_count: number;
-                location: string;
-                happy_clients: any;
-                success_rate: any;
-                is_professional: boolean;
-                is_online: boolean;
-                video: string;
-                no_of_revisions: number;
-                discount_type: string;
-                discount_value: any;
-                is_active: boolean;
-                slug: string;
-            };
-            title: string;
-            description: string;
-            budget: number;
-            no_of_revision: number;
-            service_offered: string;
-            is_active: boolean;
-            slug: string;
-            budget_type: string;
-            discount_type: string;
-            discount_value: number;
-            is_recommended: boolean;
-        }>;
-    }>(["my-service-packages"], "/task/service-package/");
 
     const { data: user } = useUser();
-    const { data: taskerCount } = useData<{
-        count: Array<{
-            applicants_count: number;
-        }>;
-    }>(
-        ["tasker-count", serviceId],
-        `/task/entity/service/tasker-count/${serviceId}/`
-    );
 
-    //
-
-    const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
     const withLogin = useWithLogin();
-    const router = useRouter();
-    const { data: myBookings } = useGetMyBookings(serviceId);
-    const servSlug = router.query.slug;
-    const getSingleService = servicesData?.data?.result.filter(
-        (item) => item.slug === servSlug
-    );
 
-    const getPackageAccordingService = myServicePackage?.data?.result.filter(
-        (servicePackage) =>
-            String(getSingleService?.[0].id) === servicePackage?.service?.id
+    const { data: myBookings } = useGetMyBookings(
+        serviceId,
+        service?.count ?? 0
     );
-
-    const [editModal, setEditModal] = useState(false);
 
     const isServiceBookmarked = useIsBookmarked(
         "entityservice",
@@ -212,27 +117,7 @@ const SearchResultsDetail = ({
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
             <Col md={6} key={index}>
-                <MyBookingsCard
-                    bookingId={item?.id}
-                    collabButton={false}
-                    image={
-                        item?.created_by?.profile_image
-                            ? item?.created_by?.profile_image
-                            : item?.created_by?.avatar?.image
-                    }
-                    name={`${item?.created_by?.user?.first_name} ${item?.created_by?.user?.last_name}`}
-                    // speciality={item?.created_by?.user_type}
-                    rating={item?.created_by?.rating?.user_rating_count}
-                    happyClients={item?.created_by?.stats?.happy_clients}
-                    awardPercentage={10}
-                    location={item?.created_by?.address_line1}
-                    distance={""}
-                    bio={item?.created_by?.bio}
-                    charge={item?.entity_service?.discount_value}
-                    tasker={item?.created_by?.user.id}
-                    isApproved={item?.is_accepted}
-                    designation={item?.created_by.designation}
-                />
+                <ApplicantCard card={item} />
             </Col>
         );
     });
@@ -246,63 +131,6 @@ const SearchResultsDetail = ({
         }
     };
 
-    const handleEdit = () => {
-        setEditModal(true);
-    };
-
-    const confirmDelete = () => {
-        mutate(serviceId, {
-            onSuccess: async () => {
-                toast.success("service deleted successfully");
-                router.push({ pathname: "/service" });
-            },
-            onError: (error) => {
-                toast.error(error?.message);
-            },
-        });
-    };
-
-    // const confirmInactive = () => {
-    //     editServiceMutation({ id: serviceId, data: { is_active: false } }),
-    //         {
-    //             onSuccess: async () => {
-    //                 toast.success("Successfully inactivated service");
-    //                 router.push({ pathname: "/service" });
-    //             },
-    //             onError: (error: any) => {
-    //                 toast.error(error.message);
-    //             },
-    //         };
-    // };
-
-    const handleDelete = () =>
-        openConfirmModal({
-            title: "Delete this service",
-            centered: true,
-            children: (
-                <Text size="sm">
-                    Are you sure you want to delete this service?
-                </Text>
-            ),
-            labels: { confirm: "Delete", cancel: "Cancel" },
-            confirmProps: { color: "red" },
-            onConfirm: () => confirmDelete(),
-        });
-
-    // const handleInactive = () => {
-    //     openConfirmModal({
-    //         title: "Inactive this service",
-    //         centered: true,
-    //         children: (
-    //             <Text size="sm">
-    //                 Are you sure you want to inactive this service?
-    //             </Text>
-    //         ),
-    //         labels: { confirm: "Inactive", cancel: "Cancel" },
-    //         confirmProps: { color: "red" },
-    //         onConfirm: () => confirmInactive(),
-    //     });
-    // };
     const handleClickBookNow = () => {
         if (!profile) {
             toast.showComponent(
@@ -324,10 +152,7 @@ const SearchResultsDetail = ({
             <div className="task-detail p-5">
                 <Link href="/service">
                     <a>
-                        <FontAwesomeIcon
-                            icon={faChevronLeft}
-                            className="svg-icon"
-                        />
+                        <ChevronLeftOutlined className="svg-icon" />
                         Go Back
                     </a>
                 </Link>
@@ -360,16 +185,6 @@ const SearchResultsDetail = ({
                                 hashtag={"Homaale-services"}
                             />
 
-                            {/* <EllipsisDropdownService
-                                handleEdit={handleEdit}
-                                handleDelete={handleDelete}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faEllipsisVertical}
-                                    className="svg-icon option"
-                                />
-                            </EllipsisDropdownService> */}
-
                             <ElipsisReport
                                 service={true}
                                 serviceTitle={serviceTitle}
@@ -377,8 +192,6 @@ const SearchResultsDetail = ({
                                 serviceId={serviceId}
                                 owner={isUserService}
                                 isService={true}
-                                handleEdit={handleEdit}
-                                //   handleDelete={handleDelete}
                             />
                         </div>
                     </div>
@@ -395,7 +208,7 @@ const SearchResultsDetail = ({
                                                 alt={file.name}
                                                 layout="fill"
                                                 placeholder="blur"
-                                                blurDataURL="/service-details/Garden.svg"
+                                                blurDataURL="/placeholder/loadingLightPlaceHolder.jpg"
                                             />
                                         </figure>
                                     ) : isVideo(file.media_type) ? (
@@ -530,55 +343,46 @@ const SearchResultsDetail = ({
                                 <CardBtn
                                     btnTitle="Book Now"
                                     backgroundColor="#211D4F"
-                                    handleClick={() => handleClickBookNow()}
+                                    handleClick={withLogin(() =>
+                                        handleClickBookNow()
+                                    )}
                                 />
                             )}
                         </div>
                     </Col>
                 </Row>
                 <div className="d-flex flex-column flex-sm-row mt-4 task-detail__loc-time">
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon svg-icon-location"
-                        />
-                        {serviceProviderLocation
-                            ? serviceProviderLocation
-                            : "N/A"}
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faCalendar}
-                            className="svg-icon svg-icon-calender"
-                        />
-                        {serviceCreated
-                            ? //format(new Date(serviceCreated), "dd-MM-yyyy")
-                              format(new Date(serviceCreated), "PP")
-                            : "N/A"}
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon svg-icon-clock"
-                        />
-                        {serviceCreated
-                            ? format(new Date(serviceCreated), "p")
-                            : "N/A"}
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faEye}
-                            className="svg-icon svg-icon-eye"
-                        />
-                        {serviceViews} Views
-                    </p>
-                    {/* <p>
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon svg-icon-user-group"
-                        />
-                         Applied
-                    </p> */}
+                    <Tooltip.Floating label="Service Location" color={"blue"}>
+                        <p>
+                            <LocationOnOutlined className="svg-icon svg-icon-location" />
+                            {serviceProviderLocation
+                                ? serviceProviderLocation
+                                : "N/A"}
+                        </p>
+                    </Tooltip.Floating>
+                    <Tooltip.Floating label="Date Posted" color={"blue"}>
+                        <p>
+                            <ScheduleOutlined className="svg-icon svg-icon-calender" />
+                            {serviceCreated
+                                ? //format(new Date(serviceCreated), "dd-MM-yyyy")
+                                  format(new Date(serviceCreated), "PP")
+                                : "N/A"}
+                        </p>
+                    </Tooltip.Floating>
+                    <Tooltip.Floating label="Time Posted" color={"blue"}>
+                        <p>
+                            <ScheduleOutlined className="svg-icon svg-icon-clock" />
+                            {serviceCreated
+                                ? format(new Date(serviceCreated), "p")
+                                : "N/A"}
+                        </p>
+                    </Tooltip.Floating>
+                    <Tooltip.Floating label="No. of Application" color={"blue"}>
+                        <p>
+                            <SupervisorAccountOutlined className="svg-icon svg-icon-user-group" />
+                            {service?.count} Applied
+                        </p>
+                    </Tooltip.Floating>
                 </div>
 
                 <div className="task-detail__desc">
@@ -605,7 +409,7 @@ const SearchResultsDetail = ({
                 <h3>Highlights</h3>
                 {highlights && highlights.length < 1 ? (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"
@@ -635,10 +439,7 @@ const SearchResultsDetail = ({
                                                 "d-flex align-items-center gap-3"
                                             }
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faTag}
-                                                className="text-warning"
-                                            />
+                                            <LocalOffer className="text-warning" />
                                             {offer?.title}
                                         </span>
                                     </List.Item>
@@ -663,111 +464,45 @@ const SearchResultsDetail = ({
                     </section>
                 ) : null}
 
-                {getPackageAccordingService &&
-                    getPackageAccordingService
-                        // .filter(
-                        //     (service) =>
-                        //         service.service.slug === servSlug
-                        // )
-                        .map(
-                            (offer, key) =>
-                                offer && (
-                                    <section
-                                        className="service-details__package-offers"
-                                        style={{ margin: "41px 0 0 0" }}
-                                    >
-                                        <h1>Packages &amp; Offers</h1>
-                                        <Carousel
-                                            slideSize="32%"
-                                            slideGap="sm"
-                                            align="start"
-                                            breakpoints={[
-                                                {
-                                                    maxWidth: "md",
-                                                    slideSize: "50%",
-                                                },
-                                                {
-                                                    maxWidth: "sm",
-                                                    slideSize: "90%",
-                                                    slideGap: 10,
-                                                },
-                                            ]}
-                                            styles={{
-                                                control: {
-                                                    "&[data-inactive]": {
-                                                        opacity: 0,
-                                                        cursor: "default",
-                                                    },
-                                                },
-                                            }}
-                                            className="pt-4"
-                                        >
-                                            <Carousel.Slide key={key}>
-                                                <PackageOffersCard
-                                                    title={offer.title}
-                                                    price={offer.budget.toString()}
-                                                    offers={
-                                                        offer.service_offered &&
-                                                        JSON.parse(
-                                                            offer?.service_offered
-                                                        )
-                                                    }
-                                                    isRecommended={
-                                                        offer.is_recommended
-                                                    }
-                                                    isPermium={offer.is_active}
-                                                    advantage={offer.title}
-                                                    isFromAddService={false}
-                                                    discountAmount={
-                                                        offer.discount_value
-                                                    }
-                                                />
-                                            </Carousel.Slide>
-                                        </Carousel>
-                                    </section>
-                                )
+                {service?.count ? (
+                    <section>
+                        {isCurrentUserService() && (
+                            <div ref={tabRef}>
+                                <Tab
+                                    activeIndex={activeTabIdx}
+                                    onTabClick={setActiveTabIdx}
+                                    items={[
+                                        {
+                                            title: `Applicants (${service?.count})`,
+                                            content: (
+                                                <Row className="py-3">
+                                                    <>
+                                                        {renderBookedClients}
+                                                        {myBookings ===
+                                                            undefined && (
+                                                            <Alert
+                                                                icon={
+                                                                    <ErrorOutlineOutlined />
+                                                                }
+                                                                title={
+                                                                    "No Applicants Available!"
+                                                                }
+                                                                color={"red"}
+                                                            >
+                                                                {" "}
+                                                            </Alert>
+                                                        )}
+                                                    </>
+                                                </Row>
+                                            ),
+                                        },
+                                    ]}
+                                />
+                            </div>
                         )}
-                <section>
-                    {isCurrentUserService() && (
-                        <div ref={tabRef}>
-                            <Tab
-                                activeIndex={activeTabIdx}
-                                onTabClick={setActiveTabIdx}
-                                items={[
-                                    {
-                                        title: `Applicants (${taskerCount?.data?.count[0].applicants_count})`,
+                    </section>
+                ) : null}
 
-                                        content: (
-                                            <Row className="py-3">
-                                                <>
-                                                    {renderBookedClients}
-                                                    {myBookings ===
-                                                        undefined && (
-                                                        <Alert
-                                                            icon={
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faWarning
-                                                                    }
-                                                                />
-                                                            }
-                                                            title={
-                                                                "No Applicants Available!"
-                                                            }
-                                                            color={"red"}
-                                                        >
-                                                            {" "}
-                                                        </Alert>
-                                                    )}
-                                                </>
-                                            </Row>
-                                        ),
-                                    },
-                                ]}
-                            />
-                        </div>
-                    )}
-                </section>
                 <hr />
                 {/* <FilterReview
                     totalReviews={
@@ -852,7 +587,7 @@ const SearchResultsDetail = ({
                     ))
                 ) : (
                     <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        icon={<ErrorOutlineOutlined />}
                         title="No data Available"
                         color="orange"
                         radius="md"
@@ -924,14 +659,6 @@ const SearchResultsDetail = ({
                     currencySymbol={currency}
                     setShow={() => setShow(false)}
                 />
-
-                {service && (
-                    <EditService
-                        showEditModal={editModal}
-                        handleClose={() => setEditModal(false)}
-                        serviceDetail={service}
-                    />
-                )}
             </div>
         </div>
     );

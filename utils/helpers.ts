@@ -1,5 +1,10 @@
 import type { NextRouter } from "next/router";
 
+// Get current Year
+export const getCurrentYear = () => {
+    return new Date().getFullYear();
+};
+
 // To check active menu page
 export const handleMenuActive = (path: string, router: NextRouter) => {
     const defaultClass = "nav-item";

@@ -53,6 +53,7 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
     const onUnmount = useCallback(() => {
         mapRef.current = null;
     }, []);
+
     const interval = useInterval(() => {
         setZoom((previousZoom) =>
             previousZoom < INITIAL_MAX_ZOOM_LEVEL

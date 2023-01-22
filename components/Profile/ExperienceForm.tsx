@@ -5,12 +5,9 @@ import SelectInputField from "@components/common/SelectInputField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import { RichText } from "@components/RichText";
-import {
-    faCalendarDays,
-    faSquareCheck,
-} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox, Textarea } from "@mantine/core";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -175,6 +172,7 @@ const ExperienceForm = ({
                                     error={errors.title}
                                     touch={touched.title}
                                     placeHolder="Experience Title"
+                                    fieldRequired
                                 />
                                 <InputField
                                     name="description"
@@ -183,6 +181,7 @@ const ExperienceForm = ({
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                    fieldRequired
                                 />
                                 {/* <RichText
                                     {...getFieldProps("description")}
@@ -206,6 +205,7 @@ const ExperienceForm = ({
                                     touch={touched.company_name}
                                     error={errors.company_name}
                                     placeHolder="Company Name"
+                                    fieldRequired
                                 />
                                 {/* <InputField
                                     name="location"
@@ -228,6 +228,7 @@ const ExperienceForm = ({
                                     onPlaceChange={(value) =>
                                         setFieldValue("location", value)
                                     }
+                                    withAsterisk
                                 />
                                 <p className="mb-3">
                                     {/* <Checkbox
@@ -274,12 +275,9 @@ const ExperienceForm = ({
                                             ? errors.start_date
                                             : ""
                                     )}
-                                    //fieldRequired={true}
+                                    fieldRequired={true}
                                     icon={
-                                        <FontAwesomeIcon
-                                            icon={faCalendarDays}
-                                            className="svg-icons"
-                                        />
+                                        <CalendarTodayOutlined className="svg-icons" />
                                     }
                                     handleChange={(value) => {
                                         setFieldValue(
@@ -310,10 +308,7 @@ const ExperienceForm = ({
                                     error={errors.end_date}
                                     disabled={toggle ? true : false}
                                     icon={
-                                        <FontAwesomeIcon
-                                            icon={faCalendarDays}
-                                            className="svg-icons"
-                                        />
+                                        <CalendarTodayOutlined className="svg-icons" />
                                     }
                                     handleChange={(value) => {
                                         setFieldValue(
@@ -354,7 +349,6 @@ const ExperienceForm = ({
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </>
     );

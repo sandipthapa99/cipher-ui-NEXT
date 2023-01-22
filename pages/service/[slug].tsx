@@ -4,7 +4,6 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useServiceDetail } from "hooks/task/use-service-detail";
 import type { GetServerSideProps } from "next";
-import { ReactQueryKeys } from "types/queryKeys";
 import type {
     ServicesPackageProps,
     ServicesValueProps,

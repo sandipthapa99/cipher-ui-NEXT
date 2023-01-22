@@ -2,25 +2,22 @@ import { FacebookLogin } from "@components/auth/FacebookLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ActionIcon, Tooltip } from "@mantine/core";
+import { EmailOutlined, PhoneIphoneOutlined } from "@mui/icons-material";
+import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
 import Cookies from "js-cookie";
-import localforage from "localforage";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import type { ChangeEvent } from "react";
 import { useState } from "react";
 // import useUserStore from "store/use-user-store";
-import { axiosClient } from "utils/axiosClient";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { toast } from "utils/toast";
-
-interface ResendEmailVerification {
-    email: string;
-}
 
 const Login = () => {
     const queryClient = useQueryClient();
@@ -29,60 +26,12 @@ const Login = () => {
 
     const { mutate: loginMutation, isLoading } = useLogin();
 
-    const [isPhoneNumber, setIsPhoneNumber] = useState(false);
-    const [fcmToken, setFcmToken] = useState("");
-    const resendEmail = Cookies.get("email");
-
-    const resendEmailVerificationMutation = useMutation(
-        (data: ResendEmailVerification) => {
-            return axiosClient.post(`/user/resend/email/activation/`, data);
-        }
-    );
     const getFCMTOKEN = async () => {
-        if (typeof window !== "undefined") {
-            const token = await localforage.getItem<string>("fcm_token");
-            return token;
-        }
-        return null;
+        const token = Cookies.get("fcm_token");
+        return token;
     };
-    const token = getFCMTOKEN();
-    token.then((token) => {
-        if (token) {
-            setFcmToken(token);
-        }
-    });
 
-    // useStoreUser(userData ? userData : {});
-
-    const handleChange = (
-        event: ChangeEvent<HTMLInputElement>,
-        setFieldValue: (field: string, value: any) => void
-    ) => {
-        const { value } = event.currentTarget;
-
-        setFieldValue("username", value);
-
-        if (!isNaN(parseInt(value, 10))) {
-            setIsPhoneNumber(true);
-            return;
-        }
-        setIsPhoneNumber(false);
-    };
-    // const userSet = useUserStore((state) => state.setUser);
-
-    // const HandleUserFetchFlow = async () => {
-    //     const access = Cookies.get("access");
-    //     if (access === undefined) return null;
-
-    //     const user = await UserService.fetchUser(access);
-    //     try {
-    //         const res = await axiosClient.get(`/user/${user?.id}`);
-    //         localStorage.setItem("user", JSON.stringify(res));
-    //         userSet(res);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+    const [is_email, setIs_email] = useState(true);
 
     return (
         <OnBoardingLayout
@@ -97,30 +46,30 @@ const Login = () => {
         >
             <div>
                 <Formik
-                    validationSchema={() => getLoginSchema(isPhoneNumber)}
+                    validationSchema={() => getLoginSchema()}
                     initialValues={{
                         username: "",
                         password: "",
                     }}
-                    onSubmit={(values) => {
+                    onSubmit={async (values, actions) => {
+                        const token = await getFCMTOKEN();
                         const newValues = {
                             ...values,
-                            fcm_token: fcmToken ? fcmToken : null,
+                            fcm_token: token ?? null,
                         };
+                        console.log(token);
 
                         loginMutation(newValues, {
-                            onError: (error) => {
-                                toast.error(error.message);
+                            onError: (error: any) => {
+                                const {
+                                    data: { username, password },
+                                } = error.response;
 
-                                // actions.setFieldError(
-                                //     "username",
-                                //     error.message
-                                // );
-
-                                // actions.setFieldError(
-                                //     "password",
-                                //     error.message
-                                // );
+                                actions.setFieldError(
+                                    "username",
+                                    username && username[0]
+                                );
+                                actions.setFieldError("password", password);
                             },
                             onSuccess: async (hasProfile) => {
                                 const { next } = router.query;
@@ -137,18 +86,70 @@ const Login = () => {
                         });
                     }}
                 >
-                    {({ errors, touched, setFieldValue }) => (
+                    {({ errors, touched }) => (
                         <Form className="login-form">
-                            <InputField
-                                name="username"
-                                labelName="Username"
-                                touch={touched.username}
-                                error={errors.username}
-                                placeHolder="Enter your username"
-                                onChange={(event) =>
-                                    handleChange(event, setFieldValue)
-                                }
-                            />
+                            <div className="d-flex align-items-top gap-3">
+                                {is_email ? (
+                                    <InputField
+                                        name="username"
+                                        labelName="Email"
+                                        className="w-100"
+                                        touch={touched.username}
+                                        error={errors.username}
+                                        placeHolder="Enter your email"
+                                    />
+                                ) : (
+                                    <PhoneNumberInput
+                                        name={"username"}
+                                        labelName="Phone Number"
+                                        touch={touched.username}
+                                        className="w-100"
+                                        error={errors.username}
+                                        placeHolder={"Enter your Phone Number"}
+                                    />
+                                )}
+
+                                <Tooltip
+                                    label={
+                                        is_email
+                                            ? `Login with phone`
+                                            : `Login with e-mail`
+                                    }
+                                >
+                                    <ActionIcon
+                                        variant="filled"
+                                        onClick={() => setIs_email(!is_email)}
+                                        className="ms-auto border border-grey"
+                                        color={"gray.1"}
+                                        mt={28}
+                                        size={48}
+                                        style={{ width: 112 }}
+                                    >
+                                        {is_email ? (
+                                            <PhoneIphoneOutlined
+                                                className="text-black"
+                                                style={{ fontSize: 18 }}
+                                            />
+                                        ) : (
+                                            <EmailOutlined
+                                                className="text-black"
+                                                style={{ fontSize: 18 }}
+                                            />
+                                        )}
+                                        <span
+                                            style={{
+                                                color: "#343A40",
+                                                marginLeft: "0.8rem",
+                                                fontSize: "1.4rem",
+                                                fontWeight: 500,
+                                            }}
+                                        >
+                                            {is_email ? "Phone" : "Email"}
+                                        </span>
+                                    </ActionIcon>
+                                </Tooltip>
+                            </div>
+
                             <PasswordField
                                 type="password"
                                 name="password"
@@ -158,42 +159,17 @@ const Login = () => {
                                 placeHolder="Password"
                                 forgotPassword="Forgot Password?"
                             />
-                            <div className=" d-flex align-items-end justify-content-end">
-                                <p
-                                    style={{
-                                        cursor: "pointer",
-                                        color: "#3eaeff",
-                                        fontSize: "14px",
-                                        margin: "0 0 10px 0",
-                                    }}
-                                    onClick={() => {
-                                        if (resendEmail) {
-                                            resendEmailVerificationMutation.mutate(
-                                                {
-                                                    email: resendEmail,
-                                                },
-                                                {
-                                                    onSuccess: () => {
-                                                        toast.success(
-                                                            "verification email sent succesfully"
-                                                        );
-                                                    },
-                                                    onError: (err: any) => {
-                                                        toast.error(
-                                                            err.message
-                                                        );
-                                                    },
-                                                }
-                                            );
-                                        }
-                                    }}
-                                >
-                                    Didn&apos;t get verification email?
-                                </p>
-                            </div>
+                            {is_email && (
+                                <Link href={"/resend-verification"}>
+                                    <a className="d-flex justify-content-end mb-3 small">
+                                        Didn&apos;t get verification email?
+                                    </a>
+                                </Link>
+                            )}
                             <FormButton
                                 type="submit"
                                 variant="primary"
+                                id="-login"
                                 name={isLoading ? "Loading" : "Login"}
                                 className="login-btn"
                                 isSubmitting={isLoading}
@@ -208,7 +184,7 @@ const Login = () => {
                                     className="facebook"
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/facebook/`}
                                 />
-                                
+
                                 {/* <SocialLoginBtn
                                     name={"Continue with Google"}
                                     icon="/illustrations/google.svg"

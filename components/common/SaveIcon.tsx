@@ -1,8 +1,6 @@
-import { faBookmark } from "@fortawesome/pro-regular-svg-icons";
-import { faBookmark as faFilledBookmark } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Button } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
+import { Bookmark, BookmarkBorderOutlined } from "@mui/icons-material";
 import { useToggleBookmarkTask } from "hooks/task/use-toggle-bookmark-task";
 import { useWithLogin } from "store/use-login-prompt-store";
 
@@ -37,10 +35,11 @@ const SaveIcon = ({
             onClick={withLogin(handleSaveClick)}
             className={`${classes.saveIconContainer} ${className}`}
             leftIcon={
-                <FontAwesomeIcon
-                    className="svg-icon m-0"
-                    icon={filled ? faFilledBookmark : faBookmark}
-                />
+                filled ? (
+                    <Bookmark className="svg-icon m-0" />
+                ) : (
+                    <BookmarkBorderOutlined className="svg-icon m-0" />
+                )
             }
         >
             {showText ? <span>{filled ? "Remove" : "Save"}</span> : null}
@@ -53,11 +52,14 @@ const SaveIcon = ({
             onClick={withLogin(handleSaveClick)}
             className={classes.saveIcon}
         >
-            <FontAwesomeIcon
-                color="red"
-                icon={filled ? faFilledBookmark : faBookmark}
-                className="svg-icon me-0"
-            />
+            {filled ? (
+                <Bookmark className="svg-icon me-0" style={{ color: "red" }} />
+            ) : (
+                <BookmarkBorderOutlined
+                    className="svg-icon me-0"
+                    style={{ color: "red" }}
+                />
+            )}
         </ActionIcon>
     );
 };

@@ -21,6 +21,9 @@ export const CouponsList = ({
                                 <OfferBasicCard offerBasic={item} />
                             </Col>
                         ))}
+                    {allOffers?.filter(
+                        (item) => item.offer_type === "promo_code"
+                    ).length <= 0 && <EmptyOffers />}
                 </Row>
             ) : (
                 <EmptyOffers />

@@ -1,5 +1,4 @@
-import { faChevronRight } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ChevronRight } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -19,22 +18,18 @@ export const BreadCrumb = ({ currentPage }: BreadCrumbProps) => {
             <Container fluid="xl" className="p-0">
                 <Breadcrumb>
                     <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-                    <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className="svg-icon me-0"
-                    />
+                    <ChevronRight className="svg-icon me-0" />
                     {breadCrumbRoutes.map((route, key) => (
                         <span key={key}>
                             <Link href={`/${route?.toLowerCase()}`}>
                                 <a>{route}</a>
                             </Link>
-                            <FontAwesomeIcon
-                                icon={faChevronRight}
-                                className="svg-icon me-0 ps-3"
-                            />
+                            <ChevronRight className="svg-icon ms-3 me-0" />
                         </span>
                     ))}
-                    <Breadcrumb.Item active>{currentPage}</Breadcrumb.Item>
+                    <Breadcrumb.Item active className="text-capitalize">
+                        {currentPage}
+                    </Breadcrumb.Item>
                 </Breadcrumb>
             </Container>
         </div>

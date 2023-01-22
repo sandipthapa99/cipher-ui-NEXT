@@ -1,7 +1,9 @@
-import { faLocationDot, faUser } from "@fortawesome/pro-regular-svg-icons";
-import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    LocationOnOutlined,
+    Person,
+    StarOutlineRounded,
+    StarRounded,
+} from "@mui/icons-material";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
@@ -35,11 +37,11 @@ const ServiceNearYouCard = ({
     discountOn,
     discount,
     currency,
+    is_endorsed,
     onServiceClick,
 }: ServiceCardType) => {
     const router = useRouter();
     const path = router.query.slug;
-
     return (
         <div
             data-active={JSON.stringify(path === serviceSlug)}
@@ -78,18 +80,12 @@ const ServiceNearYouCard = ({
                         <h4>{serviceTitle}</h4>
                         <div className="information">
                             <div className="type d-flex flex-col align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faUser}
-                                    className="user svg-icon"
-                                />
+                                <Person className="user svg-icon" />
 
                                 <p>{serviceProvider}</p>
                             </div>
                             <div className="type d-flex flex-col align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="location svg-icon"
-                                />
+                                <LocationOnOutlined className="location svg-icon" />
                                 <p>
                                     {serviceProviderLocation &&
                                     serviceProviderLocation.length > 1
@@ -100,14 +96,11 @@ const ServiceNearYouCard = ({
 
                             <div className="success-rate type d-flex flex-col">
                                 <div className="star d-flex align-items-center flex-row">
-                                    <FontAwesomeIcon
-                                        icon={
-                                            serviceRating && serviceRating > 0
-                                                ? faStar
-                                                : HollowStar
-                                        }
-                                        className="star svg-icon"
-                                    />
+                                    {serviceRating && serviceRating > 0 ? (
+                                        <StarRounded className="star svg-icon" />
+                                    ) : (
+                                        <StarOutlineRounded className="star svg-icon" />
+                                    )}
 
                                     <p>
                                         {+Number(serviceRating).toFixed(1) ??
@@ -128,7 +121,7 @@ const ServiceNearYouCard = ({
                                     ? "/daily"
                                     : "/project"}
                             </h1>
-                            {/* 
+                            {/*
                             {currency + " "}
                                 {budget_to}
                                 {(budget_from !== 0 && budget_from) ??
@@ -141,6 +134,17 @@ const ServiceNearYouCard = ({
                                     ? "/mn"
                                     : ""} */}
                         </div>
+                        {is_endorsed && (
+                            <figure className="endorsed-icon">
+                                <Image
+                                    src={"/featured.svg"}
+                                    height={24}
+                                    width={96}
+                                    objectFit="contain"
+                                    alt="servicecard-image"
+                                />
+                            </figure>
+                        )}
                     </div>
                 </Col>
             </Row>

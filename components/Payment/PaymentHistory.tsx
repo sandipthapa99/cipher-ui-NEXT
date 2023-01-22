@@ -1,5 +1,4 @@
-import { faFilterList } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FilterListOutlined } from "@mui/icons-material";
 import React from "react";
 import { Container } from "react-bootstrap";
 
@@ -25,7 +24,7 @@ export const PaymentHistory = () => {
                             </select>
 
                             <span className="filter-icon">
-                                <FontAwesomeIcon icon={faFilterList} />
+                                <FilterListOutlined />
                             </span>
                         </div>
                     </div>

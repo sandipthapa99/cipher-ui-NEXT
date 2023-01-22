@@ -1,7 +1,8 @@
-import { faPencil } from "@fortawesome/pro-regular-svg-icons";
-import { faBuildingColumns } from "@fortawesome/pro-solid-svg-icons";
-import { faLinkSimple } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    AccountBalanceOutlined,
+    Edit,
+    LinkOutlined,
+} from "@mui/icons-material";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useState } from "react";
@@ -48,8 +49,7 @@ const AddBank = ({ showBankForm, showPrimaryBank }: Display) => {
                             <Row>
                                 <Col md={6} lg={4}>
                                     <div className="d-flex account-wrapper bank card-block">
-                                        <FontAwesomeIcon
-                                            icon={faPencil}
+                                        <Edit
                                             className="svg-icon edit-icon"
                                             onClick={() => {
                                                 setPrimaryBankId(
@@ -85,17 +85,11 @@ const AddBank = ({ showBankForm, showPrimaryBank }: Display) => {
                                         </div>
                                         <div className="linked">
                                             <div className="primary">
-                                                <FontAwesomeIcon
-                                                    icon={faBuildingColumns}
-                                                    className="svg-icon"
-                                                />
+                                                <AccountBalanceOutlined className="svg-icon" />
                                             </div>
 
                                             <div className="linked-icons">
-                                                <FontAwesomeIcon
-                                                    icon={faLinkSimple}
-                                                    className="svg-icon"
-                                                />
+                                                <LinkOutlined className="svg-icon" />
                                                 <a href="" className="link">
                                                     {primaryBank.is_verified
                                                         ? "Linked"

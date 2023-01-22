@@ -1,23 +1,29 @@
 import create from "zustand";
 
-export type ModalType = "CREATE" | "EDIT";
+export type serviceType = "false" | "true";
 export interface ShowPostTaskModalStore {
-    modalType?: ModalType;
+    serviceType?: serviceType | null;
+    id?: string;
     showPostTaskModal: boolean;
-    toggleShowPostTaskModal: (modalType?: ModalType) => void;
-    clearPostTaskModalType: () => void;
+    toggleShowPostTaskModal: (
+        serviceType?: serviceType,
+        newId?: string
+    ) => void;
+    clearPostTaskserviceType: () => void;
 }
 export const showPostTaskModalStore = create<ShowPostTaskModalStore>((set) => ({
     showPostTaskModal: false,
-    modalType: "CREATE",
-    toggleShowPostTaskModal: (newModalType) =>
+    serviceType: null,
+    id: "",
+    toggleShowPostTaskModal: (newServiceType, newId) =>
         set((state) => ({
             ...state,
             showPostTaskModal: !state.showPostTaskModal,
-            modalType: newModalType ?? state.modalType,
+            serviceType: newServiceType ?? state.serviceType,
+            id: newId,
         })),
-    clearPostTaskModalType: () =>
-        set((state) => ({ ...state, modalType: undefined })),
+    clearPostTaskserviceType: () =>
+        set((state) => ({ ...state, serviceType: undefined })),
 }));
 
 export const useShowPostTaskModal = () =>
@@ -25,7 +31,10 @@ export const useShowPostTaskModal = () =>
 
 export const useToggleShowPostTaskModal = () =>
     showPostTaskModalStore((state) => state.toggleShowPostTaskModal);
-export const usePostTaskModalType = () =>
-    showPostTaskModalStore((state) => state.modalType);
-export const useClearPostTaskModalType = () =>
-    showPostTaskModalStore((state) => state.clearPostTaskModalType);
+export const usePostTaskserviceType = () =>
+    showPostTaskModalStore((state) => state.serviceType);
+export const usePostTaskserviceId = () =>
+    showPostTaskModalStore((state) => state.id);
+
+export const useClearPostTaskserviceType = () =>
+    showPostTaskModalStore((state) => state.clearPostTaskserviceType);

@@ -1,16 +1,15 @@
-import {
-    faAngleDown,
-    faBell,
-    faListCheck,
-    faLocationDot,
-    faMessageCaptions,
-    faObjectsColumn,
-    faTelescope,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Indicator } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
+import {
+    ChatOutlined,
+    DashboardOutlined,
+    ExploreOutlined,
+    KeyboardArrowDown,
+    LocationOnOutlined,
+    NotificationsOutlined,
+    PersonSearchOutlined,
+    PlagiarismOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
 import { useGetNotification } from "hooks/Notifications/use-notification";
@@ -21,7 +20,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
-import { axiosClient } from "utils/axiosClient";
 import { handleMenuActive } from "utils/helpers";
 
 import { Dropdown } from "./common/Dropdown";
@@ -42,7 +40,7 @@ const Header = () => {
     const [notopen, setNotopen] = useState(false);
     const [rasifal, setRasifal] = useState(false);
     const { data: profileDetails } = useGetProfile();
-    const { data: allNotification, refetch } = useGetNotification();
+    const { data: allNotification } = useGetNotification();
 
     const notificationRef = useClickOutside(() => setNotopen(false));
 
@@ -53,7 +51,7 @@ const Header = () => {
                 id="site-header"
                 className="site-header sticky-wrapper-header"
             >
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-4">
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
@@ -61,10 +59,7 @@ const Header = () => {
                             >
                                 <Link href="/service">
                                     <a className="nav-link">
-                                        <FontAwesomeIcon
-                                            icon={faTelescope}
-                                            className="svg-icon d-none d-sm-inline-block"
-                                        />
+                                        <ExploreOutlined className="svg-icon d-none d-sm-inline-block" />
                                         Explore Services
                                     </a>
                                 </Link>
@@ -72,10 +67,7 @@ const Header = () => {
                             <li className={handleMenuActive("/task", router)}>
                                 <Link href="/task">
                                     <a className="nav-link">
-                                        <FontAwesomeIcon
-                                            icon={faListCheck}
-                                            className="svg-icon d-none d-sm-inline-block"
-                                        />
+                                        <PlagiarismOutlined className="svg-icon d-none d-sm-inline-block" />
                                         Find Tasks
                                     </a>
                                 </Link>
@@ -83,10 +75,7 @@ const Header = () => {
                             <li className={handleMenuActive("/tasker", router)}>
                                 <Link href="/tasker">
                                     <a className="nav-link">
-                                        <FontAwesomeIcon
-                                            icon={faUserHelmetSafety}
-                                            className="svg-icon d-none d-sm-inline-block"
-                                        />
+                                        <PersonSearchOutlined className="svg-icon d-none d-sm-inline-block" />
                                         Find Taskers
                                     </a>
                                 </Link>
@@ -99,10 +88,7 @@ const Header = () => {
                             >
                                 <Link href="/category">
                                     <a className="nav-link d-none responsive-category">
-                                        <FontAwesomeIcon
-                                            icon={faObjectsColumn}
-                                            className="svg-icon d-none d-sm-inline-block"
-                                        />
+                                        <DashboardOutlined className="svg-icon d-none d-sm-inline-block" />
                                         Categories
                                     </a>
                                 </Link>
@@ -116,15 +102,9 @@ const Header = () => {
                                 >
                                     <Link href="">
                                         <a className="nav-link d-none d-md-inline-block categories-menu">
-                                            <FontAwesomeIcon
-                                                icon={faObjectsColumn}
-                                                className="svg-icon"
-                                            />
+                                            <DashboardOutlined className="svg-icon d-none d-sm-inline-block" />
                                             Categories
-                                            <FontAwesomeIcon
-                                                icon={faAngleDown}
-                                                className="faAngleDown-svg-icon"
-                                            />
+                                            <KeyboardArrowDown className="faAngleDown-svg-icon" />
                                         </a>
                                     </Link>
                                 </li>
@@ -167,10 +147,7 @@ const Header = () => {
                                     style={{ marginRight: "1.6rem" }}
                                 >
                                     {location?.data?.city}
-                                    <FontAwesomeIcon
-                                        icon={faLocationDot}
-                                        className="svg-icon"
-                                    />
+                                    <LocationOnOutlined className="svg-icon" />
                                 </a>
                             </Link>
                         )}
@@ -180,10 +157,7 @@ const Header = () => {
                                     className="btn location-btn d-none d-md-inline-block"
                                     style={{ marginRight: "1.6rem" }}
                                 >
-                                    <FontAwesomeIcon
-                                        icon={faMessageCaptions}
-                                        className="svg-icon"
-                                    />
+                                    <ChatOutlined className="svg-icon" />
                                 </a>
                             </Link>
                         ) : null}
@@ -201,42 +175,23 @@ const Header = () => {
                                         )
                                     }
                                 >
-                                    <div
-                                        className="bell-icon-header"
-                                        onClick={async () => {
-                                            const response =
-                                                await axiosClient.get(
-                                                    "/notification/read/"
-                                                );
-
-                                            if (response.status === 200) {
-                                                refetch();
-                                                // await queryClient.invalidateQueries([
-                                                //     "notification",
-                                                // ]);
-                                            }
-                                        }}
-                                    >
+                                    <div className="bell-icon-header">
                                         {allNotification &&
-                                        allNotification?.unread_count > 0 ? (
+                                        allNotification?.pages[0]
+                                            ?.unread_count > 0 ? (
                                             <Indicator
                                                 color="#e62e04"
                                                 label={
-                                                    allNotification?.unread_count
+                                                    allNotification?.pages[0]
+                                                        ?.unread_count
                                                 }
                                                 inline
                                                 size={15}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faBell}
-                                                    className="svg-icon"
-                                                />
+                                                <NotificationsOutlined className="svg-icon" />
                                             </Indicator>
                                         ) : (
-                                            <FontAwesomeIcon
-                                                icon={faBell}
-                                                className="svg-icon"
-                                            />
+                                            <NotificationsOutlined className="svg-icon" />
                                         )}
                                     </div>
                                 </a>

@@ -120,7 +120,7 @@ const Offers: NextPage<{ allOffers: AllOffersProps }> = ({ allOffers }) => {
                                     ),
                                 },
                                 {
-                                    title: "Scratch Cards",
+                                    title: "Offers",
                                     content: (
                                         <OffersList
                                             allOffers={allOffers?.result}

@@ -1,5 +1,4 @@
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ChevronRight } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,7 +19,7 @@ const TaskActionCard = ({ title, image, redirection }: TaskAction) => {
                         />
                     </figure>
                     <p className="task-name">{title}</p>
-                    <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
+                    <ChevronRight className="svg-icon" />
                 </a>
             </Link>
         </div>

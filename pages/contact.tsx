@@ -8,8 +8,8 @@ import {
     faInstagram,
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faLocationDot, faPhone } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { LocationOnOutlined, PhoneIphoneOutlined } from "@mui/icons-material";
 import { Form, Formik } from "formik";
 import { useContact } from "hooks/contact-and-support/contact";
 import Link from "next/link";
@@ -32,7 +32,7 @@ const Contact = () => {
                 <BreadCrumb currentPage="Contact Us" />
                 <Container fluid="xl">
                     <div className="contact-page-header__description">
-                        <h1>Reach us out!!</h1>
+                        <h1>Reach us out.</h1>
                         {/* <h2>
                             With everything &amp; anything you&apos;re confused
                             about
@@ -45,22 +45,16 @@ const Contact = () => {
                     <Row className="gx-5">
                         <Col md={6} className="left-block">
                             <div className="contact-block address">
-                                <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="svg-icon location"
-                                />
+                                <LocationOnOutlined className="svg-icon location" />
                                 <a>
                                     Dhobi Khola, Buddhanagar, Kathmandu, Nepal
                                 </a>
                             </div>
 
                             <div className="contact-block phone">
-                                <FontAwesomeIcon
-                                    icon={faPhone}
-                                    className="svg-icon phone"
-                                />
+                                <PhoneIphoneOutlined className="svg-icon phone" />
                                 <Link href="tel:1234567890">
-                                    <a>+977-9823416855</a>
+                                    <a>+977 9805674418</a>
                                 </Link>
                             </div>
 

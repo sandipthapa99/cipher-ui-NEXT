@@ -61,7 +61,7 @@
                         padding: 1.3rem 1.6rem !important;
                     }
                     @include respond(lg) {
-                        padding: 1.3rem 2.6rem;
+                        padding: 1.3rem 1.6rem;
                         margin-right: 1rem;
                         font-weight: 500;
                         font-size: 1.4rem;
@@ -254,8 +254,8 @@
             .svg-icon {
                 margin: 0 0 0 0.8rem;
                 color: $secondary-color;
-                height: 1.8rem;
-                width: 1.8rem;
+                height: 2.2rem;
+                width: 2.2rem;
             }
         }
         .navbar-toggler {
@@ -318,8 +318,8 @@
         }
     }
     .svg-icon {
-        width: 1.8rem;
-        height: 1.8rem;
+        width: 2.4rem;
+        height: 2.4rem;
         display: inline-block;
         vertical-align: middle;
         margin-right: 0.9rem;

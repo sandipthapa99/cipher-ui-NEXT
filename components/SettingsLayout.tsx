@@ -1,15 +1,15 @@
 import {
-    faBell,
-    faFileInvoiceDollar,
-    faGlobe,
-    faKey,
-    faLifeRing,
-    faLinkSimple,
-    faUser,
-    faUserTag,
-    faXmark,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+    BadgeOutlined,
+    CancelOutlined,
+    KeyOutlined,
+    LanguageOutlined,
+    LinkOutlined,
+    NotificationsOutlined,
+    PersonOutlined,
+    RequestQuoteOutlined,
+    SupportOutlined,
+} from "@mui/icons-material";
+import { width } from "@mui/system";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
@@ -53,10 +53,7 @@ const SettingsLayout = ({
                                                     "/settings/account/individual"
                                                 )}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faUser}
-                                                    className="svg-icon"
-                                                />
+                                                <PersonOutlined className="svg-icon" />
                                                 Account Settings
                                             </a>
                                         </Link>
@@ -70,10 +67,7 @@ const SettingsLayout = ({
                                                     "/settings/account/security"
                                                 )}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faKey}
-                                                    className="svg-icon"
-                                                />
+                                                <KeyOutlined className="svg-icon" />
                                                 Security
                                             </a>
                                         </Link>
@@ -89,10 +83,7 @@ const SettingsLayout = ({
                                                     "/settings/account/membership"
                                                 )}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faUserTag}
-                                                    className="svg-icon"
-                                                />
+                                                <BadgeOutlined className="svg-icon" />
                                                 Membership
                                             </a>
                                         </Link>
@@ -108,10 +99,7 @@ const SettingsLayout = ({
                                                     "/settings/account/connectedAccount"
                                                 )}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faLinkSimple}
-                                                    className="svg-icon"
-                                                />
+                                                <LinkOutlined className="svg-icon" />
                                                 Connected Account
                                             </a>
                                         </Link>
@@ -127,10 +115,7 @@ const SettingsLayout = ({
                                                     "/settings/account/notification"
                                                 )}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faBell}
-                                                    className="svg-icon"
-                                                />
+                                                <NotificationsOutlined className="svg-icon" />
                                                 Notifications
                                             </a>
                                         </Link>
@@ -144,10 +129,7 @@ const SettingsLayout = ({
                                                     "/settings/account/languages"
                                                 )}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faGlobe}
-                                                    className="svg-icon"
-                                                />
+                                                <LanguageOutlined className="svg-icon" />
                                                 Languages
                                             </a>
                                         </Link>
@@ -161,10 +143,7 @@ const SettingsLayout = ({
                                                     "/settings/account/payment"
                                                 )}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faFileInvoiceDollar}
-                                                    className="svg-icon"
-                                                />
+                                                <RequestQuoteOutlined className="svg-icon" />
                                                 Billing & Payments
                                             </a>
                                         </Link>
@@ -176,10 +155,7 @@ const SettingsLayout = ({
                                                     "/settings/account/help"
                                                 )}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faLifeRing}
-                                                    className="svg-icon"
-                                                />
+                                                <SupportOutlined className="svg-icon" />
                                                 Help & Legal
                                             </a>
                                         </Link>
@@ -195,10 +171,7 @@ const SettingsLayout = ({
                                                     "/settings/account/deactivate"
                                                 )}
                                             >
-                                                <FontAwesomeIcon
-                                                    icon={faXmark}
-                                                    className="svg-icon"
-                                                />
+                                                <CancelOutlined className="svg-icon" />
                                                 Deactivate
                                             </a>
                                         </Link>

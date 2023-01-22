@@ -21,6 +21,8 @@ export const OffersList = ({
                                 <OfferBasicCard offerBasic={item} />
                             </Col>
                         ))}
+                    {allOffers?.filter((item) => item.offer_type === "basic")
+                        .length <= 0 && <EmptyOffers />}
                 </Row>
             ) : (
                 <EmptyOffers />

@@ -56,13 +56,13 @@ const BankForm = ({
     const queryClient = useQueryClient();
     const [bankNameChange, setBankNameChange] = useState<string | null>(null);
 
-    const { data: bankNames } = useData<BankNamesResult>(
+    const { data: bankNames } = useData<BankNamesResult[]>(
         ["all-banks"],
-        "/payment/cms/bank-name/"
+        `/payment/cms/bank-name/options/`
     );
 
     const bankNamesResults: SelectItem[] = bankNames
-        ? bankNames.data.result.map((result) => ({
+        ? bankNames?.data?.map((result) => ({
               label: result?.name,
               value: result?.id.toString(),
               id: result?.id,
@@ -110,7 +110,7 @@ const BankForm = ({
 
     const editDetails = LinkedBank?.find((bank) => bank.id === id);
 
-    const editBankId = bankNamesResults.find(
+    const editBankId = bankNamesResults?.find(
         (item) => item.label === editDetails?.bank_name.name
     );
 
@@ -186,6 +186,7 @@ const BankForm = ({
                                       "tasker-bank-account",
                                   ]);
 
+                                  editDetails == null;
                                   setDisableButton(true);
                               },
 
@@ -324,6 +325,18 @@ const BankForm = ({
                                 className="me-3 mb-0 cancel-btn"
                                 onClick={() => {
                                     resetForm();
+                                    setFieldValue("bank_account_number", "");
+                                    setFieldValue("bank_account_name", "");
+                                    setFieldValue(
+                                        "branch_name",
+
+                                        bankBranchResults[0]?.value
+                                    );
+                                    setFieldValue(
+                                        "bank_name",
+                                        bankNamesResults[0]?.value
+                                    );
+                                    setFieldValue("is_primary", false);
                                 }}
                             >
                                 Clear

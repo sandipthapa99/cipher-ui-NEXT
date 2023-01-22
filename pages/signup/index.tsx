@@ -4,10 +4,11 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { Radio } from "@mantine/core";
-import { Form, Formik } from "formik";
+import { Anchor, Radio } from "@mantine/core";
+import { Field, Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
 import Cookies from "js-cookie";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { ClientSignUpFormData } from "utils/formData";
@@ -23,7 +24,6 @@ const SignUp = () => {
     const { mutate, isLoading } = useSignup();
     const [choosedValue, setChoosedValue] = useState("email");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
-
     //for 2 factor modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -126,14 +126,6 @@ const SignUp = () => {
                                     placeHolder="example@example.com"
                                 />
                             ) : (
-                                // <InputField
-                                //     type="text"
-                                //     name="phone"
-                                //     labelName="Phone Number"
-                                //     touch={touched.phone}
-                                //     error={errors.phone}
-                                //     placeHolder="+9779805284906"
-                                // />
                                 <PhoneNumberInput
                                     name={"phone"}
                                     fieldRequired={true}
@@ -159,10 +151,37 @@ const SignUp = () => {
                                 error={errors.confirmPassword}
                                 placeHolder="Confirm Password"
                             />
-
+                            {/* terms and conditions */}
+                            <div className="terms-conditions">
+                                <Field
+                                    type="checkbox"
+                                    name="acceptTerms"
+                                    className={"form-check-input"}
+                                />
+                                <label
+                                    htmlFor="acceptTerms"
+                                    className={`terms-condition-agree-text ${
+                                        errors.acceptTerms &&
+                                        touched.acceptTerms
+                                            ? "error-text"
+                                            : ""
+                                    }`}
+                                >
+                                    I agree to the{" "}
+                                    <Link href="/terms-and-conditions">
+                                        <Anchor>terms & conditions </Anchor>
+                                    </Link>
+                                    and
+                                    <Link href="/privacy-policy">
+                                        <Anchor> privacy policy</Anchor>
+                                    </Link>
+                                    .
+                                </label>
+                            </div>
                             <FormButton
                                 type="submit"
                                 variant="primary"
+                                id="-signup"
                                 name={isLoading ? "Loading..." : "Sign Up"}
                                 className="login-btn"
                                 isSubmitting={isSubmitting}

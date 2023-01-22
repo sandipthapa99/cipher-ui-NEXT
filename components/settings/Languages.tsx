@@ -1,5 +1,4 @@
-import { faEllipsisVertical } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MoreVertOutlined } from "@mui/icons-material";
 import React from "react";
 import { Accordion } from "react-bootstrap";
 import { languageActiveData, languageExtraData } from "staticData/languageData";
@@ -27,7 +26,7 @@ const LanguagesSettings = () => {
                             ""
                         )}
                     </span>
-                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                    <MoreVertOutlined />
                 </div>
             ))}
             <Accordion className="mt-5" alwaysOpen flush>
@@ -45,7 +44,7 @@ const LanguagesSettings = () => {
                                     <input type="checkbox" className="me-4" />
                                     {value.title}
                                 </span>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                                <MoreVertOutlined />
                             </div>
                         ))}
                     </Accordion.Body>

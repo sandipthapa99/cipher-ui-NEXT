@@ -171,10 +171,7 @@ const Community: NextPage = () => {
                             <h1>Community activity</h1>
                             <a href="/pages" className="view-more">
                                 view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
+                                <ChevronRight className="svg-icon" />
                             </a>
                         </div>
                         <Row className="gx-5">

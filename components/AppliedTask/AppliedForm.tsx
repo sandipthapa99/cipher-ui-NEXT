@@ -2,7 +2,6 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
 import {
     doc,
@@ -116,7 +115,7 @@ const AppliedForm = ({
                     });
                 }
             } catch (error) {
-                console.log("this isit", error);
+                toast.error("Chat Room creation failed");
             }
         }
     };
@@ -183,9 +182,7 @@ const AppliedForm = ({
                                     queryClient.invalidateQueries([
                                         "my-requested-task",
                                     ]);
-                                    queryClient.invalidateQueries([
-                                        "get-task-applicants",
-                                    ]);
+
                                     queryClient.invalidateQueries([
                                         "approved-task",
                                     ]);
@@ -250,6 +247,7 @@ const AppliedForm = ({
 
                                     <FormButton
                                         type="submit"
+                                        id={"-apply"}
                                         variant="primary"
                                         name="Apply"
                                         className="submit-btn"
@@ -269,7 +267,6 @@ const AppliedForm = ({
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </>
     );

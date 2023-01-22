@@ -1,11 +1,10 @@
-import { CustomDropZone } from "@components/common/CustomDropZone";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
-import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
+import FileDropzone from "@components/common/SingleFileDropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
@@ -30,13 +29,6 @@ export const IdentityDocument = () => {
     const { mutate, isLoading } = useDocumentKYC();
     const { refetch } = useGetKYCDocument();
 
-    // if (isLoading) return <FullPageLoader />;
-
-    // if (!KYCData || isLoading) {
-    //     refetch();
-    //     return <FullPageLoader />;
-    // }
-
     const dropdownDocument = [
         {
             id: 0,
@@ -59,7 +51,8 @@ export const IdentityDocument = () => {
             initialValues={{
                 document_type: "",
                 document_id: "",
-                file: "",
+                imagePreviewUrl: [],
+                file: [],
                 issuer_organization: "",
                 issued_date: "",
                 valid_through: "",
@@ -88,7 +81,7 @@ export const IdentityDocument = () => {
                         formData.append(key, value.toString());
                     }
                 });
-                formData.append("file", val.file);
+                formData.append("file", val.file[0]);
                 mutate(formData, {
                     onSuccess: () => {
                         refetch();
@@ -96,7 +89,11 @@ export const IdentityDocument = () => {
                         action.resetForm();
                         toast.success("Your KYC is pending for approval");
                     },
-                    onError: (error) => {
+                    onError: (error: any) => {
+                        const {
+                            data: { file },
+                        } = error.response;
+                        action.setFieldError("file", file && file[0]);
                         toast.error(error.message);
                     },
                 });
@@ -107,17 +104,18 @@ export const IdentityDocument = () => {
                 errors,
                 touched,
                 setFieldValue,
+                setFieldTouched,
                 resetForm,
                 values,
             }) => (
                 <Form>
                     <h5>Identity Information</h5>
-
                     <Row>
                         <Col md={6}>
                             <SelectInputField
                                 name="document_type"
                                 labelName="Identity Type"
+                                fieldRequired
                                 touch={touched.document_type}
                                 error={errors.document_type}
                                 placeHolder="Select Identity Type"
@@ -132,6 +130,7 @@ export const IdentityDocument = () => {
                                 name="document_id"
                                 labelName="Document ID"
                                 error={errors.document_id}
+                                fieldRequired
                                 touch={touched.document_id}
                                 placeHolder="Enter your document number"
                             />
@@ -140,6 +139,7 @@ export const IdentityDocument = () => {
                             <InputField
                                 name="issuer_organization"
                                 labelName=" Issuer Organization"
+                                fieldRequired
                                 error={errors.issuer_organization}
                                 touch={touched.issuer_organization}
                                 placeHolder="Enter document Issuer Organization"
@@ -148,31 +148,19 @@ export const IdentityDocument = () => {
                     </Row>
                     <Row>
                         <Col md={6}>
-                            {/* <DatePickerField
-                                name="issued_date"
-                                labelName="Issued Date"
-                                placeHolder="dd/mm/yy"
-                                touch={touched.issued_date}
-                                error={errors.issued_date}
-                            /> */}
                             <MantineDateField
                                 name="issued_date"
                                 labelName="Issued Date"
                                 placeHolder="dd/mm/yy"
+                                fieldRequired
                                 touch={touched.issued_date}
                                 error={errors.issued_date}
                                 icon={
-                                    <FontAwesomeIcon
-                                        icon={faCalendarDays}
-                                        className="svg-icons"
-                                    />
+                                    <CalendarTodayOutlined className="svg-icons" />
                                 }
                                 maxDate={new Date()}
                                 handleChange={(value) => {
-                                    setFieldValue(
-                                        "issued_date",
-                                        format(new Date(value), "yyyy-MM-dd")
-                                    );
+                                    setFieldValue("issued_date", value);
                                 }}
                             />
                         </Col>
@@ -188,13 +176,11 @@ export const IdentityDocument = () => {
                                     name="valid_through"
                                     labelName="Valid through"
                                     placeHolder="dd/mm/yy"
+                                    fieldRequired
                                     touch={touched.issued_date}
                                     error={errors.issued_date}
                                     icon={
-                                        <FontAwesomeIcon
-                                            icon={faCalendarDays}
-                                            className="svg-icons"
-                                        />
+                                        <CalendarTodayOutlined className="svg-icons" />
                                     }
                                     minDate={new Date()}
                                     handleChange={(value) => {
@@ -212,26 +198,33 @@ export const IdentityDocument = () => {
                             ""
                         )}
                     </Row>
-                    <Col md={5}>
-                        <CustomDropZone
-                            //  accept={IMAGE_MIME_TYPE}
-                            accept={{
-                                "image/*": [], // All images
-                            }}
-                            fileType="image"
-                            sx={{ maxWidth: "30rem" }}
-                            maxSize={5 * 1024 ** 2}
-                            name="file"
-                            onDrop={(files) => setFieldValue("file", files[0])}
+                    <Col md={6}>
+                        <FileDropzone
+                            name={"file"}
+                            accept={[
+                                "image/png",
+                                "image/jpeg",
+                                "image/jpg",
+                                "application/pdf",
+                                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                            ]}
+                            imagePreview="imagePreviewUrl"
+                            labelName="Verification Document"
+                            onTouchStart={() => setFieldTouched("file", true)}
+                            fieldRequired
+                            error={errors.file as string}
+                            touch={touched.file as unknown as boolean}
+                            maxSize={1024 * 1024}
+                            multiple={false}
                         />
                     </Col>
                     <hr />
                     <div className="d-flex justify-content-end">
                         <Button
                             className="me-3 mb-0 cancel-btn"
-                            onClick={() => resetForm}
+                            onClick={() => resetForm()}
                         >
-                            Cancel
+                            Reset
                         </Button>
 
                         <FormButton

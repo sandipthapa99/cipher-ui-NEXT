@@ -27,6 +27,13 @@ export interface ITasker {
     status: string;
     bio: string;
     gender: string;
+    badge: {
+        id: number;
+        image: string;
+        title: string;
+        progress_level_start: number;
+        progress_level_end: number;
+    };
     profile_image: string;
     avatar: { image: string };
     date_of_birth: string;

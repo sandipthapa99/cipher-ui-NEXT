@@ -1,7 +1,6 @@
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, ScrollArea } from "@mantine/core";
+import { ErrorOutlineOutlined } from "@mui/icons-material";
 import { useTasks } from "hooks/task/use-tasks";
 import { useInViewPort } from "hooks/use-in-viewport";
 import type { ReactNode } from "react";
@@ -81,7 +80,7 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
                         {isFetchingNextPage ? <SkeletonTaskCard /> : null}
                         {!isLoading && !query && totalAppliedTasks === 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="Tasks Unavailable"
                                 variant="filled"
                                 color="yellow"

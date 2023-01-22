@@ -1,23 +1,23 @@
 import { ReportRevisionForm } from "@components/AppliedTask/ReportRevisionForm";
-import {
-    faChevronDown,
-    faChevronRight,
-    faCopy,
-    faEllipsisVertical,
-    faFlag,
-    faPenToSquare,
-    faRepeat,
-    faTrashCan,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Text } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { useModals } from "@mantine/modals";
+import {
+    ChevronRight,
+    ContentCopy,
+    Delete,
+    DeleteOutline,
+    Edit,
+    ExpandMore,
+    FlagOutlined,
+    MoreVert,
+} from "@mui/icons-material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDeleteTask } from "hooks/task/use-delete-task";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import { ReactQueryKeys } from "types/queryKeys";
 import { toast } from "utils/toast";
 
@@ -37,7 +37,6 @@ interface ElipsisReportProps {
     owner?: boolean;
     isService?: boolean;
     // handleDelete?: () => void;
-    handleEdit?: () => void;
 }
 
 export const ElipsisReport = ({
@@ -55,9 +54,8 @@ export const ElipsisReport = ({
     taskerDescription,
     owner,
     isService,
-    // handleDelete,
-    handleEdit,
-}: ElipsisReportProps) => {
+}: // handleDelete,
+ElipsisReportProps) => {
     const [moreOpen, setMoreOpen] = useState(false);
     const [reportForm, setReportForm] = useState(false);
 
@@ -103,23 +101,22 @@ export const ElipsisReport = ({
             onConfirm: handleDeleteTask,
         });
 
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
+
     return (
         <div className="ellipsis">
             <Dropdown>
                 <Dropdown.Toggle>
-                    <FontAwesomeIcon
-                        icon={faEllipsisVertical}
-                        className="svg-icon option"
-                    />
+                    <MoreVert className="svg-icon option" />
                 </Dropdown.Toggle>
 
                 {!tasker && (
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">
-                            <FontAwesomeIcon
-                                icon={faCopy}
-                                className="svg-icon"
-                            />
+                        <Dropdown.Item
+                            href="#/action-1"
+                            onClick={() => toggleShowPostTaskModal()}
+                        >
+                            <ContentCopy className="svg-icon" />
                             Post Similar Task
                         </Dropdown.Item>
 
@@ -130,32 +127,18 @@ export const ElipsisReport = ({
                                     onClick={() => setMoreOpen(!moreOpen)}
                                 >
                                     <span>More</span>
-                                    <FontAwesomeIcon
-                                        icon={
-                                            moreOpen
-                                                ? faChevronDown
-                                                : faChevronRight
-                                        }
-                                        className="svg-icon"
-                                    />
+                                    {moreOpen ? (
+                                        <ExpandMore className="svg-icon" />
+                                    ) : (
+                                        <ChevronRight className="svg-icon" />
+                                    )}
                                 </li>
                                 {moreOpen && (
                                     <div className="items">
-                                        <Dropdown.Item>
-                                            <FontAwesomeIcon
-                                                icon={faRepeat}
-                                                className="svg-icon"
-                                            />
-                                            Revision
-                                        </Dropdown.Item>
-
                                         <Dropdown.Item
                                             onClick={() => setReportForm(true)}
                                         >
-                                            <FontAwesomeIcon
-                                                icon={faFlag}
-                                                className="svg-icon"
-                                            />
+                                            <FlagOutlined className="svg-icon" />
                                             Report
                                         </Dropdown.Item>
                                     </div>
@@ -165,20 +148,21 @@ export const ElipsisReport = ({
 
                         {owner && (
                             <>
-                                <Dropdown.Item onClick={handleEdit}>
-                                    <FontAwesomeIcon
-                                        icon={faPenToSquare}
-                                        className="svg-icon"
-                                    />
+                                <Dropdown.Item
+                                    onClick={() =>
+                                        toggleShowPostTaskModal(
+                                            taskId ? "true" : "false",
+                                            taskId ?? serviceId
+                                        )
+                                    }
+                                >
+                                    <Edit className="svg-icon" />
                                     Edit
                                 </Dropdown.Item>
                                 <Dropdown.Item
                                     onClick={openConfirmDeleteTaskModal}
                                 >
-                                    <FontAwesomeIcon
-                                        icon={faTrashCan}
-                                        className="svg-icon"
-                                    />
+                                    <DeleteOutline className="svg-icon" />
                                     Remove
                                 </Dropdown.Item>
                             </>
@@ -189,10 +173,7 @@ export const ElipsisReport = ({
                 {tasker && (
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={() => setReportForm(true)}>
-                            <FontAwesomeIcon
-                                icon={faFlag}
-                                className="svg-icon"
-                            />
+                            <FlagOutlined className="svg-icon" />
                             Report
                         </Dropdown.Item>
                     </Dropdown.Menu>

@@ -1,13 +1,15 @@
+import { Alert } from "@mantine/core";
+import { CheckCircleOutline, ErrorOutline } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useForm } from "hooks/use-form";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import OtpInput from "react-otp-input";
+import { useTimer } from "react-timer-hook";
 import { axiosClient } from "utils/axiosClient";
 import { toast } from "utils/toast";
 
@@ -33,18 +35,47 @@ const AuthenticationModalCard = ({
     setShowForm,
     scope,
 }: AuthenticationModalCardProps & AuthProps) => {
-    const router = useRouter();
     const { mutate } = useForm(`/user/reset/otp/verify/`);
     const { data: userDetails } = useUser();
 
     const [otpNum, setOTPNum] = useState("");
+    const [errorAlertMsg, setErrorAlertMsg] = useState("");
+    const [successAlertMsg, setSuccessAlertMsg] = useState("");
+    const [isResend, setIsResendOTP] = useState(true);
+    const [isRunning, setIsRunning] = useState(true);
+
     const handleChange = (otpNum: string) => {
         setOTPNum(otpNum);
+        // setErrorAlertMsg("");
     };
+
     const resendOtpMutation = useMutation((data: ResendOtpPayload) => {
         return axiosClient.post(`/security/multi-factor/otp/create/`, data);
     });
+
     const phoneNum = Cookies.get("phone");
+
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + 90);
+
+    const MyTimer = ({ expiryTimestamp }: { expiryTimestamp: Date }) => {
+        const { seconds, minutes, isRunning } = useTimer({
+            expiryTimestamp,
+            onExpire: () => console.warn("Timer Expired"),
+        });
+        {
+            isRunning ? setIsRunning(true) : setIsRunning(false);
+        }
+        return (
+            <div>
+                <div>
+                    <p className="m-0 pt-3" style={{ textAlign: "right" }}>
+                        Request new OTP in {minutes}m : {seconds}s
+                    </p>
+                </div>
+            </div>
+        );
+    };
     const handleSubmit = () => {
         const dataToSend = {
             otp: otpNum,
@@ -65,15 +96,55 @@ const AuthenticationModalCard = ({
                 }
                 // toast.success("OTP verified!");
                 setShowForm(false);
-                router.push("/login");
+                // router.push("/login");
             },
-            onError: async () => {
-                toast.error("Invalid OTP");
-                setOTPNum("");
+            onError: async (error: any) => {
+                const { otp } = error.response.data;
+                setErrorAlertMsg(otp[0]);
+                setSuccessAlertMsg("");
             },
         });
     };
 
+    const ResendOTP = () => {
+        return (
+            <div className="resend-otp">
+                <p
+                    className="m-0 "
+                    onClick={() => {
+                        if (phoneNum) {
+                            resendOtpMutation.mutate(
+                                {
+                                    phone: phoneNum,
+                                    method: "SMS",
+                                },
+                                {
+                                    onSuccess: (data) => {
+                                        const expiryDate = new Date(
+                                            data.data.expires_at
+                                        ).toLocaleString("en-GB", {
+                                            timeZone: "UTC",
+                                        });
+                                        setSuccessAlertMsg(
+                                            `OTP sent to your registered phone number and will expires on ${expiryDate}`
+                                        );
+                                        setErrorAlertMsg("");
+                                        setIsResendOTP(false);
+                                        setIsRunning(true);
+                                    },
+                                    onError: (err: any) => {
+                                        toast.error(err.message);
+                                    },
+                                }
+                            );
+                        }
+                    }}
+                >
+                    Resend Otp
+                </p>
+            </div>
+        );
+    };
     return (
         <>
             {/* Modal component */}
@@ -108,33 +179,36 @@ const AuthenticationModalCard = ({
                                 }}
                             />
                         </div>
-                        <div className="resend-otp">
-                            <p
-                                className="m-0 "
-                                onClick={() => {
-                                    if (phoneNum) {
-                                        resendOtpMutation.mutate(
-                                            {
-                                                phone: phoneNum,
-                                                method: "SMS",
-                                            },
-                                            {
-                                                onSuccess: () => {
-                                                    toast.success(
-                                                        "OTP sent successfully"
-                                                    );
-                                                },
-                                                onError: (err: any) => {
-                                                    toast.error(err.message);
-                                                },
-                                            }
-                                        );
-                                    }
-                                }}
+                        {isResend === true || !isRunning === true ? (
+                            <ResendOTP />
+                        ) : (
+                            <MyTimer expiryTimestamp={time} />
+                        )}
+
+                        {errorAlertMsg !== "" && (
+                            <Alert
+                                icon={<ErrorOutline />}
+                                title="Oops!"
+                                color="red"
+                                className="mt-3"
+                                withCloseButton={true}
+                                onClose={() => setErrorAlertMsg("")}
                             >
-                                Resend Otp
-                            </p>
-                        </div>
+                                {errorAlertMsg}
+                            </Alert>
+                        )}
+                        {successAlertMsg !== "" && (
+                            <Alert
+                                icon={<CheckCircleOutline />}
+                                title="Success"
+                                color="teal"
+                                className="mt-3"
+                                withCloseButton={true}
+                                onClose={() => setSuccessAlertMsg("")}
+                            >
+                                {successAlertMsg}
+                            </Alert>
+                        )}
                     </div>
 
                     <Modal.Footer>

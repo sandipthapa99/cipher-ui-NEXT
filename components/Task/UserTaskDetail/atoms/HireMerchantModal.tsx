@@ -1,9 +1,8 @@
 import {
-    faCalendar,
-    faClock,
-    faMoneyBill,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+    CalendarTodayOutlined,
+    MoneyOutlined,
+    ScheduleOutlined,
+} from "@mui/icons-material";
 import { format } from "date-fns";
 import { useMyTasks } from "hooks/task/use-my-tasks";
 import { FormCheck, Modal } from "react-bootstrap";
@@ -39,11 +38,7 @@ export const HireMerchantModal = ({
                         <p className="hmm-value-text">{project?.description}</p>
                         <div className="hmm-time-and-charge-icons">
                             <span className="hmm-icon-text align-items-center">
-                                <FontAwesomeIcon
-                                    className="svg-icon"
-                                    color="#F06700"
-                                    icon={faCalendar}
-                                />
+                                <CalendarTodayOutlined className="svg-icons" />
                                 <p className="hmm-value-text">
                                     {project?.created_at &&
                                         format(
@@ -53,10 +48,9 @@ export const HireMerchantModal = ({
                                 </p>
                             </span>
                             <div className="hmm-icon-text align-items-center">
-                                <FontAwesomeIcon
+                                <ScheduleOutlined
                                     className="svg-icon"
-                                    color="#3EAEFF"
-                                    icon={faClock}
+                                    style={{ color: "3EAEFF" }}
                                 />
                                 <p className="hmm-value-text">
                                     {project?.created_at &&
@@ -67,10 +61,9 @@ export const HireMerchantModal = ({
                                 </p>
                             </div>
                             <div className="hmm-icon-text align-items-center">
-                                <FontAwesomeIcon
-                                    color="#3D3F7D"
+                                <MoneyOutlined
                                     className="svg-icon"
-                                    icon={faMoneyBill}
+                                    style={{ color: "#3D3F7D" }}
                                 />
                                 <p className="hmm-value-text">
                                     {project?.budget_from &&

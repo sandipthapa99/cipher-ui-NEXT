@@ -5,10 +5,9 @@ import MantineDateField from "@components/common/MantineDateField";
 // import MultiImageDropzone from "@components/common/MultiImageDropzone";
 // import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
 import { RichText } from "@components/RichText";
-import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, LoadingOverlay } from "@mantine/core";
 import { MIME_TYPES } from "@mantine/dropzone";
+import { CalendarTodayOutlined } from "@mui/icons-material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
@@ -319,7 +318,6 @@ const AddPortfolio = ({
                     >
                         {({
                             isSubmitting,
-                            getFieldProps,
                             setFieldValue,
                             errors,
                             values,
@@ -328,16 +326,16 @@ const AddPortfolio = ({
                             <Form>
                                 <div className="d-flex add-portfolio justify-content-between align-items-end flex-column flex-md-row">
                                     <Row>
-                                        <h4>Title</h4>
                                         <InputField
+                                            labelName="Title"
                                             type="text"
                                             name="title"
                                             min="1"
                                             error={errors.title}
                                             touch={touched.title}
                                             placeHolder="Portfolio Title"
+                                            fieldRequired
                                         />
-                                        <h4>Description</h4>
                                         {/* <InputField
                                             as="textarea"
                                             name="description"
@@ -347,7 +345,11 @@ const AddPortfolio = ({
                                             placeHolder="Portfolio Description"
                                         /> */}
                                         <RichText
-                                            {...getFieldProps("description")}
+                                            error={errors.description as string}
+                                            touched={
+                                                touched.description as boolean
+                                            }
+                                            name={"description"}
                                             value={values?.description ?? ""}
                                             onChange={(value) =>
                                                 setFieldValue(
@@ -356,6 +358,8 @@ const AddPortfolio = ({
                                                 )
                                             }
                                             placeholder="Portfolio Description"
+                                            labelName="Description"
+                                            withAsterisk
                                         />
 
                                         {/* <h4 className="">Issued Date</h4> */}
@@ -380,10 +384,7 @@ const AddPortfolio = ({
                                             touch={Boolean(touched.issued_date)}
                                             placeHolder="2022-03-06"
                                             icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
-                                                />
+                                                <CalendarTodayOutlined className="svg-icons" />
                                             }
                                             handleChange={(value) => {
                                                 setFieldValue(
@@ -394,8 +395,8 @@ const AddPortfolio = ({
                                                     )
                                                 );
                                             }}
+                                            fieldRequired
                                         />
-                                        <h4>Portfolio URL</h4>
                                         <InputField
                                             type="url"
                                             name="credential_url"
@@ -403,6 +404,8 @@ const AddPortfolio = ({
                                             error={errors.credential_url}
                                             touch={touched.credential_url}
                                             placeHolder="URL"
+                                            labelName="Portfolio URL"
+                                            fieldRequired
                                         />
 
                                         <Row>
@@ -431,7 +434,7 @@ const AddPortfolio = ({
                                                     }
                                                 />
                                                 <br />
-                                                {/* 
+                                                {/*
                                                 <MultiImageDropzone
                                                     name="images"
                                                     labelName="Upload your image"

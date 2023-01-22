@@ -14,15 +14,14 @@ import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import Layout from "@components/Layout";
 import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
-import {
-    faAngleRight,
-    faArrowLeft,
-    faArrowRight,
-    faWarning,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert } from "@mantine/core";
+import {
+    ChevronRightOutlined,
+    East,
+    ErrorOutlineOutlined,
+    West,
+} from "@mui/icons-material";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -102,7 +101,7 @@ const Home: NextPage<{
         <Layout
             title="Homaale - Catering Your Requirements"
             description="Homaale is a platform designed to provide service booking solutions to the
-             service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+             service seekers and business opportunities to various service providing companies by bridging a gap between them.
             It covers a wide range of services from various industries like Accounting, Gardening,
              Health, Beauty, and many more."
             keywords="homaale"
@@ -142,7 +141,7 @@ const Home: NextPage<{
                                             className="hero-cta"
                                             onClick={handleShowPostTaskModal}
                                         >
-                                            Post a Task
+                                            Post
                                         </a>
                                     )}
                                 </div>
@@ -178,12 +177,8 @@ const Home: NextPage<{
                                 ]}
                                 loop
                                 align="start"
-                                nextControlIcon={
-                                    <FontAwesomeIcon icon={faArrowRight} />
-                                }
-                                previousControlIcon={
-                                    <FontAwesomeIcon icon={faArrowLeft} />
-                                }
+                                nextControlIcon={<East />}
+                                previousControlIcon={<West />}
                             >
                                 {heroCategoryData &&
                                     heroCategoryData?.result
@@ -213,7 +208,7 @@ const Home: NextPage<{
                             </Carousel>
                         ) : (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -280,10 +275,7 @@ const Home: NextPage<{
                                 <Link href="/service">
                                     <a className="view-more">
                                         view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        <ChevronRightOutlined className="svg-icon" />
                                     </a>
                                 </Link>
                             </>
@@ -330,10 +322,7 @@ const Home: NextPage<{
                                 <Link href="/service">
                                     <a className="view-more">
                                         view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        <ChevronRightOutlined className="svg-icon" />
                                     </a>
                                 </Link>
                             </div>
@@ -379,10 +368,7 @@ const Home: NextPage<{
                                 <Link href="/service">
                                     <a className="view-more">
                                         view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        <ChevronRightOutlined className="svg-icon" />
                                     </a>
                                 </Link>
                             </div>
@@ -441,7 +427,7 @@ const Home: NextPage<{
                     {heroCategoryData ??
                         (heroCategoryData?.result.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"
@@ -496,7 +482,7 @@ const Home: NextPage<{
             {/* Get services section end */}
 
             {/* Find & Hire section start */}
-            <section id="find-hire" className="find-hire mt-4">
+            <section id="find-hire" className="find-hire mt-5">
                 <Container fluid="xl" className="px-4">
                     <h1 className="section-main-title">Find &amp; Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
@@ -534,10 +520,7 @@ const Home: NextPage<{
                                     <Link href="/tasker">
                                         <a className="view-more">
                                             view more{" "}
-                                            <FontAwesomeIcon
-                                                icon={faAngleRight}
-                                                className="svg-icon"
-                                            />
+                                            <ChevronRightOutlined className="svg-icon" />
                                         </a>
                                     </Link>
                                 )}
@@ -545,7 +528,7 @@ const Home: NextPage<{
                         {topTaskerData?.result &&
                             topTaskerData?.result?.length <= 0 && (
                                 <Alert
-                                    icon={<FontAwesomeIcon icon={faWarning} />}
+                                    icon={<ErrorOutlineOutlined />}
                                     title="No data Available"
                                     color="orange"
                                     radius="md"
@@ -679,10 +662,7 @@ const Home: NextPage<{
                                 <Link href="/task-you-may-like">
                                     <a className="view-more">
                                         view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
+                                        <ChevronRightOutlined className="svg-icon" />
                                     </a>
                                 </Link>
                             </div>
@@ -700,52 +680,43 @@ const Home: NextPage<{
 
             {/* some success stories sectioin start */}
 
-            <section
-                id="some-success-stories-section"
-                className="some-success-stories-section"
-            >
-                <Container fluid="xl" className="px-4">
-                    <div className="success-sroties-header">
-                        <h1 className="text-center">
-                            Bridging the gap between individuals
-                        </h1>
-                        <h3 className="text-center">HOMAALE Stories</h3>
-                    </div>
-                    {topCategoryData?.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            There are No Success Stories available
-                        </Alert>
-                    )}
-                    <Carousel
-                        mx="auto"
-                        styles={{
-                            control: {
-                                "&[data-inactive]": {
-                                    opacity: 0,
-                                    cursor: "default",
+            {topCategoryData && topCategoryData?.length > 0 && (
+                <section
+                    id="some-success-stories-section"
+                    className="some-success-stories-section"
+                >
+                    <Container fluid="xl" className="px-4">
+                        <div className="success-sroties-header">
+                            <h1 className="text-center">
+                                Bridging the gap between individuals
+                            </h1>
+                            <h3 className="text-center">HOMAALE Stories</h3>
+                        </div>
+                        <Carousel
+                            mx="auto"
+                            styles={{
+                                control: {
+                                    "&[data-inactive]": {
+                                        opacity: 0,
+                                        cursor: "default",
+                                    },
                                 },
-                            },
-                        }}
-                        className="rounded"
-                        withIndicators
-                    >
-                        {successStoryData &&
-                            successStoryData?.result?.map((value, key) => (
-                                <Carousel.Slide key={key}>
-                                    <PersonalSuccessCard
-                                        successStoryData={value}
-                                    />
-                                </Carousel.Slide>
-                            ))}
-                    </Carousel>
-                </Container>
-            </section>
+                            }}
+                            className="rounded"
+                            withIndicators
+                        >
+                            {successStoryData &&
+                                successStoryData?.result?.map((value, key) => (
+                                    <Carousel.Slide key={key}>
+                                        <PersonalSuccessCard
+                                            successStoryData={value}
+                                        />
+                                    </Carousel.Slide>
+                                ))}
+                        </Carousel>
+                    </Container>
+                </section>
+            )}
 
             {/* Notable quality section starts  */}
             <section id="notable-quality" className="notable-quality">
@@ -772,10 +743,7 @@ const Home: NextPage<{
                             <Link href="/blogs">
                                 <a className="view-more">
                                     view more{" "}
-                                    <FontAwesomeIcon
-                                        icon={faAngleRight}
-                                        className="svg-icon"
-                                    />
+                                    <ChevronRightOutlined className="svg-icon" />
                                 </a>
                             </Link>
                         </div>
@@ -849,8 +817,8 @@ const Home: NextPage<{
                             <MarketPlaceCard
                                 icon="/icons/globe-location.svg"
                                 title="Location"
-                                description="It is always convenient to be connected to the clients and the tasks 
-                                closer to you. With us, you can view who or which tasks are closer to you or your 
+                                description="It is always convenient to be connected to the clients and the tasks
+                                closer to you. With us, you can view who or which tasks are closer to you or your
                                     preferred location."
                                 redirectionTo="/service"
                                 iconBackground="#CDE9F9"
@@ -889,7 +857,7 @@ const Home: NextPage<{
                         {/* <TopCategories /> */}
                         {topCategoryData?.length <= 0 && (
                             <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                icon={<ErrorOutlineOutlined />}
                                 title="No data Available"
                                 color="orange"
                                 radius="md"

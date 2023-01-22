@@ -22,6 +22,6 @@ export const useApprovedTask = (
                 )
                 .then((response) => response.data)
                 .catch((error) => error && setChangePage(1)),
-        { enabled: !!myState }
+        { enabled: !!myState && !!changePage }
     );
 };

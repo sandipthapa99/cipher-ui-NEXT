@@ -1,6 +1,6 @@
 .task-applied-card-block {
     background: #ffffff66;
-    padding: 2.4rem 4rem;
+    padding: 1.4rem 2rem;
     border-radius: 0.4rem;
     // margin-bottom: 2.4rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -90,11 +90,24 @@
         @include respond(xs) {
             margin-top: 6px;
         }
-
+        .user-info {
+            padding: 1rem 0rem;
+            .thumbnail-img {
+                border-radius: 50%;
+                height: 3.2rem;
+                width: 3.2rem;
+            }
+            .user-name {
+                color: $secondary-text-color;
+                font-size: 1.2rem;
+                font-weight: 400;
+                margin: 0rem 0rem 0rem 1rem;
+            }
+        }
         .task-description {
             font-size: 1.2rem;
             font-weight: 400;
-            color: #495057;
+            color: $secondary-text-color;
             line-height: 2.4rem;
             margin-bottom: 2.4rem;
         }
@@ -103,7 +116,8 @@
             font-size: 1.2rem;
 
             .svg-icon {
-                width: 1rem;
+                width: 1.8rem;
+                height: 1.8rem;
                 color: #fe5050;
             }
         }
@@ -129,14 +143,16 @@
 
             .date {
                 .svg-icon {
-                    width: 1.2rem;
+                    width: 1.6rem;
+                    height: 1.6rem;
                     color: #f06700;
                 }
             }
 
             .time {
                 .svg-icon {
-                    width: 1.2rem;
+                    width: 1.6rem;
+                    height: 1.6rem;
                     color: #3eaeff;
                 }
             }
@@ -160,9 +176,13 @@
 
         .applicants {
             .svg-icon {
-                width: 1.6rem;
+                width: 2rem;
+                height: 2rem;
                 color: #2d2d66;
             }
+        }
+        .endorsed-icon {
+            margin-right: -2.2rem;
         }
     }
 }

@@ -1,7 +1,6 @@
 import FormButton from "@components/common/FormButton";
 import { PostCard } from "@components/PostTask/PostCard";
 import type { IAllCategory } from "@components/settings/AccountForm";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { MultiSelect } from "@mantine/core";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
@@ -145,7 +144,6 @@ const AddInterests = ({
                 text="You are good to continue."
                 buttonName="Continue"
                 type="Success"
-                iconName={faSquareCheck}
             />
         </>
     );

@@ -2,6 +2,7 @@ export interface InputFieldProps {
     name: string;
     labelName?: string;
     touch?: boolean;
+    withAsterisk?: boolean;
     error?: string;
     placeHolder?: string;
     textMuted?: string;
@@ -19,6 +20,7 @@ export interface InputFieldProps {
     inputIcon?: any;
     create?: boolean;
     value?: any;
+    className?: string;
 }
 
 // interface defaultValue {

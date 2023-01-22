@@ -138,19 +138,7 @@ const LongSquareImageCard = ({
                                                                 />
                                                             </figure>
                                                         ) : (
-                                                            <>
-                                                                <figure className="thumbnail-img">
-                                                                    <Image
-                                                                        src={
-                                                                            info.icon
-                                                                        }
-                                                                        layout="fill"
-                                                                        objectFit="cover"
-                                                                        alt="icon-image"
-                                                                    />
-                                                                </figure>
-                                                                <h1>Hi</h1>
-                                                            </>
+                                                            ""
                                                         )}
                                                         <div
                                                             className="list"
