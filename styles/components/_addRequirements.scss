@@ -1,5 +1,10 @@
 .add-requirements {
     margin: 0 0 2.4rem;
+
+    .add-requirement-row {
+        --bs-gutter-x: 0 !important;
+    }
+
     .requirements-title {
         margin: 0;
         font-size: 14px;

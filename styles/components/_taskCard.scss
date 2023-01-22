@@ -4,7 +4,7 @@
     border-radius: 0.4rem;
     box-shadow: 0px 4px 14px #211d4f1a;
     margin-bottom: 2.4rem;
-    @include respond(sm) {
+    @include respond(xs) {
         padding: 2.4rem 4rem;
     }
 
@@ -35,12 +35,18 @@
             color: #495057;
             line-height: 2.4rem;
             margin-bottom: 2.4rem;
+            height: 9rem;
+            overflow: hidden;
         }
 
         .task-location-time {
             font-size: 1.2rem;
             font-weight: 400;
             color: #343a40;
+            // padding-right: 0rem;
+            // @include respond(lg) {
+            //     padding-right: 20rem;
+            // }
             p {
                 margin: 0;
             }
@@ -66,6 +72,7 @@
             font-size: 1.2rem;
             font-weight: 400;
             color: #343a40;
+            flex-wrap: wrap;
             p {
                 margin: 0;
             }

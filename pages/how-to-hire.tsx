@@ -4,7 +4,6 @@ import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
-import Image from "next/image";
 import { Container } from "react-bootstrap";
 import { Carousel } from "react-bootstrap";
 import {
@@ -15,8 +14,14 @@ import {
 
 const HowToHire: NextPage = () => {
     return (
-        <Layout title="How To Hire | Cipher">
-            <Container fluid="xl" className="px-5">
+        <Layout
+            title="How To Hire | Homaale"
+            description="Search on Talent Marketplace™ for the hourly or fixed-price work you're looking for. 
+        Submit a proposal, set your rate, and show how great you'll be.
+         Give a little extra by sharing your unique approach and offering a rapport-building interview"
+            keywords="how-to-find-tasks, task, task-homaale, airtasker-nepali, nepali-working-platform, homaale-feeback, business, online-business, homaale, hire"
+        >
+            <Container fluid="xl" className="px-4">
                 <section className="how-to-hire">
                     <BreadCrumb currentPage="How To Hire" />
 
@@ -70,30 +75,33 @@ const HowToHire: NextPage = () => {
                     </div>
                     <div className="how-to-hire__gradient-container">
                         <GradientBanner
-                            title="A client tasks are quickly finished 
-                            when searched through Cipher"
-                            subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
+                            title="Get started as a Client"
+                            subTitle=""
                             image="/discover/main.svg"
-                            btnText="Join Us"
                         />
                     </div>
                     <div className="how-to-hire__bottom-container">
-                        <h1>Ways to Use Cipher to Achieve Your Goals</h1>
-                        <p>
+                        <h1>Homaale Benefits for you</h1>
+                        {/* <p>
                             As the world&apos;s work marketplace, there&apos;s
                             more than one way to use Upwork—and at least one
                             that works for you. From quick project turnarounds
                             to major strategic transformations, businesses of
                             all sizes and ambitions can develop the trusted
                             relationships they need to thrive and grow.
-                        </p>
+                        </p> */}
                         <figure className="thumbnail-img footer-img">
-                            <Image
-                                src="/howitworks/economic.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="economic-image"
-                            />
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src={
+                                    "https://www.youtube.com/embed/QIKZaRYg5bA"
+                                }
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
                         </figure>
                     </div>
                 </section>

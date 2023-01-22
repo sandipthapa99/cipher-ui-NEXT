@@ -1,6 +1,12 @@
 export interface SelectOptionProps {
-    id: number;
+    id: number | string;
     value: number | string;
+    label: string;
+}
+
+export interface SelectOptionRevisionProps {
+    id: number | string;
+    value: string;
     label: string;
 }
 
@@ -13,4 +19,7 @@ export interface SelectInputFieldProps {
     textMuted?: string;
     fieldRequired?: boolean;
     options?: SelectOptionProps[];
+    getData?: any;
+    onChange?: any;
+    defaultValue?: any;
 }

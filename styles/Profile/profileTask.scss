@@ -1,8 +1,12 @@
 .profile-task {
+    margin-bottom: 0rem;
     &__top-container {
         border: 0.6rem;
         margin: 5rem 2.5rem;
-        margin-right: 6rem;
+
+        @include respond(md) {
+            margin-right: 6rem;
+        }
 
         .thumbnail-img {
             height: 27rem;
@@ -36,9 +40,9 @@
                 font-size: 1.4rem;
                 color: #101113;
             }
-            .svg-icon {
-                color: #fab005;
-            }
+            // .svg-icon {
+            //     color: #fab005;
+            // }
             .price {
                 font-size: 1.6rem;
                 font-weight: 500;
@@ -46,9 +50,43 @@
             }
         }
     }
-    &__bottom-container {
-        border-top: 0.1rem solid $border-color;
-        margin: 5rem 2.5rem;
-        margin-right: 6rem;
+    .card-content {
+        background: rgba(255, 255, 255, 0.4);
+
+        box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+        border-radius: 4px;
+    }
+    .reviews {
+        // padding: 0 0 2.5rem 2rem;
+        border-bottom: none;
+
+        .head-container {
+            border-bottom: 0.1rem solid $border-color;
+            padding: 0rem 2.5rem;
+            .select-field {
+                padding-top: 2rem;
+            }
+            h3 {
+                color: #212529;
+                font-size: 1.7rem;
+                font-weight: 500;
+                margin-bottom: 0rem;
+            }
+        }
+        .review-container {
+            .star {
+                width: 2.3rem;
+                color: #fab005;
+                height: 2.3rem;
+                margin-left: 0.5rem;
+            }
+            .mantine-1jqub9a,
+            .mantine-oumttf {
+                width: 2.3rem;
+                color: #fab005;
+                height: 2.3rem;
+                margin-left: 0.5rem;
+            }
+        }
     }
 }

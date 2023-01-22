@@ -1,8 +1,8 @@
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
-import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
 
-import CardBtn from "./CardBtn";
+import AnchorButton from "./AnchorButton";
 
 export interface CardProps {
     title: string;
@@ -11,7 +11,9 @@ export interface CardProps {
     image: string;
     imageOnRight?: boolean;
     buttonText?: string;
+
     homeImage?: boolean;
+    descTitle?: string;
 }
 const LongSquareImageCard = ({
     title,
@@ -21,7 +23,10 @@ const LongSquareImageCard = ({
     imageOnRight,
     buttonText,
     homeImage,
+    descTitle,
 }: CardProps) => {
+    // const accessToken = Cookies.get("access");
+    const { data: user } = useUser();
     return (
         <div className="long-square-image-card">
             <Row className="gx-5 card-content">
@@ -42,22 +47,23 @@ const LongSquareImageCard = ({
                                 <div className="description">
                                     <h1>{title}</h1>
                                     {subtitle && <h4>{subtitle}</h4>}
+                                    {descTitle && <p>{descTitle}</p>}
                                     {Array.isArray(description) ? (
                                         <ul>
                                             {description.map(
                                                 (info: any, index) => (
                                                     <div
-                                                        className="d-flex with-icon"
+                                                        className="d-flex with-icon align-items-center"
                                                         key={index}
                                                     >
                                                         {info.icon ? (
                                                             <figure className="thumbnail-img">
                                                                 <Image
                                                                     src={
-                                                                        info.icon
+                                                                        info?.icon
                                                                     }
                                                                     layout="fill"
-                                                                    objectFit="cover"
+                                                                    objectFit="contain"
                                                                     alt="icon-image"
                                                                 />
                                                             </figure>
@@ -81,15 +87,25 @@ const LongSquareImageCard = ({
                                     )}
                                 </div>
                                 {buttonText && (
-                                    <Link href={"/contact"}>
-                                        <a>
-                                            <CardBtn
-                                                btnTitle={buttonText}
-                                                backgroundColor="#fff"
-                                                color="#000000"
-                                            />
-                                        </a>
-                                    </Link>
+                                    <div>
+                                        {user ? (
+                                            <AnchorButton
+                                                className={"px-4"}
+                                                href={"/service"}
+                                                varient={"secondary"}
+                                            >
+                                                {"Explore Services"}
+                                            </AnchorButton>
+                                        ) : (
+                                            <AnchorButton
+                                                className={"px-4"}
+                                                href={"/signup"}
+                                                varient={"secondary"}
+                                            >
+                                                {"Join Us"}
+                                            </AnchorButton>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         </Col>
@@ -101,6 +117,7 @@ const LongSquareImageCard = ({
                                 <div className="description">
                                     <h1>{title}</h1>
                                     {subtitle && <h4>{subtitle}</h4>}
+                                    {descTitle && <p>{descTitle}</p>}
                                     {Array.isArray(description) ? (
                                         <ul>
                                             {description.map(
@@ -121,7 +138,19 @@ const LongSquareImageCard = ({
                                                                 />
                                                             </figure>
                                                         ) : (
-                                                            ""
+                                                            <>
+                                                                <figure className="thumbnail-img">
+                                                                    <Image
+                                                                        src={
+                                                                            info.icon
+                                                                        }
+                                                                        layout="fill"
+                                                                        objectFit="cover"
+                                                                        alt="icon-image"
+                                                                    />
+                                                                </figure>
+                                                                <h1>Hi</h1>
+                                                            </>
                                                         )}
                                                         <div
                                                             className="list"
@@ -139,15 +168,25 @@ const LongSquareImageCard = ({
                                     )}
                                 </div>
                                 {buttonText && (
-                                    <Link href={"/contact"}>
-                                        <a>
-                                            <CardBtn
-                                                btnTitle={buttonText}
-                                                color="#fff"
-                                                backgroundColor="primary-color"
-                                            />
-                                        </a>
-                                    </Link>
+                                    <div>
+                                        {user ? (
+                                            <AnchorButton
+                                                className={"px-4"}
+                                                href={"/service"}
+                                                varient={"secondary"}
+                                            >
+                                                {"Explore Services"}
+                                            </AnchorButton>
+                                        ) : (
+                                            <AnchorButton
+                                                className={"px-4"}
+                                                href={"/signup"}
+                                                varient={"secondary"}
+                                            >
+                                                {"Join Us"}
+                                            </AnchorButton>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         </Col>

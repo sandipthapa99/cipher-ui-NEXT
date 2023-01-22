@@ -9,14 +9,21 @@ import Image from "next/image";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { referralCardContent } from "staticData/referralCard";
-import emailValidationSchema from "utils/formValidation/emailValidation";
+import { emailValidationSchema } from "utils/formValidation/emailValidation";
 import referralFormValidationSchema from "utils/formValidation/referralFormValidation";
 
-const About: NextPage = () => {
+const ReferralProgram: NextPage = () => {
     return (
-        <Layout title="Referral Programs | Cipher">
+        <Layout
+            title="Notifications | Homaale"
+            description="Homaale is a platform designed to provide service booking solutions to the
+            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+             It covers a wide range of services from various industries like Accounting, Gardening,
+            Health, Beauty, and many more."
+            keywords="homaale,  airtasker-nepali,nepali-working-platform, homaale-feeback, business, online-business"
+        >
             <div className="referral-page">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Referral programs" />
                     <div className="referral-page__top-container">
                         <h1 className='"pt-1'>
@@ -27,7 +34,7 @@ const About: NextPage = () => {
                                 {" "}
                                 <h6>
                                     Get 20 credits for every person you refer to
-                                    Cipher
+                                    Homaale
                                 </h6>
                                 <p>
                                     {" "}
@@ -45,8 +52,8 @@ const About: NextPage = () => {
                                             validationSchema={
                                                 emailValidationSchema
                                             }
-                                            onSubmit={async (values) => {
-                                                console.log(values);
+                                            onSubmit={async () => {
+                                                return;
                                             }}
                                         >
                                             {({ errors, touched }) => (
@@ -84,8 +91,8 @@ const About: NextPage = () => {
                                             validationSchema={
                                                 referralFormValidationSchema
                                             }
-                                            onSubmit={async (values) => {
-                                                console.log(values);
+                                            onSubmit={async () => {
+                                                return;
                                             }}
                                         >
                                             {({ errors, touched }) => (
@@ -128,7 +135,7 @@ const About: NextPage = () => {
                         </Row>
                     </div>
                     <div className="referral-page__bottom-container">
-                        <h1>How does it work?</h1>
+                        <h1>Post your skills</h1>
                         <Row className="gx-5">
                             {referralCardContent &&
                                 referralCardContent.map((referral) => {
@@ -157,4 +164,4 @@ const About: NextPage = () => {
     );
 };
 
-export default About;
+export default ReferralProgram;

@@ -20,25 +20,27 @@ export const WinClientCard = ({
     return (
         <div className="win-client-card">
             <Row>
-                <Col md={5} sm={12}>
+                <Col md={5} sm={12} className="win-client-card__left">
                     <figure className="win-client-image">
                         <Image
                             src={image}
-                            height={460}
-                            width={451}
+                            height={465}
+                            width={570}
                             alt="growyourbusiness-image"
                         />
                     </figure>
                 </Col>
-                <Col md={7} sm={12}>
+                <Col md={7} sm={12} className="win-client-card__left">
                     <div className="d-flex flex-column justify-content-center  win-client-card-content">
                         <h1>{title}</h1>
                         <p>{description}</p>
-                        <BigButton
-                            btnTitle={buttonText}
-                            backgroundColor="#fff"
-                            textColor="#111"
-                        />
+                        <div className="btn-wrapper">
+                            <BigButton
+                                btnTitle={buttonText}
+                                backgroundColor="#fff"
+                                textColor="#111"
+                            />
+                        </div>
                     </div>
                 </Col>
             </Row>

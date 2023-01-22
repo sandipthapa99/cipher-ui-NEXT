@@ -1,45 +1,70 @@
 import TaskAside from "@components/AppliedTask/taskAside";
-import FullPageLoader from "@components/common/FullPageLoader";
-import Footer from "@components/Footer";
-import Header from "@components/Header";
-import { SearchCategory } from "@components/SearchTask/searchCategory";
-import SearchHeader from "@components/SearchTask/searchHeader";
-import { useTasks } from "hooks/apply-task/useTask";
+import Layout from "@components/Layout";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
+import { useQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
+import { debounce } from "lodash";
 import type { ReactNode } from "react";
-import { useMemo } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import type { ITaskApiResponse } from "types/task";
+import { axiosClient } from "utils/axiosClient";
+export const useSearchTask = (searchQuery: string) => {
+    const url = `${urls.task.my_task}&${searchQuery}`;
 
-const AppliedLayout = ({ children }: { children: ReactNode }) => {
-    const [query, setQuery] = useState("");
+    return useQuery(
+        ["all-tasks", searchQuery],
+        async () => {
+            const { data } = await axiosClient.get<ITaskApiResponse>(url);
+            return data.result;
+        },
+        { initialData: [] }
+    );
+};
 
-    const { data, isLoading } = useTasks();
-
-    const filteredTasks =
-        useMemo(
-            () =>
-                query && data
-                    ? data.result?.filter((item) =>
-                          item?.title
-                              .toLowerCase()
-                              .includes(query.toLowerCase())
-                      )
-                    : data?.result,
-            [data, query]
-        ) ?? [];
-    if (isLoading || !data) return <FullPageLoader />;
+const AppliedLayout = ({
+    children,
+    type,
+    title,
+    description,
+    keywords,
+    ogImage,
+    ogUrl,
+}: {
+    children: ReactNode;
+    type?: string;
+    title?: string;
+    description?: string;
+    keywords?: string;
+    ogImage?: string;
+    ogUrl?: string;
+}) => {
+    const [searchParam, setSearchParam] = useState("");
     return (
-        <>
-            <SearchHeader />
-            <Header />
-            <Container>
-                <SearchCategory onChange={setQuery} />
-                <TaskAside query={query} appliedTasks={filteredTasks}>
-                    {children}
-                </TaskAside>
-            </Container>
-            <Footer />
-        </>
+        <Layout
+            title={`Homaale | ${title ? title : `Find Tasks`}`}
+            description={
+                description
+                    ? description
+                    : "Browse task in Homaale and book a task to earn and enjoy many more advantages"
+            }
+            keywords={keywords ? keywords : "homaale-task"}
+            ogImage={ogImage}
+            ogUrl={ogUrl}
+        >
+            <section className="tasks-section mb-5" id="tasks-section">
+                <Container fluid="xl" className="px-4 pb-5">
+                    <SearchCategory
+                        searchModal="task"
+                        onFilterClear={() => setSearchParam("")}
+                        onSearchParamChange={debounce(setSearchParam, 500)}
+                    />
+                    <TaskAside query={searchParam} type={type ?? ""}>
+                        {children}
+                    </TaskAside>
+                </Container>
+            </section>
+        </Layout>
     );
 };
 export default AppliedLayout;

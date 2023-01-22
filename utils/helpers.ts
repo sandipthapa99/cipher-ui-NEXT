@@ -42,15 +42,6 @@ export const BLOG_BASE_URL = "https://blog.api.cagtu.io/";
 export const blogListAPI = `${BLOG_BASE_URL}blog/list`;
 export const blogDetailAPI = `${BLOG_BASE_URL}blog/detail/`;
 
-let captcha: any;
-
-export const RECAPTCHA_SITE_KEY = "6Le_4sQeAAAAAGWFPXJf_-c_ETAvSZr7WymWrm18";
-export const setCaptchaRef = (ref: any) => {
-    if (ref) {
-        return (captcha = ref);
-    }
-};
-
-export const resetCaptcha = () => {
-    captcha.reset();
+export const getPageUrl = () => {
+    return typeof window != "undefined" ? window.location.href : "";
 };

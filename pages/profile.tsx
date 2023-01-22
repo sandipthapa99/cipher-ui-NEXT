@@ -2,12 +2,11 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
-import AboutProfile from "@components/Profile/AboutProfile";
+import AboutProfile from "@components/Profile/AboutUser";
 import UserActivities from "@components/Profile/Activities";
 import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
-import TasksProfileCard from "@components/Profile/TasksProfile";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
@@ -15,39 +14,47 @@ import Link from "next/link";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
-
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails } = useGetProfile();
 
-    const remaining = {
-        userImage: "/service-details/provider1.svg",
-        userRating: 4,
-        userBadge: "Gold",
-        userPoints: 58,
-        pointGoal: 42,
-        happyClients: 24,
-        successRate: 30,
-        userReviews: 14,
-        tooltipMessage: "Tooltip Message will show up here",
-        taskCompleted: 30,
-        userActiveStatus: true,
-    };
+    // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
+    //     ["profile"],
+    //     "/tasker/profile/"
+    // );
+    // const profileDetails = userData?.data;
+
+    // if (isLoading || !data) return <FullPageLoader />;
+    // useEffect(() => {
+    //     if (!profileDetails && !isLoading) {
+    //         router.push("/settings/account/individual");
+    //     }
+    // }, [isLoading, profileDetails, router]);
+
     if (!profileDetails) {
         return (
             <>
-                <Layout title="Profile | Cipher">
-                    <Container fluid="xl" className="px-5">
+                <Layout
+                    title="Profile | Homaale"
+                    description="Homaale is a platform designed to provide service booking solutions to the
+                service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+                 It covers a wide range of services from various industries like Accounting, Gardening,
+                Health, Beauty, and many more."
+                    keywords="homaale, homaale-profile,  airtasker-nepali,nepali-working-platform, homaale-feeback, business, online-business"
+                >
+                    <Container fluid="xl" className="px-4">
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
-                                <h1>Create Profile. Start Your Journey</h1>
+                                <h1>Your profile is incomplete!</h1>
+                                {/* <p>Redirecting to your Account Settings...</p> */}
+
                                 <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
                                         className="text-profile"
                                     >
-                                        Create Profile
+                                        Complete Profile Now
                                     </Link>
                                 </button>
                             </Col>
@@ -59,8 +66,8 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     }
 
     return (
-        <Layout title="Profile | Cipher">
-            <Container fluid="xl" className="px-5">
+        <Layout title="Profile | Homaale">
+            <Container fluid="xl" className="px-4">
                 <section className="user-profile">
                     <BreadCrumb currentPage="Profile" />
 
@@ -68,29 +75,47 @@ const UserProfile: NextPage<UserProfileProps> = () => {
 
                     <section className="user-profile__top-container">
                         <UserProfileCard
-                            countryCode={profileDetails?.country}
+                            user={profileDetails?.user}
+                            stats={profileDetails?.stats}
+                            country={
+                                profileDetails && profileDetails?.country?.name
+                            }
                             key={profileDetails?.id}
-                            userImage={profileDetails?.profile_image}
-                            userName={profileDetails?.full_name}
-                            userJob={profileDetails?.user_type}
-                            userRating={remaining.userRating}
-                            userPrice={profileDetails?.hourly_rate}
-                            userLocation={profileDetails?.address_line1}
-                            userPhone={profileDetails?.phone}
-                            userEmail={profileDetails?.user?.email}
-                            moreServices={profileDetails?.skill}
-                            activeFrom={profileDetails?.active_hour_start}
-                            activeTo={profileDetails?.active_hour_end}
-                            userBio={profileDetails?.bio}
-                            userBadge={remaining.userBadge}
-                            userPoints={remaining.userPoints}
-                            pointGoal={remaining.pointGoal}
-                            happyClients={remaining.happyClients}
-                            successRate={remaining.successRate}
-                            userReviews={remaining.userReviews}
-                            taskCompleted={remaining.taskCompleted}
-                            userActiveStatus={remaining.userActiveStatus}
-                            tooltipMessage={remaining.tooltipMessage}
+                            points={profileDetails?.points}
+                            profile_image={
+                                profileDetails?.user?.profile_image
+                                    ? profileDetails?.user?.profile_image
+                                    : profileDetails?.avatar?.image
+                                    ? profileDetails?.avatar?.image
+                                    : "/userprofile/unknownPerson.jpg"
+                            }
+                            badge={profileDetails?.badge}
+                            full_name={`${profileDetails?.user?.first_name} ${
+                                profileDetails?.user?.middle_name ?? ""
+                            } ${profileDetails?.user?.last_name}`}
+                            user_type={profileDetails?.user_type}
+                            rating={profileDetails?.rating?.avg_rating}
+                            hourly_rate={profileDetails?.hourly_rate}
+                            phone={profileDetails?.user?.phone}
+                            address_line1={profileDetails?.address_line1}
+                            skill={profileDetails?.skill}
+                            active_hour_start={
+                                profileDetails?.active_hour_start
+                            }
+                            address_line2={profileDetails?.address_line2}
+                            active_hour_end={profileDetails?.active_hour_end}
+                            bio={profileDetails?.bio}
+                            userBadge={profileDetails?.badge?.image}
+                            userPoints={profileDetails?.points}
+                            charge_currency={
+                                profileDetails?.charge_currency?.symbol
+                            }
+                            tooltipMessage="Your Profile Level"
+                            is_profile_verified={
+                                profileDetails?.is_profile_verified
+                            }
+                            followers_count={profileDetails?.followers_count}
+                            following_count={profileDetails?.following_count}
                         />
                     </section>
 
@@ -104,10 +129,10 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                                         title: "About",
                                         content: <AboutProfile />,
                                     },
-                                    {
-                                        title: "Tasks",
-                                        content: <TasksProfileCard />,
-                                    },
+                                    // {
+                                    //     title: "Services",
+                                    //     content: <TasksProfileCard />,
+                                    // },
                                     {
                                         title: "Saved",
                                         content: <SavedBookings />,
@@ -144,18 +169,31 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["tasker-education"]),
             queryClient.prefetchQuery(["tasker-experience"]),
             queryClient.prefetchQuery(["tasker-portfolio"]),
+            queryClient.prefetchQuery(["profile"]),
+            queryClient.prefetchQuery(["tasker-rating"]),
+            queryClient.prefetchQuery(["tasker-document"]),
+            queryClient.prefetchQuery(["tasker-activities"]),
+            queryClient.prefetchQuery(["all-services"]),
+            queryClient.prefetchQuery(["bookmarks", "user"]),
+            queryClient.prefetchQuery(["bookmarks", "entityservice"]),
+            queryClient.prefetchQuery(["followers"]),
+            queryClient.prefetchQuery(["followings"]),
         ]);
         return {
             props: {
                 dehydratedState: dehydrate(queryClient),
             },
         };
-    } catch (err: any) {
+    } catch (err) {
         return {
             props: {
                 certificationData: [],
                 educationData: [],
                 experienceData: [],
+                profile: [],
+                ratingData: [],
+                documentData: [],
+                activitiesData: [],
             },
         };
     }

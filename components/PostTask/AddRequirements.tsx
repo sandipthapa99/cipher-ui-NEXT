@@ -11,11 +11,18 @@ interface Props {
     onSubmit?: (requirement: Requirement[]) => void;
     title?: string;
     description?: string;
+    placeHolder?: string;
 }
 
 const requirements: Requirement[] = [];
 
-const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
+const AddRequirements = ({
+    field,
+    onSubmit,
+    title,
+    description,
+    placeHolder,
+}: Props) => {
     const [requirementState, setRequirementState] = useState(requirements);
     const [require, setRequire] = useState("");
 
@@ -57,22 +64,24 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
         });
     };
 
-    const renderTasks = requirementState.map((requirement, index) => {
-        return (
-            <div className="list-item-requirements" key={index}>
-                <li>
-                    {index + 1}. {requirement.name}
-                </li>
+    const renderTasks = requirementState.map(
+        (requirement: Requirement, index) => {
+            return (
+                <div className="list-item-requirements" key={index}>
+                    <li>
+                        {index + 1}. {requirement.name}
+                    </li>
 
-                <FontAwesomeIcon
-                    icon={faXmark}
-                    className="svg-icon"
-                    style={{ marginRight: "2rem" }}
-                    onClick={() => deleteRequirements(requirement.id)}
-                />
-            </div>
-        );
-    });
+                    <FontAwesomeIcon
+                        icon={faXmark}
+                        className="svg-icon"
+                        style={{ marginRight: "2rem" }}
+                        onClick={() => deleteRequirements(requirement?.id)}
+                    />
+                </div>
+            );
+        }
+    );
     return (
         <div className="add-requirements">
             <p className="requirements-title">{title}</p>
@@ -86,7 +95,7 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
                         <InputGroup className="add-requirements--input-group">
                             <Form.Control
                                 className="add-requirements--input"
-                                placeholder="Add requirements"
+                                placeholder={placeHolder}
                                 aria-label="Recipient's username"
                                 aria-describedby="basic-addon2"
                                 value={require}

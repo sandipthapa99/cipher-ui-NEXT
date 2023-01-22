@@ -1,6 +1,22 @@
+.box-modifier {
+    //device specific:hardcode
+    @media screen and (width: 320px),
+        (width: 414px),
+        (width: 390px),
+        (width: 280px) {
+        margin-top: 1rem;
+        align-items: inherit;
+        flex-direction: column !important;
+    }
+}
 .search-category {
     padding: 3rem 0;
-
+    .filter {
+        padding-top: 1rem;
+        @include respond(lg) {
+            padding-top: 0rem;
+        }
+    }
     .rows {
         align-items: center;
         display: flex;
@@ -34,60 +50,18 @@
                 margin: 0 0;
             }
         }
-        .categories {
+        .categories-tab {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            @include respond(md) {
-                overflow: auto;
-            }
+            gap: 1rem;
+            box-shadow: none;
+            width: 100%;
 
-            @include respond(xs) {
-                overflow: scroll;
-                margin: 1rem 0;
-            }
-            @include respond(sm) {
-                margin-top: 1rem;
-            }
-            .boxes {
-                display: flex;
-                flex-grow: initial;
-                background-color: #fff;
-                white-space: nowrap;
-                margin-left: 1rem;
-                border-radius: 20px;
-                gap: 1rem;
-                border: 1px solid #ced4da;
-                padding: 0.3rem 0.7rem;
-                cursor: pointer;
-                margin-top: 1rem;
-                @include respond(xl) {
-                    margin-top: 0rem;
-                }
-
-                &:active {
-                    background-color: #0693e3;
-                    p {
-                        color: #fff;
-                    }
-                    .boxes--icon {
-                        color: #fff;
-                    }
-                }
-
-                p {
-                    margin: 0 0;
-                    font-size: 12px;
-                    color: #868e96;
-                }
-                .boxes--icon {
-                    width: 1.8rem;
-                    height: 1.8rem;
-                    vertical-align: middle;
-                    font-size: 12px;
-                    color: #868e96;
-                }
-            }
+            // .categories-item{
+            //     display: flex;
+            //     gap: 1rem;
+            // }
         }
     }
 }

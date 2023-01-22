@@ -44,6 +44,16 @@
         }
     }
     &__content {
+        .carousel {
+            .carousel-indicators {
+                display: none;
+            }
+
+            .carousel-control-next-icon {
+                color: black;
+            }
+        }
+
         padding-top: 4rem;
         padding-bottom: 5rem;
         .featured-resources {
@@ -60,6 +70,12 @@
                 font-weight: 500;
             }
             padding-bottom: 5rem;
+        }
+        .bottom-container {
+            h1 {
+                font-size: 1.6rem;
+                font-weight: 500;
+            }
         }
     }
 }

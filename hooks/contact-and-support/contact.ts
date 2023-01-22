@@ -7,10 +7,9 @@ export const useContact = () => {
         async (contactPayload) => {
             try {
                 const { data } = await axiosClient.post(
-                    "/support/contactus",
+                    "/support/contactus/",
                     contactPayload
                 );
-                console.log("Contact data", data);
             } catch (error) {
                 throw new Error("Contact failed");
             }

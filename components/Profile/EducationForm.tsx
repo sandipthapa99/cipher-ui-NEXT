@@ -1,30 +1,36 @@
-import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { RichText } from "@components/RichText";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
-import { useEditForm } from "hooks/edit-form/use-experience";
+import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import type { EducationValueProps } from "types/educationValueProps";
-import { EducationFormData } from "utils/formData";
 import { educationFormSchema } from "utils/formValidation/educationFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 interface EducationProps {
     show?: boolean;
     handleClose?: () => void;
     setShowEducationForm: Dispatch<SetStateAction<boolean>>;
     id?: number;
+    isEditEducation: boolean;
 }
 interface EditDetailProps {
     data: { result: EducationValueProps[] };
@@ -35,29 +41,30 @@ const EducationForm = ({
     handleClose,
     setShowEducationForm,
     id,
+    isEditEducation,
 }: EducationProps) => {
-    const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = useQueryClient();
-    const { mutate } = useForm(`/tasker/education/`);
-    const { mutate: editMutation } = useEditForm(`/tasker/education/${id}/`);
+    const { mutate } = useForm(`${urls.profile.education}`);
+    const { mutate: editMutation } = useEditForm(
+        `${urls.profile.education}${id}/`
+    );
 
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-education",
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
-    console.log("edit details=", editDetails);
 
     return (
         <>
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal">
+                <div className="applied-modal add-portfolio">
                     <h3>Add Education</h3>
                     <Formik
                         initialValues={
-                            editDetails
+                            editDetails && isEditEducation === true
                                 ? {
                                       ...editDetails,
                                       start_date: parseISO(
@@ -68,7 +75,17 @@ const EducationForm = ({
                                           ? parseISO(editDetails.end_date)
                                           : "",
                                   }
-                                : EducationFormData
+                                : {
+                                      school: "",
+                                      description: "",
+                                      degree: "",
+                                      field_of_study: "",
+                                      location: "",
+                                      start_date: "",
+                                      end_date: "",
+                                      id: 0,
+                                  }
+                            //educationFormData
                         }
                         validationSchema={educationFormSchema}
                         onSubmit={async (values) => {
@@ -84,13 +101,9 @@ const EducationForm = ({
                                 ),
                             };
                             {
-                                editDetails
+                                editDetails && isEditEducation === true
                                     ? editMutation(newvalidatedValue, {
                                           onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
                                               setShowEducationForm(false);
                                               queryClient.invalidateQueries([
                                                   "tasker-education",
@@ -101,20 +114,17 @@ const EducationForm = ({
                                           },
                                           onError: async (error) => {
                                               toast.error(error.message);
-                                              console.log("error=", error);
                                           },
                                       })
                                     : mutate(newvalidatedValue, {
                                           onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
                                               setShowEducationForm(false);
                                               queryClient.invalidateQueries([
                                                   "tasker-education",
                                               ]);
-                                              toggleSuccessModal();
+                                              toast.success(
+                                                  "Education detail added successfully"
+                                              );
                                           },
                                           onError: async (error) => {
                                               toast.error(error.message);
@@ -123,7 +133,14 @@ const EducationForm = ({
                             }
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({
+                            isSubmitting,
+                            errors,
+                            getFieldProps,
+                            setFieldValue,
+                            touched,
+                            values,
+                        }) => (
                             <Form autoComplete="off">
                                 <InputField
                                     type="text"
@@ -133,13 +150,22 @@ const EducationForm = ({
                                     touch={touched.school}
                                     placeHolder="Eg: Tribhuvan University"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                /> */}
+                                <h4>Description</h4>
+                                <RichText
+                                    {...getFieldProps("description")}
+                                    value={values?.description ?? ""}
+                                    onChange={(value) =>
+                                        setFieldValue("description", value)
+                                    }
+                                    placeholder="Description"
                                 />
                                 <InputField
                                     name="degree"
@@ -155,39 +181,99 @@ const EducationForm = ({
                                     error={errors.field_of_study}
                                     placeHolder="Eg: Business"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="location"
                                     labelName="Location"
                                     touch={touched.location}
                                     error={errors.location}
                                     placeHolder="Eg: New Baneshwor, Kathmandu"
+                                /> */}
+                                <PlacesAutocomplete
+                                    size="md"
+                                    label="Location"
+                                    placeholder="Eg: New Baneshwor, Kathmandu"
+                                    error={
+                                        touched.location && errors.location
+                                            ? errors.location
+                                            : undefined
+                                    }
+                                    {...getFieldProps("location")}
+                                    value={values.location}
+                                    onPlaceChange={(value) =>
+                                        setFieldValue("location", value)
+                                    }
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="start_date"
                                             labelName="Start Date"
                                             placeHolder="1999-06-03"
                                             touch={touched.start_date}
                                             error={errors.start_date}
                                             dateFormat="yyyy-MM-dd"
+                                        /> */}
+                                        <MantineDateField
+                                            name="start_date"
+                                            labelName="Start Date"
+                                            placeHolder="1999-06-03"
+                                            touch={Boolean(touched.start_date)}
+                                            error={String(
+                                                errors.start_date
+                                                    ? errors.start_date
+                                                    : ""
+                                            )}
+                                            //fieldRequired={true}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "start_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                     <Col md={6}>
-                                        <DatePickerField
+                                        <MantineDateField
                                             name="end_date"
-                                            labelName="End Date"
+                                            labelName="End Date (Expected)"
                                             placeHolder="2022-03-06"
                                             touch={touched.end_date}
-                                            error={errors.end_date}
-                                            dateFormat="yyyy-MM-dd"
+                                            error={
+                                                errors.end_date
+                                                    ? errors.end_date
+                                                    : ""
+                                            }
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "end_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                 </Row>
 
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -197,7 +283,7 @@ const EducationForm = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting

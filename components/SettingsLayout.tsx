@@ -18,14 +18,24 @@ import { Col, Container, Nav, Row } from "react-bootstrap";
 
 import Layout from "./Layout";
 
-const SettingsLayout = ({ children }: { children: ReactNode }) => {
+const SettingsLayout = ({
+    children,
+    title,
+}: {
+    children: ReactNode;
+    title: string;
+}) => {
     const router = useRouter();
 
     const isRouteActive = (pathname: string) =>
         router.asPath === pathname ? "active" : "";
 
     return (
-        <Layout title="Settings" description="User profile settings">
+        <Layout
+            title={title}
+            description="User profile settings"
+            keywords="homaale-settings, homaale"
+        >
             <section className="account-settings" id="account-settings">
                 <Container fluid="xl">
                     <Row>
@@ -47,7 +57,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                                     icon={faUser}
                                                     className="svg-icon"
                                                 />
-                                                Account
+                                                Account Settings
                                             </a>
                                         </Link>
                                     </li>
@@ -64,7 +74,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                                     icon={faKey}
                                                     className="svg-icon"
                                                 />
-                                                Password & Security
+                                                Security
                                             </a>
                                         </Link>
                                     </li>

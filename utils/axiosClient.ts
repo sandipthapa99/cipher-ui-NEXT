@@ -1,10 +1,10 @@
 import { QueryClient } from "@tanstack/react-query";
-import type { AxiosInstance } from "axios";
+import type { AxiosError } from "axios";
 import axios from "axios";
 import { compareAsc, fromUnixTime } from "date-fns";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
-import { autoLogin } from "utils/auth";
+import { autoLogin, autoLogout } from "utils/auth";
 const queryClient = new QueryClient();
 
 const getApiEndpoint = () => {
@@ -23,20 +23,25 @@ const isTokenExpired = (token: string) => {
     return compareAsc(tokenExpirationDate, currentTime) === -1;
 };
 
-const requestRefreshToken = async (
-    axiosClient: AxiosInstance,
-    refreshToken: string
-) => {
-    console.log("REFRESH TOKEN EXPIRED, REQUESTING A NEW ONE");
-    const { data } = await axiosClient.post<{
-        access: string;
-        refresh: string;
-    }>("/user/token/refresh/", {
-        refresh: refreshToken,
-    });
-    const { access, refresh } = data;
-    autoLogin(access, refresh);
-    queryClient.invalidateQueries(["user"]);
+const refreshAuthTokens = async (refreshToken: string) => {
+    const url = new URL("/api/v1/user/token/refresh/", getApiEndpoint());
+    fetch(url.href, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: JSON.stringify({ refresh: refreshToken }),
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            const { access, refresh } = <{ access: string; refresh: string }>(
+                data
+            );
+            autoLogin(access, refresh);
+            queryClient.invalidateQueries(["user"]);
+        })
+        .catch(() => autoLogout());
 };
 
 const axiosClient = axios.create({
@@ -57,15 +62,21 @@ axiosClient.interceptors.request.use(
 );
 axiosClient.interceptors.response.use(
     (response) => response,
-    (error) => {
-        if (error?.response?.data?.code === "token_not_valid") {
+    async (error) => {
+        const axiosError = error as AxiosError<{ code: string }>;
+        if (axiosError.response?.status === 401) {
+            const errorCode = axiosError.response?.data?.code;
+            if (errorCode === "user_not_found") {
+                autoLogout();
+                return;
+            }
             const access = Cookies.get("access");
             const refresh = Cookies.get("refresh");
 
             if (!access || !refresh) return Promise.reject(error);
 
             if (isTokenExpired(access)) {
-                requestRefreshToken(axiosClient, refresh);
+                refreshAuthTokens(refresh);
             }
         }
         return Promise.reject(error);

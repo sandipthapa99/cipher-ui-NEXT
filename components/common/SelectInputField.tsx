@@ -15,6 +15,7 @@ const SelectInputField = ({
     textMuted,
     fieldRequired = false,
     options,
+
     ...restProps
 }: SelectInputFieldProps & Partial<HTMLInputElement>) => {
     return (
@@ -35,7 +36,7 @@ const SelectInputField = ({
                     placeholder={placeHolder}
                     as="select"
                 >
-                    <option value="" defaultValue="">
+                    <option value={""} defaultValue="">
                         {placeHolder}
                     </option>
                     {options?.map((option: SelectOptionProps) => (

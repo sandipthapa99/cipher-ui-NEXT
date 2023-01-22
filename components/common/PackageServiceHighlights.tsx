@@ -1,13 +1,18 @@
 const PackageServiceHighlights = ({
     title,
-    isChecked,
 }: {
     title: string;
-    isChecked: boolean;
+    isChecked?: boolean;
 }) => {
     return (
         <div className="py-2 checkbox">
-            {isChecked ? (
+            <div className="checked-content ">
+                <div className="check"></div>
+                <label className="label" style={{ marginLeft: "1.5rem" }}>
+                    {title}
+                </label>
+            </div>
+            {/* {isChecked ? (
                 <div className="checked-content ">
                     <div className="check"></div>
                     <label className="label" style={{ marginLeft: "1.5rem" }}>
@@ -22,7 +27,7 @@ const PackageServiceHighlights = ({
                         <del>{title}</del>
                     </label>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };

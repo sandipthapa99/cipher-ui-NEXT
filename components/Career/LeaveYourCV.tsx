@@ -12,7 +12,7 @@ const LeaveYourCV = () => {
                 <p>Let us know that you’re interested.</p>
             </div>
             <BigButton
-                btnTitle={"Leave your CV"}
+                btnTitle={"Drop your CV"}
                 backgroundColor={"$secondary-color"}
                 handleClick={() => setShowCvForm(!showCvForm)}
             />

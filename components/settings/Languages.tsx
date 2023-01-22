@@ -8,7 +8,7 @@ const LanguagesSettings = () => {
     return (
         <div className="account-form">
             <h2>Languages</h2>
-            <p>Order languages based on your preference </p>
+            <p>Choose language as per your preference</p>
             {languageActiveData.map((value, key) => (
                 <div
                     className="d-flex justify-content-between align-items-center border-bottom py-4"
@@ -18,7 +18,7 @@ const LanguagesSettings = () => {
                         {value.title}
                         {value.isDefault ? (
                             <button
-                                className="btn default ms-0 ms-md-5 px-5 mt-3 mt-md-0"
+                                className="btn default ms-0 ms-md-5 px-4 mt-3 mt-md-0"
                                 disabled
                             >
                                 Default
@@ -32,7 +32,9 @@ const LanguagesSettings = () => {
             ))}
             <Accordion className="mt-5" alwaysOpen flush>
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>More Languages</Accordion.Header>
+                    <Accordion.Header className="font-weight-bold">
+                        More Languages
+                    </Accordion.Header>
                     <Accordion.Body>
                         {languageExtraData.map((value, key) => (
                             <div

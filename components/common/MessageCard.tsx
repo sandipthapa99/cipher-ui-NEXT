@@ -18,13 +18,16 @@ const MessageCard = ({
                                 <div className="d-flex">
                                     <figure className="thumbnail-img">
                                         <Image
-                                            src={clientImage}
+                                            src={
+                                                clientImage ??
+                                                "/userprofile/unknownPerson.jpg"
+                                            }
                                             layout="fill"
                                             objectFit="cover"
                                             alt="user-image"
                                         />
                                     </figure>
-                                    <div className="d-flex flex-column">
+                                    <div className="d-flex flex-column message-container">
                                         <div className="message">
                                             <p>{info.message}</p>
                                         </div>
@@ -45,7 +48,10 @@ const MessageCard = ({
                                 <div className="d-flex">
                                     <figure className="thumbnail-img">
                                         <Image
-                                            src={merchantImage}
+                                            src={
+                                                merchantImage ??
+                                                "/userprofile/unknownPerson.jpg"
+                                            }
                                             layout="fill"
                                             objectFit="cover"
                                             alt="user-image"

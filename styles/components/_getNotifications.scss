@@ -23,12 +23,13 @@
 
 //Accepetd Notification
 .accepted-notification {
-    padding: 1.6rem 4rem;
+    padding: 1.6rem 2rem;
     background: #f8f9fa;
     border-width: 1px 0px;
     border-style: solid;
     border-color: #edf4ff;
     flex-direction: column;
+    cursor: pointer;
 
     @include respond(md) {
         flex-direction: row;
@@ -41,13 +42,28 @@
             border-radius: 50%;
         }
     }
+    .span-name {
+        font-weight: 500;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
     .description-section {
+        .service-name-notify {
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
         h4 {
             margin: 0 0 0.8rem;
             font: 500 1.6rem $poppins-font;
             span {
                 font: 400 1.2rem $poppins-font;
+            }
+            span {
+                font-weight: 500;
+                font-size: 16px;
+                cursor: pointer;
             }
         }
         p {
@@ -65,6 +81,21 @@
         width: 2rem;
         fill: $primary-color;
         cursor: pointer;
+    }
+    .image-cont-scheduling {
+        gap: 2.4rem;
+    }
+    .confirm-cross {
+        gap: 9rem;
+        .text-confirm {
+            border-radius: 5px;
+
+            background-color: #ccf6e6;
+            color: #38c675;
+            padding: 0.8rem 2rem;
+            font-weight: 400;
+            font-size: 12px;
+        }
     }
 }
 

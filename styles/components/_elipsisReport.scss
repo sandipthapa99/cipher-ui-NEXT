@@ -1,0 +1,20 @@
+.ellipsis {
+    user-select: none;
+
+    .more-button {
+        cursor: pointer;
+        li {
+            padding: 1rem 0;
+            span {
+                font: 400 1.5rem $poppins-font;
+                padding: 0.5rem 0.5rem 0.5rem 3.7rem;
+                color: rgb(75, 72, 72);
+            }
+        }
+
+        .items {
+            padding: 0 0 0 4rem;
+            user-select: none;
+        }
+    }
+}

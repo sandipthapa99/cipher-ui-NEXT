@@ -1,0 +1,35 @@
+.my-earnings-text {
+    color: $primary-color;
+    font-weight: 500;
+    font-size: 40px;
+}
+.income-card {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    padding: 2.4rem;
+
+    @include respond(xs) {
+        justify-content: space-around;
+        margin: 0 1rem;
+    }
+
+    .income-card-amount {
+        margin: 0;
+
+        font-weight: 500;
+        font-size: 32px;
+    }
+
+    .income-card-title {
+        margin: 1.6rem 0 0 0;
+    }
+
+    .income-card-icon {
+        margin: 0;
+        color: #868e96;
+        font-size: 40px;
+    }
+}

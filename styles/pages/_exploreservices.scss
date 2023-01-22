@@ -1,15 +1,9 @@
 .explore-services {
     section {
-        margin-bottom: 0rem;
+        margin-bottom: 5rem;
     }
     margin-bottom: 4.375rem;
-    @include respond(sm) {
-        padding: 0rem 1.25rem;
-    }
 
-    @include respond(xs) {
-        padding: 0rem 1.25rem;
-    }
     h2 {
         color: $primary-color;
         padding: 0;
@@ -231,5 +225,18 @@
             padding: 4rem 8rem;
         }
         margin-bottom: 0rem;
+    }
+}
+.es-task-category-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.8rem;
+
+    @include respond(md) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond(lg) {
+        grid-template-columns: repeat(7, 1fr);
     }
 }

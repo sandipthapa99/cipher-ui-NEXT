@@ -1,5 +1,5 @@
+import Advertisement from "@components/Advertisement/Advertisement";
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
-import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
@@ -7,110 +7,117 @@ import CipherCard from "@components/common/CipherCard";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
-import RecommendationChips from "@components/common/RecommendationChips";
-import SelectInputField from "@components/common/SelectInputField";
+import { Search } from "@components/common/Search";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
-import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
+import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faAngleRight,
-    faChevronCircleRight,
-    faSearch,
+    faArrowLeft,
+    faArrowRight,
+    faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Formik } from "formik";
-import type { NextPage } from "next";
-import dynamic from "next/dynamic";
+import { Alert } from "@mantine/core";
+import urls from "constants/urls";
+import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
-import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
-import { merchants } from "staticData/merchants";
-import { serviceCategory } from "staticData/serviceCategory";
-import { services } from "staticData/services";
-import { tasks } from "staticData/task";
-import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
-import { HomeSearchdata } from "utils/homeSearchData";
-import { myOptions } from "utils/options";
+import { useOpenLoginPrompt } from "store/use-login-prompt-store";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
+// import useUserStore from "store/use-user-store";
+import type { BlogValueProps } from "types/blogs";
+import type { BrandValueProps } from "types/brandValueProps";
+import type { CategoryDataProps } from "types/categoryData";
+import type { HeroCategoryProps } from "types/heroCategory";
+import type { ServicesValueProps } from "types/serviceCard";
+import type { SuccessStoryProps } from "types/successStory";
+import type { ITaskApiResponse } from "types/task";
+import type { TaskerProps } from "types/taskerProps";
+import { userGet } from "utils/auth";
+// import { userGet } from "utils/auth";
+import { axiosClient } from "utils/axiosClient";
+import { toast } from "utils/toast";
 
-const CategoriesListingHomepage = dynamic(
-    () => import("components/common/CategoriesListingHomepage"),
-    { ssr: false }
-);
-const Home: NextPage = () => {
-    const [chips, setChips] = useState([
-        "Garden Cleaner",
-        "Plumber",
-        "Electrician",
-        "Washing Machine",
-    ]);
-    const removeChip = (chip: string) => {
-        setChips((prevChips) =>
-            prevChips.filter((currentChip) => chip !== currentChip)
-        );
+const Home: NextPage<{
+    successStoryData: SuccessStoryProps;
+    trustedPartnerData: BrandValueProps;
+    heroCategoryData: HeroCategoryProps;
+    topCategoryData: CategoryDataProps;
+    topTaskerData: TaskerProps;
+    blogData: BlogValueProps;
+    recommendedTasksData: ITaskApiResponse;
+    servicesData: ServicesValueProps;
+}> = ({
+    successStoryData,
+    trustedPartnerData,
+    heroCategoryData,
+    topCategoryData,
+    topTaskerData,
+    blogData,
+    recommendedTasksData,
+    servicesData,
+}) => {
+    const [isClient, setIsClient] = useState(false);
+
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
+    const { data: profile } = useGetProfile();
+    const { data: userData } = useUser();
+    const showLoginPrompt = useOpenLoginPrompt();
+
+    const handleShowPostTaskModal = () => {
+        if (!userData) {
+            showLoginPrompt();
+            return;
+        }
+        if (!profile) {
+            toast.showComponent(
+                "Profile Incomplete",
+                <ProfileNotCompleteToast text="Please create your profile to go on further." />
+            );
+            return;
+        }
+        if (!userData.is_kyc_verified) {
+            toast.showComponent("KYC Incomplete", <KYCIncompleteToast />);
+            return;
+        }
+        toggleShowPostTaskModal();
     };
-    const [postTaskPopup, setPostTaskPopup] = useState(true);
 
-    const handleClosePosttaskPopup = () => {
-        setPostTaskPopup(false);
-    };
+    useEffect(() => setIsClient(true), []);
 
+    if (!isClient) return null;
     return (
-        <Layout title="Cipher - Catering to Your Requirements">
+        <Layout
+            title="Homaale - Catering Your Requirements"
+            description="Homaale is a platform designed to provide service booking solutions to the
+             service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+            It covers a wide range of services from various industries like Accounting, Gardening,
+             Health, Beauty, and many more."
+            keywords="homaale"
+        >
             <section className="landing-main-banner">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <Row className="gx-5 hero-content">
                         <Col md="6" className="left">
                             <div className="content">
                                 {/* Hero Text Start Here */}
-                                <h1>Catering To Your Requirements</h1>
+                                <h1>Catering Your Requirements</h1>
                                 {/* Hero Text End Here */}
                             </div>
-                            <div className="search-bar">
-                                <Formik
-                                    initialValues={HomeSearchdata}
-                                    validationSchema={HomeSearchSchema}
-                                    onSubmit={async (values) => {
-                                        console.log(values);
-                                    }}
-                                >
-                                    <div className="search_box">
-                                        {/* <div className="dropdown d-flex align-items-center"> */}
-                                        <SelectInputField
-                                            name="experience"
-                                            placeHolder="All"
-                                            options={myOptions}
-                                            fieldRequired
-                                        />
-
-                                        <div className="search_field">
-                                            <input
-                                                type="text"
-                                                className="input"
-                                                placeholder="Find your services"
-                                            />
-                                        </div>
-                                        <Link href="/search">
-                                            <a className="">
-                                                <Button className="search-btn">
-                                                    <FontAwesomeIcon
-                                                        icon={faSearch}
-                                                        className="icon"
-                                                    />
-                                                </Button>
-                                            </a>
-                                        </Link>
-                                    </div>
-                                </Formik>
-                            </div>
-                            {chips.length > 0 && (
+                            <Search />
+                            {/* {chips.length > 0 && (
                                 <div className="chips-section d-md-flex d-none">
                                     {chips.map((chip, key) => (
                                         <RecommendationChips
@@ -120,30 +127,34 @@ const Home: NextPage = () => {
                                         />
                                     ))}
                                 </div>
-                            )}
+                            )} */}
+
                             <div className="come-with-us">
-                                <h1>Join CIPHER for</h1>
+                                <h1>Join Homaale To</h1>
                                 <div className="d-flex buttons">
-                                    <Link href="/task">
-                                        <a href="" className="hero-cta">
-                                            Earn Money as a Professional
+                                    <Link href="/earn-money">
+                                        <a className="hero-cta">
+                                            Earn as a Professional
                                         </a>
                                     </Link>
-                                    <Link href="/post-task">
-                                        <a href="" className="hero-cta">
+                                    {!userGet()?.is_suspended && (
+                                        <a
+                                            className="hero-cta"
+                                            onClick={handleShowPostTaskModal}
+                                        >
                                             Post a Task
                                         </a>
-                                    </Link>
+                                    )}
                                 </div>
                             </div>
                         </Col>
                         <Col md="6" className="right">
                             <figure className="new-img">
                                 <Image
-                                    src="/hero-img.svg"
+                                    src="/heroImages/hero2.png"
                                     alt="hero-img"
-                                    height={600}
-                                    width={600}
+                                    height={700}
+                                    width={700}
                                     // objectFit="contain"
                                 />
                             </figure>
@@ -151,110 +162,155 @@ const Home: NextPage = () => {
                     </Row>
                     {/* Service category listing start */}
                     <Row className="gx-5 hero-category">
-                        <Carousel
-                            height={100}
-                            slideSize="25%"
-                            slideGap="md"
-                            breakpoints={[
-                                { maxWidth: "md", slideSize: "50%" },
-                                {
-                                    maxWidth: "sm",
-                                    slideSize: "100%",
-                                    slideGap: 3,
-                                },
-                            ]}
-                            loop
-                            align="start"
-                        >
-                            {serviceCategory &&
-                                serviceCategory.map((category) => {
-                                    return (
-                                        <Carousel.Slide key={category.id}>
-                                            <CategoryCardNew
-                                                categoryTitle={
-                                                    category.categoryTitle
-                                                }
-                                                categoryIcon={
-                                                    category.categoryIcon
-                                                }
-                                            />
-                                        </Carousel.Slide>
-                                    );
-                                })}
-                        </Carousel>
+                        {heroCategoryData &&
+                        heroCategoryData?.result?.length > 0 ? (
+                            <Carousel
+                                // height={150}
+                                slideSize="25%"
+                                slideGap="md"
+                                breakpoints={[
+                                    { maxWidth: "md", slideSize: "50%" },
+                                    {
+                                        maxWidth: "sm",
+                                        slideSize: "100%",
+                                        slideGap: 3,
+                                    },
+                                ]}
+                                loop
+                                align="start"
+                                nextControlIcon={
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                }
+                                previousControlIcon={
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                }
+                            >
+                                {heroCategoryData &&
+                                    heroCategoryData?.result
+                                        .slice(0, 8)
+                                        .map((category) => {
+                                            return (
+                                                <Carousel.Slide
+                                                    key={category.id}
+                                                >
+                                                    <CategoryCardNew
+                                                        categoryTitle={
+                                                            category?.category
+                                                                ?.name
+                                                        }
+                                                        categoryIcon={
+                                                            category.category
+                                                                ?.icon
+                                                        }
+                                                        categorySlug={
+                                                            category?.category
+                                                                ?.slug
+                                                        }
+                                                    />
+                                                </Carousel.Slide>
+                                            );
+                                        })}
+                            </Carousel>
+                        ) : (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                There are No Data available
+                            </Alert>
+                        )}
                     </Row>
-
                     {/* Service category listing end */}
                 </Container>
             </section>
 
-            {postTaskPopup && (
-                <div className="popup-post-task">
+            {/* {postTaskPopup && (
+                <div className="popup-post-task d-md-block d-none">
                     <PostTaskHomepage handleClose={handleClosePosttaskPopup} />
                 </div>
-            )}
+            )} */}
 
             <section
-                id="cagtu-cipher-buzz-section"
-                className="cagtu-cipher-buzz-section"
+                id="trusted-brand-section"
+                className="trusted-brand-section"
             >
-                {/* <Container fluid="xl" className="px-5"> */}
-                <Marquee gradient={true} className="marquee" speed={40}>
-                    <li className="light">Helix</li>
-                    <li className="strong">Orion</li>
-                    <li className="strong">Carina</li>
-                    <li className="light">Trifid</li>
-                    <li className="light">NGC</li>
-                    <li className="strong">Messier</li>
+                {/* <Container fluid="xl" className="px-4"> */}
+                <Marquee
+                    gradient={true}
+                    className="marquee"
+                    speed={40}
+                    pauseOnHover
+                >
+                    {trustedPartnerData?.map((value, key) => (
+                        <li className="light" key={key}>
+                            <a
+                                href={value?.redirect_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {value?.logo && (
+                                    <figure>
+                                        <Image
+                                            src={value?.logo}
+                                            alt={value?.alt_text}
+                                            layout="fill"
+                                            objectFit="contain"
+                                        ></Image>
+                                    </figure>
+                                )}
+                            </a>
+                        </li>
+                    ))}
                 </Marquee>
                 {/* </Container> */}
             </section>
 
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
-                <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                        <h2 className="heading-title">
-                            Popular Verified Services
-                        </h2>
-                        <Link href="">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
+                <Container fluid="xl" className="px-4">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline mt-5">
+                        {servicesData && servicesData?.result?.length > 0 && (
+                            <>
+                                <h2 className="heading-title">
+                                    Trending Verified Services
+                                </h2>
+                                <Link href="/service">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
+                                        />
+                                    </a>
+                                </Link>
+                            </>
+                        )}
                     </div>
                     <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
-                                return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        {servicesData &&
+                            servicesData?.result
+                                ?.slice(0, 4)
+                                .map((service, key) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={key}
+                                            className="d-flex"
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
+                    </Row>
+                    <Row>
+                        <Advertisement />
                     </Row>
                 </Container>
             </section>
@@ -262,103 +318,103 @@ const Home: NextPage = () => {
 
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
-                <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                        <h2 className="heading-title">Services near you</h2>
-
-                        <Link href="">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
-                                return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
+                <Container fluid="xl" className="px-4">
+                    {servicesData?.result &&
+                        servicesData?.result?.find(
+                            (item) => item?.share_location === true
+                        ) && (
+                            <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                                <h2 className="heading-title">
+                                    Services near you
+                                </h2>
+                                <Link href="/service">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
                                         />
-                                    </Col>
-                                );
-                            })}
+                                    </a>
+                                </Link>
+                            </div>
+                        )}
+                    <Row className="gx-5">
+                        {servicesData &&
+                            servicesData?.result
+                                ?.filter(
+                                    (result) => result?.share_location === true
+                                )
+                                ?.slice(0, 4)
+                                .map((service, key) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={key}
+                                            className="d-flex"
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                 </Container>
             </section>
             {/* Services near you section end */}
-
-            <section id="services-near-you" className="services-near-you">
-                <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                        <h2 className="heading-title">Professional Services</h2>
-                        <Link href="">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
-                                return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                            proService={true}
+            {servicesData &&
+                servicesData?.result?.filter((q) => q.is_professional).length >
+                    0 && (
+                    <section
+                        id="services-near-you"
+                        className="services-near-you"
+                    >
+                        <Container fluid="xl" className="px-4">
+                            <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                                <h2 className="heading-title">
+                                    Professional Services
+                                </h2>
+                                <Link href="/service">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
                                         />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
-                </Container>
-            </section>
+                                    </a>
+                                </Link>
+                            </div>
+
+                            <Row className="gx-5">
+                                {servicesData &&
+                                    servicesData?.result
+                                        ?.filter((q) => q.is_professional)
+                                        .slice(0, 4)
+                                        .map((service) => {
+                                            return (
+                                                <Col
+                                                    sm={6}
+                                                    md={4}
+                                                    lg={3}
+                                                    key={service.id}
+                                                    className="d-flex"
+                                                >
+                                                    <ServiceCard
+                                                        serviceCard={service}
+                                                    />
+                                                </Col>
+                                            );
+                                        })}
+                            </Row>
+                        </Container>
+                    </section>
+                )}
 
             {/* Get services section start */}
-            <section className="get-services">
-                <Container fluid="xl" className="px-5">
+            {/* <section className="get-services">
+                <Container fluid="xl" className="px-4">
                     <h1 className="section-main-title">
                         Book Your Services in an Instant
                     </h1>
@@ -382,26 +438,47 @@ const Home: NextPage = () => {
                         </li>
                     </ul>
 
+                    {heroCategoryData ??
+                        (heroCategoryData?.result.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No Category"}>
+                                    {`There are No Category available`}
+                                </Highlight>
+                            </Alert>
+                        ))}
                     <Row className="gx-5 hero-category">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
-                                return (
-                                    <Col
-                                        lg={3}
-                                        md={4}
-                                        sm={6}
-                                        key={category.id}
-                                        className="d-flex align-items-strecth card-col"
-                                    >
-                                        <CategoryCardNew
-                                            categoryTitle={
-                                                category.categoryTitle
-                                            }
-                                            categoryIcon={category.categoryIcon}
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        {heroCategoryData?.result &&
+                            heroCategoryData?.result
+                                ?.slice(0, 8)
+                                ?.map((category) => {
+                                    return (
+                                        <Col
+                                            lg={3}
+                                            md={4}
+                                            sm={6}
+                                            key={category?.id}
+                                            className="d-flex align-items-strecth card-col"
+                                        >
+                                            <CategoryCardNew
+                                                categoryTitle={
+                                                    category?.category?.name
+                                                }
+                                                categoryIcon={
+                                                    category?.category?.icon
+                                                }
+                                                categorySlug={
+                                                    category?.category?.slug
+                                                }
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                     <div className="how-it-works d-flex justify-content-center">
                         <Link href="/how-it-works">
@@ -415,12 +492,12 @@ const Home: NextPage = () => {
                         </Link>
                     </div>
                 </Container>
-            </section>
+            </section> */}
             {/* Get services section end */}
 
             {/* Find & Hire section start */}
-            <section id="find-hire" className="find-hire">
-                <Container fluid="xl" className="px-5">
+            <section id="find-hire" className="find-hire mt-4">
+                <Container fluid="xl" className="px-4">
                     <h1 className="section-main-title">Find &amp; Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
                     <Row className="gx-5">
@@ -447,72 +524,134 @@ const Home: NextPage = () => {
             {/* Find & Hire section end */}
 
             {/* Top Taksers Section Start */}
-            <section id="top-merchants" className="top-merchants">
-                <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                        <h2 className="heading-title">Top Taskers</h2>
-                        <Link href="">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    <Row className="gx-5">
-                        {merchants &&
-                            merchants.map((merchant) => {
-                                return (
-                                    <Col
-                                        md={6}
-                                        lg={3}
-                                        sm={6}
-                                        xl={3}
-                                        key={merchant.id}
-                                        className="d-flex"
-                                    >
-                                        <MerchantCard
-                                            merchantImage={
-                                                merchant.merchantImage
-                                            }
-                                            merchantName={merchant.merchantName}
-                                            merchantCategory={
-                                                merchant.merchantCategory
-                                            }
-                                            merchantLocation={
-                                                merchant.merchantLocation
-                                            }
-                                            merchantDescription={
-                                                merchant.merchantDescription
-                                            }
-                                            merchantRating={
-                                                merchant.merchantRating
-                                            }
-                                            merchantPrice={
-                                                merchant.merchantPrice
-                                            }
-                                            happyClients={merchant.happyClients}
-                                            successRate={merchant.successRate}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
-                </Container>
-            </section>
+            {topTaskerData?.result?.length != 0 && (
+                <section id="top-merchants" className="top-merchants">
+                    <Container fluid="xl" className="px-4">
+                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                            <h2 className="heading-title">Top Taskers</h2>
+                            {topTaskerData?.result &&
+                                topTaskerData?.result?.length > 0 && (
+                                    <Link href="/tasker">
+                                        <a className="view-more">
+                                            view more{" "}
+                                            <FontAwesomeIcon
+                                                icon={faAngleRight}
+                                                className="svg-icon"
+                                            />
+                                        </a>
+                                    </Link>
+                                )}
+                        </div>
+                        {topTaskerData?.result &&
+                            topTaskerData?.result?.length <= 0 && (
+                                <Alert
+                                    icon={<FontAwesomeIcon icon={faWarning} />}
+                                    title="No data Available"
+                                    color="orange"
+                                    radius="md"
+                                    sx={{ minWidth: 100 }}
+                                >
+                                    There are No Top Taskers available
+                                </Alert>
+                            )}
+                        <Row className="gx-5">
+                            {topTaskerData &&
+                                topTaskerData?.result
+                                    ?.slice(0, 4)
+                                    ?.map((merchant, index) => {
+                                        return (
+                                            <Col
+                                                md={6}
+                                                lg={3}
+                                                sm={6}
+                                                xl={3}
+                                                key={index}
+                                                className="d-flex"
+                                            >
+                                                <MerchantCard
+                                                    merchantImage={
+                                                        merchant?.profile_image
+                                                            ? merchant?.profile_image
+                                                            : merchant?.avatar
+                                                                  ?.image
+                                                    }
+                                                    merchantName={`${
+                                                        merchant?.user
+                                                            ?.first_name
+                                                    } ${
+                                                        merchant?.user
+                                                            ?.middle_name
+                                                            ? merchant?.user
+                                                                  ?.middle_name
+                                                            : ""
+                                                    } ${
+                                                        merchant?.user
+                                                            ?.last_name
+                                                    }`}
+                                                    merchantCategory={
+                                                        merchant?.designation
+                                                    }
+                                                    merchantLocation={
+                                                        merchant?.address_line1 +
+                                                        " " +
+                                                        merchant?.address_line2
+                                                    }
+                                                    merchantDescription={
+                                                        merchant?.bio
+                                                    }
+                                                    merchantRating={
+                                                        merchant?.rating
+                                                            ?.avg_rating
+                                                    }
+                                                    merchantPrice={
+                                                        merchant?.hourly_rate
+                                                    }
+                                                    currency={
+                                                        merchant
+                                                            ?.charge_currency
+                                                            ?.symbol
+                                                    }
+                                                    happyClients={
+                                                        merchant?.stats
+                                                            ?.happy_clients
+                                                    }
+                                                    successRate={parseFloat(
+                                                        merchant?.stats?.success_rate.toFixed(
+                                                            1
+                                                        )
+                                                    )}
+                                                    merchantId={
+                                                        merchant?.user?.id
+                                                    }
+                                                />
+                                            </Col>
+                                        );
+                                    })}
+                        </Row>
+                    </Container>
+                </section>
+            )}
             {/* Top Taskers Section End */}
 
             {/* Gradient Banner section Start */}
             <section className="gradient-banner">
-                <Container fluid="xl" className="px-5">
-                    <GradientBanner
+                <Container fluid="xl" className="px-4">
+                    {/* <GradientBanner
                         title="Looking for work is not that difficult as it sounds any more"
                         subTitle="Allow us to accompany you on your journey"
                         image="/gradient-updated.png"
-                        btnText="Join Us"
-                    />
+                    /> */}
+                    <Link href="/offers">
+                        <a>
+                            <Image
+                                src={"/Offers1.svg"}
+                                alt={"gradient-image"}
+                                height={550}
+                                width={1300}
+                                objectFit="cover"
+                            />
+                        </a>
+                    </Link>
                 </Container>
             </section>
             {/* Gradient Banner section End */}
@@ -522,7 +661,7 @@ const Home: NextPage = () => {
                 id="win-new-clients-slider-section"
                 className="win-new-clients-slider-section"
             >
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <ExploreWithSlider />
                 </Container>
             </section>
@@ -530,63 +669,92 @@ const Home: NextPage = () => {
 
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
-                <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                        <h2 className="heading-title">Tasks You May Like</h2>
-                        <Link href="">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    <Row className="gx-5">
-                        {tasks &&
-                            tasks.map((task) => {
-                                return (
-                                    <Col md={6} key={task.id}>
-                                        <TaskCard
-                                            title={task.title}
-                                            charge={task.charge}
-                                            description={task.description}
-                                            location={task.location}
-                                            date={task.date}
-                                            time={task.time}
+                <Container fluid="xl" className="px-4">
+                    {recommendedTasksData &&
+                        recommendedTasksData?.result?.length > 0 && (
+                            <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                                <h2 className="heading-title">
+                                    Tasks You May Like
+                                </h2>
+                                <Link href="/task-you-may-like">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
                                         />
-                                    </Col>
-                                );
-                            })}
+                                    </a>
+                                </Link>
+                            </div>
+                        )}
+                    <Row className="gx-5">
+                        {recommendedTasksData?.result?.map((task, key) => (
+                            <Col md={6} key={key}>
+                                <TaskCard task={task} />
+                            </Col>
+                        ))}
                     </Row>
                 </Container>
             </section>
             {/* Tasks you may like section end */}
 
             {/* some success stories sectioin start */}
+
             <section
                 id="some-success-stories-section"
                 className="some-success-stories-section"
             >
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="success-sroties-header">
                         <h1 className="text-center">
-                            3003,0330 Taskers have earned an income on Cipher
+                            Bridging the gap between individuals
                         </h1>
-                        <h3 className="text-center">Some Success Stories</h3>
+                        <h3 className="text-center">HOMAALE Stories</h3>
                     </div>
-                    <PersonalSuccessCard />
+                    {topCategoryData?.length <= 0 && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            There are No Success Stories available
+                        </Alert>
+                    )}
+                    <Carousel
+                        mx="auto"
+                        styles={{
+                            control: {
+                                "&[data-inactive]": {
+                                    opacity: 0,
+                                    cursor: "default",
+                                },
+                            },
+                        }}
+                        className="rounded"
+                        withIndicators
+                    >
+                        {successStoryData &&
+                            successStoryData?.result?.map((value, key) => (
+                                <Carousel.Slide key={key}>
+                                    <PersonalSuccessCard
+                                        successStoryData={value}
+                                    />
+                                </Carousel.Slide>
+                            ))}
+                    </Carousel>
                 </Container>
             </section>
 
             {/* Notable quality section starts  */}
             <section id="notable-quality" className="notable-quality">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <LongSquareImageCard
-                        title="Cipher Notable quality"
-                        image="/groupB.png"
+                        title="Homaale Notable Qualities"
+                        image="/notableQuality.jpg"
                         imageOnRight={true}
+                        homeImage={true}
                         description={quality}
                     />
                 </Container>
@@ -597,37 +765,31 @@ const Home: NextPage = () => {
 
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
-                <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                        <h2 className="heading-title">Our blogs</h2>
-                        <Link href="">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
-                    </div>
+                <Container fluid="xl" className="px-4">
+                    {blogData && blogData?.result?.length > 0 && (
+                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                            <h2 className="heading-title">Our Blogs</h2>
+                            <Link href="/blogs">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        </div>
+                    )}
                     <Row className="gx-5">
-                        {blogCardContent &&
-                            blogCardContent.map((blog) => {
+                        {blogData &&
+                            blogData?.result?.slice(0, 3).map((blog, key) => {
                                 return (
                                     <Col
                                         className="d-flex align-items-stretch"
-                                        // sm={6}
                                         md={4}
-                                        // lg={4}
-                                        key={blog.id}
+                                        key={key}
                                     >
-                                        <CommunityBlogCard
-                                            cardImage={blog.cardImage}
-                                            cardDescription={
-                                                blog.cardDescription
-                                            }
-                                            cardTitle={blog.cardTitle}
-                                        />
+                                        <CommunityBlogCard blogData={blog} />
                                     </Col>
                                 );
                             })}
@@ -638,7 +800,7 @@ const Home: NextPage = () => {
 
             {/* Tax calculator section start */}
             <section className="tax-calculator">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="gradient-wrapper">
                         <span className="gradient"></span>
                         <figure className="gradient-img">
@@ -652,8 +814,7 @@ const Home: NextPage = () => {
                         <div className="overlay">
                             <>
                                 <h1>
-                                    Nepali <span>Income Tax</span> and{" "}
-                                    <span>Pay Calculator</span>
+                                    Nepali <span>Income Tax Calculator</span>
                                 </h1>
                                 <div className="bottom-content">
                                     <p>
@@ -679,7 +840,7 @@ const Home: NextPage = () => {
 
             {/* Expore marketplace section start */}
             <section className="explore-marketplace">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <h1 className="section-main-title">
                         Explore Our Marketplace
                     </h1>
@@ -691,7 +852,7 @@ const Home: NextPage = () => {
                                 description="It is always convenient to be connected to the clients and the tasks 
                                 closer to you. With us, you can view who or which tasks are closer to you or your 
                                     preferred location."
-                                redirectionTo=""
+                                redirectionTo="/service"
                                 iconBackground="#CDE9F9"
                             />
                         </Col>
@@ -700,7 +861,7 @@ const Home: NextPage = () => {
                                 icon="/icons/category.svg"
                                 title="Category"
                                 description="Looking for a particular service or variety of them? Or do you provide services and are looking for clients? We have made it easier for you to filter and sort out categories as per your preference."
-                                redirectionTo=""
+                                redirectionTo="/category"
                                 iconBackground="#E3D5FA"
                             />
                         </Col>
@@ -709,7 +870,7 @@ const Home: NextPage = () => {
                                 icon="/icons/recommendation-badge.svg"
                                 title="Recommended by us"
                                 description="We know the preferences and choices of each of our users. Therefore, you can always rely on our recommendations for a customised search feed."
-                                redirectionTo=""
+                                redirectionTo="/hire-in-nepal"
                                 iconBackground="#CCF6E6"
                             />
                         </Col>
@@ -718,16 +879,101 @@ const Home: NextPage = () => {
             </section>
             {/* Expore marketplace section end */}
 
-            <section className="top-categories-section">
-                <Container fluid="xl" className="px-5">
-                    <h1 className="section-main-title">Top Categories</h1>
-                    <h2 className="section-sub-title">
-                        See some of our top categories
-                    </h2>
-                    <CategoriesListingHomepage />
-                </Container>
-            </section>
+            {topCategoryData && (
+                <section className="top-categories-section">
+                    <Container fluid="xl" className="px-4">
+                        <h1 className="section-main-title">Top Categories</h1>
+                        <h2 className="section-sub-title">
+                            See some of our top categories in your area
+                        </h2>
+                        {/* <TopCategories /> */}
+                        {topCategoryData?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                There are No top Categorys available
+                            </Alert>
+                        )}
+                        <Row className="g-5">
+                            {topCategoryData &&
+                                topCategoryData.map((category, key) => (
+                                    <Col md={2} key={key}>
+                                        <div className="d-flex justify-content-center top-categories">
+                                            <Link
+                                                href={`/category/${category?.slug}`}
+                                            >
+                                                <a>
+                                                    <span>
+                                                        {category?.category}
+                                                    </span>
+                                                </a>
+                                            </Link>
+                                        </div>
+                                    </Col>
+                                ))}
+                        </Row>
+                    </Container>
+                </section>
+            )}
         </Layout>
     );
 };
+
 export default Home;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: successStoryData } = await axiosClient.get(
+            urls.tasker.success_story
+        );
+        const { data: trustedPartnerData } = await axiosClient.get(
+            urls.trusted_partners
+        );
+        const { data: heroCategoryData } = await axiosClient.get(
+            urls.hero_category
+        );
+        // const { data: topCategoryData } = await axiosClient.get(
+        //     "/task/top-categories/"
+        // );
+        const { data: topTaskerData } = await axiosClient.get(
+            urls.tasker.top_tasker
+        );
+        const { data: recommendedTasksData } = await axiosClient.get(
+            `${urls.task.service}&recommendation=Task You May Like`
+        );
+        const { data: blogData } = await axiosClient.get(urls.blog.list);
+        const { data: servicesData } = await axiosClient.get(urls.task.service);
+
+        return {
+            props: {
+                successStoryData,
+                trustedPartnerData,
+                recommendedTasksData,
+                heroCategoryData,
+                topTaskerData,
+                blogData,
+                // topCategoryData,
+                servicesData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                successStoryData: [],
+                trustedPartnerData: [],
+                blogData: [],
+                servicesData: ["sdsd"],
+                topTaskerData: [],
+                recommendedTasksData: [],
+                heroCategoryData: [],
+                topCategoryData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};

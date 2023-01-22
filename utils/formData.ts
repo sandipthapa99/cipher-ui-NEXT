@@ -1,37 +1,44 @@
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyFormValueProps } from "types/applyFormValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
+import type { BankDetailProps, BankPostDetailProps } from "types/bankDetail";
 import type { BookNowFormProps } from "types/bookNow";
 import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
 import type { ClientSignUpValueProps } from "types/clientSignUp";
 import type { deactivateValueProps } from "types/deactivateValueProps";
-import type { AddPortfolioProps, AddSkills } from "types/editProfile";
+import type {
+    AddInterests,
+    AddPortfolioProps,
+    AddSkills,
+} from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
-import type { KYCFormProps } from "types/kycFormProps";
 import type { LoginValuesProps } from "types/login";
 import type { PostTaskProps } from "types/postTaskData";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
+import type { ServicePostProps } from "types/serviceCard";
 import type { SkillsValueProps } from "types/skillsValueProps";
 import type { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
 import type { UploadCVValueProps } from "types/uploadCVValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
-    email: "",
+    username: "",
     password: "",
 };
 
 export const ClientSignUpFormData: ClientSignUpValueProps = {
     // firstName: "",
     // lastName: "",
-    email: "",
+    // email: "",
     // phoneNumber: "",
     password: "",
     confirmPassword: "",
+    // phone: "",
     // gender: "male",
     // isAgree: true,
     // addToNewsletter: true,
@@ -42,6 +49,8 @@ export const ApplyFormData: ApplyValueProps = {
     price: "",
     remarks: "",
     prerequesties: [],
+    recursion: "",
+    budget_to: parseInt(""),
 };
 
 //Equipment form data
@@ -64,26 +73,38 @@ export const ExperienceFormData: ExperienceValueProps = {
     id: 0,
 };
 
+interface filterReviewProps {
+    search_value: "";
+}
+//review
+export const reviewSearchData: filterReviewProps = {
+    search_value: "",
+};
+
 export const AddPortfolioFormData: AddPortfolioProps = {
     title: "",
     description: "",
     credential_url: "",
     issued_date: "",
-    image: "",
-    file: "",
+    images: [],
+    imagePreviewUrl: [],
+    pdfPreviewUrl: [],
+    files: [],
+    id: 0,
 };
 
 export const AddSkillFormData: AddSkills = {
     name: "",
 };
 
-export const BookServiceFormData: BookNowFormProps = {
-    problemDescription: "",
-    startdate: null,
-    enddate: null,
-    time: 1,
-    image: "/services/s1.png",
-    book_image: "",
+export const AddInterestFormData: AddInterests = {
+    // interests: [
+    //     {
+    //         id: "",
+    //         name: "",
+    //     },
+    // ],
+    interests: [],
 };
 
 export const CertificationFormData: CertificationValueProps = {
@@ -99,17 +120,25 @@ export const CertificationFormData: CertificationValueProps = {
 };
 
 export const ProfileEditFromData: ProfileEditValueProps = {
-    name: "",
+    full_name: "",
     bio: "",
-    email: "",
     phone: "",
-    addressLine1: "",
-    addressLine2: "",
-    activeHoursFrom: "",
-    activeHoursTo: "",
-    specialities: "",
-    baseRatePerHour: "",
+    address_line1: "",
+    address_line2: "",
+    active_hour_start: "",
+    active_hour_end: "",
+    skill: "",
+    hourly_rate: "",
     linkedAccounts: "",
+    date_of_birth: "",
+    gender: "",
+    profile_image: "",
+    user_type: "",
+    country: 0,
+    language: 0,
+    charge_currency: 0,
+    task_preferences: "",
+    profile_visibility: "",
 };
 
 export const EducationFormData: EducationValueProps = {
@@ -123,31 +152,36 @@ export const EducationFormData: EducationValueProps = {
     id: 0,
 };
 
-export const SkillsFromData: SkillsValueProps = {
-    skills: "",
+export const SkillsFormData: SkillsValueProps = {
+    skill: "",
 };
 
-export const AccountFromData: AccountValueProps = {
-    full_name: "",
-    phone: 1234567890,
+export const AccountFormData: AccountValueProps = {
+    last_name: "",
+    first_name: "",
+    middle_name: "",
     email: "",
     bio: "",
     gender: "",
-    date_of_birth: null,
+    city: "",
+    date_of_birth: "",
     skill: "",
+    interests: [],
     experience_level: "",
     active_hour_start: "",
     active_hour_end: null,
-    hourly_rate: 15,
+    hourly_rate: "",
     user_type: "",
     country: "",
-    education: "abc",
     address_line1: "",
     address_line2: "",
     language: "",
     charge_currency: "",
     profile_visibility: "",
     task_preferences: "",
+    profile_image: "",
+    designation: "",
+
     // profile_image: "abcffdd",
 };
 
@@ -159,20 +193,21 @@ export const ChangePasswordFromData: changePasswordValueProps = {
 
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     marital_status: "Unmarried",
-    salary: null,
+    gender: "Female",
+    salary: "",
     income_time: "Yearly",
-    festival_bonus: null,
-    allowance: null,
-    others: null,
-    pf: null,
-    cit: null,
-    life_insurance: null,
-    medical_insurance: null,
+    festival_bonus: "",
+    allowance: "",
+    others: "",
+    pf: "",
+    cit: "",
+    life_insurance: "",
+    medical_insurance: "",
 };
 
 export const DeactivateFromData: deactivateValueProps = {
     reason: "",
-    duration: "",
+    // duration: "",
     explaination: "",
 };
 
@@ -223,22 +258,51 @@ export const UploadCVFormData: UploadCVValueProps = {
     cv: [],
     imagePreviewUrl: [],
     applied_position: "",
-    g_recaptcha_response: "",
 };
 
 export const PostTaskFormData: PostTaskProps = {
     title: "",
-    taskDescription: "",
-    requirements: [],
+    description: "",
+    highlights: [],
     category: "",
-    task_type: "remote",
+    location: "remote",
     address: "",
     budget: "",
     minBudget: 0,
     maxBudget: 0,
-    image: undefined,
-    video: undefined,
+    images: "undefined",
+    video: "",
     date: null,
     date_from: null,
     date_to: null,
+};
+
+export const ServicePostData: ServicePostProps = {
+    title: "",
+    budget_type: "Fixed",
+    budget_from: "",
+    budget_to: "",
+    description: "",
+    highlights: "",
+    location: "",
+    is_professional: false,
+    is_online: false,
+    video: "",
+    no_of_revisions: 0,
+    discount_type: "",
+    discount_value: "",
+    is_active: true,
+    category: 0,
+    currency: 0,
+    city: 1,
+    images: [],
+    imagePreviewUrl: [],
+};
+
+export const BankFormData: BankPostDetailProps = {
+    bank_account_name: "",
+    branch_name: "",
+    bank_name: "",
+    bank_account_number: "",
+    is_primary: false,
 };

@@ -1,0 +1,163 @@
+.earn-money-page {
+    background: #f3f3f3;
+}
+
+.earn-money-professional-top-section {
+    .earn-money-video-component {
+        background: rgb(230, 217, 251);
+        position: relative;
+        margin: 3rem 0 0;
+
+        .video {
+            height: 100%;
+        }
+
+        .description {
+            padding: 6rem 2rem;
+            margin: 0 0 0 3rem;
+            h1 {
+                font: 600 4rem $poppins-font;
+                @include respond(xs) {
+                    font: 600 3rem "Poppins";
+                }
+            }
+            p {
+                font: 400 1.4rem $poppins-font;
+                color: #9c90ad;
+            }
+
+            button {
+                color: #211d4f;
+            }
+        }
+    }
+}
+
+.earn-money-professional-get-started-section {
+    h1 {
+        font: 500 4rem $poppins-font;
+        margin: 0 0 2.4rem;
+    }
+    .get-started-card {
+        margin: 0 0 8rem;
+    }
+}
+
+.earn-money-manage-your-career-section {
+    .long-square-image-card {
+        filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
+        background: linear-gradient(
+            96.53deg,
+            #dfe6ff 0%,
+            rgba(229, 235, 255, 0.427083) 60.08%,
+            rgba(234, 238, 255, 0) 100.3%
+        );
+    }
+}
+
+.earn-money-safe-and-secure-section {
+    .long-square-image-card {
+        background: #f3f3f3;
+    }
+}
+
+.earn-money-manage-your-career-section,
+.earn-money-safe-and-secure-section {
+    .long-square-image-card {
+        .card-content {
+            height: 100%;
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            margin: 0 0 0 5rem;
+
+            @include respond(xs) {
+                justify-content: start;
+                height: 100%;
+                margin: 0 0 0 3rem;
+            }
+            .description {
+                max-width: 70%;
+
+                h1 {
+                    font: 500 4rem $poppins-font;
+                    margin: 0 0 2.4rem;
+                }
+                h4,
+                li {
+                    font: 400 1.6rem $poppins-font;
+                    color: #495057;
+                    margin: 0 0 2.4rem;
+                }
+                .with-icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .thumbnail-img {
+                    margin: 0 2rem 0 0;
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    @include respond(xs) {
+                        object-fit: contain;
+                        display: none;
+                    }
+
+                    @media screen and (width: 1280px),
+                        (width: 1024px),
+                        (width: 768px) {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.get-started-card {
+    min-height: 40rem;
+    background: linear-gradient(
+        100.12deg,
+        rgba(255, 255, 255, 0.48) 0%,
+        rgba(255, 255, 255, 0) 58.4%
+    );
+    filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
+
+    &__image {
+        height: 100%;
+        span {
+            height: 100%;
+
+            img {
+                object-fit: cover;
+            }
+        }
+    }
+
+    .description-section {
+        padding: 4rem;
+        height: 100%;
+        @include respond(xs) {
+            padding: 2rem;
+        }
+        h2 {
+            font: 400 2.4rem $poppins-font;
+            margin: 0 0 1.6rem;
+        }
+
+        ul {
+            li {
+                margin: 0 0 1.6rem 3rem;
+                font: 400 1.6rem $poppins-font;
+                list-style: disc;
+                max-width: 80%;
+                text-align: justify;
+            }
+        }
+    }
+}

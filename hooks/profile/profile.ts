@@ -10,12 +10,12 @@ export const useProfile = () => {
                 "/tasker/my-profile/",
                 accountPayload
             );
-            console.log("Profile data", data);
         } catch (error) {
-            // if (error instanceof AxiosError) {
-            //     throw new Error(error?.response?.data?.message);
-            // }
-            throw new Error("Profile failed");
+            if (error instanceof AxiosError) {
+                const values = Object.values(error?.response?.data);
+                throw new Error(values.join("\n"));
+            }
+            throw new Error("Something went wrong");
         }
     });
 };

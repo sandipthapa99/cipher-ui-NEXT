@@ -10,10 +10,17 @@ import { Col, Container, Row } from "react-bootstrap";
 
 const PayrollServices: NextPage = () => {
     return (
-        <Layout title="Payroll-Services | Cipher">
+        <Layout
+            title="Payroll-Services | Homaale"
+            description="Homaale is a platform designed to provide service booking solutions to the
+            service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+             It covers a wide range of services from various industries like Accounting, Gardening,
+            Health, Beauty, and many more."
+            keywords="homaale, homaale-payroll-service, airtasker-nepali,nepali-working-platform, homaale-feeback, business, online-business"
+        >
             <section className="payroll-services">
                 <section className="payroll-services__header">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <BreadCrumb currentPage="Payroll Services" />
                         <Row className="d-flex gx-5 align-items-center">
                             <Col md={6}>
@@ -27,9 +34,9 @@ const PayrollServices: NextPage = () => {
                                 </figure>
                             </Col>
                             <Col md={6}>
-                                <h1>Cipher Payroll</h1>
+                                <h1>Homaale Payroll</h1>
                                 <p>
-                                    We designed CIPHER Payroll to make the
+                                    We designed Homaale Payroll to make the
                                     organisational transitioning easy for you.
                                     While providing your services to customers,
                                     you can easily track your employee costs
@@ -40,7 +47,7 @@ const PayrollServices: NextPage = () => {
                                         <CardBtn
                                             btnTitle="Contact Us"
                                             color="#fff"
-                                            backgroundColor="primary-color"
+                                            backgroundColor="#211d4f"
                                         />
                                     </a>
                                 </Link>
@@ -49,10 +56,10 @@ const PayrollServices: NextPage = () => {
                     </Container>
                 </section>
                 <div className="payroll-services__content">
-                    <Container fluid="xl" className="px-5">
+                    <Container fluid="xl" className="px-4">
                         <div className="clients">
                             <LongSquareImageCard
-                                title="Service Providers in CIPHER"
+                                title="Service Providers in HOMAALE"
                                 image="/payrollservices/girlsmiling.svg"
                                 subtitle="Get more value for same cost"
                                 imageOnRight={true}
@@ -94,10 +101,10 @@ const PayrollServices: NextPage = () => {
                                     <div className="content">
                                         <h1>
                                             Running your business is better
-                                            through Cipher Payroll
+                                            through Homaale Payroll
                                         </h1>
                                         <p>
-                                            With Cipher Payroll you can be
+                                            With Homaale Payroll you can be
                                             confident you&apos;re complying with
                                             federal and state classification
                                             laws wherever your talent is based.
@@ -112,7 +119,9 @@ const PayrollServices: NextPage = () => {
                                 business
                             </h1>
                             <iframe
-                                src="https://www.youtube.com/embed/E7wJTI-1dvQ"
+                                src={
+                                    "https://www.youtube.com/embed/QIKZaRYg5bA"
+                                }
                                 frameBorder="0"
                                 allow="autoplay; encrypted-media"
                                 allowFullScreen
@@ -123,10 +132,9 @@ const PayrollServices: NextPage = () => {
                         </div>
                         <div className="gradient-container p-3">
                             <GradientBanner
-                                title="CIPHER provides a hassle free payroll service for all your employees who is working through CIPHER "
+                                title="Homaale provides a hassle free payroll service for all your employees who is working through Homaale "
                                 subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
                                 image="/discover/main.svg"
-                                btnText="Join Us"
                             />
                         </div>
                     </Container>

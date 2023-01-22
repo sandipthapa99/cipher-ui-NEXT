@@ -1,6 +1,7 @@
 export interface CategoryCardProps {
     categoryTitle: string;
     categoryIcon: string;
+    categorySlug?: string;
 }
 
 export interface AllCategoryCardProps {

@@ -1,28 +1,45 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
-import { MapboxMap } from "@components/common/MapboxMap";
+import AdvertisementCard from "@components/common/AdvertisementCard";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps } from "next";
+import dynamic from "next/dynamic";
+import { ReactQueryKeys } from "types/queryKeys";
 
+const NearbyTasksMap = dynamic(
+    () => import("@components/Task/NearbyTasksMap"),
+    {
+        ssr: false,
+    }
+);
 const AppliedTask = () => {
     return (
-        <>
-            <AppliedLayout>
-                <MapboxMap
-                    latitude={27.687713889865993}
-                    longitude={85.32806957052709}
-                />
-            </AppliedLayout>
-        </>
+        <AppliedLayout>
+            <NearbyTasksMap />
+            {/* <AdvertisementCard
+                title="Gardening Services"
+                type="The Merch"
+                currency="Rs"
+                price="1250.00"
+                buttonTitle="Book Now"
+                cardImage="/service-details/garden-cleaning.png"
+            /> */}
+        </AppliedLayout>
     );
 };
 export const getStaticProps: GetStaticProps = async () => {
     const queryClient = new QueryClient();
-    await queryClient.prefetchQuery(["all-tasks"]);
-    return {
-        props: {
-            dehydratedState: dehydrate(queryClient),
-        },
-    };
+    try {
+        await queryClient.prefetchQuery([ReactQueryKeys.TASKS]);
+        await queryClient.prefetchQuery(["get-my-bookings"]);
+        await queryClient.prefetchQuery(["my-requested-task"]);
+        return {
+            props: {
+                dehydratedState: dehydrate(queryClient),
+            },
+        };
+    } catch (error) {
+        return { props: {} };
+    }
 };
 
 export default AppliedTask;

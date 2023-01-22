@@ -1,9 +1,8 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
+import { ElipsisReport } from "@components/common/ElipsisReport";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
-import UserLoadingOverlay from "@components/common/FullPageLoader";
 import { GoBack } from "@components/common/GoBack";
 import SaveIcon from "@components/common/SaveIcon";
-import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
@@ -11,77 +10,162 @@ import PostModal from "@components/PostTask/PostModal";
 import {
     faCalendar,
     faClockEight,
-    faEllipsisVertical,
     faEye,
     faLocationDot,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faFilterList,
+    faMagnifyingGlass,
+} from "@fortawesome/pro-regular-svg-icons";
+import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+import { Carousel } from "@mantine/carousel";
+import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format } from "date-fns";
-import { useBookmarkTasks } from "hooks/task/use-bookmark-tasks";
-import type { NextPage } from "next";
+import { useUser } from "hooks/auth/useUser";
+import { useIsBookmarked } from "hooks/use-bookmarks";
+import { useData } from "hooks/use-data";
+import parse from "html-react-parser";
+import type { GetStaticProps } from "next";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRef } from "react";
+import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
+import type { ITask, TaskApplicantsProps, TaskerCount } from "types/task";
 import { axiosClient } from "utils/axiosClient";
+import { getPageUrl } from "utils/helpers";
+import { isImage } from "utils/isImage";
+import { isVideo } from "utils/isVideo";
 
 import { TaskersTab } from "./TaskersTab";
-import { TeamMembersSection } from "./TeamMembersSection";
-import { TimelineTab } from "./TimelineTab";
 
-const AppliedTaskDetail: NextPage = () => {
-    const { data } = useBookmarkTasks();
-    const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
+const AppliedTaskDetail = ({
+    type,
+    taskDetail,
+}: {
+    type?: string;
+    taskDetail: ITask;
+}) => {
+    // const { data: myRequestedTask } = useData<MyBookings>(
+    //     ["my-requested-task"],
+    //     `${urls.task.requested_task}`
+    // );
+
+    const { data: taskApplicants } = useData<TaskerCount>(
+        ["get-task-applicants", taskDetail?.id],
+        `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`
+    );
+
+    const queryClient = useQueryClient();
+    const { data: user } = useUser();
+    const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
     const [showModal, setShowModal] = useState(false);
-    const router = useRouter();
+    const [showInput, setShowInput] = useState(false);
 
-    const uuid = router?.query?.slug as string;
+    const RenderInputBox = () => {
+        return (
+            <input
+                type="text"
+                className="input"
+                //value={search_category}
+                placeholder="search"
+            />
+        );
+    };
 
-    const { data: taskDetail } = useQuery(["task-detail", uuid], async () => {
-        const response = await axiosClient.get(`/task/task/${uuid}`);
-        return response?.data;
-    });
+    const isTaskBookmarked = useIsBookmarked("entityservice", taskDetail?.id);
 
-    const requirements = taskDetail?.requirements?.split(",");
+    const isUserTask = user ? taskDetail?.created_by?.id === user?.id : false;
 
-    const isTaskBookmarked = () =>
-        data ? data.result?.some((item) => item.object_id === uuid) : false;
+    const taskVideosAndImages = [
+        ...(taskDetail?.images ?? []),
+        ...(taskDetail?.videos ?? []),
+    ];
+    const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
+    // const highlights = safeParse<string[]>({
+    //     rawString: taskDetail?.highlights,
+    //     initialData: [],
+    // });
 
-    if (!taskDetail) {
-        return <UserLoadingOverlay />;
-    }
+    //for scroll
+
+    // const confirmDelete = () => {
+    //     mutate(serviceId, {
+    //         onSuccess: async () => {
+    //             toast.success("service deleted successfully");
+    //             router.push({ pathname: "/service" });
+    //         },
+    //         onError: (error) => {
+    //             toast.error(error?.message);
+    //         },
+    //     });
+    // };
+
+    // const handleDelete = () =>
+    //     openConfirmModal({
+    //         title: "Delete this service",
+    //         centered: true,
+    //         children: (
+    //             <Text size="sm">
+    //                 Are you sure you want to delete this service?
+    //             </Text>
+    //         ),
+    //         labels: { confirm: "Delete", cancel: "Cancel" },
+    //         confirmProps: { color: "red" },
+    //         onConfirm: () => confirmDelete(),
+    //     });
+
+    const ref = useRef<HTMLDivElement>(null);
+
+    const handleClick = () => {
+        ref.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
     return (
         <div className="aside-detail-wrapper">
-            <div className="task-detail mb-5 p-5">
-                <GoBack href="/task" />
+            <div className="task-detail">
+                <GoBack
+                    href={
+                        type === "you may like" ? `/task-you-may-like` : `/task`
+                    }
+                />
+
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
-                        <span className="pb-3 pb-sm-0 provider-name">
-                            {format(
-                                new Date(taskDetail?.created_at),
-                                "dd MMM, yyyy - hh:mm a"
-                            )}
-                        </span>
+                        {taskDetail?.created_at && (
+                            <span className="pb-3 pb-sm-0 provider-name">
+                                {format(new Date(taskDetail?.created_at), "PP")}
+                            </span>
+                        )}
+
                         <div className="d-flex justify-content-between align-items-center">
-                            <SaveIcon
-                                object_id={uuid}
-                                model="task"
-                                filled={isTaskBookmarked}
-                                showText
-                            />
-                            <button className="btn d-flex flex-col align-items-center mx-5">
-                                <ShareIcon
-                                    url={`http://localhost:3005/task/${uuid}`}
-                                    quote={"This is the task from cipher"}
-                                    hashtag={"cipher-task"}
+                            {isUserTask ? null : (
+                                <SaveIcon
+                                    object_id={taskDetail?.id}
+                                    model="entityservice"
+                                    filled={isTaskBookmarked}
+                                    showText
+                                    onSuccess={() =>
+                                        queryClient.invalidateQueries([
+                                            "bookmarks",
+                                            "task",
+                                        ])
+                                    }
                                 />
-                                <span className="name">Share</span>
-                            </button>
-                            <EllipsisDropdown
+                            )}
+                            <ShareIcon
+                                showText
+                                url={getPageUrl()}
+                                quote={"This is the task from Homaale"}
+                                hashtag={"cipher-task"}
+                            />
+
+                            {/* <EllipsisDropdown
+                                task={taskDetail}
                                 showModal={true}
                                 handleOnClick={() => setShowModal(true)}
                             >
@@ -89,11 +173,20 @@ const AppliedTaskDetail: NextPage = () => {
                                     icon={faEllipsisVertical}
                                     className="svg-icon option"
                                 />
-                            </EllipsisDropdown>
+                            </EllipsisDropdown> */}
+                            <ElipsisReport
+                                task={true}
+                                taskId={taskDetail?.id}
+                                taskTitle={taskDetail?.title}
+                                taskDescription={taskDetail?.description}
+                                owner={isUserTask}
+                                handleEdit={() => setShowModal(true)}
+                                isService={false}
+                            />
                             <Modal
                                 show={showModal}
                                 onHide={() => setShowModal(false)}
-                                backdrop="static"
+                                // backdrop="static"
                                 className="post-modal"
                             >
                                 <Modal.Header
@@ -113,103 +206,268 @@ const AppliedTaskDetail: NextPage = () => {
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/service-details/Garden.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="garden-image"
-                            />
-                        </figure>
+                        {(taskVideosAndImages ?? []).length === 1 &&
+                            taskVideosAndImages.map((file) => (
+                                <Fragment key={file.id}>
+                                    {isImage(file.media_type) ? (
+                                        <figure className="thumbnail-img">
+                                            <Image
+                                                src={file.media}
+                                                alt={file.placeholder}
+                                                objectFit="cover"
+                                                layout="fill"
+                                                placeholder="blur"
+                                                blurDataURL="/service-details/Garden.svg"
+                                            />
+                                        </figure>
+                                    ) : isVideo(file.media_type) ? (
+                                        <video
+                                            className="thumbnail-img"
+                                            width="100%"
+                                            height="100%"
+                                            controls
+                                        >
+                                            <source
+                                                id={`task-video-${file.id}`}
+                                                src={file.media}
+                                            />
+                                            Your browser does not support
+                                            playing videos.
+                                        </video>
+                                    ) : null}
+                                </Fragment>
+                            ))}
+                        {(taskVideosAndImages ?? []).length > 1 ? (
+                            <Carousel
+                                withIndicators={hasMultipleVideosOrImages}
+                                withControls={hasMultipleVideosOrImages}
+                                draggable={hasMultipleVideosOrImages}
+                                styles={{
+                                    control: {
+                                        "&[data-inactive]": {
+                                            opacity: 0,
+                                            cursor: "default",
+                                        },
+                                    },
+                                }}
+                            >
+                                {taskVideosAndImages.map((file) => (
+                                    <Carousel.Slide key={file.id}>
+                                        {isImage(file.media_type) ? (
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src={file.media}
+                                                    alt={file.placeholder}
+                                                    layout="fill"
+                                                    objectFit="cover"
+                                                    placeholder="blur"
+                                                    blurDataURL="/service-details/Garden.svg"
+                                                />
+                                            </figure>
+                                        ) : isVideo(file.media_type) ? (
+                                            <video
+                                                className="thumbnail-img"
+                                                width="100%"
+                                                height="100%"
+                                                controls
+                                            >
+                                                <source
+                                                    id={`task-video-${file.id}`}
+                                                    src={file.media}
+                                                />
+                                                Your browser does not support
+                                                playing videos.
+                                            </video>
+                                        ) : null}
+                                    </Carousel.Slide>
+                                ))}
+                            </Carousel>
+                        ) : null}
+                        {(taskVideosAndImages ?? []).length <= 0 && (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={"/placeholder/taskPlaceholder.png"}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    alt="servicecard-image"
+                                />
+                            </figure>
+                        )}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
-                        <SimpleProfileCard
-                            image={taskDetail?.image}
-                            speciality={taskDetail?.speciality}
-                            startingPrice={taskDetail?.budget_from}
-                            endPrice={taskDetail?.budget_to}
-                            isApplied={true}
-                            isPermission={false}
-                            currency={taskDetail?.currency}
-                            name={taskDetail?.assigner}
-                        />
+                        {taskDetail && (
+                            <SimpleProfileCard
+                                task={taskDetail}
+                                handleScroll={handleClick}
+                            />
+                        )}
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationDot}
                             className="svg-icon svg-icon-location"
                         />
-                        {taskDetail?.location
-                            ? taskDetail?.location
-                            : "Buddhanagar, Kathmandu"}
+                        <span>
+                            {" "}
+                            {taskDetail?.city?.name
+                                ? taskDetail?.city?.name
+                                : "Not Provided"}
+                        </span>
                     </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faCalendar}
-                            className="svg-icon svg-icon-calender"
-                        />
-                        {format(
-                            new Date(taskDetail?.start_date),
-                            "dd MMM, yyyy"
-                        )}
-                    </p>
-                    <p>
+                    {taskDetail?.created_at && (
+                        <p className="d-flex align-items-center">
+                            <FontAwesomeIcon
+                                icon={faCalendar}
+                                className="svg-icon svg-icon-calender"
+                            />
+                            {format(new Date(taskDetail?.created_at), "PP")}
+                        </p>
+                    )}
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon svg-icon-clock"
                         />
-                        {taskDetail?.start_time}
+                        {taskDetail?.updated_at
+                            ? format(new Date(taskDetail?.updated_at), "p")
+                            : "N/A"}
                     </p>
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
-                        2500 Views
+                        <span> 200 Views</span>
                     </p>
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        {taskDetail?.applicants_count} Applied
+                        <span>
+                            {" "}
+                            {taskApplicants?.data.count[0].tasker_count} Applied
+                        </span>
                     </p>
                 </div>
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>{taskDetail?.description}</p>
+                    {taskDetail?.description
+                        ? parse(taskDetail.description)
+                        : ""}
                 </div>
+                {taskDetail?.highlights.length > 0 ? (
+                    <>
+                        <h3>Requirements</h3>
+                        <div className="mt-5">
+                            {/* {taskDetail?.highlights && (
+                                <ServiceHighlights highlights={highlights} />
+                            )} */}
+                            {taskDetail?.highlights.map((highlight, index) => (
+                                <p className="mb-4" key={index}>
+                                    <FontAwesomeIcon
+                                        icon={faCheck}
+                                        className="me-3 svg-icon svg-icon-check"
+                                    />
+                                    {highlight}
+                                </p>
+                            ))}
+                        </div>
+                    </>
+                ) : null}
 
-                <h3>Requirements</h3>
-                <div className="mt-5">
-                    {requirements &&
-                        requirements.map((name: string, index: number) => (
-                            <div key={index}>
-                                <ServiceHighlights title={name} />
-                            </div>
-                        ))}
+                {/* <TeamMembersSection /> */}
+                <div ref={ref}>
+                    <Tab
+                        activeIndex={activeTabIdx}
+                        onTabClick={setActiveTabIdx}
+                        items={[
+                            {
+                                title: `Taskers (${
+                                    taskApplicants
+                                        ? taskApplicants?.data.count[0]
+                                              .tasker_count
+                                        : 0
+                                })`,
+                                content: (
+                                    <TaskersTab
+                                        taskId={taskDetail ? taskDetail.id : ""}
+                                    />
+                                ),
+                            },
+                            {
+                                title: "Collaboration",
+                                content: <Collaboration />,
+                            },
+                        ]}
+                        icons={[
+                            {
+                                index: 0,
+                                type: (
+                                    <FontAwesomeIcon
+                                        icon={faMagnifyingGlass}
+                                        className="svg-icon"
+                                        onClick={() => setShowInput(!showInput)}
+                                    />
+                                ),
+                                iconContent: showInput ? (
+                                    <RenderInputBox />
+                                ) : null,
+                            },
+                            {
+                                index: 1,
+                                type: (
+                                    <EllipsisDropdown
+                                        showModal={true}
+                                        handleOnClick={() => setShowModal(true)}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faFilterList}
+                                            className="svg-icon"
+                                        />
+                                    </EllipsisDropdown>
+                                ),
+                            },
+                        ]}
+                    />
                 </div>
-
-                <TeamMembersSection />
-
-                <Tab
-                    activeIndex={activeTabIdx}
-                    onTabClick={setActiveTabIdx}
-                    items={[
-                        { title: "Taskers", content: <TaskersTab /> },
-                        { title: "Timeline", content: <TimelineTab /> },
-                        {
-                            title: "Collaboration",
-                            content: <Collaboration />,
-                        },
-                    ]}
-                />
             </div>
         </div>
     );
 };
 
 export default AppliedTaskDetail;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: applicants } = await axiosClient.get<TaskApplicantsProps>(
+            `${urls.task.my_task}`
+        );
+
+        const queryClient = new QueryClient();
+        await Promise.all([
+            queryClient.prefetchQuery(["get-my-applicants"]),
+            queryClient.prefetchQuery(["get-task-applicants"]),
+            queryClient.prefetchQuery(["task-detail"]),
+            queryClient.prefetchQuery(["tasks"]),
+        ]);
+
+        return {
+            props: {
+                applicants,
+                dehydratedState: dehydrate(queryClient),
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                applicants: [],
+            },
+            revalidate: 10,
+        };
+    }
+};

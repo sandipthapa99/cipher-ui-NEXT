@@ -3,27 +3,60 @@
     flex-direction: column;
 
     &__headers {
+        &--btn {
+            color: #9fa3b1;
+            font-weight: 500;
+            @include respond(xs) {
+                margin-right: 1rem;
+            }
+            @include respond(xxs) {
+                margin-right: 1rem;
+            }
+        }
+        [data-is-active="true"] {
+            color: $default-text-color;
+        }
         position: relative;
         // display: flex;
         // gap: 62px;
-        padding-block: 10px;
-        margin-bottom: 24px;
+        padding-block: 1rem;
+        margin: 2.4rem 0 3.6rem 0;
         .tab-wrapper {
             display: flex;
-            justify-content: space-between;
-            .custom-tab__headers--btn {
+            gap: 1rem;
+            flex-wrap: wrap;
+            @include respond(md) {
+                gap: 6rem;
+            }
+
+            .tabs {
                 display: flex;
-                flex-wrap: wrap;
                 justify-content: space-between;
+                .custom-tab__headers--btn {
+                    display: flex;
+                    margin-right: 3.8rem;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                }
+            }
+            @include respond(sm) {
+                flex-direction: column;
             }
 
             .tab-icons {
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
+                @include respond(xs) {
+                    align-items: baseline;
+                }
+                .svg-icon {
+                    color: $primary-color;
+                    cursor: pointer;
+                }
             }
         }
         @include media("<=tablet") {
-            overflow-x: scroll;
             flex-wrap: nowrap;
             gap: 32px;
         }
@@ -37,6 +70,25 @@
             height: 1px;
             background-color: #ced4da;
             transform: translateY(4px);
+        }
+        input {
+            background: #fff;
+            border: 0.1rem solid #afafaf;
+            box-shadow: none;
+            height: 4.8rem;
+            font-size: 1.6rem;
+            padding: 0.6rem 1.8rem;
+            position: relative;
+            border-radius: 0.4rem;
+            margin-right: 1rem;
+            font-family: "Inter";
+            @include transition();
+            @include respond(xs) {
+                width: 90%;
+            }
+            @include respond(md) {
+                width: 95%;
+            }
         }
         &--btn {
             position: relative;

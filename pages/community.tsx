@@ -1,28 +1,21 @@
-import BlogCard from "@components/common/BlogCard";
+import AnchorButton from "@components/common/AnchorButton";
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import BusinessGoal from "@components/common/BusinessGoal";
-import BigButton from "@components/common/Button";
-import CommunityActivityCard from "@components/common/communityActivity";
 import CommunityGuidelineCard from "@components/common/CommunityGuidelineCard";
 import Layout from "@components/Layout";
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { Carousel } from "react-bootstrap";
-import { businessGoal } from "staticData/businessGoal";
-import {
-    blogCardContent,
-    communityActivityContent,
-    communityGuidelineCardContent,
-} from "staticData/community";
+import { communityGuidelineCardContent } from "staticData/community";
+
 const Community: NextPage = () => {
+    const accessToken = Cookies.get("access");
     return (
-        <Layout title="Community | Cipher">
+        <Layout title="Community | Homaale">
             <section className="community-page">
-                <BreadCrumb currentPage="Community" />
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
+                    <BreadCrumb currentPage="Community" />
+
                     <div className="community-page__top-container">
                         <Row className="top-row gx-5">
                             <Col
@@ -41,25 +34,39 @@ const Community: NextPage = () => {
                             </Col>
                             <Col md={6} sm={6}>
                                 <h3>
-                                    Let&apos; root for each other &amp;{" "}
-                                    <br></br> watch each other grow
+                                    Let&apos;s root for each other &amp;{" "}
+                                    <br></br> help each other grow
                                 </h3>
                                 <p>
-                                    Communicate with others for your own benefit
+                                    We are committed to bring the service
+                                    providers and service seekers together in
+                                    the same platform.
                                 </p>
-                                <BigButton
-                                    btnTitle="Join Us"
-                                    backgroundColor="#fff"
-                                    textColor="#111"
-                                />
-                                {/* <Button className="button">Join Us</Button> */}
+
+                                {accessToken !== undefined ? (
+                                    <AnchorButton
+                                        className={"px-4"}
+                                        href={"/explore-services"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Explore Services"}
+                                    </AnchorButton>
+                                ) : (
+                                    <AnchorButton
+                                        className={"px-4"}
+                                        href={"/signup"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Join Now"}
+                                    </AnchorButton>
+                                )}
                             </Col>
                         </Row>
                     </div>
                 </Container>
             </section>
             <section className="community-page-main">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="community-page-main__gallery">
                         <h1>Community Gallery</h1>
 
@@ -125,9 +132,9 @@ const Community: NextPage = () => {
                     <div className="community-page-main__guidelines">
                         <h1>Community guidelines</h1>
                         <p>
-                            {" "}
-                            To assist clients and merchants in their personal
-                            and professional pursuits
+                            Creating a community to establish formal
+                            expectations and standards for the clients and
+                            merchants.
                         </p>
                         <Row className="gx-5">
                             {communityGuidelineCardContent &&
@@ -159,10 +166,8 @@ const Community: NextPage = () => {
                         </Row>
                     </div>
 
-                    <div className="community-page-main__activity">
-                        {/* <h1>Community activity</h1> */}
+                    {/* <div className="community-page-main__activity">
                         <div className="title-wrapper d-flex justify-content-between">
-                            {/* <h2 className="heading-title">Community activity</h2> */}
                             <h1>Community activity</h1>
                             <a href="/pages" className="view-more">
                                 view more{" "}
@@ -177,9 +182,7 @@ const Community: NextPage = () => {
                                 communityActivityContent.map((activity) => {
                                     return (
                                         <Col
-                                            // sm={6}
                                             md={6}
-                                            // lg={4}
                                             key={activity.id}
                                         >
                                             <CommunityActivityCard
@@ -197,8 +200,8 @@ const Community: NextPage = () => {
                                     );
                                 })}
                         </Row>
-                    </div>
-                    <Carousel>
+                    </div> */}
+                    {/* <Carousel>
                         {businessGoal &&
                             businessGoal.map((goal) => {
                                 return (
@@ -217,9 +220,9 @@ const Community: NextPage = () => {
                                     </Carousel.Item>
                                 );
                             })}
-                    </Carousel>
+                    </Carousel> */}
 
-                    <div className="community-page-main__blogs">
+                    {/* <div className="community-page-main__blogs">
                         <h1>Blogs</h1>
                         <Row>
                             {blogCardContent &&
@@ -243,7 +246,7 @@ const Community: NextPage = () => {
                                     );
                                 })}
                         </Row>
-                    </div>
+                    </div> */}
                 </Container>
             </section>
         </Layout>

@@ -1,3 +1,7 @@
 export interface SkillsValueProps {
-    skills: string;
+    // skill: {
+    //     label: string;
+    //     value: string;
+    // }[];
+    skill: string;
 }

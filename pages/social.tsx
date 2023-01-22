@@ -1,21 +1,30 @@
 import BlogCard from "@components/common/BlogCard";
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import BusinessGoal from "@components/common/BusinessGoal";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
-import { businessGoal } from "staticData/businessGoal";
-import { blogCardContent } from "staticData/community";
+import { Col, Container, Row } from "react-bootstrap";
+// import { businessGoal } from "staticData/businessGoal"; //DONOT Remove
+import type { BlogValueProps } from "types/blogs";
 
 const SocialResponsibilities: NextPage = () => {
+    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     return (
-        <Layout title="Social Responsibilities | Cipher">
+        <Layout
+            title="Social Responsibilities | Homaale"
+            description="Homaale is a platform designed to provide service booking solutions to the
+        service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+         It covers a wide range of services from various industries like Accounting, Gardening,
+        Health, Beauty, and many more."
+            keywords="homaale, homaale-social, responsibilities, social, airtasker-nepali,nepali-working-platform, business, online-business"
+        >
             <section className="social-page">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Social responsibilities" />
                     <div className="social-page__top-container">
                         <h1>Social Responsibilites</h1>
@@ -30,28 +39,20 @@ const SocialResponsibilities: NextPage = () => {
                         </figure>
                         <div className="card">
                             <div className="description">
-                                <h4>Our moto</h4>
+                                <h4>Our Vision</h4>
                                 <p>
-                                    “Lorem Ipsum is simply dummy text of the
-                                    printing and typesetting industry. Lorem
-                                    Ipsum has been the industry&apos;s standard
-                                    dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and
-                                    scrambled it to make a type specimen book.
-                                    It has survived not only five centuries, but
-                                    also the leap into electronic typesetting,
-                                    remaining essentially unchanged when an
-                                    unknown printer took a galley of type and
-                                    scrambled it to make a type specimen book.
-                                    It has survived not only five centuries, but
-                                    also the leap into electronic typesetting,
-                                    remaining essentially unchanged.”
+                                    “We believe in our team and the work that
+                                    they have been putting in, to incorporate a
+                                    platform for all the service providers and
+                                    service seekers using technological
+                                    advancement and visualise a better everyday
+                                    life for the community.”
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div className="social-page__commitment">
-                        <h1>Our commitment towards future sustainibility</h1>
+                        {/* <h1>Our commitment towards future sustainibility</h1> */}
                         <figure className="thumbnail-img">
                             <Image
                                 src="/social/commitment.svg"
@@ -61,7 +62,7 @@ const SocialResponsibilities: NextPage = () => {
                             />
                         </figure>
                     </div>
-                    <Carousel>
+                    {/* <Carousel>
                         {businessGoal &&
                             businessGoal.map((goal) => {
                                 return (
@@ -80,38 +81,34 @@ const SocialResponsibilities: NextPage = () => {
                                     </Carousel.Item>
                                 );
                             })}
-                    </Carousel>
+                    </Carousel> */}
 
                     <div className="social-page__blogs">
                         <div className="title-wrapper d-flex justify-content-between">
                             {/* <h2 className="heading-title">Community activity</h2> */}
                             <h1>Our Blogs</h1>
-                            <a href="" className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
+                            <Link href={"/blogs/"}>
+                                <a className="view-more">
+                                    view more
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
                         </div>
                         <Row className="gx-5">
-                            {blogCardContent &&
-                                blogCardContent.map((blog) => {
+                            {blogData &&
+                                blogData?.data?.result?.map((blog, key) => {
                                     return (
                                         <Col
                                             className="d-flex align-items-stretch"
                                             // sm={6}
                                             md={4}
                                             // lg={4}
-                                            key={blog.id}
+                                            key={key}
                                         >
-                                            <BlogCard
-                                                cardImage={blog.cardImage}
-                                                cardDescription={
-                                                    blog.cardDescription
-                                                }
-                                                cardTitle={blog.cardTitle}
-                                            />
+                                            <BlogCard blogData={blog} />
                                         </Col>
                                     );
                                 })}

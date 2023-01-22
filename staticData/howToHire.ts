@@ -22,9 +22,9 @@ export const hireTaskerContent = [
         id: "0",
         image: "/howtohire/notes.svg",
         title: "Post a task and hire ",
-        subtitle: "Find best ways to find tasker.",
+        subtitle: "",
         description:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popula rised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "Create a task that you need service on along with the required details and photographs. Mention a fair budget for it and post it on Homaale. Complete the payment procedure to get a list of interested service providers. Choose the best one out. And Voila, you’ve hired the best service provider for your task.",
         buttonText: "Hire Tasker",
         imageOnRight: false,
     },
@@ -34,12 +34,12 @@ export const browseTalent = [
     {
         id: "0",
         image: "/howtohire/browse.svg",
-        title: "How does it work?",
-        subtitle: "What do you need done?",
+        title: "How to find the right Professional for your task",
+        subtitle: "",
         buttonText: "Browse Now",
         imageOnRight: true,
         description:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popula rised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "Depending on the type of service you need, you can always choose to hire a professional viewing their profile, reviews and experiences.",
     },
 ];
 

@@ -88,16 +88,16 @@ class _Document extends Document {
                         href="https://fonts.gstatic.com"
                         crossOrigin="true"
                     />
-                    <link
+                    {/* <link
                         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@300;400;500;600;700&display=swap"
                         rel="stylesheet"
-                    />
+                    /> */}
                     <link
                         href="https://fonts.googleapis.com/icon?family=Material+Icons"
                         rel="stylesheet"
                     ></link>
                 </Head>
-                <body key="">
+                <body>
                     <Main />
                     <NextScript />
                 </body>

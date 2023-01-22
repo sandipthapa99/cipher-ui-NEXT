@@ -1,22 +1,35 @@
+import AnchorButton from "@components/common/AnchorButton";
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import CardBtn from "@components/common/CardBtn";
 import CipherCard from "@components/common/CipherCard";
-import FaqContent from "@components/common/Faq";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import Layout from "@components/Layout";
+import Cookies from "js-cookie";
+import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { Table } from "react-bootstrap";
+import Marquee from "react-fast-marquee";
 import { affiliateGetStarted } from "staticData/affiliate";
-import { faqContent } from "staticData/faq";
-import { trustedPartners } from "staticData/taskerMarketPlace";
+import type { BrandValueProps } from "types/brandValueProps";
+import type { FAQValueProps } from "types/faqValueProps";
+import { axiosClient } from "utils/axiosClient";
 
-const AffiliateProgram = () => {
+const AffiliateProgram: NextPage<{
+    trustedPartnerData: BrandValueProps;
+    faqData: FAQValueProps;
+}> = ({ trustedPartnerData, faqData }) => {
+    const accessToken = Cookies.get("access");
+
     return (
-        <Layout title="Affiliate Program | Cipher">
+        <Layout
+            title="Affiliate Program | Cipher"
+            description="Become a Homaale affiliate and earn a 20% monthly commission. Join today to get a signup bonus and boost your earnings with one of the top affiliate software platforms."
+            keywords="homaale, airtasker-nepali, nepali-working-platform programs affiliate-programs"
+        >
             <section className="affiliate-hero-section">
-                <BreadCrumb currentPage="Affiliate Program" />
-                <Container className="px-5" fluid="xl">
+                <Container className="px-4" fluid="xl">
+                    <BreadCrumb currentPage="Affiliate Program" />
                     <Row className="gx-5">
                         <Col
                             md={5}
@@ -38,7 +51,7 @@ const AffiliateProgram = () => {
                             <div className="affiliate-hero-section__text-wrapper">
                                 <h1>Welcome to our affilate program</h1>
                                 <p>
-                                    Become a Cipher affiliate and earn a 20%
+                                    Become a Homaale affiliate and earn a 20%
                                     monthly commission. Join today to get a
                                     signup bonus and boost your earnings with
                                     one of the top affiliate software platforms.
@@ -50,27 +63,60 @@ const AffiliateProgram = () => {
                                     <li>No credit card required</li>
                                     <li>Cancel anytime</li>
                                 </ul>
-                                <CardBtn
-                                    backgroundColor="#211D4F"
-                                    btnTitle="Join Now"
-                                />
+
+                                {accessToken !== undefined ? (
+                                    <AnchorButton
+                                        className={"px-4"}
+                                        href={"/service/"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Explore Services"}
+                                    </AnchorButton>
+                                ) : (
+                                    <AnchorButton
+                                        className={"px-4"}
+                                        href={"/signup"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Join Now"}
+                                    </AnchorButton>
+                                )}
                             </div>
                         </Col>
                     </Row>
                 </Container>
             </section>
-            <Container className="px-5" fluid="xl">
-                <section className="affiliate-partners-section">
-                    <div className="content">
-                        {trustedPartners &&
-                            trustedPartners.map((partner) => (
-                                <h1 key={partner.id}>{partner.name}</h1>
-                            ))}
-                    </div>
-                </section>
+            <section
+                id="trusted-brand-section"
+                className="trusted-brand-section"
+            >
+                {/* <Container fluid="xl" className="px-4"> */}
+                <Marquee gradient={true} className="marquee" speed={40}>
+                    {trustedPartnerData?.map((value, key) => (
+                        <Link href={value?.redirect_url} key={key}>
+                            <li className="light">
+                                <a>
+                                    {value?.logo && (
+                                        <figure>
+                                            <Image
+                                                src={value?.logo}
+                                                alt={value?.alt_text}
+                                                layout="fill"
+                                                objectFit="contain"
+                                            ></Image>
+                                        </figure>
+                                    )}
+                                </a>
+                            </li>
+                        </Link>
+                    ))}
+                </Marquee>
+                {/* </Container> */}
+            </section>
+            <Container className="px-4" fluid="xl">
                 <section className="affiliate-get-started-section">
                     <h1 className="heading-title">Get started</h1>
-                    <h2>It&apos;s easy to join us</h2>
+                    <h2>It&apos;s easy to </h2>
                     <Row className="gx-5">
                         {affiliateGetStarted &&
                             affiliateGetStarted.map((card) => {
@@ -80,6 +126,7 @@ const AffiliateProgram = () => {
                                             thumbnailImg={card.thumbnailImg}
                                             title={card.title}
                                             description={card.description}
+                                            redirectTo={""}
                                         />
                                     </Col>
                                 );
@@ -146,7 +193,7 @@ const AffiliateProgram = () => {
 
                 <section className="why-cipher">
                     <LongSquareImageCard
-                        title="Why Cipher"
+                        title="Why Homaale"
                         subtitle="The world's work marketplace"
                         image="/affiliate/why-cipher.png"
                         description="Businesses and independent professionals from
@@ -161,15 +208,21 @@ const AffiliateProgram = () => {
                 <section className="affiliate-faqs">
                     <h1>Frequently asked questions</h1>
                     <Accordion flush>
-                        {faqContent &&
-                            faqContent.map((faq) => (
-                                <FaqContent
-                                    answer={faq.answer}
-                                    key={faq.id}
-                                    id={faq.id}
-                                    question={faq.question}
-                                />
-                            ))}
+                        {(faqData?.result ?? []).length > 0
+                            ? faqData?.result?.map((value, key) => (
+                                  <Accordion.Item
+                                      eventKey={key.toString()}
+                                      key={key}
+                                  >
+                                      <Accordion.Header>
+                                          {value?.title}
+                                      </Accordion.Header>
+                                      <Accordion.Body>
+                                          <p>{value?.content}</p>
+                                      </Accordion.Body>
+                                  </Accordion.Item>
+                              ))
+                            : "No FAQ datas found"}
                     </Accordion>
                 </section>
             </Container>
@@ -177,3 +230,27 @@ const AffiliateProgram = () => {
     );
 };
 export default AffiliateProgram;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: trustedPartnerData } = await axiosClient.get(
+            "/landingpage/trusted-partner/"
+        );
+        const { data: faqData } = await axiosClient.get("/support/faq/");
+        return {
+            props: {
+                trustedPartnerData,
+                faqData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                trustedPartnerData: [],
+                faqData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};

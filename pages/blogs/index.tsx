@@ -4,23 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import http from "pages/api/httpService";
 import { Alert, Col, Container, Row } from "react-bootstrap";
-import type { BlogsProps } from "types/blogs";
-import { blogListAPI, formatMonthDate } from "utils/helpers";
+import type { BlogValueProps } from "types/blogs";
+import { axiosClient } from "utils/axiosClient";
+import { formatMonthDate } from "utils/helpers";
 
-const Blog = ({ blogsData }: BlogsProps) => {
+const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
     const { result } = blogsData ?? [];
 
     return (
         <Layout
-            title="Blogs | Cipher"
-            description="Explore the insights provided by Cipher"
+            title="Blogs | Homaale"
+            description="Explore the insights and blogs provided by Homaale"
+            keywords="homaale-blogs blogs"
         >
             {/* Recent Blogs Section Start */}
             <section id="recent-blogs" className="recent-blogs">
                 <section className="recent-blogs__hero-section">
-                    <Container>
+                    <Container fluid="xl" className="px-4">
                         <Row>
                             <Col md={6}>
                                 <div className="hero-text">
@@ -29,18 +30,10 @@ const Blog = ({ blogsData }: BlogsProps) => {
                                         <span>Blogs</span>
                                     </h1>
                                     <p>
-                                        Amet minim mollit non deserunt ullamco
-                                        est sit aliqua dolor do amet sint. Velit
-                                        officia consequat duis enim velit
-                                        mollit. Exercitation veniam consequat
-                                        sunt nostrud amet.Amet minim mollit non
-                                        deserunt ullamco est sit aliqua dolor do
-                                        amet sint. Velit officia consequat duis
-                                        enim velit mollit. Exercitation veniam
-                                        consequat sunt nostrud amet.Amet minim
-                                        mollit non deserunt ullamco est sit
-                                        aliqua dolor do amet sint. Velit officia
-                                        consequat duis enim ved
+                                        Our blogs are not limited to our
+                                        services and technology. Find the blogs
+                                        that match your interests or reach out
+                                        to us to post your blogs as well.
                                     </p>
                                 </div>
                             </Col>
@@ -58,7 +51,7 @@ const Blog = ({ blogsData }: BlogsProps) => {
                     </Container>
                 </section>
                 <div className="recent-blogs__blog-listings">
-                    <Container>
+                    <Container fluid="xl" className="px-4">
                         <Row className="gx-5 mt-5">
                             {result && result.length > 0 ? (
                                 result?.map((blog) => {
@@ -84,11 +77,25 @@ const Blog = ({ blogsData }: BlogsProps) => {
                                                                 objectFit="cover"
                                                             />
                                                         </figure>
-                                                        <p className="category">
-                                                            {category[0]}
-                                                        </p>
+                                                        {category &&
+                                                            category.map(
+                                                                (
+                                                                    item: any,
+                                                                    index: number
+                                                                ) => (
+                                                                    <span
+                                                                        className="category"
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                    >
+                                                                        {item}
+                                                                    </span>
+                                                                )
+                                                            )}
+
                                                         <div className="author-date">
-                                                            <p className="author">{`${blog?.author?.first_name}`}</p>
+                                                            <p className="author">{`${blog?.author}`}</p>
                                                             <p className="published-date">
                                                                 <FontAwesomeIcon
                                                                     icon={
@@ -129,8 +136,7 @@ export default Blog;
 
 export const getStaticProps: GetStaticProps = async () => {
     try {
-        const { data: blogsData } = await http.get(blogListAPI);
-        if (blogsData.error) throw new Error(blogsData.error.message);
+        const { data: blogsData } = await axiosClient.get("/blog/");
         return {
             props: {
                 blogsData,
@@ -138,6 +144,7 @@ export const getStaticProps: GetStaticProps = async () => {
             revalidate: 10,
         };
     } catch (err: any) {
+        console.log(err);
         return {
             props: {
                 blogsData: [],

@@ -31,3 +31,57 @@ export const taskDetails = Array.from({ length: DUMMY_TASKS.length })
     }));
 
 export type TaskDetail = typeof taskDetails[0];
+
+export type TaskerDetails = {
+    id: number;
+    charge_currency: {
+        id: string;
+        name: string;
+        code: string;
+        symbol: any;
+    };
+    user: {
+        id: string;
+        email: string;
+        first_name: string;
+        middle_name: string;
+        last_name: string;
+    };
+    portfolio: Array<any>;
+    stats: {
+        success_rate: number;
+        happy_clients: number;
+        task_completed: number;
+
+        task_assigned: number;
+        task_in_progress: number;
+        task_cancelled: number;
+    };
+    rating?: Rating | any;
+    status: string;
+    bio: string;
+    full_name: string;
+    phone: string;
+    gender: string;
+    profile_image: string;
+    date_of_birth: any;
+    skill: string;
+    active_hour_start: string;
+    active_hour_end: string;
+    experience_level: string;
+    user_type: string;
+    hourly_rate: number;
+    profile_visibility: string;
+    task_preferences: string;
+    address_line1: string;
+    address_line2: any;
+    is_profile_verified: boolean;
+    country: any;
+    language: any;
+    subscription: Array<any>;
+};
+
+export interface Rating {
+    user_rating_count: number;
+    avg_rating: number;
+}

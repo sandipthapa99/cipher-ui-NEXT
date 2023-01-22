@@ -1,5 +1,6 @@
 html {
     font-size: 10px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -27,6 +28,12 @@ a {
         color: $secondary-color;
         outline: none;
     }
+}
+.notification-dialog {
+    box-shadow: 0px 4px 14px rgb(33 29 79 / 10%);
+    background-color: #fef7ea;
+    border: 0.1rem solid #f5c7a0;
+    color: #333c48;
 }
 .view-more {
     color: #fca500;
@@ -138,7 +145,14 @@ section {
         margin-bottom: 8rem;
     }
 }
-
+.main {
+    position: relative;
+    z-index: 3;
+    background: #edf4ff;
+    padding-bottom: 0.1rem;
+    border-bottom-left-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+}
 .thumbnail-img {
     overflow: hidden;
     position: relative;
@@ -162,7 +176,7 @@ section {
     background: #fff;
     border: 0.1rem solid $gray-text-color;
     box-shadow: none;
-    height: 4.8rem;
+    min-height: 4.8rem;
     font-size: 1.6rem;
     padding: 0.6rem 1.8rem;
     position: relative;
@@ -223,6 +237,9 @@ textarea.form-control {
 }
 
 .site-btn {
+    @include respond(xs) {
+        padding: 0.95rem 0.4rem;
+    }
     @extend %site-btn;
     .svg-icon {
         width: 2.4rem;
@@ -279,7 +296,7 @@ textarea.form-control {
 }
 .social-btn {
     font-size: 1.4rem;
-    font-weight: 400;
+    font-weight: 500;
     border-radius: 0.4rem;
     font-family: $poppins-font;
     color: #fff;
@@ -292,10 +309,13 @@ textarea.form-control {
     justify-content: center;
     @include transition();
     &.facebook {
-        background-color: #1877f2;
-        color: #ffffff;
+        // background-color: #1877f2;
+        background-color: transparent;
+        color: #3c4043;
+        border: 1px solid #dadce0;
         &:hover {
-            background-color: #0d58bb;
+            border: 0.1rem solid #d2e3fc;
+            background-color: #4285f40a;
         }
     }
     &.google {
@@ -391,9 +411,12 @@ small.text-muted {
     margin: 0 0 2rem;
     font-weight: 500;
     color: $primary-color;
+    @include respond(xs) {
+        margin: 2rem 1rem 1rem 0rem;
+    }
     @include respond(md) {
         font-size: 2rem;
-        margin: 0 0 2.4rem;
+        margin: 5rem 1rem 2.4rem 0rem;
     }
     span {
         color: $primary-color;
@@ -412,13 +435,13 @@ small.text-muted {
 
 .section-main-title {
     font-size: 2.4rem;
-    margin: 0 0 2rem;
+    margin: 0 0 1.4rem;
     display: flex;
     justify-content: center;
     font-weight: 500;
     @include respond(md) {
         font-size: 4rem;
-        margin: 0 0 2.4rem;
+        margin: 0 0 1.4rem;
     }
 }
 .section-sub-title {
@@ -651,6 +674,66 @@ small.text-muted {
     position: relative;
     @include respond(md) {
         position: sticky;
+        right: 0;
         top: 15rem;
     }
+}
+
+.search-input {
+    &:focus {
+        outline: none !important;
+        border-color: $secondary-color;
+        box-shadow: 0 0 6px $secondary-color;
+    }
+}
+.mantine-Skeleton {
+    background: white;
+    &-root {
+        z-index: 0;
+    }
+}
+
+.mantine-Select-dropdown.mantine-rynikm {
+    font-size: 1000px !important;
+}
+.PhoneInput {
+    .PhoneInputCountry {
+        height: 3.5rem;
+        margin-block: auto;
+        margin-right: 1rem;
+        .PhoneInputCountrySelect {
+            left: -1.5rem;
+            top: 1rem;
+            background: #fff;
+        }
+    }
+    .PhoneInputInput {
+        border: none;
+        outline: none;
+        height: 100%;
+    }
+}
+.mantine-Spoiler-root {
+    .mantine-Spoiler-control {
+        color: $nav-link-color;
+        font: 400 1.4rem $poppins-font;
+        @include transition();
+        &:hover {
+            text-decoration: none;
+            color: $secondary-color;
+        }
+    }
+}
+
+.grecaptcha-badge {
+    display: none !important;
+    @include respond(md) {
+        display: block !important;
+    }
+}
+
+.review-button {
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: #0693e3;
 }

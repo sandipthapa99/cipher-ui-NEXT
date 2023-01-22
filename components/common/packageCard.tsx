@@ -11,6 +11,7 @@ const PackageOffersCard = ({
     advantage,
     isRecommended,
     isFromAddService,
+    discountAmount,
 }: PacakageCardProps) => {
     return (
         <div
@@ -40,17 +41,13 @@ const PackageOffersCard = ({
                     {isRecommended ? (
                         <p className="recommended">{advantage}</p>
                     ) : (
-                        <p className="saving">{advantage}</p>
+                        <p className="saving">{discountAmount}</p>
                     )}
                 </div>
             </div>
             <div className="offers">
-                {offers?.map((offer: any, i: number) => (
-                    <PackageServiceHighlights
-                        key={i}
-                        title={offer.name}
-                        isChecked={offer.isChecked}
-                    />
+                {offers?.map((offer, key) => (
+                    <PackageServiceHighlights key={key} title={offer.name} />
                 ))}
             </div>
 

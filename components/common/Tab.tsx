@@ -9,10 +9,10 @@ export interface TabProps {
     }[];
     activeIndex?: number;
     onTabClick: (index: number) => void;
-    icons?: { index: number; type: ReactNode }[];
+    icons?: { index: number; type: ReactNode; iconContent?: ReactNode }[];
 }
 
-export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
+export const Tab = ({ items, activeIndex, onTabClick }: TabProps) => {
     const router = useRouter();
 
     const handleTabClick = (index: number) => {
@@ -35,25 +35,32 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
 
     const renderTabItems = () => {
         return (
-            <div className="tab-wrapper">
+            <div id="tab" className="flex-sm-row tab-wrapper">
+                {/* <div className="tabs"> */}
                 {items.map((item, index) => (
                     <button
                         data-is-active={JSON.stringify(
                             index === currentActiveIndex
                         )}
-                        className="custom-tab__headers--btn"
+                        className="custom-tab__headers--btn mb-5 mb-sm-0"
                         onClick={() => handleTabClick(index)}
                         key={index}
                     >
                         {item.title}
                     </button>
                 ))}
+                {/* </div> */}
 
-                <div className="tab-icons">
+                {/* <div className="tab-icons">
                     {icons?.map((icon) => (
-                        <div key={icon.index}>{icon.type}</div>
+                        <>
+                            <div className="icon-content">
+                                {icon.iconContent}
+                            </div>
+                            <div key={icon.index}>{icon.type}</div>
+                        </>
                     ))}
-                </div>
+                </div> */}
                 {/* {icons?.map((icon) => (
                     <div key={icon.index}>{icon.type}</div>
                 ))} */}
@@ -62,7 +69,7 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
     };
     return (
         <div className="custom-tab">
-            <div className="custom-tab__headers">{renderTabItems()}</div>
+            <div className="custom-tab__headers mb-3">{renderTabItems()}</div>
             {currentActiveIndex !== undefined &&
             typeof currentActiveIndex === "number" &&
             items[currentActiveIndex] ? (

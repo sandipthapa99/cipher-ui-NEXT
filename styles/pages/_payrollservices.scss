@@ -13,6 +13,10 @@
             color: $sub-title-color;
             line-height: 2rem;
             font-weight: 500;
+            @include respond(xs) {
+                font-weight: 400;
+                font-size: 1.4rem;
+            }
         }
         .thumbnail-img {
             width: 100%;
@@ -76,6 +80,11 @@
                         font-weight: 500;
                         font-size: 1.4rem;
                         text-align: justify;
+                        word-break: break-all;
+                        @include respond(xs) {
+                            font-weight: 400;
+                            font-size: 1.4rem;
+                        }
                     }
                 }
             }
@@ -145,6 +154,11 @@
                     font-weight: 400;
                     font-size: 2.1rem;
                     line-height: 3.4rem;
+                    @include respond(xs) {
+                        font-weight: 400;
+                        font-size: 1.9rem;
+                        line-height: 2.4rem;
+                    }
                 }
                 p {
                     font-size: 1.5rem;
@@ -158,6 +172,9 @@
                 font-size: 2rem;
                 font-weight: 400;
                 page-break-inside: 2.5rem;
+                @include respond(xs) {
+                    font-size: 1.7rem;
+                }
             }
             .thumbnail-img {
                 height: 47rem;

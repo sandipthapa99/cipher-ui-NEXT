@@ -4,10 +4,9 @@ import {
     faLinkedin,
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faCopy } from "@fortawesome/pro-regular-svg-icons";
-import { faLink } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
+import { ActionIcon, CopyButton, Tooltip } from "@mantine/core";
+import { IconCheck, IconCopy } from "@tabler/icons";
 import {
     FacebookShareButton,
     InstapaperShareButton,
@@ -24,23 +23,21 @@ const ShareModal = ({
     quote,
     hashtag,
 }: ShareButtonProps) => {
-    const copyToClipBoard = async (copyMe: any) => {
-        try {
-            await navigator.clipboard.writeText(copyMe);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
     return (
-        <div className="share-modal">
+        <>
             {/* Modal component */}
-            <Modal centered show={show} onHide={handleClose} backdrop="static">
+            <Modal
+                centered
+                show={show}
+                className="share-modal"
+                onHide={handleClose}
+                backdrop="static"
+            >
                 <Modal.Header closeButton></Modal.Header>
                 <div className="share-modal__modal-body-content">
                     <h1>Share With</h1>
                     <div className="media-wrapper">
-                        <div className="social-media">
+                        <div className="social-media facebook">
                             <FacebookShareButton
                                 url={url}
                                 quote={quote}
@@ -48,63 +45,64 @@ const ShareModal = ({
                             >
                                 <FontAwesomeIcon
                                     icon={faFacebookF}
-                                    className="svg-icon facebook"
+                                    className="svg-icon facebook-icon"
                                 />
                             </FacebookShareButton>
                         </div>
-                        <div
-                            className="social-media"
-                            style={{ background: "#0072B1" }}
-                        >
+                        <div className="social-media twitter">
                             <TwitterShareButton url={url} hashtags={[hashtag]}>
                                 <FontAwesomeIcon
                                     icon={faTwitter}
-                                    className="svg-icon twitter"
+                                    className="svg-icon twitter-icon"
                                 />
                             </TwitterShareButton>
                         </div>
-                        <div className="social-media">
+                        <div className="social-media instagram">
                             <InstapaperShareButton
                                 url={url}
                                 description={quote}
                             >
                                 <FontAwesomeIcon
                                     icon={faInstagram}
-                                    className="svg-icon instagram"
+                                    className="svg-icon instagram-icon"
                                 />
                             </InstapaperShareButton>
                         </div>
-                        <div className="social-media">
+                        <div className="social-media linkedin">
                             <LinkedinShareButton url={url}>
                                 <FontAwesomeIcon
                                     icon={faLinkedin}
-                                    className="svg-icon linkedin"
+                                    className="svg-icon linkedin-icon"
                                 />
                             </LinkedinShareButton>
                         </div>
-                        <div className="social-media">
-                            <Link href="/">
-                                <FontAwesomeIcon
-                                    icon={faCopy}
-                                    onClick={() =>
-                                        copyToClipBoard("https://cipher.com/")
-                                    }
-                                    className="svg-icon copy"
-                                />
-                            </Link>
-                        </div>
-                        <div className="social-media">
-                            <Link href="#!">
-                                <FontAwesomeIcon
-                                    icon={faLink}
-                                    className="svg-icon share-link"
-                                />
-                            </Link>
+                        <div className="social-media copy">
+                            <CopyButton value={url} timeout={2000}>
+                                {({ copied, copy }) => (
+                                    <Tooltip
+                                        label={copied ? "Copied" : "Copy"}
+                                        withArrow
+                                        position="right"
+                                    >
+                                        <ActionIcon
+                                            color={copied ? "teal" : "gray"}
+                                            onClick={copy}
+                                            className="svg-icon copy-icon"
+                                        >
+                                            {copied ? (
+                                                <IconCheck size={30} />
+                                            ) : (
+                                                <IconCopy size={30} />
+                                            )}
+                                        </ActionIcon>
+                                    </Tooltip>
+                                )}
+                            </CopyButton>
                         </div>
                     </div>
                 </div>
             </Modal>
-        </div>
+        </>
     );
 };
 export default ShareModal;

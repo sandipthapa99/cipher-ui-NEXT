@@ -1,14 +1,15 @@
 export interface TaxCalculatorValueProps {
     marital_status: string;
-    salary: number | null;
+    gender: string;
+    salary: number | null | string;
     income_time: string;
-    festival_bonus: number | null;
-    allowance: number | null;
-    others: number | null;
-    pf: number | null;
-    cit: number | null;
-    life_insurance: number | null;
-    medical_insurance: number | null;
+    festival_bonus: number | null | string;
+    allowance: number | null | string;
+    others: number | null | string;
+    pf: number | null | string;
+    cit: number | null | string;
+    life_insurance: number | null | string;
+    medical_insurance: number | null | string;
 }
 
 export interface TaxResult {

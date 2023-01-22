@@ -4,15 +4,15 @@ import type { KYCFormProps } from "types/kycFormProps";
 import { axiosClient } from "utils/axiosClient";
 
 export const useKYC = () => {
-    return useMutation<void, Error, FormData>(async (kycPayload) => {
+    return useMutation<{ id: number }, Error, any>(async (kycPayload) => {
         try {
             const { data } = await axiosClient.post("/tasker/kyc/", kycPayload);
-            console.log("Profile data", data);
+            return data;
         } catch (error) {
             if (error instanceof AxiosError) {
                 throw new Error(error?.response?.data?.message);
             }
-            throw new Error("Profile failed");
+            throw new Error("Kyc failed");
         }
     });
 };

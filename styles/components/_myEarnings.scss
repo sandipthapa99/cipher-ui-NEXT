@@ -1,0 +1,52 @@
+.whole-earning-cont {
+    background-color: $primary-color;
+    position: relative;
+    border-radius: 4px;
+
+    .whole-cont-earning {
+        padding: 8px 12px;
+        @include respond(lg) {
+            padding: 8px 16px;
+        }
+
+        .current-balance {
+            color: #fff;
+            font-size: 1.2rem;
+            @include respond(md) {
+                font-size: 1.4rem;
+            }
+        }
+        .current-amount {
+            color: $secondary-color;
+            font-size: 3.2rem;
+            margin: 1rem 0 0 0;
+            font-weight: 500;
+            // @include respond(md){
+            //     font-size: 2.4rem;
+            // }
+            @include respond(lg) {
+                font-size: 3.2rem;
+            }
+        }
+        .lower-transaction {
+            margin-top: 1.4rem;
+
+            .latest-transaction {
+                color: #fff;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 1.7rem;
+            }
+            .weekly-points {
+                color: #fff;
+                font-weight: 400;
+                font-size: 14px;
+            }
+        }
+        .div-invoice {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+    }
+}

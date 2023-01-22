@@ -1,0 +1,112 @@
+.pageName {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 60px;
+    /* identical to box height */
+
+    letter-spacing: 0.001em;
+    text-transform: capitalize;
+
+    /* brand/primary */
+
+    color: #211d4f;
+}
+.digital-wallet {
+    .wrapper {
+        gap: 4rem;
+        border: 0.1rem solid #ced4da;
+        border-radius: 0.4rem;
+        padding: 1.2rem 3.2rem;
+        position: relative;
+        cursor: pointer;
+        figure {
+            height: 4.8rem;
+        }
+        .verified {
+            position: absolute;
+            z-index: 2;
+            top: 0.8rem;
+            right: 0.8rem;
+        }
+        p {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #211d4f;
+        }
+    }
+}
+.checkout-row {
+    gap: 2rem;
+    .left {
+        @media screen and (width: 820px), (width: 768px) {
+            width: 100%;
+        }
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: #ffffff;
+        /* Container */
+
+        box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+        border-radius: 4px;
+    }
+    .right {
+        @media screen and (width: 820px), (width: 768px) {
+            width: 100%;
+        }
+        .inner-left {
+            .thumbnail-img {
+                border-radius: 0.4rem;
+            }
+        }
+    }
+    h3 {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        color: #211d4f;
+    }
+    .titles {
+        margin: 0 0 0.8rem 0 !important;
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        /* identical to box height, or 157% */
+
+        /* grayScale/gray[8] */
+
+        color: #343a40;
+        @include respond(xs) {
+            text-align: center;
+        }
+    }
+    .digital-wallet {
+        gap: 1rem;
+        margin-bottom: 2.4rem;
+        @include respond(xs) {
+            justify-content: center;
+        }
+        .payment {
+            height: 4.8rem;
+            width: 12rem;
+        }
+        .payment2 {
+            height: 4.8rem;
+            width: 24rem;
+        }
+    }
+}
+
+.checkout-btn {
+    margin-top: 4rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    width: 100%;
+    color: #ffffff;
+    background-color: #211d4f;
+}

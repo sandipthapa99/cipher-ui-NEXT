@@ -1,165 +1,214 @@
-import { faBars } from "@fortawesome/pro-regular-svg-icons";
+import { ProfileModel } from "@components/model/ProfileModel";
+import { PostTaskModal } from "@components/Task/PostTaskModal";
+import { KYCIncompleteToast } from "@components/toasts/KYCIncompleteToast";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    Avatar,
+    Button as MantineButton,
+    Group,
+    Stack,
+    Text,
+} from "@mantine/core";
+import { useClickOutside, useToggle } from "@mantine/hooks";
+import { cleanNotifications } from "@mantine/notifications";
 import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
-import { Modal } from "react-bootstrap";
-import { profileCardContent } from "staticData/profileCardContent";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
+// import { userGet } from "utils/auth";
 import { handleMenuActive } from "utils/helpers";
+import { toast } from "utils/toast";
 
-import { ProfileModel } from "./model/ProfileModel";
 import { PostCard } from "./PostTask/PostCard";
-import PostModal from "./PostTask/PostModal";
 
 export function UpperHeader() {
     const router = useRouter();
-    const [showModal, setShowModal] = useState(false);
-    const [notopen, setNotopen] = useState(false);
-    const handleShow = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
+    const { data: profile } = useGetProfile();
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: user } = useUser();
 
+    const [showProfileModal, toggleShowProfileModal] = useToggle([false, true]);
+    const profileModalRef = useClickOutside(() =>
+        toggleShowProfileModal(false)
+    );
+
+    // const checkPageForHeader =
+    //     router.pathname !== "/" &&
+    //     router.pathname !== "/about" &&
+    //     router.pathname !== "/contact-us" &&
+    //     router.pathname !== "/career" &&
+    //     router.pathname !== "/discover" &&
+    //     router.pathname !== "/help" &&
+    //     router.pathname !== "/privacy-policy" &&
+    //     router.pathname !== "/terms-conditions" &&
+    //     router.pathname !== "/faq" &&
+    //     router.pathname !== "/blogs";
+
+    const { data: profileDetails } = useGetProfile();
+
+    const handleShowPostTaskModal = () => {
+        if (!profile) {
+            toast.showComponent(
+                "Profile Incomplete",
+                <ProfileNotCompleteToast text="Please complete your profile before posting a task." />
+            );
+            return;
+        }
+        if (!user?.is_kyc_verified) {
+            toast.showComponent("KYC Incomplete", <KYCIncompleteToast />);
+            return;
+        }
+        toggleShowPostTaskModal();
+    };
     return (
         <>
             {/* Site Upper Header Start */}
             <header id="site-upper-header" className="site-upper-header">
                 <Container fluid="xl">
-                    <Navbar expand="lg" className="upper-navigation">
-                        <Link href="/">
-                            <a>
-                                <Navbar.Brand>
-                                    <Image
-                                        src="/logo/logo.svg"
-                                        alt="Logo"
-                                        width={95}
-                                        height={48}
-                                        priority
-                                    />
-                                </Navbar.Brand>
-                            </a>
-                        </Link>
-                        <Navbar.Collapse
-                            className="upper-navigation--site-navigation"
-                            id="upper-header-navigation"
-                        >
-                            <nav className="navbar-nav ms-lg-auto">
+                    <Navbar
+                        expand="lg"
+                        className="upper-navigation ms-lg-auto d-flex align-items-center justify-content-between"
+                    >
+                        <div className="upper-navigation__left d-flex align-items-center">
+                            <Link href="/">
+                                <a>
+                                    <Navbar.Brand>
+                                        <Image
+                                            src="/logo/homaale-logo_svg.svg"
+                                            alt="Logo"
+                                            width={172}
+                                            height={48}
+                                            priority
+                                        />
+                                    </Navbar.Brand>
+                                </a>
+                            </Link>
+                            <div className="d-flex">
                                 <li
-                                    className={handleMenuActive(
+                                    className={`d-none d-md-inline-block ${handleMenuActive(
                                         "/how-it-works",
                                         router
-                                    )}
+                                    )}`}
                                 >
                                     <Link href="/how-it-works">
                                         <a className="nav-link">How It Works</a>
                                     </Link>
                                 </li>
                                 <li
-                                    className={handleMenuActive(
+                                    className={`d-none d-md-block ${handleMenuActive(
                                         "/resources",
                                         router
-                                    )}
+                                    )}`}
                                 >
                                     <Link href="/resources">
                                         <a className="nav-link">Resources</a>
                                     </Link>
                                 </li>
-                                {!user && (
-                                    <>
-                                        <li
-                                            className={handleMenuActive(
-                                                "/login",
-                                                router
-                                            )}
-                                        >
-                                            <Link href="/login">
-                                                <a className="nav-link d-md-none d-inline-block">
-                                                    Log In
-                                                </a>
-                                            </Link>
-                                        </li>
-                                        <li
-                                            className={handleMenuActive(
-                                                "/signup",
-                                                router
-                                            )}
-                                        >
-                                            <Link href="/signup">
-                                                <a className="nav-link d-md-none d-inline-block">
-                                                    Sign Up
-                                                </a>
-                                            </Link>
-                                        </li>
-                                    </>
-                                )}
-                            </nav>
-                        </Navbar.Collapse>
 
-                        {!user && (
-                            <>
-                                <Link href="/login">
-                                    <a className="btn login-btn d-none d-md-inline-block">
-                                        Login
-                                    </a>
-                                </Link>
-                                <Link href="/signup">
-                                    <a className="btn login-btn d-none d-md-inline-block">
-                                        Sign Up
-                                    </a>
-                                </Link>
-                            </>
-                        )}
-                        {user && (
-                            <div className="user-profile">
-                                <span
-                                    className="btn location-btn d-none d-md-inline-block"
-                                    onClick={() => setNotopen(!notopen)}
+                                <li
+                                    className={`d-none d-md-block ${handleMenuActive(
+                                        "/hire-in-nepal",
+                                        router
+                                    )}`}
                                 >
-                                    <figure className="thumbnail-img">
-                                        <Image
-                                            src="/userprofile/profile.svg"
-                                            layout="fill"
-                                            alt="profile-pic"
-                                            className="rounded-circle"
-                                            objectFit="cover"
-                                        />
-                                    </figure>
-                                </span>
-                                {notopen && (
-                                    <ProfileModel
-                                        profile={profileCardContent}
-                                    />
-                                )}
+                                    <Link href="/hire-in-nepal">
+                                        <a className="nav-link">
+                                            Hire In Nepal
+                                        </a>
+                                    </Link>
+                                </li>
                             </div>
-                        )}
-
-                        {user && (
-                            <button
-                                style={{ outline: "none", border: "none" }}
-                                onClick={handleShow}
-                            >
-                                <a className="btn nav-cta-btn d-none d-md-inline-block">
+                        </div>
+                        {/* {checkPageForHeader && (
+                            <div className="upper-navigation__center d-none d-md-block">
+                                <div className="search-input d-md-flex">
+                                     <Form.Control
+                                        placeholder="Find your Services"
+                                        aria-label="Find your Services &amp; Taskers"
+                                        aria-describedby="basic-addon2"
+                                    />
+                                    <Button
+                                        className="search-btn"
+                                        id="button-addon2"
+                                    >
+                                        <FontAwesomeIcon
+                                            className="search-icon"
+                                            icon={faMagnifyingGlass}
+                                        />
+                                    </Button>
+                                </div>
+                            </div>
+                        )} */}
+                        <div className="upper-navigation__right d-flex">
+                            {!user && (
+                                <>
+                                    <Link href="/login">
+                                        <a className="auth-btn login-btn">
+                                            Login
+                                        </a>
+                                    </Link>
+                                    <Link href="/signup">
+                                        <a className="auth-btn signup-btn">
+                                            Sign Up
+                                        </a>
+                                    </Link>
+                                </>
+                            )}
+                            {user && (
+                                <button
+                                    onClick={() => handleShowPostTaskModal()}
+                                    type="button"
+                                    className="nav-cta-btn"
+                                    // disabled={userGet()?.is_suspended}
+                                >
                                     Post Task
-                                </a>
-                            </button>
-                        )}
-
-                        <Navbar.Toggle aria-controls="site-navigation">
-                            <FontAwesomeIcon
-                                icon={faBars}
-                                className="svg-icon"
-                            />
-                        </Navbar.Toggle>
-                        {/* <Button type="button" className="mega-menu-toggler">
-                            <DragHandle className="svg-icon" />
-                        </Button> */}
+                                </button>
+                            )}
+                            {user && (
+                                <div
+                                    ref={profileModalRef}
+                                    className="user-profile"
+                                >
+                                    <span
+                                        className="profile-btn"
+                                        onClick={() => toggleShowProfileModal()}
+                                    >
+                                        <Avatar
+                                            src={
+                                                profileDetails?.profile_image
+                                                    ? profileDetails?.profile_image
+                                                    : profileDetails?.avatar
+                                                          ?.image
+                                            }
+                                            radius="xl"
+                                            size={44}
+                                            alt="it's me"
+                                        />
+                                        {/* <figure className="thumbnail-img">
+                                            <Image
+                                                src={
+                                                    profileDetails?.profile_image ??
+                                                    "/userprofile/unknownPerson.jpg"
+                                                }
+                                                layout="fill"
+                                                alt="profile-pic"
+                                                className="rounded-circle"
+                                                objectFit="cover"
+                                            />
+                                        </figure> */}
+                                    </span>
+                                    {showProfileModal && <ProfileModel />}
+                                </div>
+                            )}
+                        </div>
                     </Navbar>
                 </Container>
             </header>
-            <Modal
+            <PostTaskModal />
+            {/* <Modal
                 show={showModal}
                 onHide={handleClose}
                 backdrop="static"
@@ -169,7 +218,7 @@ export function UpperHeader() {
                 <Modal.Body>
                     <PostModal setshowPostModel={handleClose} />
                 </Modal.Body>
-            </Modal>
+            </Modal> */}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"
@@ -181,5 +230,33 @@ export function UpperHeader() {
         </>
     );
 }
-
+interface ProfileNotComplete {
+    text: string;
+}
+export const ProfileNotCompleteToast = ({ text }: ProfileNotComplete) => {
+    const router = useRouter();
+    return (
+        <Stack>
+            <Text>{text}</Text>
+            <Group>
+                <MantineButton
+                    variant="white"
+                    color="gray"
+                    onClick={() => cleanNotifications()}
+                >
+                    Cancel
+                </MantineButton>
+                <MantineButton
+                    color="yellow"
+                    onClick={() => {
+                        cleanNotifications();
+                        router.push("/profile");
+                    }}
+                >
+                    Complete Profile
+                </MantineButton>
+            </Group>
+        </Stack>
+    );
+};
 export default UpperHeader;

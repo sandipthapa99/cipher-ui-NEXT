@@ -1,0 +1,103 @@
+.all-support {
+    background-color: #fff;
+    border-radius: 1rem;
+    margin-bottom: 1.6rem;
+    display: flex;
+    align-items: center;
+
+    @include respond(xs) {
+        flex-direction: column;
+    }
+    .support-figure {
+        flex: 0.4;
+        border-radius: 0.6rem;
+        margin: 0.5rem;
+
+        @include respond(xs) {
+            margin: 0;
+        }
+
+        img {
+            padding: 1rem !important;
+
+            @include respond(xs) {
+                padding: 0;
+            }
+        }
+    }
+
+    .single-ticket {
+        flex: 3;
+        // background-color: #fff;
+
+        // align-items: center;
+        @include respond(xs) {
+            width: 100%;
+        }
+
+        .single-ticket-content {
+            padding: 3rem 2.5rem;
+
+            @include respond(xs) {
+                padding: 1.2rem;
+            }
+
+            .reason-cont {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                @include respond(md) {
+                    // flex-direction: column;
+                }
+
+                .head-text {
+                    margin: 0;
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                    color: $primary-color;
+                    @include respond(sm) {
+                        font-size: 2rem;
+                    }
+                }
+                .date-text-ticket {
+                    margin: 0;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    color: #909296;
+                    @include respond(sm) {
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+
+            .desc-cont {
+                margin-top: 0.4rem;
+                width: 85%;
+
+                @include respond(xs) {
+                    width: 100%;
+                }
+
+                .desc-para {
+                    margin: 0;
+                    font-size: 1.2rem;
+                    color: #5c5f66;
+                    text-align: justify;
+                    @include respond(sm) {
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+            .badge-cont {
+                margin-top: 1rem;
+                display: flex;
+                gap: 1rem;
+                .ticket-id {
+                    color: #5c5f66;
+                    font-size: 1.4rem;
+                }
+            }
+        }
+    }
+}

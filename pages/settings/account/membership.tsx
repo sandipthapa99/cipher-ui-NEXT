@@ -4,7 +4,7 @@ import React from "react";
 
 const MembershipPage = () => {
     return (
-        <SettingsLayout>
+        <SettingsLayout title="Membership Settings">
             <Membership />
         </SettingsLayout>
     );

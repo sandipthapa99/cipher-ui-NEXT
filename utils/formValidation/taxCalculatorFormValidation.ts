@@ -1,20 +1,28 @@
 import * as Yup from "yup";
 
-const numberValidate = Yup.number().nullable().required("Required field");
+const numberValidate = Yup.number()
+    .required("Required field")
+    .typeError("salary must be a number");
+const numberUnrequiredValidate = Yup.number().typeError(
+    "Value must be a number"
+);
+
 const maritalStatusValidate = Yup.mixed().oneOf(["Married", "Unmarried"]);
+const genderStatusValidate = Yup.mixed().oneOf(["Male", "Female"]);
 const incomeStatusValidate = Yup.mixed().oneOf(["Yearly", "Monthly"]);
 
 export const taxCalculatorSchema = Yup.object().shape({
     salary: numberValidate,
-    festival_bonus: numberValidate,
-    allowance: numberValidate,
+    festival_bonus: numberUnrequiredValidate,
+    allowance: numberUnrequiredValidate,
     marital_status: maritalStatusValidate,
     income_time: incomeStatusValidate,
-    pf: numberValidate,
-    cit: numberValidate,
-    life_insurance: numberValidate,
-    medical_insurance: numberValidate,
-    others: numberValidate,
+    pf: numberUnrequiredValidate,
+    cit: numberUnrequiredValidate,
+    gender: genderStatusValidate,
+    life_insurance: numberUnrequiredValidate,
+    medical_insurance: numberUnrequiredValidate,
+    others: numberUnrequiredValidate,
 });
 
 export default taxCalculatorSchema;

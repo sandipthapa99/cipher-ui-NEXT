@@ -4,22 +4,31 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import ServiceCard from "@components/common/ServiceCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { Carousel } from "react-bootstrap";
-import { blogCardContent } from "staticData/community";
 import {
     growBusinessCarousel,
     growBusinessSteps,
 } from "staticData/growBusiness";
-import { servicesDiscover } from "staticData/services";
-import { services } from "staticData/services";
+import type { BlogValueProps } from "types/blogs";
+import type { ServicesValueProps } from "types/serviceCard";
 
 const GrowYourBusiness: NextPage = () => {
+    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
-        <Layout title="Grow Your Business | Cipher">
-            <Container fluid="xl" className="px-5">
+        <Layout
+            title="Grow Your Business | Homaale"
+            description="Grow your business through homaale."
+            keywords="airtasker-nepali, nepali-working-platform, homaale-feeback, business, online-business, homaale"
+        >
+            <Container fluid="xl" className="px-4">
                 <section className="grow-business">
                     <BreadCrumb currentPage="Grow Your Business" />
 
@@ -78,89 +87,38 @@ const GrowYourBusiness: NextPage = () => {
                         className="grow-business__services"
                     >
                         <Row className="gx-5">
-                            {servicesDiscover &&
-                                servicesDiscover.map((service) => {
-                                    return (
-                                        <Col
-                                            className="discover-col"
-                                            sm={6}
-                                            md={6}
-                                            lg={3}
-                                            key={service.id}
-                                        >
-                                            <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {servicesData &&
+                                servicesData?.data?.result?.map(
+                                    (service, key) => {
+                                        return (
+                                            <Col
+                                                className="discover-col"
+                                                sm={6}
+                                                md={6}
+                                                lg={3}
+                                                key={key}
+                                            >
+                                                <ServiceCard
+                                                    serviceCard={service}
+                                                />
+                                            </Col>
+                                        );
+                                    }
+                                )}
                         </Row>
                         <Row className="gx-5 more-services">
-                            {services &&
-                                services.map((service) => {
-                                    return (
-                                        <Col
-                                            sm={6}
-                                            md={4}
-                                            lg={3}
-                                            key={service.id}
-                                        >
-                                            <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {servicesData &&
+                                servicesData?.data?.result?.map(
+                                    (service, key) => {
+                                        return (
+                                            <Col sm={6} md={4} lg={3} key={key}>
+                                                <ServiceCard
+                                                    serviceCard={service}
+                                                />
+                                            </Col>
+                                        );
+                                    }
+                                )}
                         </Row>
                     </section>
                     {/* Services near you section end */}
@@ -169,26 +127,22 @@ const GrowYourBusiness: NextPage = () => {
                     <section className="grow-business__blogs">
                         <h1>Blogs</h1>
                         <Row className="gx-5">
-                            {blogCardContent &&
-                                blogCardContent.map((blog) => {
-                                    return (
-                                        <Col
-                                            className="d-flex align-items-stretch"
-                                            sm={6}
-                                            md={4}
-                                            // lg={4}
-                                            key={blog.id}
-                                        >
-                                            <BlogCard
-                                                cardImage={blog.cardImage}
-                                                cardDescription={
-                                                    blog.cardDescription
-                                                }
-                                                cardTitle={blog.cardTitle}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {blogData &&
+                                blogData?.data?.result
+                                    ?.slice(0, 3)
+                                    .map((blog, key) => {
+                                        return (
+                                            <Col
+                                                className="d-flex align-items-stretch"
+                                                sm={6}
+                                                md={4}
+                                                // lg={4}
+                                                key={key}
+                                            >
+                                                <BlogCard blogData={blog} />
+                                            </Col>
+                                        );
+                                    })}
                         </Row>
                     </section>
                     {/* blog section end */}

@@ -10,7 +10,7 @@ import { Col, Row } from "react-bootstrap";
 
 interface UserStatsProps {
     happyCustomers: number;
-    rewardPercentage: string;
+    rewardPercentage: number;
     taskCompleted: number;
     rank: string;
 }
@@ -22,8 +22,8 @@ export const UserStats = ({
     rank,
 }: UserStatsProps) => {
     return (
-        <Row className="td-mt-24">
-            <Col>
+        <Row className="td-mt-24 justify-content-between">
+            <Col className="type d-flex">
                 <FontAwesomeIcon
                     color="#F98900"
                     className="svg-icon"
@@ -31,15 +31,15 @@ export const UserStats = ({
                 />
                 <span>{happyCustomers}</span>
             </Col>
-            <Col>
+            <Col className="type d-flex">
                 <FontAwesomeIcon
                     className="svg-icon"
                     color="#0693E3"
                     icon={faMedal}
                 />
-                <span>{rewardPercentage}</span>
+                <span>{+rewardPercentage?.toFixed(2)}%</span>
             </Col>
-            <Col>
+            <Col className="type d-flex">
                 <FontAwesomeIcon
                     className="svg-icon"
                     color="#752DE8"
@@ -47,7 +47,7 @@ export const UserStats = ({
                 />
                 <span>{taskCompleted}</span>
             </Col>
-            <Col>
+            <Col className="type d-flex">
                 <FontAwesomeIcon
                     className="svg-icon"
                     icon={faTire}

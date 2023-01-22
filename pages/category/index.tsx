@@ -1,46 +1,58 @@
+import { AllCategoriesCard } from "@components/AllCategoriesCard";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
-import type { GetStaticProps } from "next";
-import Link from "next/link";
+import urls from "constants/urls";
+import type { GetStaticProps, NextPage } from "next";
 import { Container } from "react-bootstrap";
-import type { AllCategory } from "staticData/allCategories";
-import { ALL_CATEGORIES } from "staticData/allCategories";
+import type { NestedCategoriesDataProps } from "types/nestedCategoryProps";
+import { axiosClient } from "utils/axiosClient";
 
 interface CategoriesPageProps {
-    categories: AllCategory[];
+    nestedCategoriesData: NestedCategoriesDataProps;
 }
-const CategoriesPage = ({ categories }: CategoriesPageProps) => {
+const CategoriesPage: NextPage<{
+    nestedCategoriesData: CategoriesPageProps["nestedCategoriesData"];
+}> = ({ nestedCategoriesData }) => {
     return (
-        <Layout title="Categories | Cipher">
-            <Container fluid="xl">
-                <h2 className="all-categories-title">Cipher Categories</h2>
-                <div className="d-flex justify-content-center all-categories">
-                    {categories.map((category, index) => (
-                        <div key={index} className="category-item">
-                            <h4 className="category-item__title title">
-                                {category.title}
-                            </h4>
-                            <div className="category-item__subitems">
-                                {category.subItems.map((subItem, index) => (
-                                    <Link key={index} href={subItem.href}>
-                                        <a className="category-item__subitems--title">
-                                            {subItem.title}
-                                        </a>
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
+        <Layout
+            title="Categories | Homaale"
+            description="Browse all Homaale Categories"
+            keywords="homaale-category, category, homaale"
+        >
+            <Container fluid="xl" className="px-4">
+                <BreadCrumb currentPage={"Categories"} />
+
+                <h2 className="all-categories-title">
+                    Browse all Homaale Categories
+                </h2>
+
+                <AllCategoriesCard
+                    nestedCategoriesData={nestedCategoriesData}
+                />
+                {/*<AllCategories nestedCategoriesData={nestedCategoriesData} />*/}
             </Container>
         </Layout>
     );
 };
 
-export const getStaticProps: GetStaticProps = () => {
-    return {
-        props: {
-            categories: ALL_CATEGORIES,
-        },
-    };
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: nestedCategoriesData } = await axiosClient.get(
+            urls.category.list
+        );
+        return {
+            props: {
+                nestedCategoriesData: nestedCategoriesData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                nestedCategoriesData: [],
+            },
+            revalidate: 10,
+        };
+    }
 };
 export default CategoriesPage;

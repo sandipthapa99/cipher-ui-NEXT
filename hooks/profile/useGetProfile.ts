@@ -1,17 +1,75 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { useUser } from "hooks/auth/useUser";
 import { axiosClient } from "utils/axiosClient";
 
 export type ProfileResponse = {
     id: number;
-    charge_currency: string;
+    charge_currency: {
+        symbol: any;
+        code: string;
+        name: string;
+    };
+    city: {
+        id: number;
+        name: string;
+        country: number;
+    };
+    followers_count: number;
+    following_count: number;
     user: {
+        id: string;
+        username: string;
         email: string;
+        draft_email: any;
+        phone: any;
+        draft_phone: any;
+        first_name: string;
+        middle_name: string;
+        last_name: string;
+        profile_image: string;
+    };
+    portfolio: Array<any>;
+    experience: Array<any>;
+    education: Array<any>;
+    certificates: Array<any>;
+    stats: {
+        success_rate: number;
+        happy_clients: number;
+        task_completed: number;
+        user_reviews: number;
+        task_assigned: number;
+        task_in_progress: number;
+        task_cancelled: number;
+    };
+    rating: {
+        user_rating_count: number;
+        avg_rating: any;
+    };
+    country: {
+        code: string;
+        name: string;
+    };
+    language: {
+        code: string;
+        name: string;
     };
     status: string;
     bio: string;
-    full_name: string;
-    phone: string;
+    badge: {
+        id: number;
+        image: string;
+        title: string;
+        progress_level_start: number;
+        progress_level_end: number;
+        next: {
+            id: number;
+            image: string;
+            title: string;
+            progress_level_start: number;
+            progress_level_end: number;
+        };
+    };
     gender: string;
     profile_image: any;
     date_of_birth: string;
@@ -19,32 +77,38 @@ export type ProfileResponse = {
     active_hour_start: string;
     active_hour_end: string;
     experience_level: string;
-    education: string;
     user_type: string;
     hourly_rate: number;
     profile_visibility: string;
     task_preferences: string;
     address_line1: string;
     address_line2: string;
+    avatar: { image: string };
     is_profile_verified: boolean;
-    country: number;
-    language: number;
+    designation: any;
+    points: number;
     subscription: Array<any>;
-    message?: string;
+    security_questions: Array<any>;
+    interests: {
+        id: number;
+        name: string;
+    }[];
 };
 
 export const useGetProfile = () => {
-    return useQuery<ProfileResponse>(["profile"], async () => {
-        try {
-            const { data } = await axiosClient.get<ProfileResponse>(
-                "/tasker/profile/"
-            );
-            return data;
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                throw new Error(error?.response?.data?.message);
+    const { data: user } = useUser();
+    return useQuery<ProfileResponse | undefined>(
+        ["profile", user?.id],
+        async () => {
+            if (!user) return undefined;
+            try {
+                const { data } = await axiosClient.get<ProfileResponse>(
+                    "/tasker/profile/"
+                );
+                return data;
+            } catch (error) {
+                return undefined;
             }
-            throw new Error("Something went wrong");
         }
-    });
+    );
 };

@@ -10,6 +10,7 @@ export const useUser = () => {
             const access = Cookies.get("access");
             if (access === undefined) return null;
             const user = await UserService.fetchUser(access);
+
             return user;
         },
         { retry: false }

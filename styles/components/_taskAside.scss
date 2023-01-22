@@ -1,0 +1,32 @@
+.tasks-section {
+    .search-results {
+        .left {
+            //specific to surface pro,ipad air and
+            @media screen and (width: 912px) {
+                width: 42% !important;
+            }
+
+            .tasks-list-card {
+                margin-top: 3rem;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+
+            // .mantine-ScrollArea-viewport {
+            //     padding: 0;
+            // }
+        }
+
+        .right {
+            @media screen and (width: 912px) {
+                width: 58% !important;
+            }
+        }
+    }
+
+    .mantine-ieql4v {
+        padding-right: 0;
+    }
+}

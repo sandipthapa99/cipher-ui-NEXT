@@ -8,10 +8,11 @@
     padding: 1.6rem 0 0;
     transform: translateY(5%);
     border-radius: 1rem;
-    max-height: 90vh;
+    max-height: 60vh;
     overflow-y: auto;
     margin: 0 0 1rem;
     z-index: 3;
+    cursor: pointer;
 
     ::-webkit-scrollbar {
         display: none;
@@ -41,10 +42,15 @@
         .today,
         .mark {
             font: 400 1.2rem $poppins-font;
-            color: $primary-color;
-        }
-        .mark {
-            text-decoration: underline;
+            color: #1a5fc9;
+            text-decoration: none;
+            cursor: pointer;
+            background: none;
+            @include transition();
+            margin-bottom: 1.6rem;
+            &:hover {
+                color: $secondary-color;
+            }
         }
     }
 
@@ -79,10 +85,16 @@
     }
 }
 .approve-notification-dropdown {
-    padding: 1.6rem;
+    justify-content: space-between;
+
+    padding: 1.6rem 2rem;
     background: #f8f9fa;
 
     .description-section {
+        .service-name-notify {
+            font-size: 14px;
+            font-weight: 500;
+        }
         h4 {
             font: 500 1.6rem $poppins-font;
             color: #212529;

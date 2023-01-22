@@ -18,13 +18,15 @@ export const FeedbackFormData: FeedbackValuesProps = {
 export const SupportFormData: SupportValuesProps = {
     full_name: "",
     email: "",
+    attachment: [],
+    imagePreviewUrl: [],
     phone: "",
     type: "",
     reason: "",
 };
 export const FaqFormData: FaqValuesProps = {
-    fullName: "",
+    full_name: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     message: "",
 };

@@ -1,57 +1,55 @@
-export interface BlogsProps {
-    blogsData: {
-        total_pages?: number;
-        count?: number;
-        current?: number;
-        next?: number;
-        previous: number;
-        page_size?: number;
-        result: BlogsResult[];
-    };
+export interface BlogValueProps {
+    total_pages: number;
+    count: number;
+    current: number;
+    next: any;
+    previous: any;
+    page_size: number;
+    result: {
+        id: number;
+        likes: number;
+        views: number;
+        created_at: string;
+        author: string;
+        blog_type: string;
+        is_deleted: boolean;
+        updated_at: string;
+        deleted_at: any;
+        status: string;
+        title: string;
+        slug: string;
+        image: string;
+        content: string;
+        comment: boolean;
+        is_active: boolean;
+        category: string;
+        published_status: string;
+        tags: string;
+    }[];
 }
-
-export interface BlogsResult {
-    id: number;
-    likes: number;
-    views: number;
-    created_at: string;
-    author: AuthorResult;
-    updated_at: string;
-    deleted_at: string;
+export interface BlogDetailData {
     status: string;
-    is_deleted: boolean;
-    title: string;
-    slug: string;
-    content: string;
-    image: string;
-    comment: boolean;
-    is_active: boolean;
-    category: string;
-    published_status: string;
-    tags: string;
-}
-
-export interface AuthorResult {
-    first_name: string;
-    last_name: string;
-    profile_image: string;
-}
-
-export interface BlogDetailProps {
-    blog: {
-        data: {
-            id: number;
-            category: string;
-            content: string;
-            image: string;
-            is_active: boolean;
-            title: string;
-            created_at: string;
-            author: number;
-            likes: number;
-            views: number;
-            slug: string;
-        };
-        is_liked: boolean;
+    is_liked: boolean;
+    data: {
+        id: number;
+        created_at: string;
+        likes: number;
+        views: number;
+        comments: any[];
+        author: string;
+        is_deleted: boolean;
+        updated_at: string;
+        deleted_at: any;
+        status: string;
+        title: string;
+        slug: string;
+        image: string;
+        content: string;
+        comment: boolean;
+        is_active: boolean;
+        category: string;
+        published_status: string;
+        blog_type: string;
+        tags: string;
     };
 }

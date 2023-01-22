@@ -1,23 +1,56 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import Layout from "@components/Layout";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { useFaq } from "hooks/faq/useFaq";
+import { useData } from "hooks/use-data";
+import { useForm } from "hooks/use-form";
+import type { GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
 import { Accordion, Container } from "react-bootstrap";
+import { useToggleSuccessModal } from "store/use-success-modal";
+import type {
+    FAQTopicValueProps,
+    FAQValueProps,
+    FAQValuePropsAll,
+} from "types/faqValueProps";
+import { axiosClient } from "utils/axiosClient";
 import { FaqFormData } from "utils/contactFormData";
 import { FaqFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
-const FAQ = () => {
-    const { data } = useFaq();
+interface FAQData {
+    faqData: FAQValueProps;
+    faqTopicData: FAQTopicValueProps;
+}
 
-    const faqAll = data;
-    console.log("faq", faqAll);
+const FAQ = ({ faqTopicData }: FAQData) => {
+    const { data: faqData } = useData<FAQValueProps>(
+        ["all-faq"],
+        "/support/faq/"
+    );
+
+    const { data: topicData } = useData<FAQValuePropsAll[]>(
+        ["topic-faqs"],
+        "support/faq/?page=-1"
+    );
+    const router = useRouter();
+
+    const defaultActiveKey = router.query.topic ? router.query.topic : "";
+
+    const { mutate } = useForm("/support/contactus/");
+    const toggleSuccessModal = useToggleSuccessModal();
     return (
         <Fragment>
-            <Layout title="FAQs | Cipher">
+            <Layout
+                title="FAQs | Homaale"
+                description="Homaale FAQ. Checkout our frequently asked questions and answers. There might be some answer to your queries."
+                keywords="homaale-earn-money airtasker-nepali, nepali-working-platform, homaale-faqs, faq"
+            >
                 <section className="faq-page-header">
                     <BreadCrumb currentPage="FAQs" />
                     <Container fluid="xl">
@@ -33,368 +66,86 @@ const FAQ = () => {
                 <section className="faq-body-section">
                     <Container>
                         <section className="popular-faqs">
-                            <h1>Popular FAQs</h1>
+                            <h1>Mostly Asked FAQs</h1>
                             <Accordion flush>
-                                <Accordion.Item eventKey="1">
-                                    <Accordion.Header>
-                                        What is Cipher?
-                                    </Accordion.Header>
-                                    <Accordion.Body>
-                                        <p>
-                                            With Cagtu, a custom app development
-                                            project starts with you preparing
-                                            and then submitting a request for
-                                            proposal, also referred to as an
-                                            RFP(request for proposal). It will
-                                            help us create a tailored,
-                                            individualised response.
-                                        </p>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                                <Accordion.Item eventKey="2">
-                                    <Accordion.Header>
-                                        How long does the project take?
-                                    </Accordion.Header>
-                                    <Accordion.Body>
-                                        <p>
-                                            The implementation time depends on
-                                            the type of order, the technology
-                                            chosen, and the amount of work that
-                                            needs to be done. We always try to
-                                            establish a realistic time frame for
-                                            completing the project. Most MVP
-                                            (Minimum Viable Product) versions
-                                            are implemented within 2-4 months of
-                                            signing the contract. Also, we
-                                            develop projects through long-term
-                                            collaboration plans that have no end
-                                            date.
-                                        </p>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                                <Accordion.Item eventKey="3">
-                                    <Accordion.Header>
-                                        How do you provide project estimates?
-                                        What are the modes of communication that
-                                        you use?
-                                    </Accordion.Header>
-                                    <Accordion.Body>
-                                        <p>
-                                            Team Cagtu carries out scoping and
-                                            estimation for our customers&apos;
-                                            projects through the tools developed
-                                            in-house. We can schedule a call,
-                                            proceed with email communication, or
-                                            stay in contact through any instant
-                                            messenger convenient to you. If all
-                                            the specialists required for your
-                                            project are available, we start the
-                                            work as soon as possible, or even
-                                            immediately.
-                                        </p>
-                                    </Accordion.Body>
-                                </Accordion.Item>
+                                {(faqData?.data?.result ?? []).length > 0
+                                    ? faqData?.data?.result?.map(
+                                          (value, key) => (
+                                              <Accordion.Item
+                                                  eventKey={key.toString()}
+                                                  key={key}
+                                              >
+                                                  <Accordion.Header>
+                                                      {value.title}
+                                                  </Accordion.Header>
+                                                  <Accordion.Body>
+                                                      <p>{value.content}</p>
+                                                  </Accordion.Body>
+                                              </Accordion.Item>
+                                          )
+                                      )
+                                    : "No FAQ datas found"}
                             </Accordion>
                         </section>
 
-                        <section className="faq-topics">
+                        <section className="faq-topics" id="faq-topics">
                             <h1>Topics</h1>
-                            <Accordion flush>
-                                <Accordion.Item eventKey="1">
-                                    <Accordion.Header>Account</Accordion.Header>
-                                    <Accordion.Body>
-                                        <div className="inner-accordion">
-                                            <Accordion flush>
-                                                <Accordion.Item eventKey="1">
-                                                    <Accordion.Header>
-                                                        What is Cipher?
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <p>
-                                                            With Cagtu, a custom
-                                                            app development
-                                                            project starts with
-                                                            you preparing and
-                                                            then submitting a
-                                                            request for
-                                                            proposal, also
-                                                            referred to as an
-                                                            RFP(request for
-                                                            proposal). It will
-                                                            help us create a
-                                                            tailored,
-                                                            individualised
-                                                            response.
-                                                        </p>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                                <Accordion.Item eventKey="2">
-                                                    <Accordion.Header>
-                                                        How long does the
-                                                        project take?
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <p>
-                                                            The implementation
-                                                            time depends on the
-                                                            type of order, the
-                                                            technology chosen,
-                                                            and the amount of
-                                                            work that needs to
-                                                            be done. We always
-                                                            try to establish a
-                                                            realistic time frame
-                                                            for completing the
-                                                            project. Most MVP
-                                                            (Minimum Viable
-                                                            Product) versions
-                                                            are implemented
-                                                            within 2-4 months of
-                                                            signing the
-                                                            contract. Also, we
-                                                            develop projects
-                                                            through long-term
-                                                            collaboration plans
-                                                            that have no end
-                                                            date.
-                                                        </p>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                                <Accordion.Item eventKey="3">
-                                                    <Accordion.Header>
-                                                        How do you provide
-                                                        project estimates? What
-                                                        are the modes of
-                                                        communication that you
-                                                        use?
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <p>
-                                                            Team Cagtu carries
-                                                            out scoping and
-                                                            estimation for our
-                                                            customers&apos;
-                                                            projects through the
-                                                            tools developed
-                                                            in-house. We can
-                                                            schedule a call,
-                                                            proceed with email
-                                                            communication, or
-                                                            stay in contact
-                                                            through any instant
-                                                            messenger convenient
-                                                            to you. If all the
-                                                            specialists required
-                                                            for your project are
-                                                            available, we start
-                                                            the work as soon as
-                                                            possible, or even
-                                                            immediately.
-                                                        </p>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                            </Accordion>
-                                        </div>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                                <Accordion.Item eventKey="2">
-                                    <Accordion.Header>
-                                        Subscription
-                                    </Accordion.Header>
-                                    <Accordion.Body>
-                                        <div className="inner-accordion">
-                                            <Accordion flush>
-                                                <Accordion.Item eventKey="1">
-                                                    <Accordion.Header>
-                                                        What is Cipher?
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <p>
-                                                            With Cagtu, a custom
-                                                            app development
-                                                            project starts with
-                                                            you preparing and
-                                                            then submitting a
-                                                            request for
-                                                            proposal, also
-                                                            referred to as an
-                                                            RFP(request for
-                                                            proposal). It will
-                                                            help us create a
-                                                            tailored,
-                                                            individualised
-                                                            response.
-                                                        </p>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                                <Accordion.Item eventKey="2">
-                                                    <Accordion.Header>
-                                                        How long does the
-                                                        project take?
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <p>
-                                                            The implementation
-                                                            time depends on the
-                                                            type of order, the
-                                                            technology chosen,
-                                                            and the amount of
-                                                            work that needs to
-                                                            be done. We always
-                                                            try to establish a
-                                                            realistic time frame
-                                                            for completing the
-                                                            project. Most MVP
-                                                            (Minimum Viable
-                                                            Product) versions
-                                                            are implemented
-                                                            within 2-4 months of
-                                                            signing the
-                                                            contract. Also, we
-                                                            develop projects
-                                                            through long-term
-                                                            collaboration plans
-                                                            that have no end
-                                                            date.
-                                                        </p>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                                <Accordion.Item eventKey="3">
-                                                    <Accordion.Header>
-                                                        How do you provide
-                                                        project estimates? What
-                                                        are the modes of
-                                                        communication that you
-                                                        use?
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <p>
-                                                            Team Cagtu carries
-                                                            out scoping and
-                                                            estimation for our
-                                                            customers&apos;
-                                                            projects through the
-                                                            tools developed
-                                                            in-house. We can
-                                                            schedule a call,
-                                                            proceed with email
-                                                            communication, or
-                                                            stay in contact
-                                                            through any instant
-                                                            messenger convenient
-                                                            to you. If all the
-                                                            specialists required
-                                                            for your project are
-                                                            available, we start
-                                                            the work as soon as
-                                                            possible, or even
-                                                            immediately.
-                                                        </p>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                            </Accordion>
-                                        </div>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                                <Accordion.Item eventKey="3">
-                                    <Accordion.Header>
-                                        Features
-                                    </Accordion.Header>
-                                    <Accordion.Body>
-                                        <div className="inner-accordion">
-                                            <Accordion flush>
-                                                <Accordion.Item eventKey="1">
-                                                    <Accordion.Header>
-                                                        What is Cipher?
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <p>
-                                                            With Cagtu, a custom
-                                                            app development
-                                                            project starts with
-                                                            you preparing and
-                                                            then submitting a
-                                                            request for
-                                                            proposal, also
-                                                            referred to as an
-                                                            RFP(request for
-                                                            proposal). It will
-                                                            help us create a
-                                                            tailored,
-                                                            individualised
-                                                            response.
-                                                        </p>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                                <Accordion.Item eventKey="2">
-                                                    <Accordion.Header>
-                                                        How long does the
-                                                        project take?
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <p>
-                                                            The implementation
-                                                            time depends on the
-                                                            type of order, the
-                                                            technology chosen,
-                                                            and the amount of
-                                                            work that needs to
-                                                            be done. We always
-                                                            try to establish a
-                                                            realistic time frame
-                                                            for completing the
-                                                            project. Most MVP
-                                                            (Minimum Viable
-                                                            Product) versions
-                                                            are implemented
-                                                            within 2-4 months of
-                                                            signing the
-                                                            contract. Also, we
-                                                            develop projects
-                                                            through long-term
-                                                            collaboration plans
-                                                            that have no end
-                                                            date.
-                                                        </p>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                                <Accordion.Item eventKey="3">
-                                                    <Accordion.Header>
-                                                        How do you provide
-                                                        project estimates? What
-                                                        are the modes of
-                                                        communication that you
-                                                        use?
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <p>
-                                                            Team Cagtu carries
-                                                            out scoping and
-                                                            estimation for our
-                                                            customers&apos;
-                                                            projects through the
-                                                            tools developed
-                                                            in-house. We can
-                                                            schedule a call,
-                                                            proceed with email
-                                                            communication, or
-                                                            stay in contact
-                                                            through any instant
-                                                            messenger convenient
-                                                            to you. If all the
-                                                            specialists required
-                                                            for your project are
-                                                            available, we start
-                                                            the work as soon as
-                                                            possible, or even
-                                                            immediately.
-                                                        </p>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                            </Accordion>
-                                        </div>
-                                    </Accordion.Body>
-                                </Accordion.Item>
+                            <Accordion
+                                defaultActiveKey={defaultActiveKey}
+                                flush
+                            >
+                                {faqTopicData?.result?.length > 0
+                                    ? faqTopicData?.result?.map(
+                                          (value, key) => (
+                                              <Accordion.Item
+                                                  eventKey={value?.topic}
+                                                  key={key}
+                                              >
+                                                  <Accordion.Header>
+                                                      {value.topic}
+                                                  </Accordion.Header>
+                                                  <Accordion.Body>
+                                                      <div className="inner-accordion">
+                                                          <Accordion flush>
+                                                              {topicData?.data
+                                                                  ?.filter(
+                                                                      (item) =>
+                                                                          item.topic ===
+                                                                          value.topic
+                                                                  )
+                                                                  .map(
+                                                                      (
+                                                                          value,
+                                                                          key
+                                                                      ) => (
+                                                                          <Accordion.Item
+                                                                              eventKey={key.toString()}
+                                                                              key={
+                                                                                  key
+                                                                              }
+                                                                          >
+                                                                              <Accordion.Header>
+                                                                                  {
+                                                                                      value.title
+                                                                                  }
+                                                                              </Accordion.Header>
+                                                                              <Accordion.Body>
+                                                                                  <p>
+                                                                                      {
+                                                                                          value.content
+                                                                                      }
+                                                                                  </p>
+                                                                              </Accordion.Body>
+                                                                          </Accordion.Item>
+                                                                      )
+                                                                  )}
+                                                          </Accordion>
+                                                      </div>
+                                                  </Accordion.Body>
+                                              </Accordion.Item>
+                                          )
+                                      )
+                                    : "No FAQ datas found"}
                             </Accordion>
                         </section>
                     </Container>
@@ -407,18 +158,26 @@ const FAQ = () => {
                             <Formik
                                 initialValues={FaqFormData}
                                 validationSchema={FaqFormSchema}
-                                onSubmit={async (values) => {
-                                    console.log(values);
+                                onSubmit={async (values, action) => {
+                                    mutate(values, {
+                                        onSuccess: async () => {
+                                            toggleSuccessModal();
+                                            action.resetForm();
+                                        },
+                                        onError: (error) => {
+                                            toast.error(error.message);
+                                        },
+                                    });
                                 }}
                             >
                                 {({ isSubmitting, errors, touched }) => (
                                     <Form>
                                         <InputField
                                             type="text"
-                                            name="fullName"
+                                            name="full_name"
                                             labelName="Full Name"
-                                            error={errors.fullName}
-                                            touch={touched.fullName}
+                                            error={errors.full_name}
+                                            touch={touched.full_name}
                                             placeHolder="Full Name"
                                         />
                                         <InputField
@@ -429,13 +188,14 @@ const FAQ = () => {
                                             touch={touched.email}
                                             placeHolder="Email address"
                                         />
-                                        <InputField
-                                            type="text"
-                                            name="phoneNumber"
+                                        <PhoneNumberInput
+                                            name={"phone"}
                                             labelName="Phone Number"
-                                            error={errors.phoneNumber}
-                                            touch={touched.phoneNumber}
-                                            placeHolder="Phone Number"
+                                            touch={touched.phone}
+                                            error={errors.phone}
+                                            placeHolder={
+                                                "Enter your Phone Number"
+                                            }
                                         />
                                         <InputField
                                             name="message"
@@ -468,3 +228,30 @@ const FAQ = () => {
     );
 };
 export default FAQ;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: faqData } = await axiosClient.get("/support/faq/");
+        const queryClient = new QueryClient();
+        await queryClient.prefetchQuery(["all-faq"]);
+        const { data: faqTopicData } = await axiosClient.get(
+            "/support/faq-topic/"
+        );
+        return {
+            props: {
+                faqData,
+                faqTopicData,
+                dehydratedState: dehydrate(queryClient),
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                faqData: [],
+                faqTopicData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};

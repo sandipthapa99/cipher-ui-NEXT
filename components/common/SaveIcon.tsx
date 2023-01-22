@@ -1,43 +1,64 @@
-import { faHeart } from "@fortawesome/pro-regular-svg-icons";
-import { faHeart as FilledHeart } from "@fortawesome/pro-solid-svg-icons";
+import { faBookmark } from "@fortawesome/pro-regular-svg-icons";
+import { faBookmark as faFilledBookmark } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ActionIcon, Button } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
 import { useToggleBookmarkTask } from "hooks/task/use-toggle-bookmark-task";
 import { useWithLogin } from "store/use-login-prompt-store";
 
 interface saveIconProps {
-    object_id?: string;
-    model?: string;
-    filled?: () => boolean;
+    object_id: string;
+    model: string;
+    filled?: boolean;
     showText?: boolean;
+    onSuccess?: () => void;
+    className?: string;
 }
 
-const SaveIcon = ({ object_id, model, filled, showText }: saveIconProps) => {
+const SaveIcon = ({
+    object_id,
+    model,
+    filled,
+    showText,
+    className,
+}: saveIconProps) => {
     const { classes } = useStyles();
     const withLogin = useWithLogin();
     const { mutate, isLoading } = useToggleBookmarkTask();
-
     const handleSaveClick = () => {
         if (!object_id || !model) return;
         mutate({ object_id, model });
     };
-    return (
-        <button
+    return showText ? (
+        <Button
+            color="red"
+            loading={isLoading}
+            variant="subtle"
             onClick={withLogin(handleSaveClick)}
-            className={classes.saveIconContainer}
+            className={`${classes.saveIconContainer} ${className}`}
+            leftIcon={
+                <FontAwesomeIcon
+                    className="svg-icon m-0"
+                    icon={filled ? faFilledBookmark : faBookmark}
+                />
+            }
+        >
+            {showText ? <span>{filled ? "Remove" : "Save"}</span> : null}
+        </Button>
+    ) : (
+        <ActionIcon
+            color="red"
+            loading={isLoading}
+            variant="subtle"
+            onClick={withLogin(handleSaveClick)}
+            className={classes.saveIcon}
         >
             <FontAwesomeIcon
-                icon={filled?.() ? FilledHeart : faHeart}
-                className="svg-icon svg-icon-heart me-2 me-sm-5"
+                color="red"
+                icon={filled ? faFilledBookmark : faBookmark}
+                className="svg-icon me-0"
             />
-            {showText ? (
-                isLoading ? (
-                    <span>Loading</span>
-                ) : (
-                    <span>{filled?.() ? "Remove" : "Save"}</span>
-                )
-            ) : null}
-        </button>
+        </ActionIcon>
     );
 };
 const useStyles = createStyles(() => ({
@@ -52,6 +73,9 @@ const useStyles = createStyles(() => ({
         "&:hover > svg": {
             transform: "scale(1.1)",
         },
+    },
+    saveIcon: {
+        marginLeft: "-0.4rem",
     },
 }));
 export default SaveIcon;

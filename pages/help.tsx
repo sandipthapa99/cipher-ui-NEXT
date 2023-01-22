@@ -6,20 +6,33 @@ import FaqContent from "@components/common/Faq";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
-import { blogCardContent } from "staticData/community";
-import { faqContent } from "staticData/faq";
 import { helpCardContent } from "staticData/helpCardContent";
+import type { BlogValueProps } from "types/blogs";
+import type { FAQValueProps } from "types/faqValueProps";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 
 const Help: NextPage = () => {
+    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
+    const { data: faqData } = useData<FAQValueProps>(
+        ["all-faq"],
+        "/support/faq/"
+    );
+    const router = useRouter();
     return (
-        <Layout title="Help &amp; Support | Cipher">
+        <Layout
+            title="Help &amp; Support | Homaale"
+            description="Search your query and get your answers."
+            keywords="airtasker-nepali, nepali-working-platform, homaale-feeback, homaale-help, homaale, business, online-business, homaale"
+        >
             <section className="help-page-header">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Help &amp; Support" />
                     <div className="help-page-header__top-container">
                         <Row className="d-flex align-items-center gx-5">
@@ -34,11 +47,11 @@ const Help: NextPage = () => {
                                 </figure>
                             </Col>
                             <Col md={6}>
-                                <h1>What help do you need?</h1>
+                                <h1>How can we help you?</h1>
 
                                 <SearchInputField
                                     validationSchema={searchValidationSchema}
-                                    placeholder="Search Categories"
+                                    placeholder="Search for anything"
                                 />
                                 <div className="recommendation">
                                     <RecommendationChips title="Connects" />
@@ -51,7 +64,7 @@ const Help: NextPage = () => {
                 </Container>
             </section>
             <section className="help-page-content">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <div className="help-page-content__browse-container">
                         <h1>Browse help categories</h1>
                         <Row className="gx-5">
@@ -65,13 +78,27 @@ const Help: NextPage = () => {
                                             // lg={4}
                                             key={help.id}
                                         >
-                                            <CommonCard
-                                                cardImage={help.cardImage}
-                                                cardDescription={
-                                                    help.cardDescription
+                                            <div
+                                                className="card-wrapper"
+                                                onClick={() =>
+                                                    router.push({
+                                                        pathname:
+                                                            help?.redirect,
+                                                        hash: "#faq-topics",
+                                                        query: {
+                                                            topic: help?.query,
+                                                        },
+                                                    })
                                                 }
-                                                cardTitle={help.cardTitle}
-                                            />
+                                            >
+                                                <CommonCard
+                                                    cardImage={help.cardImage}
+                                                    cardDescription={
+                                                        help.cardDescription
+                                                    }
+                                                    cardTitle={help.cardTitle}
+                                                />
+                                            </div>
                                         </Col>
                                     );
                                 })}
@@ -93,6 +120,11 @@ const Help: NextPage = () => {
                                             btnTitle="Contact Us"
                                             backgroundColor="$primary-color"
                                             textColor="#fff"
+                                            handleClick={() =>
+                                                router.push({
+                                                    pathname: "/contact",
+                                                })
+                                            }
                                         />
                                         <figure className="thumbnail-img">
                                             <Image
@@ -109,15 +141,21 @@ const Help: NextPage = () => {
                                 <div className="card-block">
                                     <h1>Ask In Community</h1>
                                     <p>
-                                        The Cipher community is here to help you
-                                        as well. Please feel free to get help.
+                                        The community is basically a group of
+                                        Homaale members who can anonymously
+                                        reply to the queries asked.
                                     </p>
 
                                     <div className="contact-device">
                                         <BigButton
-                                            btnTitle="Ask Us"
+                                            btnTitle="Send Mail"
                                             backgroundColor="$primary-color"
                                             textColor="#fff"
+                                            handleClick={() =>
+                                                router.push({
+                                                    pathname: "/contact",
+                                                })
+                                            }
                                         />
                                         <figure className="thumbnail-img">
                                             <Image
@@ -135,41 +173,44 @@ const Help: NextPage = () => {
                     <div className="help-page-content__blog-container">
                         <h1>Promoted Blogs</h1>
                         <Row className="gx-5">
-                            {blogCardContent &&
-                                blogCardContent.map((blog) => {
-                                    return (
-                                        <Col
-                                            className="d-flex align-items-stretch"
-                                            // sm={6}
-                                            md={4}
-                                            // lg={4}
-                                            key={blog.id}
-                                        >
-                                            <BlogCard
-                                                cardImage={blog.cardImage}
-                                                cardDescription={
-                                                    blog.cardDescription
-                                                }
-                                                cardTitle={blog.cardTitle}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {blogData &&
+                                blogData?.data?.result
+                                    ?.slice(0, 3)
+                                    .map((blog, key) => {
+                                        return (
+                                            <Col
+                                                className="d-flex align-items-stretch"
+                                                // sm={6}
+                                                md={4}
+                                                // lg={4}
+                                                key={key}
+                                            >
+                                                <BlogCard blogData={blog} />
+                                            </Col>
+                                        );
+                                    })}
                         </Row>
                     </div>
                     <div className="help-page-content__faq-container">
                         <h1>Frequently Asked Questions</h1>
                         <Accordion flush>
-                            {faqContent &&
-                                faqContent.map((faq) => (
-                                    <FaqContent
-                                        answer={faq.answer}
-                                        key={faq.id}
-                                        id={faq.id}
-                                        question={faq.question}
-                                    />
-                                ))}
+                            {faqData &&
+                                faqData?.data?.result
+                                    ?.slice(0, 4)
+                                    ?.map((faq, key) => (
+                                        <FaqContent
+                                            answer={faq.content}
+                                            key={key}
+                                            id={String(faq.id)}
+                                            question={faq.title}
+                                        />
+                                    ))}
                         </Accordion>
+                        <Link href="/faq">
+                            <a className="d-flex justify-content-end mt-5">
+                                view more
+                            </a>
+                        </Link>
                     </div>
                 </Container>
             </section>

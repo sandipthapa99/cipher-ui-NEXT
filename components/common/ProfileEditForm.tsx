@@ -9,17 +9,19 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faPlus, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useToggleSuccessModal } from "store/use-success-modal";
-import { ProfileEditFromData } from "utils/formData";
+import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
+import { axiosClient } from "utils/axiosClient";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 import TagInputField from "./TagInputField";
 
@@ -35,8 +37,45 @@ const ProfileEditForm = ({
     handleClose,
     setShowEdit,
 }: ProfileEditProps) => {
-    const toggleSuccessModal = useToggleSuccessModal();
-    //edit form
+    const queryClient = useQueryClient();
+    const { data: profile } = useGetProfile();
+
+    //converting string time value to datetime time value
+    const start: string = profile?.active_hour_start
+        ? profile?.active_hour_start.replace(":00", "")
+        : "";
+    const end: string = profile?.active_hour_end
+        ? profile?.active_hour_end.replace(":00", "")
+        : "";
+
+    const endparsed = (
+        parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)
+    ).toString();
+    const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
+
+    const endTime = finalend.toString();
+
+    const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
+    const editProfile = useMutation((data: ProfileEditValueProps) =>
+        axiosClient.patch("/tasker/profile/", data)
+    );
+
+    const onEditProfile = (data: any) => {
+        editProfile.mutate(data, {
+            onSuccess: (data) => {
+                if (data?.data?.status === "failure") {
+                    toast.error(data?.data?.message);
+                } else {
+                    toast.success(data?.data?.message);
+                    queryClient.invalidateQueries(["profile"]);
+                }
+            },
+            onError: (error: any) => {
+                const errmessage = error?.response?.data?.message[0];
+                toast.error(errmessage);
+            },
+        });
+    };
 
     return (
         <>
@@ -46,116 +85,162 @@ const ProfileEditForm = ({
                 <div className="applied-modal edit-form">
                     <h3>Edit Profile</h3>
                     <Formik
-                        initialValues={ProfileEditFromData}
+                        initialValues={{
+                            first_name: profile?.user?.first_name ?? "",
+                            middle_name: profile?.user?.middle_name ?? "",
+                            last_name: profile?.user?.last_name ?? "",
+                            bio: profile?.bio ?? "",
+                            // phone:
+                            //     profile?.phone ??
+                            //     Math.floor(Math.random() * 1000000000),
+                            address_line1: profile?.address_line1 ?? "",
+                            address_line2: profile?.address_line2 ?? "",
+                            active_hour_start:
+                                new Date(`2022-09-24 ${start}`) ?? "",
+                            active_hour_end:
+                                new Date(`2022-09-24 ${endTime}`) ?? "",
+                            skill: skills ?? "",
+                            hourly_rate: profile?.hourly_rate ?? "",
+                            linkedAccounts: "",
+                        }}
                         validationSchema={profileEditFormSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={async (values: any) => {
+                            const newValidatedValues = {
+                                ...values,
+                                active_hour_start: new Date(
+                                    values.active_hour_start ?? ""
+                                )?.toLocaleTimeString(),
+                                active_hour_end: new Date(
+                                    values.active_hour_end ?? ""
+                                )?.toLocaleTimeString(),
+                                skill: JSON.stringify(values.skill),
+                            };
+
                             setShowEdit(false);
-                            toggleSuccessModal();
-                            // To be used for API
-                            // try {
-                            //     axiosClient.post("/routes", values);
-                            // } catch (error: any) {
-                            //     error.response.data.message;
-                            // }
-                            console.log(values);
+                            onEditProfile(newValidatedValues);
+                            // toggleSuccessModal();
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
+                                <Row>
+                                    <Col md={4}>
+                                        <InputField
+                                            type="text"
+                                            name="first_name"
+                                            labelName=" First Name"
+                                            error={errors.first_name}
+                                            touch={touched.first_name}
+                                            placeHolder="Enter your first name"
+                                        />
+                                    </Col>
+                                    <Col md={4}>
+                                        <InputField
+                                            type="text"
+                                            name="middle_name"
+                                            labelName="Middle Name"
+                                            error={errors.middle_name}
+                                            touch={touched.middle_name}
+                                            placeHolder="Enter your middle name"
+                                        />
+                                    </Col>
+                                    <Col md={4}>
+                                        <InputField
+                                            type="text"
+                                            name="last_name"
+                                            labelName="Last Name"
+                                            error={errors.last_name}
+                                            touch={touched.last_name}
+                                            placeHolder="Enter your last name"
+                                        />
+                                    </Col>
+                                </Row>
                                 <InputField
                                     type="text"
-                                    name="name"
+                                    name="first_name"
                                     labelName="Name"
-                                    error={errors.name}
-                                    touch={touched.name}
-                                    placeHolder="Enter your price"
+                                    error={errors.first_name}
+                                    touch={touched.first_name}
+                                    placeHolder="Enter your name"
                                 />
                                 <InputField
                                     name="bio"
                                     labelName="Bio"
                                     touch={touched.bio}
                                     error={errors.bio}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Enter your bio"
                                     as="textarea"
                                 />
-                                <Row className="g-5">
+                                {/* <Row className="g-5">
                                     <Col md={6}>
-                                        <InputField
-                                            name="email"
-                                            labelName="Email Address"
-                                            touch={touched.email}
-                                            error={errors.email}
-                                            placeHolder="Applying (Remark)"
-                                        />
-                                    </Col>
-                                    <Col md={6}>
-                                        <InputField
-                                            name="phone"
+                                        <PhoneNumberInput
+                                            name={"phone"}
+                                            fieldRequired={true}
                                             labelName="Phone Number"
                                             touch={touched.phone}
                                             error={errors.phone}
-                                            placeHolder="Applying (Remark)"
                                         />
                                     </Col>
-                                </Row>
+                                </Row> */}
                                 <InputField
                                     type="text"
-                                    name="addressLine1"
+                                    name="address_line1"
                                     labelName="Address Line 1"
-                                    error={errors.addressLine1}
-                                    touch={touched.addressLine1}
-                                    placeHolder="Enter your price"
+                                    error={errors.address_line1}
+                                    touch={touched.address_line1}
+                                    placeHolder="Enter your primary address"
                                 />
                                 <InputField
                                     type="text"
-                                    name="addressLine2"
+                                    name="address_line2"
                                     labelName="Address Line 2"
-                                    error={errors.addressLine2}
-                                    touch={touched.addressLine2}
-                                    placeHolder="Enter your price"
+                                    error={errors.address_line2}
+                                    touch={touched.address_line2}
+                                    placeHolder="Enter your secondary address"
                                 />
                                 <h4>Active Hours</h4>
                                 <Row className="g-5">
                                     <Col md={3}>
                                         <DatePickerField
-                                            name="activeHoursFrom"
+                                            name="active_hour_start"
                                             labelName="From"
                                             dateFormat="h:mm aa"
                                             autocomplete="off"
                                             placeHolder="00:00"
                                             timeOnly={true}
-                                            touch={touched.activeHoursFrom}
-                                            error={errors.activeHoursFrom}
+                                            touch={touched.active_hour_start}
+                                            error={errors.active_hour_start}
                                         />
                                     </Col>
                                     <Col md={3}>
                                         <DatePickerField
-                                            name="activeHoursTo"
+                                            name="active_hour_end"
                                             labelName="To"
                                             placeHolder="00:00"
                                             dateFormat="h:mm aa"
                                             timeOnly={true}
                                             autocomplete="off"
-                                            touch={touched.activeHoursTo}
-                                            error={errors.activeHoursTo}
+                                            touch={touched.active_hour_end}
+                                            error={errors.active_hour_end}
                                         />
                                     </Col>
                                 </Row>
                                 <TagInputField
-                                    name="specialities"
-                                    error={errors.specialities}
-                                    touch={touched.specialities}
-                                    labelName="Specialities"
-                                    placeHolder="Enter your price"
+                                    data={skills}
+                                    name="skill"
+                                    // error={errors.skill}
+                                    // touch={touched.skill}
+                                    labelName="Skills"
+                                    placeHolder="Enter your skills"
                                 />
                                 <Col md={3}>
                                     <InputField
                                         type="number"
-                                        name="baseRatePerHour"
+                                        name="hourly_rate"
                                         labelName="Base Rate Per Hour"
-                                        error={errors.baseRatePerHour}
-                                        touch={touched.baseRatePerHour}
-                                        placeHolder="Enter your price"
+                                        error={errors.hourly_rate}
+                                        touch={touched.hourly_rate}
+                                        placeHolder="Enter your rate"
                                     />
                                 </Col>
                                 <h4>Linked Accounts</h4>
@@ -189,10 +274,9 @@ const ProfileEditForm = ({
                                         Dribble
                                     </span>
                                 </div>
-
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -202,7 +286,7 @@ const ProfileEditForm = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting

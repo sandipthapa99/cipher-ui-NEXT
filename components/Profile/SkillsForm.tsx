@@ -1,17 +1,19 @@
 import FormButton from "@components/common/FormButton";
-import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { MultiSelect } from "@mantine/core";
+import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useEditForm } from "hooks/use-edit-form";
 import type { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useToggleSuccessModal } from "store/use-success-modal";
-import { SkillsFromData } from "utils/formData";
 import { skillsFormSchema } from "utils/formValidation/skillsFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 interface SkillsProps {
     show?: boolean;
@@ -24,44 +26,102 @@ const AddSkills = ({
     handleClose,
     setShowAddSkillsForm,
 }: SkillsProps) => {
-    const toggleSuccessModal = useToggleSuccessModal();
-    const data = [
-        { label: "React", value: "react" },
-        { label: "Angular", value: "anglur" },
-        { label: "PHP", value: "php" },
-    ];
+    const { mutate } = useEditForm(`/tasker/profile/`);
+    const queryClient = useQueryClient();
+    const { data: profileDetails } = useGetProfile();
+    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
+
+    const [dataSkills, setDataSkills] = useState(() => {
+        return userSkills?.map((item: string) => {
+            return {
+                label: item,
+                value: item,
+            };
+        });
+    });
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose} backdrop="static">
+            <Modal show={show} centered onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal edit-form">
-                    <h3>Edit Profile</h3>
+                    <h3>Add Skills</h3>
                     <Formik
-                        initialValues={SkillsFromData}
+                        enableReinitialize
+                        initialValues={{
+                            skill: profileDetails?.skill ? userSkills : "",
+                        }}
                         validationSchema={skillsFormSchema}
                         onSubmit={async (values) => {
-                            setShowAddSkillsForm(false);
-                            // To be used for API
-                            // try {
-                            //     axiosClient.post("/routes", values);
-                            // } catch (error: any) {
-                            //     error.response.data.message;
-                            // }
-                            toggleSuccessModal();
-                            console.log(values);
+                            const skill = values.skill;
+
+                            // const newValue = userSkills?.concat(skill);
+
+                            const newSkills = JSON.stringify(skill);
+
+                            const finalSKills = {
+                                ...values,
+                                skill: newSkills,
+                            };
+
+                            mutate(finalSKills, {
+                                onSuccess: async () => {
+                                    setShowAddSkillsForm(false);
+                                    queryClient.invalidateQueries(["profile"]);
+                                    toast.success(
+                                        "Skills detail added successfully"
+                                    );
+                                },
+                                onError: async (error) => {
+                                    toast.error(error.message);
+                                },
+                            });
+
+                            // console.log(values);
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, setFieldValue, values }) => (
                             <Form>
-                                <TagInputField
-                                    name="skills"
-                                    error={errors.skills}
-                                    touch={touched.skills}
+                                {/* <TagInputField
+                                    name="skill"
                                     labelName="Specialities"
-                                    placeHolder="Enter your prefered skill"
-                                    variables={[]}
+                                    placeHolder="Enter your skills"
+                                    create={true}
+                                /> */}
+                                <MultiSelect
+                                    label="Skills"
+                                    data={dataSkills}
+                                    placeholder="Select Skills"
+                                    searchable
+                                    name="skill"
+                                    creatable
+                                    getCreateLabel={(query) =>
+                                        `+ Create ${query}`
+                                    }
+                                    onChange={(value) => {
+                                        setFieldValue("skill", value);
+                                    }}
+                                    value={profileDetails && values?.skill}
+                                    onCreate={(query) => {
+                                        const item = {
+                                            label: query,
+                                            value: query,
+                                        };
+                                        setDataSkills((current: any) => [
+                                            ...current,
+                                            item,
+                                        ]);
+
+                                        const newValue = dataSkills?.map(
+                                            (item: any) => item.value
+                                        );
+
+                                        setFieldValue("skill", newValue);
+
+                                        return item;
+                                    }}
                                 />
+
                                 <h4>Suggested Skills</h4>
                                 <MultiSelect
                                     data={["react", "anglur", "php"]}
@@ -73,7 +133,7 @@ const AddSkills = ({
                                 />
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -83,7 +143,7 @@ const AddSkills = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
@@ -105,3 +165,31 @@ const AddSkills = ({
     );
 };
 export default AddSkills;
+
+// onSubmit={async (values) => {
+//     const skills = profileDetails
+//         ? JSON.parse(profileDetails?.skill)
+//         : [];
+//     /// const newSkills = [...skills, ...values?.skill];
+//     const newSkills = { ...values, skill: skills };
+//     const finalSkill = JSON.stringify(newSkills);
+
+//     // const finalSKills = { ...values, skill: newSkills };
+//     // console.log("fila=", finalSKills);
+//     mutate(finalSkill, {
+//         onSuccess: async () => {
+//             console.log("submitted values", finalSkill);
+//             setShowAddSkillsForm(false);
+//             queryClient.invalidateQueries(["profile"]);
+//             toast.success(
+//                 "Skills detail added successfully"
+//             );
+//         },
+//         onError: async (error) => {
+//             toast.error(error.message);
+//             console.log("error=", error);
+//         },
+//     });
+
+//     console.log(values);
+// }}

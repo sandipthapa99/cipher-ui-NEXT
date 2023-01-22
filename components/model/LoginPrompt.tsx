@@ -1,9 +1,15 @@
-import Link from "next/link";
+import { faKey, faUser } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Modal, PasswordInput, Stack, TextInput } from "@mantine/core";
+import { Form, Formik } from "formik";
+import { useLogin } from "hooks/auth/useLogin";
+import localforage from "localforage";
 import { useRouter } from "next/router";
-import React from "react";
-import { Modal } from "react-bootstrap";
+import React, { useEffect } from "react";
 import {
+    useClearPausedFunction,
     useHideLoginPrompt,
+    usePausedFunction,
     useShowLoginPrompt,
 } from "store/use-login-prompt-store";
 
@@ -11,20 +17,73 @@ import {
  * @description Displays a login prompt on unauthenticated actions
  */
 export const LoginPrompt = () => {
+    const { mutate: loginMutation, isLoading } = useLogin();
     const showLoginPrompt = useShowLoginPrompt();
     const hideLoginPrompt = useHideLoginPrompt();
+    const pausedFunction = usePausedFunction();
+    const clearPausedFunction = useClearPausedFunction();
+
+    // const theme = useMantineTheme();
 
     const router = useRouter();
-    const pathname = router.pathname;
+
+    useEffect(() => {
+        router.events.on("routeChangeStart", hideLoginPrompt);
+        router.events.on("routeChangeError", hideLoginPrompt);
+        return () => {
+            router.events.off("routeChangeStart", hideLoginPrompt);
+            router.events.off("routeChangeError", hideLoginPrompt);
+        };
+    }, [hideLoginPrompt, router.events]);
     return (
-        <Modal show={showLoginPrompt} onHide={hideLoginPrompt}>
-            <Modal.Header closeButton />
-            <Modal.Body>
-                <p>Not logged in ?</p>
-                <Link href={`/login?next=${pathname}`}>
-                    <a>Login</a>
-                </Link>
-            </Modal.Body>
+        <Modal
+            overlayOpacity={0.55}
+            overlayBlur={3}
+            centered
+            opened={showLoginPrompt}
+            onClose={hideLoginPrompt}
+            title="Login to continue"
+        >
+            <Formik
+                onSubmit={async (values) => {
+                    const fcmToken = await localforage.getItem<string>(
+                        "fcm_token"
+                    );
+                    loginMutation(
+                        { ...values, fcm_token: fcmToken },
+                        {
+                            onSuccess: () => {
+                                hideLoginPrompt();
+                                if (pausedFunction) {
+                                    pausedFunction();
+                                    clearPausedFunction();
+                                }
+                            },
+                        }
+                    );
+                }}
+                initialValues={{ username: "", password: "" }}
+            >
+                {({ getFieldProps }) => (
+                    <Form>
+                        <Stack>
+                            <TextInput
+                                {...getFieldProps("username")}
+                                icon={<FontAwesomeIcon icon={faUser} />}
+                                placeholder="Username or phone number"
+                            />
+                            <PasswordInput
+                                {...getFieldProps("password")}
+                                icon={<FontAwesomeIcon icon={faKey} />}
+                                placeholder="Password"
+                            />
+                            <Button loading={isLoading} type="submit">
+                                Login
+                            </Button>
+                        </Stack>
+                    </Form>
+                )}
+            </Formik>
         </Modal>
     );
 };

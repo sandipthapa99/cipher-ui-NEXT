@@ -1,28 +1,39 @@
 import { MessageHeader } from "@components/Message/MessageHeader";
 import { MessageList } from "@components/Message/MessageList";
-import type { Contact } from "staticData/messages";
+import { ScrollArea } from "@mantine/core";
+import type { DocumentData } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
+import { db } from "../../firebase/firebase";
+import { SendMessageInput } from "./SendMessageInput";
 
 interface MessageListSidebarProps {
-    contact: Contact;
-    onBackClick: () => void;
+    query: string;
 }
-export const MessageListSidebar = ({
-    contact,
-    onBackClick,
-}: MessageListSidebarProps) => {
-    const { name, profileImage, messages, isOnline, isFavorite, lastMessage } =
-        contact;
+export const MessageListSidebar = ({ query }: MessageListSidebarProps) => {
+    const [user, setMessage] = useState<DocumentData>();
+    useEffect(() => {
+        if (query) {
+            const unsub = onSnapshot(doc(db, "users", query), (doc) => {
+                setMessage(doc.data());
+            });
+            return () => {
+                unsub;
+            };
+        }
+    }, [query]);
     return (
-        <div className="message-list-sidebar">
-            <MessageHeader
-                username={name}
-                profileImage={profileImage}
-                isOnline={isOnline}
-                onBackClick={onBackClick}
-                lastMessage={lastMessage}
-                isFavorite={isFavorite}
-            />
-            <MessageList messages={messages} />
+        <div className="message-list-sidebar pb-5">
+            <MessageHeader username={user?.name} profileImage={user?.profile} />
+            <ScrollArea
+                style={{ height: 650, width: "100%" }}
+                offsetScrollbars
+                scrollbarSize={6}
+            >
+                <MessageList imageUrl={user?.profile} />
+            </ScrollArea>
+            <SendMessageInput placeholder="Type a message" />
         </div>
     );
 };

@@ -1,84 +1,64 @@
-import AllCategoryCard from "@components/common/AllCategoryCard";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MessageCard from "@components/common/MessageCard";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
-import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { AllCategoryCardContent } from "staticData/categoryCardContent";
-import { howItWorkContent } from "staticData/howTtWork";
 import { messageCard } from "staticData/messageCard";
 
 const HowItWorks: NextPage = () => {
     return (
-        <Layout title="How it Works | Cipher">
-            <Container fluid="xl" className="px-5">
+        <Layout
+            title="How it Works | Homaale"
+            description="Find out how homaale works."
+            keywords="how-it-works, airtasker-nepali, nepali-working-platform, homaale-feeback, business, online-business, homaale, hire"
+        >
+            <Container fluid="xl" className="px-4">
                 <section className="how-it-works">
                     <BreadCrumb currentPage="How it Works" />
 
                     <div className="how-it-works__top-container">
-                        <h1>See how things work in Cipher</h1>
+                        <h1>See how things work in Homaale</h1>
                         <p>
-                            Here is the video that can be very helpful to know
-                            about Cipher
+                            Here is the video that can be very helpful to become
+                            a part of Homaale
                         </p>
+
                         <figure className="thumbnail-img footer-img">
-                            <Image
-                                src="/howitworks/economic.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="economic-image"
-                            />
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src={
+                                    "https://www.youtube.com/embed/dxhzAqQsqAo"
+                                }
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
                         </figure>
                     </div>
+
                     <div className="how-it-works__content card-block">
-                        {howItWorkContent &&
-                            howItWorkContent.map((info) => (
-                                <LongSquareImageCard
-                                    title={info.title}
-                                    subtitle={info.subtitle}
-                                    image={info.image}
-                                    description={info.description}
-                                    key={info.id}
-                                />
-                            ))}
-                    </div>
-                    <div className="how-it-works__categories">
-                        <h1>Our categories</h1>
-                        <p>Choose category according to your needs.</p>
-                        <Row className="gy-4 align-tems-stretch">
-                            {AllCategoryCardContent &&
-                                AllCategoryCardContent.map((category) => {
-                                    return (
-                                        <Col
-                                            className="gx-4 align-items-stretch"
-                                            sm={4}
-                                            xs={12}
-                                            md={3}
-                                            // lg={4}
-                                            key={category.id}
-                                        >
-                                            <AllCategoryCard
-                                                categoryImage={category.image}
-                                                categoryTitle={category.name}
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
+                        <LongSquareImageCard
+                            title="Post your skills"
+                            subtitle=""
+                            image="/howitworks/howitwork.svg"
+                            description="Become a tasker and grab an opportunity to earn as a freelancer or an organisation by posting your skills for services and the desired rate for it. The decision to either accept or reject the task is completely on you. You can also choose to apply for the posted tasks and negotiate the amount quoted. Your payment will be released once you complete the task."
+                            imageOnRight={true}
+                        />
                     </div>
                     <div className="how-it-works__communicate service-card-block">
                         <div className="communicate-card">
-                            <Row className="gx-2">
+                            <Row className="gx-5">
                                 <Col lg={5} md={12}>
                                     <div className="communicate-card__left-container">
-                                        <h1>Communicate with us</h1>
+                                        <h1>Reach out to each other</h1>
 
                                         <div className="connect">
-                                            <h4>Connect with us</h4>
+                                            <h4>Reach out to us</h4>
                                             <p>
-                                                Use Cipher to stay in contact
+                                                Use Homaale to stay in contact
                                                 from the moment your task is
                                                 posted until it&apos;s
                                                 completed.
@@ -90,8 +70,8 @@ const HowItWorks: NextPage = () => {
                                                 Once you&apos;ve accepted an
                                                 offer, you can instantly reach
                                                 out to the Tasker via private
-                                                messaging to discuss task
-                                                details, and get your task
+                                                Homaale messaging to discuss
+                                                task details, and get your task
                                                 completed.
                                             </p>
                                         </div>
@@ -116,6 +96,18 @@ const HowItWorks: NextPage = () => {
                                                 }
                                             />
                                         ))}
+                                    {/* <figure className="thumbnail-img message-card">
+                                        <Image
+                                            src={"/howitworks/message.svg"}
+                                            alt="messages"
+                                            className="messages"
+                                            objectFit="contain"
+                                            height={420}
+                                            width={900}
+                                            //     layout="fill"
+                                            // priority={true}
+                                        />
+                                    </figure> */}
                                 </Col>
                             </Row>
                         </div>

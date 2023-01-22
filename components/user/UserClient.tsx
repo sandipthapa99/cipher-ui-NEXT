@@ -1,20 +1,24 @@
 import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
-import CategoryCard from "@components/common/CategoryCard";
 import DiscountCard from "@components/common/discountCard";
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { WelcomeComponent } from "@components/common/WelcomeComponent";
+import { ServiceCategories } from "@components/services/ServiceCategories";
 import GettingStartedTask from "@components/Task/GettingStartedCard";
+import { useData } from "hooks/use-data";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { serviceCategory } from "staticData/serviceCategory";
-import { services } from "staticData/services";
+import type { ServicesValueProps } from "types/serviceCard";
 
 import { Recommended } from "./Recommended";
 
 export const UserClient = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <>
             <section
@@ -36,7 +40,12 @@ export const UserClient = () => {
                                 items={[
                                     {
                                         title: "Recent",
-                                        content: <ApplyPostComponent />,
+                                        content: (
+                                            <ApplyPostComponent
+                                                model={"task"}
+                                                href={"/task"}
+                                            />
+                                        ),
                                     },
                                     {
                                         title: "In Progress",
@@ -79,48 +88,21 @@ export const UserClient = () => {
                     <Row className="gx-5">
                         <Row>
                             <Col>
-                                <h4>Popular on Cipher</h4>
+                                <h4>Popular on Homeaale</h4>
                             </Col>
                             <Col md={1}>
-                                <Link href="/">view more</Link>
+                                <Link href="/service">view more</Link>
                             </Col>
                         </Row>
 
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
+                                    <Col sm={6} md={4} lg={3} key={key}>
                                         <Link href="/service-detail">
                                             <a>
                                                 <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
+                                                    serviceCard={service}
                                                 />
                                             </a>
                                         </Link>
@@ -135,36 +117,8 @@ export const UserClient = () => {
                     <h1 className="section-main-title">
                         Our services by category
                     </h1>
-                    <Row className="gx-5">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
-                                return (
-                                    <Col xs={6} sm={4} lg={2} key={category.id}>
-                                        <CategoryCard
-                                            categoryTitle={
-                                                category.categoryTitle
-                                            }
-                                            categoryIcon={category.categoryIcon}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
-                    <Row className="gx-5">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
-                                return (
-                                    <Col xs={6} sm={4} lg={2} key={category.id}>
-                                        <CategoryCard
-                                            categoryTitle={
-                                                category.categoryTitle
-                                            }
-                                            categoryIcon={category.categoryIcon}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
+                    <ServiceCategories />
+                    <ServiceCategories />
                     {/* Service category listing end */}
                 </Container>
             </section>
@@ -176,54 +130,13 @@ export const UserClient = () => {
                     <Row className="gx-5">
                         <Row>
                             <Col md={11}>
-                                <h4>Popular on Cipher</h4>
+                                <h4>Popular on Homeaale</h4>
                             </Col>
                             <Col md={1}>
-                                <Link href="/">view more</Link>
+                                <Link href="/service">view more</Link>
                             </Col>
                         </Row>
-
-                        {services &&
-                            services.map((service) => {
-                                return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <Link href="/service-detail">
-                                            <a>
-                                                <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
-                                                />
-                                            </a>
-                                        </Link>
-                                    </Col>
-                                );
-                            })}
+                        <ServiceCategories />
                     </Row>
                 </Container>
             </section>

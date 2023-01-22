@@ -1,53 +1,67 @@
 import { format } from "date-fns";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
-import type { Contact } from "staticData/messages";
 
 export interface ContactListProps {
+    contactId: string;
     title: string;
-    contacts: Contact[];
-    onContactClick: (contact: Contact) => void;
-}
-export const ContactList = ({
-    title,
-    contacts,
-    onContactClick,
-}: ContactListProps) => {
-    const lastMessageDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const currentDay = format(date, "cccc");
-        const currentTime = format(date, "p");
-        return `${currentDay} ${currentTime}`;
+    contacts: {
+        userInfo: { displayName: string; photoURL: string; uid: string };
+        lastMessage: { text: string };
+        date: { seconds: number; nanoseconds: string };
     };
+}
+export const ContactList = ({ contactId, contacts }: ContactListProps) => {
+    const router = useRouter();
     const renderContacts = () => {
-        return contacts.map((contact) => (
+        let date;
+        if (contacts?.date?.seconds) {
+            date = new Date(contacts?.date?.seconds);
+        }
+        const formatedDay = date && format(new Date(date), "EEEE");
+        const formatedTime = date && format(new Date(date), "p");
+        return (
             <div
                 role="button"
                 aria-labelledby="Open contact"
-                key={contact.id}
-                className="contact-list__item"
-                onClick={() => onContactClick(contact)}
+                key={contactId}
+                className="contact-list__item align-items-center"
+                onClick={() =>
+                    router.push({
+                        pathname: "/client/message",
+                        query: {
+                            client: contacts?.userInfo?.uid,
+                            chatId: contactId,
+                        },
+                    })
+                }
             >
                 <Image
-                    src={contact.profileImage}
+                    src={
+                        contacts?.userInfo?.photoURL ??
+                        "/userprofile/unknownPerson.jpg"
+                    }
                     width="50px"
                     height="50px"
                     alt="Contact profile image"
                     className="rounded-circle"
                 />
                 <div className="contact-list__item--info">
-                    <h4 className="title">{contact.name}</h4>
-                    <p className="last-message">{contact.lastMessage}</p>
+                    <h4 className="title">{contacts?.userInfo?.displayName}</h4>
+                    <p className="last-message mb-0">
+                        {contacts?.lastMessage?.text}
+                    </p>
                     <span className="last-message-date">
-                        {lastMessageDate(contact.lastMessageCreatedAt)}
+                        {formatedDay}, {formatedTime}
                     </span>
                 </div>
             </div>
-        ));
+        );
     };
     return (
         <div className="contact-list">
-            <h4 className="contact-list__title">{title}</h4>
+            {/* <h4 className="contact-list__title">{title}</h4> */}
             <div>{renderContacts()}</div>
         </div>
     );

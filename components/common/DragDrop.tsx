@@ -16,7 +16,6 @@ const DragDrop = ({
         // `current` points to the mounted file input element
         inputRef?.current?.click();
     };
-
     return (
         <div className="drag-drop" onClick={() => onButtonClick}>
             <figure className="thumbnail-img">
@@ -59,12 +58,9 @@ const DragDrop = ({
                 onChange={(event: any) => {
                     const files = event.target.files;
 
-                    console.log(files);
-
                     field?.(name, (files ?? [])[0]);
-                    console.log("files=", files);
-                    console.log("field name", field?.name);
-                    // console.log("field", field?.files);
+
+                    //
                 }}
                 name={name}
             />

@@ -1,8 +1,20 @@
 .review-block {
     padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
     justify-content: center;
-
+    .star {
+        width: 2.3rem;
+        color: #fab005;
+        height: 2.3rem;
+        margin-left: 0.5rem;
+    }
+    .mantine-1jqub9a,
+    .mantine-oumttf {
+        width: 2.3rem;
+        color: #fab005;
+        height: 2.3rem;
+        margin-left: 0.5rem;
+    }
     @include respond(xs) {
         flex-direction: column;
         align-items: center;
@@ -12,30 +24,72 @@
     }
     .thumbnail-img {
         border-radius: 50%;
-        height: 7rem;
-        width: 7rem;
+        height: 5.6rem;
+        width: 5.6rem;
         // padding-top: 1.7rem;
     }
     &__content {
         display: flex;
         flex-direction: column;
 
-        // justify-content: center;
-        // padding-top: 1rem;
-        padding-left: 1.8rem;
-
         @include respond(xs) {
-            padding-left: 0rem;
             padding-top: 1rem;
         }
         @include respond(sm) {
-            padding-left: 0rem;
+            padding-left: 2rem;
             padding-top: 1rem;
         }
         @include respond(md) {
-            padding-left: 3.8rem;
+            padding-left: 3rem;
+        }
+        @include respond(lg) {
+            padding-left: 0;
         }
 
+        .reply-text {
+            font-size: 1.7rem;
+            cursor: pointer;
+            color: #0693e3;
+            text-decoration: underline;
+        }
+        .replied_by {
+            font-size: 1.4rem;
+        }
+        .reply-text:hover {
+            text-decoration: none;
+        }
+        .reviewer-image {
+            border-radius: 50%;
+        }
+        .Reply-cont {
+            border-bottom: 1px solid #212529;
+            .reply-input {
+                width: 100%;
+                border: none;
+                outline: none;
+                padding-bottom: 0.6rem;
+                font-size: 1.5rem;
+            }
+        }
+        .reply-btn {
+            display: flex;
+            margin-top: 1rem;
+            gap: 1rem;
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
+        .replied-text {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #212529;
+        }
+        .svg-icon {
+            cursor: pointer;
+        }
+        .icons {
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+        }
         .reviewer {
             display: flex;
             align-items: center;
@@ -45,6 +99,8 @@
                 font-weight: 500;
                 margin-bottom: 0rem;
                 font-size: 1.4rem;
+                margin: 0;
+                margin-right: 1.3rem;
             }
             .ratings {
                 font-size: 1.4rem;
@@ -53,6 +109,12 @@
                 padding-right: 1.3rem;
                 margin-bottom: 0rem;
                 color: $default-text-color;
+                align-items: center;
+            }
+            span {
+                margin-left: 1rem;
+                margin-top: 0.29rem;
+                color: $default-text-color;
             }
             .thumbnail-img {
                 height: 2rem;
@@ -60,12 +122,18 @@
                 padding-left: 1.9rem;
                 margin-left: 0.5rem;
             }
+            p {
+                margin-bottom: 0rem;
+                color: #212529;
+                margin-left: 1rem;
+                font-weight: 400;
+            }
         }
         .description {
-            padding-top: 1.7rem;
+            // padding-top: 1.7rem;
             font-size: 1.4rem;
             margin-bottom: 0rem !important;
-            color: $secondary-text-color;
+            color: $sub-title-color;
             font-weight: 400;
             @include respond(md) {
                 margin: 0rem;

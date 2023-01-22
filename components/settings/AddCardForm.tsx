@@ -35,7 +35,7 @@ const AddCardForm = ({
                     <Formik
                         initialValues={CreditCardFromData}
                         validationSchema={creditCardValidationSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={async () => {
                             setShowAddCardForm(false);
                             toggleSuccessModal();
                             // To be used for API
@@ -44,7 +44,6 @@ const AddCardForm = ({
                             // } catch (error: any) {
                             //     error.response.data.message;
                             // }
-                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched, values }) => (
@@ -106,7 +105,7 @@ const AddCardForm = ({
                                 </label>
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -116,7 +115,7 @@ const AddCardForm = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting

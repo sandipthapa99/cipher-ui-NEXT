@@ -2,20 +2,23 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: 40px;
+    //gap: 40px;
     margin-bottom: 32px;
 
     @include media("<tablet") {
         flex-direction: column;
     }
 }
-.all-categories-title {
-    font-size: 40px;
-    margin-block: 40px;
-    @extend .title;
+.category-svg-icon {
+    height: 2.5rem;
+    width: 2.5rem;
+}
 
-    @include media("<tablet") {
-        font-size: 32px;
+.all-categories-title {
+    font-size: 3rem;
+    @extend .title;
+    @include respond(xs) {
+        font-size: 2rem;
     }
 }
 .category-item {
@@ -31,6 +34,25 @@
             font-size: 14px;
             color: #495057;
             line-height: 18px;
+        }
+    }
+}
+
+.category-container {
+    .heading {
+        border-bottom: 1px solid #ced4da;
+        padding-bottom: 0.8rem;
+        svg {
+            fill: #868e96 !important;
+        }
+        .title {
+            font-weight: 500;
+            font-size: 2rem;
+            color: #343a40;
+
+            @include respond(xs) {
+                font-size: 1.5rem;
+            }
         }
     }
 }

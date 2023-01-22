@@ -1,98 +1,39 @@
-import CardBtn from "@components/common/CardBtn";
-import Image from "next/image";
-import { useState } from "react";
+import { EmptyOffers } from "@components/Offers/EmptyOffers";
+import { OfferBasicCard } from "@components/Offers/OfferBasicCard";
+import urls from "constants/urls";
+import { useData } from "hooks/use-data";
 import { Col, Row } from "react-bootstrap";
-import { rewardCardContent } from "staticData/rewardCard";
+import type { OfferListingProps } from "types/offerListingProps";
 
 const RewardCard = () => {
-    const [, setCopySuccess] = useState("");
-    // your function to copy here
+    const { data: redeemList } = useData<OfferListingProps>(
+        ["reedem-offers"],
+        urls.offer.list,
+        true
+    );
 
-    const copyToClipBoard = async (copyMe: any) => {
-        try {
-            await navigator.clipboard.writeText(copyMe);
-            setCopySuccess("Copied!");
-        } catch (err) {
-            setCopySuccess("Failed to copy!");
-        }
-    };
     return (
         <div className="rewards">
             <Row className="d-flex align-items-stretch">
-                {rewardCardContent &&
-                    rewardCardContent.map((info) => (
-                        <Col
-                            key={info.id}
-                            className="d-flex gx-4 align-items-stretch"
-                            lg={3}
-                            md={4}
-                            sm={6}
-                        >
-                            <div className="find-hire-card-block reward-card">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src={info.rewardImage}
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="reward-image"
-                                    />
-                                </figure>
-                                {info.isAvailable ? (
-                                    ""
-                                ) : (
-                                    <figure className="expired-img">
-                                        <Image
-                                            src="/userprofile/rewards/expired.svg"
-                                            layout="fill"
-                                            objectFit="cover"
-                                            alt="expired-image"
-                                        />
-                                    </figure>
-                                )}
-                                <div className="card-content">
-                                    <h2>
-                                        {info.haveDiscount
-                                            ? `${info.discount}% Off ${info.title}`
-                                            : `${info.title}`}
-                                    </h2>
-                                    <p>{info.description}</p>
-                                    {info.haveCouponCode ? (
-                                        <div className="coupon">
-                                            {info.isCouponCodeAvailable ? (
-                                                <div className="code">
-                                                    <p>{info.couponCode}</p>
-                                                </div>
-                                            ) : (
-                                                <div className="disabled disabled-color">
-                                                    <p>{info.couponCode}</p>
-                                                </div>
-                                            )}
-
-                                            <div
-                                                className={`${
-                                                    info.isCouponCodeAvailable
-                                                        ? "abled"
-                                                        : "disabled-copy-btn"
-                                                } copy-btn`}
-                                                onClick={() =>
-                                                    copyToClipBoard(
-                                                        info.couponCode
-                                                    )
-                                                }
-                                            >
-                                                Copy
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <CardBtn
-                                            btnTitle={`${info.btnText}`}
-                                            backgroundColor="primary-color"
-                                        />
-                                    )}
-                                </div>
-                            </div>
-                        </Col>
-                    ))}
+                {redeemList?.data && redeemList?.data?.length > 0 ? (
+                    redeemList?.data?.map((info, key) => {
+                        return (
+                            <>
+                                <Col
+                                    key={key}
+                                    className="d-flex gx-4 align-items-stretch"
+                                    lg={3}
+                                    md={4}
+                                    sm={6}
+                                >
+                                    <OfferBasicCard offerData={info} />
+                                </Col>
+                            </>
+                        );
+                    })
+                ) : (
+                    <EmptyOffers />
+                )}
             </Row>
         </div>
     );

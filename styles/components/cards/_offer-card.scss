@@ -1,0 +1,23 @@
+.offer-card {
+    margin: 0 0 3rem;
+    margin-top: 2rem;
+    border-radius: 0.4rem;
+    box-shadow: 0rem 0.4rem 0.6rem rgba(33, 29, 79, 0.1);
+    background: rgba(255, 255, 255, 0.4);
+    &__content {
+        padding: 1rem;
+        .thumbnail-img {
+            height: 10rem;
+            width: 10rem;
+        }
+        .info {
+            h3 {
+                color: $secondary-text-color;
+            }
+            span {
+                color: #adb5bd;
+                font-size: 1.2rem;
+            }
+        }
+    }
+}

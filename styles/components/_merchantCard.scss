@@ -8,19 +8,29 @@
 
     .merchant-intro {
         padding: 2.4rem;
+        // height: 11rem;
+        // overflow: hidden;
 
         .thumbnail-img {
             margin: 0 0 1rem 0;
             height: 8rem;
-            min-width: 8rem;
             border: 1px solid #868e96;
             border-radius: 50%;
+            @include respond(md) {
+                min-width: 8rem;
+            }
             @include respond(sm) {
                 margin: 0 2.4rem 0 0;
+                min-width: 8rem;
+            }
+            @include respond(xs) {
+                width: 8rem;
             }
         }
 
         .merchant-name {
+            height: 10rem;
+            overflow: hidden;
             .card-title {
                 font-size: 1.4rem;
                 font-weight: 500;
@@ -33,7 +43,7 @@
                 font-family: $inter-font;
                 font-weight: 500;
                 color: #5c5f66;
-                margin-bottom: 1.6rem;
+                margin-bottom: 1rem;
 
                 span {
                     font-family: $inter-font;
@@ -53,6 +63,8 @@
                 color: #495057;
                 line-height: 1.8rem;
                 margin-bottom: 1.2rem;
+                height: 3.2rem;
+                overflow: hidden;
             }
         }
 
@@ -88,12 +100,12 @@
             .happy-clients {
                 padding: 0 0.5rem 0 1rem;
                 @include respond(sm) {
-                    padding: 0 2.4rem 0 3.2rem;
+                    padding: 0 2.4rem 0 2.2rem;
                 }
             }
             .success-rate {
                 border-left: 1px solid #ced4da;
-                padding: 0 3.2rem 0 2.4rem;
+                padding: 0 3.2rem 0 1.4rem;
                 .thumbnail-img {
                     height: 2.4rem;
                     width: 2.4rem;

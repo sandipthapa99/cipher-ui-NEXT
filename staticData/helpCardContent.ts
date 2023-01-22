@@ -1,65 +1,50 @@
 export const helpCardContent = [
     {
         id: "0",
-        cardTitle: "Find Tasks",
-        cardImage: "/help/browse1.svg",
-        cardDescription:
-            "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",
+        cardTitle: "Homaale Registration",
+        cardImage: "/help-icons/homaale-registration.png",
+        cardDescription: "",
+        redirect: "/faq",
+        query: "Homaale Registration",
     },
     {
         id: "1",
-        cardTitle: "Payment Issue",
-        cardImage: "/help/browse2.svg",
-        cardDescription:
-            "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",
+        cardTitle: "Payment Help",
+        cardImage: "/help-icons/payment-help.png",
+        cardDescription: "",
+        redirect: "/faq",
+        query: "Payment",
     },
     {
         id: "2",
-        cardTitle: "Find Your Profile",
-        cardImage: "/help/browse3.svg",
-        cardDescription:
-            "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",
+        cardTitle: "Report a Problem",
+        cardImage: "/help-icons/report-problem.png",
+        cardDescription: "",
+        redirect: "/feedback",
+        query: "",
     },
     {
-        id: "3",
-        cardTitle: "Find Tasks",
-        cardImage: "/help/browse1.svg",
-        cardDescription:
-            "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",
+        id: "0",
+        cardTitle: "Safety and Privacy",
+        cardImage: "/help-icons/safety.png",
+        cardDescription: "",
+        redirect: "/privacy-policy",
+        query: "",
     },
     {
-        id: "4",
-        cardTitle: "Payment Issue",
-        cardImage: "/help/browse2.svg",
-        cardDescription:
-            "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",
+        id: "0",
+        cardTitle: "KYC Help",
+        cardImage: "/help-icons/kyc-help.png",
+        cardDescription: "",
+        redirect: "/faq",
+        query: "KYC",
     },
     {
-        id: "5",
-        cardTitle: "Find Your Profile",
-        cardImage: "/help/browse3.svg",
-        cardDescription:
-            "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",
-    },
-    {
-        id: "6",
-        cardTitle: "Find Tasks",
-        cardImage: "/help/browse1.svg",
-        cardDescription:
-            "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",
-    },
-    {
-        id: "7",
-        cardTitle: "Payment Issue",
-        cardImage: "/help/browse2.svg",
-        cardDescription:
-            "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",
-    },
-    {
-        id: "8",
-        cardTitle: "Find Your Profile",
-        cardImage: "/help/browse3.svg",
-        cardDescription:
-            "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",
+        id: "0",
+        cardTitle: "Profile Help",
+        cardImage: "/help-icons/account-status.png",
+        cardDescription: "",
+        redirect: "/faq",
+        query: "Account and Profile",
     },
 ];

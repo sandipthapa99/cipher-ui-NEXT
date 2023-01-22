@@ -6,25 +6,26 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import type { FeedbackValuesProps } from "types/contact";
 import { axiosClient } from "utils/axiosClient";
 import { FeedbackFormData } from "utils/contactFormData";
 import { FeedbackFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { toast } from "utils/toast";
 
 const Feedback = () => {
     const { data } = useQuery(["feedback-category"], () => {
         return axiosClient.get("/support/feedback/category/options/");
     });
-
-    const renderCategoryTypes = data?.data?.map((item: any) => {
-        return {
-            label: item?.name,
-            value: item?.id,
-            id: item?.id,
-        };
-    });
+    const renderCategoryTypes = data?.data?.map(
+        (item: { name: string; id: string }) => {
+            return {
+                label: item?.name,
+                value: item?.id,
+                id: item?.id,
+            };
+        }
+    );
 
     const feedbackMutation = useMutation((data: FeedbackValuesProps) =>
         axiosClient.post("/support/feedback/", data)
@@ -34,23 +35,26 @@ const Feedback = () => {
         feedbackMutation.mutate(data, {
             onSuccess: (data) => {
                 if (data?.data?.status === "failure") {
-                    console.log("Error", data);
+                    toast.error(data?.data?.message);
                 } else {
                     toast.success(data?.data?.message);
                     actions.resetForm();
                 }
             },
             onError: (error: any) => {
-                const errmessage = error?.response?.data;
-                toast.error("Something went wrong");
+                toast.error(error);
                 actions.resetForm();
             },
         });
     };
     return (
         <>
-            <Layout title="Feedback | Cipher">
-                <Container fluid="xl">
+            <Layout
+                title="Feedback | Homaale"
+                description="Feel free to send us your feedbacks. We appreciate them."
+                keywords="homaale-earn-money airtasker-nepali, nepali-working-platform, homaale-feeback, homaale,"
+            >
+                <Container fluid="xl" className="px-4">
                     <section className="site-feedback">
                         <Row className="gx-5">
                             <Col md={6} className="d-none d-md-flex">
@@ -66,7 +70,7 @@ const Feedback = () => {
                             <Col md={6}>
                                 <h1>Feedback</h1>
                                 <p>
-                                    Are you enjoying Cipher ? Send us your
+                                    Are you enjoying Homaale ? Send us your
                                     Feedbacks
                                 </p>
                                 <Formik
@@ -90,6 +94,8 @@ const Feedback = () => {
                                             <SelectInputField
                                                 name="feedback_category"
                                                 fieldRequired={true}
+                                                labelName="Category"
+                                                placeHolder="Select Category"
                                                 error={errors.feedback_category}
                                                 touch={
                                                     touched.feedback_category
@@ -99,7 +105,7 @@ const Feedback = () => {
 
                                             <InputField
                                                 name="description"
-                                                labelName="Feedback"
+                                                labelName="Description"
                                                 touch={touched.description}
                                                 error={errors.description}
                                                 placeHolder="Write your message here..."
@@ -108,7 +114,7 @@ const Feedback = () => {
                                             <FormButton
                                                 type="submit"
                                                 variant="primary"
-                                                name="Submit Feedback"
+                                                name="Submit"
                                                 className="submit-btn"
                                                 isSubmitting={isSubmitting}
                                                 isSubmittingClass={isSubmittingClass(
@@ -127,6 +133,6 @@ const Feedback = () => {
     );
 };
 export default Feedback;
-function useFeedback(): { mutate: any; isLoading: any } {
-    throw new Error("Function not implemented.");
-}
+// function useFeedback(): { mutate: any; isLoading: any } {
+//     throw new Error("Function not implemented.");
+// }

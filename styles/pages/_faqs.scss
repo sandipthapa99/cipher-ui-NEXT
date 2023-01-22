@@ -23,7 +23,9 @@
             font-weight: 600;
             color: #495057;
             margin-bottom: 4rem;
-
+            @include respond(xs) {
+                font-size: 1.4rem;
+            }
             @include respond(md) {
                 font-size: 2.4rem;
                 margin-bottom: 8rem;
@@ -48,6 +50,11 @@
     .popular-faqs {
         margin: 4rem 0;
 
+        @include respond(xs) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .accordion {
             .accordion-item {
                 background: none;
@@ -78,7 +85,13 @@
     }
 
     .faq-topics {
+        @include respond(xs) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .accordion {
+            width: 100%;
             .accordion-item {
                 background: #ffffff40;
                 margin-bottom: 0.8rem;
@@ -208,6 +221,15 @@
             @include respond(md) {
                 font-size: 2rem;
             }
+        }
+    }
+}
+
+//faq button : specific style
+.faq-btn {
+    button {
+        @include respond(xs) {
+            width: 100%;
         }
     }
 }

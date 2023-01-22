@@ -1,12 +1,24 @@
-.user-task-card-list {
-    max-height: 80vh;
-    overflow: hidden scroll;
-    position: sticky;
-    @include media("<=tablet") {
-        max-height: unset;
-        overflow: unset;
-    }
+.user-card-container {
+    overflow: auto;
+    height: 90vh;
     margin-bottom: 5rem;
+}
+
+.user-task-card-list {
+    // max-height: 80vh;
+    // overflow: hidden scroll;
+    position: sticky;
+    // @include media("<=tablet") {
+    //     max-height: unset;
+    //     overflow: unset;
+    // }
+    margin-bottom: 5rem;
+
+    .team-members-card {
+        background: #fff;
+        margin: 0 0 1rem;
+        cursor: pointer;
+    }
 }
 .user-task-card {
     width: 100%;
@@ -16,10 +28,68 @@
     margin-bottom: 16px;
     border-radius: 4px;
     margin-right: 8px;
-
+    .profile-image {
+        border-radius: 50%;
+    }
     &__header {
         display: flex;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .profile-image {
+            // height: 12rem;
+            // width: 12rem;
+            .rounded {
+            }
+            border-radius: 50%;
+        }
+        .user-info {
+            margin-left: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            &__username {
+                font-size: 1.4rem;
+                color: #101113;
+                margin-bottom: 0.8rem;
+                font-weight: 500;
+            }
+            &__bio {
+                margin-top: 16px;
+                font-weight: normal;
+                margin-bottom: 24px !important;
+            }
+            .work-address {
+                span {
+                    color: #3eaeff;
+                }
+                color: #5c5f66;
+                margin-bottom: 1rem;
+            }
+            span {
+                font-weight: 400;
+                color: $secondary-text-color;
+                font-size: 1.5rem;
+            }
+        }
+    }
+    .user-rating-price {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        margin-top: 1.6rem;
+        color: #101113;
+        font-weight: 400;
+        p {
+            margin-bottom: 0rem;
+            font-size: 1.5rem;
+            color: #101113;
+        }
+
+        .svg-icon {
+            color: #fab005;
+        }
     }
     &__footer {
         display: flex;
@@ -27,47 +97,29 @@
         gap: 16px;
     }
 }
-.user-info {
-    margin-left: 24px;
-    &__username {
-        font-size: 18px;
-        color: $default-text-color;
-        margin-bottom: 8px;
-        font-weight: 500;
-    }
-    &__bio {
-        margin-top: 16px;
-        font-weight: normal;
-        margin-bottom: 24px !important;
-    }
-    &__category {
-        color: #3eaeff;
-    }
-}
-.user-ratings {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-block: 16px;
-    gap: 24px;
-}
+
 .icons {
+    display: flex;
+    gap: 0.5rem;
     svg {
         margin: 0 2rem 0 0;
     }
 }
 
 .big-btn {
-    color: white;
+    color: black;
     height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     font: 400 1.4rem $poppins-font;
-
+    flex: 0.6;
     &:hover {
         color: white;
     }
+}
+.close-btn-mod {
+    flex: 0.6;
 }
 .task-price {
     flex: 1;

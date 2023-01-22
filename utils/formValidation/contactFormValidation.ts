@@ -1,20 +1,21 @@
+import type { User } from "types/user";
 import { phoneRegExp } from "utils/helpers";
 import * as Yup from "yup";
 
-let emailValidate, stringValidate, phoneValidate, stringReqOnly, selectValidate;
-
-emailValidate = Yup.string()
+const emailValidate = Yup.string()
     .email("Invalid email address")
     .required("Required field");
-stringValidate = Yup.string()
+const stringValidate = Yup.string()
     .min(3, "Must be 3 charactersor or more")
     .required("Required field");
-stringReqOnly = Yup.string().required("Required field");
+const stringReqOnly = Yup.string().required("Required field");
 // isCheckValidate = Yup.bool().oneOf([true]).required();
-phoneValidate = Yup.string()
+const phoneValidate = Yup.string()
     .matches(phoneRegExp, "Invalid phone number")
     .required("Required field");
-selectValidate = Yup.number().required("Required field");
+const selectValidate = Yup.number()
+    .required("Required field")
+    .typeError("Please select a category");
 
 export const contactFormSchema = Yup.object().shape({
     full_name: stringValidate,
@@ -30,19 +31,24 @@ export const FeedbackFormSchema = Yup.object().shape({
     // isAgree: isCheckValidate,
     // g_recaptcha_response: stringReqOnly,
 });
-export const SupportFormSchema = Yup.object().shape({
+export const SupportFormSchema = (userData: User | null | undefined) =>
+    userData
+        ? Yup.object().shape({
+              type: selectValidate,
+              reason: stringReqOnly,
+          })
+        : Yup.object().shape({
+              full_name: stringValidate,
+              email: emailValidate,
+              phone: phoneValidate,
+              type: selectValidate,
+              reason: stringReqOnly,
+          });
+
+export const FaqFormSchema = Yup.object().shape({
     full_name: stringValidate,
     email: emailValidate,
     phone: phoneValidate,
-    type: selectValidate,
-    reason: stringReqOnly,
-    // isAgree: isCheckValidate,
-    // g_recaptcha_response: stringReqOnly,
-});
-export const FaqFormSchema = Yup.object().shape({
-    fullName: stringValidate,
-    email: emailValidate,
-    phoneNumber: phoneValidate,
     message: stringReqOnly,
 });
 

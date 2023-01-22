@@ -8,6 +8,8 @@
             margin-bottom: 5rem;
         }
         padding-top: 4.4rem;
+        padding-bottom: 6.2rem;
+
         @include respond(sm) {
             padding-left: 1.25rem;
             padding-right: 1.25rem;
@@ -16,6 +18,7 @@
         @include respond(xs) {
             padding-left: 1.25rem;
             padding-right: 1.25rem;
+            padding-bottom: 6.2rem;
         }
         .top-row {
             @include respond(sm) {
@@ -53,6 +56,9 @@
                 text-align: left;
                 line-height: 3.4rem;
             }
+            @include respond(xs) {
+                font-size: 3rem;
+            }
             @include respond(md) {
                 font-size: 3rem;
                 line-height: 4rem;
@@ -63,10 +69,9 @@
             }
         }
         p {
-            font-weight: 600;
+            font-weight: 500;
             font-size: 2.4rem;
-            margin-top: 2.2rem;
-            margin-bottom: 2rem;
+            margin: 2.2rem 0;
             display: flex;
             align-items: center;
             color: $default-text-color;
@@ -74,11 +79,14 @@
                 font-size: 1.6rem;
                 line-height: 3rem;
             }
+            @include respond(xs) {
+                font-size: 1.5rem;
+            }
             @include respond(md) {
                 font-size: 2rem;
             }
             @include respond(lg) {
-                font-size: 2.4rem;
+                font-size: 2.2rem;
                 line-height: 4rem;
             }
         }
@@ -153,6 +161,13 @@
 
     &__activity {
         padding-bottom: 5rem;
+        .comment {
+            height: 1.9rem;
+            width: 1.9rem;
+            font-weight: 400;
+            cursor: pointer;
+            color: #3eaeff;
+        }
     }
     &__goal {
         padding: 2.5rem 5.4rem;
@@ -211,6 +226,8 @@
                 color: $secondary-text-color;
                 font-size: 1.2rem;
                 font-weight: 400;
+                text-align: justify;
+                word-break: break-all;
             }
             .author {
                 color: $secondary-text-color;

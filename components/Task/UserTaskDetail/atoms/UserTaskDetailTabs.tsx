@@ -1,36 +1,97 @@
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
+import { AboutTasker } from "@components/Tasker/AboutTasker";
+import {
+    faArrowLeft,
+    faArrowRight,
+    faWarning,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Carousel } from "@mantine/carousel";
+import { Alert } from "@mantine/core";
 import { useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import { serviceCards } from "staticData/serviceCards";
-import type { TaskDetail } from "staticData/taskDetail";
+import type { ServicesValueProps } from "types/serviceCard";
+import type { ITasker } from "types/tasker";
 
-export interface UserTaskDetailTabsProps {
-    user: TaskDetail["user"];
+interface UserTaskDetailTabsProps {
+    taskerDetail: ITasker;
+    taskerService: ServicesValueProps;
 }
 
-export const UserTaskDetailTabs = ({ user }: UserTaskDetailTabsProps) => {
+export const UserTaskDetailTabs = ({
+    taskerDetail,
+    taskerService,
+}: UserTaskDetailTabsProps) => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
         <Tab
             activeIndex={activeTabIdx}
             onTabClick={setActiveTabIdx}
             items={[
-                { title: "About", content: <div>About</div> },
-                { title: "Service", content: <ServiceList /> },
-                { title: "Documents", content: <div>Photos</div> },
+                {
+                    title: "About",
+                    content: <AboutTasker taskerDetail={taskerDetail} />,
+                },
+                {
+                    title: "Services",
+                    content: <ServiceList taskerService={taskerService} />,
+                },
+                // { title: "Documents", content: <div>Photos</div> },
             ]}
         />
     );
 };
-const ServiceList = () => {
+const ServiceList = ({
+    taskerService,
+}: {
+    taskerService: ServicesValueProps;
+}) => {
     return (
-        <Row className="td-user-services">
-            {serviceCards.map((serviceCard, index) => (
-                <Col key={index}>
-                    <ServiceCard {...serviceCard} />
-                </Col>
-            ))}
-        </Row>
+        <div>
+            <Carousel
+                withIndicators
+                slideSize="40%"
+                slideGap="md"
+                className="mt-5"
+                dragFree
+                breakpoints={[
+                    { maxWidth: "md", slideSize: "50%" },
+                    { maxWidth: "xs", slideSize: "80%", slideGap: 0 },
+                ]}
+                align="start"
+                nextControlIcon={<FontAwesomeIcon icon={faArrowRight} />}
+                previousControlIcon={<FontAwesomeIcon icon={faArrowLeft} />}
+                styles={{
+                    control: {
+                        "&[data-inactive]": {
+                            opacity: 0,
+                            cursor: "default",
+                        },
+                    },
+                }}
+            >
+                {taskerService?.result &&
+                    taskerService?.result?.map((service, key) => (
+                        <Carousel.Slide key={key}>
+                            <ServiceCard
+                                className="border border border-light"
+                                serviceCard={service}
+                            />
+                        </Carousel.Slide>
+                    ))}
+            </Carousel>
+            {!taskerService ||
+                (taskerService?.result?.length <= 0 && (
+                    <Alert
+                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        title="No data Available"
+                        color="orange"
+                        radius="md"
+                        sx={{ minWidth: 100 }}
+                    >
+                        There are No Services by this user
+                    </Alert>
+                ))}
+        </div>
     );
 };

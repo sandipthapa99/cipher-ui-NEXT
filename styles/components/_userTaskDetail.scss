@@ -1,134 +1,322 @@
 // td = taskdetail
 // task detail
+
 .user-task-detail-container {
-    padding: 1.6rem;
+    padding: 1.6rem 3rem;
     background-color: $white;
     border-radius: 0.4rem;
-    max-height: 90vh;
-    margin-bottom: 5rem;
-    overflow-y: auto;
-}
-.td-task-detail-header-icons {
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1rem;
+    min-height: 95vh;
+    // margin: 0 0 3rem;
+    // overflow-y: auto;
 
-    @include respond(md) {
+    .svg-follow-icon {
+        cursor: pointer;
+
+        &:hover {
+            color: rgb(45, 45, 131);
+        }
+    }
+
+    span {
+        margin-left: 0.4rem;
+        font-size: 1.4rem;
+        //Nest Hub
+        @media screen and (width: 1024px), (width: 1280px) {
+            margin-left: 0;
+        }
+
+        //specific to surface duo
+        @media screen and (width: 540px) {
+            margin-left: -0.5rem;
+        }
+        @include respond(xs) {
+            margin-left: 0;
+        }
+    }
+    .skills {
+        span {
+            margin-left: 0rem;
+        }
+    }
+    .about-profile {
+        padding-bottom: 0rem;
+    }
+    .about-profile {
+        .type,
+        .certifications {
+            padding-left: 0rem;
+        }
+    }
+    .about-profile .type:last-child {
+        padding-left: 0rem;
+    }
+
+    .td-task-detail-header-icons {
+        justify-content: flex-end;
+        align-items: center;
+        // gap: 1rem;
+        margin-bottom: 1rem;
+        .fa-share {
+            margin-right: 0rem;
+            padding-right: 0rem;
+        }
+        .svg-icon-share {
+            margin-right: 1rem;
+        }
+
+        @include respond(md) {
+            display: flex;
+        }
+        @include respond(xs) {
+            position: absolute;
+            /* margin-bottom: 21rem; */
+            top: 1.6rem;
+            right: 1rem;
+            display: flex;
+        }
+    }
+
+    .td-text {
+        font-weight: normal;
+        font-size: 1.4rem;
+    }
+    //task detail header
+    .td-user-image-container {
+        position: relative;
+        width: fit-content;
+        min-height: 150px;
+        min-width: 150px;
+        padding-right: 1.8rem;
         display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 1rem;
+        &__badge {
+            position: absolute;
+            left: 50%;
+            bottom: -0.5rem;
+            transform: translateX(-50%);
+            color: #3eaeff;
+            z-index: 2;
+            height: 2.5rem;
+            width: 3rem;
+        }
     }
-}
-
-.td-text {
-    font-weight: normal;
-    font-size: 1rem;
-}
-//task detail header
-.td-user-image-container {
-    position: relative;
-    width: fit-content;
-
-    &__badge {
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
+    .td-user-name {
+        max-width: fit-content;
+        position: relative;
+        color: $primary-color;
+        font-weight: 500;
+        &::before {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            content: "";
+            width: 0.8rem;
+            height: 0.8rem;
+            background-color: #38c675;
+            transform: translate(150%, -50%);
+            border-radius: 100%;
+            opacity: 0;
+            visibility: hidden;
+        }
+        &[data-is-online="true"]::before {
+            opacity: 1;
+            visibility: visible;
+        }
     }
-}
-.td-user-name {
-    max-width: fit-content;
-    position: relative;
-
-    &::before {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        content: "";
-        width: 0.8rem;
-        height: 0.8rem;
-        background-color: #38c675;
-        transform: translate(150%, -50%);
-        border-radius: 100%;
-        opacity: 0;
-        visibility: hidden;
+    .star {
+        width: 2.3rem;
+        color: #fab005;
+        height: 2.3rem;
+        margin-left: 0.5rem;
     }
-    &[data-is-online="true"]::before {
-        opacity: 1;
-        visibility: visible;
+    .td-hire-me-btn {
+        width: 16rem;
+        height: 3rem;
+        border-radius: 0.4rem;
+        background-color: #ffca6a;
+        color: #000;
+        outline: 0.1rem solid transparent;
+        border: 0.1rem solid transparent;
+
+        &:hover {
+            filter: brightness(95%);
+        }
     }
-}
-.td-hire-me-btn {
-    width: 16rem;
-    height: 3rem;
-    border-radius: 0.4rem;
-    background-color: #ffca6a;
-    color: #000;
-    outline: 0.1rem solid transparent;
-    border: 0.1rem solid transparent;
 
-    &:hover {
-        filter: brightness(95%);
+    .td-filter-review-container {
+        padding: 1.8rem 0px 0;
+        border-block: 0.1rem solid #ced4da;
+        margin: 2rem 0 0;
+        display: flex;
+        align-items: center;
+        padding-bottom: 1.5rem;
+        h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            span {
+                color: #707579;
+            }
+        }
     }
-}
-
-.td-filter-review-container {
-    padding: 1.8rem 0px 0;
-    border-block: 0.1rem solid #ced4da;
-}
-.td-divider {
-    display: block;
-    height: 0.1rem;
-    margin-block: 40px;
-    background-color: #ced4da;
-}
-
-// add review form styles
-.td-add-review-label {
-    font-size: 1.1rem;
-    font-weight: 500;
-    line-height: 1.8rem;
-    margin-bottom: 0.5rem;
-    color: $default-text-color;
-}
-
-.td-submit-review-btn {
-    height: 3rem;
-    width: 18rem;
-    background-color: $primary-color;
-    outline: 0.1rem solid transparent;
-    border: 0.1rem solid transparent;
-    color: $white;
-    border-radius: 0.4rem;
-
-    &:hover {
-        background-color: rgba($primary-color, 0.9);
+    .td-divider {
+        display: block;
+        height: 0.1rem;
+        margin-block: 40px;
+        background-color: #ced4da;
     }
-}
-.td-reviews-count {
-    color: $gray-text-color;
-    font-size: 1.6rem;
-    font-weight: normal;
-    margin-left: 3px;
-}
-.td-task-charge {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.8rem;
 
-    @include respond(md) {
-        text-align: right;
+    // add review form styles
+    .td-add-review-label {
+        font-size: 1.8rem;
+        font-weight: 500;
+        line-height: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: $default-text-color;
     }
-}
-.td-user-short-intro {
-    margin-top: 3rem;
-}
-.td-user-short-intro-text {
-    font-size: 1.6rem;
-    font-weight: normal;
-    margin-bottom: 1rem;
-}
-.td-mt-24 {
-    margin-top: 1.8rem;
-}
-.td-mb-24 {
-    margin-bottom: 1.8rem;
+    .reviews {
+        padding-bottom: 2.5rem;
+        border-bottom: none;
+        .head-container {
+            border-top: 0.1rem solid $border-color;
+
+            border-bottom: 0.1rem solid $border-color;
+            padding: 1.5rem 0rem;
+
+            @include respond(md) {
+                padding: 1.5rem 0rem;
+            }
+            span {
+                color: #9fa3b1;
+                font-weight: 400;
+                font-size: 1.7rem;
+            }
+            h3 {
+                color: $primary-color;
+                font-size: 1.7rem;
+                font-weight: 500;
+                // padding-left: 1.7rem;
+                margin-bottom: 0rem;
+            }
+        }
+
+        .review-container {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 0.1rem solid $border-color;
+            padding: 0 0 2.5rem 2rem;
+        }
+    }
+    .review-block {
+        .icons {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+    }
+    .review {
+        span {
+            margin-left: 0rem;
+        }
+        .rr--has-stroke .rr--off .rr--svg {
+            stroke: #fab005;
+        }
+    }
+    .form-select {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        font-size: 1.3rem;
+        margin-right: 1.6rem;
+    }
+    .td-submit-review-btn {
+        height: 5rem;
+        width: 18rem;
+        background-color: $primary-color;
+        outline: 0.1rem solid transparent;
+        border: 0.1rem solid transparent;
+        color: $white;
+        border-radius: 0.4rem;
+
+        &:hover {
+            background-color: rgba($primary-color, 0.9);
+        }
+    }
+    .td-reviews-count {
+        color: $gray-text-color;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin-left: 3px;
+    }
+    .td-task-charge {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.8rem;
+        color: #212529;
+        @include respond(md) {
+            text-align: right;
+        }
+    }
+    .td-user-short-intro {
+        margin-top: 3rem;
+    }
+    .td-user-short-intro-text {
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        color: $secondary-text-color;
+        span {
+            font-weight: 400;
+        }
+        .svg-icon {
+            color: $sub-title-color;
+        }
+    }
+    .td-mt-24 {
+        margin-top: 1.8rem;
+
+        .type {
+            margin-right: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            @include respond(xs) {
+                margin-right: 0;
+                justify-content: flex-start;
+            }
+            @media screen and (width: 1024px), (width: 1280px) {
+                justify-content: flex-start;
+            }
+        }
+    }
+    .td-mb-24 {
+        margin-bottom: 1.8rem;
+    }
+    .card-btn {
+        width: 90%;
+        font-weight: 500;
+        // margin-left: 2rem;
+        align-items: flex-end;
+
+        @media screen and (width: 768px) {
+            margin-left: 0;
+        }
+        @include respond(xs) {
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+    .ratings {
+        .star {
+            width: 2.3rem;
+            color: #fab005;
+            height: 2.3rem;
+            margin-left: 0.5rem;
+        }
+        .mantine-1jqub9a,
+        .mantine-oumttf {
+            width: 2.3rem;
+            color: #fab005;
+            height: 2.3rem;
+            margin-left: 0.5rem;
+        }
+    }
 }

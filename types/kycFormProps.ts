@@ -1,5 +1,7 @@
 export interface KYCFormProps {
     full_name: string;
+    address: string;
+    country: string | number;
     identity_type: string;
     identity_id: string;
     identity_issued_date: string | null;
@@ -15,4 +17,5 @@ export interface KYCFormProps {
     bank_name: string;
     bank_account_name: string;
     bank_account_number: string;
+    bank_address: string;
 }

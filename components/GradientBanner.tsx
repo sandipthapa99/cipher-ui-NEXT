@@ -1,19 +1,20 @@
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 
-import CardBtn from "./common/CardBtn";
+import AnchorButton from "./common/AnchorButton";
 
 interface GradientBannerProps {
     title: string;
     subTitle: string;
     image: string;
-    btnText: string;
 }
 const GradientBanner = ({
     title,
     subTitle,
-    btnText,
+
     image,
 }: GradientBannerProps) => {
+    const { data: user } = useUser();
     return (
         <div className="gradient-layout">
             <div className="gradient"></div>
@@ -27,18 +28,27 @@ const GradientBanner = ({
             </figure>
 
             <div className="overlay pb-3">
-                <>
-                    <h1>{title}</h1>
-                    <div className="bottom-content">
-                        <p>{subTitle}</p>
-                    </div>
-                    <CardBtn
-                        btnTitle={btnText}
-                        backgroundColor="#FFF"
-                        color="#000"
-                    />
-                </>
-                <div></div>
+                <h1>{title}</h1>
+                <p className="bottom-content">
+                    <span>{subTitle}</span>
+                </p>
+                {user ? (
+                    <AnchorButton
+                        className={"px-4"}
+                        href={"/service"}
+                        varient={"secondary"}
+                    >
+                        {"Explore Services"}
+                    </AnchorButton>
+                ) : (
+                    <AnchorButton
+                        className={"px-4"}
+                        href={"/signup"}
+                        varient={"secondary"}
+                    >
+                        {"Join Us"}
+                    </AnchorButton>
+                )}
             </div>
         </div>
     );

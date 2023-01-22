@@ -4,7 +4,9 @@ export interface FormButtonProps {
     isSubmittingClass?: string;
     variant?: "primary" | "secondary";
     className?: string;
-    icon?: string;
+    icon?: any;
     redirectionLink?: string;
     handleClick?: () => void;
+    isLoading?: boolean;
+    disabled?: boolean;
 }

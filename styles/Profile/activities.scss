@@ -1,95 +1,123 @@
-.timeline {
-    .date {
-        background: #868e96;
-        border-radius: 0.3rem;
-        display: flex;
-        align-items: center;
-        position: relative;
-        width: 7rem;
-        margin-right: 4rem;
-        margin-top: 2.2rem;
-        margin-left: 3rem;
-        @include respond(md) {
-            margin-left: 0rem;
-            margin-top: 2.4rem;
-        }
-        @include respond(xs) {
-            // margin-left: 1rem;
-            margin-top: 5rem;
-        }
-        @include respond(xxs) {
-            margin-left: 1rem;
-            margin-top: 6rem;
-        }
+.activities {
+    padding-bottom: 2.9rem;
+    padding-top: 2.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
 
-        p {
-            padding-left: 1.5rem;
-            font-size: 1.2rem;
-            color: #fff;
-            margin-bottom: 0rem;
-        }
-        &::after {
-            position: absolute;
-            content: "";
-            right: -2rem;
-            transform: translate(-50%);
-            border-top: 1.5rem solid transparent;
-            border-left: 1.5rem solid #868e96;
-            border-bottom: 1.5rem solid transparent;
-            border-radius: 0.6rem;
-        }
+    @include respond(xxs) {
+        padding-top: 2.7rem;
+        padding-bottom: 2.5rem;
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
     }
-    &:last-child {
-        border-bottom: none;
-    }
-    .content {
-        padding: 1.8rem 0rem;
-        padding-left: 1.4rem;
-        border-bottom: 0.1rem solid $border-color;
-        align-items: center;
-        border-left: 0.1rem solid $border-color;
-        position: relative;
-        margin-left: 7rem;
-        @include respond(sm) {
-            margin-left: 3.5rem;
-        }
-        .desc {
+
+    .timeline {
+        .date {
+            background: #868e96;
+            border-radius: 0.3rem;
             display: flex;
-            flex-direction: column;
-
-            @include respond(sm) {
-                flex-direction: row;
+            align-items: center;
+            position: relative;
+            width: 9rem;
+            margin-right: 4rem;
+            margin-top: 2.2rem;
+            color: #fff;
+            margin-left: 3rem;
+            @include respond(md) {
+                margin-left: 0rem;
+                margin-top: 2.4rem;
+            }
+            @include respond(xs) {
+                // margin-left: 1rem;
+                margin-top: 5rem;
             }
             @include respond(xxs) {
-                text-align: center;
-                justify-content: center;
-                align-items: center;
+                margin-left: 1rem;
+                margin-top: 6rem;
+            }
+
+            p {
+                padding-left: 1.5rem;
+                font-size: 1.1rem;
+                color: #fff;
+                margin-bottom: 0rem;
+            }
+            &::after {
+                position: absolute;
+                content: "";
+                right: -2rem;
+                transform: translate(-50%);
+                border-top: 1.5rem solid transparent;
+                border-left: 1.5rem solid #868e96;
+                border-bottom: 1.5rem solid transparent;
+                border-radius: 0.6rem;
             }
         }
-        .thumbnail-img {
-            height: 4rem;
-            width: 4rem;
+        &:last-child {
+            border-bottom: none;
         }
-        .point {
-            background-color: #868e96;
-            height: 0.8rem;
-            width: 0.8rem;
-            border-radius: 50%;
-            position: absolute;
-            left: -0.4rem;
-        }
-        .detail {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-left: 1.3rem;
-        }
-        p {
-            margin-bottom: 0rem;
-            font-size: 1.3rem;
-        }
-        a {
-            font-size: 1.1rem;
+        .content {
+            padding: 1.8rem 0rem;
+            padding-left: 1.4rem;
+            border-bottom: 0.1rem solid $border-color;
+            align-items: center;
+            border-left: 0.1rem solid $border-color;
+            position: relative;
+            margin-left: 7rem;
+            @include respond(sm) {
+                margin-left: 3.5rem;
+            }
+            @include respond(xxs) {
+                margin-left: 6rem;
+            }
+            .desc {
+                display: flex;
+                flex-direction: column;
+
+                @include respond(sm) {
+                    flex-direction: row;
+                }
+                @include respond(xxs) {
+                    text-align: center;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+            .thumbnail-img {
+                height: 4rem;
+                width: 4rem;
+            }
+            .point {
+                background-color: #868e96;
+                height: 0.8rem;
+                width: 0.8rem;
+                border-radius: 50%;
+                position: absolute;
+                left: -0.4rem;
+            }
+            .point-active {
+                background-color: #111;
+                height: 0.8rem;
+                width: 0.8rem;
+                border-radius: 50%;
+                position: absolute;
+                left: -0.4rem;
+            }
+            .detail {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding-left: 1.3rem;
+            }
+            p {
+                margin-bottom: 0rem;
+                font-size: 1.4rem;
+                font-weight: 500;
+                color: $sub-title-color;
+            }
+            a {
+                font-size: 1.1rem;
+            }
         }
     }
 }

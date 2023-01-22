@@ -10,6 +10,12 @@
             height: 100%;
             border-radius: 0.4rem;
         }
+
+        .anchor-button {
+            &:hover {
+                color: $secondary-color;
+            }
+        }
         .description {
             padding-top: 0rem;
 
@@ -17,6 +23,7 @@
                 flex-direction: column;
                 @include respond(xs) {
                     align-items: flex-start;
+                    flex-direction: row;
                 }
                 @include respond(xxs) {
                     align-items: center;
@@ -26,15 +33,15 @@
                 }
             }
             .thumbnail-img {
-                width: 5rem;
-                height: 5rem;
+                width: 6rem;
+                height: 6rem;
                 border-radius: 0.4rem;
                 @include respond(sm) {
                     margin-bottom: 1rem;
                 }
 
                 @include respond(xs) {
-                    width: 4rem;
+                    width: 12rem;
                     height: 4rem;
                     margin-bottom: 1rem;
                 }
@@ -59,6 +66,10 @@
                 font-weight: 400;
                 margin-bottom: 0rem;
             }
+        }
+
+        a {
+            margin: 2rem 0 2rem;
         }
     }
 }

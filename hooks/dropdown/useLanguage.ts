@@ -11,7 +11,7 @@ export type Language = {
     previous: any;
     page_size: number;
     result: Array<{
-        id: number;
+        code: string;
         name: string;
         is_active: boolean;
         is_default: boolean;
@@ -26,7 +26,7 @@ export const useLanguage = () => {
         async () => {
             try {
                 const { data } = await axiosClient.get<Language>(
-                    "/locale/cms/language/"
+                    "/locale/cms/language/?page_size=1000"
                 );
                 return data;
             } catch (error) {

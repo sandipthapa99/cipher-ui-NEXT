@@ -1,11 +1,88 @@
 .user-stats {
-    padding: 3rem 3rem;
+    padding: 2rem;
     justify-content: center;
     display: flex;
     align-items: center;
 
     @include respond(md) {
-        padding: 3rem 0;
+        padding: 3rem;
+    }
+    .status {
+        padding: 2rem 0rem;
+        h1 {
+            font-size: 3rem;
+        }
+        .type {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin-left: 0rem;
+            padding-top: 0.4rem;
+            padding-left: 1rem;
+            padding-right: 5rem;
+            padding-bottom: 0.7rem;
+            border-radius: 0.4rem;
+            width: 100%;
+            p {
+                text-align: left;
+            }
+
+            @include respond(sm) {
+                margin-bottom: 2rem;
+                align-items: center;
+            }
+            @include respond(xs) {
+                margin-bottom: 2rem;
+                align-items: center;
+                text-align: center;
+            }
+        }
+        .success-rate {
+            background-color: #ecf7ff;
+
+            h1 {
+                color: #3eaeff;
+            }
+            p {
+                font-size: 1.3rem;
+
+                margin-bottom: 0rem;
+            }
+        }
+        .happy-clients {
+            background-color: #fff5e5;
+
+            h1 {
+                color: #ff9700;
+            }
+            p {
+                font-size: 1.3rem;
+                margin-bottom: 0rem;
+            }
+        }
+        .task-completed {
+            background-color: #ebf9f1;
+            padding-right: 3rem;
+
+            h1 {
+                color: #38c675;
+            }
+            p {
+                font-size: 1.3rem;
+                margin-bottom: 0rem;
+            }
+        }
+    }
+    .user-reviews {
+        background-color: #ffeded;
+
+        h1 {
+            color: #fe5050;
+        }
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 0rem;
+        }
     }
     .user-details {
         .user-name {
@@ -16,6 +93,12 @@
 
                 @include respond(md) {
                     font-size: 4rem;
+                }
+            }
+            h2 {
+                color: $primary-color;
+                span {
+                    color: $secondary-color;
                 }
             }
         }
@@ -31,6 +114,9 @@
         p {
             color: $sub-title-color;
         }
+        @include respond(xs) {
+            flex-wrap: wrap;
+        }
         @include respond(md) {
             padding-top: 0rem;
         }
@@ -39,6 +125,23 @@
         }
         @include respond(xs) {
             padding-top: 2rem;
+        }
+    }
+}
+.post-task__apply-post {
+    .custom-tab {
+        &__headers {
+            overflow: scroll;
+            white-space: nowrap;
+            @include respond(sm) {
+                overflow: inherit;
+            }
+            .tab-wrapper {
+                display: inline-block;
+                @include respond(md) {
+                    display: flex;
+                }
+            }
         }
     }
 }

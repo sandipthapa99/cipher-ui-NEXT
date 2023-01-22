@@ -1,0 +1,96 @@
+.freelance-tasks {
+    section {
+        margin-bottom: 5rem;
+    }
+    margin-bottom: 4.375rem;
+
+    &__top-container {
+        padding-bottom: 5rem;
+        .carousel-card .grow-business-content {
+            padding-right: 6rem;
+            h1 {
+                //padding-bottom: 5.3rem;
+            }
+            .big-btn {
+                color: $primary-color;
+            }
+        }
+    }
+    h1 {
+        font-weight: 500;
+        font-size: 2.7rem;
+        padding-bottom: 0.6rem;
+        margin-bottom: 0rem;
+    }
+    &__hire-tasker {
+        padding-bottom: 2.6rem;
+        h1 {
+            font-weight: 400;
+            font-size: 2.1rem;
+        }
+        p {
+            color: $secondary-text-color;
+            font-weight: 400;
+            font-size: 1.4rem;
+        }
+    }
+    &__services {
+        h1 {
+            font-weight: 500;
+            font-size: 1.8rem;
+            padding-bottom: 1.9rem;
+        }
+    }
+    &__top-skills {
+        margin-top: 5rem;
+        h1 {
+            font-size: 1.8rem;
+            padding-bottom: 1.8rem;
+        }
+    }
+    &__bottom-container {
+        margin: 5rem 0rem;
+        background: #fff;
+        .card-content {
+            padding: 2.5rem;
+            padding-right: 2rem;
+            @include respond(xxs) {
+                padding: 2.5rem;
+                padding-right: 2rem;
+            }
+            @include respond(md) {
+                padding: 0rem;
+                padding-right: 0rem;
+            }
+
+            // padding-left: 6rem !important;
+            .thumbnail-img {
+                border-radius: 0rem;
+            }
+        }
+
+        .description {
+            padding-top: 5rem !important;
+            padding-right: 2.4rem !important;
+            h1 {
+                font-size: 2.5rem !important;
+                line-height: 3.7rem !important;
+                font-weight: 400;
+                padding-bottom: 2.6rem;
+            }
+        }
+
+        p {
+            padding-top: 2rem !important;
+            padding-bottom: 8.5rem !important;
+            font-size: 1.3rem !important;
+            font-weight: 500 !important;
+            margin-bottom: 0rem;
+        }
+        .card-btn {
+            background-color: #fff !important;
+            color: #111 !important;
+            margin-bottom: 6rem !important;
+        }
+    }
+}

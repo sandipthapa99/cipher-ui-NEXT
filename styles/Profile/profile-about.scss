@@ -1,44 +1,87 @@
 .about-profile {
-    padding-bottom: 2.5rem;
+    p {
+        margin-bottom: 0rem;
+    }
 
     h1 {
-        font-size: 1.7rem;
+        font-size: 2rem;
         font-weight: 500;
-        color: $default-text-color;
+        color: $primary-color;
+        margin-bottom: 1.6rem;
     }
+
     .file-attachment {
         display: none;
     }
-    h3 {
-        font-size: 1.4rem;
-        font-weight: 500;
+
+    .program,
+    .description {
+        p {
+            margin-bottom: 0rem;
+        }
     }
+
+    .mantine-1js7218,
+    .mantine-14msfi2 {
+        font-weight: 400;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin: 0;
+        color: #1c7ed6;
+    }
+
     .svg-icon {
         margin-left: 1.8rem;
+        @include transition();
     }
+
     .address {
-        color: $gray-text-color;
+        color: $gray6;
+        margin: 0;
         font-size: 1.3rem;
         font-weight: 400;
     }
 
     .date {
-        margin-bottom: 1.3rem;
-        font-size: 1.3rem;
-        font-weight: 400;
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 500;
     }
+    // .star {
+    //     width: 2.3rem;
+    //     color: #fab005;
+    //     height: 2.3rem;
+    //     margin-left: 0.5rem;
+    // }
+    // .mantine-1jqub9a,
+    // .mantine-oumttf {
+    //     width: 2.3rem;
+    //     color: #fab005;
+    //     height: 2.3rem;
+    //     margin-left: 0.5rem;
+    // }
     .type {
-        padding-top: 2rem;
+        p {
+            margin-bottom: 0rem;
+        }
+        padding: 2rem 0;
         border-bottom: 0.1rem solid $border-color;
-        padding-left: 2.5rem;
-        padding-right: 3rem;
+        padding-left: 3.6rem;
+        padding-right: 3.6rem;
 
         &:last-child {
             border-bottom: none;
+            padding-left: 1.5rem;
+            padding-right: 3rem;
         }
+
         a {
             font-size: 1.4rem;
         }
+
         .title-wrapper {
             h1 {
                 @include respond(xxs) {
@@ -46,79 +89,152 @@
                 }
             }
         }
+
         h3 {
             @include respond(xxs) {
                 font-size: 1.2rem;
             }
         }
+
         @include respond(xxs) {
             font-size: 1.5rem;
         }
     }
+
+    .name {
+        cursor: pointer;
+    }
+
+    .trash {
+        margin-left: 0.5rem;
+    }
+
     .portfolio {
         padding-bottom: 1.2rem;
+
         .content {
             display: flex;
             flex-wrap: wrap;
             padding-top: 1.5rem;
 
-            .image {
+            .data {
                 padding-right: 2rem;
             }
+
             .thumbnail-img {
-                height: 18rem;
+                height: 19rem;
                 width: 19rem;
                 border-radius: 0.6rem;
 
-                @include respond(xxs) {
-                    height: 10rem;
-                    width: 11rem;
+                @include respond(xs) {
+                    height: 18rem;
+                    width: 19rem;
+                    margin-top: 2rem;
+                }
 
+                @include respond(xxs) {
+                    height: 12rem;
+                    width: 16rem;
                     margin-top: 2rem;
                 }
             }
+
+            .portfolio-title {
+                position: relative;
+                cursor: pointer;
+
+                .text-pointer {
+                    cursor: pointer;
+                }
+            }
+
             p {
                 font-size: 1.4rem;
                 font-weight: 500;
                 margin-bottom: 1rem;
                 padding-top: 1rem;
             }
+
+            .icon-down {
+                cursor: pointer;
+            }
+
+            .icons {
+                position: absolute;
+                margin-left: 8rem;
+                margin-top: -7rem;
+                z-index: 3;
+                cursor: pointer;
+
+                @include transition();
+
+                .svg-icon {
+                    color: #fff;
+                    cursor: pointer;
+                }
+
+                // .black-icon {
+                //     color: #111;
+                //     display: none;
+                //     cursor: pointer;
+                //     // margin-top: 6rem;
+                // }
+            }
         }
+
         justify-content: start;
+
         @include respond(xs) {
             justify-content: center;
         }
     }
 
     .experience {
+        .mantine-1js7218,
+        .mantine-14msfi2 {
+            font-weight: 400;
+        }
+
         &__type {
-            margin-top: 1.6rem;
-            &:last-child {
-                padding-bottom: 2rem;
+            margin: 0 0 2.4rem 0;
+
+            .name {
+                h3 {
+                    font-size: 1.8rem;
+                    color: #1c7ed6;
+
+                    .svg-icon {
+                        cursor: pointer;
+                        color: $sub-title-color;
+                    }
+                }
             }
-            .description,
-            .name,
-            .job-type {
+
+            .company-name {
+                font-size: 1.4rem;
+                font-weight: 400;
+                margin: 0.8rem 0 0 0;
+                color: $gray8;
+            }
+
+            .date {
                 font-size: 1.3rem;
                 font-weight: 400;
-                margin-bottom: 0rem;
-                line-height: 2.1rem;
-                color: $sub-title-color;
+                margin: 0.4rem 0 0 0;
+                color: $gray6;
             }
-            .name {
-                margin-bottom: 0.2rem;
-                .svg-icon {
-                    cursor: pointer;
-                }
+
+            .address {
+                font-size: 1.3rem;
+                font-weight: 400;
+                margin: 0.4rem 0 0 0;
+                color: $gray6;
             }
-            .company {
-                .job-type {
-                    margin-left: 1.7rem;
-                }
-            }
+
             .description {
-                margin-top: 1rem;
-                margin-bottom: 1.3rem;
+                margin: 1.2rem 0 0 0;
+                font-size: 1.4rem;
+                font-weight: 400;
             }
 
             .dropdown-with-icon {
@@ -128,12 +244,13 @@
             }
         }
     }
+
     .skills {
         .content {
             display: flex;
             flex-wrap: wrap;
-            padding-bottom: 2rem;
         }
+
         &__type {
             margin-top: 1rem;
             margin-right: 2rem;
@@ -144,29 +261,89 @@
             padding: 0.4rem 1.7rem;
         }
     }
-    .institution {
-        font-weight: 500;
-    }
-    .program {
-        font-weight: 400;
-    }
-    .education,
-    .certification {
-        .program,
-        .institution {
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
 
-            @include respond(xxs) {
-                font-size: 1.27rem;
+    .education {
+        &__type {
+            margin: 0 0 2.4rem 0;
+
+            .institution {
+                margin: 0;
+                font-size: 1.8rem;
+
+                @include respond(xxs) {
+                    font-size: 1.27rem;
+                }
+            }
+
+            .program {
+                font-size: 1.4rem;
+                font-weight: 400;
+                margin: 0.8rem 0 0 0;
+                color: $gray8;
+            }
+
+            .date {
+                font-size: 1.3rem;
+                font-weight: 400;
+                margin: 0.4rem 0 0 0;
+                color: $gray6;
+            }
+
+            .address {
+                color: $gray6;
+                margin-top: 0.4rem;
+                font-size: 1.3rem;
+                font-weight: 400;
             }
         }
     }
+
     .certification {
-        padding-bottom: 2.5rem;
-        .name {
-            a {
-                color: $sub-title-color;
+        border-bottom: none;
+        &__type {
+            margin: 0 0 2.4rem 0;
+
+            .issuing_organization {
+                font-size: 1.4rem;
+                font-weight: 400;
+                margin: 0.8rem 0 0 0;
+                color: $gray8;
+            }
+
+            .date {
+                font-size: 1.3rem;
+                font-weight: 400;
+                margin: 0.4rem 0 0 0;
+                color: $gray6;
+            }
+
+            .description {
+                margin: 1.2rem 0 0 0;
+                font-size: 1.4rem;
+                font-weight: 400;
+            }
+        }
+    }
+
+    .reviews {
+        .review-container {
+            padding-top: 0.1rem solid $border-color;
+            padding: 0 0 2.5rem 2rem;
+
+            .reviewer {
+                @include respond(xs) {
+                    flex-direction: row;
+                    align-items: flex-start;
+                }
+
+                @include respond(xxs) {
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    .ratings {
+                        padding: 1rem 0rem;
+                    }
+                }
             }
         }
     }

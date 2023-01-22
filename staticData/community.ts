@@ -4,10 +4,10 @@ export const communityGuidelineCardContent = [
         cardTitle: "Guidelines",
         cardImage: "/community/guideline1.svg",
         cardDescription: [
-            "Treat others online as you would treat them in real life",
-            "Be tolerant towards others viewpoints; respectfully disagree when opinions do not align",
-            "Respect the privacy and personal information of other alumni",
-            "Communicate with courtesy and respect",
+            "Avoid unacceptable behaviours like hatred, violence, discrimination and harrassment.",
+            "Be tolerant towards others viewpoints; respectfully disagree when opinions do not align.",
+            "Respect the privacy and personal information of other community members.",
+            "Communicate with courtesy and respect as you will be accountable for your behaviour and performance on Homaale.",
         ],
     },
     {
@@ -15,8 +15,8 @@ export const communityGuidelineCardContent = [
         cardTitle: "Please do not",
         cardImage: "/community/guideline2.svg",
         cardDescription: [
-            "Make personal attacks on other community members",
-            "Use defamatory remarks or make false statements against others",
+            "Make personal attacks on other community members or do any fraudulent activities.",
+            "Use defamatory remarks or make false statements against others.",
             "Post prejudiced comments or profanity",
             "Bully or make inflammatory remarks to other community members",
         ],
@@ -26,7 +26,7 @@ export const communityGuidelineCardContent = [
         cardTitle: "Consequences",
         cardImage: "/community/guideline3.svg",
         cardDescription:
-            "We will take action when we see someone violating these guidelines. Sometimes that just means giving someone a warning; other times it means revoking certain",
+            "We will take action when we see someone violating these guidelines. Sometimes that just means giving someone a warning; other times it means revoking certain access.",
     },
 ];
 export const blogCardContent = [
@@ -39,7 +39,7 @@ export const blogCardContent = [
     },
     {
         id: "1",
-        cardTitle: "3 Ways Cipher Can Help Scale Your Business",
+        cardTitle: "3 Ways Homaale Can Help Scale Your Business",
         cardImage: "/community/blog2.png",
         cardDescription:
             "When we spoke with course creators and freelancers alike, we found out that using the Thinkific Store on Fiverr can help you in three key ways. Here’s how:‍",

@@ -12,12 +12,15 @@ export interface SupportValuesProps {
     full_name: string;
     email: string;
     phone: string;
+    attachment: any[];
+    imagePreviewUrl?: any[];
     type: string;
     reason: string;
 }
 export interface FaqValuesProps {
-    fullName: string;
+    full_name: string;
     email: string;
-    phoneNumber: string;
+    phone: string;
     message: string;
+    contact_us_category?: number;
 }

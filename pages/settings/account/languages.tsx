@@ -4,7 +4,7 @@ import React from "react";
 
 const Languages = () => {
     return (
-        <SettingsLayout>
+        <SettingsLayout title="Language Settings">
             <LanguagesSettings />
         </SettingsLayout>
     );

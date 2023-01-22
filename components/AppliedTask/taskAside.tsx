@@ -1,61 +1,106 @@
-import { format } from "date-fns";
-import Link from "next/link";
+import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, ScrollArea } from "@mantine/core";
+import { useTasks } from "hooks/task/use-tasks";
+import { useInViewPort } from "hooks/use-in-viewport";
 import type { ReactNode } from "react";
+import { Fragment } from "react";
+import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { ITask } from "types/task";
 
 import TaskAppliedCard from "./taskAppliedCard";
 
 interface TaskAsideProps {
     children: ReactNode;
-    appliedTasks: ITask[];
     query: string;
+    type?: string;
 }
-const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
-    const totalAppliedTasks = appliedTasks?.length;
+const TaskAside = ({ query, children }: TaskAsideProps) => {
+    const {
+        data: appliedTaskPages,
+        isLoading,
+        hasNextPage,
+        isFetchingNextPage,
+        fetchNextPage,
+    } = useTasks(query);
 
-    const renderTaskCards = appliedTasks?.map((task) => {
-        return (
-            <div key={task.uuid}>
-                <Link href={`/task/${task.uuid}`}>
-                    <a>
-                        <TaskAppliedCard
-                            title={task.title}
-                            startPrice={task.budget_from}
-                            endPrice={task?.budget_to}
-                            location={task.location}
-                            date={format(
-                                new Date(task.created_at),
-                                "dd MMM, yyyy"
-                            )}
-                            time={format(new Date(task.created_at), "HH : mm")}
-                            currency={task?.currency}
-                            charge={task.charge?.toString() ?? "0"}
-                            taskId={task?.uuid}
-                        />
-                    </a>
-                </Link>
-            </div>
-        );
+    const appliedTasks = useMemo(
+        () => appliedTaskPages?.pages.map((page) => page.result).flat() ?? [],
+        [appliedTaskPages?.pages]
+    );
+
+    const totalAppliedTasks = appliedTasks.length;
+
+    const isLastTaskOnPage = (taskIndex: number) =>
+        taskIndex === totalAppliedTasks - 1;
+
+    const { ref } = useInViewPort<HTMLDivElement>(() => {
+        if (hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
     });
+
+    const renderTasks = () =>
+        appliedTasks.map((task, taskIndex) => {
+            return (
+                <div
+                    ref={isLastTaskOnPage(taskIndex) ? ref : null}
+                    key={task.id}
+                    className="tasks-list-card"
+                >
+                    <TaskAppliedCard task={task} />
+                </div>
+            );
+        });
+    const renderLoadingSkeletons = () => {
+        return (
+            <Fragment>
+                {Array.from({ length: 4 }).map((_, index) => (
+                    <SkeletonTaskCard key={index} />
+                ))}
+            </Fragment>
+        );
+    };
+
     return (
         <div className="search-results">
             <Row>
-                <Col md={4} style={{ overflowY: "scroll", maxHeight: "90vh" }}>
-                    {query && totalAppliedTasks > 0 ? (
-                        <p className="search-results-text">
-                            {`${totalAppliedTasks} service matching ${query} found`}
-                        </p>
-                    ) : null}
-                    {query && totalAppliedTasks === 0 ? (
-                        <p className="search-results-text">
-                            No services matching {query} found
-                        </p>
-                    ) : null}
-                    {renderTaskCards}
+                <Col md={4} className="left">
+                    <ScrollArea.Autosize
+                        maxHeight={850}
+                        offsetScrollbars
+                        scrollbarSize={5}
+                    >
+                        {query && totalAppliedTasks > 0 ? (
+                            <p>{`${totalAppliedTasks} search results found`}</p>
+                        ) : query && totalAppliedTasks === 0 ? (
+                            <p>{`No search results found for ${query}`}</p>
+                        ) : null}
+                        {isLoading ? renderLoadingSkeletons() : renderTasks()}
+                        {isFetchingNextPage ? <SkeletonTaskCard /> : null}
+                        {!isLoading && !query && totalAppliedTasks === 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="Tasks Unavailable"
+                                variant="filled"
+                                color="yellow"
+                            >
+                                No Tasks available at the moment
+                            </Alert>
+                        )}
+                    </ScrollArea.Autosize>
                 </Col>
 
-                <Col md={8}>{children}</Col>
+                <Col md={8} className="right">
+                    <ScrollArea.Autosize
+                        maxHeight={850}
+                        offsetScrollbars
+                        scrollbarSize={5}
+                    >
+                        {children}
+                    </ScrollArea.Autosize>
+                </Col>
             </Row>
         </div>
     );

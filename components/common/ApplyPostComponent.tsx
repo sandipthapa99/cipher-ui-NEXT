@@ -1,14 +1,26 @@
-import PostModal from "@components/PostTask/PostModal";
 import { faFolderOpen } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { useRouter } from "next/router";
+import { Button } from "react-bootstrap";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
+import type { NoTasksProps } from "types/noTasks";
 
-export const ApplyPostComponent = () => {
-    const [showModal, setShowModal] = useState(false);
+export const ApplyPostComponent = ({
+    model,
+    title,
+    subtitle,
+    buttonText,
+    href,
+}: NoTasksProps) => {
+    const router = useRouter();
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
-    const handleShow = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
+    const handleClick = () => {
+        const navigateToService = () => router.push(href);
+        const func =
+            model === "task" ? toggleShowPostTaskModal : navigateToService;
+        func();
+    };
 
     return (
         <div className="apply-post">
@@ -16,31 +28,18 @@ export const ApplyPostComponent = () => {
                 <FontAwesomeIcon icon={faFolderOpen} className="folder-icon" />
             </div>
             <div className="text-post">
-                <p className="head">No active Task posts</p>
-                <p className="para">
-                    Post a task to the marketplace and let merchant come to you.
-                </p>
+                <p className="head">{title}</p>
+                <p className="para">{subtitle}</p>
             </div>
             <div className="btn-cont">
                 <Button
                     variant="light"
                     className="post-btn"
-                    onClick={handleShow}
+                    onClick={handleClick}
                 >
-                    Post a Task
+                    {buttonText}
                 </Button>
             </div>
-            <Modal
-                show={showModal}
-                onHide={handleClose}
-                backdrop="static"
-                className="post-modal"
-            >
-                <Modal.Header className="mt-4" closeButton></Modal.Header>
-                <Modal.Body>
-                    <PostModal setshowPostModel={handleClose} />
-                </Modal.Body>
-            </Modal>
         </div>
     );
 };

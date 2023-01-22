@@ -10,7 +10,7 @@ import axios from "axios";
 //             error.response.status >= 400 &&
 //             error.response.status < 500;
 //         if (!expectedError) {
-//             console.log("Sorry! There was a problem with your request.");
+//
 //         }
 
 //         return Promise.reject(error);

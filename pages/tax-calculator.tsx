@@ -3,6 +3,8 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
+import TaxCalculatorInfo from "@components/TaxCalculator/InfoList";
+import RelatedInfo from "@components/TaxCalculator/RelatedInformation";
 import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
 import { useTaxCalculator } from "hooks/tax-calculator/useTaxCalculator";
@@ -11,14 +13,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import { toast } from "react-toastify";
 import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { maritalStatus, salaryType } from "utils/options";
+import { gender, maritalStatus, salaryType } from "utils/options";
+import { toast } from "utils/toast";
 
 const TaxCalculator: NextPage = () => {
-    const { mutate, isLoading, data: TableData } = useTaxCalculator();
+    const { mutate, data: TableData } = useTaxCalculator();
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     const taxContent = [
         {
@@ -63,31 +65,107 @@ const TaxCalculator: NextPage = () => {
                 {
                     id: "0",
                     salary: "First Slab",
-                    amount: `${TableData?.data[0].taxable_amount}`,
-                    rate: `${TableData?.data[0].tax_rate}`,
-                    liability: `${TableData?.data[0].tax_liability}`,
+                    amount: `${
+                        TableData?.data[0]
+                            ? TableData?.data[0].taxable_amount
+                            : ""
+                    }`,
+                    rate: `${
+                        TableData?.data[0] ? TableData?.data[0].tax_rate : ""
+                    }`,
+                    liability: `${
+                        TableData?.data[0]
+                            ? TableData?.data[0].tax_liability
+                            : ""
+                    }`,
                 },
                 {
                     id: "1",
-                    salary: "Net Tax Liability(yearly)",
-                    amount: ``,
-                    rate: ``,
-                    liability: `${TableData?.details["net tax liability yearly"]}`,
+                    salary: "Second Slab",
+                    amount: `${
+                        TableData?.data[1]
+                            ? TableData?.data[1].taxable_amount
+                            : ""
+                    }`,
+                    rate: `${
+                        TableData?.data[1] ? TableData?.data[1].tax_rate : ""
+                    }`,
+                    liability: `${
+                        TableData?.data[1]
+                            ? TableData?.data[1].tax_liability
+                            : ""
+                    }`,
                 },
                 {
                     id: "2",
+                    salary: "Third Slab",
+                    amount: `${
+                        TableData?.data[2]
+                            ? TableData?.data[2].taxable_amount
+                            : ""
+                    }`,
+                    rate: `${
+                        TableData?.data[2] ? TableData?.data[2].tax_rate : ""
+                    }`,
+                    liability: `${
+                        TableData?.data[2]
+                            ? TableData?.data[2].tax_liability
+                            : ""
+                    }`,
+                },
+                {
+                    id: "3",
+                    salary: "Fourth Slab",
+                    amount: `${
+                        TableData?.data[3]
+                            ? TableData?.data[3].taxable_amount
+                            : ""
+                    }`,
+                    rate: `${
+                        TableData?.data[3] ? TableData?.data[3].tax_rate : ""
+                    }`,
+                    liability: `${
+                        TableData?.data[3]
+                            ? TableData?.data[3].tax_liability
+                            : ""
+                    }`,
+                },
+                {
+                    id: "4",
+                    salary: "Net Tax Liability(yearly)",
+                    amount: ``,
+                    rate: ``,
+                    liability: `${
+                        TableData?.details["net tax liability yearly"]
+                            ? TableData?.details["net tax liability yearly"]
+                            : "0"
+                    }`,
+                },
+                {
+                    id: "5",
                     salary: "Net Tax Liability(monthly)",
                     amount: ``,
                     rate: ``,
-                    liability: `${TableData?.details["net tax liability monthly"]}`,
+                    liability: `${
+                        TableData?.details["net tax liability monthly"]
+                            ? TableData?.details["net tax liability monthly"]
+                            : "0"
+                    }`,
                 },
             ],
         },
     ];
     return (
-        <Layout title="Tax-Calculator | Cipher">
+        <Layout
+            title="Tax-Calculator | Homaale"
+            description="Homaale is a platform designed to provide service booking solutions to the
+        service seekers and business opportunities to various service providing companies by bridging a gap between them. 
+         It covers a wide range of services from various industries like Accounting, Gardening,
+        Health, Beauty, and many more."
+            keywords="homaale, tax, tax-calculator, homaale-tax, airtasker-nepali,nepali-working-platform, business, online-business"
+        >
             <section className="tax-calculator ">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-4">
                     <BreadCrumb currentPage="Tax Calculator" />
                     <div className="card-block">
                         <div className="header">
@@ -115,62 +193,89 @@ const TaxCalculator: NextPage = () => {
                                             validationSchema={
                                                 taxCalculatorSchema
                                             }
-                                            // onSubmit={async (values) => {
-                                            //     console.log("values", values);
-                                            // }}
                                             onSubmit={async (
                                                 values,
                                                 actions
                                             ) => {
-                                                actions.resetForm();
+                                                let newValue: any;
+                                                if (
+                                                    !values.allowance ||
+                                                    !values.festival_bonus ||
+                                                    !values.cit ||
+                                                    !values.life_insurance ||
+                                                    !values.medical_insurance ||
+                                                    !values.others ||
+                                                    !values.pf
+                                                ) {
+                                                    const formatValues = {
+                                                        ...values,
+                                                        allowance: 0,
+                                                        festival_bonus: 0,
+                                                        cit: 0,
+                                                        life_insurance: 0,
+                                                        medical_insurance: 0,
+                                                        others: 0,
+                                                        pf: 0,
+                                                    };
+                                                    newValue = formatValues;
+                                                } else {
+                                                    newValue = values;
+                                                }
 
-                                                mutate(values, {
+                                                mutate(newValue, {
                                                     onSuccess: async () => {
                                                         setIsFormSubmitted(
                                                             true
                                                         );
-                                                        console.log(
-                                                            "actiobn",
-                                                            actions
-                                                        );
 
                                                         actions.resetForm();
-                                                        console.log(
-                                                            "submitted values",
-                                                            values
-                                                        );
                                                     },
                                                     onError: async (error) => {
                                                         toast.error(
                                                             error.message
                                                         );
+                                                        actions.resetForm();
                                                     },
                                                 });
                                             }}
                                         >
                                             {({
                                                 isSubmitting,
-                                                // errors,
+                                                errors,
                                                 resetForm,
                                                 touched,
                                             }) => (
-                                                <Form>
-                                                    <div className="marital-status">
-                                                        <div className="label">
-                                                            <p>
-                                                                Marital Status
-                                                            </p>
-                                                        </div>
+                                                <Form autoComplete="false">
+                                                    <div className="info marital-status">
                                                         <Row>
-                                                            <Col md={7}>
-                                                                <SelectInputField
-                                                                    name="marital_status"
-                                                                    options={
-                                                                        maritalStatus
-                                                                    }
-                                                                    placeHolder="Unmarried"
-                                                                    fieldRequired
-                                                                />
+                                                            <Col md={6}>
+                                                                <div className="label">
+                                                                    <p>
+                                                                        Marital
+                                                                        Status
+                                                                    </p>
+                                                                    <SelectInputField
+                                                                        name="marital_status"
+                                                                        options={
+                                                                            maritalStatus
+                                                                        }
+                                                                        placeHolder="Unmarried"
+                                                                    />
+                                                                </div>
+                                                            </Col>
+                                                            <Col md={6}>
+                                                                <div className="label">
+                                                                    <p>
+                                                                        Gender
+                                                                    </p>
+                                                                    <SelectInputField
+                                                                        name="gender"
+                                                                        options={
+                                                                            gender
+                                                                        }
+                                                                        placeHolder="Female"
+                                                                    />
+                                                                </div>
                                                             </Col>
                                                         </Row>
                                                     </div>
@@ -183,12 +288,12 @@ const TaxCalculator: NextPage = () => {
                                                                 <InputField
                                                                     name="salary"
                                                                     type="text"
-                                                                    //   error={
+                                                                    // error={
                                                                     //     errors.salary
-                                                                    //}
-                                                                    touch={
-                                                                        touched.salary
-                                                                    }
+                                                                    // }
+                                                                    // touch={
+                                                                    //     touched.salary
+                                                                    // }
                                                                     placeHolder="Salary"
                                                                 />
                                                             </Col>
@@ -260,9 +365,7 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             type="text"
                                                             name="pf"
-                                                            //   error={
-                                                            //     errors.providentFund
-                                                            //}
+                                                            error={errors.pf}
                                                             placeHolder="Provident Fund"
                                                             touch={touched.pf}
                                                             haveIcon={true}
@@ -324,6 +427,15 @@ const TaxCalculator: NextPage = () => {
                                                                 md={12}
                                                                 className="reset-btn"
                                                             >
+                                                                <Button
+                                                                    type="button"
+                                                                    className="btn close-btn"
+                                                                    onClick={() =>
+                                                                        resetForm()
+                                                                    }
+                                                                >
+                                                                    Reset
+                                                                </Button>
                                                                 {/* <FormButton
                                                                     name="Reset"
                                                                     className="btn close-btn"
@@ -331,14 +443,6 @@ const TaxCalculator: NextPage = () => {
                                                                         resetForm()
                                                                     }
                                                                 /> */}
-                                                                <Button
-                                                                    className="btn close-btn"
-                                                                    onClick={() =>
-                                                                        resetForm
-                                                                    }
-                                                                >
-                                                                    Cancel
-                                                                </Button>
                                                             </Col>
                                                             <Col lg={6} md={12}>
                                                                 <FormButton
@@ -377,6 +481,7 @@ const TaxCalculator: NextPage = () => {
                                     </div>
                                 </Col>
                                 <Col md={6}>
+                                    <RelatedInfo />
                                     <Row className="d-flex tax-blocks align-items-stretch">
                                         {taxContent.map((tax) => (
                                             <Col
@@ -448,6 +553,7 @@ const TaxCalculator: NextPage = () => {
                             </Row>
                         </div>
                     </div>
+                    <TaxCalculatorInfo />
                 </Container>
             </section>
         </Layout>

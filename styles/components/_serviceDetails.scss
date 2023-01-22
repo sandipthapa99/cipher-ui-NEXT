@@ -1,59 +1,80 @@
+.mantine-121w2fi.mantine-Modal-header {
+    font-weight: 600;
+}
+
+.service-details-body {
+    background-color: #ffff;
+    margin: 0;
+    padding: 4rem;
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    border-radius: 4px;
+}
 .service-details {
-    .service-details-body {
-        background-color: #ffff;
-        margin: 4rem 0;
-        padding: 4rem;
-        box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
-        border-radius: 4px;
+    .mantine-Checkbox-root.mantine-16ttirm {
+        margin: 0 0 5rem;
+    }
 
-        h3 {
-            font: 500 2rem $poppins-font;
-        }
+    label#mantine-r7r-label {
+        margin: 0 0 0.5rem;
+        font: 400 1.4rem $poppins-font;
+    }
 
-        h5 {
-            font: 500 1.4rem $poppins-font;
+    .mantine-Input-wrapper.mantine-Select-wrapper.mantine-12sbrde {
+        margin: 0 0 2rem;
+        input {
+            height: 4.7rem;
+            font: 400 1.6rem $poppins-font;
+            border: 0.1rem solid #afafaf;
         }
-        .checkbox,
-        h6,
-        a {
-            font: 400 1.4rem $poppins-font;
-        }
+    }
 
-        .checkbox {
-            margin: 0 0 1.5rem;
-            input {
-                margin: 0 0.8rem 0 0;
-            }
-        }
+    h3 {
+        font: 500 2rem $poppins-font;
+    }
 
-        .add-more-button {
+    h5 {
+        font: 500 1.4rem $poppins-font;
+    }
+    .checkbox,
+    h6,
+    a {
+        font: 400 1.4rem $poppins-font;
+    }
+
+    .checkbox {
+        margin: 0 0 1.5rem;
+        input {
+            margin: 0 0.8rem 0 0;
+        }
+    }
+
+    .add-more-button {
+        button {
+            background: none;
+            border: none;
+            color: blue;
+        }
+    }
+
+    .next-button {
+        margin: 5rem 0 0;
+        @include respond(sm) {
+            margin: 5rem 0;
+        }
+        button {
+            margin: 0 0 0 1.6rem;
+            @include border();
+        }
+        span {
             button {
-                background: none;
-                border: none;
-                color: blue;
+                background-color: #ffff;
+                color: $secondary-text-color;
             }
         }
+    }
 
-        .next-button {
-            margin: 5rem 0 0;
-            @include respond(sm) {
-                margin: 5rem 0;
-            }
-            button {
-                margin: 0 0 0 1.6rem;
-                @include border();
-            }
-            span {
-                button {
-                    background-color: #ffff;
-                    color: $secondary-text-color;
-                }
-            }
-        }
-
-        .added-packages {
-            margin: 0 0 2.4rem;
-        }
+    .added-packages {
+        margin: 0 0 2.4rem;
     }
 }
 

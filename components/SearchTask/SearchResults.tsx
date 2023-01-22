@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import type { ServiceNearYou } from "types/serviceNearYouCards";
 
-import type { ServiceNearYou } from "../../staticData/servicesNearYouCard";
 import ServiceNearYouCard from "./searchAside";
 import SearchResultsDetail from "./SearchResultsDetails";
 
@@ -10,28 +11,50 @@ interface SearchResultsProps {
 }
 
 const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
+    const router = useRouter();
+
     const [activeService, setActiveService] = useState<
         ServiceNearYou | undefined
     >();
 
-    console.log("activeService", activeService);
+    useEffect(() => {
+        const serviceId = router?.query?.serviceId;
+
+        if (serviceId) {
+            const service = servicesNearYou?.find(
+                (item) => item?.id === parseInt(serviceId as string)
+            );
+
+            setActiveService(service);
+        }
+    }, [router?.query, router?.query?.serviceId, servicesNearYou]);
+
+    const toggleActiveService = (service: ServiceNearYou) => {
+        router.push({
+            pathname: router?.pathname,
+            query: { ...router.query, serviceId: service?.id },
+        });
+        setActiveService(service);
+    };
 
     const renderServiceCards = () =>
         servicesNearYou?.map((service: any) => {
             return (
                 <div
                     key={service?.id}
-                    onClick={() => setActiveService(service)}
+                    onClick={() => toggleActiveService(service)}
                     style={{ cursor: "pointer" }}
                 >
                     <ServiceNearYouCard
                         servicePrice={service?.budget}
                         serviceTitle={service?.title}
-                        serviceRating={service?.success_rate}
+                        serviceRating={service?.success_rate.toFixed(2)}
                         serviceProviderLocation={service?.location}
                         discount={service?.discount}
                         image={service?.image}
-                        serviceProvider={service?.created_by}
+                        // serviceProvider={service?.created_by}
+                        onServiceClick={toggleActiveService}
+                        budget_type={""}
                     />
                 </div>
             );
@@ -62,7 +85,9 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                                 serviceDescription={
                                     activeService?.description ?? ""
                                 }
-                                serviceRating={activeService?.success_rate ?? 0}
+                                serviceRating={
+                                    activeService?.success_rate.toFixed(2) ?? 0
+                                }
                                 serviceTitle={activeService?.title ?? ""}
                                 haveDiscount={
                                     activeService.discount ? true : false
@@ -76,7 +101,8 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                                 highlights={JSON.parse(
                                     activeService?.highlights
                                 )}
-                                serviceId={activeService?.id}
+                                serviceId={String(activeService?.id)}
+                                ratedTo={activeService?.created_by}
                             />
                         ) : (
                             <iframe
