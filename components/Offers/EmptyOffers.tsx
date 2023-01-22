@@ -1,23 +1,26 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 export const EmptyOffers = () => {
     return (
         <div className="text-center">
             <Image
-                src={"/offerEmpty.svg"}
-                alt={"sd"}
-                width={400}
-                height={400}
+                src={"/board.svg"}
+                alt="board.svg"
+                width={256}
+                height={256}
+                className="p-5"
             />
-            <p className="mb-1">You don’t have any offers yet.</p>
-            <p>
-                <Link href={"/service"}>
-                    <a>Click here </a>
-                </Link>
-                to explore service
-            </p>
+            <h1
+                className="mb-1"
+                style={{
+                    fontSize: "2.4rem",
+                    color: "#343A40",
+                }}
+            >
+                No rewards available.
+            </h1>
+            <p>You don&apos;t have any rewards yet.</p>
         </div>
     );
 };

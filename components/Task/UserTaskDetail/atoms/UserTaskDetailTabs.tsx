@@ -1,15 +1,10 @@
-import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
 import TaskAppliedCard from "@components/AppliedTask/taskAppliedCard";
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { AboutTasker } from "@components/Tasker/AboutTasker";
 import { Carousel } from "@mantine/carousel";
 import { Alert } from "@mantine/core";
-import {
-    EastOutlined,
-    ErrorOutlineOutlined,
-    WestOutlined,
-} from "@mui/icons-material";
+import { EastOutlined, WestOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ITaskApiResponse } from "types/task";
@@ -90,14 +85,8 @@ const ServiceList = ({
             </Carousel>
             {!taskerService ||
                 (taskerService?.result?.length <= 0 && (
-                    <Alert
-                        icon={<ErrorOutlineOutlined />}
-                        title="No data Available"
-                        color="orange"
-                        radius="md"
-                        sx={{ minWidth: 100 }}
-                    >
-                        There are No Services by this user
+                    <Alert color="gray" radius="md" sx={{ minWidth: 100 }}>
+                        There are no services by this user.
                     </Alert>
                 ))}
         </div>
@@ -138,14 +127,8 @@ const TaskList = ({ taskerTask }: { taskerTask: ITaskApiResponse }) => {
             </Carousel>
             {!taskerTask ||
                 (taskerTask?.result?.length <= 0 && (
-                    <Alert
-                        icon={<ErrorOutlineOutlined />}
-                        title="No data Available"
-                        color="orange"
-                        radius="md"
-                        sx={{ minWidth: 100 }}
-                    >
-                        There are No Task by this user
+                    <Alert color="gray" radius="md" sx={{ minWidth: 100 }}>
+                        There are no tasks by this user.
                     </Alert>
                 ))}
         </div>
